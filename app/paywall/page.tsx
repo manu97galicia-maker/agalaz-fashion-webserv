@@ -30,7 +30,7 @@ export default function PaywallPage() {
           <div className="flex items-center gap-2 px-4 py-2 bg-indigo-600 rounded-full w-fit">
             <Zap size={12} className="text-white fill-white" />
             <span className="text-[10px] font-black uppercase tracking-widest text-white">
-              Aura Pro
+              Agalaz Pro
             </span>
           </div>
 

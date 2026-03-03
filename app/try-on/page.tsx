@@ -200,7 +200,7 @@ export default function TryOnPage() {
             )}
             <div>
               <h1 className="text-xl font-black tracking-tight text-slate-900 leading-tight">
-                {user ? user.name.split(' ')[0] : 'Aura'}
+                {user ? user.name.split(' ')[0] : 'Agalaz'}
               </h1>
               <div className="flex items-center gap-1 mt-0.5">
                 <Star size={10} className="text-indigo-600 fill-indigo-600" />

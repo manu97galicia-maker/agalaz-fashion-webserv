@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Aura Fashion AI - Prueba Ropa con Inteligencia Artificial',
+  title: 'Agalaz - Prueba Ropa con Inteligencia Artificial',
   description:
     'Sube tu foto, elige cualquier prenda y ve cómo te queda al instante. Virtual Try-On con IA que respeta tu cuerpo real. Preservación total de outfit, mapeo facial sin costuras.',
   keywords: [
@@ -11,19 +11,19 @@ export const metadata: Metadata = {
     'inteligencia artificial moda',
     'AI fashion',
     'probador virtual',
-    'Aura Fashion',
+    'Agalaz Fashion',
   ],
   openGraph: {
-    title: 'Aura Fashion AI - Virtual Try-On con IA',
+    title: 'Agalaz - Virtual Try-On con IA',
     description:
       'Prueba cualquier prenda antes de comprar. IA que respeta tu cuerpo real con preservación total de outfit.',
     type: 'website',
     locale: 'es_ES',
-    siteName: 'Aura Fashion AI',
+    siteName: 'Agalaz',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Aura Fashion AI - Virtual Try-On con IA',
+    title: 'Agalaz - Virtual Try-On con IA',
     description:
       'Prueba cualquier prenda antes de comprar. IA que respeta tu cuerpo real.',
   },
@@ -33,6 +33,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
+      <head>
+        <script
+          defer
+          data-website-id="dfid_pvOMR9IXJLNYSqjS8MdsB"
+          data-domain="agalaz.com"
+          src="https://datafa.st/js/script.js"
+        />
+      </head>
       <body className="bg-[#0a0a0a] text-white antialiased">
         {children}
       </body>

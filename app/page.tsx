@@ -21,7 +21,7 @@ const FEATURES = [
   {
     icon: Fingerprint,
     title: 'Mapeo Facial Real',
-    desc: 'Aura integra tu identidad sobre tu cuerpo real, respetando tu fisonomía y cuello.',
+    desc: 'Agalaz integra tu identidad sobre tu cuerpo real, respetando tu fisonomía y cuello.',
     color: 'text-emerald-400',
     bg: 'bg-emerald-500/10',
   },
@@ -43,7 +43,7 @@ export default function HomePage() {
           <div className="w-10 h-10 bg-white rounded-2xl flex items-center justify-center">
             <span className="text-black font-bold text-xl italic">A</span>
           </div>
-          <span className="text-xl font-black text-white tracking-tight">Aura</span>
+          <span className="text-xl font-black text-white tracking-tight">Agalaz</span>
         </div>
         <Link
           href="/try-on"
@@ -197,10 +197,10 @@ export default function HomePage() {
             <div className="w-8 h-8 bg-white rounded-xl flex items-center justify-center">
               <span className="text-black font-bold italic text-sm">A</span>
             </div>
-            <span className="font-black text-white/60 text-sm">Aura Fashion AI</span>
+            <span className="font-black text-white/60 text-sm">Agalaz Fashion AI</span>
           </div>
           <p className="text-white/20 text-xs">
-            &copy; 2025 Aura Labs. Motor de Precisión V7.0
+            &copy; 2025 Agalaz. Motor de Precisión V7.0
           </p>
         </div>
       </footer>

@@ -13,7 +13,7 @@ const STEPS = [
   },
   {
     title: 'Mapeo Facial Real',
-    desc: 'Aura integra tu identidad sobre tu cuerpo real, respetando tu fisonomía y cuello.',
+    desc: 'Agalaz integra tu identidad sobre tu cuerpo real, respetando tu fisonomía y cuello.',
     icon: Fingerprint,
     color: '#10b981',
   },
