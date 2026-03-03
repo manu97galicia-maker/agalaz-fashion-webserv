@@ -74,7 +74,7 @@ export default function HomePage() {
           href="/try-on"
           className="px-6 py-2.5 bg-indigo-600 text-white text-xs font-black uppercase tracking-widest rounded-full hover:bg-indigo-500 transition-colors"
         >
-          Empezar
+          Empieza Gratis
         </Link>
       </nav>
 
@@ -122,7 +122,7 @@ export default function HomePage() {
               className="flex items-center justify-center gap-3 px-10 py-5 bg-white text-black font-black uppercase tracking-widest text-xs rounded-[2rem] hover:bg-white/90 transition-colors"
             >
               <Sparkles size={18} />
-              Probar Ahora
+              Empieza Gratis
             </Link>
             <Link
               href="/onboarding"
@@ -178,7 +178,7 @@ export default function HomePage() {
         <div className="grid md:grid-cols-3 gap-8">
           {STEPS.map((item, i) => (
             <div key={i} className="relative group">
-              <div className="p-8 rounded-[2rem] bg-white/[0.02] border border-white/[0.06] hover:border-white/15 transition-all">
+              <div className="p-8 rounded-[2rem] bg-white/[0.02] border border-white/[0.06] hover:border-white/10 transition-all">
                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.accent} flex items-center justify-center mb-6 shadow-lg`}>
                   <item.icon size={24} className="text-white" />
                 </div>
@@ -203,7 +203,7 @@ export default function HomePage() {
             className="inline-flex items-center gap-3 px-12 py-5 bg-white text-black font-black uppercase tracking-widest text-xs rounded-[2rem] hover:bg-white/90 transition-colors"
           >
             <Sparkles size={18} />
-            Probarlo Ahora
+            Empieza Gratis
           </Link>
         </div>
       </section>
