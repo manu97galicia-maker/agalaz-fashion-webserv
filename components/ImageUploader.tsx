@@ -3,6 +3,32 @@
 import { useRef } from 'react';
 import { Camera, Shirt, X } from 'lucide-react';
 
+const MAX_SIZE = 1024;
+const JPEG_QUALITY = 0.7;
+
+function compressImage(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      let { width, height } = img;
+      if (width > MAX_SIZE || height > MAX_SIZE) {
+        const ratio = Math.min(MAX_SIZE / width, MAX_SIZE / height);
+        width = Math.round(width * ratio);
+        height = Math.round(height * ratio);
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d')!;
+      ctx.drawImage(img, 0, 0, width, height);
+      const dataUrl = canvas.toDataURL('image/jpeg', JPEG_QUALITY);
+      resolve(dataUrl.split(',')[1]);
+    };
+    img.onerror = () => reject(new Error('Error al cargar imagen'));
+    img.src = URL.createObjectURL(file);
+  });
+}
+
 interface ImageUploaderProps {
   label: string;
   type: 'user' | 'clothing';
@@ -14,17 +40,16 @@ interface ImageUploaderProps {
 export function ImageUploader({ label, type, image, onImageSelect, icon }: ImageUploaderProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result as string;
-      const base64 = result.split(',')[1];
+    try {
+      const base64 = await compressImage(file);
       onImageSelect(base64);
-    };
-    reader.readAsDataURL(file);
+    } catch {
+      console.error('Error compressing image');
+    }
     e.target.value = '';
   };
 

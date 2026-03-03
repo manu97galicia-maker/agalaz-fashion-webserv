@@ -13,14 +13,20 @@ REGLAS DE PRESERVACIÓN ESTRICTA:
 5. TEXTO: Responde con elegancia técnica en menos de 8 palabras.
 `;
 
+type TryOnResult = { image: string; error?: undefined } | { image?: undefined; error: string };
+
 export async function generateTryOnImage(
   faceImage: string,
   bodyImage: string,
   clothingImage: string,
   modificationPrompt?: string,
   lastRenderedImage?: string
-): Promise<string | null> {
+): Promise<TryOnResult> {
   try {
+    if (!API_KEY) {
+      return { error: 'GEMINI_API_KEY no configurada en el servidor.' };
+    }
+
     const ai = new GoogleGenAI({ apiKey: API_KEY });
 
     const parts: any[] = [
@@ -62,14 +68,27 @@ export async function generateTryOnImage(
     if (response.candidates?.[0]?.content?.parts) {
       for (const part of response.candidates[0].content.parts) {
         if ((part as any).inlineData?.data) {
-          return `data:image/png;base64,${(part as any).inlineData.data}`;
+          return { image: `data:image/png;base64,${(part as any).inlineData.data}` };
         }
       }
     }
-    return null;
-  } catch (error) {
+
+    const finishReason = response.candidates?.[0]?.finishReason;
+    console.error('Gemini no devolvió imagen. finishReason:', finishReason);
+    if (finishReason === 'SAFETY') {
+      return { error: 'La imagen fue bloqueada por filtros de seguridad. Intenta con otra foto.' };
+    }
+    return { error: 'Gemini no generó imagen. Intenta con fotos frontales bien iluminadas.' };
+  } catch (error: any) {
     console.error("Error en renderizado de precisión:", error);
-    return null;
+    const msg = error?.message || String(error);
+    if (msg.includes('quota') || msg.includes('429')) {
+      return { error: 'Límite de API alcanzado. Espera unos minutos e intenta de nuevo.' };
+    }
+    if (msg.includes('too large') || msg.includes('payload')) {
+      return { error: 'Imágenes demasiado grandes incluso tras compresión.' };
+    }
+    return { error: `Error del motor IA: ${msg.slice(0, 120)}` };
   }
 }
 
