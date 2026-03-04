@@ -3,33 +3,22 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Target, Fingerprint, Shirt, ArrowRight } from 'lucide-react';
+import { useLanguage } from '@/components/LanguageProvider';
 
-const STEPS = [
-  {
-    title: 'Preservación Total',
-    desc: 'Tus pantalones, calzado y fondo original se mantienen intactos. Solo cambiamos lo que pidas.',
-    icon: Target,
-    color: '#6366f1',
-  },
-  {
-    title: 'Mapeo Facial Real',
-    desc: 'Agalaz integra tu identidad sobre tu cuerpo real, respetando tu fisonomía y cuello.',
-    icon: Fingerprint,
-    color: '#10b981',
-  },
-  {
-    title: 'Color & Estilo',
-    desc: 'Extraemos el ADN de la prenda nueva y lo adaptamos a tu silueta sin deformaciones.',
-    icon: Shirt,
-    color: '#6366f1',
-  },
+const STEP_META = [
+  { icon: Target, color: '#6366f1' },
+  { icon: Fingerprint, color: '#10b981' },
+  { icon: Shirt, color: '#6366f1' },
 ];
 
 export default function OnboardingPage() {
   const [index, setIndex] = useState(0);
   const router = useRouter();
-  const step = STEPS[index];
-  const Icon = step.icon;
+  const { t } = useLanguage();
+
+  const meta = STEP_META[index];
+  const step = t.onboarding.steps[index];
+  const Icon = meta.icon;
 
   const handleNext = () => {
     if (index < 2) {
@@ -46,7 +35,7 @@ export default function OnboardingPage() {
           <div
             className="p-6 bg-slate-50 rounded-[2.5rem] inline-block mb-8"
           >
-            <Icon size={40} style={{ color: step.color }} />
+            <Icon size={40} style={{ color: meta.color }} />
           </div>
 
           <h1 className="text-3xl font-black text-slate-900 leading-tight">
@@ -58,7 +47,7 @@ export default function OnboardingPage() {
           </p>
 
           <div className="flex gap-2 justify-center mt-8">
-            {STEPS.map((_, i) => (
+            {STEP_META.map((_, i) => (
               <div
                 key={i}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
@@ -76,7 +65,7 @@ export default function OnboardingPage() {
           className="w-full py-5 bg-black text-white rounded-[2rem] flex items-center justify-center gap-2 hover:bg-black/90 transition-colors cursor-pointer"
         >
           <span className="font-black uppercase tracking-widest text-xs">
-            {index < 2 ? 'Siguiente' : 'Comenzar'}
+            {index < 2 ? t.onboarding.next : t.onboarding.start}
           </span>
           <ArrowRight size={16} />
         </button>

@@ -2,6 +2,7 @@
 
 import { useRef } from 'react';
 import { Camera, Shirt, X } from 'lucide-react';
+import { useLanguage } from './LanguageProvider';
 
 const MAX_SIZE = 1024;
 const JPEG_QUALITY = 0.7;
@@ -39,6 +40,7 @@ interface ImageUploaderProps {
 
 export function ImageUploader({ label, type, image, onImageSelect, icon }: ImageUploaderProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const { t } = useLanguage();
 
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -89,7 +91,7 @@ export function ImageUploader({ label, type, image, onImageSelect, icon }: Image
               ))}
             </div>
             <span className="text-[10px] font-black uppercase tracking-tight text-slate-500">
-              {type === 'user' ? 'Subir Foto' : 'Subir Prenda'}
+              {type === 'user' ? t.uploader.uploadPhoto : t.uploader.uploadGarment}
             </span>
           </button>
         )}

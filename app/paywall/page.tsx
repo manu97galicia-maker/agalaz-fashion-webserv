@@ -2,17 +2,11 @@
 
 import { useRouter } from 'next/navigation';
 import { X, Zap, Check, CreditCard } from 'lucide-react';
-
-const FEATURES = [
-  'Preservación de outfit original',
-  'Mapeo facial sin costuras',
-  'Renders ilimitados',
-  'Fondo y entorno protegidos',
-  'Soporte para prendas complejas',
-];
+import { useLanguage } from '@/components/LanguageProvider';
 
 export default function PaywallPage() {
   const router = useRouter();
+  const { t } = useLanguage();
 
   return (
     <main className="min-h-screen bg-slate-900 flex flex-col">
@@ -30,7 +24,7 @@ export default function PaywallPage() {
           <div className="flex items-center gap-2 px-4 py-2 bg-indigo-600 rounded-full w-fit">
             <Zap size={12} className="text-white fill-white" />
             <span className="text-[10px] font-black uppercase tracking-widest text-white">
-              Agalaz Pro
+              {t.paywall.badge}
             </span>
           </div>
 
@@ -38,13 +32,13 @@ export default function PaywallPage() {
             className="text-5xl font-black text-white tracking-tight"
             style={{ lineHeight: 1.1 }}
           >
-            Precisión
+            {t.paywall.titleLine1}
             <br />
-            <span className="text-indigo-400">Total.</span>
+            <span className="text-indigo-400">{t.paywall.titleLine2}</span>
           </h1>
 
           <div className="space-y-5 py-6">
-            {FEATURES.map((feature, i) => (
+            {t.paywall.features.map((feature, i) => (
               <div key={i} className="flex items-center gap-4">
                 <div className="w-6 h-6 bg-indigo-600/20 rounded-full flex items-center justify-center shrink-0">
                   <Check size={14} className="text-indigo-400" />
@@ -59,7 +53,7 @@ export default function PaywallPage() {
         <button className="w-full py-5 bg-indigo-600 rounded-[2rem] flex items-center justify-center gap-3 mb-4 hover:bg-indigo-500 transition-colors cursor-pointer">
           <CreditCard size={18} className="text-white" />
           <span className="text-white font-black uppercase tracking-widest text-xs">
-            Obtener Pro $4.99/mes
+            {t.paywall.ctaButton}
           </span>
         </button>
       </div>

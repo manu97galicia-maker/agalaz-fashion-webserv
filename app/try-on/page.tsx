@@ -19,18 +19,29 @@ import {
   Loader2,
 } from 'lucide-react';
 import { ImageUploader } from '@/components/ImageUploader';
+import { useLanguage } from '@/components/LanguageProvider';
+import { LanguageToggle } from '@/components/LanguageToggle';
 import { onAuthStateChange, type AppUser } from '@/services/authService';
 import { Role, type ChatMessage } from '@/types';
+import {
+  getWeeklyRenderCount,
+  incrementRenderCount,
+  hasReachedWeeklyLimit,
+  getRemainingRenders,
+  WEEKLY_RENDER_LIMIT,
+} from '@/lib/weeklyLimit';
 
 const IMAGE_KEYWORDS = [
   'color', 'talla', 'peinado', 'cambia', 'pon', 'ajusta', 'vea', 'prenda',
   'adjuntar', 'mira', 'foto', 'render', 'estilo', 'look', 'quede', 'prueba',
   'cuerpo', 'realista', 'luz',
+  'change', 'put', 'adjust', 'try', 'garment', 'style', 'sleeve', 'body', 'realistic',
 ];
 
 export default function TryOnPage() {
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   const [user, setUser] = useState<AppUser | null>(null);
   const [faceImage, setFaceImage] = useState<string | null>(null);
@@ -43,6 +54,10 @@ export default function TryOnPage() {
   const [error, setError] = useState<string | null>(null);
   const [renderCount, setRenderCount] = useState(0);
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    setRenderCount(getWeeklyRenderCount());
+  }, []);
 
   useEffect(() => {
     const { data: { subscription } } = onAuthStateChange((authUser) => {
@@ -64,7 +79,6 @@ export default function TryOnPage() {
     setMessages([]);
     setInputValue('');
     setError(null);
-    setRenderCount(0);
   };
 
   const clearChat = () => {
@@ -74,11 +88,11 @@ export default function TryOnPage() {
 
   const handleStartAnalysis = async () => {
     if (!faceImage || !bodyImage || !clothingImage) {
-      setError('Faltan fotos para el renderizado.');
+      setError(t.tryOn.errorMissingPhotos);
       return;
     }
-    if (renderCount >= 10) {
-      router.push('/paywall');
+    if (hasReachedWeeklyLimit()) {
+      setError(t.tryOn.weeklyLimitReached);
       return;
     }
 
@@ -98,15 +112,16 @@ export default function TryOnPage() {
       if (data.image) {
         setMessages([{
           role: Role.MODEL,
-          text: 'Outfit segmentado. Pantalones y fondo preservados.',
+          text: t.tryOn.resultSuccess,
           image: data.image,
         }]);
-        setRenderCount((prev) => prev + 1);
+        const newCount = incrementRenderCount();
+        setRenderCount(newCount);
       } else {
-        setError(data.error || 'Error de precisión. Intenta con fotos frontales.');
+        setError(data.error || t.tryOn.errorPrecision);
       }
     } catch {
-      setError('Falla en el motor de componentes.');
+      setError(t.tryOn.errorComponent);
     } finally {
       setIsAnalyzing(false);
       setIsGeneratingImage(false);
@@ -133,7 +148,7 @@ export default function TryOnPage() {
         body: JSON.stringify({ message: text, history }),
       });
       const chatData = await chatRes.json();
-      const modelText = chatData.text || 'Ajustando detalles...';
+      const modelText = chatData.text || t.tryOn.adjusting;
 
       setMessages((prev) => [...prev, { role: Role.MODEL, text: modelText }]);
       setIsAnalyzing(false);
@@ -170,7 +185,7 @@ export default function TryOnPage() {
         setIsGeneratingImage(false);
       }
     } catch {
-      setError('Error en la actualización visual.');
+      setError(t.tryOn.errorVisualUpdate);
       setIsAnalyzing(false);
       setIsGeneratingImage(false);
     }
@@ -178,6 +193,7 @@ export default function TryOnPage() {
 
   const isLoading = isAnalyzing || isGeneratingImage;
   const canRender = faceImage && bodyImage && clothingImage && !isLoading;
+  const remaining = getRemainingRenders();
 
   return (
     <>
@@ -205,33 +221,36 @@ export default function TryOnPage() {
               <div className="flex items-center gap-1 mt-0.5">
                 <Star size={10} className="text-indigo-600 fill-indigo-600" />
                 <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest">
-                  {user ? 'PREMIUM ACCESS' : 'PRECISION ENGINE V7.0'}
+                  {user ? t.tryOn.premiumAccess : t.tryOn.engineBadge}
                 </span>
               </div>
             </div>
           </div>
 
-          {(faceImage || messages.length > 0) && (
-            <div className="flex gap-2">
-              {messages.length > 0 && (
+          <div className="flex gap-2">
+            <LanguageToggle variant="light" />
+            {(faceImage || messages.length > 0) && (
+              <>
+                {messages.length > 0 && (
+                  <button
+                    onClick={clearChat}
+                    className="flex items-center gap-2 px-4 py-2.5 bg-slate-100 rounded-full hover:bg-slate-200 transition-colors cursor-pointer"
+                  >
+                    <Shirt size={16} className="text-slate-500" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+                      {t.tryOn.editButton}
+                    </span>
+                  </button>
+                )}
                 <button
-                  onClick={clearChat}
-                  className="flex items-center gap-2 px-4 py-2.5 bg-slate-100 rounded-full hover:bg-slate-200 transition-colors cursor-pointer"
+                  onClick={resetApp}
+                  className="p-2.5 bg-slate-100 rounded-full hover:bg-slate-200 transition-colors cursor-pointer"
                 >
-                  <Shirt size={16} className="text-slate-500" />
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">
-                    Editar
-                  </span>
+                  <RefreshCcw size={18} className="text-slate-500" />
                 </button>
-              )}
-              <button
-                onClick={resetApp}
-                className="p-2.5 bg-slate-100 rounded-full hover:bg-slate-200 transition-colors cursor-pointer"
-              >
-                <RefreshCcw size={18} className="text-slate-500" />
-              </button>
-            </div>
-          )}
+              </>
+            )}
+          </div>
         </header>
 
         {/* Content */}
@@ -247,26 +266,26 @@ export default function TryOnPage() {
                   className="text-4xl font-black text-slate-900 tracking-tight"
                   style={{ lineHeight: 1.1 }}
                 >
-                  Preservar
+                  {t.tryOn.preserveTitle}
                   <br />
-                  <span className="text-indigo-600 italic">Tu Estilo.</span>
+                  <span className="text-indigo-600 italic">{t.tryOn.preserveHighlight}</span>
                 </h2>
                 <p className="text-slate-500 text-sm font-medium">
-                  Solo cambiamos la prenda superior y tu rostro.
+                  {t.tryOn.preserveSubtitle}
                 </p>
               </div>
 
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <ImageUploader
-                    label="ID Rostro"
+                    label={t.tryOn.labelFace}
                     type="user"
                     image={faceImage}
                     onImageSelect={setFaceImage}
                     icon={<Fingerprint size={20} className="text-slate-400" />}
                   />
                   <ImageUploader
-                    label="Foto Base (Cuerpo)"
+                    label={t.tryOn.labelBody}
                     type="user"
                     image={bodyImage}
                     onImageSelect={setBodyImage}
@@ -274,7 +293,7 @@ export default function TryOnPage() {
                   />
                 </div>
                 <ImageUploader
-                  label="Color/Prenda Superior"
+                  label={t.tryOn.labelClothing}
                   type="clothing"
                   image={clothingImage}
                   onImageSelect={setClothingImage}
@@ -302,9 +321,13 @@ export default function TryOnPage() {
                   <Sparkles size={20} className="text-white" />
                 )}
                 <span className="text-white font-black uppercase tracking-widest text-xs">
-                  Renderizar con Precisión
+                  {t.tryOn.renderButton}
                 </span>
               </button>
+
+              <p className="text-[10px] text-slate-400 font-bold text-center">
+                {remaining} / {WEEKLY_RENDER_LIMIT} {t.tryOn.rendersRemaining}
+              </p>
             </div>
           ) : (
             <div className="max-w-lg mx-auto space-y-8">
@@ -330,13 +353,13 @@ export default function TryOnPage() {
                             <div className="bg-indigo-600/90 px-3 py-1.5 rounded-full flex items-center gap-2">
                               <Target size={14} className="text-white" />
                               <span className="text-[9px] font-black uppercase tracking-widest text-white">
-                                Outfit Preserved
+                                {t.tryOn.badgeOutfit}
                               </span>
                             </div>
                             <div className="bg-emerald-600/90 px-3 py-1.5 rounded-full flex items-center gap-2">
                               <ShieldCheck size={14} className="text-white" />
                               <span className="text-[9px] font-black uppercase tracking-widest text-white">
-                                Seamless ID
+                                {t.tryOn.badgeSeamless}
                               </span>
                             </div>
                           </div>
@@ -378,7 +401,7 @@ export default function TryOnPage() {
                   <div className="bg-white px-6 py-4 rounded-full border border-slate-100 flex items-center gap-3">
                     <Loader2 size={16} className="text-indigo-500 animate-spin" />
                     <span className="text-[10px] text-slate-400 font-black uppercase tracking-widest">
-                      Protegiendo outfit y fondo...
+                      {t.tryOn.loading}
                     </span>
                   </div>
                 </div>
@@ -400,7 +423,7 @@ export default function TryOnPage() {
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') handleSendMessage(inputValue);
                 }}
-                placeholder="Solo cambiar color, manga larga..."
+                placeholder={t.tryOn.chatPlaceholder}
                 className="flex-1 px-2 py-3 text-[13px] font-bold text-slate-800 placeholder:text-slate-400 bg-transparent outline-none"
               />
               <button
