@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { X, Zap, Check, CreditCard } from 'lucide-react';
 import { useLanguage } from '@/components/LanguageProvider';
+import { useSubscription } from '@/lib/useSubscription';
 import { createBrowserClient } from '@supabase/ssr';
 
 const PAYMENT_LINKS = {
@@ -16,6 +17,7 @@ export default function PaywallPage() {
   const { t } = useLanguage();
   const [plan, setPlan] = useState<'weekly' | 'yearly'>('yearly');
   const [userId, setUserId] = useState<string | null>(null);
+  const { isPro, loading: subLoading } = useSubscription();
 
   useEffect(() => {
     const supabase = createBrowserClient(
@@ -26,6 +28,13 @@ export default function PaywallPage() {
       if (data.user) setUserId(data.user.id);
     });
   }, []);
+
+  // If user is already Pro, skip paywall and go to try-on
+  useEffect(() => {
+    if (!subLoading && isPro) {
+      router.replace('/try-on');
+    }
+  }, [subLoading, isPro, router]);
 
   const handleCheckout = () => {
     const url = new URL(PAYMENT_LINKS[plan]);

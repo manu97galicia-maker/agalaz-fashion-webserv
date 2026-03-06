@@ -12,7 +12,7 @@ function getSupabase() {
 
 export const signInWithGoogle = async () => {
   const supabase = getSupabase();
-  const redirectTo = `${window.location.origin}/try-on`;
+  const redirectTo = `${window.location.origin}/paywall`;
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: { redirectTo },
