@@ -103,8 +103,9 @@ export const es = {
     errorComponent: 'Falla en el motor de componentes.',
     errorVisualUpdate: 'Error en la actualizacion visual.',
     weeklyLimitReached:
-      'Has alcanzado el limite semanal de 10 renders. Mejora a Pro para renders ilimitados.',
-    rendersRemaining: 'renders restantes',
+      'Has usado tu render gratuito. Mejora a Pro para renders ilimitados.',
+    rendersRemaining: 'render gratuito restante',
+    proUnlimited: 'Pro — Renders ilimitados',
     adjusting: 'Ajustando detalles...',
     newGarmentAttached: 'Nueva prenda adjuntada. Generando...',
   },
@@ -141,6 +142,9 @@ export const es = {
       'Fondo y entorno protegidos',
       'Soporte para prendas complejas',
     ],
-    ctaButton: 'Obtener Pro $4.99/mes',
+    ctaButton: 'Obtener Pro',
+    perWeek: '/ semana',
+    perYear: '/ año',
+    saveLabel: 'Ahorra 77%',
   },
 };

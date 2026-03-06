@@ -21,3 +21,5 @@ dist/
 Descargas/
 .claude/
 .expo/
+
+.vercel

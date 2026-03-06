@@ -103,8 +103,9 @@ export const en = {
     errorComponent: 'Component engine failure.',
     errorVisualUpdate: 'Error in visual update.',
     weeklyLimitReached:
-      'You have reached the weekly limit of 10 renders. Upgrade to Pro for unlimited renders.',
-    rendersRemaining: 'renders remaining',
+      'You have used your free render. Upgrade to Pro for unlimited renders.',
+    rendersRemaining: 'free render remaining',
+    proUnlimited: 'Pro — Unlimited renders',
     adjusting: 'Adjusting details...',
     newGarmentAttached: 'New garment attached. Generating...',
   },
@@ -141,6 +142,9 @@ export const en = {
       'Background protection',
       'Complex garment support',
     ],
-    ctaButton: 'Get Pro $4.99/mo',
+    ctaButton: 'Get Pro',
+    perWeek: '/ week',
+    perYear: '/ year',
+    saveLabel: 'Save 77%',
   },
 };

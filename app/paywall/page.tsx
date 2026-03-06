@@ -1,12 +1,41 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { X, Zap, Check, CreditCard } from 'lucide-react';
+import { X, Zap, Check, CreditCard, Loader2 } from 'lucide-react';
 import { useLanguage } from '@/components/LanguageProvider';
 
 export default function PaywallPage() {
   const router = useRouter();
   const { t } = useLanguage();
+  const [plan, setPlan] = useState<'weekly' | 'yearly'>('yearly');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleCheckout = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/stripe/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan }),
+      });
+      const data = await res.json();
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else if (res.status === 401) {
+        router.push('/try-on');
+      } else {
+        setError(data.error || 'Error');
+        setLoading(false);
+      }
+    } catch {
+      setError('Connection error');
+      setLoading(false);
+    }
+  };
 
   return (
     <main className="min-h-screen bg-slate-900 flex flex-col">
@@ -47,11 +76,55 @@ export default function PaywallPage() {
               </div>
             ))}
           </div>
+
+          {/* Plan selector */}
+          <div className="flex gap-3">
+            <button
+              onClick={() => setPlan('weekly')}
+              className={`flex-1 p-4 rounded-2xl border-2 transition-colors text-center ${
+                plan === 'weekly'
+                  ? 'border-indigo-500 bg-indigo-500/10'
+                  : 'border-white/10 bg-white/5'
+              }`}
+            >
+              <p className="text-white font-black text-lg">$4.99</p>
+              <p className="text-slate-400 text-xs font-bold">{t.paywall.perWeek}</p>
+            </button>
+            <button
+              onClick={() => setPlan('yearly')}
+              className={`flex-1 p-4 rounded-2xl border-2 transition-colors text-center relative ${
+                plan === 'yearly'
+                  ? 'border-indigo-500 bg-indigo-500/10'
+                  : 'border-white/10 bg-white/5'
+              }`}
+            >
+              <div className="absolute -top-2 right-3 bg-emerald-500 px-2 py-0.5 rounded-full">
+                <span className="text-[9px] font-black text-white uppercase">
+                  {t.paywall.saveLabel}
+                </span>
+              </div>
+              <p className="text-white font-black text-lg">$59.99</p>
+              <p className="text-slate-400 text-xs font-bold">{t.paywall.perYear}</p>
+            </button>
+          </div>
         </div>
 
+        {/* Error */}
+        {error && (
+          <p className="text-red-400 text-xs text-center mb-3">{error}</p>
+        )}
+
         {/* Purchase */}
-        <button className="w-full py-5 bg-indigo-600 rounded-[2rem] flex items-center justify-center gap-3 mb-4 hover:bg-indigo-500 transition-colors cursor-pointer">
-          <CreditCard size={18} className="text-white" />
+        <button
+          onClick={handleCheckout}
+          disabled={loading}
+          className="w-full py-5 bg-indigo-600 rounded-[2rem] flex items-center justify-center gap-3 mb-4 hover:bg-indigo-500 transition-colors cursor-pointer disabled:opacity-50"
+        >
+          {loading ? (
+            <Loader2 size={18} className="text-white animate-spin" />
+          ) : (
+            <CreditCard size={18} className="text-white" />
+          )}
           <span className="text-white font-black uppercase tracking-widest text-xs">
             {t.paywall.ctaButton}
           </span>

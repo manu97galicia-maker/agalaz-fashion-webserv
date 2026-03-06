@@ -23,13 +23,8 @@ import { useLanguage } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { onAuthStateChange, type AppUser } from '@/services/authService';
 import { Role, type ChatMessage } from '@/types';
-import {
-  getWeeklyRenderCount,
-  incrementRenderCount,
-  hasReachedWeeklyLimit,
-  getRemainingRenders,
-  WEEKLY_RENDER_LIMIT,
-} from '@/lib/weeklyLimit';
+import { useSubscription } from '@/lib/useSubscription';
+import { FREE_RENDER_LIMIT, canRender as canRenderCheck } from '@/lib/subscription';
 
 const IMAGE_KEYWORDS = [
   'color', 'talla', 'peinado', 'cambia', 'pon', 'ajusta', 'vea', 'prenda',
@@ -76,12 +71,9 @@ export default function TryOnPage() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [renderCount, setRenderCount] = useState(0);
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
 
-  useEffect(() => {
-    setRenderCount(getWeeklyRenderCount());
-  }, []);
+  const { isPro, totalRenders, loading: subLoading, refresh: refreshSub } = useSubscription();
 
   useEffect(() => {
     const { data: { subscription } } = onAuthStateChange((authUser) => {
@@ -89,6 +81,14 @@ export default function TryOnPage() {
     });
     return () => subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('subscribed') === 'true') {
+      refreshSub();
+      window.history.replaceState({}, '', '/try-on');
+    }
+  }, [refreshSub]);
 
   useEffect(() => {
     if (messages.length > 0) {
@@ -115,8 +115,8 @@ export default function TryOnPage() {
       setError(t.tryOn.errorMissingPhotos);
       return;
     }
-    if (hasReachedWeeklyLimit()) {
-      setError(t.tryOn.weeklyLimitReached);
+    if (!isPro && totalRenders >= FREE_RENDER_LIMIT) {
+      router.push('/paywall');
       return;
     }
 
@@ -139,8 +139,9 @@ export default function TryOnPage() {
           text: t.tryOn.resultSuccess,
           image: data.image,
         }]);
-        const newCount = incrementRenderCount();
-        setRenderCount(newCount);
+        refreshSub();
+      } else if (data.error === 'FREE_LIMIT_REACHED') {
+        router.push('/paywall');
       } else {
         setError(data.error || t.tryOn.errorPrecision);
       }
@@ -239,8 +240,9 @@ export default function TryOnPage() {
       const data = await res.json();
       if (data.image) {
         setMessages((prev) => [...prev, { role: Role.MODEL, text: t.tryOn.resultSuccess, image: data.image }]);
-        const newCount = incrementRenderCount();
-        setRenderCount(newCount);
+        refreshSub();
+      } else if (data.error === 'FREE_LIMIT_REACHED') {
+        router.push('/paywall');
       } else {
         setError(data.error || t.tryOn.errorPrecision);
       }
@@ -253,8 +255,8 @@ export default function TryOnPage() {
   };
 
   const isLoading = isAnalyzing || isGeneratingImage;
-  const canRender = faceImage && bodyImage && !isLoading;
-  const remaining = getRemainingRenders();
+  const canRender = faceImage && bodyImage && !isLoading && !subLoading;
+  const remaining = isPro ? Infinity : Math.max(0, FREE_RENDER_LIMIT - totalRenders);
 
   return (
     <>
@@ -282,7 +284,7 @@ export default function TryOnPage() {
               <div className="flex items-center gap-1 mt-0.5">
                 <Star size={10} className="text-indigo-600 fill-indigo-600" />
                 <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest">
-                  {user ? t.tryOn.premiumAccess : t.tryOn.engineBadge}
+                  {isPro ? 'PRO' : user ? t.tryOn.premiumAccess : t.tryOn.engineBadge}
                 </span>
               </div>
             </div>
@@ -390,7 +392,7 @@ export default function TryOnPage() {
               </button>
 
               <p className="text-[10px] text-slate-400 font-bold text-center">
-                {remaining} / {WEEKLY_RENDER_LIMIT} {t.tryOn.rendersRemaining}
+                {isPro ? t.tryOn.proUnlimited : `${remaining} / ${FREE_RENDER_LIMIT} ${t.tryOn.rendersRemaining}`}
               </p>
             </div>
           ) : (
