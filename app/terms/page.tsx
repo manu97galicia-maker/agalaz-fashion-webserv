@@ -5,8 +5,8 @@ import { ArrowLeft } from 'lucide-react';
 import { useLanguage } from '@/components/LanguageProvider';
 
 export default function TermsPage() {
-  const { lang } = useLanguage();
-  const isEs = lang === 'es';
+  const { locale } = useLanguage();
+  const isEs = locale === 'es';
 
   return (
     <main className="min-h-screen bg-white py-16 px-6 md:px-12">
