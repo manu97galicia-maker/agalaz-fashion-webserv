@@ -32,25 +32,31 @@ export async function generateTryOnImage(
     const parts: any[] = [
       { inlineData: { mimeType: 'image/jpeg', data: faceImage } },
       { inlineData: { mimeType: 'image/jpeg', data: bodyImage } },
-      { inlineData: { mimeType: 'image/jpeg', data: clothingImage } },
     ];
+
+    if (clothingImage) {
+      parts.push({ inlineData: { mimeType: 'image/jpeg', data: clothingImage } });
+    }
 
     if (lastRenderedImage) {
       const base64Data = lastRenderedImage.split(',')[1] || lastRenderedImage;
       parts.push({ inlineData: { mimeType: 'image/png', data: base64Data } });
     }
 
+    const hasGarment = !!clothingImage;
+    const imgIdx = { garment: hasGarment ? 3 : null, lastRender: hasGarment ? (lastRenderedImage ? 4 : null) : (lastRenderedImage ? 3 : null) };
+
     const promptBase = `STRICT EDITORIAL COMPOSITING & CONSISTENCY:
     - IDENTITY (IMG 1): Source for the face.
     - STRUCTURE (IMG 2): Source for the body pose, background, and environment.
-    - GARMENT (IMG 3): Source for the top clothing.
-    ${lastRenderedImage ? `- CURRENT STATE (IMG 4): This is the PREVIOUS RENDER. You MUST use this as your absolute reference for composition. Do NOT change the background, lighting, pose, or body shape from IMG 4.` : ''}
+    ${hasGarment ? `- GARMENT (IMG 3): Source for the top clothing.` : ''}
+    ${imgIdx.lastRender ? `- CURRENT STATE (IMG ${imgIdx.lastRender}): This is the PREVIOUS RENDER. You MUST use this as your absolute reference for composition. Do NOT change the background, lighting, pose, or body shape from IMG ${imgIdx.lastRender}.` : ''}
 
-    CRITICAL TASK: ${modificationPrompt ? `Modify the image according to: "${modificationPrompt}". Start from ${lastRenderedImage ? 'IMG 4' : 'the composition'} and apply the change. Keep every other pixel as close to ${lastRenderedImage ? 'IMG 4' : 'the original body (IMG 2)'} as possible.` : "Seamlessly integrate the face (IMG 1) and the top garment (IMG 3) onto the body (IMG 2)."}
+    CRITICAL TASK: ${modificationPrompt ? `Modify the image according to: "${modificationPrompt}". Start from ${imgIdx.lastRender ? `IMG ${imgIdx.lastRender}` : 'the composition'} and apply the change. Keep every other pixel as close to ${imgIdx.lastRender ? `IMG ${imgIdx.lastRender}` : 'the original body (IMG 2)'} as possible.` : hasGarment ? "Seamlessly integrate the face (IMG 1) and the top garment (IMG 3) onto the body (IMG 2)." : "Seamlessly integrate the face (IMG 1) onto the body (IMG 2), preserving the original outfit completely."}
 
     REGLAS DE ORO:
-    1. PRESERVACIÓN: Los pantalones, zapatos y fondo de IMG 2 (o IMG 4 si existe) son SAGRADOS. No los alteres a menos que se pida.
-    2. CONSISTENCIA: Si existe IMG 4, el resultado debe ser un gemelo visual de IMG 4 con el cambio solicitado.
+    1. PRESERVACIÓN: Los pantalones, zapatos y fondo de IMG 2${imgIdx.lastRender ? ` (o IMG ${imgIdx.lastRender} si existe)` : ''} son SAGRADOS. No los alteres a menos que se pida.
+    ${imgIdx.lastRender ? `2. CONSISTENCIA: El resultado debe ser un gemelo visual de IMG ${imgIdx.lastRender} con el cambio solicitado.` : ''}
     3. REALISMO: Sombras y luces deben coincidir perfectamente.
 
     QUALITY: 8k, photorealistic, perfect skin blending, no anatomical distortions.`;

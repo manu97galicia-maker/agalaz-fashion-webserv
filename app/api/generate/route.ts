@@ -85,9 +85,15 @@ export async function POST(request: NextRequest) {
     );
   } catch (error: any) {
     console.error('Generate API error:', error);
-    const message = error?.message?.includes('body')
-      ? 'Imágenes demasiado grandes. Intenta con fotos más pequeñas.'
-      : 'Falla en el motor de componentes.';
+    const msg = error?.message || String(error);
+    let message: string;
+    if (msg.includes('body') || msg.includes('too large') || msg.includes('payload')) {
+      message = 'Imágenes demasiado grandes. Intenta con fotos más pequeñas.';
+    } else if (msg.includes('JSON')) {
+      message = 'Error procesando la solicitud. Intenta de nuevo.';
+    } else {
+      message = `Error del motor: ${msg.slice(0, 150)}`;
+    }
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
