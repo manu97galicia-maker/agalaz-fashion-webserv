@@ -12,18 +12,20 @@ function getSupabase() {
 
 export const signInWithGoogle = async () => {
   const supabase = getSupabase();
+  const redirectTo = `${window.location.origin}/try-on`;
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: 'https://agalaz.com/try-on' },
+    options: { redirectTo },
   });
   if (error) throw error;
 };
 
 export const signInWithApple = async () => {
   const supabase = getSupabase();
+  const redirectTo = `${window.location.origin}/try-on`;
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'apple',
-    options: { redirectTo: 'https://agalaz.com/try-on' },
+    options: { redirectTo },
   });
   if (error) throw error;
 };

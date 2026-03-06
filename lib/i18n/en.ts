@@ -1,7 +1,7 @@
 export const en = {
   nav: {
     brand: 'AGALAZ',
-    tryNow: 'Try Now',
+    tryNow: 'Try Free',
   },
   hero: {
     badge: 'The #1 AI Virtual Clothing Try-On',
@@ -153,6 +153,13 @@ export const en = {
     proUnlimited: 'Pro — Unlimited renders',
     adjusting: 'Adjusting details...',
     newGarmentAttached: 'New garment attached. Generating...',
+  },
+  login: {
+    title: 'Sign in to try on',
+    subtitle: 'Create a free account to get your first render free.',
+    google: 'Continue with Google',
+    apple: 'Continue with Apple',
+    terms: 'By continuing you agree to our terms of service.',
   },
   uploader: {
     uploadPhoto: 'Upload Photo',

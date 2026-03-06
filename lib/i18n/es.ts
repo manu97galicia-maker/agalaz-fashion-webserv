@@ -1,7 +1,7 @@
 export const es = {
   nav: {
     brand: 'AGALAZ',
-    tryNow: 'Probar Ahora',
+    tryNow: 'Probar Gratis',
   },
   hero: {
     badge: 'El Mejor Probador Virtual de Ropa con IA',
@@ -153,6 +153,13 @@ export const es = {
     proUnlimited: 'Pro — Renders ilimitados',
     adjusting: 'Ajustando detalles...',
     newGarmentAttached: 'Nueva prenda adjuntada. Generando...',
+  },
+  login: {
+    title: 'Inicia sesion para probar',
+    subtitle: 'Crea una cuenta gratis y obtén tu primer render gratis.',
+    google: 'Continuar con Google',
+    apple: 'Continuar con Apple',
+    terms: 'Al continuar aceptas nuestros terminos de servicio.',
   },
   uploader: {
     uploadPhoto: 'Subir Foto',
