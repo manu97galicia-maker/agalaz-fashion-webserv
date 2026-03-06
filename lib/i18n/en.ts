@@ -4,19 +4,19 @@ export const en = {
     tryNow: 'Try Now',
   },
   hero: {
-    badge: 'Virtual Try-On',
-    titleLine1: 'LOOKS',
-    titleLine2: 'YOU\'LL',
-    titleLine3: 'REMEMBER',
+    badge: 'The #1 AI Virtual Clothing Try-On',
+    titleLine1: 'TRY',
+    titleLine2: 'BEFORE',
+    titleLine3: 'YOU BUY',
     subtitle:
-      'See how any garment looks on you before purchasing. Photorealistic, instant, on your real body.',
+      'The #1 virtual try-on. See how any garment, color, or size looks on your real body. Photorealistic and instant.',
     ctaPrimary: 'Start Free',
-    ctaFree: 'Try It Now',
+    ctaFree: 'Try It Now — Free',
     ctaSecondary: 'How it works',
     socialProof: '+10,000 users already try on clothes with AI',
   },
   strip: {
-    items: ['VIRTUAL TRY-ON', 'AI STYLING', 'INSTANT RESULTS', 'PREMIUM QUALITY'],
+    items: ['ANY GARMENT', 'ANY COLOR', 'ANY SIZE', 'ON YOUR REAL BODY'],
   },
   tryBefore: {
     label: 'How It Works',
@@ -39,6 +39,25 @@ export const en = {
         title: 'See It On You',
         desc: 'Get a photorealistic image of you wearing the garment. Your body, your face, your new look.',
       },
+    ],
+  },
+  colorExplorer: {
+    label: 'Explore Colors',
+    title: 'Same Outfit,',
+    titleHighlight: 'Every Color.',
+    subtitle: 'Try the same garment in red, blue, black, green — any color you want. See what suits you best before buying.',
+    colors: ['Red', 'Navy Blue', 'Emerald', 'Black'],
+    cta: 'Try Different Colors',
+  },
+  capabilities: {
+    label: 'What You Can Do',
+    title: 'The Most Complete',
+    titleHighlight: 'Virtual Try-On.',
+    items: [
+      { icon: 'palette', title: 'Any Color', desc: 'Try the same garment in every color. Red, blue, green, black — find your perfect shade.' },
+      { icon: 'ruler', title: 'Any Size', desc: 'See how different sizes and fits look on your real body. Oversized, slim, regular.' },
+      { icon: 'shirt', title: 'Any Garment', desc: 'Shirts, jackets, dresses, coats — upload any garment from any store and see it on you.' },
+      { icon: 'user', title: 'Your Real Body', desc: 'Not a mannequin, not an avatar. Your actual body, your face, your proportions.' },
     ],
   },
   features: {

@@ -4,19 +4,19 @@ export const es = {
     tryNow: 'Probar Ahora',
   },
   hero: {
-    badge: 'Probador Virtual',
-    titleLine1: 'LOOKS',
-    titleLine2: 'QUE',
-    titleLine3: 'RECUERDAS',
+    badge: 'El Mejor Probador Virtual de Ropa con IA',
+    titleLine1: 'PRUEBA',
+    titleLine2: 'ANTES DE',
+    titleLine3: 'COMPRAR',
     subtitle:
-      'Ve como te queda cualquier prenda antes de comprarla. Fotorrealista, instantaneo, en tu cuerpo real.',
+      'El probador virtual #1. Ve como te queda cualquier prenda, color o talla en tu cuerpo real. Fotorrealista e instantaneo.',
     ctaPrimary: 'Empieza Gratis',
-    ctaFree: 'Probar Ahora',
+    ctaFree: 'Probar Ahora — Gratis',
     ctaSecondary: 'Como funciona',
     socialProof: '+10,000 usuarios ya prueban ropa con IA',
   },
   strip: {
-    items: ['PROBADOR VIRTUAL', 'ESTILISMO IA', 'RESULTADOS INSTANTANEOS', 'CALIDAD PREMIUM'],
+    items: ['CUALQUIER PRENDA', 'CUALQUIER COLOR', 'CUALQUIER TALLA', 'EN TU CUERPO REAL'],
   },
   tryBefore: {
     label: 'Como Funciona',
@@ -39,6 +39,25 @@ export const es = {
         title: 'Velo En Ti',
         desc: 'Obtén una imagen fotorrealista de ti usando la prenda. Tu cuerpo, tu rostro, tu nuevo look.',
       },
+    ],
+  },
+  colorExplorer: {
+    label: 'Explora Colores',
+    title: 'Mismo Outfit,',
+    titleHighlight: 'Todos los Colores.',
+    subtitle: 'Prueba la misma prenda en rojo, azul, negro, verde — el color que quieras. Ve cual te queda mejor antes de comprar.',
+    colors: ['Rojo', 'Azul Marino', 'Esmeralda', 'Negro'],
+    cta: 'Probar Diferentes Colores',
+  },
+  capabilities: {
+    label: 'Que Puedes Hacer',
+    title: 'El Probador Virtual',
+    titleHighlight: 'Mas Completo.',
+    items: [
+      { icon: 'palette', title: 'Cualquier Color', desc: 'Prueba la misma prenda en todos los colores. Rojo, azul, verde, negro — encuentra tu tono perfecto.' },
+      { icon: 'ruler', title: 'Cualquier Talla', desc: 'Ve como lucen diferentes tallas y cortes en tu cuerpo real. Oversize, slim, regular.' },
+      { icon: 'shirt', title: 'Cualquier Prenda', desc: 'Camisas, chaquetas, vestidos, abrigos — sube cualquier prenda de cualquier tienda y vela en ti.' },
+      { icon: 'user', title: 'Tu Cuerpo Real', desc: 'No un maniqui, no un avatar. Tu cuerpo real, tu rostro, tus proporciones.' },
     ],
   },
   features: {

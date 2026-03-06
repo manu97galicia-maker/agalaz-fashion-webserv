@@ -11,13 +11,23 @@ import {
   Sparkles,
   Eye,
   Target,
+  Palette,
+  Ruler,
+  User,
 } from 'lucide-react';
 import { useLanguage } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
 
 const STEP_ICONS = [Camera, Layers, Shirt];
-
 const FEATURE_ICONS = [ShieldCheck, Target, Zap];
+const CAPABILITY_ICONS = [Palette, Ruler, Shirt, User];
+
+const COLOR_SWATCHES = [
+  { color: 'bg-red-500', ring: 'ring-red-500' },
+  { color: 'bg-blue-900', ring: 'ring-blue-900' },
+  { color: 'bg-emerald-600', ring: 'ring-emerald-600' },
+  { color: 'bg-black', ring: 'ring-black' },
+];
 
 export default function HomePage() {
   const { t } = useLanguage();
@@ -42,13 +52,18 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* Hero — full width editorial */}
+      {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-indigo-50/30" />
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
 
         <div className="relative max-w-7xl mx-auto px-6 md:px-12 pt-20 pb-16 md:pt-32 md:pb-24">
           <div className="text-center max-w-4xl mx-auto">
+            {/* Badge */}
+            <span className="inline-block px-4 py-1.5 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-8 animate-fade-in">
+              {t.hero.badge}
+            </span>
+
             <h1 className="font-serif text-7xl sm:text-8xl md:text-9xl lg:text-[11rem] text-slate-900 leading-[0.85] tracking-tight animate-fade-in">
               <span className="font-black">{t.hero.titleLine1}</span>
               <br />
@@ -57,15 +72,16 @@ export default function HomePage() {
               <span className="font-black">{t.hero.titleLine3}</span>
             </h1>
 
-            <p className="text-slate-500 text-sm md:text-base mt-8 max-w-lg mx-auto font-light leading-relaxed animate-fade-in-delay">
+            <p className="text-slate-500 text-sm md:text-base mt-8 max-w-xl mx-auto font-light leading-relaxed animate-fade-in-delay">
               {t.hero.subtitle}
             </p>
 
             <div className="mt-10 animate-fade-in-delay">
               <Link
                 href="/try-on"
-                className="group inline-flex items-center gap-3 px-10 py-4 border-2 border-slate-900 text-slate-900 font-black uppercase tracking-[0.2em] text-xs hover:bg-slate-900 hover:text-white transition-all rounded-none"
+                className="group inline-flex items-center gap-3 px-10 py-4 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-600 transition-all"
               >
+                <Sparkles size={16} className="group-hover:rotate-12 transition-transform" />
                 {t.hero.ctaFree}
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -73,7 +89,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Category strip */}
+        {/* Strip */}
         <div className="relative border-y border-slate-200 bg-white">
           <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4">
             {t.strip.items.map((item, i) => (
@@ -90,8 +106,112 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Try Before You Buy — the key section */}
+      {/* Color Explorer — visual impact section */}
+      <section className="py-24 md:py-32 bg-slate-50 border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="text-center mb-16">
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 mb-6 block">
+              {t.colorExplorer.label}
+            </span>
+            <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-slate-900 tracking-tight leading-[0.9]">
+              {t.colorExplorer.title}{' '}
+              <span className="italic text-slate-400">{t.colorExplorer.titleHighlight}</span>
+            </h2>
+            <p className="text-slate-500 mt-8 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed">
+              {t.colorExplorer.subtitle}
+            </p>
+          </div>
+
+          {/* Color comparison mockup */}
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+              {t.colorExplorer.colors.map((colorName, i) => (
+                <div key={i} className="group relative">
+                  <div className="aspect-[3/4] rounded-lg overflow-hidden border-2 border-slate-200 group-hover:border-indigo-400 transition-colors bg-gradient-to-b from-slate-100 to-slate-200 relative">
+                    {/* Dress silhouette shape */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="relative w-3/4 h-4/5 flex flex-col items-center">
+                        {/* Head/shoulders */}
+                        <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-amber-200 mb-1" />
+                        {/* Dress body */}
+                        <div
+                          className={`flex-1 w-full rounded-t-xl ${
+                            i === 0 ? 'bg-red-500' : i === 1 ? 'bg-blue-900' : i === 2 ? 'bg-emerald-600' : 'bg-slate-900'
+                          }`}
+                          style={{ clipPath: 'polygon(30% 0%, 70% 0%, 90% 100%, 10% 100%)' }}
+                        />
+                      </div>
+                    </div>
+                    {/* Color dot indicator */}
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
+                      <div className={`w-5 h-5 rounded-full ${COLOR_SWATCHES[i].color} ring-2 ring-white shadow-md`} />
+                    </div>
+                  </div>
+                  <p className="text-center mt-3 text-xs font-bold text-slate-600 uppercase tracking-wider">
+                    {colorName}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* Color swatches selector hint */}
+            <div className="flex items-center justify-center gap-3 mt-10">
+              {COLOR_SWATCHES.map((swatch, i) => (
+                <div key={i} className={`w-8 h-8 rounded-full ${swatch.color} ring-2 ring-offset-2 ring-slate-200 hover:${swatch.ring} cursor-pointer transition-all hover:scale-110`} />
+              ))}
+              <span className="ml-3 text-slate-400 text-xs font-light">+ ∞</span>
+            </div>
+          </div>
+
+          <div className="text-center mt-14">
+            <Link
+              href="/try-on"
+              className="group inline-flex items-center gap-3 px-10 py-4 bg-indigo-600 text-white font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-700 transition-colors"
+            >
+              <Palette size={16} className="group-hover:rotate-12 transition-transform" />
+              {t.colorExplorer.cta}
+              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Capabilities — what you can do */}
       <section className="py-24 md:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="text-center mb-16">
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-6 block">
+              {t.capabilities.label}
+            </span>
+            <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-slate-900 tracking-tight leading-[0.9]">
+              {t.capabilities.title}{' '}
+              <span className="italic text-slate-400">{t.capabilities.titleHighlight}</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {t.capabilities.items.map((item, i) => {
+              const Icon = CAPABILITY_ICONS[i];
+              return (
+                <div key={i} className="group p-8 border border-slate-200 hover:border-indigo-300 transition-colors hover:shadow-lg hover:shadow-indigo-50 bg-white">
+                  <div className="w-14 h-14 bg-slate-900 group-hover:bg-indigo-600 transition-colors flex items-center justify-center mb-6">
+                    <Icon size={24} className="text-white" />
+                  </div>
+                  <h3 className="font-serif text-xl font-bold text-slate-900 mb-3 tracking-tight">
+                    {item.title}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-relaxed font-light">
+                    {item.desc}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Try Before You Buy — step by step */}
+      <section className="py-24 md:py-32 bg-slate-50 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 mb-6 block">
@@ -111,7 +231,7 @@ export default function HomePage() {
               const Icon = STEP_ICONS[i];
               return (
                 <div key={i} className="group relative">
-                  <div className="p-8 md:p-10 border border-slate-200 hover:border-slate-300 transition-colors bg-white hover:shadow-lg hover:shadow-slate-100 transition-shadow">
+                  <div className="p-8 md:p-10 border border-slate-200 hover:border-slate-300 transition-colors bg-white hover:shadow-lg hover:shadow-slate-100">
                     <div className="flex items-center justify-between mb-8">
                       <div className="w-14 h-14 bg-slate-900 flex items-center justify-center group-hover:bg-indigo-600 transition-colors">
                         <Icon size={24} className="text-white" />
@@ -149,8 +269,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Features — clean editorial */}
-      <section className="py-24 md:py-32 bg-slate-50 border-y border-slate-100">
+      {/* Features */}
+      <section className="py-24 md:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-6 block">
@@ -169,7 +289,7 @@ export default function HomePage() {
             {t.features.items.map((f, i) => {
               const Icon = FEATURE_ICONS[i];
               return (
-                <div key={i} className="p-8 md:p-10 bg-white border border-slate-100 hover:shadow-lg hover:shadow-slate-100/50 transition-shadow">
+                <div key={i} className="p-8 md:p-10 bg-slate-50 border border-slate-100 hover:shadow-lg hover:shadow-slate-100/50 transition-shadow">
                   <div className="w-12 h-12 bg-indigo-600 flex items-center justify-center mb-8">
                     <Icon size={22} className="text-white" />
                   </div>
@@ -185,7 +305,7 @@ export default function HomePage() {
       </section>
 
       {/* Stats */}
-      <section className="py-16 bg-white border-b border-slate-100">
+      <section className="py-16 bg-slate-50 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="grid grid-cols-3 gap-8">
             {[
