@@ -1,45 +1,71 @@
 export const en = {
   nav: {
-    brand: 'Agalaz',
+    brand: 'AGALAZ',
     tryNow: 'Try Now',
   },
   hero: {
-    badge: 'AI Virtual Try-On',
-    titleLine1: 'TRY',
-    titleLine2: 'BEFORE YOU',
-    titleLine3: 'BUY',
+    badge: 'Virtual Try-On',
+    titleLine1: 'LOOKS',
+    titleLine2: 'YOU\'LL',
+    titleLine3: 'REMEMBER',
     subtitle:
-      'Upload your photo, choose any garment and see how it looks instantly. Your real body, your new look.',
+      'See how any garment looks on you before purchasing. Photorealistic, instant, on your real body.',
     ctaPrimary: 'Start Free',
-    ctaFree: 'Try Free',
+    ctaFree: 'Try It Now',
     ctaSecondary: 'How it works',
     socialProof: '+10,000 users already try on clothes with AI',
+  },
+  strip: {
+    items: ['VIRTUAL TRY-ON', 'AI STYLING', 'INSTANT RESULTS', 'PREMIUM QUALITY'],
+  },
+  tryBefore: {
+    label: 'How It Works',
+    title: 'Try Before',
+    titleHighlight: 'You Buy',
+    subtitle: 'See exactly how any garment looks on you before purchasing. Upload your photo, choose a garment, and get a photorealistic preview in seconds.',
+    steps: [
+      {
+        num: '01',
+        title: 'Upload Your Photo',
+        desc: 'Take a selfie and a full body photo. We use them to create a perfect match with your real features.',
+      },
+      {
+        num: '02',
+        title: 'Choose Any Garment',
+        desc: 'Upload a photo of any garment from any store or brand. Shirts, jackets, dresses — anything goes.',
+      },
+      {
+        num: '03',
+        title: 'See It On You',
+        desc: 'Get a photorealistic image of you wearing the garment. Your body, your face, your new look.',
+      },
+    ],
+  },
+  features: {
+    sectionLabel: 'Why Agalaz',
+    title: 'Fashion that',
+    titleHighlight: 'Adapts to You',
+    subtitle:
+      'Every detail of your image is respected. Your body, your style, enhanced.',
+    items: [
+      {
+        title: 'Outfit Preservation',
+        desc: 'Your pants, shoes and background stay exactly as they are. We only change what you ask.',
+      },
+      {
+        title: 'Seamless Precision',
+        desc: 'Your real body, your real face. Every garment adapts to you naturally.',
+      },
+      {
+        title: 'Instant Results',
+        desc: 'Get your try-on image in seconds. No waiting, no appointments.',
+      },
+    ],
   },
   stats: {
     users: 'Users',
     perRender: 'Per render',
     precision: 'Accuracy',
-  },
-  features: {
-    sectionLabel: 'Technology',
-    title: 'Fashion that',
-    titleHighlight: 'Adapts to You',
-    subtitle:
-      'AI-powered editorial compositing that respects every detail of your image.',
-    items: [
-      {
-        title: 'Total Preservation',
-        desc: 'Your original look stays intact. We only transform what you choose.',
-      },
-      {
-        title: 'Your Real Image',
-        desc: 'Agalaz respects your real body. Every garment adapts to you, not the other way around.',
-      },
-      {
-        title: 'Color & Fabric',
-        desc: 'We capture the essence of every garment and blend it with your silhouette.',
-      },
-    ],
   },
   steps: {
     sectionLabel: 'Process',
@@ -62,13 +88,13 @@ export const en = {
     ],
   },
   cta: {
-    title: 'Your next look awaits',
+    title: 'Your Next Look Awaits',
     subtitle:
-      'Try any garment from any store. No commitment, no sign-up.',
+      'Try any garment from any store. No commitment, no sign-up required.',
     button: 'Try Now',
   },
   footer: {
-    copyright: '\u00a9 2025 Agalaz. AI virtual try-on.',
+    copyright: '\u00a9 2025 Agalaz. Virtual try-on powered by AI.',
   },
   mockup: {
     selfie: 'Selfie',

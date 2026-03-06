@@ -1,45 +1,71 @@
 export const es = {
   nav: {
-    brand: 'Agalaz',
+    brand: 'AGALAZ',
     tryNow: 'Probar Ahora',
   },
   hero: {
-    badge: 'Probador Virtual con IA',
-    titleLine1: 'PRUEBA',
-    titleLine2: 'ANTES DE',
-    titleLine3: 'COMPRAR',
+    badge: 'Probador Virtual',
+    titleLine1: 'LOOKS',
+    titleLine2: 'QUE',
+    titleLine3: 'RECUERDAS',
     subtitle:
-      'Sube tu foto, elige cualquier prenda y ve como te queda al instante. Tu cuerpo real, tu nuevo look.',
+      'Ve como te queda cualquier prenda antes de comprarla. Fotorrealista, instantaneo, en tu cuerpo real.',
     ctaPrimary: 'Empieza Gratis',
-    ctaFree: 'Prueba Gratis',
+    ctaFree: 'Probar Ahora',
     ctaSecondary: 'Como funciona',
     socialProof: '+10,000 usuarios ya prueban ropa con IA',
+  },
+  strip: {
+    items: ['PROBADOR VIRTUAL', 'ESTILISMO IA', 'RESULTADOS INSTANTANEOS', 'CALIDAD PREMIUM'],
+  },
+  tryBefore: {
+    label: 'Como Funciona',
+    title: 'Prueba Antes',
+    titleHighlight: 'de Comprar',
+    subtitle: 'Ve exactamente como te queda cualquier prenda antes de comprarla. Sube tu foto, elige una prenda y obtén una vista previa fotorrealista en segundos.',
+    steps: [
+      {
+        num: '01',
+        title: 'Sube Tu Foto',
+        desc: 'Toma un selfie y una foto de cuerpo completo. Las usamos para crear un resultado perfecto con tus rasgos reales.',
+      },
+      {
+        num: '02',
+        title: 'Elige Cualquier Prenda',
+        desc: 'Sube una foto de cualquier prenda de cualquier tienda o marca. Camisas, chaquetas, vestidos — lo que quieras.',
+      },
+      {
+        num: '03',
+        title: 'Velo En Ti',
+        desc: 'Obtén una imagen fotorrealista de ti usando la prenda. Tu cuerpo, tu rostro, tu nuevo look.',
+      },
+    ],
+  },
+  features: {
+    sectionLabel: 'Por Que Agalaz',
+    title: 'Moda que se',
+    titleHighlight: 'Adapta a Ti',
+    subtitle:
+      'Cada detalle de tu imagen es respetado. Tu cuerpo, tu estilo, mejorado.',
+    items: [
+      {
+        title: 'Preservacion de Outfit',
+        desc: 'Tus pantalones, zapatos y fondo quedan exactamente igual. Solo cambiamos lo que pidas.',
+      },
+      {
+        title: 'Precision Sin Costuras',
+        desc: 'Tu cuerpo real, tu rostro real. Cada prenda se adapta a ti de forma natural.',
+      },
+      {
+        title: 'Resultados Instantaneos',
+        desc: 'Obtén tu imagen en segundos. Sin esperas, sin citas.',
+      },
+    ],
   },
   stats: {
     users: 'Usuarios',
     perRender: 'Por render',
     precision: 'Precision',
-  },
-  features: {
-    sectionLabel: 'Tecnologia',
-    title: 'Moda que se',
-    titleHighlight: 'Adapta a Ti',
-    subtitle:
-      'Composicion editorial con IA que respeta cada detalle de tu imagen.',
-    items: [
-      {
-        title: 'Preservacion Total',
-        desc: 'Tu look original se mantiene intacto. Solo transformamos lo que elijas.',
-      },
-      {
-        title: 'Tu Imagen Real',
-        desc: 'Agalaz respeta tu fisonomia real. Cada prenda se adapta a ti, no al reves.',
-      },
-      {
-        title: 'Color & Tejido',
-        desc: 'Capturamos la esencia de cada prenda y la fusionamos con tu silueta.',
-      },
-    ],
   },
   steps: {
     sectionLabel: 'Proceso',
@@ -62,7 +88,7 @@ export const es = {
     ],
   },
   cta: {
-    title: 'Tu proximo look te espera',
+    title: 'Tu Proximo Look Te Espera',
     subtitle:
       'Prueba cualquier prenda de cualquier tienda. Sin compromiso, sin registro.',
     button: 'Probar Ahora',
