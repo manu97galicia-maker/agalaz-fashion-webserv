@@ -1,40 +1,38 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { X, Zap, Check, CreditCard, Loader2 } from 'lucide-react';
+import { X, Zap, Check, CreditCard } from 'lucide-react';
 import { useLanguage } from '@/components/LanguageProvider';
+import { createBrowserClient } from '@supabase/ssr';
+
+const PAYMENT_LINKS = {
+  yearly: 'https://buy.stripe.com/dRm4gz00mgQwb099ONfYY0f',
+  weekly: 'https://buy.stripe.com/bJe6oHfZkeIogkt4utfYY0g',
+};
 
 export default function PaywallPage() {
   const router = useRouter();
   const { t } = useLanguage();
   const [plan, setPlan] = useState<'weekly' | 'yearly'>('yearly');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
 
-  const handleCheckout = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch('/api/stripe/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan }),
-      });
-      const data = await res.json();
+  useEffect(() => {
+    const supabase = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    );
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user) setUserId(data.user.id);
+    });
+  }, []);
 
-      if (data.url) {
-        window.location.href = data.url;
-      } else if (res.status === 401) {
-        router.push('/try-on');
-      } else {
-        setError(data.error || 'Error');
-        setLoading(false);
-      }
-    } catch {
-      setError('Connection error');
-      setLoading(false);
+  const handleCheckout = () => {
+    const url = new URL(PAYMENT_LINKS[plan]);
+    if (userId) {
+      url.searchParams.set('client_reference_id', userId);
     }
+    window.location.href = url.toString();
   };
 
   return (
@@ -109,22 +107,12 @@ export default function PaywallPage() {
           </div>
         </div>
 
-        {/* Error */}
-        {error && (
-          <p className="text-red-400 text-xs text-center mb-3">{error}</p>
-        )}
-
         {/* Purchase */}
         <button
           onClick={handleCheckout}
-          disabled={loading}
-          className="w-full py-5 bg-indigo-600 rounded-[2rem] flex items-center justify-center gap-3 mb-4 hover:bg-indigo-500 transition-colors cursor-pointer disabled:opacity-50"
+          className="w-full py-5 bg-indigo-600 rounded-[2rem] flex items-center justify-center gap-3 mb-4 hover:bg-indigo-500 transition-colors cursor-pointer"
         >
-          {loading ? (
-            <Loader2 size={18} className="text-white animate-spin" />
-          ) : (
-            <CreditCard size={18} className="text-white" />
-          )}
+          <CreditCard size={18} className="text-white" />
           <span className="text-white font-black uppercase tracking-widest text-xs">
             {t.paywall.ctaButton}
           </span>

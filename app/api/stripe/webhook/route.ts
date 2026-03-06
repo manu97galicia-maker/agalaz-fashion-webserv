@@ -32,7 +32,8 @@ export async function POST(request: NextRequest) {
       const subscriptionId = session.subscription as string;
       const customerId = session.customer as string;
 
-      const userId = await getUserIdByCustomer(admin, customerId);
+      // Try client_reference_id first (from payment links), then DB lookup
+      const userId = session.client_reference_id || await getUserIdByCustomer(admin, customerId);
       if (!userId) break;
 
       const sub = await getStripe().subscriptions.retrieve(subscriptionId) as any;
