@@ -350,15 +350,26 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-100 py-10 px-6 md:px-12 max-w-7xl mx-auto">
+      <footer className="border-t border-slate-100 py-10 px-6 md:px-12 max-w-7xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <span className="font-serif text-sm tracking-[0.15em] text-slate-400 font-black">
             {t.nav.brand}
           </span>
-          <p className="text-slate-400 text-xs font-light">
-            {t.footer.copyright}
-          </p>
+          <div className="flex items-center gap-6">
+            <Link href="/privacy" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
+              {t.footer.privacy}
+            </Link>
+            <Link href="/terms" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
+              {t.footer.terms}
+            </Link>
+            <a href="mailto:infoagalaz@gmail.com" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
+              {t.footer.contact}
+            </a>
+          </div>
         </div>
+        <p className="text-slate-300 text-[11px] font-light text-center">
+          {t.footer.copyright} — infoagalaz@gmail.com
+        </p>
       </footer>
     </main>
   );

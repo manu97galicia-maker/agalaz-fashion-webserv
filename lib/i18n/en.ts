@@ -114,6 +114,9 @@ export const en = {
   },
   footer: {
     copyright: '\u00a9 2025 Agalaz. Virtual try-on powered by AI.',
+    privacy: 'Privacy Policy',
+    terms: 'Terms of Service',
+    contact: 'Contact',
   },
   mockup: {
     selfie: 'Selfie',

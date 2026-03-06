@@ -114,6 +114,9 @@ export const es = {
   },
   footer: {
     copyright: '\u00a9 2025 Agalaz. Probador virtual con IA.',
+    privacy: 'Politica de Privacidad',
+    terms: 'Terminos de Servicio',
+    contact: 'Contacto',
   },
   mockup: {
     selfie: 'Selfie',
