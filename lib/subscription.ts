@@ -1,28 +1,32 @@
-export const FREE_RENDER_LIMIT = 1;
+export const FREE_CREDITS = 1;
+export const PLAN_CREDITS = 7;
+export const CREDITS_RESET_DAYS = 7;
+export const REFERRAL_BONUS_WEEKLY = 3;
+export const REFERRAL_BONUS_YEARLY = 20;
 
 export interface SubscriptionStatus {
   isPro: boolean;
   plan: 'weekly' | 'yearly' | null;
-  totalRenders: number;
+  creditsRemaining: number;
+  creditsResetAt: string | null;
   periodEnd: string | null;
+  referralCode: string | null;
 }
 
 export async function fetchSubscriptionStatus(): Promise<SubscriptionStatus> {
   try {
     const res = await fetch('/api/subscription');
-    if (!res.ok) return { isPro: false, plan: null, totalRenders: 0, periodEnd: null };
+    if (!res.ok) return defaultStatus();
     return res.json();
   } catch {
-    return { isPro: false, plan: null, totalRenders: 0, periodEnd: null };
+    return defaultStatus();
   }
 }
 
-export function canRender(status: SubscriptionStatus): boolean {
-  if (status.isPro) return true;
-  return status.totalRenders < FREE_RENDER_LIMIT;
+function defaultStatus(): SubscriptionStatus {
+  return { isPro: false, plan: null, creditsRemaining: 0, creditsResetAt: null, periodEnd: null, referralCode: null };
 }
 
-export function getRemainingFreeRenders(status: SubscriptionStatus): number {
-  if (status.isPro) return Infinity;
-  return Math.max(0, FREE_RENDER_LIMIT - status.totalRenders);
+export function canRender(status: SubscriptionStatus): boolean {
+  return status.creditsRemaining > 0;
 }

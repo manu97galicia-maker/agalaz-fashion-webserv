@@ -7,8 +7,10 @@ export function useSubscription() {
   const [status, setStatus] = useState<SubscriptionStatus>({
     isPro: false,
     plan: null,
-    totalRenders: 0,
+    creditsRemaining: 0,
+    creditsResetAt: null,
     periodEnd: null,
+    referralCode: null,
   });
   const [loading, setLoading] = useState(true);
 

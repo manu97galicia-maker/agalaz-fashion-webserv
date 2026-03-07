@@ -24,7 +24,6 @@ import { LanguageToggle } from '@/components/LanguageToggle';
 import { onAuthStateChange, signInWithGoogle, signInWithApple, type AppUser } from '@/services/authService';
 import { Role, type ChatMessage } from '@/types';
 import { useSubscription } from '@/lib/useSubscription';
-import { FREE_RENDER_LIMIT, canRender as canRenderCheck } from '@/lib/subscription';
 import { createBrowserClient } from '@supabase/ssr';
 
 const IMAGE_KEYWORDS = [
@@ -77,7 +76,8 @@ export default function TryOnPage() {
   const [authLoading, setAuthLoading] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
 
-  const { isPro, totalRenders, loading: subLoading, refresh: refreshSub } = useSubscription();
+  const { isPro, creditsRemaining, creditsResetAt, referralCode, loading: subLoading, refresh: refreshSub } = useSubscription();
+  const [copied, setCopied] = useState(false);
 
   // Check auth state on mount - show login if not authenticated
   useEffect(() => {
@@ -146,7 +146,7 @@ export default function TryOnPage() {
       setShowLogin(true);
       return;
     }
-    if (!isPro && totalRenders >= FREE_RENDER_LIMIT) {
+    if (creditsRemaining <= 0) {
       router.push('/paywall');
       return;
     }
@@ -171,7 +171,7 @@ export default function TryOnPage() {
           image: data.image,
         }]);
         refreshSub();
-      } else if (data.error === 'FREE_LIMIT_REACHED') {
+      } else if (data.error === 'NO_CREDITS') {
         router.push('/paywall');
       } else {
         setError(data.error || t.tryOn.errorPrecision);
@@ -272,7 +272,7 @@ export default function TryOnPage() {
       if (data.image) {
         setMessages((prev) => [...prev, { role: Role.MODEL, text: t.tryOn.resultSuccess, image: data.image }]);
         refreshSub();
-      } else if (data.error === 'FREE_LIMIT_REACHED') {
+      } else if (data.error === 'NO_CREDITS') {
         router.push('/paywall');
       } else {
         setError(data.error || t.tryOn.errorPrecision);
@@ -287,7 +287,13 @@ export default function TryOnPage() {
 
   const isLoading = isAnalyzing || isGeneratingImage;
   const canRender = faceImage && bodyImage && !isLoading && !subLoading;
-  const remaining = isPro ? Infinity : Math.max(0, FREE_RENDER_LIMIT - totalRenders);
+
+  const copyReferralCode = () => {
+    if (!referralCode) return;
+    navigator.clipboard.writeText(referralCode);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <>
@@ -423,8 +429,33 @@ export default function TryOnPage() {
               </button>
 
               <p className="text-[10px] text-slate-400 font-light text-center">
-                {isPro ? t.tryOn.proUnlimited : `${remaining} / ${FREE_RENDER_LIMIT} ${t.tryOn.rendersRemaining}`}
+                {creditsRemaining} {t.tryOn.creditsRemaining}
+                {creditsResetAt && ` · ${t.tryOn.creditsReset} ${new Date(creditsResetAt).toLocaleDateString()}`}
               </p>
+
+              {/* Referral share section */}
+              {referralCode && (
+                <div className="border border-slate-200 rounded-2xl p-4 space-y-2 text-center">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    {t.referral.yourCode}
+                  </p>
+                  <button
+                    onClick={copyReferralCode}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-50 rounded-xl border border-slate-200 hover:bg-slate-100 transition-colors cursor-pointer"
+                  >
+                    <span className="text-sm font-black text-slate-900 tracking-[0.3em]">{referralCode}</span>
+                    {copied ? (
+                      <span className="text-[10px] font-bold text-emerald-600">{t.referral.copied}</span>
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                    )}
+                  </button>
+                  <div className="text-[10px] text-slate-400 space-y-0.5">
+                    <p>{t.referral.bonusWeekly}</p>
+                    <p>{t.referral.bonusYearly}</p>
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <div className="max-w-lg mx-auto space-y-8 px-4 py-6">
