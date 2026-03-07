@@ -11,7 +11,7 @@ export const es = {
     subtitle:
       'El probador virtual #1. Ve como te queda cualquier prenda, color o talla en tu cuerpo real. Fotorrealista e instantaneo.',
     ctaPrimary: 'Empieza Gratis',
-    ctaFree: 'Probar Ahora — Gratis',
+    ctaFree: 'Prueba Gratis',
     ctaSecondary: 'Como funciona',
     socialProof: '+10,000 usuarios ya prueban ropa con IA',
   },
@@ -110,7 +110,7 @@ export const es = {
     title: 'Tu Proximo Look Te Espera',
     subtitle:
       'Prueba cualquier prenda de cualquier tienda. Sin compromiso, sin registro.',
-    button: 'Probar Ahora',
+    button: 'Prueba Gratis',
   },
   footer: {
     copyright: '\u00a9 2025 Agalaz. Probador virtual con IA.',
@@ -170,18 +170,22 @@ export const es = {
   onboarding: {
     steps: [
       {
-        title: 'Preservacion Total',
-        desc: 'Tus pantalones, calzado y fondo original se mantienen intactos. Solo cambiamos lo que pidas.',
+        question: 'Quieres ver como te queda la ropa antes de comprarla?',
+        desc: 'Sube cualquier prenda y vela en tu cuerpo real. Sin probadores, sin esperas.',
+        answer: 'Si, quiero verlo!',
       },
       {
-        title: 'Mapeo Facial Real',
-        desc: 'Agalaz integra tu identidad sobre tu cuerpo real, respetando tu fisonomia y cuello.',
+        question: 'Te gustaria probar distintos colores?',
+        desc: 'Rojo, azul, negro, verde... prueba la misma prenda en cualquier color.',
+        answer: 'Claro que si!',
       },
       {
-        title: 'Color & Estilo',
-        desc: 'Extraemos el ADN de la prenda nueva y lo adaptamos a tu silueta sin deformaciones.',
+        question: 'Y si pudieras ver diferentes tallas?',
+        desc: 'Oversize, slim, regular. Ve como luce cada talla en tu cuerpo real.',
+        answer: 'Me encanta!',
       },
     ],
+    letsGo: 'Empecemos!',
     next: 'Siguiente',
     start: 'Comenzar',
   },
@@ -202,11 +206,17 @@ export const es = {
     perYear: '/ año',
     saveLabel: 'Ahorra 77%',
     freeTrial: '1 dia de prueba gratis',
+    freeTrialDesc: 'Prueba gratis durante 1 dia. Cancela antes y no pagas nada.',
     yearlyLabel: 'Anual',
     weeklyLabel: 'Semanal',
     weeklyCredits: '7 transformaciones / semana',
     yearlyCredits: '7 transformaciones / semana',
+    yearlyEquiv: 'Solo $1.15 / semana',
+    weeklyTotal: '$4.99 cada semana',
+    yearlyTotal: '$59.99 al año',
     guarantee: 'Cancela cuando quieras. Sin compromiso.',
+    bestValue: 'Mejor precio',
+    recommended: 'Recomendado',
   },
   referral: {
     title: 'Invita y Gana',

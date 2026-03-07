@@ -94,8 +94,6 @@ export default function TryOnPage() {
           avatar: meta.avatar_url || meta.picture || '',
           provider: data.user.app_metadata?.provider || 'email',
         });
-      } else {
-        setShowLogin(true);
       }
       setAuthChecked(true);
     });

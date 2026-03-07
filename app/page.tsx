@@ -64,7 +64,7 @@ export default function HomePage() {
               {t.hero.badge}
             </span>
 
-            <h1 className="font-serif text-7xl sm:text-8xl md:text-9xl lg:text-[11rem] text-slate-900 leading-[0.85] tracking-tight animate-fade-in">
+            <h1 className="font-serif text-6xl sm:text-8xl md:text-9xl lg:text-[11rem] text-slate-900 leading-[0.85] tracking-tight animate-fade-in">
               <span className="font-black">{t.hero.titleLine1}</span>
               <br />
               <span className="italic font-normal text-slate-400">{t.hero.titleLine2}</span>
