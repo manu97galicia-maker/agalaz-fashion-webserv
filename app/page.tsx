@@ -9,13 +9,12 @@ import {
   ShieldCheck,
   Zap,
   Sparkles,
-  Eye,
   Target,
   Palette,
   Ruler,
   User,
 } from 'lucide-react';
-import { useLanguage } from '@/components/LanguageProvider';
+import { useLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
 
 const STEP_ICONS = [Camera, Layers, Shirt];
@@ -29,8 +28,108 @@ const COLOR_SWATCHES = [
   { color: 'bg-black', ring: 'ring-black' },
 ];
 
+const landingText = {
+  en: {
+    badge: 'The #1 AI Virtual Fitting Room',
+    strip: ['Any Garment', 'Any Color', 'Your Real Body', 'Instant Preview'],
+    colorExplorer: {
+      label: 'Color Explorer',
+      title: 'Every Color,',
+      titleHighlight: 'Your Body.',
+      subtitle: 'See how the same garment looks in different colors — on your actual body, not a mannequin.',
+      colors: ['Red', 'Navy', 'Emerald', 'Black'],
+      cta: 'Explore Colors',
+    },
+    capabilities: {
+      label: 'What You Can Do',
+      title: 'Unlimited',
+      titleHighlight: 'Possibilities.',
+      items: [
+        { title: 'Any Color', desc: 'Try the same garment in infinite color combinations instantly.' },
+        { title: 'Any Size', desc: 'See how different sizes look on your actual body proportions.' },
+        { title: 'Any Style', desc: 'From casual to formal — see every style on you before buying.' },
+        { title: 'Your Body', desc: 'AI that respects your real shape, proportions and skin tone.' },
+      ],
+    },
+    tryBefore: {
+      label: 'How It Works',
+      title: '3 Photos.',
+      titleHighlight: '1 Render.',
+      subtitle: 'Upload your face, your body, and the garment you want. Our AI does the rest.',
+      steps: [
+        { num: '01', title: 'Face ID', desc: 'Upload a photo of your face for facial mapping.' },
+        { num: '02', title: 'Base Photo', desc: 'A full-body photo — we preserve everything except the top garment.' },
+        { num: '03', title: 'New Garment', desc: 'Choose the garment you want to try on — we extract its color and style.' },
+      ],
+    },
+    features: {
+      label: 'Technology',
+      title: 'Surgical',
+      titleHighlight: 'Precision',
+      subtitle: 'Component Engine V7.0 — every pixel preserved, every garment respected.',
+      items: [
+        { title: 'Total Preservation', desc: 'Your pants, shoes and original background stay untouched. We only change what you ask.' },
+        { title: 'Real Face Mapping', desc: 'Agalaz integrates your identity onto your real body, respecting your features and neckline.' },
+        { title: 'Color & Style', desc: 'We extract the DNA of the new garment and adapt it to your silhouette without distortion.' },
+      ],
+    },
+    stats: { users: 'Users', perRender: 'Per Render', precision: 'Precision' },
+    cta: { title: 'Try It Free. Zero Risk.', subtitle: '10 free renders. No credit card. No commitment.', button: 'Start Free Now' },
+    footer: { privacy: 'Privacy', terms: 'Terms', contact: 'Contact', copyright: '© 2025 Agalaz Labs. Precision Engine V7.0' },
+  },
+  es: {
+    badge: 'El Mejor Probador Virtual de Ropa con IA',
+    strip: ['Cualquier Prenda', 'Cualquier Color', 'Tu Cuerpo Real', 'Vista Previa Instantánea'],
+    colorExplorer: {
+      label: 'Explorador de Color',
+      title: 'Cada Color,',
+      titleHighlight: 'Tu Cuerpo.',
+      subtitle: 'Mira cómo la misma prenda se ve en diferentes colores — en tu cuerpo real, no en un maniquí.',
+      colors: ['Rojo', 'Marino', 'Esmeralda', 'Negro'],
+      cta: 'Explorar Colores',
+    },
+    capabilities: {
+      label: 'Qué Puedes Hacer',
+      title: 'Posibilidades',
+      titleHighlight: 'Ilimitadas.',
+      items: [
+        { title: 'Cualquier Color', desc: 'Prueba la misma prenda en infinitas combinaciones de color al instante.' },
+        { title: 'Cualquier Talla', desc: 'Ve cómo diferentes tallas se ven en las proporciones reales de tu cuerpo.' },
+        { title: 'Cualquier Estilo', desc: 'De casual a formal — ve cada estilo en ti antes de comprar.' },
+        { title: 'Tu Cuerpo', desc: 'IA que respeta tu forma real, proporciones y tono de piel.' },
+      ],
+    },
+    tryBefore: {
+      label: 'Cómo Funciona',
+      title: '3 Fotos.',
+      titleHighlight: '1 Render.',
+      subtitle: 'Sube tu cara, tu cuerpo y la prenda que quieres. Nuestra IA hace el resto.',
+      steps: [
+        { num: '01', title: 'ID Rostro', desc: 'Sube una foto de tu cara para el mapeo facial.' },
+        { num: '02', title: 'Foto Base', desc: 'Una foto de cuerpo completo — preservamos todo excepto la prenda superior.' },
+        { num: '03', title: 'Prenda Nueva', desc: 'Elige la prenda que quieres probar — extraemos su color y estilo.' },
+      ],
+    },
+    features: {
+      label: 'Tecnología',
+      title: 'Precisión',
+      titleHighlight: 'Quirúrgica',
+      subtitle: 'Motor de componentes V7.0 — cada píxel preservado, cada prenda respetada.',
+      items: [
+        { title: 'Preservación Total', desc: 'Tus pantalones, calzado y fondo original se mantienen intactos. Solo cambiamos lo que pidas.' },
+        { title: 'Mapeo Facial Real', desc: 'Agalaz integra tu identidad sobre tu cuerpo real, respetando tu fisonomía y cuello.' },
+        { title: 'Color & Estilo', desc: 'Extraemos el ADN de la prenda nueva y lo adaptamos a tu silueta sin deformaciones.' },
+      ],
+    },
+    stats: { users: 'Usuarios', perRender: 'Por Render', precision: 'Precisión' },
+    cta: { title: 'Pruébalo Gratis. Cero Riesgo.', subtitle: '10 renders gratis. Sin tarjeta. Sin compromisos.', button: 'Empezar Gratis' },
+    footer: { privacy: 'Privacidad', terms: 'Términos', contact: 'Contacto', copyright: '© 2025 Agalaz Labs. Motor de Precisión V7.0' },
+  },
+} as const;
+
 export default function HomePage() {
-  const { t } = useLanguage();
+  const { lang, t } = useLang();
+  const lt = landingText[lang];
 
   return (
     <main className="min-h-screen bg-white">
@@ -38,15 +137,15 @@ export default function HomePage() {
       <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
           <Link href="/" className="font-serif text-2xl tracking-[0.15em] text-slate-900 font-black">
-            {t.nav.brand}
+            AGALAZ
           </Link>
           <div className="flex items-center gap-5">
-            <LanguageToggle variant="light" />
+            <LanguageToggle />
             <Link
               href="/try-on"
               className="px-6 py-2.5 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full hover:bg-slate-800 transition-colors"
             >
-              {t.nav.tryNow}
+              {t.tryNow}
             </Link>
           </div>
         </div>
@@ -59,21 +158,20 @@ export default function HomePage() {
 
         <div className="relative max-w-7xl mx-auto px-6 md:px-12 pt-20 pb-16 md:pt-32 md:pb-24">
           <div className="text-center max-w-4xl mx-auto">
-            {/* Badge */}
             <span className="inline-block px-4 py-1.5 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-8 animate-fade-in">
-              {t.hero.badge}
+              {lt.badge}
             </span>
 
             <h1 className="font-serif text-6xl sm:text-8xl md:text-9xl lg:text-[11rem] text-slate-900 leading-[0.85] tracking-tight animate-fade-in">
-              <span className="font-black">{t.hero.titleLine1}</span>
+              <span className="font-black">{t.heroLine1}</span>
               <br />
-              <span className="italic font-normal text-slate-400">{t.hero.titleLine2}</span>
+              <span className="italic font-normal text-slate-400">{t.heroLine2}</span>
               <br />
-              <span className="font-black">{t.hero.titleLine3}</span>
+              <span className="font-black">{t.heroLine3}</span>
             </h1>
 
             <p className="text-slate-500 text-sm md:text-base mt-8 max-w-xl mx-auto font-light leading-relaxed animate-fade-in-delay">
-              {t.hero.subtitle}
+              {t.heroDesc}
             </p>
 
             <div className="mt-10 animate-fade-in-delay">
@@ -82,7 +180,7 @@ export default function HomePage() {
                 className="group inline-flex items-center gap-3 px-10 py-4 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-600 transition-all"
               >
                 <Sparkles size={16} className="group-hover:rotate-12 transition-transform" />
-                {t.hero.ctaFree}
+                {t.tryNow}
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -92,7 +190,7 @@ export default function HomePage() {
         {/* Strip */}
         <div className="relative border-y border-slate-200 bg-white">
           <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4">
-            {t.strip.items.map((item, i) => (
+            {lt.strip.map((item, i) => (
               <div
                 key={i}
                 className={`py-4 px-6 text-center ${i < 3 ? 'border-r border-slate-200' : ''} ${i < 2 ? 'border-b md:border-b-0 border-slate-200' : i === 2 ? 'border-b md:border-b-0 border-slate-200' : ''}`}
@@ -106,34 +204,30 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Color Explorer — visual impact section */}
+      {/* Color Explorer */}
       <section className="py-24 md:py-32 bg-slate-50 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 mb-6 block">
-              {t.colorExplorer.label}
+              {lt.colorExplorer.label}
             </span>
             <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-slate-900 tracking-tight leading-[0.9]">
-              {t.colorExplorer.title}{' '}
-              <span className="italic text-slate-400">{t.colorExplorer.titleHighlight}</span>
+              {lt.colorExplorer.title}{' '}
+              <span className="italic text-slate-400">{lt.colorExplorer.titleHighlight}</span>
             </h2>
             <p className="text-slate-500 mt-8 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed">
-              {t.colorExplorer.subtitle}
+              {lt.colorExplorer.subtitle}
             </p>
           </div>
 
-          {/* Color comparison mockup */}
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-              {t.colorExplorer.colors.map((colorName, i) => (
+              {lt.colorExplorer.colors.map((colorName, i) => (
                 <div key={i} className="group relative">
                   <div className="aspect-[3/4] rounded-lg overflow-hidden border-2 border-slate-200 group-hover:border-indigo-400 transition-colors bg-gradient-to-b from-slate-100 to-slate-200 relative">
-                    {/* Dress silhouette shape */}
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="relative w-3/4 h-4/5 flex flex-col items-center">
-                        {/* Head/shoulders */}
                         <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-amber-200 mb-1" />
-                        {/* Dress body */}
                         <div
                           className={`flex-1 w-full rounded-t-xl ${
                             i === 0 ? 'bg-red-500' : i === 1 ? 'bg-blue-900' : i === 2 ? 'bg-emerald-600' : 'bg-slate-900'
@@ -142,7 +236,6 @@ export default function HomePage() {
                         />
                       </div>
                     </div>
-                    {/* Color dot indicator */}
                     <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
                       <div className={`w-5 h-5 rounded-full ${COLOR_SWATCHES[i].color} ring-2 ring-white shadow-md`} />
                     </div>
@@ -154,12 +247,11 @@ export default function HomePage() {
               ))}
             </div>
 
-            {/* Color swatches selector hint */}
             <div className="flex items-center justify-center gap-3 mt-10">
               {COLOR_SWATCHES.map((swatch, i) => (
-                <div key={i} className={`w-8 h-8 rounded-full ${swatch.color} ring-2 ring-offset-2 ring-slate-200 hover:${swatch.ring} cursor-pointer transition-all hover:scale-110`} />
+                <div key={i} className={`w-8 h-8 rounded-full ${swatch.color} ring-2 ring-offset-2 ring-slate-200 cursor-pointer transition-all hover:scale-110`} />
               ))}
-              <span className="ml-3 text-slate-400 text-xs font-light">+ ∞</span>
+              <span className="ml-3 text-slate-400 text-xs font-light">+ &infin;</span>
             </div>
           </div>
 
@@ -169,28 +261,28 @@ export default function HomePage() {
               className="group inline-flex items-center gap-3 px-10 py-4 bg-indigo-600 text-white font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-700 transition-colors"
             >
               <Palette size={16} className="group-hover:rotate-12 transition-transform" />
-              {t.colorExplorer.cta}
+              {lt.colorExplorer.cta}
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Capabilities — what you can do */}
+      {/* Capabilities */}
       <section className="py-24 md:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-6 block">
-              {t.capabilities.label}
+              {lt.capabilities.label}
             </span>
             <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-slate-900 tracking-tight leading-[0.9]">
-              {t.capabilities.title}{' '}
-              <span className="italic text-slate-400">{t.capabilities.titleHighlight}</span>
+              {lt.capabilities.title}{' '}
+              <span className="italic text-slate-400">{lt.capabilities.titleHighlight}</span>
             </h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {t.capabilities.items.map((item, i) => {
+            {lt.capabilities.items.map((item, i) => {
               const Icon = CAPABILITY_ICONS[i];
               return (
                 <div key={i} className="group p-8 border border-slate-200 hover:border-indigo-300 transition-colors hover:shadow-lg hover:shadow-indigo-50 bg-white">
@@ -215,19 +307,19 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 mb-6 block">
-              {t.tryBefore.label}
+              {lt.tryBefore.label}
             </span>
             <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-slate-900 tracking-tight leading-[0.9]">
-              {t.tryBefore.title}{' '}
-              <span className="italic text-slate-400">{t.tryBefore.titleHighlight}</span>
+              {lt.tryBefore.title}{' '}
+              <span className="italic text-slate-400">{lt.tryBefore.titleHighlight}</span>
             </h2>
             <p className="text-slate-500 mt-8 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed">
-              {t.tryBefore.subtitle}
+              {lt.tryBefore.subtitle}
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-            {t.tryBefore.steps.map((step, i) => {
+            {lt.tryBefore.steps.map((step, i) => {
               const Icon = STEP_ICONS[i];
               return (
                 <div key={i} className="group relative">
@@ -263,7 +355,7 @@ export default function HomePage() {
               className="group inline-flex items-center gap-3 px-10 py-4 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-600 transition-colors"
             >
               <Sparkles size={16} className="group-hover:rotate-12 transition-transform" />
-              {t.hero.ctaFree}
+              {t.tryNow}
             </Link>
           </div>
         </div>
@@ -274,19 +366,19 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="text-center mb-16">
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-6 block">
-              {t.features.sectionLabel}
+              {lt.features.label}
             </span>
             <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-slate-900 tracking-tight leading-[0.9]">
-              {t.features.title}{' '}
-              <span className="italic text-slate-400">{t.features.titleHighlight}</span>
+              {lt.features.title}{' '}
+              <span className="italic text-slate-400">{lt.features.titleHighlight}</span>
             </h2>
             <p className="text-slate-500 mt-6 max-w-md mx-auto text-sm font-light">
-              {t.features.subtitle}
+              {lt.features.subtitle}
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {t.features.items.map((f, i) => {
+            {lt.features.items.map((f, i) => {
               const Icon = FEATURE_ICONS[i];
               return (
                 <div key={i} className="p-8 md:p-10 bg-slate-50 border border-slate-100 hover:shadow-lg hover:shadow-slate-100/50 transition-shadow">
@@ -304,46 +396,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-16 bg-slate-50 border-y border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-3 gap-8">
-            {[
-              { icon: Eye, value: '10K+', label: t.stats.users },
-              { icon: Zap, value: '<5s', label: t.stats.perRender },
-              { icon: Target, value: '99%', label: t.stats.precision },
-            ].map((stat, i) => (
-              <div key={i} className="text-center">
-                <div className="flex items-center justify-center gap-2 mb-1">
-                  <stat.icon size={16} className="text-indigo-600" />
-                  <span className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">
-                    {stat.value}
-                  </span>
-                </div>
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
-                  {stat.label}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Final CTA */}
       <section className="py-24 md:py-32 bg-slate-900">
         <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
           <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white tracking-tight leading-[0.9] mb-6">
-            {t.cta.title}
+            {lt.cta.title}
           </h2>
           <p className="text-white/40 text-sm mb-12 max-w-md mx-auto font-light">
-            {t.cta.subtitle}
+            {lt.cta.subtitle}
           </p>
           <Link
             href="/try-on"
             className="group inline-flex items-center gap-3 px-12 py-5 bg-white text-slate-900 font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-600 hover:text-white transition-all"
           >
             <Sparkles size={16} className="group-hover:rotate-12 transition-transform" />
-            {t.cta.button}
+            {lt.cta.button}
             <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -353,22 +420,22 @@ export default function HomePage() {
       <footer className="border-t border-slate-100 py-10 px-6 md:px-12 max-w-7xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <span className="font-serif text-sm tracking-[0.15em] text-slate-400 font-black">
-            {t.nav.brand}
+            AGALAZ
           </span>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
-              {t.footer.privacy}
+              {lt.footer.privacy}
             </Link>
             <Link href="/terms" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
-              {t.footer.terms}
+              {lt.footer.terms}
             </Link>
             <a href="mailto:infoagalaz@gmail.com" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
-              {t.footer.contact}
+              {lt.footer.contact}
             </a>
           </div>
         </div>
         <p className="text-slate-300 text-[11px] font-light text-center">
-          {t.footer.copyright} — infoagalaz@gmail.com
+          {lt.footer.copyright} — infoagalaz@gmail.com
         </p>
       </footer>
     </main>
