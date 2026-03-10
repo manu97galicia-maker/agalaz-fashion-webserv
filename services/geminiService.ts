@@ -3,30 +3,24 @@ import { GoogleGenAI, type Chat } from "@google/genai";
 const API_KEY = process.env.GEMINI_API_KEY || '';
 
 const SYSTEM_INSTRUCTION = `
-Eres Agalaz v7.0 "Precision Component Engine". Tu especialidad es la edición quirúrgica de moda.
+You are Agalaz v7.0 "Precision Component Engine". Your specialty is surgical fashion editing.
 
-REGLAS DE PRESERVACIÓN ESTRICTA:
-1. BASE INAMOVIBLE (Img 2): Esta es tu estructura maestra. NO cambies los pantalones, zapatos, fondo, cabello ni la pose. Si el usuario lleva pantalones cortos en Img 2, DEBEN seguir siendo pantalones cortos.
-2. MAPEO FACIAL (Img 1): Proyecta la identidad facial de Img 1 sobre la cabeza de Img 2. El cuello y la línea de la mandíbula de Img 2 deben mantenerse para una transición natural. Evita el efecto de "máscara superpuesta".
-3. REEMPLAZO DE TORSO (Img 3): Sustituye ÚNICAMENTE la prenda superior (camiseta/chaqueta) de Img 2 por el estilo y color de Img 3.
-4. COHERENCIA FOTOGRÁFICA: El resultado final debe conservar el grano, la resolución y la iluminación exacta de la foto original del cuerpo (Img 2).
-5. TEXTO: Responde con elegancia técnica en menos de 8 palabras.
+STRICT PRESERVATION RULES:
+1. IMMUTABLE BASE (Img 2): This is your master structure. DO NOT change pants, shoes, background, hair, or pose. If the user wears shorts in Img 2, they MUST remain shorts.
+2. FACIAL MAPPING (Img 1): Project the facial identity from Img 1 onto the head of Img 2. The neck and jawline of Img 2 must be maintained for a natural transition. Avoid the "overlaid mask" effect.
+3. TORSO REPLACEMENT (Img 3): Replace ONLY the upper garment (shirt/jacket) of Img 2 with the style and color from Img 3.
+4. PHOTOGRAPHIC COHERENCE: The final result must preserve the grain, resolution, and exact lighting of the original body photo (Img 2).
+5. TEXT: Respond with technical elegance in fewer than 8 words.
 `;
-
-type TryOnResult = { image: string; error?: undefined } | { image?: undefined; error: string };
 
 export async function generateTryOnImage(
   faceImage: string,
   bodyImage: string,
-  clothingImage: string,
+  clothingImage?: string,
   modificationPrompt?: string,
   lastRenderedImage?: string
-): Promise<TryOnResult> {
+): Promise<string | null> {
   try {
-    if (!API_KEY) {
-      return { error: 'GEMINI_API_KEY no configurada en el servidor.' };
-    }
-
     const ai = new GoogleGenAI({ apiKey: API_KEY });
 
     const parts: any[] = [
@@ -44,57 +38,87 @@ export async function generateTryOnImage(
     }
 
     const hasGarment = !!clothingImage;
-    const imgIdx = { garment: hasGarment ? 3 : null, lastRender: hasGarment ? (lastRenderedImage ? 4 : null) : (lastRenderedImage ? 3 : null) };
+    const lastImgLabel = hasGarment
+      ? (lastRenderedImage ? 'IMG 4' : null)
+      : (lastRenderedImage ? 'IMG 3' : null);
 
-    const promptBase = `STRICT EDITORIAL COMPOSITING & CONSISTENCY:
-    - IDENTITY (IMG 1): Source for the face.
-    - STRUCTURE (IMG 2): Source for the body pose, background, and environment.
-    ${hasGarment ? `- GARMENT (IMG 3): Source for the top clothing.` : ''}
-    ${imgIdx.lastRender ? `- CURRENT STATE (IMG ${imgIdx.lastRender}): This is the PREVIOUS RENDER. You MUST use this as your absolute reference for composition. Do NOT change the background, lighting, pose, or body shape from IMG ${imgIdx.lastRender}.` : ''}
+    const promptBase = hasGarment
+      ? `STRICT EDITORIAL COMPOSITING & CONSISTENCY:
+    - IDENTITY (IMG 1): Source for the face. THE PERSON IN THE FINAL IMAGE MUST BE THE SAME PERSON AS IMG 1. Use their exact facial features, skin tone, hair color, and facial structure.
+    - STRUCTURE (IMG 2): Source for the body pose, background, and environment. Full-body photo from head to feet.
+    - GARMENT (IMG 3): Source for the top clothing only.
+    ${lastImgLabel ? `- CURRENT STATE (${lastImgLabel}): This is the PREVIOUS RENDER. Use as base and apply ONLY the requested change. The face MUST still match IMG 1.` : ''}
 
-    CRITICAL TASK: ${modificationPrompt ? `Modify the image according to: "${modificationPrompt}". Start from ${imgIdx.lastRender ? `IMG ${imgIdx.lastRender}` : 'the composition'} and apply the change. Keep every other pixel as close to ${imgIdx.lastRender ? `IMG ${imgIdx.lastRender}` : 'the original body (IMG 2)'} as possible.` : hasGarment ? "Seamlessly integrate the face (IMG 1) and the top garment (IMG 3) onto the body (IMG 2)." : "Seamlessly integrate the face (IMG 1) onto the body (IMG 2), preserving the original outfit completely."}
+    CRITICAL TASK: ${modificationPrompt ? `Modify the image according to: "${modificationPrompt}". Start from ${lastImgLabel || 'the composition'} and apply ONLY this change. The face MUST remain identical to IMG 1. Keep every other pixel unchanged.` : "Seamlessly integrate the face (IMG 1) and the top garment (IMG 3) onto the body (IMG 2)."}
 
-    REGLAS DE ORO:
-    1. PRESERVACIÓN: Los pantalones, zapatos y fondo de IMG 2${imgIdx.lastRender ? ` (o IMG ${imgIdx.lastRender} si existe)` : ''} son SAGRADOS. No los alteres a menos que se pida.
-    ${imgIdx.lastRender ? `2. CONSISTENCIA: El resultado debe ser un gemelo visual de IMG ${imgIdx.lastRender} con el cambio solicitado.` : ''}
-    3. REALISMO: Sombras y luces deben coincidir perfectamente.
+    ABSOLUTE RULES:
+    1. FACE IDENTITY: The face in the output MUST be the EXACT same person as IMG 1. Never generate a different person.
+    2. PRESERVATION: Pants, shoes, and background from IMG 2 are SACRED. Do not alter unless asked.
+    3. CONSISTENCY: If ${lastImgLabel || 'a previous render'} exists, change ONLY what was requested. Keep the same person.
+    4. REALISM: Shadows and lighting must match perfectly.
+
+    QUALITY: 8k, photorealistic, perfect skin blending, no anatomical distortions.`
+      : `FACE SWAP & BODY PRESERVATION:
+    - IDENTITY (IMG 1): Source for the face. THE OUTPUT MUST SHOW THE EXACT SAME PERSON AS IMG 1. Use their exact facial features, skin tone, hair color, and facial structure.
+    - STRUCTURE (IMG 2): Source for the body, clothing, pose, background, and environment. Full-body photo from head to feet.
+    ${lastImgLabel ? `- CURRENT STATE (${lastImgLabel}): This is the PREVIOUS RENDER. Use as base and apply ONLY the requested change. The face MUST still match IMG 1.` : ''}
+
+    CRITICAL TASK: ${modificationPrompt ? `Modify the image according to: "${modificationPrompt}". The face MUST remain identical to IMG 1. Keep every other pixel as close to ${lastImgLabel || 'IMG 2'} as possible.` : "Seamlessly map the face from IMG 1 onto the body in IMG 2. Keep the ENTIRE outfit, pose, background, and body proportions from IMG 2 completely unchanged."}
+
+    ABSOLUTE RULES:
+    1. FACE IDENTITY: The face in the output MUST be the EXACT same person as IMG 1. Never generate a different person.
+    2. PRESERVATION: ALL clothing, shoes, accessories, and background from IMG 2 are SACRED.
+    3. REALISM: Skin tone blending, lighting, and shadows must match perfectly.
 
     QUALITY: 8k, photorealistic, perfect skin blending, no anatomical distortions.`;
 
-    parts.push({ text: promptBase });
+    parts.push({ text: promptBase + "\n\nIMPORTANT: You MUST output a generated image. Do NOT respond with text only. Generate the composite image now." });
 
     const response = await ai.models.generateContent({
-      model: 'gemini-3.1-flash-image-preview',
+      model: 'gemini-2.5-flash-image',
       contents: { parts },
       config: {
         responseModalities: ["TEXT", "IMAGE"],
       },
     });
 
-    if (response.candidates?.[0]?.content?.parts) {
-      for (const part of response.candidates[0].content.parts) {
-        if ((part as any).inlineData?.data) {
-          return { image: `data:image/png;base64,${(part as any).inlineData.data}` };
-        }
+    // Log full response structure for debugging
+    const candidate = response.candidates?.[0];
+    const responseParts = candidate?.content?.parts || [];
+    console.log("Gemini response - finishReason:", candidate?.finishReason, "parts count:", responseParts.length);
+
+    for (const part of responseParts) {
+      if ((part as any).inlineData?.data) {
+        console.log("Image found in response, size:", (part as any).inlineData.data.length);
+        return `data:image/png;base64,${(part as any).inlineData.data}`;
+      }
+      if ((part as any).text) {
+        console.log("Text part:", (part as any).text.substring(0, 200));
       }
     }
 
-    const finishReason = response.candidates?.[0]?.finishReason;
-    console.error('Gemini no devolvió imagen. finishReason:', finishReason);
-    if (finishReason === 'SAFETY') {
-      return { error: 'La imagen fue bloqueada por filtros de seguridad. Intenta con otra foto.' };
+    const finishReason = candidate?.finishReason;
+    if (finishReason && finishReason !== 'STOP') {
+      console.error("Generation blocked, reason:", finishReason);
+    } else {
+      console.error("No image in response. Full response:", JSON.stringify(response).substring(0, 500));
     }
-    return { error: 'Gemini no generó imagen. Intenta con fotos frontales bien iluminadas.' };
+
+    return null;
   } catch (error: any) {
-    console.error("Error en renderizado de precisión:", error);
-    const msg = error?.message || String(error);
-    if (msg.includes('quota') || msg.includes('429')) {
-      return { error: 'Límite de API alcanzado. Espera unos minutos e intenta de nuevo.' };
+    const status = error?.status || error?.code;
+    const message = error?.message || '';
+
+    if (status === 429) {
+      console.error("Rate limit exceeded.");
+    } else if (status === 400 && message.includes('response modalities')) {
+      console.error("Model does not support image generation. Check model name.");
+    } else if (message.includes('SAFETY')) {
+      console.error("Content blocked by safety filters.");
+    } else {
+      console.error("Precision rendering error:", status, message || error);
     }
-    if (msg.includes('too large') || msg.includes('payload')) {
-      return { error: 'Imágenes demasiado grandes incluso tras compresión.' };
-    }
-    return { error: `Error del motor IA: ${msg.slice(0, 120)}` };
+    return null;
   }
 }
 

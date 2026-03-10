@@ -1,25 +1,18 @@
 'use client';
 
-import { useLanguage } from './LanguageProvider';
-import { Globe } from 'lucide-react';
+import { useLang } from './LanguageProvider';
 
-export function LanguageToggle({ variant = 'dark' }: { variant?: 'dark' | 'light' }) {
-  const { locale, setLocale } = useLanguage();
-
-  const toggle = () => setLocale(locale === 'es' ? 'en' : 'es');
+export function LanguageToggle({ className = '' }: { className?: string }) {
+  const { lang, setLang } = useLang();
 
   return (
     <button
-      onClick={toggle}
-      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-colors cursor-pointer ${
-        variant === 'dark'
-          ? 'bg-white/10 text-white/60 hover:bg-white/20 hover:text-white border border-white/10'
-          : 'bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-700'
-      }`}
-      aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a Espanol'}
+      onClick={() => setLang(lang === 'en' ? 'es' : 'en')}
+      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 hover:bg-white/20 transition-all text-xs font-bold tracking-wide ${className}`}
     >
-      <Globe size={12} />
-      {locale === 'es' ? 'EN' : 'ES'}
+      <span className={lang === 'en' ? 'opacity-100' : 'opacity-40'}>EN</span>
+      <span className="text-white/20">|</span>
+      <span className={lang === 'es' ? 'opacity-100' : 'opacity-40'}>ES</span>
     </button>
   );
 }

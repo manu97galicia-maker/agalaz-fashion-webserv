@@ -1,70 +1,61 @@
-import type { Metadata } from 'next';
-import Script from 'next/script';
-import { cookies } from 'next/headers';
+import type { Metadata, Viewport } from 'next';
 import { LanguageProvider } from '@/components/LanguageProvider';
-import type { Locale } from '@/lib/i18n/dictionaries';
 import './globals.css';
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+  themeColor: '#000000',
+};
+
 export const metadata: Metadata = {
-  title: 'Agalaz — Probador Virtual de Ropa con IA | AI Virtual Try-On',
+  title: 'Agalaz Fashion — Virtual Try-On',
   description:
-    'El probador virtual #1 con inteligencia artificial. Sube tu foto, elige cualquier prenda, color o talla y ve como te queda en tu cuerpo real. Fotorrealista e instantaneo. The #1 AI virtual try-on.',
+    'Upload your photo, pick any clothing and see how it looks on you instantly. AI-powered virtual try-on that respects your real body.',
   keywords: [
     'virtual try-on',
-    'probador virtual',
+    'AI fashion',
+    'try before you buy',
+    'clothing AI',
+    'Agalaz Fashion',
     'prueba de ropa virtual',
-    'inteligencia artificial moda',
-    'AI fashion try-on',
-    'probador de ropa IA',
-    'Agalaz',
-    'try on clothes online',
-    'virtual fitting room',
-    'prueba ropa online',
-    'ver como me queda la ropa',
-    'AI clothing try-on',
   ],
-  metadataBase: new URL('https://agalaz.com'),
-  alternates: {
-    canonical: '/',
-    languages: { 'es': '/', 'en': '/' },
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Agalaz',
   },
   openGraph: {
-    title: 'Agalaz — Probador Virtual de Ropa con IA',
-    description:
-      'Prueba cualquier prenda antes de comprar. Ve como te queda en tu cuerpo real con IA. Cualquier color, cualquier talla, cualquier prenda.',
+    title: 'Agalaz Fashion — Virtual Try-On',
+    description: 'Try any clothing before you buy. AI that respects your real body.',
     type: 'website',
-    locale: 'es_ES',
-    alternateLocale: 'en_US',
-    siteName: 'Agalaz',
-    url: 'https://agalaz.com',
+    siteName: 'Agalaz Fashion',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Agalaz — Probador Virtual de Ropa con IA',
-    description:
-      'Prueba cualquier prenda antes de comprar. Tu cuerpo real, tu rostro, tu nuevo look. Fotorrealista e instantaneo.',
+    title: 'Agalaz Fashion — Virtual Try-On',
+    description: 'Try any clothing before you buy. AI that respects your real body.',
   },
   robots: { index: true, follow: true },
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const cookieStore = await cookies();
-  const langCookie = cookieStore.get('agalaz-lang')?.value;
-  const locale: Locale = langCookie === 'en' || langCookie === 'es' ? langCookie : 'es';
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={locale}>
-      <body className="bg-[#0a0a0a] text-white antialiased">
-        <LanguageProvider initialLocale={locale}>
+    <html lang="en" className="dark">
+      <head>
+        <link rel="apple-touch-icon" href="/icon-192.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Agalaz" />
+      </head>
+      <body className="bg-black text-white antialiased overscroll-none">
+        <LanguageProvider>
           {children}
         </LanguageProvider>
-        <Script
-          defer
-          data-website-id="dfid_pvOMR9IXJLNYSqjS8MdsB"
-          data-domain="agalaz.com"
-          src="https://datafa.st/js/script.js"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );
