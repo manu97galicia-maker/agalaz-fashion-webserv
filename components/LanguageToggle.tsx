@@ -8,11 +8,11 @@ export function LanguageToggle({ className = '' }: { className?: string }) {
   return (
     <button
       onClick={() => setLang(lang === 'en' ? 'es' : 'en')}
-      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 hover:bg-white/20 transition-all text-xs font-bold tracking-wide ${className}`}
+      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 hover:bg-slate-50 transition-all text-xs font-bold tracking-wide text-slate-500 ${className}`}
     >
-      <span className={lang === 'en' ? 'opacity-100' : 'opacity-40'}>EN</span>
-      <span className="text-white/20">|</span>
-      <span className={lang === 'es' ? 'opacity-100' : 'opacity-40'}>ES</span>
+      <span className={lang === 'en' ? 'text-slate-900' : 'text-slate-300'}>EN</span>
+      <span className="text-slate-200">|</span>
+      <span className={lang === 'es' ? 'text-slate-900' : 'text-slate-300'}>ES</span>
     </button>
   );
 }

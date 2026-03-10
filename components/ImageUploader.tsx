@@ -40,16 +40,16 @@ export function ImageUploader({ label, type, image, onImageSelect, icon }: Image
 
   return (
     <div className="flex flex-col gap-1.5 w-full">
-      <span className="text-[9px] font-black text-white/25 uppercase tracking-widest px-1">
+      <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-1">
         {label}
       </span>
       <div
-        className={`relative w-full rounded-2xl overflow-hidden transition-all ${
+        className={`relative w-full rounded-xl overflow-hidden transition-all ${
           image
-            ? 'ring-2 ring-indigo-500/30'
+            ? 'ring-2 ring-indigo-200'
             : isDragging
-            ? 'ring-2 ring-indigo-500/50 bg-indigo-500/5'
-            : 'glass'
+            ? 'ring-2 ring-indigo-300 bg-indigo-50'
+            : 'border-2 border-dashed border-slate-200 bg-slate-50'
         }`}
         style={{ aspectRatio: '3 / 4' }}
         onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
@@ -63,43 +63,40 @@ export function ImageUploader({ label, type, image, onImageSelect, icon }: Image
               alt={label}
               className="w-full h-full object-cover"
             />
-            {/* Success indicator */}
-            <div className="absolute top-2 left-2 bg-emerald-500/90 rounded-full p-1">
+            <div className="absolute top-2 left-2 bg-emerald-500 rounded-full p-1 shadow-sm">
               <Check size={12} className="text-white" />
             </div>
-            {/* Remove button */}
             <button
               onClick={() => onImageSelect(null)}
-              className="absolute top-2 right-2 p-1.5 bg-black/60 backdrop-blur-sm rounded-full hover:bg-black/80 transition-colors press-scale"
+              className="absolute top-2 right-2 p-1.5 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition-colors shadow-sm"
             >
-              <X size={14} className="text-white" />
+              <X size={14} className="text-slate-500" />
             </button>
-            {/* Tap to change overlay */}
             <button
               onClick={() => inputRef.current?.click()}
-              className="absolute inset-0 bg-black/0 hover:bg-black/30 transition-all flex items-center justify-center opacity-0 hover:opacity-100"
+              className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-all flex items-center justify-center opacity-0 hover:opacity-100"
             >
-              <div className="glass-dark px-3 py-2 rounded-full">
-                <span className="text-[9px] font-black text-white/80 uppercase tracking-widest">Change</span>
+              <div className="bg-white/90 backdrop-blur-sm px-3 py-2 rounded-full shadow-sm">
+                <span className="text-[9px] font-black text-slate-700 uppercase tracking-widest">Change</span>
               </div>
             </button>
           </div>
         ) : (
           <button
             onClick={() => inputRef.current?.click()}
-            className="flex flex-col items-center justify-center w-full h-full p-4 hover:bg-white/[0.03] transition-all press-scale"
+            className="flex flex-col items-center justify-center w-full h-full p-4 hover:bg-indigo-50/50 transition-all"
           >
-            <div className="p-3 glass rounded-2xl mb-3">
+            <div className="p-3 bg-white border border-slate-200 rounded-xl mb-3 shadow-sm">
               {icon || (type === 'user' ? (
-                <Camera size={20} className="text-white/30" />
+                <Camera size={20} className="text-slate-300" />
               ) : (
-                <Shirt size={20} className="text-white/30" />
+                <Shirt size={20} className="text-slate-300" />
               ))}
             </div>
-            <span className="text-[9px] font-black uppercase tracking-widest text-white/20">
-              {type === 'user' ? 'Upload' : 'Upload'}
+            <span className="text-[9px] font-black uppercase tracking-widest text-slate-300">
+              Upload
             </span>
-            <ImagePlus size={12} className="text-white/10 mt-2" />
+            <ImagePlus size={12} className="text-slate-200 mt-2" />
           </button>
         )}
       </div>
