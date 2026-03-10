@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Left branch stem -->
+  <path d="M30 58 Q20 42, 14 28 Q8 14, 16 4" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  <!-- Left leaves -->
+  <ellipse cx="14" cy="10" rx="5" ry="3" transform="rotate(-50 14 10)" fill="#1e293b"/>
+  <ellipse cx="12" cy="16" rx="5" ry="3" transform="rotate(-40 12 16)" fill="#1e293b"/>
+  <ellipse cx="11" cy="22" rx="5" ry="3" transform="rotate(-30 11 22)" fill="#1e293b"/>
+  <ellipse cx="12" cy="28" rx="5" ry="3" transform="rotate(-20 12 28)" fill="#1e293b"/>
+  <ellipse cx="14" cy="34" rx="5" ry="3" transform="rotate(-10 14 34)" fill="#1e293b"/>
+  <ellipse cx="17" cy="39" rx="5" ry="3" transform="rotate(0 17 39)" fill="#1e293b"/>
+  <ellipse cx="20" cy="44" rx="5" ry="3" transform="rotate(10 20 44)" fill="#1e293b"/>
+  <ellipse cx="24" cy="48" rx="5" ry="3" transform="rotate(20 24 48)" fill="#1e293b"/>
+  <ellipse cx="27" cy="52" rx="4" ry="2.5" transform="rotate(30 27 52)" fill="#1e293b"/>
+  <!-- Right branch stem -->
+  <path d="M34 58 Q44 42, 50 28 Q56 14, 48 4" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  <!-- Right leaves -->
+  <ellipse cx="50" cy="10" rx="5" ry="3" transform="rotate(50 50 10)" fill="#1e293b"/>
+  <ellipse cx="52" cy="16" rx="5" ry="3" transform="rotate(40 52 16)" fill="#1e293b"/>
+  <ellipse cx="53" cy="22" rx="5" ry="3" transform="rotate(30 53 22)" fill="#1e293b"/>
+  <ellipse cx="52" cy="28" rx="5" ry="3" transform="rotate(20 52 28)" fill="#1e293b"/>
+  <ellipse cx="50" cy="34" rx="5" ry="3" transform="rotate(10 50 34)" fill="#1e293b"/>
+  <ellipse cx="47" cy="39" rx="5" ry="3" transform="rotate(0 47 39)" fill="#1e293b"/>
+  <ellipse cx="44" cy="44" rx="5" ry="3" transform="rotate(-10 44 44)" fill="#1e293b"/>
+  <ellipse cx="40" cy="48" rx="5" ry="3" transform="rotate(-20 40 48)" fill="#1e293b"/>
+  <ellipse cx="37" cy="52" rx="4" ry="2.5" transform="rotate(-30 37 52)" fill="#1e293b"/>
+</svg>
