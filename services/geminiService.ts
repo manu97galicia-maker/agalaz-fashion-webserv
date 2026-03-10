@@ -75,7 +75,7 @@ export async function generateTryOnImage(
     parts.push({ text: promptBase + "\n\nIMPORTANT: You MUST output a generated image. Do NOT respond with text only. Generate the composite image now." });
 
     const response = await ai.models.generateContent({
-      model: 'gemini-3.1-flash-image',
+      model: 'gemini-3.1-flash-image-preview',
       contents: { parts },
       config: {
         responseModalities: ["TEXT", "IMAGE"],
@@ -125,7 +125,7 @@ export async function generateTryOnImage(
 export function createFashionChat(history: any[]): Chat {
   const ai = new GoogleGenAI({ apiKey: API_KEY });
   return ai.chats.create({
-    model: 'gemini-3.1-flash',
+    model: 'gemini-2.5-flash',
     config: { systemInstruction: SYSTEM_INSTRUCTION },
     history,
   });
