@@ -9,8 +9,11 @@ const blogSlugs = [
   'online-shopping-mistakes-that-lead-to-returns',
   'what-to-wear-to-a-job-interview-2026',
   'best-colors-to-wear-for-your-skin-tone',
-  'how-to-style-oversized-clothes',
-  'capsule-wardrobe-2026',
+  'how-to-style-oversized-clothes-without-looking-sloppy',
+  'capsule-wardrobe-guide-30-outfits-15-pieces',
+  'barrel-leg-jeans-styling-guide',
+  'digital-nomad-corporate-crease-free-office-wear',
+  'jellyfish-silhouette-styling-guide',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
