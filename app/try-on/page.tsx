@@ -22,7 +22,7 @@ import {
   ImagePlus,
 } from 'lucide-react';
 import { ImageUploader } from '@/components/ImageUploader';
-import { onAuthStateChange, type AppUser } from '@/services/authService';
+import { onAuthStateChange, signInWithGoogle, type AppUser } from '@/services/authService';
 import { Role, type ChatMessage } from '@/types';
 import { useLang } from '@/components/LanguageProvider';
 
@@ -43,6 +43,7 @@ export default function TryOnPage() {
   const [renderCount, setRenderCount] = useState(0);
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
   const [chatAttachment, setChatAttachment] = useState<string | null>(null);
+  const [showLogin, setShowLogin] = useState(false);
   const chatFileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -90,6 +91,10 @@ export default function TryOnPage() {
   const handleStartAnalysis = async () => {
     if (!faceImage || !bodyImage) {
       setError(t.missingPhotos);
+      return;
+    }
+    if (!user) {
+      setShowLogin(true);
       return;
     }
     if (renderCount >= 10) {
@@ -611,6 +616,47 @@ export default function TryOnPage() {
       </div>
 
       {/* Fullscreen Image Overlay */}
+      {/* Login Modal */}
+      {showLogin && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center animate-fade-in" onClick={() => setShowLogin(false)}>
+          <div className="glass mx-6 p-8 rounded-3xl max-w-sm w-full text-center space-y-6 animate-fade-in-up" onClick={(e) => e.stopPropagation()}>
+            <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center mx-auto shadow-2xl shadow-indigo-500/30">
+              <span className="text-white font-black text-3xl italic">A</span>
+            </div>
+            <div>
+              <h3 className="text-xl font-black text-white tracking-tight">
+                {lang === 'es' ? 'Inicia sesión para continuar' : 'Sign in to continue'}
+              </h3>
+              <p className="text-white/40 text-sm mt-2">
+                {lang === 'es' ? 'Necesitas una cuenta para usar el probador virtual' : 'You need an account to use the virtual try-on'}
+              </p>
+            </div>
+            <button
+              onClick={async () => {
+                try { await signInWithGoogle(); } catch {}
+              }}
+              className="w-full py-4 bg-white rounded-2xl flex items-center justify-center gap-3 hover:bg-white/90 transition-colors press-scale"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              <span className="font-black text-sm text-slate-900">
+                {lang === 'es' ? 'Continuar con Google' : 'Continue with Google'}
+              </span>
+            </button>
+            <button
+              onClick={() => setShowLogin(false)}
+              className="text-white/30 text-xs font-bold hover:text-white/50 transition-colors"
+            >
+              {lang === 'es' ? 'Cancelar' : 'Cancel'}
+            </button>
+          </div>
+        </div>
+      )}
+
       {fullscreenImage && (
         <div
           className="fixed inset-0 bg-black z-50 flex items-center justify-center animate-fade-in-scale"
