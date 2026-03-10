@@ -3,10 +3,9 @@ import Stripe from 'stripe';
 import { createAdminClient } from '@/lib/supabaseAdmin';
 import { PLAN_CREDITS, CREDITS_RESET_DAYS, REFERRAL_BONUS_WEEKLY, REFERRAL_BONUS_YEARLY } from '@/lib/subscription';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
-
 export async function POST(req: NextRequest) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
   const body = await req.text();
   const sig = req.headers.get('stripe-signature')!;
 
