@@ -29,8 +29,24 @@ export default function ArticlePage() {
 
   const content = en ? article.content : article.contentEs;
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: en ? article.title : article.titleEs,
+    description: en ? article.description : article.descriptionEs,
+    datePublished: article.date,
+    dateModified: article.date,
+    author: { '@type': 'Organization', name: 'Agalaz Fashion', url: 'https://agalaz.com' },
+    publisher: { '@type': 'Organization', name: 'Agalaz Fashion', url: 'https://agalaz.com' },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `https://agalaz.com/blog/${article.slug}` },
+    inLanguage: en ? 'en-US' : 'es-ES',
+    keywords: article.keyword,
+    wordCount: content.split(/\s+/).length,
+  };
+
   return (
     <main className="min-h-screen bg-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       {/* Nav */}
       <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">

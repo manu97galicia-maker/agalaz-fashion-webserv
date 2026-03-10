@@ -7,6 +7,10 @@ const blogSlugs = [
   'best-way-to-try-on-clothes-online-with-ai',
   'how-to-dress-for-your-body-type-without-a-stylist',
   'online-shopping-mistakes-that-lead-to-returns',
+  'what-to-wear-to-a-job-interview-2026',
+  'best-colors-to-wear-for-your-skin-tone',
+  'how-to-style-oversized-clothes',
+  'capsule-wardrobe-2026',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

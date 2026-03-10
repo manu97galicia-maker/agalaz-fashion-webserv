@@ -9,6 +9,8 @@ export interface Article {
   date: string;
   content: string;
   contentEs: string;
+  category?: string;
+  categoryEs?: string;
 }
 
 export const articles: Article[] = [
@@ -651,5 +653,495 @@ Las estrellas solas no dicen nada sobre el ajuste. Una camisa de 4.5 estrellas p
 ## Rompe el Ciclo
 
 Prueba antes de comprar — virtualmente.`,
+  },
+  {
+    slug: 'what-to-wear-to-a-job-interview-2026',
+    title: 'What to Wear to a Job Interview in 2026: Complete Guide by Industry',
+    titleEs: 'Qué Ponerte Para Una Entrevista de Trabajo en 2026: Guía Completa por Industria',
+    description: 'Not sure what to wear to your interview? This guide covers exact outfit formulas for tech, finance, creative, and remote interviews — plus how to preview outfits with AI.',
+    descriptionEs: 'No sabes qué ponerte para tu entrevista? Esta guía cubre fórmulas de outfit exactas para tech, finanzas, creatividad y entrevistas remotas — además de cómo previsualizar outfits con IA.',
+    keyword: 'what to wear to a job interview, interview outfit ideas, job interview clothes',
+    readTime: 7,
+    date: '2026-03-05',
+    category: 'Style Guide',
+    categoryEs: 'Guía de Estilo',
+    content: `Your outfit speaks before you do. In a job interview, **55% of the first impression is visual** — and you have about 7 seconds to make it count.
+
+But here's the problem: dress codes vary wildly by industry, and getting it wrong can cost you the offer.
+
+## The Golden Rule: Dress One Level Up
+
+Whatever the company's daily dress code is, go one level above for the interview.
+
+- Company wears **jeans and t-shirts**? → You wear **smart casual** (chinos + button-down)
+- Company wears **smart casual**? → You wear **business casual** (blazer + dress pants)
+- Company wears **suits**? → You wear a **well-fitted suit** with a tie
+
+## Tech & Startup Interviews
+
+The tech world is notoriously casual — but that doesn't mean show up in a hoodie.
+
+**Men:** Dark jeans or chinos, clean sneakers or loafers, a well-fitted button-down or henley. Optional: a lightweight blazer.
+
+**Women:** Tailored pants or a midi skirt, a blouse or structured top, clean flats or ankle boots. Optional: a blazer.
+
+**Avoid:** Suits (you'll look out of place), graphic tees, anything too flashy.
+
+## Finance & Law Interviews
+
+Conservative and polished is the way.
+
+**Men:** Navy or charcoal suit, white or light blue dress shirt, solid tie, leather oxfords. Belt matches shoes.
+
+**Women:** Tailored suit (pants or skirt), neutral blouse, closed-toe heels or flats, minimal jewelry.
+
+**Avoid:** Bright colors, statement accessories, anything too trendy.
+
+## Creative Industry (Design, Marketing, Media)
+
+Show your personality — within reason.
+
+**Men:** Smart casual with a twist. Dark jeans, a interesting shirt, clean sneakers. Show you understand aesthetics.
+
+**Women:** More room for expression. A statement piece (interesting earrings, a bold color) paired with polished basics.
+
+**Avoid:** Looking like you didn't try, or looking like you tried too hard.
+
+## Remote / Video Interview
+
+Yes, your outfit matters even on Zoom.
+
+- Wear a **complete outfit** (not just the top half — you might need to stand up)
+- Solid colors work best on camera (avoid small patterns that create visual noise)
+- Avoid pure white (it reflects too much light) — go for cream, light blue, or soft pink
+- Ensure contrast between your top and your background
+
+## The AI Advantage: Preview Before You Commit
+
+Not sure if that blazer works with those pants? **Use AI virtual try-on** to see the combination on your actual body before interview day.
+
+Upload your photo, try different outfit combinations, and walk into that interview with complete confidence.
+
+## Quick Checklist
+
+- Clothes are **clean, pressed, and fit well**
+- Shoes are clean and appropriate
+- Minimal cologne/perfume
+- Grooming is neat
+- You feel **confident** in what you're wearing
+
+The best interview outfit is one where you forget about your clothes entirely — because you already know you look right.`,
+    contentEs: `Tu outfit habla antes que tú. En una entrevista de trabajo, **el 55% de la primera impresión es visual** — y tienes unos 7 segundos para causar impacto.
+
+Pero el problema es que los códigos de vestimenta varían enormemente por industria, y equivocarte puede costarte la oferta.
+
+## La Regla de Oro: Viste Un Nivel Por Encima
+
+Sea cual sea el código de vestimenta diario de la empresa, ve un nivel por encima para la entrevista.
+
+- La empresa usa **jeans y camisetas**? → Tú usa **smart casual** (chinos + camisa)
+- La empresa usa **smart casual**? → Tú usa **business casual** (blazer + pantalón de vestir)
+- La empresa usa **traje**? → Tú usa un **traje bien ajustado** con corbata
+
+## Entrevistas en Tech & Startups
+
+El mundo tech es notoriamente casual — pero eso no significa aparecer en sudadera.
+
+**Hombres:** Jeans oscuros o chinos, zapatillas limpias o mocasines, camisa bien ajustada o henley. Opcional: blazer ligero.
+
+**Mujeres:** Pantalón tailored o falda midi, blusa o top estructurado, flats limpios o botines. Opcional: blazer.
+
+**Evita:** Trajes (parecerás fuera de lugar), camisetas gráficas, nada demasiado llamativo.
+
+## Entrevistas en Finanzas & Legal
+
+Conservador y pulido es el camino.
+
+**Hombres:** Traje azul marino o gris carbón, camisa blanca o azul claro, corbata sólida, zapatos oxford de cuero.
+
+**Mujeres:** Traje tailored (pantalón o falda), blusa neutra, zapatos cerrados, joyería mínima.
+
+## Entrevista Remota / Video
+
+Sí, tu outfit importa incluso en Zoom.
+
+- Usa un **outfit completo** (no solo la parte de arriba)
+- Colores sólidos funcionan mejor en cámara
+- Evita el blanco puro — opta por crema, azul claro o rosa suave
+- Asegura contraste entre tu ropa y tu fondo
+
+## La Ventaja de la IA
+
+No estás seguro si ese blazer funciona con esos pantalones? **Usa prueba virtual con IA** para ver la combinación en tu cuerpo real antes del día de la entrevista.
+
+El mejor outfit de entrevista es aquel donde te olvidas de tu ropa — porque ya sabes que te ves bien.`,
+  },
+  {
+    slug: 'best-colors-to-wear-for-your-skin-tone',
+    title: 'Best Colors to Wear for Your Skin Tone: A Visual Guide',
+    titleEs: 'Los Mejores Colores Para Tu Tono de Piel: Guía Visual',
+    description: 'Discover which clothing colors make you look vibrant vs washed out. Learn the warm/cool/neutral system and find your perfect palette — then preview with AI.',
+    descriptionEs: 'Descubre qué colores de ropa te hacen ver vibrante vs apagado. Aprende el sistema cálido/frío/neutro y encuentra tu paleta perfecta.',
+    keyword: 'best colors for skin tone, what colors look good on me, clothing colors for warm skin tone, cool skin tone colors',
+    readTime: 6,
+    date: '2026-03-06',
+    category: 'Color Theory',
+    categoryEs: 'Teoría del Color',
+    content: `Ever notice how some colors make you look **alive and radiant**, while others make you look tired — even when you feel great?
+
+It's not random. It's color theory applied to your unique skin tone.
+
+## Step 1: Determine Your Undertone
+
+Your undertone is the subtle color beneath your skin's surface. There are three types:
+
+**Warm undertone:** Your veins appear greenish. Gold jewelry looks better than silver. You tan easily.
+
+**Cool undertone:** Your veins appear blue or purple. Silver jewelry looks better than gold. You burn easily.
+
+**Neutral undertone:** Your veins appear blue-green. Both gold and silver look good. Lucky you.
+
+## Best Colors for Warm Undertones
+
+You look amazing in earth tones and warm hues:
+
+- **Reds:** Tomato red, coral, warm red
+- **Oranges:** Peach, burnt orange, terracotta
+- **Yellows:** Mustard, golden yellow, warm cream
+- **Greens:** Olive, moss, warm sage
+- **Browns:** Caramel, chocolate, tan
+- **Neutrals:** Cream, warm beige, off-white
+
+**Avoid:** Icy pastels, blue-based reds, stark white
+
+## Best Colors for Cool Undertones
+
+You shine in jewel tones and cool hues:
+
+- **Blues:** Navy, cobalt, powder blue, royal blue
+- **Purples:** Lavender, plum, violet, mauve
+- **Pinks:** Rose, fuchsia, raspberry, blush
+- **Greens:** Emerald, teal, mint
+- **Reds:** Berry, burgundy, wine, cherry
+- **Neutrals:** True white, charcoal, blue-gray
+
+**Avoid:** Orange, warm yellow, rust, tomato red
+
+## Best Colors for Neutral Undertones
+
+You can pull off almost anything, but you look *exceptional* in:
+
+- **Dusty colors:** Dusty rose, sage, muted teal
+- **Mid-tones:** Medium blues, soft greens, true red
+- **Jade green, soft white, blush pink**
+
+## The Black Test
+
+Black looks amazing on cool undertones but can wash out warm undertones. If black feels too harsh on you, try **charcoal or dark navy** instead.
+
+## Try Colors Virtually
+
+The fastest way to find your colors? **AI virtual try-on.** Upload your photo and try the same shirt in 10 different colors in seconds. No changing room needed.
+
+See which colors make your skin glow and which ones fall flat — on your actual face and body, not a generic model.
+
+## The 70-20-10 Rule
+
+Build outfits with:
+- **70%** base color (neutrals)
+- **20%** complementary color
+- **10%** accent color (your "pop")
+
+Knowing your best colors transforms your entire wardrobe. You'll stop buying things that "looked good online" but make you look tired in person.`,
+    contentEs: `Alguna vez notaste cómo algunos colores te hacen ver **radiante y vivo**, mientras otros te hacen ver cansado — incluso cuando te sientes genial?
+
+No es aleatorio. Es teoría del color aplicada a tu tono de piel único.
+
+## Paso 1: Determina Tu Subtono
+
+Tu subtono es el color sutil debajo de la superficie de tu piel:
+
+**Subtono cálido:** Tus venas se ven verdosas. El oro te queda mejor que la plata. Te bronceas fácilmente.
+
+**Subtono frío:** Tus venas se ven azules o moradas. La plata te queda mejor que el oro. Te quemas fácilmente.
+
+**Subtono neutro:** Tus venas se ven azul-verdosas. Tanto el oro como la plata te quedan bien.
+
+## Mejores Colores para Subtonos Cálidos
+
+Te ves increíble con tonos tierra y matices cálidos:
+
+- **Rojos:** Rojo tomate, coral, rojo cálido
+- **Naranjas:** Durazno, naranja quemado, terracota
+- **Amarillos:** Mostaza, dorado, crema cálido
+- **Verdes:** Oliva, musgo, salvia cálido
+- **Marrones:** Caramelo, chocolate, bronceado
+
+**Evita:** Pasteles helados, rojos azulados, blanco puro
+
+## Mejores Colores para Subtonos Fríos
+
+Brillas con tonos joya y matices fríos:
+
+- **Azules:** Marino, cobalto, azul royal
+- **Morados:** Lavanda, ciruela, violeta
+- **Rosas:** Rosa, fucsia, frambuesa
+- **Verdes:** Esmeralda, teal, menta
+- **Rojos:** Berry, borgoña, vino, cereza
+
+## Prueba Colores Virtualmente
+
+La forma más rápida de encontrar tus colores? **Prueba virtual con IA.** Sube tu foto y prueba la misma camisa en 10 colores diferentes en segundos.
+
+Conocer tus mejores colores transforma todo tu guardarropa.`,
+  },
+  {
+    slug: 'how-to-style-oversized-clothes-without-looking-sloppy',
+    title: 'How to Style Oversized Clothes Without Looking Sloppy (2026 Guide)',
+    titleEs: 'Cómo Combinar Ropa Oversize Sin Parecer Descuidado (Guía 2026)',
+    description: 'Oversized is in — but there is a fine line between effortlessly cool and just messy. Learn the proportions, tucking tricks, and styling rules that make oversized look intentional.',
+    descriptionEs: 'Lo oversize está de moda — pero hay una línea fina entre cool sin esfuerzo y simplemente desordenado. Aprende las proporciones y trucos de styling.',
+    keyword: 'how to style oversized clothes, oversized outfit ideas, baggy clothes styling tips 2026',
+    readTime: 5,
+    date: '2026-03-07',
+    category: 'Styling Tips',
+    categoryEs: 'Tips de Estilo',
+    content: `Oversized fashion has gone from streetwear trend to **mainstream staple**. But the difference between "effortlessly cool" and "wearing your dad's clothes" comes down to a few key principles.
+
+## The #1 Rule: Balance Proportions
+
+**Never go oversized on both top and bottom.** Pick one:
+
+- **Oversized top + fitted bottom:** Baggy hoodie + slim jeans or leggings
+- **Fitted top + oversized bottom:** Crop top or tucked tee + wide-leg pants
+- **Oversized top + shorts:** Oversized tee + bike shorts (the model-off-duty look)
+
+## The Half-Tuck
+
+The simplest trick that changes everything. Tuck the front of your oversized shirt into your pants, leaving the back untucked.
+
+This creates a waistline, adds shape, and makes the oversized fit look **intentional rather than accidental**.
+
+## Cinch the Waist
+
+For oversized dresses or shirts, add a belt at the waist. This creates an hourglass silhouette from a boxy shape.
+
+**Belt options:**
+- Thin leather belt for subtle definition
+- Wide belt for a statement
+- Even tying the shirt in a knot at the waist works
+
+## Layer Strategically
+
+Layering is where oversized fashion gets **really** interesting:
+
+- Oversized blazer over a fitted turtleneck
+- Oversized cardigan with a belt
+- Oversized denim jacket over a midi dress
+
+The key: each layer should add structure, not bulk.
+
+## Shoes Matter More Than You Think
+
+With oversized silhouettes, your shoes anchor the whole outfit:
+
+- **Chunky sneakers** or platform shoes balance volume
+- **Pointed boots** add sharpness to soft, flowy shapes
+- **Heels** elevate any oversized look instantly
+- **Avoid:** Flat, thin sneakers (they make everything look bigger)
+
+## The "One Size Up" Rule
+
+True oversized style isn't about buying XXXL. It's about going **one to two sizes up** from your regular fit. This gives you the relaxed look without drowning in fabric.
+
+## Preview Before You Buy
+
+Not sure if that oversized blazer will look stylish or sloppy on *your* body? **AI virtual try-on** lets you see oversized pieces on your actual proportions before committing.
+
+Because oversized is all about how it drapes on YOUR body — and that's different for everyone.`,
+    contentEs: `La moda oversize ha pasado de tendencia streetwear a **básico mainstream**. Pero la diferencia entre "cool sin esfuerzo" y "vestido con la ropa de tu padre" se reduce a unos principios clave.
+
+## La Regla #1: Equilibrar Proporciones
+
+**Nunca uses oversize arriba y abajo.** Elige uno:
+
+- **Arriba oversize + abajo ajustado:** Sudadera baggy + jeans slim
+- **Arriba ajustado + abajo oversize:** Crop top + pantalón wide-leg
+- **Arriba oversize + shorts:** Camiseta oversize + bike shorts
+
+## El Semi-Tuck
+
+El truco más simple que cambia todo. Mete la parte frontal de tu camisa oversize en los pantalones, dejando la espalda suelta.
+
+Esto crea una cintura, añade forma, y hace que el oversize se vea **intencional en lugar de accidental**.
+
+## Ceñir la Cintura
+
+Para vestidos o camisas oversize, añade un cinturón en la cintura. Esto crea una silueta de reloj de arena desde una forma cuadrada.
+
+## Capas Estratégicas
+
+Las capas son donde la moda oversize se pone **realmente** interesante:
+
+- Blazer oversize sobre cuello alto ajustado
+- Cárdigan oversize con cinturón
+- Chaqueta denim oversize sobre vestido midi
+
+## Los Zapatos Importan Más De Lo Que Crees
+
+Con siluetas oversize, tus zapatos anclan todo el outfit:
+
+- **Sneakers chunky** o plataformas equilibran el volumen
+- **Botas puntiagudas** añaden nitidez
+- **Tacones** elevan cualquier look oversize al instante
+
+## Previsualiza Antes de Comprar
+
+No estás seguro si ese blazer oversize se verá con estilo o descuidado en *tu* cuerpo? **La prueba virtual con IA** te permite ver piezas oversize en tus proporciones reales antes de comprometerte.`,
+  },
+  {
+    slug: 'capsule-wardrobe-guide-30-outfits-15-pieces',
+    title: 'Capsule Wardrobe 2026: 30 Outfits From Just 15 Pieces',
+    titleEs: 'Armario Cápsula 2026: 30 Outfits Con Solo 15 Piezas',
+    description: 'Build a capsule wardrobe that gives you a month of outfits with only 15 versatile pieces. Includes the exact items list, color palette, and mixing formulas.',
+    descriptionEs: 'Construye un armario cápsula que te da un mes de outfits con solo 15 piezas versátiles. Incluye la lista exacta de prendas, paleta de colores y fórmulas de combinación.',
+    keyword: 'capsule wardrobe, minimalist wardrobe, how to build a capsule wardrobe 2026, 15 piece wardrobe',
+    readTime: 8,
+    date: '2026-03-08',
+    category: 'Wardrobe Planning',
+    categoryEs: 'Planificación de Armario',
+    content: `A capsule wardrobe is the antidote to the "I have nothing to wear" crisis. With just **15 carefully chosen pieces**, you can create over **30 unique outfits** — and look put-together every single day.
+
+## The Philosophy
+
+Instead of a closet full of clothes you never wear, you have a small collection of items that:
+- All work together
+- Fit you perfectly
+- Match your lifestyle
+- Make you feel confident
+
+## The 15-Piece Formula
+
+### Tops (6 pieces)
+1. **White t-shirt** — crew or V-neck, high-quality cotton
+2. **Black t-shirt** — same quality as the white
+3. **Button-down shirt** — white or light blue
+4. **Knit sweater** — neutral (navy, gray, or camel)
+5. **Casual blouse/henley** — in your best color
+6. **Striped long-sleeve** — Breton stripe or similar
+
+### Bottoms (4 pieces)
+7. **Dark jeans** — straight or slim fit
+8. **Lighter jeans or chinos** — for variety
+9. **Tailored trousers** — black or navy
+10. **Shorts or skirt** — seasonal piece
+
+### Outerwear (2 pieces)
+11. **Blazer** — navy or black, can dress up or down
+12. **Casual jacket** — denim, bomber, or utility
+
+### Shoes (3 pieces)
+13. **Clean white sneakers** — goes with everything
+14. **Leather boots/loafers** — elevates any outfit
+15. **Dress shoes/heels** — for formal occasions
+
+## The Color Palette
+
+Pick **3-4 colors** that all work together:
+
+**Base neutrals (60%):** Black, navy, white, gray
+**Accent neutral (20%):** Camel, olive, burgundy
+**Pop color (20%):** Choose ONE — red, cobalt, emerald
+
+Every piece should match at least 3 other pieces in your capsule.
+
+## 30 Outfit Combinations
+
+Here are just a few:
+
+- White tee + dark jeans + white sneakers = **Classic casual**
+- Button-down + tailored trousers + loafers = **Business casual**
+- Black tee + blazer + dark jeans + boots = **Smart evening**
+- Sweater + chinos + white sneakers = **Weekend comfort**
+- Striped top + tailored trousers + blazer = **Office chic**
+- White tee + denim jacket + shorts = **Summer weekend**
+
+The math: 6 tops × 4 bottoms = 24 base combos. Add 2 outerwear layers = 48+ combinations. Factor in shoes = nearly unlimited.
+
+## How to Build Yours
+
+1. **Audit what you own.** Pull out everything you wear regularly. You probably already have 5-8 capsule pieces.
+2. **Identify gaps.** What's missing? A good blazer? Quality basics?
+3. **Buy intentionally.** Each new piece must work with at least 3 existing items.
+4. **Preview with AI.** Use virtual try-on to see if new pieces work with what you have before buying.
+
+## The Investment Mindset
+
+A capsule wardrobe costs less long-term because you buy fewer items at higher quality. A $80 t-shirt you wear 100 times = $0.80/wear. A $15 t-shirt you wear 5 times = $3/wear.
+
+Quality over quantity, always.
+
+## When to Refresh
+
+Swap pieces seasonally:
+- **Spring/Summer:** Lighter fabrics, shorts, sandals
+- **Fall/Winter:** Heavier knits, boots, coats
+
+Keep the core (blazer, jeans, basics) year-round. Rotate 3-4 seasonal pieces.`,
+    contentEs: `Un armario cápsula es el antídoto a la crisis de "no tengo nada que ponerme". Con solo **15 piezas cuidadosamente elegidas**, puedes crear más de **30 outfits únicos** — y verte bien cada día.
+
+## La Filosofía
+
+En lugar de un armario lleno de ropa que nunca usas, tienes una pequeña colección de prendas que:
+- Todas funcionan juntas
+- Te quedan perfectamente
+- Se adaptan a tu estilo de vida
+- Te hacen sentir con confianza
+
+## La Fórmula de 15 Piezas
+
+### Tops (6 piezas)
+1. **Camiseta blanca** — cuello redondo o V, algodón de calidad
+2. **Camiseta negra** — misma calidad que la blanca
+3. **Camisa de botones** — blanca o azul claro
+4. **Suéter de punto** — neutro (marino, gris o camel)
+5. **Blusa/henley casual** — en tu mejor color
+6. **Manga larga a rayas** — estilo Bretón o similar
+
+### Partes de Abajo (4 piezas)
+7. **Jeans oscuros** — corte recto o slim
+8. **Jeans claros o chinos** — para variedad
+9. **Pantalones tailored** — negro o marino
+10. **Shorts o falda** — pieza de temporada
+
+### Outerwear (2 piezas)
+11. **Blazer** — marino o negro
+12. **Chaqueta casual** — denim, bomber o utility
+
+### Zapatos (3 piezas)
+13. **Sneakers blancos limpios** — van con todo
+14. **Botas/mocasines de cuero** — elevan cualquier outfit
+15. **Zapatos de vestir** — para ocasiones formales
+
+## La Paleta de Color
+
+Elige **3-4 colores** que funcionen juntos:
+
+**Neutros base (60%):** Negro, marino, blanco, gris
+**Neutro acento (20%):** Camel, oliva, borgoña
+**Color pop (20%):** Elige UNO — rojo, cobalto, esmeralda
+
+## 30 Combinaciones de Outfits
+
+Las matemáticas: 6 tops × 4 bottoms = 24 combos base. Añade 2 capas de outerwear = 48+ combinaciones.
+
+## Cómo Construir el Tuyo
+
+1. **Audita lo que tienes.** Saca todo lo que usas regularmente.
+2. **Identifica huecos.** Qué falta?
+3. **Compra intencionalmente.** Cada pieza nueva debe funcionar con al menos 3 existentes.
+4. **Previsualiza con IA.** Usa prueba virtual para ver si las piezas nuevas funcionan con lo que tienes.
+
+Calidad sobre cantidad, siempre.`,
   },
 ];
