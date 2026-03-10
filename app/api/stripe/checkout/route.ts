@@ -14,11 +14,15 @@ function getPrices(): Record<string, string> {
 
 export async function POST(req: NextRequest) {
   try {
-    const { plan } = await req.json();
+    const { plan, email, userId } = await req.json();
 
     const PRICES = getPrices();
     if (!plan || !PRICES[plan]) {
       return NextResponse.json({ error: 'Invalid plan' }, { status: 400 });
+    }
+
+    if (!email || !userId) {
+      return NextResponse.json({ error: 'User not authenticated' }, { status: 401 });
     }
 
     const origin = req.headers.get('origin') || 'https://agalaz.com';
@@ -37,6 +41,11 @@ export async function POST(req: NextRequest) {
       cancel_url: `${origin}/paywall`,
       allow_promotion_codes: true,
       billing_address_collection: 'auto',
+      customer_email: email,
+      client_reference_id: userId,
+      subscription_data: {
+        trial_period_days: 3,
+      },
     });
 
     return NextResponse.json({ url: session.url });

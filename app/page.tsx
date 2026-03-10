@@ -177,6 +177,7 @@ export default function HomePage() {
             <div className="mt-10 animate-fade-in-delay">
               <Link
                 href="/try-on"
+                data-fast-goal="hero_cta_click"
                 className="group inline-flex items-center gap-3 px-10 py-4 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-600 transition-all"
               >
                 <Sparkles size={16} className="group-hover:rotate-12 transition-transform" />

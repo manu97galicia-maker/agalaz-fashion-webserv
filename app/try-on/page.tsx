@@ -53,6 +53,13 @@ export default function TryOnPage() {
     return () => subscription.unsubscribe();
   }, []);
 
+  // Track successful subscription from Stripe redirect
+  useEffect(() => {
+    if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('subscribed') === 'true') {
+      (window as any).datafast?.('subscription_success');
+    }
+  }, []);
+
   useEffect(() => {
     if (messages.length > 0) {
       setTimeout(() => scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' }), 100);
@@ -102,6 +109,9 @@ export default function TryOnPage() {
     setError(null);
     setMessages([]);
 
+    // Track render attempt
+    (window as any).datafast?.('render_start', { has_clothing: clothingImage ? 'yes' : 'no' });
+
     let retries = 0;
     const maxRetries = 2;
 
@@ -127,6 +137,7 @@ export default function TryOnPage() {
           }]);
           setRenderCount((prev) => prev + 1);
           saveToGallery(data.image);
+          (window as any).datafast?.('render_complete', { render_number: String(renderCount + 1) });
           break;
         } else if (retries < maxRetries) {
           retries++;
@@ -619,7 +630,7 @@ export default function TryOnPage() {
             </div>
             <button
               onClick={async () => {
-                try { await signInWithGoogle(); } catch {}
+                try { (window as any).datafast?.('signup_click', { provider: 'google' }); await signInWithGoogle(); } catch {}
               }}
               className="w-full py-4 bg-slate-900 text-white rounded-lg flex items-center justify-center gap-3 hover:bg-indigo-600 transition-colors font-black uppercase tracking-[0.15em] text-xs"
             >

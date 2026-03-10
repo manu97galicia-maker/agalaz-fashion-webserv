@@ -129,6 +129,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {/* Datafast analytics - queue before main script loads */}
+        <script
+          id="datafast-queue"
+          dangerouslySetInnerHTML={{ __html: `window.datafast=window.datafast||function(){window.datafast.q=window.datafast.q||[];window.datafast.q.push(arguments)};` }}
+        />
+        <script
+          defer
+          data-website-id="df_84522e2590a419984da5c71b1f3f4abcd0e9fbd7408d0013"
+          src="https://datafa.st/js/script.js"
+        />
       </head>
       <body className="bg-white text-slate-900 antialiased overscroll-none">
         <LanguageProvider>

@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { X, Zap, Check, Star, Shield, Crown, Gift } from 'lucide-react';
+import { createBrowserClient } from '@supabase/ssr';
 
 import { useLang } from '@/components/LanguageProvider';
 
@@ -13,6 +14,25 @@ export default function PaywallPage() {
   const { t, lang } = useLang();
   const en = lang === 'en';
   const [selected, setSelected] = useState<Plan>('yearly');
+  const [loading, setLoading] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const supabase = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
+    );
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        setUserEmail(user.email || null);
+        setUserId(user.id);
+      }
+    });
+
+    // Track paywall view
+    (window as any).datafast?.('paywall_view');
+  }, []);
 
   const features = [
     t.payFeat1,
@@ -43,13 +63,32 @@ export default function PaywallPage() {
 
   const activePlan = plans[selected];
 
-  const PAYMENT_LINKS: Record<Plan, string> = {
-    weekly: 'https://buy.stripe.com/bJe6oHfZkeIogkt4utfYY0g',
-    yearly: 'https://buy.stripe.com/dRm4gz00mgQwb099ONfYY0f',
-  };
+  const handleSubscribe = async () => {
+    if (!userId || !userEmail) {
+      router.push('/onboarding');
+      return;
+    }
 
-  const handleSubscribe = () => {
-    window.location.href = PAYMENT_LINKS[selected];
+    setLoading(true);
+    // Track checkout initiation
+    (window as any).datafast?.('initiate_checkout', { plan: selected });
+    try {
+      const res = await fetch('/api/stripe/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan: selected, email: userEmail, userId }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        console.error('Checkout error:', data.error);
+        setLoading(false);
+      }
+    } catch (err) {
+      console.error('Checkout error:', err);
+      setLoading(false);
+    }
   };
 
   return (
@@ -202,11 +241,12 @@ export default function PaywallPage() {
         <div className="space-y-3 mt-4">
           <button
             onClick={handleSubscribe}
-            className="w-full py-4 bg-gradient-to-r from-indigo-600 to-violet-600 rounded-2xl flex items-center justify-center gap-3 hover:opacity-90 transition-all press-scale shadow-xl shadow-indigo-500/25 animate-glow"
+            disabled={loading}
+            className="w-full py-4 bg-gradient-to-r from-indigo-600 to-violet-600 rounded-2xl flex items-center justify-center gap-3 hover:opacity-90 transition-all press-scale shadow-xl shadow-indigo-500/25 animate-glow disabled:opacity-50"
           >
             <Crown size={18} className="text-white" />
             <span className="text-white font-black uppercase tracking-widest text-xs">
-              {activePlan.cta}
+              {loading ? (en ? 'Loading...' : 'Cargando...') : activePlan.cta}
             </span>
           </button>
 

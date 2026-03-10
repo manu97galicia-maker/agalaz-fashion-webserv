@@ -190,12 +190,14 @@ export default function OnboardingPage() {
       setTimeout(() => {
         setStep(s => s + 1);
         setIsAnimating(false);
+        (window as any).datafast?.('onboarding_step', { step: String(step + 2) });
       }, 250);
     } else {
       setTimeout(() => {
         setStep(totalSteps - 1);
         setShowSummary(true);
         setIsAnimating(false);
+        (window as any).datafast?.('onboarding_complete');
       }, 250);
     }
   };

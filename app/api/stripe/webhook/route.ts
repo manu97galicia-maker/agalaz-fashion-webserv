@@ -23,10 +23,13 @@ export async function POST(req: NextRequest) {
   switch (event.type) {
     case 'checkout.session.completed': {
       const session = event.data.object as Stripe.Checkout.Session;
-      const customerEmail = session.customer_email;
+      const userId = session.client_reference_id;
       const subscriptionId = session.subscription as string;
 
-      if (!customerEmail || !subscriptionId) break;
+      if (!userId || !subscriptionId) {
+        console.error('Webhook: missing client_reference_id or subscription', { userId, subscriptionId });
+        break;
+      }
 
       // Get subscription details from Stripe
       const stripeSub = await stripe.subscriptions.retrieve(subscriptionId) as unknown as Stripe.Subscription;
@@ -34,20 +37,12 @@ export async function POST(req: NextRequest) {
       const plan = priceId === process.env.STRIPE_PRICE_YEARLY ? 'yearly' : 'weekly';
       const periodEnd = new Date(stripeSub.items.data[0].current_period_end * 1000).toISOString();
 
-      // Find user by email in Supabase auth
-      const { data: { users } } = await admin.auth.admin.listUsers();
-      const user = users.find((u) => u.email === customerEmail);
-      if (!user) {
-        console.error('Webhook: user not found for email', customerEmail);
-        break;
-      }
-
       // Generate referral code
-      const referralCode = generateReferralCode(user.id);
+      const referralCode = generateReferralCode(userId);
 
       // Upsert subscription
       await admin.from('subscriptions').upsert({
-        user_id: user.id,
+        user_id: userId,
         status: 'active',
         plan,
         stripe_subscription_id: subscriptionId,
@@ -61,16 +56,16 @@ export async function POST(req: NextRequest) {
       nextReset.setDate(nextReset.getDate() + CREDITS_RESET_DAYS);
 
       await admin.from('render_counts').upsert({
-        user_id: user.id,
+        user_id: userId,
         credits_remaining: PLAN_CREDITS,
         credits_reset_at: nextReset.toISOString(),
         updated_at: new Date().toISOString(),
       }, { onConflict: 'user_id' });
 
       // Credit referral bonus to the referrer
-      await creditReferralBonus(admin, user.id, plan);
+      await creditReferralBonus(admin, userId, plan);
 
-      console.log(`Subscription activated: ${customerEmail} (${plan})`);
+      console.log(`Subscription activated: ${userId} (${plan})`);
       break;
     }
 
