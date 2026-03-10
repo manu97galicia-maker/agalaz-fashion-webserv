@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import Stripe from 'stripe';
 
 function getStripe() {
@@ -27,6 +28,10 @@ export async function POST(req: NextRequest) {
 
     const origin = req.headers.get('origin') || 'https://agalaz.com';
 
+    const cookieStore = await cookies();
+    const datafastVisitorId = cookieStore.get('datafast_visitor_id')?.value;
+    const datafastSessionId = cookieStore.get('datafast_session_id')?.value;
+
     const stripe = getStripe();
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
@@ -45,6 +50,10 @@ export async function POST(req: NextRequest) {
       client_reference_id: userId,
       subscription_data: {
         trial_period_days: 3,
+      },
+      metadata: {
+        datafast_visitor_id: datafastVisitorId || '',
+        datafast_session_id: datafastSessionId || '',
       },
     });
 
