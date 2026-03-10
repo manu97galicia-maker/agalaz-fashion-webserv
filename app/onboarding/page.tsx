@@ -241,22 +241,6 @@ export default function OnboardingPage() {
               : 'Ve cómo te queda cualquier prenda en tu cuerpo real. Sin tallas equivocadas, sin colores sorpresa.'}
           </p>
 
-          <div className="grid grid-cols-3 gap-3 mt-10 w-full max-w-sm">
-            {[
-              { value: en ? 'Zero' : 'Cero', label: en ? 'Returns' : 'Devoluciones' },
-              { value: en ? 'Real' : 'Real', label: en ? 'Your Body' : 'Tu Cuerpo' },
-              { value: en ? 'Instant' : 'Al Inst.', label: en ? 'Preview' : 'Vista Previa' },
-            ].map((stat, i) => (
-              <div
-                key={i}
-                className="glass rounded-2xl p-4 text-center opacity-0 animate-fade-in-up"
-                style={{ animationDelay: `${(i + 1) * 200}ms`, animationFillMode: 'forwards' }}
-              >
-                <div className="text-xl font-black text-white">{stat.value}</div>
-                <div className="text-[10px] font-bold text-white/25 uppercase tracking-widest mt-1">{stat.label}</div>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* B2B Section */}
