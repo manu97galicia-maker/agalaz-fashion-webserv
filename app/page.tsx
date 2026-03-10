@@ -423,6 +423,9 @@ export default function HomePage() {
             AGALAZ
           </span>
           <div className="flex items-center gap-6">
+            <Link href="/blog" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
+              Blog
+            </Link>
             <Link href="/privacy" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
               {lt.footer.privacy}
             </Link>
