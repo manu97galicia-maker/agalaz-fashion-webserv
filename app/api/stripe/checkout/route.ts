@@ -48,9 +48,7 @@ export async function POST(req: NextRequest) {
       billing_address_collection: 'auto',
       customer_email: email,
       client_reference_id: userId,
-      subscription_data: {
-        trial_period_days: 3,
-      },
+      ...(plan === 'yearly' ? { subscription_data: { trial_period_days: 1 } } : {}),
       metadata: {
         datafast_visitor_id: datafastVisitorId || '',
         datafast_session_id: datafastSessionId || '',

@@ -74,7 +74,7 @@ const landingText = {
       ],
     },
     stats: { users: 'Users', perRender: 'Per Render', precision: 'Precision' },
-    cta: { title: 'Try It Free. Zero Risk.', subtitle: '10 free renders. No credit card. No commitment.', button: 'Start Free Now' },
+    cta: { title: 'Try It Now.', subtitle: 'Upload your photos and see the result in seconds.', button: 'Start Now' },
     footer: { privacy: 'Privacy', terms: 'Terms', contact: 'Contact', copyright: '© 2025 Agalaz Labs. Precision Engine V7.0' },
   },
   es: {
@@ -122,7 +122,7 @@ const landingText = {
       ],
     },
     stats: { users: 'Usuarios', perRender: 'Por Render', precision: 'Precisión' },
-    cta: { title: 'Pruébalo Gratis. Cero Riesgo.', subtitle: '10 renders gratis. Sin tarjeta. Sin compromisos.', button: 'Empezar Gratis' },
+    cta: { title: 'Pruébalo Ahora.', subtitle: 'Sube tus fotos y ve el resultado en segundos.', button: 'Empezar Ahora' },
     footer: { privacy: 'Privacidad', terms: 'Términos', contact: 'Contacto', copyright: '© 2025 Agalaz Labs. Motor de Precisión V7.0' },
   },
 } as const;
@@ -414,6 +414,40 @@ export default function HomePage() {
             {lt.cta.button}
             <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
           </Link>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-20 md:py-28 bg-slate-50 border-y border-slate-100">
+        <div className="max-w-3xl mx-auto px-6 md:px-12">
+          <h2 className="font-serif text-3xl md:text-5xl text-slate-900 tracking-tight leading-[0.9] mb-12 text-center">
+            {lang === 'es' ? 'Preguntas Frecuentes' : 'FAQ'}
+          </h2>
+          <div className="space-y-6">
+            {(lang === 'es' ? [
+              { q: 'Es gratis?', a: 'Tienes 2 renders gratis para probar. Después puedes elegir un plan semanal ($4.99) o anual ($59.99).' },
+              { q: 'Cómo funciona el plan anual?', a: 'Al suscribirte al plan anual tienes un día de prueba gratuita. Si no cancelas antes, se cobra $59.99/año. Recibes 7 renders por semana.' },
+              { q: 'Puedo cancelar cuando quiera?', a: 'Sí. Puedes cancelar tu suscripción en cualquier momento desde tu perfil. No hay permanencia.' },
+              { q: 'Qué pasa con mis fotos?', a: 'Tus fotos se procesan en tiempo real y no se almacenan en nuestros servidores. Tu privacidad es nuestra prioridad.' },
+              { q: 'Cuántos renders tengo por semana?', a: 'Los suscriptores tienen 7 renders por semana que se renuevan automáticamente.' },
+            ] : [
+              { q: 'Is it free?', a: 'You get 2 free renders to try. After that you can choose a weekly ($4.99) or yearly ($59.99) plan.' },
+              { q: 'How does the yearly plan work?', a: 'The yearly plan includes a 1-day free trial. If you don\'t cancel, you\'re charged $59.99/year. You get 7 renders per week.' },
+              { q: 'Can I cancel anytime?', a: 'Yes. You can cancel your subscription anytime from your profile. No lock-in.' },
+              { q: 'What happens with my photos?', a: 'Your photos are processed in real time and are not stored on our servers. Your privacy is our priority.' },
+              { q: 'How many renders do I get per week?', a: 'Subscribers get 7 renders per week that renew automatically.' },
+            ]).map((faq, i) => (
+              <details key={i} className="group bg-white border border-slate-200 rounded-xl overflow-hidden">
+                <summary className="flex items-center justify-between p-5 cursor-pointer hover:bg-slate-50 transition-colors">
+                  <span className="text-sm font-bold text-slate-900">{faq.q}</span>
+                  <span className="text-slate-300 group-open:rotate-45 transition-transform text-xl font-light">+</span>
+                </summary>
+                <div className="px-5 pb-5 pt-0">
+                  <p className="text-sm text-slate-500 font-light leading-relaxed">{faq.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 

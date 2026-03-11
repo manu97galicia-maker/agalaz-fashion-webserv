@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { X, Zap, Check, Star, Shield, Crown, Gift } from 'lucide-react';
+import { X, Zap, Check, Shield, Crown } from 'lucide-react';
 import { createBrowserClient } from '@supabase/ssr';
 import { signInWithGoogle } from '@/services/authService';
 
@@ -59,7 +59,7 @@ export default function PaywallPage() {
       perDay: en ? '$0.16/day' : '0,16€/día',
       label: en ? 'Yearly' : 'Anual',
       badge: en ? 'Save 77%' : 'Ahorra 77%',
-      cta: en ? 'Start 3-Day Free Trial' : 'Empezar 3 Días Gratis',
+      cta: en ? 'Get Yearly Access' : 'Acceder al Plan Anual',
     },
   };
 
@@ -110,23 +110,6 @@ export default function PaywallPage() {
 
         {/* Content */}
         <div className="flex-1 space-y-5">
-          {/* FREE TRIAL Banner — only for yearly */}
-          {selected === 'yearly' && (
-            <div className="w-full p-4 bg-gradient-to-r from-emerald-500/15 to-teal-500/15 rounded-2xl border border-emerald-500/30 flex items-center gap-3">
-              <div className="w-10 h-10 bg-emerald-500/20 rounded-full flex items-center justify-center shrink-0">
-                <Gift size={20} className="text-emerald-400" />
-              </div>
-              <div>
-                <span className="text-emerald-400 font-black text-sm uppercase tracking-wide">
-                  {en ? '3-Day Free Trial' : '3 Días de Prueba Gratis'}
-                </span>
-                <p className="text-emerald-400/60 text-[10px] font-bold mt-0.5">
-                  {en ? 'Cancel anytime — no charge until trial ends' : 'Cancela cuando quieras — sin cargo hasta que acabe'}
-                </p>
-              </div>
-            </div>
-          )}
-
           {/* Badge */}
           <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-violet-600 rounded-full w-fit shadow-lg shadow-indigo-500/25">
             <Zap size={14} className="text-white fill-white" />
@@ -137,10 +120,15 @@ export default function PaywallPage() {
 
           {/* Title */}
           <h1 className="text-4xl font-black text-white tracking-tight leading-[1]">
-            {en ? 'Unlimited' : 'Renders'}
+            {en ? 'See It On' : 'Pruébatelo'}
             <br />
-            <span className="text-gradient italic">{en ? 'Try-Ons.' : 'Ilimitados.'}</span>
+            <span className="text-gradient italic">{en ? 'Before You Buy.' : 'Antes de Comprar.'}</span>
           </h1>
+          <p className="text-white/40 text-sm font-light leading-relaxed">
+            {en
+              ? '7 renders per week. Try any garment, any color, on your real body. Cancel anytime.'
+              : '7 renders por semana. Prueba cualquier prenda, cualquier color, en tu cuerpo real. Cancela cuando quieras.'}
+          </p>
 
           {/* Features */}
           <div className="space-y-3">
@@ -219,26 +207,6 @@ export default function PaywallPage() {
             </button>
           </div>
 
-          {/* Social proof */}
-          <div className="glass rounded-2xl p-3.5 flex items-center gap-3">
-            <div className="flex -space-x-2">
-              {[1, 2, 3].map(i => (
-                <div key={i} className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 border-2 border-black flex items-center justify-center">
-                  <Star size={10} className="text-white fill-white" />
-                </div>
-              ))}
-            </div>
-            <div>
-              <div className="flex gap-0.5">
-                {[1, 2, 3, 4, 5].map(i => (
-                  <Star key={i} size={9} className="text-amber-400 fill-amber-400" />
-                ))}
-              </div>
-              <p className="text-[9px] text-white/25 font-bold mt-0.5">
-                {en ? '+10,000 Pro users' : '+10.000 usuarios Pro'}
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* Purchase buttons */}
@@ -255,9 +223,7 @@ export default function PaywallPage() {
           </button>
 
           <p className="text-center text-emerald-400/70 text-[11px] font-black uppercase tracking-widest">
-            {selected === 'yearly'
-              ? (en ? '✓ 3 days free · Cancel anytime' : '✓ 3 días gratis · Cancela cuando quieras')
-              : (en ? '✓ Cancel anytime' : '✓ Cancela cuando quieras')}
+            {en ? '✓ Cancel anytime' : '✓ Cancela cuando quieras'}
           </p>
 
           <div className="flex items-center justify-center gap-4">
