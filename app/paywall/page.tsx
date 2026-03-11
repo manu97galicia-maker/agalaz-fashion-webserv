@@ -171,6 +171,9 @@ export default function PaywallPage() {
                     </span>
                   </div>
                   <span className="text-white/25 text-[11px] font-bold">{plans.yearly.perDay}</span>
+                  <span className="text-emerald-400 text-[10px] font-black block mt-0.5">
+                    {en ? 'Includes free trial' : 'Incluye prueba gratis'}
+                  </span>
                 </div>
               </div>
               <div className="text-right">
