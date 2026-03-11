@@ -381,7 +381,7 @@ export default function TryOnPage() {
               <div className="w-20 h-1.5 bg-slate-100 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-indigo-600 rounded-full transition-all duration-500"
-                  style={{ width: `${Math.min((renderCount / 7) * 100, 100)}%` }}
+                  style={{ width: `${Math.min((renderCount / 14) * 100, 100)}%` }}
                 />
               </div>
             </div>

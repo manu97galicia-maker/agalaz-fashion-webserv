@@ -126,8 +126,8 @@ export default function PaywallPage() {
           </h1>
           <p className="text-white/40 text-sm font-light leading-relaxed">
             {en
-              ? '7 renders per week. Try any garment, any color, on your real body. Cancel anytime.'
-              : '7 renders por semana. Prueba cualquier prenda, cualquier color, en tu cuerpo real. Cancela cuando quieras.'}
+              ? '14 renders per week. Try any garment, any color, on your real body. Cancel anytime.'
+              : '14 renders por semana. Prueba cualquier prenda, cualquier color, en tu cuerpo real. Cancela cuando quieras.'}
           </p>
 
           {/* Features */}

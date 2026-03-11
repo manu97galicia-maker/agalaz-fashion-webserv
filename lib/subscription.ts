@@ -1,5 +1,5 @@
 export const FREE_CREDITS = 2;
-export const PLAN_CREDITS = 7;
+export const PLAN_CREDITS = 14;
 export const CREDITS_RESET_DAYS = 7;
 export const REFERRAL_BONUS_WEEKLY = 3;
 export const REFERRAL_BONUS_YEARLY = 20;
