@@ -44,14 +44,33 @@ export default function TryOnPage() {
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
   const [chatAttachment, setChatAttachment] = useState<string | null>(null);
   const [showLogin, setShowLogin] = useState(false);
+  const [gateReady, setGateReady] = useState(false);
   const chatFileRef = useRef<HTMLInputElement>(null);
 
+  // Gate: check auth → check subscription → allow or redirect
   useEffect(() => {
-    const { data: { subscription } } = onAuthStateChange((authUser) => {
-      if (authUser) setUser(authUser);
+    const { data: { subscription } } = onAuthStateChange(async (authUser) => {
+      if (authUser) {
+        setUser(authUser);
+        // Check subscription / credits
+        try {
+          const res = await fetch('/api/subscription');
+          if (res.ok) {
+            const status = await res.json();
+            if (status.creditsRemaining <= 0) {
+              router.push('/paywall');
+              return;
+            }
+          }
+        } catch {}
+        setGateReady(true);
+      } else {
+        // Not logged in — show login immediately
+        setShowLogin(true);
+      }
     });
     return () => subscription.unsubscribe();
-  }, []);
+  }, [router]);
 
   // Track successful subscription from Stripe redirect
   useEffect(() => {
@@ -278,6 +297,15 @@ export default function TryOnPage() {
 
   const isLoading = isAnalyzing || isGeneratingImage;
   const canRender = faceImage && bodyImage && !isLoading;
+
+  // Show loading spinner while checking auth + subscription
+  if (!gateReady && !showLogin) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <Loader2 size={32} className="text-indigo-600 animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <>

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { X, Zap, Check, Star, Shield, Crown, Gift } from 'lucide-react';
 import { createBrowserClient } from '@supabase/ssr';
+import { signInWithGoogle } from '@/services/authService';
 
 import { useLang } from '@/components/LanguageProvider';
 
@@ -17,6 +18,7 @@ export default function PaywallPage() {
   const [loading, setLoading] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
+  const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
     const supabase = createBrowserClient(
@@ -49,7 +51,7 @@ export default function PaywallPage() {
       perDay: en ? '$0.71/day' : '0,71€/día',
       label: en ? 'Weekly' : 'Semanal',
       badge: null,
-      cta: en ? 'Start Free Trial' : 'Empezar Prueba Gratis',
+      cta: en ? 'Subscribe Now' : 'Suscribirse Ahora',
     },
     yearly: {
       price: '$59.99',
@@ -57,7 +59,7 @@ export default function PaywallPage() {
       perDay: en ? '$0.16/day' : '0,16€/día',
       label: en ? 'Yearly' : 'Anual',
       badge: en ? 'Save 77%' : 'Ahorra 77%',
-      cta: en ? 'Start Free Trial' : 'Empezar Prueba Gratis',
+      cta: en ? 'Start 3-Day Free Trial' : 'Empezar 3 Días Gratis',
     },
   };
 
@@ -65,7 +67,7 @@ export default function PaywallPage() {
 
   const handleSubscribe = async () => {
     if (!userId || !userEmail) {
-      router.push('/onboarding');
+      setShowLogin(true);
       return;
     }
 
@@ -108,20 +110,22 @@ export default function PaywallPage() {
 
         {/* Content */}
         <div className="flex-1 space-y-5">
-          {/* FREE TRIAL Banner */}
-          <div className="w-full p-4 bg-gradient-to-r from-emerald-500/15 to-teal-500/15 rounded-2xl border border-emerald-500/30 flex items-center gap-3">
-            <div className="w-10 h-10 bg-emerald-500/20 rounded-full flex items-center justify-center shrink-0">
-              <Gift size={20} className="text-emerald-400" />
+          {/* FREE TRIAL Banner — only for yearly */}
+          {selected === 'yearly' && (
+            <div className="w-full p-4 bg-gradient-to-r from-emerald-500/15 to-teal-500/15 rounded-2xl border border-emerald-500/30 flex items-center gap-3">
+              <div className="w-10 h-10 bg-emerald-500/20 rounded-full flex items-center justify-center shrink-0">
+                <Gift size={20} className="text-emerald-400" />
+              </div>
+              <div>
+                <span className="text-emerald-400 font-black text-sm uppercase tracking-wide">
+                  {en ? '3-Day Free Trial' : '3 Días de Prueba Gratis'}
+                </span>
+                <p className="text-emerald-400/60 text-[10px] font-bold mt-0.5">
+                  {en ? 'Cancel anytime — no charge until trial ends' : 'Cancela cuando quieras — sin cargo hasta que acabe'}
+                </p>
+              </div>
             </div>
-            <div>
-              <span className="text-emerald-400 font-black text-sm uppercase tracking-wide">
-                {en ? '3-Day Free Trial' : '3 Días de Prueba Gratis'}
-              </span>
-              <p className="text-emerald-400/60 text-[10px] font-bold mt-0.5">
-                {en ? 'Cancel anytime — no charge until trial ends' : 'Cancela cuando quieras — sin cargo hasta que acabe'}
-              </p>
-            </div>
-          </div>
+          )}
 
           {/* Badge */}
           <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-violet-600 rounded-full w-fit shadow-lg shadow-indigo-500/25">
@@ -251,7 +255,9 @@ export default function PaywallPage() {
           </button>
 
           <p className="text-center text-emerald-400/70 text-[11px] font-black uppercase tracking-widest">
-            {en ? '✓ 3 days free · Cancel anytime' : '✓ 3 días gratis · Cancela cuando quieras'}
+            {selected === 'yearly'
+              ? (en ? '✓ 3 days free · Cancel anytime' : '✓ 3 días gratis · Cancela cuando quieras')
+              : (en ? '✓ Cancel anytime' : '✓ Cancela cuando quieras')}
           </p>
 
           <div className="flex items-center justify-center gap-4">
@@ -262,6 +268,48 @@ export default function PaywallPage() {
           </div>
         </div>
       </div>
+
+      {/* Login Modal */}
+      {showLogin && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center animate-fade-in" onClick={() => setShowLogin(false)}>
+          <div className="bg-white mx-6 p-8 rounded-2xl max-w-sm w-full text-center space-y-6 shadow-2xl animate-fade-in-up" onClick={(e) => e.stopPropagation()}>
+            <div className="w-14 h-14 bg-slate-900 rounded-xl flex items-center justify-center mx-auto">
+              <span className="text-white font-serif font-black text-2xl italic">A</span>
+            </div>
+            <div>
+              <h3 className="font-serif text-2xl font-black text-slate-900 tracking-tight">
+                {en ? 'Sign in first' : 'Inicia sesión'}
+              </h3>
+              <p className="text-slate-400 text-sm mt-2 font-light">
+                {en ? 'Sign in to subscribe and start trying on' : 'Inicia sesión para suscribirte y empezar a probarte ropa'}
+              </p>
+            </div>
+            <button
+              onClick={async () => {
+                try {
+                  (window as any).datafast?.('signup_click', { provider: 'google', source: 'paywall' });
+                  await signInWithGoogle();
+                } catch {}
+              }}
+              className="w-full py-4 bg-slate-900 text-white rounded-lg flex items-center justify-center gap-3 hover:bg-indigo-600 transition-colors font-black uppercase tracking-[0.15em] text-xs"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              {en ? 'Continue with Google' : 'Continuar con Google'}
+            </button>
+            <button
+              onClick={() => setShowLogin(false)}
+              className="text-slate-300 text-xs font-bold hover:text-slate-500 transition-colors"
+            >
+              {en ? 'Cancel' : 'Cancelar'}
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
