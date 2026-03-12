@@ -18,7 +18,7 @@ const nextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://datafa.st https://*.datafa.st https://js.stripe.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co https://datafa.st https://*.datafa.st https://api.stripe.com; font-src 'self'; frame-src 'self' https://checkout.stripe.com https://js.stripe.com;",
+            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://datafa.st https://*.datafa.st https://js.stripe.com https://bat.bing.net https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co https://datafa.st https://*.datafa.st https://api.stripe.com https://bat.bing.net https://*.bing.com https://*.clarity.ms; font-src 'self'; frame-src 'self' https://checkout.stripe.com https://js.stripe.com;",
           },
         ],
       },
