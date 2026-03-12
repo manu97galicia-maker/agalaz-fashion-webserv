@@ -181,7 +181,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <script
           defer
-          data-website-id="df_84522e2590a419984da5c71b1f3f4abcd0e9fbd7408d0013"
+          data-website-id="dfid_pvOMR9IXJLNYSqjS8MdsB"
+          data-domain="agalaz.com"
           src="https://datafa.st/js/script.js"
         />
       </head>
