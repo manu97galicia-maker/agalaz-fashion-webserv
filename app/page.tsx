@@ -36,7 +36,7 @@ const landingText = {
       label: 'Color Explorer',
       title: 'Every Color,',
       titleHighlight: 'Your Body.',
-      subtitle: 'See how the same garment looks in different colors — on your actual body, not a mannequin.',
+      subtitle: 'See how your clothes look in different colors — on your actual body, not a mannequin.',
       colors: ['Red', 'Navy', 'Emerald', 'Black'],
       cta: 'Explore Colors',
     },
@@ -55,11 +55,11 @@ const landingText = {
       label: 'How It Works',
       title: '3 Photos.',
       titleHighlight: '1 Render.',
-      subtitle: 'Upload your face, your body, and the garment you want. Our AI does the rest.',
+      subtitle: 'Upload your face, your body, and any garment you own or want to buy. Our AI does the rest.',
       steps: [
         { num: '01', title: 'Face ID', desc: 'Upload a photo of your face for facial mapping.' },
         { num: '02', title: 'Base Photo', desc: 'A full-body photo — we preserve everything except the top garment.' },
-        { num: '03', title: 'New Garment', desc: 'Choose the garment you want to try on — we extract its color and style.' },
+        { num: '03', title: 'Your Garment', desc: 'Upload a photo of your garment or one you want to buy — we extract its color and style.' },
       ],
     },
     features: {
@@ -84,7 +84,7 @@ const landingText = {
       label: 'Explorador de Color',
       title: 'Cada Color,',
       titleHighlight: 'Tu Cuerpo.',
-      subtitle: 'Mira cómo la misma prenda se ve en diferentes colores — en tu cuerpo real, no en un maniquí.',
+      subtitle: 'Mira cómo tu ropa se ve en diferentes colores — en tu cuerpo real, no en un maniquí.',
       colors: ['Rojo', 'Marino', 'Esmeralda', 'Negro'],
       cta: 'Explorar Colores',
     },
@@ -103,11 +103,11 @@ const landingText = {
       label: 'Cómo Funciona',
       title: '3 Fotos.',
       titleHighlight: '1 Render.',
-      subtitle: 'Sube tu cara, tu cuerpo y la prenda que quieres. Nuestra IA hace el resto.',
+      subtitle: 'Sube tu cara, tu cuerpo y cualquier prenda que tengas o quieras comprar. Nuestra IA hace el resto.',
       steps: [
         { num: '01', title: 'ID Rostro', desc: 'Sube una foto de tu cara para el mapeo facial.' },
         { num: '02', title: 'Foto Base', desc: 'Una foto de cuerpo completo — preservamos todo excepto la prenda superior.' },
-        { num: '03', title: 'Prenda Nueva', desc: 'Elige la prenda que quieres probar — extraemos su color y estilo.' },
+        { num: '03', title: 'Tu Prenda', desc: 'Sube una foto de tu prenda o una que quieras comprar — extraemos su color y estilo.' },
       ],
     },
     features: {
@@ -476,6 +476,37 @@ export default function HomePage() {
           {lt.footer.copyright} — infoagalaz@gmail.com
         </p>
       </footer>
+
+      {/* FAQPage JSON-LD structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": (lang === 'es' ? [
+              { q: '¿Es gratis?', a: 'Tienes 2 renders gratis para probar. Después puedes elegir un plan semanal ($4.99) o anual ($59.99).' },
+              { q: '¿Cómo funciona el plan anual?', a: 'Al suscribirte al plan anual tienes un día de prueba gratuita. Si no cancelas antes, se cobra $59.99/año. Recibes 14 renders por semana.' },
+              { q: '¿Puedo cancelar cuando quiera?', a: 'Sí. Puedes cancelar tu suscripción en cualquier momento desde tu perfil. No hay permanencia.' },
+              { q: '¿Qué pasa con mis fotos?', a: 'Tus fotos se procesan en tiempo real y no se almacenan en nuestros servidores. Tu privacidad es nuestra prioridad.' },
+              { q: '¿Cuántos renders tengo por semana?', a: 'Los suscriptores tienen 14 renders por semana que se renuevan automáticamente.' },
+            ] : [
+              { q: 'Is it free?', a: 'You get 2 free renders to try. After that you can choose a weekly ($4.99) or yearly ($59.99) plan.' },
+              { q: 'How does the yearly plan work?', a: 'The yearly plan includes a 1-day free trial. If you don\'t cancel, you\'re charged $59.99/year. You get 14 renders per week.' },
+              { q: 'Can I cancel anytime?', a: 'Yes. You can cancel your subscription anytime from your profile. No lock-in.' },
+              { q: 'What happens with my photos?', a: 'Your photos are processed in real time and are not stored on our servers. Your privacy is our priority.' },
+              { q: 'How many renders do I get per week?', a: 'Subscribers get 14 renders per week that renew automatically.' },
+            ]).map(faq => ({
+              "@type": "Question",
+              "name": faq.q,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+              }
+            }))
+          })
+        }}
+      />
     </main>
   );
 }

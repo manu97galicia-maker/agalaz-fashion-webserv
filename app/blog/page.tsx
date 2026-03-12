@@ -70,9 +70,9 @@ export default function BlogPage() {
                     {new Date(article.date).toLocaleDateString(en ? 'en-US' : 'es-ES', { month: 'short', day: 'numeric' })}
                   </span>
                 </div>
-                <h3 className="font-serif text-lg font-bold text-slate-900 tracking-tight leading-snug mb-2 group-hover:text-indigo-600 transition-colors">
+                <h2 className="font-serif text-lg font-bold text-slate-900 tracking-tight leading-snug mb-2 group-hover:text-indigo-600 transition-colors">
                   {en ? article.title : article.titleEs}
-                </h3>
+                </h2>
                 <p className="text-slate-500 text-sm font-light leading-relaxed line-clamp-2">
                   {en ? article.description : article.descriptionEs}
                 </p>

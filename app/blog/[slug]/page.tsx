@@ -44,9 +44,20 @@ export default function ArticlePage() {
     wordCount: content.split(/\s+/).length,
   };
 
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://agalaz.com' },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://agalaz.com/blog' },
+      { '@type': 'ListItem', position: 3, name: en ? article.title : article.titleEs, item: `https://agalaz.com/blog/${article.slug}` },
+    ],
+  };
+
   return (
     <main className="min-h-screen bg-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       {/* Nav */}
       <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">

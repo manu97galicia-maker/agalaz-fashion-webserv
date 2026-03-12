@@ -3,5 +3,6 @@ Allow: /
 Disallow: /api/
 Disallow: /profile
 Disallow: /paywall
+Disallow: /onboarding
 
 Sitemap: https://agalaz.com/sitemap.xml

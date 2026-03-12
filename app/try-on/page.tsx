@@ -400,11 +400,11 @@ export default function TryOnPage() {
                 <span className="inline-block px-4 py-1.5 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-[0.2em] rounded-full">
                   {lang === 'es' ? 'Probador Virtual IA' : 'AI Virtual Try-On'}
                 </span>
-                <h2 className="font-serif text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-[0.9]">
+                <h1 className="font-serif text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-[0.9]">
                   {t.preserveTitle}
                   <br />
                   <span className="italic text-slate-400">{t.preserveHighlight}</span>
-                </h2>
+                </h1>
                 <p className="text-slate-500 text-sm font-light max-w-sm mx-auto">{t.preserveDesc}</p>
               </div>
 

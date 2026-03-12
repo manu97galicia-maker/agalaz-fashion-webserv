@@ -32,10 +32,19 @@ export const metadata: Metadata = {
     'how to know if clothes will fit',
     'try on clothes with AI',
     'virtual dressing room',
+    'try on my own clothes',
+    'see how clothes look on me',
+    'AI outfit preview',
+    'online fitting room free',
+    'try clothes without buying',
+    'virtual wardrobe',
+    'photo try on clothes',
     'Agalaz Fashion',
     'prueba de ropa virtual',
     'probador virtual IA',
     'ver como me queda la ropa',
+    'probar ropa online con IA',
+    'probador de ropa gratis',
   ],
   manifest: '/manifest.json',
   appleWebApp: {
@@ -70,10 +79,10 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: BASE_URL,
+    canonical: '/',
     languages: {
-      'en-US': BASE_URL,
-      'es-ES': BASE_URL,
+      'en-US': '/',
+      'es-ES': '/',
     },
   },
   verification: {
@@ -92,7 +101,12 @@ const jsonLd = {
       url: BASE_URL,
       description: 'AI-powered virtual try-on platform that lets you see how clothes look on your real body before buying.',
       email: 'infoagalaz@gmail.com',
-      sameAs: [],
+      contactPoint: {
+        '@type': 'ContactPoint',
+        email: 'infoagalaz@gmail.com',
+        contactType: 'customer support',
+        availableLanguage: ['English', 'Spanish'],
+      },
     },
     {
       '@type': 'WebSite',
@@ -104,17 +118,45 @@ const jsonLd = {
       inLanguage: ['en-US', 'es-ES'],
     },
     {
-      '@type': 'WebApplication',
+      '@type': 'SoftwareApplication',
       name: 'Agalaz Virtual Try-On',
       url: `${BASE_URL}/try-on`,
-      applicationCategory: 'FashionApplication',
+      applicationCategory: 'LifestyleApplication',
       operatingSystem: 'Web',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-        description: 'Free AI virtual try-on renders',
-      },
+      description: 'Upload your photo and any garment you own or want to buy. AI shows how it looks on your real body instantly.',
+      featureList: 'Virtual try-on, Color exploration, Face mapping, Body preservation, AI garment fitting',
+      offers: [
+        {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+          description: '2 free renders to try',
+        },
+        {
+          '@type': 'Offer',
+          price: '4.99',
+          priceCurrency: 'USD',
+          description: 'Weekly plan — 14 renders per week',
+          priceSpecification: {
+            '@type': 'UnitPriceSpecification',
+            price: '4.99',
+            priceCurrency: 'USD',
+            billingDuration: 'P1W',
+          },
+        },
+        {
+          '@type': 'Offer',
+          price: '59.99',
+          priceCurrency: 'USD',
+          description: 'Yearly plan — 14 renders per week, includes free trial',
+          priceSpecification: {
+            '@type': 'UnitPriceSpecification',
+            price: '59.99',
+            priceCurrency: 'USD',
+            billingDuration: 'P1Y',
+          },
+        },
+      ],
     },
   ],
 };
@@ -123,8 +165,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        <link rel="preconnect" href="https://vpfawwcoqyglclpckrrl.supabase.co" />
+        <link rel="dns-prefetch" href="https://vpfawwcoqyglclpckrrl.supabase.co" />
+        <link rel="preconnect" href="https://datafa.st" />
+        <link rel="dns-prefetch" href="https://datafa.st" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
-        <link rel="canonical" href={BASE_URL} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

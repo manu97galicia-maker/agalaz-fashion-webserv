@@ -15,7 +15,7 @@ const translations = {
     heroLine1: 'TRY IT',
     heroLine2: 'BEFORE YOU',
     heroLine3: 'BUY.',
-    heroDesc: 'Upload your photo, pick any clothing item and see how it looks on you instantly. AI that respects your real body.',
+    heroDesc: 'Upload your photo and any garment you own or want to buy — see how it looks on your real body instantly.',
     activeUsers: '+10,000 active users',
 
     // Features
@@ -37,7 +37,7 @@ const translations = {
     step2Label: 'Base Photo',
     step2Desc: 'A full-body photo — we preserve everything except the top garment.',
     step3Label: 'New Garment',
-    step3Desc: 'Choose the garment you want to try on — we extract its color and style.',
+    step3Desc: 'Upload a photo of your garment or one you want to buy — we extract its color and style.',
 
     // CTA
     ctaLabel: 'Start Free',
@@ -53,7 +53,7 @@ const translations = {
     // Try-on
     preserveTitle: 'Preserve',
     preserveHighlight: 'Your Style.',
-    preserveDesc: 'We only change the top garment and your face.',
+    preserveDesc: 'Upload your clothes or any garment you want to buy. We do the rest.',
     faceLabel: 'Face ID',
     bodyLabel: 'Base Photo (Body)',
     clothingLabel: 'Top Garment / Color',
@@ -113,7 +113,7 @@ const translations = {
     heroLine1: 'PRUEBA',
     heroLine2: 'ANTES DE',
     heroLine3: 'COMPRAR.',
-    heroDesc: 'Sube tu foto, elige cualquier prenda y ve cómo te queda al instante. IA que respeta tu cuerpo real.',
+    heroDesc: 'Sube tu foto y cualquier prenda que tengas o quieras comprar — ve cómo te queda en tu cuerpo real al instante.',
     activeUsers: '+10,000 usuarios activos',
 
     featuresTitle: 'Precisión',
@@ -133,7 +133,7 @@ const translations = {
     step2Label: 'Foto Base',
     step2Desc: 'Una foto de cuerpo completo — preservamos todo excepto la prenda superior.',
     step3Label: 'Prenda Nueva',
-    step3Desc: 'Elige la prenda que quieres probar — extraemos su color y estilo.',
+    step3Desc: 'Sube una foto de tu prenda o una que quieras comprar — extraemos su color y estilo.',
 
     ctaLabel: 'Comienza Gratis',
     ctaTitle: 'Tu Estilo,',
@@ -146,7 +146,7 @@ const translations = {
 
     preserveTitle: 'Preservar',
     preserveHighlight: 'Tu Estilo.',
-    preserveDesc: 'Solo cambiamos la prenda superior y tu rostro.',
+    preserveDesc: 'Sube tu ropa o cualquier prenda que quieras comprar. Nosotros hacemos el resto.',
     faceLabel: 'ID Rostro',
     bodyLabel: 'Foto Base (Cuerpo)',
     clothingLabel: 'Color/Prenda Superior',
