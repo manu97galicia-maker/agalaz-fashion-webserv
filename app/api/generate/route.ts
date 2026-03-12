@@ -45,14 +45,14 @@ export async function POST(request: NextRequest) {
     const { faceImage, bodyImage, clothingImage, modificationPrompt, lastRenderedImage } = body;
 
     if (!faceImage || !bodyImage) {
-      return NextResponse.json({ error: 'Face and body photos are required.' }, { status: 400 });
+      return NextResponse.json({ error: 'You need to upload both a face photo and a full-body photo before rendering. Tap the upload boxes above to add them.' }, { status: 400 });
     }
 
     // Validate base64 size (max ~10MB per image)
     const maxSize = 10 * 1024 * 1024;
     if (faceImage.length > maxSize || bodyImage.length > maxSize) {
       return NextResponse.json(
-        { error: 'Image too large. Please use a smaller photo.' },
+        { error: 'Your photo is too large (max 10 MB). Try taking a new photo or using a lower resolution image.' },
         { status: 400 }
       );
     }
@@ -79,15 +79,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ image: result });
     }
     return NextResponse.json(
-      { error: 'Could not generate image. Make sure your body photo shows full body from head to feet, and use frontal photos for best results.' },
+      { error: 'We couldn\'t generate your try-on. This usually happens when:\n\n• The body photo doesn\'t show your full body (head to feet)\n• The photo is taken from the side instead of the front\n• The lighting is too dark or blurry\n\nTip: Use a well-lit, front-facing full-body photo for the best results.' },
       { status: 500 }
     );
   } catch (error: any) {
     console.error('Generate API error:', error);
     const message = error?.message || '';
     if (message.includes('too large') || message.includes('payload')) {
-      return NextResponse.json({ error: 'Images too large. Try smaller photos.' }, { status: 413 });
+      return NextResponse.json({ error: 'Your photos are too large to process. Try using smaller or lower-resolution images (under 10 MB each).' }, { status: 413 });
     }
-    return NextResponse.json({ error: 'Component engine failure. Please try again.' }, { status: 500 });
+    return NextResponse.json({ error: 'Something went wrong on our end. Please try again — if it keeps failing, try different photos.' }, { status: 500 });
   }
 }
