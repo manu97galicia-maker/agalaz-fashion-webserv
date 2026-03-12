@@ -150,7 +150,7 @@ export default function PaywallPage() {
           <div className="space-y-2.5 pt-2">
             {/* Yearly plan */}
             <button
-              onClick={() => setSelected('yearly')}
+              onClick={() => { setSelected('yearly'); (window as any).datafast?.('plan_select', { plan: 'yearly' }); }}
               className={`w-full p-4 rounded-2xl flex items-center justify-between transition-all press-scale ${
                 selected === 'yearly'
                   ? 'bg-gradient-to-r from-indigo-600/20 to-violet-600/20 border-2 border-indigo-500/50 ring-1 ring-indigo-500/20'
@@ -184,7 +184,7 @@ export default function PaywallPage() {
 
             {/* Weekly plan */}
             <button
-              onClick={() => setSelected('weekly')}
+              onClick={() => { setSelected('weekly'); (window as any).datafast?.('plan_select', { plan: 'weekly' }); }}
               className={`w-full p-4 rounded-2xl flex items-center justify-between transition-all press-scale ${
                 selected === 'weekly'
                   ? 'bg-gradient-to-r from-indigo-600/20 to-violet-600/20 border-2 border-indigo-500/50 ring-1 ring-indigo-500/20'

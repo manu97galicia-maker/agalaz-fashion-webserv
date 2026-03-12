@@ -72,6 +72,11 @@ export default function TryOnPage() {
     return () => subscription.unsubscribe();
   }, [router]);
 
+  // Track try-on page view
+  useEffect(() => {
+    (window as any).datafast?.('tryon_view');
+  }, []);
+
   // Track successful subscription from Stripe redirect
   useEffect(() => {
     if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('subscribed') === 'true') {
@@ -84,6 +89,19 @@ export default function TryOnPage() {
       setTimeout(() => scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' }), 100);
     }
   }, [messages, isAnalyzing, isGeneratingImage]);
+
+  const trackAndSetFace = (img: string | null) => {
+    setFaceImage(img);
+    if (img) (window as any).datafast?.('photo_upload', { type: 'face' });
+  };
+  const trackAndSetBody = (img: string | null) => {
+    setBodyImage(img);
+    if (img) (window as any).datafast?.('photo_upload', { type: 'body' });
+  };
+  const trackAndSetClothing = (img: string | null) => {
+    setClothingImage(img);
+    if (img) (window as any).datafast?.('photo_upload', { type: 'clothing' });
+  };
 
   const resetApp = () => {
     setFaceImage(null);
@@ -284,6 +302,7 @@ export default function TryOnPage() {
         const blob = await fetch(imageUrl).then(r => r.blob());
         const file = new File([blob], 'agalaz-tryon.png', { type: 'image/png' });
         await navigator.share({ files: [file], title: 'Agalaz Fashion' });
+        (window as any).datafast?.('result_share');
       } catch {}
     }
   };
@@ -293,6 +312,7 @@ export default function TryOnPage() {
     a.href = imageUrl;
     a.download = 'agalaz-tryon.png';
     a.click();
+    (window as any).datafast?.('result_download');
   };
 
   const isLoading = isAnalyzing || isGeneratingImage;
@@ -414,7 +434,7 @@ export default function TryOnPage() {
                     label={t.faceLabel}
                     type="user"
                     image={faceImage}
-                    onImageSelect={setFaceImage}
+                    onImageSelect={trackAndSetFace}
                     icon={<Fingerprint size={20} className="text-indigo-600" />}
                   />
                   <div>
@@ -422,7 +442,7 @@ export default function TryOnPage() {
                       label={t.bodyLabel}
                       type="user"
                       image={bodyImage}
-                      onImageSelect={setBodyImage}
+                      onImageSelect={trackAndSetBody}
                       icon={<UserSquare2 size={20} className="text-indigo-600" />}
                     />
                     <p className="text-[9px] font-bold text-slate-300 text-center mt-1.5">
@@ -434,7 +454,7 @@ export default function TryOnPage() {
                   label={`${t.clothingLabel} (${t.optional})`}
                   type="clothing"
                   image={clothingImage}
-                  onImageSelect={setClothingImage}
+                  onImageSelect={trackAndSetClothing}
                   icon={<Shirt size={20} className="text-indigo-600" />}
                 />
               </div>

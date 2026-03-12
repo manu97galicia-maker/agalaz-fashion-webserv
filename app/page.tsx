@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -130,6 +131,10 @@ const landingText = {
 export default function HomePage() {
   const { lang, t } = useLang();
   const lt = landingText[lang];
+
+  useEffect(() => {
+    (window as any).datafast?.('landing_view');
+  }, []);
 
   return (
     <main className="min-h-screen bg-white">
@@ -408,6 +413,7 @@ export default function HomePage() {
           </p>
           <Link
             href="/try-on"
+            data-fast-goal="footer_cta_click"
             className="group inline-flex items-center gap-3 px-12 py-5 bg-white text-slate-900 font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-600 hover:text-white transition-all"
           >
             <Sparkles size={16} className="group-hover:rotate-12 transition-transform" />
