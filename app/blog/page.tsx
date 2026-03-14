@@ -98,6 +98,12 @@ export default function BlogPage() {
             <Link href="/" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
               {en ? 'Home' : 'Inicio'}
             </Link>
+            <Link href="/virtual-try-on" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
+              Virtual Try On
+            </Link>
+            <Link href="/try-on" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
+              {en ? 'Try Now' : 'Probar'}
+            </Link>
             <Link href="/privacy" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
               {en ? 'Privacy' : 'Privacidad'}
             </Link>

@@ -457,6 +457,41 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Internal Links Section */}
+      <section className="py-16 md:py-20 bg-white border-t border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <h2 className="font-serif text-2xl font-bold text-slate-900 tracking-tight mb-8">
+            {lang === 'es' ? 'Recursos de Moda con IA' : 'AI Fashion Resources'}
+          </h2>
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <Link href="/virtual-try-on" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Probador Virtual con IA' : 'AI Virtual Try On'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Ve como te queda la ropa' : 'See how clothes look on you'}</p>
+            </Link>
+            <Link href="/blog/best-way-to-try-on-clothes-online-with-ai" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Probar Ropa Online con IA' : 'Try On Clothes Online With AI'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Guia completa' : 'Complete guide'}</p>
+            </Link>
+            <Link href="/blog/how-to-reduce-online-shopping-returns" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Reducir Devoluciones' : 'Reduce Shopping Returns'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Ahorra dinero y tiempo' : 'Save money and time'}</p>
+            </Link>
+            <Link href="/blog/how-to-know-if-clothes-will-fit-without-trying-them-on" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Saber Si la Ropa Te Queda' : 'Know If Clothes Will Fit'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? '7 metodos probados' : '7 proven methods'}</p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="border-t border-slate-100 py-10 px-6 md:px-12 max-w-7xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -464,6 +499,9 @@ export default function HomePage() {
             AGALAZ
           </span>
           <div className="flex items-center gap-6">
+            <Link href="/virtual-try-on" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
+              Virtual Try On
+            </Link>
             <Link href="/blog" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
               Blog
             </Link>
