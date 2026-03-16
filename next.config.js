@@ -7,6 +7,21 @@ const nextConfig = {
       { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
     ],
   },
+  async redirects() {
+    return [
+      // Spanish URL aliases
+      { source: '/privacidad', destination: '/privacy', permanent: true },
+      { source: '/terminos', destination: '/terms', permanent: true },
+      { source: '/probador-virtual', destination: '/virtual-try-on', permanent: true },
+      // www → non-www
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.agalaz.com' }],
+        destination: 'https://agalaz.com/:path*',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
