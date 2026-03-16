@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { createAdminClient } from '@/lib/supabaseAdmin';
-import { PLAN_CREDITS, CREDITS_RESET_DAYS, REFERRAL_BONUS_WEEKLY, REFERRAL_BONUS_YEARLY } from '@/lib/subscription';
+import { PLAN_CREDITS, TRIAL_CREDITS, CREDITS_RESET_DAYS, REFERRAL_BONUS_WEEKLY, REFERRAL_BONUS_YEARLY } from '@/lib/subscription';
 
 export async function POST(req: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!.trim());
@@ -51,29 +51,36 @@ export async function POST(req: NextRequest) {
         referral_code: referralCode,
       }, { onConflict: 'user_id' });
 
-      // Set credits + reset date
-      const nextReset = new Date();
-      nextReset.setDate(nextReset.getDate() + CREDITS_RESET_DAYS);
+      // Set credits based on plan type
+      // Yearly: 1-day free trial → only 2 trial credits, no reset yet
+      // Weekly: paid immediately → full 14 credits with 7-day reset
+      const hasTrial = plan === 'yearly';
+      const initialCredits = hasTrial ? TRIAL_CREDITS : PLAN_CREDITS;
+
+      const nextReset = hasTrial ? null : new Date();
+      if (nextReset) nextReset.setDate(nextReset.getDate() + CREDITS_RESET_DAYS);
 
       await admin.from('render_counts').upsert({
         user_id: userId,
-        credits_remaining: PLAN_CREDITS,
-        credits_reset_at: nextReset.toISOString(),
+        credits_remaining: initialCredits,
+        credits_reset_at: nextReset ? nextReset.toISOString() : null,
         updated_at: new Date().toISOString(),
       }, { onConflict: 'user_id' });
 
-      // Credit referral bonus to the referrer
-      await creditReferralBonus(admin, userId, plan);
+      // Credit referral bonus to the referrer (only for weekly, yearly bonus after trial payment)
+      if (!hasTrial) {
+        await creditReferralBonus(admin, userId, plan);
+      }
 
-      console.log(`Subscription activated: ${userId} (${plan})`);
+      console.log(`Subscription ${hasTrial ? 'trial' : 'activated'}: ${userId} (${plan}, ${initialCredits} credits)`);
       break;
     }
 
     case 'invoice.paid': {
-      // Handles recurring payments (subscription renewals)
+      // Handles: first payment after yearly trial + all renewals
       const invoice = event.data.object as Stripe.Invoice;
       const subscriptionId = (invoice.parent?.subscription_details?.subscription as string) || '';
-      if (!subscriptionId || invoice.billing_reason === 'subscription_create') break;
+      if (!subscriptionId) break;
 
       // Find subscription in our DB
       const { data: sub } = await admin
@@ -83,6 +90,9 @@ export async function POST(req: NextRequest) {
         .single();
 
       if (!sub) break;
+
+      // Skip first invoice for weekly (already handled in checkout.session.completed)
+      if (invoice.billing_reason === 'subscription_create' && sub.plan === 'weekly') break;
 
       // Get updated period end from Stripe
       const stripeSubRenew = await stripe.subscriptions.retrieve(subscriptionId) as unknown as Stripe.Subscription;
@@ -94,7 +104,7 @@ export async function POST(req: NextRequest) {
         current_period_end: periodEnd,
       }).eq('user_id', sub.user_id);
 
-      // Reset credits for the new period
+      // Give full 14 credits (first payment after yearly trial or any renewal)
       const nextReset = new Date();
       nextReset.setDate(nextReset.getDate() + CREDITS_RESET_DAYS);
 
@@ -104,7 +114,12 @@ export async function POST(req: NextRequest) {
         updated_at: new Date().toISOString(),
       }).eq('user_id', sub.user_id);
 
-      console.log(`Subscription renewed: ${sub.user_id} (${sub.plan})`);
+      // Credit referral bonus for yearly (deferred until actual payment)
+      if (invoice.billing_reason === 'subscription_create' && sub.plan === 'yearly') {
+        await creditReferralBonus(admin, sub.user_id, sub.plan);
+      }
+
+      console.log(`Subscription paid: ${sub.user_id} (${sub.plan}, 14 credits)`);
       break;
     }
 
