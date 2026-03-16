@@ -109,6 +109,13 @@ export default function ArticlePage() {
         {/* Content */}
         <div className="space-y-5">
           {content.split('\n\n').map((block, i) => {
+            if (block.startsWith('### ')) {
+              return (
+                <h3 key={i} className="font-serif text-xl font-bold text-slate-900 tracking-tight mt-8 mb-3">
+                  {block.replace('### ', '')}
+                </h3>
+              );
+            }
             if (block.startsWith('## ')) {
               return (
                 <h2 key={i} className="font-serif text-2xl font-bold text-slate-900 tracking-tight mt-12 mb-4">
@@ -116,10 +123,46 @@ export default function ArticlePage() {
                 </h2>
               );
             }
+            if (block.startsWith('---')) {
+              return <hr key={i} className="border-slate-200 my-8" />;
+            }
+            if (block.includes('|') && block.includes('---')) {
+              const rows = block.split('\n').filter(r => r.trim() && !r.includes('---'));
+              const headers = rows[0]?.split('|').map(c => c.trim()).filter(Boolean) || [];
+              const dataRows = rows.slice(1);
+              return (
+                <div key={i} className="overflow-x-auto my-6">
+                  <table className="w-full text-sm border border-slate-200">
+                    <thead>
+                      <tr className="bg-slate-50">
+                        {headers.map((h, j) => (
+                          <th key={j} className="px-3 py-2 text-left font-bold text-slate-700 border-b border-slate-200">{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {dataRows.map((row, j) => {
+                        const cells = row.split('|').map(c => c.trim()).filter(Boolean);
+                        return (
+                          <tr key={j} className={j % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+                            {cells.map((cell, k) => (
+                              <td key={k} className="px-3 py-2 text-slate-500 font-light border-b border-slate-100"
+                                dangerouslySetInnerHTML={{ __html: cell.replace(/\*\*(.+?)\*\*/g, '<strong class="text-slate-900 font-bold">$1</strong>') }} />
+                            ))}
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              );
+            }
             const formatted = block
               .replace(/\*\*(.+?)\*\*/g, '<strong class="text-slate-900 font-bold">$1</strong>')
               .replace(/\*(.+?)\*/g, '<em>$1</em>')
-              .replace(/^- /gm, '&bull; ');
+              .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="text-indigo-600 font-bold hover:text-indigo-700 underline underline-offset-2 transition-colors">$1</a>')
+              .replace(/^- /gm, '&bull; ')
+              .replace(/^\d+\. /gm, (match) => `<span class="text-indigo-600 font-bold">${match}</span>`);
 
             return (
               <p
