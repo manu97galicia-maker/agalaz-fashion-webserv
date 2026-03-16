@@ -433,13 +433,15 @@ export default function HomePage() {
             {(lang === 'es' ? [
               { q: 'Es gratis?', a: 'Tienes 2 renders gratis para probar. Después puedes elegir un plan semanal ($4.99) o anual ($59.99).' },
               { q: 'Cómo funciona el plan anual?', a: 'Al suscribirte al plan anual tienes un día de prueba gratuita. Si no cancelas antes, se cobra $59.99/año. Recibes 14 renders por semana.' },
-              { q: 'Puedo cancelar cuando quiera?', a: 'Sí. Puedes cancelar tu suscripción en cualquier momento desde tu perfil. No hay permanencia.' },
+              { q: 'Cómo cancelo mi suscripción?', a: 'Desde tu perfil (icono de tu foto arriba a la izquierda) verás el botón "Gestionar suscripción". Ahí puedes cancelar al instante. No hay permanencia ni penalización. Tu acceso continúa hasta el final del periodo ya pagado.' },
+              { q: 'Si cancelo, pierdo mis datos?', a: 'No. Tu cuenta, tu historial de renders y tu galería se mantienen intactos. Si vuelves a suscribirte, todo sigue donde lo dejaste.' },
               { q: 'Qué pasa con mis fotos?', a: 'Tus fotos se procesan en tiempo real y no se almacenan en nuestros servidores. Tu privacidad es nuestra prioridad.' },
               { q: 'Cuántos renders tengo por semana?', a: 'Los suscriptores tienen 14 renders por semana que se renuevan automáticamente.' },
             ] : [
               { q: 'Is it free?', a: 'You get 2 free renders to try. After that you can choose a weekly ($4.99) or yearly ($59.99) plan.' },
               { q: 'How does the yearly plan work?', a: 'The yearly plan includes a 1-day free trial. If you don\'t cancel, you\'re charged $59.99/year. You get 14 renders per week.' },
-              { q: 'Can I cancel anytime?', a: 'Yes. You can cancel your subscription anytime from your profile. No lock-in.' },
+              { q: 'How do I cancel my subscription?', a: 'Go to your profile (tap your photo icon in the top left) and click "Manage Subscription". You can cancel instantly. No lock-in, no penalties. Your access continues until the end of your current paid period.' },
+              { q: 'If I cancel, do I lose my data?', a: 'No. Your account, render history, and gallery remain intact. If you resubscribe later, everything is right where you left it.' },
               { q: 'What happens with my photos?', a: 'Your photos are processed in real time and are not stored on our servers. Your privacy is our priority.' },
               { q: 'How many renders do I get per week?', a: 'Subscribers get 14 renders per week that renew automatically.' },
             ]).map((faq, i) => (
@@ -531,13 +533,15 @@ export default function HomePage() {
             "mainEntity": (lang === 'es' ? [
               { q: '¿Es gratis?', a: 'Tienes 2 renders gratis para probar. Después puedes elegir un plan semanal ($4.99) o anual ($59.99).' },
               { q: '¿Cómo funciona el plan anual?', a: 'Al suscribirte al plan anual tienes un día de prueba gratuita. Si no cancelas antes, se cobra $59.99/año. Recibes 14 renders por semana.' },
-              { q: '¿Puedo cancelar cuando quiera?', a: 'Sí. Puedes cancelar tu suscripción en cualquier momento desde tu perfil. No hay permanencia.' },
+              { q: '¿Cómo cancelo mi suscripción?', a: 'Desde tu perfil verás el botón "Gestionar suscripción". Ahí puedes cancelar al instante. No hay permanencia ni penalización. Tu acceso continúa hasta el final del periodo ya pagado.' },
+              { q: '¿Si cancelo, pierdo mis datos?', a: 'No. Tu cuenta, tu historial de renders y tu galería se mantienen intactos. Si vuelves a suscribirte, todo sigue donde lo dejaste.' },
               { q: '¿Qué pasa con mis fotos?', a: 'Tus fotos se procesan en tiempo real y no se almacenan en nuestros servidores. Tu privacidad es nuestra prioridad.' },
               { q: '¿Cuántos renders tengo por semana?', a: 'Los suscriptores tienen 14 renders por semana que se renuevan automáticamente.' },
             ] : [
               { q: 'Is it free?', a: 'You get 2 free renders to try. After that you can choose a weekly ($4.99) or yearly ($59.99) plan.' },
               { q: 'How does the yearly plan work?', a: 'The yearly plan includes a 1-day free trial. If you don\'t cancel, you\'re charged $59.99/year. You get 14 renders per week.' },
-              { q: 'Can I cancel anytime?', a: 'Yes. You can cancel your subscription anytime from your profile. No lock-in.' },
+              { q: 'How do I cancel my subscription?', a: 'Go to your profile and click "Manage Subscription". You can cancel instantly. No lock-in, no penalties. Your access continues until the end of your current paid period.' },
+              { q: 'If I cancel, do I lose my data?', a: 'No. Your account, render history, and gallery remain intact. If you resubscribe later, everything is right where you left it.' },
               { q: 'What happens with my photos?', a: 'Your photos are processed in real time and are not stored on our servers. Your privacy is our priority.' },
               { q: 'How many renders do I get per week?', a: 'Subscribers get 14 renders per week that renew automatically.' },
             ]).map(faq => ({
