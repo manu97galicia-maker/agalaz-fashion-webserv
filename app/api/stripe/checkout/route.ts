@@ -15,6 +15,17 @@ function getPrices(): Record<string, string> {
   };
 }
 
+export async function GET() {
+  return NextResponse.json({
+    hasKey: !!process.env.STRIPE_SECRET_KEY,
+    keyPrefix: process.env.STRIPE_SECRET_KEY?.slice(0, 7) || 'MISSING',
+    hasWeekly: !!process.env.STRIPE_PRICE_WEEKLY,
+    hasYearly: !!process.env.STRIPE_PRICE_YEARLY,
+    weeklyPrice: process.env.STRIPE_PRICE_WEEKLY || 'MISSING',
+    yearlyPrice: process.env.STRIPE_PRICE_YEARLY || 'MISSING',
+  });
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { plan, email, userId } = await req.json();
@@ -60,11 +71,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ url: session.url });
   } catch (error: any) {
     console.error('Stripe checkout error:', error?.type, error?.message, error?.code);
-    console.error('STRIPE_SECRET_KEY set:', !!process.env.STRIPE_SECRET_KEY);
-    console.error('STRIPE_PRICE_WEEKLY set:', !!process.env.STRIPE_PRICE_WEEKLY);
-    console.error('STRIPE_PRICE_YEARLY set:', !!process.env.STRIPE_PRICE_YEARLY);
     return NextResponse.json(
-      { error: error.message || 'Failed to create checkout session' },
+      {
+        error: error.message || 'Failed to create checkout session',
+        type: error?.type,
+        code: error?.code,
+        hasKey: !!process.env.STRIPE_SECRET_KEY,
+        keyPrefix: process.env.STRIPE_SECRET_KEY?.slice(0, 7) || 'MISSING',
+      },
       { status: 500 }
     );
   }
