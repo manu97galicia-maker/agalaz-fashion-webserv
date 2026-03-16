@@ -3,9 +3,9 @@ import { cookies } from 'next/headers';
 import Stripe from 'stripe';
 
 function getStripe() {
-  const key = process.env.STRIPE_SECRET_KEY;
+  const key = process.env.STRIPE_SECRET_KEY?.trim();
   if (!key) throw new Error('STRIPE_SECRET_KEY is not set');
-  return new Stripe(key, { timeout: 10000 });
+  return new Stripe(key);
 }
 
 function getPrices(): Record<string, string> {
