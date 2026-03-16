@@ -14,6 +14,8 @@ const blogSlugs = [
   'barrel-leg-jeans-styling-guide',
   'digital-nomad-corporate-crease-free-office-wear',
   'jellyfish-silhouette-styling-guide',
+  'how-to-get-accurate-body-measurements-for-virtual-try-on',
+  'best-free-virtual-dressing-room-apps-android-ios-2026',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
