@@ -3,7 +3,9 @@ import { cookies } from 'next/headers';
 import Stripe from 'stripe';
 
 function getStripe() {
-  return new Stripe(process.env.STRIPE_SECRET_KEY!);
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) throw new Error('STRIPE_SECRET_KEY is not set');
+  return new Stripe(key, { timeout: 10000 });
 }
 
 function getPrices(): Record<string, string> {
@@ -57,7 +59,10 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ url: session.url });
   } catch (error: any) {
-    console.error('Stripe checkout error:', error);
+    console.error('Stripe checkout error:', error?.type, error?.message, error?.code);
+    console.error('STRIPE_SECRET_KEY set:', !!process.env.STRIPE_SECRET_KEY);
+    console.error('STRIPE_PRICE_WEEKLY set:', !!process.env.STRIPE_PRICE_WEEKLY);
+    console.error('STRIPE_PRICE_YEARLY set:', !!process.env.STRIPE_PRICE_YEARLY);
     return NextResponse.json(
       { error: error.message || 'Failed to create checkout session' },
       { status: 500 }
