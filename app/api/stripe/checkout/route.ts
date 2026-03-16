@@ -10,20 +10,9 @@ function getStripe() {
 
 function getPrices(): Record<string, string> {
   return {
-    weekly: process.env.STRIPE_PRICE_WEEKLY!,
-    yearly: process.env.STRIPE_PRICE_YEARLY!,
+    weekly: (process.env.STRIPE_PRICE_WEEKLY || '').trim(),
+    yearly: (process.env.STRIPE_PRICE_YEARLY || '').trim(),
   };
-}
-
-export async function GET() {
-  return NextResponse.json({
-    hasKey: !!process.env.STRIPE_SECRET_KEY,
-    keyPrefix: process.env.STRIPE_SECRET_KEY?.slice(0, 7) || 'MISSING',
-    hasWeekly: !!process.env.STRIPE_PRICE_WEEKLY,
-    hasYearly: !!process.env.STRIPE_PRICE_YEARLY,
-    weeklyPrice: process.env.STRIPE_PRICE_WEEKLY || 'MISSING',
-    yearlyPrice: process.env.STRIPE_PRICE_YEARLY || 'MISSING',
-  });
 }
 
 export async function POST(req: NextRequest) {
@@ -72,13 +61,7 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error('Stripe checkout error:', error?.type, error?.message, error?.code);
     return NextResponse.json(
-      {
-        error: error.message || 'Failed to create checkout session',
-        type: error?.type,
-        code: error?.code,
-        hasKey: !!process.env.STRIPE_SECRET_KEY,
-        keyPrefix: process.env.STRIPE_SECRET_KEY?.slice(0, 7) || 'MISSING',
-      },
+      { error: error.message || 'Failed to create checkout session' },
       { status: 500 }
     );
   }
