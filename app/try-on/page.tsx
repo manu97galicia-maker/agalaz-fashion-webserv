@@ -462,15 +462,29 @@ export default function TryOnPage() {
               </div>
 
               <div className="space-y-4">
+                {/* Step indicators */}
                 <div className="grid grid-cols-2 gap-4">
-                  <ImageUploader
-                    label={t.faceLabel}
-                    type="user"
-                    image={faceImage}
-                    onImageSelect={trackAndSetFace}
-                    icon={<Fingerprint size={20} className="text-indigo-600" />}
-                  />
                   <div>
+                    <div className="flex items-center gap-1.5 mb-2">
+                      <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">1</span>
+                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t.faceLabel}</span>
+                    </div>
+                    <ImageUploader
+                      label={t.faceLabel}
+                      type="user"
+                      image={faceImage}
+                      onImageSelect={trackAndSetFace}
+                      icon={<Fingerprint size={20} className="text-indigo-600" />}
+                    />
+                    <p className="text-[9px] font-bold text-slate-300 text-center mt-1.5">
+                      {t.faceHint}
+                    </p>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1.5 mb-2">
+                      <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">2</span>
+                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t.bodyLabel}</span>
+                    </div>
                     <ImageUploader
                       label={t.bodyLabel}
                       type="user"
@@ -483,13 +497,27 @@ export default function TryOnPage() {
                     </p>
                   </div>
                 </div>
-                <ImageUploader
-                  label={`${t.clothingLabel} (${t.optional})`}
-                  type="clothing"
-                  image={clothingImage}
-                  onImageSelect={trackAndSetClothing}
-                  icon={<Shirt size={20} className="text-indigo-600" />}
-                />
+                <div>
+                  <div className="flex items-center gap-1.5 mb-2">
+                    <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">3</span>
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t.clothingLabel} ({t.optional})</span>
+                  </div>
+                  <ImageUploader
+                    label={`${t.clothingLabel} (${t.optional})`}
+                    type="clothing"
+                    image={clothingImage}
+                    onImageSelect={trackAndSetClothing}
+                    icon={<Shirt size={20} className="text-indigo-600" />}
+                  />
+                </div>
+
+                {/* Chat tip */}
+                <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-3 flex items-start gap-2.5">
+                  <Send size={14} className="text-indigo-500 shrink-0 mt-0.5" />
+                  <p className="text-[11px] font-bold text-indigo-600/70 leading-relaxed">
+                    {t.chatTip}
+                  </p>
+                </div>
               </div>
 
               {error && (
