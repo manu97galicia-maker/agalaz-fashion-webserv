@@ -80,7 +80,16 @@ export default function TryOnPage() {
   // Track successful subscription from Stripe redirect
   useEffect(() => {
     if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('subscribed') === 'true') {
-      (window as any).datafast?.('subscription_success');
+      // Fetch plan info to distinguish trial_start vs paid subscription
+      fetch('/api/subscription').then(r => r.json()).then(status => {
+        if (status.plan === 'yearly' && status.creditsRemaining <= 2) {
+          (window as any).datafast?.('trial_start', { plan: 'yearly' });
+        } else {
+          (window as any).datafast?.('subscription_success', { plan: status.plan || 'weekly' });
+        }
+      }).catch(() => {
+        (window as any).datafast?.('subscription_success');
+      });
     }
   }, []);
 
