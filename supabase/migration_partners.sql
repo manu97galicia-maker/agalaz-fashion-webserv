@@ -17,9 +17,11 @@ CREATE TABLE IF NOT EXISTS partners (
   -- Comma-separated allowed domains (e.g., "mystore.com,www.mystore.com")
   allowed_domains text[] NOT NULL DEFAULT '{}',
   -- Plan & credits
-  plan text NOT NULL DEFAULT 'starter',           -- 'starter', 'growth', 'enterprise'
-  credits_remaining integer NOT NULL DEFAULT 100,  -- renders available
-  credits_monthly_limit integer NOT NULL DEFAULT 100,
+  plan text NOT NULL DEFAULT 'starter',           -- 'starter', 'growth'
+  price_eur integer NOT NULL DEFAULT 125,          -- monthly price in EUR
+  setup_fee_eur integer NOT NULL DEFAULT 199,      -- one-time setup fee in EUR
+  credits_remaining integer NOT NULL DEFAULT 10,   -- 10 free trial renders
+  credits_monthly_limit integer NOT NULL DEFAULT 200,
   total_renders integer NOT NULL DEFAULT 0,
   -- Status
   is_active boolean NOT NULL DEFAULT true,

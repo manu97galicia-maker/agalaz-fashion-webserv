@@ -14,6 +14,10 @@ import {
   Palette,
   Ruler,
   User,
+  Store,
+  TrendingDown,
+  TrendingUp,
+  Code2,
 } from 'lucide-react';
 import { useLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
@@ -75,6 +79,29 @@ const landingText = {
       ],
     },
     stats: { users: 'Users', perRender: 'Per Render', precision: 'Precision' },
+    partners: {
+      label: 'For Online Stores',
+      title: 'Reduce Returns.',
+      titleHighlight: 'Boost Sales.',
+      subtitle: 'Add AI virtual try-on to your store. Your customers try before they buy — fewer returns, higher conversion.',
+      cta: 'Become a Partner',
+      setup: 'Setup fee',
+      month: '/mo',
+      renders: 'renders/mo',
+      extraRender: '/extra render',
+      popular: 'Most Popular',
+      cases: [
+        { name: 'Boutique', orders: 300, ticket: 35, returns: '25%', savings: 315, extraSales: 787, total: 1102, plan: 'Starter', planCost: 125 },
+        { name: 'Mid-size Store', orders: 800, ticket: 55, returns: '28%', savings: 1232, extraSales: 2640, total: 3872, plan: 'Growth', planCost: 499 },
+        { name: 'Large Retailer', orders: 3000, ticket: 70, returns: '30%', savings: 6300, extraSales: 10500, total: 16800, plan: 'Growth', planCost: 499 },
+      ],
+      casesTitle: 'Real ROI by store size',
+      savingsLabel: 'Saved in returns',
+      extraSalesLabel: 'Extra revenue',
+      totalLabel: 'Total monthly value',
+      roiLabel: 'ROI',
+      docs: 'See installation guide',
+    },
     cta: { title: 'Try It Now.', subtitle: 'Upload your photos and see the result in seconds.', button: 'Start Now' },
     footer: { privacy: 'Privacy', terms: 'Terms', contact: 'Contact', copyright: '© 2025 Agalaz Labs. Precision Engine V7.0' },
   },
@@ -123,6 +150,29 @@ const landingText = {
       ],
     },
     stats: { users: 'Usuarios', perRender: 'Por Render', precision: 'Precisión' },
+    partners: {
+      label: 'Para Tiendas Online',
+      title: 'Menos Devoluciones.',
+      titleHighlight: 'Más Ventas.',
+      subtitle: 'Añade prueba virtual con IA a tu tienda. Tus clientes se prueban la ropa antes de comprar — menos devoluciones, más conversión.',
+      cta: 'Hazte Partner',
+      setup: 'Alta',
+      month: '/mes',
+      renders: 'renders/mes',
+      extraRender: '/render extra',
+      popular: 'Más Popular',
+      cases: [
+        { name: 'Boutique', orders: 300, ticket: 35, returns: '25%', savings: 315, extraSales: 787, total: 1102, plan: 'Starter', planCost: 125 },
+        { name: 'Tienda Mediana', orders: 800, ticket: 55, returns: '28%', savings: 1232, extraSales: 2640, total: 3872, plan: 'Growth', planCost: 499 },
+        { name: 'Gran Retailer', orders: 3000, ticket: 70, returns: '30%', savings: 6300, extraSales: 10500, total: 16800, plan: 'Growth', planCost: 499 },
+      ],
+      casesTitle: 'ROI real según tamaño de tienda',
+      savingsLabel: 'Ahorro en devoluciones',
+      extraSalesLabel: 'Ventas extra',
+      totalLabel: 'Valor mensual total',
+      roiLabel: 'ROI',
+      docs: 'Ver guía de instalación',
+    },
     cta: { title: 'Pruébalo Ahora.', subtitle: 'Sube tus fotos y ve el resultado en segundos.', button: 'Empezar Ahora' },
     footer: { privacy: 'Privacidad', terms: 'Términos', contact: 'Contacto', copyright: '© 2025 Agalaz Labs. Motor de Precisión V7.0' },
   },
@@ -145,6 +195,12 @@ export default function HomePage() {
             AGALAZ
           </Link>
           <div className="flex items-center gap-5">
+            <Link
+              href="/partners"
+              className="text-slate-400 text-[10px] font-black uppercase tracking-[0.15em] hover:text-indigo-600 transition-colors hidden sm:block"
+            >
+              Partners
+            </Link>
             <LanguageToggle />
             <Link
               href="/try-on"
@@ -402,6 +458,144 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Partners / B2B Section */}
+      <section id="partners" className="py-24 md:py-32 bg-white border-t border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 mb-6 block">
+              <Store size={14} className="inline mr-2 -mt-0.5" />
+              {lt.partners.label}
+            </span>
+            <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-slate-900 tracking-tight leading-[0.9]">
+              {lt.partners.title}{' '}
+              <span className="italic text-slate-400">{lt.partners.titleHighlight}</span>
+            </h2>
+            <p className="text-slate-500 mt-8 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed">
+              {lt.partners.subtitle}
+            </p>
+          </div>
+
+          {/* Pricing cards */}
+          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-20">
+            {/* Starter */}
+            <div className="p-8 border-2 border-slate-200 rounded-2xl hover:border-slate-300 transition-all">
+              <h3 className="font-black text-slate-900 text-lg">Starter</h3>
+              <div className="flex items-baseline gap-1 mt-2">
+                <span className="font-serif text-4xl font-black text-slate-900">125</span>
+                <span className="text-slate-400 text-sm font-bold">&euro;{lt.partners.month}</span>
+              </div>
+              <p className="text-[10px] text-slate-400 mt-1">+ 199&euro; {lt.partners.setup}</p>
+              <ul className="mt-6 space-y-2.5">
+                {['200 ' + lt.partners.renders, 'Widget personalizable', lang === 'es' ? 'Soporte por email' : 'Email support', 'Dashboard', '0,63\u20AC' + lt.partners.extraRender].map((f, i) => (
+                  <li key={i} className="flex items-center gap-2 text-xs text-slate-600">
+                    <ShieldCheck size={14} className="text-emerald-500 shrink-0" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/partners" className="block mt-6 w-full py-3 bg-slate-100 text-slate-600 rounded-xl text-center text-xs font-black uppercase tracking-widest hover:bg-slate-200 transition-colors">
+                {lt.partners.cta}
+              </Link>
+            </div>
+
+            {/* Growth */}
+            <div className="relative p-8 border-2 border-indigo-600 rounded-2xl shadow-lg shadow-indigo-100">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-indigo-600 text-white text-[9px] font-black uppercase tracking-widest rounded-full">
+                {lt.partners.popular}
+              </div>
+              <h3 className="font-black text-slate-900 text-lg">Growth</h3>
+              <div className="flex items-baseline gap-1 mt-2">
+                <span className="font-serif text-4xl font-black text-slate-900">499</span>
+                <span className="text-slate-400 text-sm font-bold">&euro;{lt.partners.month}</span>
+              </div>
+              <p className="text-[10px] text-slate-400 mt-1">+ 499&euro; {lt.partners.setup}</p>
+              <ul className="mt-6 space-y-2.5">
+                {['1.000 ' + lt.partners.renders, 'Widget personalizable', lang === 'es' ? 'Soporte prioritario' : 'Priority support', 'Dashboard + analytics', 'Onboarding call', '0,50\u20AC' + lt.partners.extraRender].map((f, i) => (
+                  <li key={i} className="flex items-center gap-2 text-xs text-slate-600">
+                    <ShieldCheck size={14} className="text-emerald-500 shrink-0" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/partners" className="block mt-6 w-full py-3 bg-indigo-600 text-white rounded-xl text-center text-xs font-black uppercase tracking-widest hover:bg-indigo-700 transition-colors">
+                {lt.partners.cta}
+              </Link>
+            </div>
+          </div>
+
+          {/* ROI Examples */}
+          <div className="max-w-4xl mx-auto">
+            <h3 className="font-serif text-3xl md:text-4xl font-black text-slate-900 tracking-tight text-center mb-10">
+              {lt.partners.casesTitle}
+            </h3>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {lt.partners.cases.map((c, i) => (
+                <div key={i} className="p-6 bg-slate-50 border border-slate-200 rounded-2xl space-y-4 hover:shadow-lg hover:shadow-slate-100 transition-all">
+                  <div>
+                    <h4 className="font-black text-slate-900 text-sm">{c.name}</h4>
+                    <p className="text-[10px] text-slate-400 mt-1">
+                      {c.orders} {lang === 'es' ? 'pedidos/mes' : 'orders/mo'} &middot; {c.ticket}&euro; ticket &middot; {c.returns} {lang === 'es' ? 'devoluciones' : 'returns'}
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="flex items-center gap-1.5 text-[10px] text-slate-500">
+                        <TrendingDown size={12} className="text-emerald-500" />
+                        {lt.partners.savingsLabel}
+                      </span>
+                      <span className="text-xs font-black text-emerald-600">+{c.savings}&euro;</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="flex items-center gap-1.5 text-[10px] text-slate-500">
+                        <TrendingUp size={12} className="text-indigo-500" />
+                        {lt.partners.extraSalesLabel}
+                      </span>
+                      <span className="text-xs font-black text-indigo-600">+{c.extraSales.toLocaleString()}&euro;</span>
+                    </div>
+                    <div className="h-px bg-slate-200" />
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-black text-slate-700">{lt.partners.totalLabel}</span>
+                      <span className="text-sm font-black text-slate-900">+{c.total.toLocaleString()}&euro;</span>
+                    </div>
+                  </div>
+
+                  <div className="p-3 bg-emerald-50 border border-emerald-100 rounded-xl text-center">
+                    <span className="text-[10px] text-emerald-600 font-bold">
+                      {c.plan} ({c.planCost}&euro;{lt.partners.month}) &rarr;{' '}
+                    </span>
+                    <span className="text-sm font-black text-emerald-700">
+                      {lt.partners.roiLabel} {Math.round(c.total / c.planCost)}x
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center mt-10 space-y-3">
+              <Link
+                href="/partners"
+                className="group inline-flex items-center gap-3 px-10 py-4 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-600 transition-colors"
+              >
+                <Store size={16} className="group-hover:scale-110 transition-transform" />
+                {lt.partners.cta}
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <div>
+                <Link
+                  href="/partners/docs"
+                  className="text-[10px] font-bold text-slate-400 hover:text-indigo-600 transition-colors uppercase tracking-widest"
+                >
+                  {lt.partners.docs} &rarr;
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA */}
       <section className="py-24 md:py-32 bg-slate-900">
         <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
@@ -518,6 +712,9 @@ export default function HomePage() {
             </Link>
             <Link href="/blog" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
               Blog
+            </Link>
+            <Link href="/partners" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
+              Partners
             </Link>
             <Link href="/privacy" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
               {lt.footer.privacy}

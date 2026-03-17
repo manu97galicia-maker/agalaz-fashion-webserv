@@ -5,7 +5,7 @@ import { generateApiKey } from '@/lib/partners';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email, store_name, store_url, allowed_domains } = body;
+    const { email, store_name, store_url, allowed_domains, plan } = body;
 
     if (!email || !store_name || !store_url) {
       return NextResponse.json(
@@ -66,9 +66,11 @@ export async function POST(request: NextRequest) {
         api_key_hash: hash,
         api_key_prefix: prefix,
         allowed_domains: domains,
-        plan: 'starter',
-        credits_remaining: 100,
-        credits_monthly_limit: 100,
+        plan: plan === 'growth' ? 'growth' : 'starter',
+        price_eur: plan === 'growth' ? 499 : 125,
+        setup_fee_eur: plan === 'growth' ? 499 : 199,
+        credits_remaining: 10,  // 10 free trial renders — full activation after payment
+        credits_monthly_limit: plan === 'growth' ? 1000 : 200,
       })
       .select('id, store_name, api_key_prefix, allowed_domains, credits_remaining, plan')
       .single();
