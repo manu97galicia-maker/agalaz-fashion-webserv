@@ -7,10 +7,10 @@ const PLANS = [
   {
     id: 'starter',
     name: 'Starter',
-    price: 125,
-    setup: 199,
+    price: 150,
+    setup: 250,
     renders: 200,
-    extra: '0,63',
+    extra: '0,75',
     features: ['200 renders/mes', 'Widget personalizable', 'Soporte por email', 'Dashboard de uso'],
     popular: false,
   },
@@ -34,6 +34,7 @@ export default function PartnersPage() {
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -57,6 +58,31 @@ export default function PartnersPage() {
     }
 
     setIsSubmitting(false);
+  }
+
+  async function handleCheckout() {
+    if (!result) return;
+    setIsCheckingOut(true);
+    try {
+      const res = await fetch('/api/partners/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          plan: result.partner.plan,
+          partnerId: result.partner.id,
+          email: formData.email,
+        }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setError(data.error || 'Failed to start checkout');
+      }
+    } catch {
+      setError('Something went wrong. Please try again.');
+    }
+    setIsCheckingOut(false);
   }
 
   function copyToClipboard(text: string, label: string) {
@@ -346,17 +372,36 @@ export default function PartnersPage() {
               </div>
             </div>
 
-            {/* Plan info */}
-            <div className="p-4 bg-indigo-50 border border-indigo-100 rounded-xl flex items-center justify-between">
+            {/* Plan activation */}
+            <div className="p-6 bg-indigo-50 border border-indigo-100 rounded-2xl space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">
+                    {result.partner.plan === 'growth' ? 'Growth' : 'Starter'} Plan
+                  </span>
+                  <p className="text-sm font-bold text-indigo-900 mt-1">
+                    10 free trial renders included
+                  </p>
+                </div>
+                <Zap size={24} className="text-indigo-300" />
+              </div>
+              <div className="h-px bg-indigo-200" />
               <div>
-                <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">
-                  {result.partner.plan === 'growth' ? 'Growth' : 'Starter'} Plan
-                </span>
-                <p className="text-sm font-bold text-indigo-900 mt-1">
-                  10 free trial renders — we&apos;ll contact you for full activation
+                <p className="text-xs text-indigo-700 font-light mb-3">
+                  Activate your plan to unlock {result.partner.plan === 'growth' ? '1,000' : '200'} renders/month + automatic monthly recharge.
+                </p>
+                <button
+                  onClick={handleCheckout}
+                  disabled={isCheckingOut}
+                  className="w-full py-4 bg-indigo-600 text-white rounded-xl font-black uppercase tracking-[0.15em] text-xs hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+                >
+                  {isCheckingOut ? 'Redirecting to payment...' : `Activate — ${result.partner.plan === 'growth' ? '€499' : '€150'}/mo + setup fee`}
+                  <ArrowRight size={14} />
+                </button>
+                <p className="text-[10px] text-indigo-400 mt-2 text-center">
+                  You can test with 10 free renders first. Activate when ready.
                 </p>
               </div>
-              <Zap size={24} className="text-indigo-300" />
             </div>
           </div>
         )}

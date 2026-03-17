@@ -23,6 +23,29 @@ export async function POST(req: NextRequest) {
   switch (event.type) {
     case 'checkout.session.completed': {
       const session = event.data.object as Stripe.Checkout.Session;
+
+      // ── Partner checkout ──
+      if (session.metadata?.type === 'partner') {
+        const partnerId = session.metadata.partner_id;
+        const partnerPlan = session.metadata.partner_plan;
+        const subscriptionId = session.subscription as string;
+
+        if (partnerId && subscriptionId) {
+          const credits = partnerPlan === 'growth' ? 1000 : 200;
+          await admin.from('partners').update({
+            is_active: true,
+            credits_remaining: credits,
+            stripe_subscription_id: subscriptionId,
+            stripe_customer_id: session.customer as string,
+            updated_at: new Date().toISOString(),
+          }).eq('id', partnerId);
+
+          console.log(`Partner activated: ${partnerId} (${partnerPlan}, ${credits} credits)`);
+        }
+        break;
+      }
+
+      // ── B2C user checkout ──
       const userId = session.client_reference_id;
       const subscriptionId = session.subscription as string;
 
@@ -82,6 +105,30 @@ export async function POST(req: NextRequest) {
       const subscriptionId = (invoice.parent?.subscription_details?.subscription as string) || '';
       if (!subscriptionId) break;
 
+      // ── Check if this is a partner subscription ──
+      const { data: partner } = await admin
+        .from('partners')
+        .select('id, plan')
+        .eq('stripe_subscription_id', subscriptionId)
+        .single();
+
+      if (partner) {
+        // Skip first invoice (already handled in checkout.session.completed)
+        if (invoice.billing_reason === 'subscription_create') break;
+
+        // Monthly renewal — recharge credits
+        const credits = partner.plan === 'growth' ? 1000 : 200;
+        await admin.from('partners').update({
+          credits_remaining: credits,
+          is_active: true,
+          updated_at: new Date().toISOString(),
+        }).eq('id', partner.id);
+
+        console.log(`Partner credits recharged: ${partner.id} (${partner.plan}, ${credits} credits)`);
+        break;
+      }
+
+      // ── B2C user invoice ──
       // Find subscription in our DB
       const { data: sub } = await admin
         .from('subscriptions')
@@ -126,6 +173,25 @@ export async function POST(req: NextRequest) {
     case 'customer.subscription.deleted': {
       const subscription = event.data.object as Stripe.Subscription;
 
+      // ── Check if this is a partner subscription ──
+      const { data: cancelledPartner } = await admin
+        .from('partners')
+        .select('id')
+        .eq('stripe_subscription_id', subscription.id)
+        .single();
+
+      if (cancelledPartner) {
+        await admin.from('partners').update({
+          is_active: false,
+          credits_remaining: 0,
+          updated_at: new Date().toISOString(),
+        }).eq('id', cancelledPartner.id);
+
+        console.log('Partner subscription cancelled:', cancelledPartner.id);
+        break;
+      }
+
+      // ── B2C user cancellation ──
       const { data: sub } = await admin
         .from('subscriptions')
         .select('user_id')

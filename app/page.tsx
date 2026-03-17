@@ -91,7 +91,7 @@ const landingText = {
       extraRender: '/extra render',
       popular: 'Most Popular',
       cases: [
-        { name: 'Boutique', orders: 300, ticket: 35, returns: '25%', savings: 315, extraSales: 787, total: 1102, plan: 'Starter', planCost: 125 },
+        { name: 'Boutique', orders: 300, ticket: 35, returns: '25%', savings: 315, extraSales: 787, total: 1102, plan: 'Starter', planCost: 150 },
         { name: 'Mid-size Store', orders: 800, ticket: 55, returns: '28%', savings: 1232, extraSales: 2640, total: 3872, plan: 'Growth', planCost: 499 },
         { name: 'Large Retailer', orders: 3000, ticket: 70, returns: '30%', savings: 6300, extraSales: 10500, total: 16800, plan: 'Growth', planCost: 499 },
       ],
@@ -162,7 +162,7 @@ const landingText = {
       extraRender: '/render extra',
       popular: 'Más Popular',
       cases: [
-        { name: 'Boutique', orders: 300, ticket: 35, returns: '25%', savings: 315, extraSales: 787, total: 1102, plan: 'Starter', planCost: 125 },
+        { name: 'Boutique', orders: 300, ticket: 35, returns: '25%', savings: 315, extraSales: 787, total: 1102, plan: 'Starter', planCost: 150 },
         { name: 'Tienda Mediana', orders: 800, ticket: 55, returns: '28%', savings: 1232, extraSales: 2640, total: 3872, plan: 'Growth', planCost: 499 },
         { name: 'Gran Retailer', orders: 3000, ticket: 70, returns: '30%', savings: 6300, extraSales: 10500, total: 16800, plan: 'Growth', planCost: 499 },
       ],
@@ -482,10 +482,10 @@ export default function HomePage() {
             <div className="p-8 border-2 border-slate-200 rounded-2xl hover:border-slate-300 transition-all">
               <h3 className="font-black text-slate-900 text-lg">Starter</h3>
               <div className="flex items-baseline gap-1 mt-2">
-                <span className="font-serif text-4xl font-black text-slate-900">125</span>
+                <span className="font-serif text-4xl font-black text-slate-900">150</span>
                 <span className="text-slate-400 text-sm font-bold">&euro;{lt.partners.month}</span>
               </div>
-              <p className="text-[10px] text-slate-400 mt-1">+ 199&euro; {lt.partners.setup}</p>
+              <p className="text-[10px] text-slate-400 mt-1">+ 250&euro; {lt.partners.setup}</p>
               <ul className="mt-6 space-y-2.5">
                 {['200 ' + lt.partners.renders, 'Widget personalizable', lang === 'es' ? 'Soporte por email' : 'Email support', 'Dashboard', '0,63\u20AC' + lt.partners.extraRender].map((f, i) => (
                   <li key={i} className="flex items-center gap-2 text-xs text-slate-600">
