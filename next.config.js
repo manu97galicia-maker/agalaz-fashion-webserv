@@ -24,8 +24,29 @@ const nextConfig = {
   },
   async headers() {
     return [
+      // /embed page: allow iframing from any partner domain
       {
-        source: '/(.*)',
+        source: '/embed',
+        headers: [
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'X-XSS-Protection', value: '1; mode=block' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://datafa.st https://*.datafa.st; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co https://datafa.st https://*.datafa.st; font-src 'self'; frame-ancestors *;",
+          },
+        ],
+      },
+      // widget.js: allow loading from any domain
+      {
+        source: '/widget.js',
+        headers: [
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+        ],
+      },
+      // All other pages: strict CSP
+      {
+        source: '/((?!embed).*)',
         headers: [
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-XSS-Protection', value: '1; mode=block' },
