@@ -69,17 +69,34 @@ export default function EmbedPage() {
   }, [garmentUrl]);
 
   async function fetchImageAsBase64(url: string): Promise<string> {
-    const res = await fetch(url);
-    const blob = await res.blob();
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const result = reader.result as string;
-        resolve(result.split(',')[1]);
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(blob);
-    });
+    // Try direct fetch first, fall back to img element for CORS-restricted images
+    try {
+      const res = await fetch(url, { mode: 'cors' });
+      const blob = await res.blob();
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve((reader.result as string).split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    } catch {
+      // CORS blocked — load via img element + canvas
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          const ctx = canvas.getContext('2d')!;
+          ctx.drawImage(img, 0, 0);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+          resolve(dataUrl.split(',')[1]);
+        };
+        img.onerror = reject;
+        img.src = url;
+      });
+    }
   }
 
   function compressImage(file: File): Promise<string> {
@@ -297,11 +314,11 @@ export default function EmbedPage() {
             </div>
 
             {/* Garment preview (if auto-loaded from store) */}
-            {garmentImage && (
+            {(garmentImage || garmentUrl) && (
               <div className="flex items-center gap-3 p-3 bg-indigo-50 rounded-xl border border-indigo-100">
                 <div className="w-12 h-16 rounded-lg overflow-hidden ring-2 ring-indigo-200 shrink-0">
                   <img
-                    src={`data:image/jpeg;base64,${garmentImage}`}
+                    src={garmentImage ? `data:image/jpeg;base64,${garmentImage}` : garmentUrl!}
                     alt="Garment"
                     className="w-full h-full object-cover"
                   />
