@@ -279,6 +279,15 @@ export default function EmbedPage() {
         <div className="flex items-center gap-2">
           <Sparkles size={16} className="text-indigo-600" />
           <span className="text-sm font-black text-slate-900 tracking-tight">{t.title}</span>
+          <span className="text-[8px] text-slate-300 font-bold">•</span>
+          <a
+            href="https://agalaz.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[9px] font-bold text-slate-300 hover:text-indigo-500 transition-colors"
+          >
+            powered by <span className="text-indigo-400">agalaz.com</span>
+          </a>
         </div>
         <button
           onClick={() => window.parent.postMessage({ type: 'agalaz:close' }, '*')}
@@ -319,8 +328,9 @@ export default function EmbedPage() {
               <div className="flex items-center gap-3 p-3 bg-indigo-50 rounded-xl border border-indigo-100">
                 <div className="w-12 h-16 rounded-lg overflow-hidden ring-2 ring-indigo-200 shrink-0">
                   <img
-                    src={garmentImage ? `data:image/jpeg;base64,${garmentImage}` : garmentUrl!}
+                    src={garmentImage ? `data:image/jpeg;base64,${garmentImage}` : `/api/v1/image-proxy?url=${encodeURIComponent(garmentUrl!)}`}
                     alt="Garment"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -398,16 +408,15 @@ export default function EmbedPage() {
         )}
       </div>
 
-      {/* Footer — always visible */}
-      <div className="shrink-0 border-t border-slate-100 px-4 py-3 text-center bg-white">
+      {/* Footer */}
+      <div className="shrink-0 border-t border-slate-100 px-4 py-1.5 text-center bg-white">
         <a
           href="https://agalaz.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-[10px] font-black text-slate-400 hover:text-indigo-600 transition-colors uppercase tracking-widest"
+          className="text-[8px] font-bold text-slate-200 hover:text-indigo-400 transition-colors"
         >
-          <Sparkles size={10} />
-          Powered by <span className="text-indigo-500">agalaz.com</span>
+          agalaz.com
         </a>
       </div>
 
