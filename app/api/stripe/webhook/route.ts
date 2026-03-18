@@ -24,19 +24,18 @@ export async function POST(req: NextRequest) {
     case 'checkout.session.completed': {
       const session = event.data.object as Stripe.Checkout.Session;
 
-      // ── Partner SETUP fee paid (one-time) → activate + 10 trial renders ──
+      // ── Partner SETUP fee paid → mark setup_paid (API key generated separately) ──
       if (session.metadata?.type === 'partner_setup') {
         const partnerId = session.metadata.partner_id;
 
         if (partnerId) {
           await admin.from('partners').update({
-            is_active: true,
-            credits_remaining: 10,  // 10 free trial renders
+            setup_paid: true,
             stripe_customer_id: session.customer as string,
             updated_at: new Date().toISOString(),
           }).eq('id', partnerId);
 
-          console.log(`Partner setup paid & activated: ${partnerId} (10 trial credits)`);
+          console.log(`Partner setup paid: ${partnerId} (ready to generate API key)`);
         }
         break;
       }

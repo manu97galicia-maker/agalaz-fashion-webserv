@@ -1,15 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabaseAdmin';
-import { generateApiKey } from '@/lib/partners';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email, store_name, store_url, allowed_domains, plan } = body;
+    const { user_id, email, store_name, store_url, allowed_domains, plan } = body;
 
-    if (!email || !store_name || !store_url) {
+    if (!user_id || !email || !store_name || !store_url) {
       return NextResponse.json(
-        { error: 'email, store_name, and store_url are required' },
+        { error: 'user_id, email, store_name, and store_url are required' },
         { status: 400 }
       );
     }
@@ -27,9 +26,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid store_url' }, { status: 400 });
     }
 
-    // Generate API key (stored hashed, raw shown only after setup payment)
-    const { raw, hash, prefix } = generateApiKey();
-
     // Build allowed domains list
     const domains: string[] = allowed_domains && Array.isArray(allowed_domains)
       ? allowed_domains
@@ -41,11 +37,11 @@ export async function POST(request: NextRequest) {
 
     const admin = createAdminClient();
 
-    // Check if email already registered
+    // Check if user already has a partner account
     const { data: existing } = await admin
       .from('partners')
       .select('id')
-      .eq('email', email)
+      .eq('user_id', user_id)
       .single();
 
     if (existing) {
@@ -55,23 +51,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create partner — INACTIVE until setup fee is paid
+    // Create partner — INACTIVE until setup fee is paid, no API key yet
     const selectedPlan = plan === 'growth' ? 'growth' : 'starter';
     const { data: partner, error } = await admin
       .from('partners')
       .insert({
+        user_id: user_id,
         email,
         store_name,
         store_url: store_url.startsWith('http') ? store_url : `https://${store_url}`,
-        api_key_hash: hash,
-        api_key_prefix: prefix,
+        api_key_hash: 'pending',    // No key until setup paid + user clicks "Get API Key"
+        api_key_prefix: 'pending',
         allowed_domains: domains,
         plan: selectedPlan,
         price_eur: selectedPlan === 'growth' ? 499 : 150,
         setup_fee_eur: selectedPlan === 'growth' ? 499 : 250,
-        credits_remaining: 0,      // No credits until setup is paid
+        credits_remaining: 0,
         credits_monthly_limit: selectedPlan === 'growth' ? 1000 : 200,
-        is_active: false,           // Inactive until setup fee paid
+        is_active: false,
+        setup_paid: false,
       })
       .select('id, store_name, plan')
       .single();
@@ -81,7 +79,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to create partner' }, { status: 500 });
     }
 
-    // Return partner ID + raw API key (frontend stores it temporarily until setup is paid)
+    // Return partner ID — no API key yet (generated after setup payment)
     return NextResponse.json({
       success: true,
       partner: {
@@ -89,7 +87,6 @@ export async function POST(request: NextRequest) {
         store_name: partner.store_name,
         plan: partner.plan,
       },
-      api_key: raw,
       next_step: 'setup_payment',
     });
   } catch (error: any) {
