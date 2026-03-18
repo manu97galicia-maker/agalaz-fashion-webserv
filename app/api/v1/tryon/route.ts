@@ -149,9 +149,9 @@ export async function POST(request: NextRequest) {
       { status: 500, headers }
     );
   } catch (error: any) {
-    console.error('V1 Try-On API error:', error);
+    console.error('V1 Try-On API error:', error?.message?.substring(0, 500));
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error', reason: error?.message?.substring(0, 200) },
       { status: 500, headers }
     );
   }

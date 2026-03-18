@@ -90,6 +90,7 @@ export async function generateTryOnImage(
 
     // Attempt generation with up to 2 retries
     const MAX_ATTEMPTS = 3;
+    let lastFailReason = '';
     for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
       try {
         // On retry, use a simpler prompt to reduce safety filter triggers
@@ -124,7 +125,8 @@ export async function generateTryOnImage(
         }
 
         const finishReason = candidate?.finishReason;
-        console.warn(`Attempt ${attempt}/${MAX_ATTEMPTS} failed - reason: ${finishReason || 'no image returned'}`);
+        lastFailReason = finishReason || 'no image returned';
+        console.warn(`Attempt ${attempt}/${MAX_ATTEMPTS} failed - reason: ${lastFailReason}`);
 
         // Always retry if we have attempts left
         if (attempt < MAX_ATTEMPTS) {
@@ -133,27 +135,19 @@ export async function generateTryOnImage(
           continue;
         }
       } catch (retryErr: any) {
-        console.warn(`Attempt ${attempt}/${MAX_ATTEMPTS} error:`, retryErr?.message?.substring(0, 300));
+        lastFailReason = 'error: ' + (retryErr?.message?.substring(0, 200) || 'unknown');
+        console.warn(`Attempt ${attempt}/${MAX_ATTEMPTS} error:`, lastFailReason);
         if (attempt === MAX_ATTEMPTS) throw retryErr;
         await new Promise(r => setTimeout(r, 1000));
       }
     }
 
-    console.error("All generation attempts failed");
+    console.error("All generation attempts failed, lastReason:", lastFailReason);
     return null;
   } catch (error: any) {
     const status = error?.status || error?.code;
     const message = error?.message || '';
-
-    if (status === 429) {
-      console.error("Rate limit exceeded.");
-    } else if (status === 400 && message.includes('response modalities')) {
-      console.error("Model does not support image generation. Check model name.");
-    } else if (message.includes('SAFETY')) {
-      console.error("Content blocked by safety filters.");
-    } else {
-      console.error("Precision rendering error:", status, message || error);
-    }
+    console.error("Gemini error:", status, message?.substring(0, 500));
     return null;
   }
 }
