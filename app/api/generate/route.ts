@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await generateTryOnImage(
+    const { image } = await generateTryOnImage(
       faceImage,
       bodyImage,
       clothingImage || undefined,
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
       lastRenderedImage
     );
 
-    if (result) {
+    if (image) {
       // Deduct 1 credit and increment total_renders
       await admin
         .from('render_counts')
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
         })
         .eq('user_id', user.id);
 
-      return NextResponse.json({ image: result });
+      return NextResponse.json({ image });
     }
     return NextResponse.json(
       { error: 'We couldn\'t generate your try-on. This usually happens when:\n\n• The body photo doesn\'t show your full body (head to feet)\n• The photo is taken from the side instead of the front\n• The lighting is too dark or blurry\n\nTip: Use a well-lit, front-facing full-body photo for the best results.' },

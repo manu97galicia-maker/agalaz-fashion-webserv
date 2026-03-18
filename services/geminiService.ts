@@ -30,7 +30,7 @@ export async function generateTryOnImage(
   modificationPrompt?: string,
   lastRenderedImage?: string,
   clothingMimeType?: string,
-): Promise<string | null> {
+): Promise<{ image: string | null; failReason?: string }> {
   try {
     const ai = new GoogleGenAI({ apiKey: API_KEY });
 
@@ -117,7 +117,7 @@ export async function generateTryOnImage(
         for (const part of responseParts) {
           if ((part as any).inlineData?.data) {
             console.log(`Image generated on attempt ${attempt}, size:`, (part as any).inlineData.data.length);
-            return `data:image/png;base64,${(part as any).inlineData.data}`;
+            return { image: `data:image/png;base64,${(part as any).inlineData.data}` };
           }
           if ((part as any).text) {
             console.log("Text part:", (part as any).text.substring(0, 200));
@@ -143,12 +143,12 @@ export async function generateTryOnImage(
     }
 
     console.error("All generation attempts failed, lastReason:", lastFailReason);
-    return null;
+    return { image: null, failReason: lastFailReason || 'all attempts failed' };
   } catch (error: any) {
     const status = error?.status || error?.code;
     const message = error?.message || '';
     console.error("Gemini error:", status, message?.substring(0, 500));
-    return null;
+    return { image: null, failReason: `${status}: ${message?.substring(0, 200)}` };
   }
 }
 

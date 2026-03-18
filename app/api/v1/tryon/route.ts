@@ -125,7 +125,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await generateTryOnImage(
+    const { image, failReason } = await generateTryOnImage(
       faceImage,
       bodyImage,
       finalClothingImage || undefined,
@@ -134,18 +134,18 @@ export async function POST(request: NextRequest) {
       garmentMimeType,
     );
 
-    if (result) {
+    if (image) {
       // Deduct credit and log usage
       await deductPartnerCredit(partner.id, partner.credits_remaining, partner.total_renders);
 
       return NextResponse.json(
-        { success: true, image: result, credits_remaining: partner.credits_remaining - 1 },
+        { success: true, image, credits_remaining: partner.credits_remaining - 1 },
         { headers }
       );
     }
 
     return NextResponse.json(
-      { error: 'Generation failed. Ensure photos are front-facing, full-body, and well-lit.', debug: debugInfo },
+      { error: 'Generation failed. Ensure photos are front-facing, full-body, and well-lit.', debug: { ...debugInfo, geminiReason: failReason } },
       { status: 500, headers }
     );
   } catch (error: any) {
