@@ -100,7 +100,18 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    console.log(`V1 TryOn - face: ${faceImage.length} chars, body: ${bodyImage.length} chars, garment: ${finalClothingImage ? finalClothingImage.length + ' chars' : 'none'}`);
+    // Log details for debugging
+    console.log(`V1 TryOn - face: ${faceImage.length} chars (starts: ${faceImage.substring(0, 20)}), body: ${bodyImage.length} chars (starts: ${bodyImage.substring(0, 20)}), garment: ${finalClothingImage ? finalClothingImage.length + ' chars' : 'none'}, garmentUrl: ${garmentUrl || 'none'}`);
+
+    // Validate base64 doesn't contain URL or other non-base64 content
+    const isValidBase64 = (s: string) => /^[A-Za-z0-9+/=]+$/.test(s.substring(0, 100));
+    if (!isValidBase64(faceImage) || !isValidBase64(bodyImage)) {
+      console.error('Invalid base64 detected!', 'face valid:', isValidBase64(faceImage), 'body valid:', isValidBase64(bodyImage));
+      return NextResponse.json(
+        { error: 'Invalid image format. Please re-upload your photos.' },
+        { status: 400, headers }
+      );
+    }
 
     const result = await generateTryOnImage(
       faceImage,
