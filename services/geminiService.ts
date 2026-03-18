@@ -28,7 +28,8 @@ export async function generateTryOnImage(
   bodyImage: string,
   clothingImage?: string,
   modificationPrompt?: string,
-  lastRenderedImage?: string
+  lastRenderedImage?: string,
+  clothingMimeType?: string,
 ): Promise<string | null> {
   try {
     const ai = new GoogleGenAI({ apiKey: API_KEY });
@@ -42,7 +43,7 @@ export async function generateTryOnImage(
     ];
 
     if (clothingImage) {
-      parts.push({ inlineData: { mimeType: 'image/jpeg', data: trimBase64(cleanBase64(clothingImage)) } });
+      parts.push({ inlineData: { mimeType: clothingMimeType || 'image/jpeg', data: trimBase64(cleanBase64(clothingImage)) } });
     }
 
     if (lastRenderedImage) {

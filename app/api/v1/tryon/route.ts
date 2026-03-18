@@ -81,6 +81,7 @@ export async function POST(request: NextRequest) {
 
     // If garmentUrl provided but no clothingImage, fetch it server-side (avoids CORS)
     let finalClothingImage = clothingImage;
+    let garmentMimeType = 'image/jpeg';
     if (!finalClothingImage && garmentUrl) {
       try {
         const garmentRes = await fetch(garmentUrl, { redirect: 'follow' });
@@ -89,7 +90,8 @@ export async function POST(request: NextRequest) {
         if (garmentRes.ok && contentType.startsWith('image/')) {
           const buffer = await garmentRes.arrayBuffer();
           finalClothingImage = Buffer.from(buffer).toString('base64');
-          console.log(`Fetched garment: ${finalClothingImage.length} chars`);
+          garmentMimeType = contentType.split(';')[0].trim();
+          console.log(`Fetched garment: ${finalClothingImage.length} chars, type: ${garmentMimeType}`);
         } else {
           console.warn(`Garment URL returned non-image: ${contentType}`);
         }
@@ -104,6 +106,9 @@ export async function POST(request: NextRequest) {
       faceImage,
       bodyImage,
       finalClothingImage || undefined,
+      undefined,
+      undefined,
+      garmentMimeType,
     );
 
     if (result) {
