@@ -22,7 +22,13 @@ export function ImageUploader({ label, type, image, onImageSelect, icon }: Image
         const img = new Image();
         img.onload = () => {
           const MAX_DIM = 1536;
+          const MIN_DIM = 512;
           let { width, height } = img;
+          if (width < MIN_DIM && height < MIN_DIM) {
+            const scale = MIN_DIM / Math.max(width, height);
+            width = Math.round(width * scale);
+            height = Math.round(height * scale);
+          }
           if (width > MAX_DIM || height > MAX_DIM) {
             const scale = MAX_DIM / Math.max(width, height);
             width = Math.round(width * scale);
