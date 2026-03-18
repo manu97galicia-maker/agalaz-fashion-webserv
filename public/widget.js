@@ -11,8 +11,13 @@
   'use strict';
 
   // Find our script tag to read the API key
-  var scripts = document.getElementsByTagName('script');
-  var currentScript = scripts[scripts.length - 1];
+  var currentScript = document.currentScript || (function () {
+    var scripts = document.getElementsByTagName('script');
+    for (var i = 0; i < scripts.length; i++) {
+      if (scripts[i].src && scripts[i].src.indexOf('widget.js') !== -1) return scripts[i];
+    }
+    return scripts[scripts.length - 1];
+  })();
   var apiKey = currentScript.getAttribute('data-api-key') || '';
   var baseUrl = currentScript.src.replace(/\/widget\.js.*$/, '');
 
