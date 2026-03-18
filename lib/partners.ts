@@ -64,9 +64,11 @@ export async function validateApiKey(
 
   // Domain validation (skip if no domains configured — open access)
   // Supports subdomain matching: "lovable.app" allows "*.lovable.app"
+  // Always allow requests from agalaz.com itself (embed page runs on our domain)
   if (partner.allowed_domains.length > 0 && requestOrigin) {
     const originDomain = extractDomain(requestOrigin);
-    if (originDomain) {
+    if (originDomain && originDomain !== 'agalaz.com' && !originDomain.endsWith('.agalaz.com')
+        && !originDomain.endsWith('.vercel.app')) {
       const domainAllowed = partner.allowed_domains.some((d: string) =>
         originDomain === d || originDomain.endsWith('.' + d)
       );
