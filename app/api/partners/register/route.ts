@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid store_url' }, { status: 400 });
     }
 
-    // Generate API key
+    // Generate API key (stored hashed, raw shown only after setup payment)
     const { raw, hash, prefix } = generateApiKey();
 
     // Build allowed domains list
@@ -35,7 +35,6 @@ export async function POST(request: NextRequest) {
       ? allowed_domains
       : [storeDomain];
 
-    // Ensure the store domain is always included
     if (!domains.includes(storeDomain)) {
       domains.push(storeDomain);
     }
@@ -56,7 +55,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create partner
+    // Create partner — INACTIVE until setup fee is paid
+    const selectedPlan = plan === 'growth' ? 'growth' : 'starter';
     const { data: partner, error } = await admin
       .from('partners')
       .insert({
@@ -66,13 +66,14 @@ export async function POST(request: NextRequest) {
         api_key_hash: hash,
         api_key_prefix: prefix,
         allowed_domains: domains,
-        plan: plan === 'growth' ? 'growth' : 'starter',
-        price_eur: plan === 'growth' ? 499 : 125,
-        setup_fee_eur: plan === 'growth' ? 499 : 199,
-        credits_remaining: 10,  // 10 free trial renders — full activation after payment
-        credits_monthly_limit: plan === 'growth' ? 1000 : 200,
+        plan: selectedPlan,
+        price_eur: selectedPlan === 'growth' ? 499 : 150,
+        setup_fee_eur: selectedPlan === 'growth' ? 499 : 250,
+        credits_remaining: 0,      // No credits until setup is paid
+        credits_monthly_limit: selectedPlan === 'growth' ? 1000 : 200,
+        is_active: false,           // Inactive until setup fee paid
       })
-      .select('id, store_name, api_key_prefix, allowed_domains, credits_remaining, plan')
+      .select('id, store_name, plan')
       .single();
 
     if (error) {
@@ -80,23 +81,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to create partner' }, { status: 500 });
     }
 
-    // Return the raw API key — this is the ONLY time it's shown
+    // Return partner ID + raw API key (frontend stores it temporarily until setup is paid)
     return NextResponse.json({
       success: true,
       partner: {
         id: partner.id,
         store_name: partner.store_name,
         plan: partner.plan,
-        credits_remaining: partner.credits_remaining,
-        allowed_domains: partner.allowed_domains,
       },
       api_key: raw,
-      warning: 'Save this API key now — it cannot be retrieved again.',
-      integration: {
-        script_tag: `<script src="https://agalaz.com/widget.js" data-api-key="${raw}"></script>`,
-        button_div: '<div id="agalaz-tryon"></div>',
-        with_garment: `<div id="agalaz-tryon" data-garment="YOUR_PRODUCT_IMAGE_URL"></div>`,
-      },
+      next_step: 'setup_payment',
     });
   } catch (error: any) {
     console.error('Partner registration error:', error);

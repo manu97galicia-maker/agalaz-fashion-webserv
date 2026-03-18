@@ -24,8 +24,25 @@ export async function POST(req: NextRequest) {
     case 'checkout.session.completed': {
       const session = event.data.object as Stripe.Checkout.Session;
 
-      // ── Partner checkout ──
-      if (session.metadata?.type === 'partner') {
+      // ── Partner SETUP fee paid (one-time) → activate + 10 trial renders ──
+      if (session.metadata?.type === 'partner_setup') {
+        const partnerId = session.metadata.partner_id;
+
+        if (partnerId) {
+          await admin.from('partners').update({
+            is_active: true,
+            credits_remaining: 10,  // 10 free trial renders
+            stripe_customer_id: session.customer as string,
+            updated_at: new Date().toISOString(),
+          }).eq('id', partnerId);
+
+          console.log(`Partner setup paid & activated: ${partnerId} (10 trial credits)`);
+        }
+        break;
+      }
+
+      // ── Partner MONTHLY subscription activated ──
+      if (session.metadata?.type === 'partner_subscription') {
         const partnerId = session.metadata.partner_id;
         const partnerPlan = session.metadata.partner_plan;
         const subscriptionId = session.subscription as string;
@@ -33,14 +50,14 @@ export async function POST(req: NextRequest) {
         if (partnerId && subscriptionId) {
           const credits = partnerPlan === 'growth' ? 1000 : 200;
           await admin.from('partners').update({
-            is_active: true,
             credits_remaining: credits,
+            credits_monthly_limit: credits,
             stripe_subscription_id: subscriptionId,
             stripe_customer_id: session.customer as string,
             updated_at: new Date().toISOString(),
           }).eq('id', partnerId);
 
-          console.log(`Partner activated: ${partnerId} (${partnerPlan}, ${credits} credits)`);
+          console.log(`Partner subscription activated: ${partnerId} (${partnerPlan}, ${credits} credits/month)`);
         }
         break;
       }
