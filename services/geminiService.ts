@@ -123,17 +123,17 @@ export async function generateTryOnImage(
         }
 
         const finishReason = candidate?.finishReason;
-        console.warn(`Attempt ${attempt}/${MAX_ATTEMPTS} failed - reason: ${finishReason || 'no image'}`);
+        console.warn(`Attempt ${attempt}/${MAX_ATTEMPTS} failed - reason: ${finishReason || 'no image returned'}`);
 
-        // Don't retry if explicitly blocked by safety
-        if (finishReason === 'SAFETY' && attempt < MAX_ATTEMPTS) {
-          console.log("Safety block, retrying with simpler prompt...");
+        // Always retry if we have attempts left
+        if (attempt < MAX_ATTEMPTS) {
+          console.log(`Retrying with simpler prompt (attempt ${attempt + 1})...`);
+          await new Promise(r => setTimeout(r, 500));
           continue;
         }
       } catch (retryErr: any) {
-        console.warn(`Attempt ${attempt}/${MAX_ATTEMPTS} error:`, retryErr?.message?.substring(0, 200));
+        console.warn(`Attempt ${attempt}/${MAX_ATTEMPTS} error:`, retryErr?.message?.substring(0, 300));
         if (attempt === MAX_ATTEMPTS) throw retryErr;
-        // Wait briefly before retry
         await new Promise(r => setTimeout(r, 1000));
       }
     }

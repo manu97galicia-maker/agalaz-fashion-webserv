@@ -79,6 +79,17 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Log image sizes for debugging
+    console.log(`V1 TryOn - face: ${faceImage.length} chars, body: ${bodyImage.length} chars, garment: ${finalClothingImage ? finalClothingImage.length + ' chars' : 'none'}, garmentUrl: ${garmentUrl || 'none'}`);
+
+    // Validate base64 is not empty or corrupted
+    if (faceImage.length < 100 || bodyImage.length < 100) {
+      return NextResponse.json(
+        { error: 'Images appear to be empty or corrupted. Please re-upload.' },
+        { status: 400, headers }
+      );
+    }
+
     const result = await generateTryOnImage(
       faceImage,
       bodyImage,
