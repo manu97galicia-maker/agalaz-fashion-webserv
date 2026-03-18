@@ -131,19 +131,30 @@
     });
   }
 
-  // Run on DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
+  // Start observing for containers (SPA/React support)
+  function startObserver() {
+    if (typeof MutationObserver !== 'undefined' && document.body) {
+      var observer = new MutationObserver(function () {
+        var uninit = document.querySelectorAll('#agalaz-tryon:not([data-agalaz-init]), [data-agalaz-tryon]:not([data-agalaz-init])');
+        if (uninit.length > 0) init();
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
   }
 
-  // Also watch for dynamically added containers (SPA support)
-  if (typeof MutationObserver !== 'undefined') {
-    var observer = new MutationObserver(function () {
-      var uninit = document.querySelectorAll('#agalaz-tryon:not([data-agalaz-init]), [data-agalaz-tryon]:not([data-agalaz-init])');
-      if (uninit.length > 0) init();
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
+  // Run on DOM ready, then start observer
+  function bootstrap() {
+    init();
+    startObserver();
+    // Retry init after short delays for slow-rendering SPAs (React, Vue, etc.)
+    setTimeout(init, 500);
+    setTimeout(init, 1500);
+    setTimeout(init, 3000);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootstrap);
+  } else {
+    bootstrap();
   }
 })();
