@@ -171,7 +171,9 @@ export default function EmbedPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error || t.errorGeneric);
+        console.error('Embed generation failed:', JSON.stringify(data));
+        const debugStr = data.debug ? ` [face:${data.debug.faceSize}, body:${data.debug.bodySize}, garment:${data.debug.garmentSize}]` : '';
+        setError((data.error || t.errorGeneric) + debugStr);
         setIsLoading(false);
         return;
       }

@@ -84,7 +84,10 @@ export async function POST(request: NextRequest) {
     let garmentMimeType = 'image/jpeg';
     if (!finalClothingImage && garmentUrl) {
       try {
-        const garmentRes = await fetch(garmentUrl, { redirect: 'follow' });
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 8000);
+        const garmentRes = await fetch(garmentUrl, { redirect: 'follow', signal: controller.signal });
+        clearTimeout(timeout);
         const contentType = garmentRes.headers.get('content-type') || '';
         console.log(`Garment fetch: status=${garmentRes.status}, type=${contentType}, url=${garmentUrl.substring(0, 100)}`);
         if (garmentRes.ok && contentType.startsWith('image/')) {
@@ -93,7 +96,7 @@ export async function POST(request: NextRequest) {
           garmentMimeType = contentType.split(';')[0].trim();
           console.log(`Fetched garment: ${finalClothingImage.length} chars, type: ${garmentMimeType}`);
         } else {
-          console.warn(`Garment URL returned non-image: ${contentType}`);
+          console.warn(`Garment URL returned non-image: ${contentType}, body: ${await garmentRes.text().catch(() => 'N/A')}`);
         }
       } catch (e: any) {
         console.warn('Failed to fetch garment URL:', e?.message);
@@ -101,7 +104,16 @@ export async function POST(request: NextRequest) {
     }
 
     // Log details for debugging
-    console.log(`V1 TryOn - face: ${faceImage.length} chars (starts: ${faceImage.substring(0, 20)}), body: ${bodyImage.length} chars (starts: ${bodyImage.substring(0, 20)}), garment: ${finalClothingImage ? finalClothingImage.length + ' chars' : 'none'}, garmentUrl: ${garmentUrl || 'none'}`);
+    const debugInfo = {
+      faceSize: faceImage.length,
+      bodySize: bodyImage.length,
+      garmentSize: finalClothingImage ? finalClothingImage.length : 0,
+      garmentUrl: garmentUrl || 'none',
+      garmentMime: garmentMimeType,
+      faceStart: faceImage.substring(0, 30),
+      bodyStart: bodyImage.substring(0, 30),
+    };
+    console.log('V1 TryOn debug:', JSON.stringify(debugInfo));
 
     // Validate base64 doesn't contain URL or other non-base64 content
     const isValidBase64 = (s: string) => /^[A-Za-z0-9+/=]+$/.test(s.substring(0, 100));
@@ -133,7 +145,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { error: 'Generation failed. Ensure photos are front-facing, full-body, and well-lit.' },
+      { error: 'Generation failed. Ensure photos are front-facing, full-body, and well-lit.', debug: debugInfo },
       { status: 500, headers }
     );
   } catch (error: any) {
