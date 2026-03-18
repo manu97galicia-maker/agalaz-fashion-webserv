@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
-import { Sparkles, Copy, Check, ArrowRight, Shield, Zap, Globe, Code2, LogIn } from 'lucide-react';
+import { Sparkles, Copy, Check, ArrowRight, Shield, Zap, Globe, Code2 } from 'lucide-react';
 
 const PLANS = [
   {
@@ -43,6 +43,18 @@ interface PartnerProfile {
 type FlowStep = 'loading' | 'login' | 'plans' | 'form' | 'setup_paid' | 'has_key' | 'subscribed';
 
 export default function PartnersPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="animate-pulse text-slate-400 text-sm font-bold">Cargando...</div>
+      </div>
+    }>
+      <PartnersContent />
+    </Suspense>
+  );
+}
+
+function PartnersContent() {
   const searchParams = useSearchParams();
   const [step, setStep] = useState<FlowStep>('loading');
   const [selectedPlan, setSelectedPlan] = useState('starter');
