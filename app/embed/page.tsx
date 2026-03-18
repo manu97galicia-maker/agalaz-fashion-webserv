@@ -398,8 +398,8 @@ export default function EmbedPage() {
         )}
       </div>
 
-      {/* Footer */}
-      <div className="border-t border-slate-100 px-4 py-3 text-center">
+      {/* Footer — always visible */}
+      <div className="shrink-0 border-t border-slate-100 px-4 py-3 text-center bg-white">
         <a
           href="https://agalaz.com"
           target="_blank"
