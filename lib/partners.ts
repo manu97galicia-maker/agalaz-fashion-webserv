@@ -63,10 +63,16 @@ export async function validateApiKey(
   }
 
   // Domain validation (skip if no domains configured — open access)
+  // Supports subdomain matching: "lovable.app" allows "*.lovable.app"
   if (partner.allowed_domains.length > 0 && requestOrigin) {
     const originDomain = extractDomain(requestOrigin);
-    if (originDomain && !partner.allowed_domains.includes(originDomain)) {
-      return { valid: false, error: 'Domain not authorized' };
+    if (originDomain) {
+      const domainAllowed = partner.allowed_domains.some((d: string) =>
+        originDomain === d || originDomain.endsWith('.' + d)
+      );
+      if (!domainAllowed) {
+        return { valid: false, error: 'Domain not authorized' };
+      }
     }
   }
 
