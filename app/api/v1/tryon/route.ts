@@ -47,11 +47,25 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { faceImage, bodyImage, clothingImage, garmentUrl } = body;
+    let { faceImage, bodyImage, clothingImage, garmentUrl } = body;
 
     if (!faceImage || !bodyImage) {
       return NextResponse.json(
         { error: 'Both faceImage and bodyImage are required (base64)' },
+        { status: 400, headers }
+      );
+    }
+
+    // Clean base64: remove data URL prefix if present
+    const cleanBase64 = (s: string) => s.replace(/^data:image\/[^;]+;base64,/, '');
+    faceImage = cleanBase64(faceImage);
+    bodyImage = cleanBase64(bodyImage);
+    if (clothingImage) clothingImage = cleanBase64(clothingImage);
+
+    // Validate base64 is not empty or corrupted
+    if (faceImage.length < 100 || bodyImage.length < 100) {
+      return NextResponse.json(
+        { error: 'Images appear to be empty or corrupted. Please re-upload.' },
         { status: 400, headers }
       );
     }
@@ -69,26 +83,22 @@ export async function POST(request: NextRequest) {
     let finalClothingImage = clothingImage;
     if (!finalClothingImage && garmentUrl) {
       try {
-        const garmentRes = await fetch(garmentUrl);
-        if (garmentRes.ok) {
+        const garmentRes = await fetch(garmentUrl, { redirect: 'follow' });
+        const contentType = garmentRes.headers.get('content-type') || '';
+        console.log(`Garment fetch: status=${garmentRes.status}, type=${contentType}, url=${garmentUrl.substring(0, 100)}`);
+        if (garmentRes.ok && contentType.startsWith('image/')) {
           const buffer = await garmentRes.arrayBuffer();
           finalClothingImage = Buffer.from(buffer).toString('base64');
+          console.log(`Fetched garment: ${finalClothingImage.length} chars`);
+        } else {
+          console.warn(`Garment URL returned non-image: ${contentType}`);
         }
-      } catch (e) {
-        console.warn('Failed to fetch garment URL:', garmentUrl);
+      } catch (e: any) {
+        console.warn('Failed to fetch garment URL:', e?.message);
       }
     }
 
-    // Log image sizes for debugging
-    console.log(`V1 TryOn - face: ${faceImage.length} chars, body: ${bodyImage.length} chars, garment: ${finalClothingImage ? finalClothingImage.length + ' chars' : 'none'}, garmentUrl: ${garmentUrl || 'none'}`);
-
-    // Validate base64 is not empty or corrupted
-    if (faceImage.length < 100 || bodyImage.length < 100) {
-      return NextResponse.json(
-        { error: 'Images appear to be empty or corrupted. Please re-upload.' },
-        { status: 400, headers }
-      );
-    }
+    console.log(`V1 TryOn - face: ${faceImage.length} chars, body: ${bodyImage.length} chars, garment: ${finalClothingImage ? finalClothingImage.length + ' chars' : 'none'}`);
 
     const result = await generateTryOnImage(
       faceImage,
