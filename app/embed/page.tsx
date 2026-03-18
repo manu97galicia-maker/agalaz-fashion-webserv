@@ -164,6 +164,7 @@ export default function EmbedPage() {
           faceImage,
           bodyImage,
           clothingImage: garmentImage || undefined,
+          garmentUrl: !garmentImage && garmentUrl ? garmentUrl : undefined,
         }),
       });
 

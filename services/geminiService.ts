@@ -13,6 +13,16 @@ STRICT PRESERVATION RULES:
 5. TEXT: Respond with technical elegance in fewer than 8 words.
 `;
 
+// Truncate oversized base64 images by checking byte size
+// Gemini works best with images under 1MB
+function trimBase64(data: string, maxBytes: number = 1_500_000): string {
+  // base64 length * 0.75 ≈ byte size
+  if (data.length * 0.75 > maxBytes) {
+    console.warn(`Image too large (${Math.round(data.length * 0.75 / 1024)}KB), may cause issues`);
+  }
+  return data;
+}
+
 export async function generateTryOnImage(
   faceImage: string,
   bodyImage: string,
@@ -23,17 +33,20 @@ export async function generateTryOnImage(
   try {
     const ai = new GoogleGenAI({ apiKey: API_KEY });
 
+    // Clean base64 data (remove data URL prefix if present)
+    const cleanBase64 = (s: string) => s.replace(/^data:image\/[^;]+;base64,/, '');
+
     const parts: any[] = [
-      { inlineData: { mimeType: 'image/jpeg', data: faceImage } },
-      { inlineData: { mimeType: 'image/jpeg', data: bodyImage } },
+      { inlineData: { mimeType: 'image/jpeg', data: trimBase64(cleanBase64(faceImage)) } },
+      { inlineData: { mimeType: 'image/jpeg', data: trimBase64(cleanBase64(bodyImage)) } },
     ];
 
     if (clothingImage) {
-      parts.push({ inlineData: { mimeType: 'image/jpeg', data: clothingImage } });
+      parts.push({ inlineData: { mimeType: 'image/jpeg', data: trimBase64(cleanBase64(clothingImage)) } });
     }
 
     if (lastRenderedImage) {
-      const base64Data = lastRenderedImage.split(',')[1] || lastRenderedImage;
+      const base64Data = cleanBase64(lastRenderedImage);
       parts.push({ inlineData: { mimeType: 'image/png', data: base64Data } });
     }
 

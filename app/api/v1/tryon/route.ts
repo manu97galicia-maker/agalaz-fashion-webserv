@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { generateTryOnImage } from '@/services/geminiService';
 import { validateApiKey, deductPartnerCredit } from '@/lib/partners';
 
-export const maxDuration = 60;
+export const maxDuration = 120;
 
 // CORS headers for cross-origin widget/iframe requests
 function corsHeaders(origin?: string | null) {
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { faceImage, bodyImage, clothingImage } = body;
+    const { faceImage, bodyImage, clothingImage, garmentUrl } = body;
 
     if (!faceImage || !bodyImage) {
       return NextResponse.json(
@@ -65,10 +65,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // If garmentUrl provided but no clothingImage, fetch it server-side (avoids CORS)
+    let finalClothingImage = clothingImage;
+    if (!finalClothingImage && garmentUrl) {
+      try {
+        const garmentRes = await fetch(garmentUrl);
+        if (garmentRes.ok) {
+          const buffer = await garmentRes.arrayBuffer();
+          finalClothingImage = Buffer.from(buffer).toString('base64');
+        }
+      } catch (e) {
+        console.warn('Failed to fetch garment URL:', garmentUrl);
+      }
+    }
+
     const result = await generateTryOnImage(
       faceImage,
       bodyImage,
-      clothingImage || undefined,
+      finalClothingImage || undefined,
     );
 
     if (result) {
