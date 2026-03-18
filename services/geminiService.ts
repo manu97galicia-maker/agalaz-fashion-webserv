@@ -88,62 +88,83 @@ export async function generateTryOnImage(
 
     parts.push({ text: promptBase + "\n\nIMPORTANT: You MUST output a generated image. Do NOT respond with text only. Generate the composite image now." });
 
-    // Attempt generation with up to 2 retries
-    const MAX_ATTEMPTS = 3;
+    // Try generation with retries
+    const tryGenerate = async (inputParts: any[], label: string): Promise<string | null> => {
+      const prompts = [
+        inputParts[inputParts.length - 1].text,
+        `Create a fashion editorial photo: place the face from IMG 1 onto the body in IMG 2${hasGarment && inputParts.length > 3 ? ', wearing the garment from IMG 3' : ''}. Output a photorealistic full-body image. You MUST generate an image.`,
+        `Combine these photos into one fashion photo. Face from first image, body from second${hasGarment && inputParts.length > 3 ? ', clothing from third' : ''}. Generate the image now.`,
+      ];
+
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+          const currentParts = attempt === 1 ? inputParts : [
+            ...inputParts.slice(0, -1),
+            { text: prompts[attempt - 1] },
+          ];
+
+          const response = await ai.models.generateContent({
+            model: 'gemini-3.1-flash-image-preview',
+            contents: { parts: currentParts },
+            config: { responseModalities: ["TEXT", "IMAGE"] },
+          });
+
+          const candidate = response.candidates?.[0];
+          const responseParts = candidate?.content?.parts || [];
+          console.log(`${label} attempt ${attempt} - finishReason:`, candidate?.finishReason, "parts:", responseParts.length);
+
+          for (const part of responseParts) {
+            if ((part as any).inlineData?.data) {
+              console.log(`Image generated (${label} attempt ${attempt}), size:`, (part as any).inlineData.data.length);
+              return (part as any).inlineData.data;
+            }
+            if ((part as any).text) {
+              console.log("Text part:", (part as any).text.substring(0, 200));
+            }
+          }
+          console.warn(`${label} attempt ${attempt}/3 - no image returned, reason: ${candidate?.finishReason}`);
+        } catch (retryErr: any) {
+          console.warn(`${label} attempt ${attempt}/3 error:`, retryErr?.message?.substring(0, 200));
+          // On INVALID_ARGUMENT, no point retrying with same images
+          if (retryErr?.message?.includes('INVALID_ARGUMENT')) throw retryErr;
+          if (attempt === 3) throw retryErr;
+        }
+        await new Promise(r => setTimeout(r, 500));
+      }
+      return null;
+    };
+
+    // Attempt 1: with all images (including garment)
     let lastFailReason = '';
-    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-      try {
-        // On retry, use a simpler prompt to reduce safety filter triggers
-        const currentParts = attempt === 1 ? parts : [
-          ...parts.slice(0, -1),
-          { text: attempt === 2
-            ? `Create a fashion editorial photo: place the face from IMG 1 onto the body in IMG 2${hasGarment ? ', wearing the garment from IMG 3' : ''}. Output a photorealistic full-body image. You MUST generate an image.`
-            : `Combine these photos into one fashion photo. Face from first image, body from second${hasGarment ? ', clothing from third' : ''}. Generate the image now.`
-          },
-        ];
+    try {
+      const result = await tryGenerate(parts, 'WithGarment');
+      if (result) return { image: `data:image/png;base64,${result}` };
+      lastFailReason = 'no image returned';
+    } catch (err: any) {
+      lastFailReason = err?.message?.substring(0, 200) || 'unknown';
+      console.warn('Generation with garment failed:', lastFailReason);
 
-        const response = await ai.models.generateContent({
-          model: 'gemini-3.1-flash-image-preview',
-          contents: { parts: currentParts },
-          config: {
-            responseModalities: ["TEXT", "IMAGE"],
-          },
-        });
-
-        const candidate = response.candidates?.[0];
-        const responseParts = candidate?.content?.parts || [];
-        console.log(`Gemini attempt ${attempt} - finishReason:`, candidate?.finishReason, "parts:", responseParts.length);
-
-        for (const part of responseParts) {
-          if ((part as any).inlineData?.data) {
-            console.log(`Image generated on attempt ${attempt}, size:`, (part as any).inlineData.data.length);
-            return { image: `data:image/png;base64,${(part as any).inlineData.data}` };
-          }
-          if ((part as any).text) {
-            console.log("Text part:", (part as any).text.substring(0, 200));
-          }
+      // If INVALID_ARGUMENT and we have a garment, retry WITHOUT garment
+      if (hasGarment && err?.message?.includes('INVALID_ARGUMENT')) {
+        console.log('Retrying WITHOUT garment image (garment may be corrupt)...');
+        try {
+          // face + body only, with no-garment prompt
+          const partsNoGarment = [
+            parts[0], // face
+            parts[1], // body
+            { text: `FACE SWAP: Place the face from IMG 1 onto the body in IMG 2. Keep all clothing, pose, and background from IMG 2. Output a photorealistic full-body image. You MUST generate an image.` },
+          ];
+          const result = await tryGenerate(partsNoGarment, 'NoGarment');
+          if (result) return { image: `data:image/png;base64,${result}` };
+        } catch (retryErr: any) {
+          lastFailReason = 'no-garment also failed: ' + (retryErr?.message?.substring(0, 200) || 'unknown');
+          console.error(lastFailReason);
         }
-
-        const finishReason = candidate?.finishReason;
-        lastFailReason = finishReason || 'no image returned';
-        console.warn(`Attempt ${attempt}/${MAX_ATTEMPTS} failed - reason: ${lastFailReason}`);
-
-        // Always retry if we have attempts left
-        if (attempt < MAX_ATTEMPTS) {
-          console.log(`Retrying with simpler prompt (attempt ${attempt + 1})...`);
-          await new Promise(r => setTimeout(r, 500));
-          continue;
-        }
-      } catch (retryErr: any) {
-        lastFailReason = 'error: ' + (retryErr?.message?.substring(0, 200) || 'unknown');
-        console.warn(`Attempt ${attempt}/${MAX_ATTEMPTS} error:`, lastFailReason);
-        if (attempt === MAX_ATTEMPTS) throw retryErr;
-        await new Promise(r => setTimeout(r, 1000));
       }
     }
 
     console.error("All generation attempts failed, lastReason:", lastFailReason);
-    return { image: null, failReason: lastFailReason || 'all attempts failed' };
+    return { image: null, failReason: lastFailReason };
   } catch (error: any) {
     const status = error?.status || error?.code;
     const message = error?.message || '';
