@@ -399,14 +399,15 @@ export default function EmbedPage() {
       </div>
 
       {/* Footer */}
-      <div className="border-t border-slate-100 px-4 py-2 text-center">
+      <div className="border-t border-slate-100 px-4 py-3 text-center">
         <a
           href="https://agalaz.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[9px] font-bold text-slate-300 hover:text-indigo-500 transition-colors uppercase tracking-widest"
+          className="inline-flex items-center gap-1.5 text-[10px] font-black text-slate-400 hover:text-indigo-600 transition-colors uppercase tracking-widest"
         >
-          {t.poweredBy}
+          <Sparkles size={10} />
+          Powered by <span className="text-indigo-500">agalaz.com</span>
         </a>
       </div>
 
