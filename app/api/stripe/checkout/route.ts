@@ -17,7 +17,7 @@ function getPrices(): Record<string, string> {
 
 export async function POST(req: NextRequest) {
   try {
-    const { plan, email, userId } = await req.json();
+    const { plan, email, userId, skipTrial } = await req.json();
 
     const PRICES = getPrices();
     if (!plan || !PRICES[plan]) {
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
       billing_address_collection: 'auto',
       customer_email: email,
       client_reference_id: userId,
-      ...(plan === 'yearly' ? { subscription_data: { trial_period_days: 1 } } : {}),
+      ...(plan === 'yearly' && !skipTrial ? { subscription_data: { trial_period_days: 1 } } : {}),
       metadata: {
         datafast_visitor_id: datafastVisitorId || '',
         datafast_session_id: datafastSessionId || '',

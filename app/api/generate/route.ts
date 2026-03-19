@@ -31,10 +31,11 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (!rc) {
+      // New user — 0 credits until they activate a trial/subscription
       await admin
         .from('render_counts')
-        .upsert({ user_id: user.id, credits_remaining: FREE_CREDITS, total_renders: 0, updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
-      rc = { credits_remaining: FREE_CREDITS, total_renders: 0 };
+        .upsert({ user_id: user.id, credits_remaining: 0, total_renders: 0, updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
+      rc = { credits_remaining: 0, total_renders: 0 };
     }
 
     if (rc.credits_remaining <= 0) {

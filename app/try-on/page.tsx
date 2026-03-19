@@ -48,21 +48,35 @@ export default function TryOnPage() {
   const chatFileRef = useRef<HTMLInputElement>(null);
 
   // Gate: check auth → check subscription → allow or redirect
+  // Flow: Login required → must have active trial/subscription with credits → otherwise paywall
   useEffect(() => {
     const { data: { subscription } } = onAuthStateChange(async (authUser) => {
       if (authUser) {
         setUser(authUser);
-        // Check subscription / credits
+        // Check subscription / credits — user MUST have an active plan to access try-on
         try {
           const res = await fetch('/api/subscription');
           if (res.ok) {
             const status = await res.json();
-            if (status.creditsRemaining <= 0) {
+            if (!status.isPro && status.creditsRemaining <= 0) {
+              // No subscription and no credits → must subscribe first
               router.push('/paywall');
               return;
             }
+            if (status.creditsRemaining <= 0) {
+              // Has subscription but no credits → paywall to upgrade/wait
+              router.push('/paywall');
+              return;
+            }
+          } else {
+            // Can't verify subscription → send to paywall
+            router.push('/paywall');
+            return;
           }
-        } catch {}
+        } catch {
+          router.push('/paywall');
+          return;
+        }
         setGateReady(true);
       } else {
         // Not logged in — show login immediately

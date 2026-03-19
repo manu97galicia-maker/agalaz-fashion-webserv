@@ -19,6 +19,7 @@ export default function PaywallPage() {
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [showLogin, setShowLogin] = useState(false);
+  const [hasUsedTrial, setHasUsedTrial] = useState(false);
 
   useEffect(() => {
     const supabase = createBrowserClient(
@@ -29,6 +30,12 @@ export default function PaywallPage() {
       if (user) {
         setUserEmail(user.email || null);
         setUserId(user.id);
+        // Check if user already had a trial (has subscription but no credits)
+        fetch('/api/subscription').then(r => r.json()).then(status => {
+          if (status.isPro && status.creditsRemaining <= 0) {
+            setHasUsedTrial(true);
+          }
+        }).catch(() => {});
       }
     });
 
@@ -78,7 +85,7 @@ export default function PaywallPage() {
       const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan: selected, email: userEmail, userId }),
+        body: JSON.stringify({ plan: selected, email: userEmail, userId, skipTrial: hasUsedTrial }),
       });
       const data = await res.json();
       if (data.url) {
@@ -120,14 +127,24 @@ export default function PaywallPage() {
 
           {/* Title */}
           <h1 className="text-4xl font-black text-white tracking-tight leading-[1]">
-            {en ? 'See It On' : 'Pruébatelo'}
+            {hasUsedTrial
+              ? (en ? 'Loved It?' : '¿Te ha gustado?')
+              : (en ? 'See It On' : 'Pruébatelo')}
             <br />
-            <span className="text-gradient italic">{en ? 'Before You Buy.' : 'Antes de Comprar.'}</span>
+            <span className="text-gradient italic">
+              {hasUsedTrial
+                ? (en ? 'Keep Going.' : 'Continúa.')
+                : (en ? 'Before You Buy.' : 'Antes de Comprar.')}
+            </span>
           </h1>
           <p className="text-white/40 text-sm font-light leading-relaxed">
-            {en
-              ? '14 renders per week. Try on your clothes or any garment you want to buy, on your real body. Cancel anytime.'
-              : '14 renders por semana. Pruébate tu ropa o cualquier prenda que quieras comprar, en tu cuerpo real. Cancela cuando quieras.'}
+            {hasUsedTrial
+              ? (en
+                ? 'Your free trial renders are used up. Subscribe now to get 14 renders per week and keep trying on.'
+                : 'Tus renders de prueba se han agotado. Suscríbete ahora para obtener 14 renders por semana y seguir probándote ropa.')
+              : (en
+                ? '14 renders per week. Try on your clothes or any garment you want to buy, on your real body. Cancel anytime.'
+                : '14 renders por semana. Pruébate tu ropa o cualquier prenda que quieras comprar, en tu cuerpo real. Cancela cuando quieras.')}
           </p>
 
           {/* Features */}
@@ -171,9 +188,11 @@ export default function PaywallPage() {
                     </span>
                   </div>
                   <span className="text-white/25 text-[11px] font-bold">{plans.yearly.perDay}</span>
-                  <span className="text-emerald-400 text-[10px] font-black block mt-0.5">
-                    {en ? 'Includes free trial' : 'Incluye prueba gratis'}
-                  </span>
+                  {!hasUsedTrial && (
+                    <span className="text-emerald-400 text-[10px] font-black block mt-0.5">
+                      {en ? 'Includes free trial' : 'Incluye prueba gratis'}
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="text-right">
