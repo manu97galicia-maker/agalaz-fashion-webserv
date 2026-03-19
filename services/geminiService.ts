@@ -43,24 +43,27 @@ export async function generateTryOnImage(
     }
 
     const hasGarment = !!clothingImage;
+    console.log('Gemini input:', { hasGarment, partsCount: parts.length, userSize: userImage.length, garmentSize: clothingImage?.length || 0 });
 
     const promptBase = hasGarment
-      ? `VIRTUAL TRY-ON:
-    - PERSON (IMG 1): Photo of the person. This is the person who will wear the garment. Preserve their exact face, body, pose, and background.
-    - GARMENT (IMG 2): The clothing item to try on.
-    ${lastRenderedImage ? '- PREVIOUS RENDER (IMG 3): Use as base, apply ONLY the requested change.' : ''}
+      ? `VIRTUAL TRY-ON — CLOTHING SWAP:
+    - IMAGE 1 (PERSON): Photo of a person. Keep their exact face, skin tone, hair, body shape, pose, and background.
+    - IMAGE 2 (NEW GARMENT): This is the NEW clothing item. The person MUST wear this exact garment in the output.
+
+    ${lastRenderedImage ? '- IMAGE 3 (PREVIOUS RENDER): Use as base, apply ONLY the requested change.' : ''}
 
     TASK: ${modificationPrompt
         ? `Modify the previous render: "${modificationPrompt}". Keep the same person and change ONLY what was requested.`
-        : "Generate a photorealistic image of the person in IMG 1 wearing the garment from IMG 2. Replace ONLY the relevant clothing area — keep face, hair, pose, background, and any non-replaced clothing intact."}
+        : `REMOVE the clothing the person is currently wearing in the relevant area and REPLACE it with the garment from IMAGE 2. The output MUST show the person wearing the NEW garment from IMAGE 2, NOT their original clothing. This is a clothing swap — the original top/bottom/outfit must be completely replaced by the new garment.`}
 
-    RULES:
-    1. The person MUST be the same person as IMG 1 — same face, skin tone, hair.
-    2. Keep the pose, background, and body proportions from IMG 1.
-    3. Only replace the clothing area that matches the garment type (top, bottom, full outfit, accessory).
-    4. Realistic lighting, shadows, and fabric draping.
+    CRITICAL RULES:
+    1. The person MUST be wearing the garment from IMAGE 2 in the final output. Do NOT keep their original clothing.
+    2. The person MUST look identical to IMAGE 1 — same face, skin tone, hair, pose, background.
+    3. Match the garment type: if IMAGE 2 is a top (shirt, sweater, jacket), replace the person's upper body clothing. If it's pants, replace lower body. If it's a full outfit, replace everything.
+    4. The garment must fit naturally on the person's body with realistic wrinkles, shadows, and draping.
+    5. Keep any clothing that is NOT being replaced (e.g., if swapping a top, keep the original pants).
 
-    OUTPUT: 8k photorealistic image. You MUST generate an image.`
+    OUTPUT: One single 8k photorealistic image showing the person wearing the new garment. You MUST generate an image.`
       : `PHOTO ENHANCEMENT:
     - PERSON (IMG 1): Photo of the person.
     ${lastRenderedImage ? '- PREVIOUS RENDER (IMG 2): Use as base, apply ONLY the requested change.' : ''}
@@ -78,7 +81,7 @@ export async function generateTryOnImage(
       const retryPrompts = [
         inputParts[inputParts.length - 1].text,
         hasGarment
-          ? `Show the person from IMG 1 wearing the garment from IMG 2. Photorealistic result. You MUST generate an image.`
+          ? `SWAP the person's clothing: REMOVE their current clothes and DRESS them in the garment from IMAGE 2. The output must show the person wearing ONLY the new garment, not their original clothing. Photorealistic result. You MUST generate an image.`
           : `Enhance this fashion photo. Keep the person identical. You MUST generate an image.`,
       ];
 
