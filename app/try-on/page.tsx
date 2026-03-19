@@ -8,17 +8,16 @@ import {
   Send,
   RefreshCcw,
   Shirt,
-  Fingerprint,
   AlertCircle,
   Target,
   ShieldCheck,
-  UserSquare2,
   X,
   Loader2,
   ArrowLeft,
   Download,
   Share2,
   ImagePlus,
+  Camera,
 } from 'lucide-react';
 import { ImageUploader } from '@/components/ImageUploader';
 import { onAuthStateChange, signInWithGoogle, type AppUser } from '@/services/authService';
@@ -32,8 +31,7 @@ export default function TryOnPage() {
   const { t, lang } = useLang();
 
   const [user, setUser] = useState<AppUser | null>(null);
-  const [faceImage, setFaceImage] = useState<string | null>(null);
-  const [bodyImage, setBodyImage] = useState<string | null>(null);
+  const [userImage, setUserImage] = useState<string | null>(null);
   const [clothingImage, setClothingImage] = useState<string | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -48,28 +46,23 @@ export default function TryOnPage() {
   const chatFileRef = useRef<HTMLInputElement>(null);
 
   // Gate: check auth → check subscription → allow or redirect
-  // Flow: Login required → must have active trial/subscription with credits → otherwise paywall
   useEffect(() => {
     const { data: { subscription } } = onAuthStateChange(async (authUser) => {
       if (authUser) {
         setUser(authUser);
-        // Check subscription / credits — user MUST have an active plan to access try-on
         try {
           const res = await fetch('/api/subscription');
           if (res.ok) {
             const status = await res.json();
             if (!status.isPro && status.creditsRemaining <= 0) {
-              // No subscription and no credits → must subscribe first
               router.push('/paywall');
               return;
             }
             if (status.creditsRemaining <= 0) {
-              // Has subscription but no credits → paywall to upgrade/wait
               router.push('/paywall');
               return;
             }
           } else {
-            // Can't verify subscription → send to paywall
             router.push('/paywall');
             return;
           }
@@ -79,22 +72,18 @@ export default function TryOnPage() {
         }
         setGateReady(true);
       } else {
-        // Not logged in — show login immediately
         setShowLogin(true);
       }
     });
     return () => subscription.unsubscribe();
   }, [router]);
 
-  // Track try-on page view
   useEffect(() => {
     (window as any).datafast?.('tryon_view');
   }, []);
 
-  // Track successful subscription from Stripe redirect
   useEffect(() => {
     if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('subscribed') === 'true') {
-      // Fetch plan info to distinguish trial_start vs paid subscription
       fetch('/api/subscription').then(r => r.json()).then(status => {
         if (status.plan === 'yearly' && status.creditsRemaining <= 2) {
           (window as any).datafast?.('trial_start', { plan: 'yearly' });
@@ -113,13 +102,9 @@ export default function TryOnPage() {
     }
   }, [messages, isAnalyzing, isGeneratingImage]);
 
-  const trackAndSetFace = (img: string | null) => {
-    setFaceImage(img);
-    if (img) (window as any).datafast?.('photo_upload', { type: 'face' });
-  };
-  const trackAndSetBody = (img: string | null) => {
-    setBodyImage(img);
-    if (img) (window as any).datafast?.('photo_upload', { type: 'body' });
+  const trackAndSetUser = (img: string | null) => {
+    setUserImage(img);
+    if (img) (window as any).datafast?.('photo_upload', { type: 'user' });
   };
   const trackAndSetClothing = (img: string | null) => {
     setClothingImage(img);
@@ -127,8 +112,7 @@ export default function TryOnPage() {
   };
 
   const resetApp = () => {
-    setFaceImage(null);
-    setBodyImage(null);
+    setUserImage(null);
     setClothingImage(null);
     setMessages([]);
     setInputValue('');
@@ -155,8 +139,8 @@ export default function TryOnPage() {
   };
 
   const handleStartAnalysis = async () => {
-    if (!faceImage || !bodyImage) {
-      setError(t.missingPhotos);
+    if (!userImage) {
+      setError(lang === 'es' ? 'Sube una foto tuya para empezar' : 'Upload a photo of yourself to start');
       return;
     }
     if (!user) {
@@ -169,7 +153,6 @@ export default function TryOnPage() {
     setError(null);
     setMessages([]);
 
-    // Track render attempt
     (window as any).datafast?.('render_start', { has_clothing: clothingImage ? 'yes' : 'no' });
 
     let retries = 0;
@@ -180,7 +163,7 @@ export default function TryOnPage() {
         const res = await fetch('/api/generate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ faceImage, bodyImage, clothingImage }),
+          body: JSON.stringify({ userImage, clothingImage }),
         });
         const data = await res.json();
 
@@ -226,7 +209,13 @@ export default function TryOnPage() {
         const img = new Image();
         img.onload = () => {
           const MAX_DIM = 1536;
+          const MIN_DIM = 512;
           let { width, height } = img;
+          if (width < MIN_DIM && height < MIN_DIM) {
+            const scale = MIN_DIM / Math.max(width, height);
+            width = Math.round(width * scale);
+            height = Math.round(height * scale);
+          }
           if (width > MAX_DIM || height > MAX_DIM) {
             const scale = MAX_DIM / Math.max(width, height);
             width = Math.round(width * scale);
@@ -311,8 +300,7 @@ export default function TryOnPage() {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
-                faceImage,
-                bodyImage,
+                userImage,
                 clothingImage: effectiveClothing,
                 modificationPrompt: text,
                 lastRenderedImage: lastImage,
@@ -372,9 +360,8 @@ export default function TryOnPage() {
   };
 
   const isLoading = isAnalyzing || isGeneratingImage;
-  const canRender = faceImage && bodyImage && !isLoading;
+  const canRender = userImage && !isLoading;
 
-  // Show loading spinner while checking auth + subscription
   if (!gateReady && !showLogin) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
@@ -386,7 +373,7 @@ export default function TryOnPage() {
   return (
     <>
       <div className="min-h-screen bg-white flex flex-col">
-        {/* Nav — same style as landing */}
+        {/* Nav */}
         <nav className="sticky top-0 z-30 bg-white/90 backdrop-blur-sm border-b border-slate-100">
           <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -421,7 +408,7 @@ export default function TryOnPage() {
 
             <div className="flex items-center gap-3">
               <LanguageToggle />
-              {(faceImage || messages.length > 0) && (
+              {(userImage || messages.length > 0) && (
                 <>
                   {messages.length > 0 && (
                     <button
@@ -481,49 +468,41 @@ export default function TryOnPage() {
                   <br />
                   <span className="italic text-slate-400">{t.preserveHighlight}</span>
                 </h1>
-                <p className="text-slate-500 text-sm font-light max-w-sm mx-auto">{t.preserveDesc}</p>
+                <p className="text-slate-500 text-sm font-light max-w-sm mx-auto">
+                  {lang === 'es'
+                    ? 'Sube una foto tuya y la prenda que quieras probarte'
+                    : 'Upload a photo of yourself and the garment you want to try on'}
+                </p>
               </div>
 
               <div className="space-y-4">
-                {/* Step indicators */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <div className="flex items-center gap-1.5 mb-2">
-                      <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">1</span>
-                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t.faceLabel}</span>
-                    </div>
-                    <ImageUploader
-                      label={t.faceLabel}
-                      type="user"
-                      image={faceImage}
-                      onImageSelect={trackAndSetFace}
-                      icon={<Fingerprint size={20} className="text-indigo-600" />}
-                    />
-                    <p className="text-[9px] font-bold text-slate-300 text-center mt-1.5">
-                      {t.faceHint}
-                    </p>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-1.5 mb-2">
-                      <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">2</span>
-                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t.bodyLabel}</span>
-                    </div>
-                    <ImageUploader
-                      label={t.bodyLabel}
-                      type="user"
-                      image={bodyImage}
-                      onImageSelect={trackAndSetBody}
-                      icon={<UserSquare2 size={20} className="text-indigo-600" />}
-                    />
-                    <p className="text-[9px] font-bold text-slate-300 text-center mt-1.5">
-                      {t.bodyHint}
-                    </p>
-                  </div>
-                </div>
+                {/* Single photo upload */}
                 <div>
                   <div className="flex items-center gap-1.5 mb-2">
-                    <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">3</span>
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t.clothingLabel} ({t.optional})</span>
+                    <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">1</span>
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                      {lang === 'es' ? 'Tu foto' : 'Your photo'}
+                    </span>
+                  </div>
+                  <ImageUploader
+                    label={lang === 'es' ? 'Tu foto' : 'Your photo'}
+                    type="user"
+                    image={userImage}
+                    onImageSelect={trackAndSetUser}
+                    icon={<Camera size={20} className="text-indigo-600" />}
+                  />
+                  <p className="text-[9px] font-bold text-slate-300 text-center mt-1.5">
+                    {lang === 'es' ? 'Selfie, medio cuerpo o cuerpo entero' : 'Selfie, half body, or full body'}
+                  </p>
+                </div>
+
+                {/* Garment upload */}
+                <div>
+                  <div className="flex items-center gap-1.5 mb-2">
+                    <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">2</span>
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                      {t.clothingLabel} ({t.optional})
+                    </span>
                   </div>
                   <ImageUploader
                     label={`${t.clothingLabel} (${t.optional})`}
@@ -654,13 +633,16 @@ export default function TryOnPage() {
               ))}
 
               {isLoading && (
-                <div className="flex justify-start animate-fade-in">
+                <div className="flex flex-col items-start gap-2 animate-fade-in">
                   <div className="bg-slate-50 border border-slate-100 px-5 py-3 rounded-full flex items-center gap-3">
                     <Loader2 size={14} className="text-indigo-600 animate-spin" />
                     <span className="text-[9px] text-slate-400 font-black uppercase tracking-widest">
                       {t.protectingOutfit}
                     </span>
                   </div>
+                  <p className="text-[10px] text-slate-300 font-bold ml-2">
+                    {lang === 'es' ? 'Puede tardar 30s - 1 min' : 'This may take 30s - 1 min'}
+                  </p>
                 </div>
               )}
             </div>

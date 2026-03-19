@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Sparkles, Loader2, X, Camera, Shirt, ImagePlus, Check, Download, UserSquare2, Fingerprint } from 'lucide-react';
+import { Sparkles, Loader2, X, Camera, ImagePlus, Check, Download } from 'lucide-react';
 
 // Standalone embed page for B2B widget — no Supabase auth required
 // URL: /embed?key=API_KEY&garment=GARMENT_URL&lang=es
@@ -11,47 +11,43 @@ export default function EmbedPage() {
   const [garmentUrl, setGarmentUrl] = useState<string | null>(null);
   const [lang, setLang] = useState<'en' | 'es'>('en');
 
-  const [faceImage, setFaceImage] = useState<string | null>(null);
-  const [bodyImage, setBodyImage] = useState<string | null>(null);
+  const [userImage, setUserImage] = useState<string | null>(null);
   const [garmentImage, setGarmentImage] = useState<string | null>(null);
   const [resultImage, setResultImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [step, setStep] = useState<'upload' | 'result'>('upload');
 
-  const faceRef = useRef<HTMLInputElement>(null);
-  const bodyRef = useRef<HTMLInputElement>(null);
+  const userRef = useRef<HTMLInputElement>(null);
 
   const t = lang === 'es' ? {
     title: 'Prueba Virtual',
     subtitle: 'Sube tu foto y pruébate esta prenda',
-    face: 'Tu cara',
-    body: 'Cuerpo entero',
-    faceHint: 'Foto frontal clara',
-    bodyHint: 'De pie, de frente',
+    photo: 'Tu foto',
+    photoHint: 'Selfie, medio cuerpo o cuerpo entero',
     generate: 'Probar prenda',
     generating: 'Generando...',
+    loadingHint: 'Puede tardar 30s - 1 min',
     result: 'Tu prueba virtual',
     tryAgain: 'Probar de nuevo',
     download: 'Guardar',
     poweredBy: 'Powered by Agalaz',
-    errorGeneric: 'No se pudo generar. Intenta con otras fotos.',
-    errorNoPhotos: 'Sube ambas fotos para continuar.',
+    errorGeneric: 'No se pudo generar. Intenta con otra foto.',
+    errorNoPhoto: 'Sube una foto para continuar.',
   } : {
     title: 'Virtual Try-On',
     subtitle: 'Upload your photo and try on this garment',
-    face: 'Your face',
-    body: 'Full body',
-    faceHint: 'Clear front-facing photo',
-    bodyHint: 'Standing, front-facing',
+    photo: 'Your photo',
+    photoHint: 'Selfie, half body, or full body',
     generate: 'Try it on',
     generating: 'Generating...',
+    loadingHint: 'This may take 30s - 1 min',
     result: 'Your virtual try-on',
     tryAgain: 'Try again',
     download: 'Save',
     poweredBy: 'Powered by Agalaz',
-    errorGeneric: 'Generation failed. Try different photos.',
-    errorNoPhotos: 'Upload both photos to continue.',
+    errorGeneric: 'Generation failed. Try a different photo.',
+    errorNoPhoto: 'Upload a photo to continue.',
   };
 
   // Parse URL params on mount
@@ -178,8 +174,8 @@ export default function EmbedPage() {
   }
 
   async function handleGenerate() {
-    if (!faceImage || !bodyImage) {
-      setError(t.errorNoPhotos);
+    if (!userImage) {
+      setError(t.errorNoPhoto);
       return;
     }
 
@@ -194,8 +190,7 @@ export default function EmbedPage() {
           'Authorization': `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          faceImage,
-          bodyImage,
+          userImage,
           clothingImage: garmentImage || undefined,
           garmentUrl: !garmentImage && garmentUrl ? garmentUrl : undefined,
         }),
@@ -205,7 +200,7 @@ export default function EmbedPage() {
 
       if (!res.ok) {
         console.error('Embed generation failed:', JSON.stringify(data));
-        const debugStr = data.debug ? ` [face:${data.debug.faceSize}, body:${data.debug.bodySize}, garment:${data.debug.garmentSize}]` : '';
+        const debugStr = data.debug ? ` [user:${data.debug.userSize}, garment:${data.debug.garmentSize}]` : '';
         setError((data.error || t.errorGeneric) + debugStr);
         setIsLoading(false);
         return;
@@ -235,8 +230,7 @@ export default function EmbedPage() {
   }
 
   function handleReset() {
-    setFaceImage(null);
-    setBodyImage(null);
+    setUserImage(null);
     setResultImage(null);
     setError(null);
     setStep('upload');
@@ -338,23 +332,15 @@ export default function EmbedPage() {
           <div className="max-w-sm mx-auto space-y-6">
             <p className="text-center text-slate-400 text-xs font-light">{t.subtitle}</p>
 
-            {/* Photo upload grid */}
-            <div className="grid grid-cols-2 gap-4">
+            {/* Photo upload */}
+            <div className="max-w-[200px] mx-auto">
               <ImageSlot
-                image={faceImage}
-                inputRef={faceRef}
-                label={t.face}
-                hint={t.faceHint}
-                icon={<Fingerprint size={20} className="text-indigo-600" />}
-                onClear={() => setFaceImage(null)}
-              />
-              <ImageSlot
-                image={bodyImage}
-                inputRef={bodyRef}
-                label={t.body}
-                hint={t.bodyHint}
-                icon={<UserSquare2 size={20} className="text-indigo-600" />}
-              onClear={() => setBodyImage(null)}
+                image={userImage}
+                inputRef={userRef}
+                label={t.photo}
+                hint={t.photoHint}
+                icon={<Camera size={20} className="text-indigo-600" />}
+                onClear={() => setUserImage(null)}
               />
             </div>
 
@@ -388,9 +374,9 @@ export default function EmbedPage() {
 
             <button
               onClick={handleGenerate}
-              disabled={!faceImage || !bodyImage || isLoading}
+              disabled={!userImage || isLoading}
               className={`w-full py-4 flex items-center justify-center gap-3 rounded-xl transition-all font-black uppercase tracking-[0.15em] text-xs ${
-                faceImage && bodyImage && !isLoading
+                userImage && !isLoading
                   ? 'bg-slate-900 text-white hover:bg-indigo-600 shadow-lg'
                   : 'bg-slate-100 text-slate-300'
               }`}
@@ -398,7 +384,10 @@ export default function EmbedPage() {
               {isLoading ? (
                 <>
                   <Loader2 size={18} className="animate-spin" />
-                  {t.generating}
+                  <div className="flex flex-col items-center">
+                    <span>{t.generating}</span>
+                    <span className="text-[10px] font-normal normal-case tracking-normal text-slate-300 mt-1">{t.loadingHint}</span>
+                  </div>
                 </>
               ) : (
                 <>
@@ -455,9 +444,8 @@ export default function EmbedPage() {
         </a>
       </div>
 
-      {/* Hidden file inputs */}
-      <input ref={faceRef} type="file" accept="image/*" onChange={handleFile(setFaceImage)} className="hidden" />
-      <input ref={bodyRef} type="file" accept="image/*" onChange={handleFile(setBodyImage)} className="hidden" />
+      {/* Hidden file input */}
+      <input ref={userRef} type="file" accept="image/*" onChange={handleFile(setUserImage)} className="hidden" />
     </div>
   );
 }

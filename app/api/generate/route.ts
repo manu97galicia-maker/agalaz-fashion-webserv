@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { createAdminClient } from '@/lib/supabaseAdmin';
-import { FREE_CREDITS } from '@/lib/subscription';
 import { generateTryOnImage } from '@/services/geminiService';
 
 export const maxDuration = 60;
@@ -31,7 +30,6 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (!rc) {
-      // New user — 0 credits until they activate a trial/subscription
       await admin
         .from('render_counts')
         .upsert({ user_id: user.id, credits_remaining: 0, total_renders: 0, updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
@@ -43,31 +41,31 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { faceImage, bodyImage, clothingImage, modificationPrompt, lastRenderedImage } = body;
+    // Single photo flow: userImage (or legacy faceImage+bodyImage)
+    const userImage = body.userImage || body.faceImage;
+    const { clothingImage, modificationPrompt, lastRenderedImage } = body;
 
-    if (!faceImage || !bodyImage) {
-      return NextResponse.json({ error: 'You need to upload both a face photo and a full-body photo before rendering. Tap the upload boxes above to add them.' }, { status: 400 });
+    if (!userImage) {
+      return NextResponse.json({ error: 'Please upload a photo before rendering.' }, { status: 400 });
     }
 
-    // Validate base64 size (max ~10MB per image)
+    // Validate base64 size (max ~10MB)
     const maxSize = 10 * 1024 * 1024;
-    if (faceImage.length > maxSize || bodyImage.length > maxSize) {
+    if (userImage.length > maxSize) {
       return NextResponse.json(
-        { error: 'Your photo is too large (max 10 MB). Try taking a new photo or using a lower resolution image.' },
+        { error: 'Your photo is too large (max 10 MB). Try using a lower resolution image.' },
         { status: 400 }
       );
     }
 
     const { image } = await generateTryOnImage(
-      faceImage,
-      bodyImage,
+      userImage,
       clothingImage || undefined,
       modificationPrompt,
       lastRenderedImage
     );
 
     if (image) {
-      // Deduct 1 credit and increment total_renders
       await admin
         .from('render_counts')
         .update({
@@ -80,15 +78,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ image });
     }
     return NextResponse.json(
-      { error: 'We couldn\'t generate your try-on. This usually happens when:\n\n• The body photo doesn\'t show your full body (head to feet)\n• The photo is taken from the side instead of the front\n• The lighting is too dark or blurry\n\nTip: Use a well-lit, front-facing full-body photo for the best results.' },
+      { error: 'We couldn\'t generate your try-on. Please try again with a different photo — make sure the lighting is good and you\'re clearly visible.' },
       { status: 500 }
     );
   } catch (error: any) {
     console.error('Generate API error:', error);
     const message = error?.message || '';
     if (message.includes('too large') || message.includes('payload')) {
-      return NextResponse.json({ error: 'Your photos are too large to process. Try using smaller or lower-resolution images (under 10 MB each).' }, { status: 413 });
+      return NextResponse.json({ error: 'Your photo is too large to process. Try using a smaller image (under 10 MB).' }, { status: 413 });
     }
-    return NextResponse.json({ error: 'Something went wrong on our end. Please try again — if it keeps failing, try different photos.' }, { status: 500 });
+    return NextResponse.json({ error: 'Something went wrong on our end. Please try again.' }, { status: 500 });
   }
 }
