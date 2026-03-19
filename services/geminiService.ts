@@ -24,6 +24,8 @@ export async function generateTryOnImage(
   modificationPrompt?: string,
   lastRenderedImage?: string,
   clothingMimeType?: string,
+  currentSize?: string,
+  previewSize?: string,
 ): Promise<{ image: string | null; failReason?: string }> {
   try {
     const ai = new GoogleGenAI({ apiKey: API_KEY });
@@ -43,14 +45,25 @@ export async function generateTryOnImage(
     }
 
     const hasGarment = !!clothingImage;
-    console.log('Gemini input:', { hasGarment, partsCount: parts.length, userSize: userImage.length, garmentSize: clothingImage?.length || 0 });
+    const hasSize = !!(currentSize || previewSize);
+    const sizeInstruction = hasSize
+      ? previewSize
+        ? `\n    SIZE: The person's actual size is ${currentSize}. Show the garment fitting as a SIZE ${previewSize} would look on them. ${
+            ['XS', 'S'].includes(previewSize) && ['L', 'XL', 'XXL', '3XL'].includes(currentSize || '')
+              ? 'The garment should look tight/fitted on the person.'
+              : ['XL', 'XXL', '3XL'].includes(previewSize) && ['XS', 'S', 'M'].includes(currentSize || '')
+                ? 'The garment should look oversized/loose/baggy on the person.'
+                : 'Adjust the garment fit accordingly.'
+          }`
+        : `\n    SIZE: The person wears size ${currentSize}. Show the garment fitting naturally for this size.`
+      : '';
+    console.log('Gemini input:', { hasGarment, hasSize, currentSize, previewSize, partsCount: parts.length, userSize: userImage.length, garmentSize: clothingImage?.length || 0 });
 
     const promptBase = hasGarment
       ? `VIRTUAL TRY-ON — CLOTHING SWAP:
     - IMAGE 1 (PERSON): Photo of a person. Keep their exact face, skin tone, hair, body shape, pose, and background.
     - IMAGE 2 (NEW GARMENT): This is the NEW clothing item. The person MUST wear this exact garment in the output.
-
-    ${lastRenderedImage ? '- IMAGE 3 (PREVIOUS RENDER): Use as base, apply ONLY the requested change.' : ''}
+    ${lastRenderedImage ? '- IMAGE 3 (PREVIOUS RENDER): Use as base, apply ONLY the requested change.' : ''}${sizeInstruction}
 
     TASK: ${modificationPrompt
         ? `Modify the previous render: "${modificationPrompt}". Keep the same person and change ONLY what was requested.`
@@ -60,7 +73,7 @@ export async function generateTryOnImage(
     1. The person MUST be wearing the garment from IMAGE 2 in the final output. Do NOT keep their original clothing.
     2. The person MUST look identical to IMAGE 1 — same face, skin tone, hair, pose, background.
     3. Match the garment type: if IMAGE 2 is a top (shirt, sweater, jacket), replace the person's upper body clothing. If it's pants, replace lower body. If it's a full outfit, replace everything.
-    4. The garment must fit naturally on the person's body with realistic wrinkles, shadows, and draping.
+    4. The garment must fit naturally on the person's body with realistic wrinkles, shadows, and draping.${hasSize ? `\n    5. The garment fit MUST reflect the specified size — show realistic sizing differences (tight, normal, loose, oversized).` : ''}
     5. Keep any clothing that is NOT being replaced (e.g., if swapping a top, keep the original pants).
 
     OUTPUT: One single 8k photorealistic image showing the person wearing the new garment. You MUST generate an image.`

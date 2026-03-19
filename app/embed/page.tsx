@@ -17,6 +17,8 @@ export default function EmbedPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [step, setStep] = useState<'upload' | 'result'>('upload');
+  const [currentSize, setCurrentSize] = useState<string | null>(null);
+  const [previewSize, setPreviewSize] = useState<string | null>(null);
 
   const userRef = useRef<HTMLInputElement>(null);
 
@@ -193,6 +195,8 @@ export default function EmbedPage() {
           userImage,
           clothingImage: garmentImage || undefined,
           garmentUrl: !garmentImage && garmentUrl ? garmentUrl : undefined,
+          currentSize: currentSize || undefined,
+          previewSize: previewSize || undefined,
         }),
       });
 
@@ -232,6 +236,8 @@ export default function EmbedPage() {
   function handleReset() {
     setUserImage(null);
     setResultImage(null);
+    setCurrentSize(null);
+    setPreviewSize(null);
     setError(null);
     setStep('upload');
   }
@@ -342,6 +348,55 @@ export default function EmbedPage() {
                 icon={<Camera size={20} className="text-indigo-600" />}
                 onClear={() => setUserImage(null)}
               />
+            </div>
+
+            {/* Size selector (optional) */}
+            <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-2.5">
+              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                {lang === 'es' ? 'Talla (opcional)' : 'Size (optional)'}
+              </span>
+              <div>
+                <span className="text-[8px] font-bold text-slate-300 uppercase tracking-widest">
+                  {lang === 'es' ? 'Tu talla actual' : 'Your current size'}
+                </span>
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'].map((size) => (
+                    <button
+                      key={size}
+                      onClick={() => { setCurrentSize(currentSize === size ? null : size); if (currentSize === size) setPreviewSize(null); }}
+                      className={`px-2 py-1 rounded-md text-[9px] font-black transition-all ${
+                        currentSize === size
+                          ? 'bg-indigo-600 text-white'
+                          : 'bg-white border border-slate-200 text-slate-400 hover:border-indigo-300'
+                      }`}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              {currentSize && (
+                <div>
+                  <span className="text-[8px] font-bold text-slate-300 uppercase tracking-widest">
+                    {lang === 'es' ? 'Previsualizar en talla' : 'Preview in size'}
+                  </span>
+                  <div className="flex flex-wrap gap-1 mt-1">
+                    {['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'].filter(s => s !== currentSize).map((size) => (
+                      <button
+                        key={size}
+                        onClick={() => setPreviewSize(previewSize === size ? null : size)}
+                        className={`px-2 py-1 rounded-md text-[9px] font-black transition-all ${
+                          previewSize === size
+                            ? 'bg-slate-900 text-white'
+                            : 'bg-white border border-slate-200 text-slate-400 hover:border-slate-400'
+                        }`}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Garment preview (if auto-loaded from store) */}

@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     // Single photo flow: userImage (or legacy faceImage)
     let userImage = body.userImage || body.faceImage;
-    let { clothingImage, garmentUrl } = body;
+    let { clothingImage, garmentUrl, currentSize, previewSize } = body;
 
     if (!userImage) {
       return NextResponse.json(
@@ -110,6 +110,8 @@ export async function POST(request: NextRequest) {
       undefined,
       undefined,
       garmentMimeType,
+      currentSize || undefined,
+      previewSize || undefined,
     );
 
     if (image) {
