@@ -58,13 +58,13 @@ const landingText = {
     },
     tryBefore: {
       label: 'How It Works',
-      title: '3 Photos.',
+      title: '1 Photo.',
       titleHighlight: '1 Render.',
-      subtitle: 'Upload your face, your body, and any garment you own or want to buy. Our AI does the rest.',
+      subtitle: 'Upload a photo of yourself — selfie, half body or full body. Add a garment optionally. Our AI does the rest.',
       steps: [
-        { num: '01', title: 'Face ID', desc: 'Upload a photo of your face for facial mapping.' },
-        { num: '02', title: 'Base Photo', desc: 'A full-body photo — we preserve everything except the top garment.' },
-        { num: '03', title: 'Your Garment', desc: 'Upload a photo of your garment or one you want to buy — we extract its color and style.' },
+        { num: '01', title: 'Your Photo', desc: 'Upload any photo of yourself — selfie, half body, or full body. One photo is all you need.' },
+        { num: '02', title: 'Your Garment', desc: 'Optionally upload a photo of the garment or accessory you want to try on.' },
+        { num: '03', title: 'AI Render', desc: 'Our AI generates a photorealistic image of you wearing the garment in under 60 seconds.' },
       ],
     },
     features: {
@@ -129,13 +129,13 @@ const landingText = {
     },
     tryBefore: {
       label: 'Cómo Funciona',
-      title: '3 Fotos.',
+      title: '1 Foto.',
       titleHighlight: '1 Render.',
-      subtitle: 'Sube tu cara, tu cuerpo y cualquier prenda que tengas o quieras comprar. Nuestra IA hace el resto.',
+      subtitle: 'Sube una foto tuya — selfie, medio cuerpo o cuerpo entero. Añade una prenda opcionalmente. Nuestra IA hace el resto.',
       steps: [
-        { num: '01', title: 'ID Rostro', desc: 'Sube una foto de tu cara para el mapeo facial.' },
-        { num: '02', title: 'Foto Base', desc: 'Una foto de cuerpo completo — preservamos todo excepto la prenda superior.' },
-        { num: '03', title: 'Tu Prenda', desc: 'Sube una foto de tu prenda o una que quieras comprar — extraemos su color y estilo.' },
+        { num: '01', title: 'Tu Foto', desc: 'Sube cualquier foto tuya — selfie, medio cuerpo o cuerpo entero. Una foto es todo lo que necesitas.' },
+        { num: '02', title: 'Tu Prenda', desc: 'Opcionalmente sube una foto de la prenda o accesorio que quieras probarte.' },
+        { num: '03', title: 'Render IA', desc: 'Nuestra IA genera una imagen fotorrealista de ti con la prenda en menos de 60 segundos.' },
       ],
     },
     features: {
@@ -360,6 +360,120 @@ export default function HomePage() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Real Transformations Gallery */}
+      <section className="py-24 md:py-32 bg-white border-t border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="text-center mb-16">
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 mb-6 block">
+              {lang === 'es' ? 'Transformaciones Reales' : 'Real Transformations'}
+            </span>
+            <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-slate-900 tracking-tight leading-[0.9]">
+              {lang === 'es' ? 'Antes.' : 'Before.'}{' '}
+              <span className="italic text-slate-400">{lang === 'es' ? 'Después.' : 'After.'}</span>
+            </h2>
+            <p className="text-slate-500 mt-8 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed">
+              {lang === 'es'
+                ? 'Resultados reales de nuestro motor de IA. Misma persona, nueva prenda — en segundos.'
+                : 'Real results from our AI engine. Same person, new garment — in seconds.'}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {/* Transformation 1: Sweatshirt swap */}
+            <div className="space-y-4">
+              <div className="relative rounded-2xl overflow-hidden border-2 border-slate-100 group">
+                <div className="aspect-[3/4] bg-gradient-to-b from-slate-100 to-slate-50 flex items-center justify-center">
+                  <div className="text-center p-6">
+                    <Shirt size={32} className="text-indigo-600 mx-auto mb-3" />
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                      {lang === 'es' ? 'Sudadera gris' : 'Gray sweatshirt'}
+                    </p>
+                    <p className="text-[9px] text-slate-300 mt-1">
+                      {lang === 'es' ? 'Reemplazó blazer + jersey' : 'Replaced blazer + sweater'}
+                    </p>
+                  </div>
+                </div>
+                <div className="absolute bottom-3 left-3 flex gap-1.5">
+                  <span className="bg-emerald-500 text-white text-[8px] font-black px-2 py-1 rounded-full uppercase tracking-wider">
+                    {lang === 'es' ? 'Ropa' : 'Clothing'}
+                  </span>
+                </div>
+              </div>
+              <p className="text-[10px] font-bold text-slate-400 text-center">
+                {lang === 'es' ? 'Blazer → Sudadera gris' : 'Blazer → Gray sweatshirt'}
+              </p>
+            </div>
+
+            {/* Transformation 2: Glasses */}
+            <div className="space-y-4">
+              <div className="relative rounded-2xl overflow-hidden border-2 border-indigo-200 group">
+                <div className="aspect-[3/4] bg-gradient-to-b from-indigo-50 to-white flex items-center justify-center">
+                  <div className="text-center p-6">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-indigo-600 mx-auto mb-3">
+                      <circle cx="6" cy="12" r="4" /><circle cx="18" cy="12" r="4" /><path d="M10 12h4" /><path d="M2 12h0" /><path d="M22 12h0" />
+                    </svg>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                      {lang === 'es' ? 'Gafas graduadas' : 'Prescription glasses'}
+                    </p>
+                    <p className="text-[9px] text-slate-300 mt-1">
+                      {lang === 'es' ? 'Añadidas a foto sin gafas' : 'Added to photo without glasses'}
+                    </p>
+                  </div>
+                </div>
+                <div className="absolute bottom-3 left-3 flex gap-1.5">
+                  <span className="bg-indigo-600 text-white text-[8px] font-black px-2 py-1 rounded-full uppercase tracking-wider">
+                    {lang === 'es' ? 'Accesorios' : 'Accessories'}
+                  </span>
+                </div>
+              </div>
+              <p className="text-[10px] font-bold text-slate-400 text-center">
+                {lang === 'es' ? 'Sin gafas → Gafas graduadas' : 'No glasses → Prescription glasses'}
+              </p>
+            </div>
+
+            {/* Transformation 3: Sunglasses → regular glasses */}
+            <div className="space-y-4">
+              <div className="relative rounded-2xl overflow-hidden border-2 border-slate-100 group">
+                <div className="aspect-[3/4] bg-gradient-to-b from-slate-100 to-slate-50 flex items-center justify-center">
+                  <div className="text-center p-6">
+                    <Camera size={32} className="text-indigo-600 mx-auto mb-3" />
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                      {lang === 'es' ? 'Cambio completo' : 'Full swap'}
+                    </p>
+                    <p className="text-[9px] text-slate-300 mt-1">
+                      {lang === 'es' ? 'Prenda + accesorios' : 'Garment + accessories'}
+                    </p>
+                  </div>
+                </div>
+                <div className="absolute bottom-3 left-3 flex gap-1.5">
+                  <span className="bg-slate-900 text-white text-[8px] font-black px-2 py-1 rounded-full uppercase tracking-wider">
+                    {lang === 'es' ? 'Completo' : 'Full look'}
+                  </span>
+                </div>
+              </div>
+              <p className="text-[10px] font-bold text-slate-400 text-center">
+                {lang === 'es' ? 'Gafas de sol → Gafas de ver' : 'Sunglasses → Prescription glasses'}
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center mt-14">
+            <Link
+              href="/try-on"
+              data-fast-goal="transformations_cta_click"
+              className="group inline-flex items-center gap-3 px-10 py-4 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-600 transition-colors"
+            >
+              <Sparkles size={16} className="group-hover:rotate-12 transition-transform" />
+              {lang === 'es' ? 'Pruébalo Gratis' : 'Try It Free'}
+              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <p className="text-[10px] text-slate-300 mt-3 font-bold">
+              {lang === 'es' ? 'Incluye prueba gratuita · Sin tarjeta de crédito' : 'Includes free trial · No credit card required'}
+            </p>
           </div>
         </div>
       </section>
@@ -695,6 +809,30 @@ export default function HomePage() {
                 {lang === 'es' ? 'Mejores Apps Probador Virtual 2026' : 'Best Virtual Dressing Room Apps 2026'}
               </h3>
               <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Android vs iOS' : 'Android vs iOS'}</p>
+            </Link>
+            <Link href="/blog/virtual-try-on-office-siren-aesthetic-glasses" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Gafas Office Siren — Prueba Virtual' : 'Office Siren Glasses — Virtual Try-On'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Encuentra tu montura perfecta' : 'Find your perfect frame'}</p>
+            </Link>
+            <Link href="/blog/best-glasses-colors-deep-autumn-skin-tone" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Colores de Gafas para Otoño Profundo' : 'Glasses Colors for Deep Autumn'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Análisis de color + IA' : 'Color analysis + AI'}</p>
+            </Link>
+            <Link href="/blog/free-ai-glasses-stylist-diamond-face-shape" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Estilista IA para Cara Diamante' : 'AI Glasses Stylist — Diamond Face'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Monturas que te favorecen' : 'Frames that flatter you'}</p>
+            </Link>
+            <Link href="/blog/virtual-try-on-glasses-hide-dark-circles" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Gafas para Ocultar Ojeras' : 'Glasses That Hide Dark Circles'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Prueba virtual + guía' : 'Virtual try-on + guide'}</p>
             </Link>
           </div>
         </div>

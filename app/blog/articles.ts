@@ -2226,4 +2226,559 @@ El mercado de probadores virtuales en 2026 está dominado por web apps con IA qu
 
 Los días de comprar ropa online a ciegas se acabaron.`,
   },
+  {
+    slug: 'virtual-try-on-office-siren-aesthetic-glasses',
+    title: 'Virtual Try-On for \'Office Siren\' Aesthetic Glasses — Find Your Perfect Frame in Seconds',
+    titleEs: 'Prueba Virtual de Gafas Estilo \'Office Siren\' — Encuentra Tu Montura Perfecta en Segundos',
+    description: 'Discover how to virtually try on Office Siren glasses and find the perfect bold, professional frame for your face shape using free AI tools.',
+    descriptionEs: 'Descubre cómo probarte virtualmente gafas estilo Office Siren y encontrar la montura profesional perfecta para tu forma de cara con herramientas de IA gratuitas.',
+    keyword: 'virtual try on office siren aesthetic glasses',
+    readTime: 6,
+    date: '2026-03-19',
+    category: 'Glasses & Eyewear',
+    categoryEs: 'Gafas y Accesorios',
+    content: `The **Office Siren** aesthetic has taken over TikTok and Instagram in 2026 — and nothing defines the look more than the *perfect pair of glasses*. Think bold rectangular frames, oversized cat-eye shapes, and dark tortoiseshell patterns that say "I run this meeting."
+
+But here's the problem: how do you know which Office Siren frames actually suit *your* face before spending $150+ on designer glasses?
+
+## What Are Office Siren Glasses?
+
+The Office Siren aesthetic blends **corporate power dressing** with subtle sensuality. The glasses are the centerpiece:
+
+| Frame Style | Vibe | Best For |
+|---|---|---|
+| **Bold rectangular** | Authority, CEO energy | Square & oval faces |
+| **Oversized cat-eye** | Confident, editorial | Round & heart faces |
+| **Dark tortoiseshell** | Intellectual, warm | All face shapes |
+| **Thin metal + thick brow bar** | Modern minimalist | Oblong & diamond faces |
+| **Clear/translucent** | Fresh, approachable | All face shapes |
+
+## How to Virtually Try On Office Siren Glasses
+
+Instead of ordering 5 pairs and returning 4, you can use AI virtual try-on technology to see exactly how each frame looks on your face:
+
+### Step 1: Upload Your Photo
+Go to **[Agalaz Virtual Try-On](https://agalaz.com/try-on)** and upload a clear photo of yourself — a selfie, half body, or full body shot works. The AI preserves your exact face shape, skin tone, and features.
+
+### Step 2: Upload the Glasses
+Save a product image of the Office Siren frames you're considering (screenshot from any online store works). Upload it as the garment/accessory.
+
+### Step 3: See the Result
+The AI generates a photorealistic image of **you wearing those exact glasses** in under 60 seconds. Same face, same background — just with the new frames on.
+
+### Step 4: Compare Styles
+Try different frames back-to-back. Use the chat feature to say *"try these in black instead"* or *"make them slightly larger"* — the AI adjusts in real time.
+
+## Top 5 Office Siren Frame Shapes for 2026
+
+1. **The Boardroom Rectangle** — Wide, bold, dark frames. Think Versace VE3314. Perfect for establishing authority.
+2. **The Cat-Eye Power Move** — Slightly upswept corners. Tom Ford FT5842-B. Adds sharpness to round faces.
+3. **The Tortoiseshell Intellectual** — Warm brown tones. Ray-Ban RB5184. Works with every skin tone.
+4. **The Clear Frame Sleeper** — Translucent acetate. Warby Parker Durand. Surprisingly powerful in office settings.
+5. **The Metal Brow Bar** — Thin lower rim, thick top. Persol PO3007V. Modern and understated.
+
+## Why Virtual Try-On Beats In-Store
+
+- **No pressure** — Try 20 frames without a sales associate hovering
+- **Your real lighting** — See frames in *your* environment, not store fluorescents
+- **Unlimited comparisons** — Side-by-side screenshots of every option
+- **Any brand** — Try frames from any website, not just what's in stock locally
+- **Free** — [Agalaz offers a free trial](https://agalaz.com/try-on) so you can test before committing
+
+## Pro Tips for the Perfect Office Siren Frame
+
+1. **Match frame width to face width** — Frames should be as wide as (or slightly wider than) the widest part of your face
+2. **Contrast is key** — If you have soft features, choose angular frames. If angular features, softer shapes work too
+3. **Dark frames = more authority** — Black and dark tortoiseshell read as more powerful than light colors
+4. **Consider your hair** — Updos and slicked-back styles amplify the Office Siren effect with glasses
+5. **Size up slightly** — The trend leans oversized. When in doubt, go bigger
+
+## The Bottom Line
+
+The Office Siren aesthetic is all about **confident, powerful style** — and the right glasses are non-negotiable. Instead of gambling on online purchases or settling for whatever's at your local optician, use **[AI virtual try-on](https://agalaz.com/try-on)** to find your perfect frame from the comfort of your desk.
+
+Your future Office Siren look is one upload away.`,
+    contentEs: `La estética **Office Siren** ha conquistado TikTok e Instagram en 2026 — y nada define mejor este look que unas *gafas perfectas*. Hablamos de monturas rectangulares atrevidas, cat-eye oversize y patrones carey oscuros que dicen "yo dirijo esta reunión."
+
+Pero el problema es: ¿cómo saber qué gafas Office Siren realmente te quedan bien *a ti* antes de gastar 150€+ en gafas de diseñador?
+
+## ¿Qué Son las Gafas Office Siren?
+
+La estética Office Siren combina **vestimenta corporativa de poder** con sensualidad sutil. Las gafas son la pieza central:
+
+| Estilo | Vibra | Ideal Para |
+|---|---|---|
+| **Rectangular bold** | Autoridad, energía CEO | Caras cuadradas y ovaladas |
+| **Cat-eye oversize** | Confianza, editorial | Caras redondas y corazón |
+| **Carey oscuro** | Intelectual, cálido | Todas las formas |
+| **Metal fino + barra superior gruesa** | Minimalista moderno | Caras oblongas y diamante |
+| **Transparente** | Fresco, accesible | Todas las formas |
+
+## Cómo Probarte Virtualmente Gafas Office Siren
+
+En vez de pedir 5 pares y devolver 4, puedes usar tecnología de prueba virtual con IA para ver exactamente cómo te queda cada montura:
+
+### Paso 1: Sube Tu Foto
+Ve a **[Agalaz Probador Virtual](https://agalaz.com/try-on)** y sube una foto clara tuya — un selfie o foto de medio/cuerpo entero funciona. La IA preserva tu forma de cara, tono de piel y rasgos exactos.
+
+### Paso 2: Sube las Gafas
+Guarda la imagen del producto de las gafas Office Siren que te interesan (una captura de cualquier tienda online vale). Súbela como accesorio.
+
+### Paso 3: Ve el Resultado
+La IA genera una imagen fotorrealista de **ti usando esas gafas exactas** en menos de 60 segundos.
+
+### Paso 4: Compara Estilos
+Prueba diferentes monturas una tras otra. Usa el chat para decir *"prueba estas en negro"* o *"hazlas un poco más grandes"* — la IA ajusta en tiempo real.
+
+## Las 5 Mejores Monturas Office Siren para 2026
+
+1. **El Rectángulo de Sala de Juntas** — Anchas, atrevidas, oscuras. Perfectas para establecer autoridad.
+2. **El Cat-Eye de Poder** — Esquinas ligeramente elevadas. Añade definición a caras redondas.
+3. **El Carey Intelectual** — Tonos marrones cálidos. Funciona con cualquier tono de piel.
+4. **La Montura Transparente** — Acetato translúcido. Sorprendentemente poderosa en oficina.
+5. **La Barra Metálica** — Aro inferior fino, parte superior gruesa. Moderno y sutil.
+
+## ¿Por Qué la Prueba Virtual Es Mejor Que la Tienda Física?
+
+- **Sin presión** — Prueba 20 monturas sin un vendedor encima
+- **Tu iluminación real** — Ve las gafas en *tu* entorno
+- **Comparaciones ilimitadas** — Capturas lado a lado de cada opción
+- **Cualquier marca** — Prueba gafas de cualquier web
+- **Gratis** — [Agalaz ofrece prueba gratuita](https://agalaz.com/try-on)
+
+## Conclusión
+
+La estética Office Siren trata de **estilo confiado y poderoso** — y las gafas correctas son innegociables. En vez de apostar en compras online, usa **[prueba virtual con IA](https://agalaz.com/try-on)** para encontrar tu montura perfecta desde la comodidad de tu escritorio.`,
+  },
+  {
+    slug: 'best-glasses-colors-deep-autumn-skin-tone',
+    title: 'Best Glasses Colors for \'Deep Autumn\' Skin Tone — Virtual Try-On Guide',
+    titleEs: 'Mejores Colores de Gafas para Tono de Piel \'Otoño Profundo\' — Guía con Prueba Virtual',
+    description: 'Find the most flattering glasses frame colors for Deep Autumn skin tones. Use free AI virtual try-on to see which shades complement your warm undertones.',
+    descriptionEs: 'Encuentra los colores de montura más favorecedores para tonos de piel Otoño Profundo. Usa prueba virtual con IA gratuita para ver qué tonos complementan tus subtonos cálidos.',
+    keyword: 'best glasses colors deep autumn skin tone',
+    readTime: 7,
+    date: '2026-03-19',
+    category: 'Color Analysis',
+    categoryEs: 'Análisis de Color',
+    content: `If you've done your **seasonal color analysis** and discovered you're a **Deep Autumn**, congratulations — you have one of the richest, warmest palettes to work with. But when it comes to glasses, choosing the wrong frame color can wash you out or clash with your natural warmth.
+
+Here's exactly which glasses colors will make your Deep Autumn features *glow* — and how to try them virtually before buying.
+
+## Understanding Deep Autumn Characteristics
+
+Deep Autumns typically have:
+- **Skin:** Warm undertones — olive, golden, bronze, warm beige, or deep brown
+- **Eyes:** Dark brown, warm hazel, deep green, or amber
+- **Hair:** Dark brown, auburn, deep red, or black with warm undertones
+
+Your overall look is **rich, warm, and saturated**. Your glasses should enhance that warmth, not fight it.
+
+## The Best Glasses Colors for Deep Autumn
+
+### Tier 1: Perfect Matches ✨
+
+| Color | Why It Works | Frame Examples |
+|---|---|---|
+| **Dark tortoiseshell** | Echoes your natural warmth perfectly | Classic acetate frames |
+| **Warm brown/chocolate** | Complements golden skin undertones | Matte or glossy finish |
+| **Burgundy/wine** | Adds richness without clashing | Bold acetate or metal |
+| **Forest green** | Harmonizes with warm undertones | Statement frames |
+| **Warm gold metal** | Mirrors your skin's golden quality | Thin metal frames |
+
+### Tier 2: Great Choices
+
+| Color | Why It Works | Frame Examples |
+|---|---|---|
+| **Olive/moss green** | Earthy tone that feels natural | Thick acetate |
+| **Burnt orange/rust** | Bold but harmonious | Modern chunky frames |
+| **Deep teal** | Rich enough to match your depth | Mixed material frames |
+| **Bronze/copper metal** | Warm metal = warm skin match | Wire frames |
+
+### Tier 3: Proceed with Caution ⚠️
+
+| Color | The Risk | How to Make It Work |
+|---|---|---|
+| **Black** | Can look harsh against warm skin | Choose a slightly warm black |
+| **Silver metal** | Too cool, may clash | Only in mixed metal designs |
+| **Bright/neon colors** | Overwhelm the natural palette | Skip entirely |
+| **Cool pastels (baby blue, pink)** | Clash with warm undertones | Avoid |
+
+## How to Try Before You Buy
+
+The problem with choosing glasses by color theory alone is that **every face is different**. A color that's "perfect for Deep Autumn" might still look off on *your specific* face shape and skin shade.
+
+That's where **AI virtual try-on** comes in:
+
+1. **Go to [Agalaz Virtual Try-On](https://agalaz.com/try-on)** — it's free to start
+2. **Upload a photo of yourself** — the AI preserves your exact skin tone and features
+3. **Upload the glasses** — save a product image from any store
+4. **See the result instantly** — a photorealistic preview of you wearing those exact frames
+5. **Try multiple colors** — use the chat to say *"try these in tortoiseshell"* or *"show me in gold metal instead"*
+
+This eliminates guesswork entirely. You can test 10 different frame colors in 10 minutes and know exactly which one makes your Deep Autumn coloring shine.
+
+## Deep Autumn Glasses + Outfit Pairing
+
+Your glasses don't exist in a vacuum. Here's how to pair them:
+
+- **Tortoiseshell frames** + cream blouse + chocolate blazer = executive warmth
+- **Burgundy frames** + olive sweater + dark denim = casual sophistication
+- **Gold metal frames** + black turtleneck + camel coat = minimal luxury
+- **Forest green frames** + rust-colored top + brown leather = full autumn palette
+
+## Common Mistakes Deep Autumns Make
+
+1. **Buying cool-toned frames** because they're "trendy" — silver, icy blue, and cool gray will always look slightly off
+2. **Going too light** — pastel frames wash out your rich coloring
+3. **Ignoring the depth** — your palette is *deep*. Light, airy frames can look disconnected
+4. **Not considering lens tint** — even your lens tint matters. Warm amber or brown tints > cool gray tints
+
+## The Bottom Line
+
+As a Deep Autumn, your superpower is **warmth and richness**. Your glasses should amplify that, not mute it. Stick to warm browns, tortoiseshell, burgundy, forest green, and warm metals — and use **[Agalaz's free virtual try-on](https://agalaz.com/try-on)** to see the exact result on your face before spending a cent.
+
+Your perfect frames are waiting. [Try them on now →](https://agalaz.com/try-on)`,
+    contentEs: `Si has hecho tu **análisis de color estacional** y descubriste que eres **Otoño Profundo**, enhorabuena — tienes una de las paletas más ricas y cálidas con las que trabajar. Pero cuando se trata de gafas, elegir el color de montura equivocado puede apagarte o chocar con tu calidez natural.
+
+Aquí tienes exactamente qué colores de gafas harán que tus rasgos de Otoño Profundo *brillen* — y cómo probarlos virtualmente antes de comprar.
+
+## Características del Otoño Profundo
+
+Los Otoños Profundos típicamente tienen:
+- **Piel:** Subtonos cálidos — oliva, dorado, bronce, beige cálido o marrón profundo
+- **Ojos:** Marrón oscuro, avellana cálido, verde profundo o ámbar
+- **Pelo:** Marrón oscuro, caoba, rojo profundo o negro con subtonos cálidos
+
+Tu look general es **rico, cálido y saturado**. Tus gafas deben potenciar esa calidez, no luchar contra ella.
+
+## Los Mejores Colores de Gafas para Otoño Profundo
+
+### Nivel 1: Combinaciones Perfectas ✨
+
+| Color | Por Qué Funciona | Ejemplos |
+|---|---|---|
+| **Carey oscuro** | Refleja tu calidez natural perfectamente | Monturas acetato clásicas |
+| **Marrón cálido/chocolate** | Complementa los subtonos dorados | Acabado mate o brillante |
+| **Burdeos/vino** | Añade riqueza sin chocar | Acetato o metal audaz |
+| **Verde bosque** | Armoniza con subtonos cálidos | Monturas statement |
+| **Metal dorado cálido** | Refleja la calidad dorada de tu piel | Monturas metálicas finas |
+
+### Nivel 2: Buenas Opciones
+
+- **Oliva/verde musgo** — Tono terroso que se siente natural
+- **Naranja quemado/óxido** — Audaz pero armonioso
+- **Teal profundo** — Suficientemente rico para igualar tu profundidad
+- **Metal bronce/cobre** — Metal cálido = match con piel cálida
+
+### Nivel 3: Con Precaución ⚠️
+
+- **Negro** — Puede verse duro. Elige un negro ligeramente cálido
+- **Metal plateado** — Demasiado frío, puede chocar
+- **Colores brillantes/neón** — Abruman la paleta natural
+- **Pasteles fríos** — Evitar por completo
+
+## Cómo Probarte Antes de Comprar
+
+1. **Ve a [Agalaz Probador Virtual](https://agalaz.com/try-on)** — es gratis para empezar
+2. **Sube una foto tuya** — la IA preserva tu tono de piel exacto
+3. **Sube las gafas** — guarda una imagen de cualquier tienda
+4. **Ve el resultado al instante** — preview fotorrealista
+5. **Prueba múltiples colores** — usa el chat para cambiar colores
+
+## Conclusión
+
+Como Otoño Profundo, tu superpoder es la **calidez y riqueza**. Tus gafas deben amplificar eso. Apuesta por marrones cálidos, carey, burdeos, verde bosque y metales cálidos — y usa **[la prueba virtual gratuita de Agalaz](https://agalaz.com/try-on)** para ver el resultado exacto en tu cara.
+
+[Pruébalas ahora →](https://agalaz.com/try-on)`,
+  },
+  {
+    slug: 'free-ai-glasses-stylist-diamond-face-shape',
+    title: 'Free AI Glasses Stylist for Diamond Face Shape — Find Frames That Flatter',
+    titleEs: 'Estilista IA Gratuito de Gafas para Cara Diamante — Encuentra Monturas Que Te Favorezcan',
+    description: 'Diamond face shape? Use our free AI virtual try-on to find the most flattering glasses frames. See what works before you buy.',
+    descriptionEs: 'Cara en forma de diamante? Usa nuestra prueba virtual con IA gratuita para encontrar las gafas que más te favorecen. Ve qué funciona antes de comprar.',
+    keyword: 'free AI glasses stylist diamond face shape',
+    readTime: 6,
+    date: '2026-03-19',
+    category: 'Face Shape & Glasses',
+    categoryEs: 'Forma de Cara y Gafas',
+    content: `Diamond-shaped faces are **rare and striking** — high cheekbones, narrow forehead, narrow chin, and angular features that most people would love to have. But finding the right glasses for this face shape can be tricky.
+
+The wrong frames can exaggerate the narrowness of your forehead or chin, while the right frames balance everything beautifully.
+
+Here's your complete guide — plus a **free AI tool** to try any frame on your face instantly.
+
+## How to Know If You Have a Diamond Face Shape
+
+Your face is likely diamond-shaped if:
+- ✅ Your cheekbones are the widest part of your face
+- ✅ Your forehead is narrower than your cheekbones
+- ✅ Your chin is narrow and may come to a soft point
+- ✅ Your face is longer than it is wide
+- ✅ You have defined, angular bone structure
+
+Celebrities with diamond faces: **Rihanna, Robert Pattinson, Vanessa Hudgens, Halle Berry**
+
+## Best Glasses for Diamond Face Shapes
+
+The goal: **soften the cheekbones** and **add width to the forehead and jawline**.
+
+### Top Frame Styles ✅
+
+| Frame Style | Why It Works | Examples |
+|---|---|---|
+| **Cat-eye/upswept** | Draws attention upward, balances narrow forehead | Gentle Monster, Tom Ford |
+| **Browline/clubmaster** | Top-heavy design adds width to forehead | Ray-Ban Clubmaster |
+| **Oval frames** | Softens angular cheekbones | Classic round-ish shapes |
+| **Rimless/semi-rimless** | Doesn't compete with bone structure | Silhouette, Lindberg |
+| **Wide rectangular (slightly rounded)** | Balances width across the face | Warby Parker, Oliver Peoples |
+
+### Frames to Avoid ❌
+
+| Frame Style | Why It Doesn't Work |
+|---|---|
+| **Narrow rectangular** | Makes face look even longer and narrower |
+| **Tiny/small frames** | Gets lost under high cheekbones |
+| **Bottom-heavy frames** | Draws attention to already narrow chin |
+| **Geometric/angular** | Too much angularity on an already angular face |
+
+## Use Free AI to Try Them On Your Face
+
+Reading about frame shapes is helpful, but **seeing them on YOUR face** is game-changing. Here's how to use Agalaz's free AI glasses stylist:
+
+### How It Works
+
+1. **Visit [agalaz.com/try-on](https://agalaz.com/try-on)** — sign up for a free trial (takes 30 seconds)
+2. **Upload your photo** — a clear selfie or half-body shot. The AI detects your face shape automatically
+3. **Upload glasses** — screenshot any frames from any online store (Zenni, Warby Parker, Ray-Ban, etc.)
+4. **Get your result** — a photorealistic image of you wearing those exact frames appears in under 60 seconds
+5. **Refine with chat** — type "make them wider" or "try in tortoiseshell" and the AI adjusts
+
+### Why This Is Better Than In-Store Try-On
+
+- **Any brand, any frame** — not limited to what's in stock
+- **No travel required** — try on from your couch
+- **Unlimited tries** — compare 10, 20, or 50 frames without pressure
+- **Save screenshots** — build a shortlist of your favorites
+- **Free to start** — [Agalaz's free trial](https://agalaz.com/try-on) includes 2 renders
+
+## Diamond Face Styling Tips
+
+Beyond glasses, here's how to maximize your diamond face shape:
+
+1. **Earrings:** Drop or dangle earrings that add width at the jawline
+2. **Hairstyles:** Side-parted hair that adds width at the forehead
+3. **Necklines:** Sweetheart and scoop necklines complement the angular structure
+4. **Glasses + hair combo:** Pair browline glasses with pulled-back hair for maximum balance
+
+## The Bottom Line
+
+Diamond face shapes are gorgeous but underserved by most glasses guides. The key is **balancing width** — add visual weight to the forehead and jawline while softening the cheekbones.
+
+Stop guessing. **[Try frames on your face for free with AI →](https://agalaz.com/try-on)**`,
+    contentEs: `Las caras en forma de diamante son **raras y llamativas** — pómulos altos, frente estrecha, mentón estrecho y rasgos angulares que la mayoría desearía tener. Pero encontrar las gafas correctas para esta forma puede ser complicado.
+
+Las monturas equivocadas pueden exagerar la estrechez de tu frente o mentón, mientras las correctas equilibran todo perfectamente.
+
+## ¿Cómo Saber Si Tienes Cara de Diamante?
+
+Tu cara probablemente es diamante si:
+- ✅ Tus pómulos son la parte más ancha de tu cara
+- ✅ Tu frente es más estrecha que tus pómulos
+- ✅ Tu mentón es estrecho y termina en punta suave
+- ✅ Tu cara es más larga que ancha
+- ✅ Tienes estructura ósea definida y angular
+
+## Mejores Gafas para Cara Diamante
+
+El objetivo: **suavizar los pómulos** y **añadir anchura a la frente y mandíbula**.
+
+### Mejores Estilos ✅
+
+| Estilo | Por Qué Funciona |
+|---|---|
+| **Cat-eye/elevadas** | Dirige la atención hacia arriba, equilibra frente estrecha |
+| **Browline/clubmaster** | Diseño pesado arriba, añade anchura a la frente |
+| **Monturas ovaladas** | Suaviza pómulos angulares |
+| **Sin montura/semi** | No compite con la estructura ósea |
+| **Rectangular ancha (ligeramente redondeada)** | Equilibra la anchura |
+
+### Monturas a Evitar ❌
+
+- **Rectangular estrecha** — Hace la cara aún más larga y estrecha
+- **Monturas pequeñas** — Se pierden bajo los pómulos altos
+- **Pesadas abajo** — Llama la atención al mentón ya estrecho
+- **Geométricas/angulares** — Demasiada angularidad
+
+## Usa IA Gratuita para Probártelas
+
+1. **Visita [agalaz.com/try-on](https://agalaz.com/try-on)** — regístrate gratis (30 segundos)
+2. **Sube tu foto** — selfie o medio cuerpo. La IA detecta tu forma de cara
+3. **Sube las gafas** — captura de cualquier tienda online
+4. **Obtén tu resultado** — imagen fotorrealista en menos de 60 segundos
+5. **Refina con chat** — escribe "hazlas más anchas" o "prueba en carey"
+
+## Conclusión
+
+Las caras diamante son preciosas pero están mal servidas por la mayoría de guías de gafas. La clave es **equilibrar la anchura**.
+
+Deja de adivinar. **[Pruébate monturas gratis con IA →](https://agalaz.com/try-on)**`,
+  },
+  {
+    slug: 'virtual-try-on-glasses-hide-dark-circles',
+    title: 'Virtual Try-On for Glasses That Hide Dark Circles — AI-Powered Frame Finder',
+    titleEs: 'Prueba Virtual de Gafas Que Ocultan Ojeras — Buscador de Monturas con IA',
+    description: 'Find glasses that strategically hide dark circles and under-eye bags. Use free AI virtual try-on to test frames before buying.',
+    descriptionEs: 'Encuentra gafas que ocultan ojeras y bolsas estratégicamente. Usa prueba virtual con IA gratuita para probar monturas antes de comprar.',
+    keyword: 'virtual try on glasses that hide dark circles',
+    readTime: 6,
+    date: '2026-03-19',
+    category: 'Glasses & Eyewear',
+    categoryEs: 'Gafas y Accesorios',
+    content: `Let's be honest — dark circles happen. Genetics, stress, late nights, allergies, or just life. And while concealer helps, the right pair of glasses can **permanently camouflage dark circles** without any makeup at all.
+
+The secret? Specific frame shapes, colors, and sizes that redirect attention away from the under-eye area. Here's exactly what to look for — and how to try them on your face with AI before buying.
+
+## Why Certain Glasses Hide Dark Circles Better
+
+It comes down to three principles:
+
+1. **Frame thickness** — Thicker frames at the bridge and temples draw the eye *away* from the under-eye area
+2. **Frame position** — Frames that sit higher on the nose cover more of the dark circle zone
+3. **Color strategy** — Warm, attention-grabbing frame colors redirect focus upward
+
+## The Best Frame Styles for Hiding Dark Circles
+
+### Tier 1: Maximum Coverage 🏆
+
+| Frame Style | Why It Works | Key Feature |
+|---|---|---|
+| **Thick plastic rectangles** | Wide frame covers the entire under-eye area | 8mm+ thick frame |
+| **Oversized round/oval** | Large lenses physically cover dark circles | Lens height 45mm+ |
+| **Browline with thick top** | Heavy brow bar pulls attention upward | Thick acetate top bar |
+| **Wayfarers/thick trapezoid** | Classic shape that naturally sits over circles | Angled bottom edge |
+
+### Tier 2: Good Coverage ✅
+
+| Frame Style | Why It Works |
+|---|---|
+| **Cat-eye** | Upswept shape directs gaze upward and away from under-eye |
+| **Aviator (thick)** | Teardrop shape covers a lot of the lower area |
+| **Oversized square** | Maximizes face coverage |
+
+### Tier 3: Minimal Coverage ⚠️ (Avoid if hiding circles is priority)
+
+| Frame Style | The Problem |
+|---|---|
+| **Thin wire frames** | Too minimal — dark circles are fully visible |
+| **Rimless glasses** | Zero coverage, zero distraction |
+| **Small/narrow frames** | Don't extend far enough to cover the area |
+| **Bottom-heavy frames** | Actually draw MORE attention to under-eye area |
+
+## Best Frame Colors for Hiding Dark Circles
+
+Color matters more than you think:
+
+- ✅ **Bold/dark frames** (black, dark tortoiseshell, navy) — Create visual contrast that draws eyes to the frame, not the skin
+- ✅ **Rich warm colors** (burgundy, forest green, deep amber) — Warm tones counteract the cool blue/purple of dark circles
+- ✅ **Two-tone frames** (dark top, lighter bottom) — The dark upper portion catches attention first
+- ❌ **Clear/translucent frames** — Offer zero camouflage
+- ❌ **Cool pastels** — Can actually emphasize blue-toned dark circles
+- ❌ **Light metals** — Too subtle to redirect attention
+
+## Try Them On Your Face With AI — Free
+
+Reading about frame shapes helps, but **seeing them on your actual face with your actual dark circles** is the real test. Here's how:
+
+1. **Go to [Agalaz Virtual Try-On](https://agalaz.com/try-on)** — free trial, no credit card to start
+2. **Upload a photo** — use a photo where your dark circles are visible (don't hide them with makeup for the test!)
+3. **Upload glasses** — save product images from Zenni, EyeBuyDirect, Warby Parker, or any store
+4. **See the result** — the AI shows you wearing those exact frames, so you can judge how much coverage they provide
+5. **Compare multiple pairs** — try thick vs thin, oversized vs standard, dark vs light
+
+### Pro Move: The Side-by-Side Test
+Upload the same photo with different glasses styles and take screenshots. Put them side-by-side to see which frames hide your dark circles best. This is impossible in a physical store but takes 5 minutes with AI.
+
+## Additional Tips for Dark Circle Coverage
+
+- **Nose pad height matters** — Glasses that sit higher cover more of the under-eye. Look for adjustable nose pads
+- **Lens tint** — A very subtle amber tint can warm up the under-eye area visually
+- **Frame fit** — Glasses that are too loose slide down, revealing circles. Proper fit = better coverage
+- **Anti-reflective coating** — Reduces glare that can highlight shadows under eyes
+
+## Real Talk: Glasses vs. Concealer
+
+| | Glasses | Concealer |
+|---|---|---|
+| **Effort** | Zero — put them on and forget | Daily application |
+| **Consistency** | Same coverage every day | Varies by application |
+| **Touch-ups** | None needed | May crease or fade |
+| **Side effects** | None | Can dry under-eye skin |
+| **Cost** | One-time purchase | Ongoing |
+
+## The Bottom Line
+
+The right glasses can do what concealer does — but permanently and effortlessly. Focus on **thick frames, warm colors, and oversized shapes** that physically cover and visually distract from dark circles.
+
+Don't guess which frames work. **[Try them on your face for free with Agalaz AI →](https://agalaz.com/try-on)**
+
+Your under-eyes will thank you.`,
+    contentEs: `Seamos honestos — las ojeras pasan. Genética, estrés, noches tardías, alergias, o simplemente la vida. Y aunque el corrector ayuda, las gafas correctas pueden **camuflar permanentemente las ojeras** sin maquillaje alguno.
+
+¿El secreto? Formas, colores y tamaños específicos de montura que redirigen la atención lejos de la zona de debajo del ojo.
+
+## Por Qué Ciertas Gafas Ocultan Mejor las Ojeras
+
+Se reduce a tres principios:
+
+1. **Grosor de montura** — Monturas más gruesas alejan la mirada del área bajo el ojo
+2. **Posición** — Monturas que se sientan más arriba cubren más zona de ojeras
+3. **Estrategia de color** — Colores cálidos y llamativos redirigen el enfoque hacia arriba
+
+## Las Mejores Monturas para Ocultar Ojeras
+
+### Nivel 1: Máxima Cobertura 🏆
+
+| Estilo | Por Qué Funciona |
+|---|---|
+| **Rectangular grueso de plástico** | Montura ancha cubre toda el área bajo el ojo |
+| **Redondo/ovalado oversize** | Lentes grandes cubren físicamente las ojeras |
+| **Browline con parte superior gruesa** | Barra superior pesada tira la atención hacia arriba |
+| **Wayfarer/trapezoide grueso** | Forma clásica que naturalmente se sienta sobre las ojeras |
+
+### Nivel 2: Buena Cobertura ✅
+
+- **Cat-eye** — Forma elevada dirige la mirada hacia arriba
+- **Aviador grueso** — Forma de lágrima cubre la zona inferior
+- **Cuadrado oversize** — Maximiza la cobertura facial
+
+### Nivel 3: Cobertura Mínima ⚠️ (Evitar si quieres ocultar ojeras)
+
+- **Monturas de alambre fino** — Demasiado mínimas
+- **Sin montura** — Cero cobertura, cero distracción
+- **Monturas pequeñas/estrechas** — No se extienden lo suficiente
+- **Monturas pesadas abajo** — Atraen MÁS atención bajo el ojo
+
+## Mejores Colores para Ocultar Ojeras
+
+- ✅ **Monturas oscuras/audaces** — Crean contraste visual
+- ✅ **Colores cálidos ricos** — Contrarrestan el azul/morado de las ojeras
+- ❌ **Monturas transparentes** — Cero camuflaje
+- ❌ **Pasteles fríos** — Pueden enfatizar las ojeras
+
+## Pruébalas en Tu Cara con IA — Gratis
+
+1. **Ve a [Agalaz Probador Virtual](https://agalaz.com/try-on)** — prueba gratis
+2. **Sube una foto** — usa una donde se vean tus ojeras (¡no las tapes con maquillaje!)
+3. **Sube las gafas** — imágenes de cualquier tienda online
+4. **Ve el resultado** — la IA te muestra con esas gafas exactas
+5. **Compara múltiples pares** — gruesas vs finas, oversize vs estándar
+
+## Conclusión
+
+Las gafas correctas hacen lo que el corrector hace — pero permanentemente y sin esfuerzo. Enfócate en **monturas gruesas, colores cálidos y formas oversize**.
+
+No adivines qué monturas funcionan. **[Pruébalas gratis con Agalaz IA →](https://agalaz.com/try-on)**`,
+  },
 ];
