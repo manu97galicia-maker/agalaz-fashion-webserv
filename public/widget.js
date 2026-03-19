@@ -123,7 +123,16 @@
       if (container.getAttribute('data-agalaz-init')) return;
       container.setAttribute('data-agalaz-init', 'true');
 
-      var garmentUrl = container.getAttribute('data-garment') || '';
+      // Resolve relative URLs to absolute (widget runs on partner domain)
+      var rawGarment = container.getAttribute('data-garment') || '';
+      var garmentUrl = rawGarment;
+      if (rawGarment && rawGarment.indexOf('http') !== 0) {
+        try {
+          garmentUrl = new URL(rawGarment, window.location.href).href;
+        } catch (e) {
+          garmentUrl = window.location.origin + (rawGarment.charAt(0) === '/' ? '' : '/') + rawGarment;
+        }
+      }
 
       var btn = document.createElement('button');
       btn.className = 'agalaz-btn';

@@ -69,41 +69,60 @@ export default function EmbedPage() {
   }, [garmentUrl]);
 
   async function fetchImageAsBase64(url: string): Promise<string> {
-    // Try direct fetch first, fall back to img element for CORS-restricted images
+    // Use our server-side image proxy to bypass CORS
+    const proxyUrl = `/api/v1/image-proxy?url=${encodeURIComponent(url)}`;
+
+    // Method 1: fetch via proxy (most reliable)
+    try {
+      const res = await fetch(proxyUrl);
+      if (res.ok) {
+        const blob = await res.blob();
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve((reader.result as string).split(',')[1]);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
+      }
+    } catch { /* continue to fallbacks */ }
+
+    // Method 2: direct fetch (works if same-origin or CORS enabled)
     try {
       const res = await fetch(url, { mode: 'cors' });
-      const blob = await res.blob();
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve((reader.result as string).split(',')[1]);
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-    } catch {
-      // CORS blocked — load via img element + canvas
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.crossOrigin = 'anonymous';
-        img.onload = () => {
-          const MIN_DIM = 512;
-          let w = img.naturalWidth, h = img.naturalHeight;
-          if (w < MIN_DIM && h < MIN_DIM) {
-            const scale = MIN_DIM / Math.max(w, h);
-            w = Math.round(w * scale);
-            h = Math.round(h * scale);
-          }
-          const canvas = document.createElement('canvas');
-          canvas.width = w;
-          canvas.height = h;
-          const ctx = canvas.getContext('2d')!;
-          ctx.drawImage(img, 0, 0, w, h);
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
-          resolve(dataUrl.split(',')[1]);
-        };
-        img.onerror = reject;
-        img.src = url;
-      });
-    }
+      if (res.ok) {
+        const blob = await res.blob();
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve((reader.result as string).split(',')[1]);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
+      }
+    } catch { /* continue to fallback */ }
+
+    // Method 3: img element + canvas
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        const MIN_DIM = 512;
+        let w = img.naturalWidth, h = img.naturalHeight;
+        if (w < MIN_DIM && h < MIN_DIM) {
+          const scale = MIN_DIM / Math.max(w, h);
+          w = Math.round(w * scale);
+          h = Math.round(h * scale);
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d')!;
+        ctx.drawImage(img, 0, 0, w, h);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+        resolve(dataUrl.split(',')[1]);
+      };
+      img.onerror = reject;
+      img.src = url;
+    });
   }
 
   function compressImage(file: File): Promise<string> {
