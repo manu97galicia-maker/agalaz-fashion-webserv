@@ -834,6 +834,24 @@ export default function HomePage() {
               </h3>
               <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Prueba virtual + guía' : 'Virtual try-on + guide'}</p>
             </Link>
+            <Link href="/blog/coquette-aesthetic-spring-nails-virtual-try-on" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Uñas Coquette Primavera' : 'Coquette Spring Nails Try-On'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Lazos, perlas y rosa suave' : 'Bows, pearls & soft pink'}</p>
+            </Link>
+            <Link href="/blog/short-almond-spring-nails-clean-girl-look" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Uñas Almendra Clean Girl' : 'Clean Girl Almond Nails'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Guía minimal + prueba virtual' : 'Minimal guide + virtual try-on'}</p>
+            </Link>
+            <Link href="/blog/pastel-chrome-nails-2026-futuristic-spring-trend" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Uñas Chrome Pastel 2026' : 'Pastel Chrome Nails 2026'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Tendencia futurista' : 'Futuristic spring trend'}</p>
+            </Link>
           </div>
         </div>
       </section>

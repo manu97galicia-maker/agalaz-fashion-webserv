@@ -2781,4 +2781,575 @@ Las gafas correctas hacen lo que el corrector hace — pero permanentemente y si
 
 No adivines qué monturas funcionan. **[Pruébalas gratis con Agalaz IA →](https://agalaz.com/try-on)**`,
   },
+  {
+    slug: 'coquette-aesthetic-spring-nails-virtual-try-on',
+    title: 'Coquette Aesthetic Spring Nails Virtual Try-On — Preview Your Perfect Mani Before the Salon',
+    titleEs: 'Prueba Virtual de Uñas Primavera Estilo Coquette — Visualiza Tu Manicura Antes del Salón',
+    description: 'Preview coquette aesthetic spring nails on your own hands with AI virtual try-on. See bows, pearls, soft pink designs and more before your salon appointment.',
+    descriptionEs: 'Previsualiza uñas de primavera estilo coquette en tus propias manos con prueba virtual IA. Ve lazos, perlas, diseños rosa suave y más antes de tu cita en el salón.',
+    keyword: 'coquette aesthetic spring nails virtual try on',
+    readTime: 7,
+    date: '2026-03-19',
+    category: 'Nails & Beauty',
+    categoryEs: 'Uñas y Belleza',
+    content: `The **coquette aesthetic** has officially taken over nail art in Spring 2026. Think soft pinks, delicate bows, pearl accents, and that effortlessly feminine energy that screams *"I'm adorable and I know it."*
+
+But here's the thing — coquette nails range from subtle to over-the-top, and what looks dreamy on Pinterest might look completely different on *your* hands. That's where **AI virtual try-on** comes in.
+
+## What Are Coquette Aesthetic Nails?
+
+The coquette aesthetic is rooted in **hyper-femininity** — soft, romantic, and playful. For nails, this translates to:
+
+| Element | Examples | Vibe |
+|---|---|---|
+| **Colors** | Baby pink, lavender, cream, soft white | Innocent, romantic |
+| **Accents** | Bows, ribbons, pearls, hearts | Playful, girly |
+| **Finishes** | Glossy, jelly, glazed donut | Soft, luminous |
+| **Shapes** | Almond, oval, medium length | Elegant, feminine |
+| **Details** | French tips (pink on pink), micro florals | Delicate, refined |
+
+## Top 10 Coquette Spring Nail Designs for 2026
+
+### 1. The Classic Pink Bow
+Soft pink base with a delicate 3D bow accent on the ring finger. The *quintessential* coquette nail.
+
+### 2. Pearl Drops
+Nude or cream base with tiny pearl embellishments scattered across each nail. Elegant and understated.
+
+### 3. Lavender Dream
+Full lavender coverage with a glossy top coat. Simple but unmistakably coquette when paired with the right outfit.
+
+### 4. Pink French with Ribbon Tips
+Instead of white French tips, use a slightly darker pink. Add tiny ribbon details at the base of the tips.
+
+### 5. Heart Accents
+Soft pink base with micro hearts in white or red on 2-3 nails. Sweet without being childish.
+
+### 6. Glazed Donut Coquette
+The Hailey Bieber glazed donut finish in a soft pink or lavender shade. Trendy meets feminine.
+
+### 7. Lace Pattern
+Sheer pink base with white lace-inspired nail art. Looks like lingerie for your fingertips.
+
+### 8. Cherry Blossom
+Soft pink base with delicate cherry blossom branches painted across multiple nails. Perfect for spring.
+
+### 9. Balletcore Pink
+Pointe shoe pink with a satin matte finish. Minimal and sophisticated coquette.
+
+### 10. Rosette Nails
+3D rosette details on a cream base. The most maximalist coquette option.
+
+## How to Virtually Try On Coquette Nails
+
+Before spending $80+ at the nail salon, see how these designs look on **your actual hands**:
+
+### Step-by-Step with Agalaz AI
+
+1. **Go to [agalaz.com/try-on](https://agalaz.com/try-on)** — sign up for a free trial
+2. **Upload a photo of your hand** — a clear, well-lit photo showing your nails
+3. **Upload the nail design** — save a photo of the coquette design you want from Pinterest, Instagram, or any nail salon gallery
+4. **Get your preview** — the AI generates a photorealistic image of YOUR hand with that exact nail design
+5. **Compare designs** — try multiple coquette styles back-to-back before committing
+
+### Why This Changes Everything
+
+- **No more "it looked different on Pinterest"** — see it on YOUR hands first
+- **Save money** — don't pay for a design you'll hate after 2 days
+- **Show your nail tech** — bring the AI-generated image as a perfect reference
+- **Skin tone matching** — see which pink shades complement YOUR skin tone specifically
+
+## Coquette Nails by Skin Tone
+
+Not every shade of pink works for every skin tone:
+
+| Skin Tone | Best Coquette Pinks | Avoid |
+|---|---|---|
+| **Fair/light** | Baby pink, blush, soft lavender | Neon pink (too harsh) |
+| **Medium/olive** | Rose, dusty pink, mauve | Very pale pink (washes out) |
+| **Tan/warm** | Warm pink, coral-pink, peach | Cool blue-pinks |
+| **Deep/dark** | Hot pink, magenta, berry pink | Very light pastels (no contrast) |
+
+This is exactly why virtual try-on is so valuable — you can test which coquette pink shade actually flatters your skin tone before sitting in the salon chair.
+
+## Coquette Nails + Outfit Pairing
+
+Your nails are an accessory. Here's how to style them:
+
+- **Pink bow nails** + white ruffle blouse + ballet flats = peak coquette
+- **Pearl nails** + cream knit + gold jewelry = quiet luxury coquette
+- **Lavender nails** + lilac sundress + ribbon headband = spring coquette
+- **Glazed donut nails** + oversized blazer + loafers = corporate coquette
+
+## Pro Tips from Nail Artists
+
+1. **Almond shape is king** for coquette — it's the most feminine nail shape
+2. **Keep length medium** — too long breaks the "effortless" illusion
+3. **One accent nail** — don't overdo the bows/pearls. Less is more
+4. **Glossy finish** always — matte doesn't read as coquette
+5. **Maintenance matters** — coquette nails need to look pristine. Plan for fills every 2-3 weeks
+
+## The Bottom Line
+
+Coquette aesthetic nails are the defining beauty trend of Spring 2026, but the difference between *stunning* and *not quite right* comes down to choosing the right shade and design for YOUR hands.
+
+Don't gamble with a $80 salon appointment. **[Try coquette designs on your hands for free with Agalaz AI →](https://agalaz.com/try-on)**
+
+Your perfect spring mani is one upload away.`,
+    contentEs: `La **estética coquette** ha conquistado oficialmente el nail art en Primavera 2026. Piensa en rosas suaves, lazos delicados, acentos de perlas y esa energía femenina sin esfuerzo que grita *"soy adorable y lo sé."*
+
+Pero la cosa es — las uñas coquette van de lo sutil a lo exagerado, y lo que se ve soñado en Pinterest puede verse completamente diferente en *tus* manos. Ahí es donde entra la **prueba virtual con IA**.
+
+## ¿Qué Son las Uñas Estilo Coquette?
+
+La estética coquette se basa en la **hiperfeminidad** — suave, romántica y juguetona. Para uñas:
+
+| Elemento | Ejemplos | Vibra |
+|---|---|---|
+| **Colores** | Rosa bebé, lavanda, crema, blanco suave | Inocente, romántico |
+| **Acentos** | Lazos, cintas, perlas, corazones | Juguetón, femenino |
+| **Acabados** | Glossy, jelly, glazed donut | Suave, luminoso |
+| **Formas** | Almendra, ovalado, largo medio | Elegante, femenino |
+| **Detalles** | French tips (rosa sobre rosa), micro florales | Delicado, refinado |
+
+## Top 10 Diseños Coquette Primavera 2026
+
+### 1. El Lazo Rosa Clásico
+Base rosa suave con un acento de lazo 3D delicado en el dedo anular.
+
+### 2. Gotas de Perla
+Base nude o crema con pequeñas perlas esparcidas. Elegante y sutil.
+
+### 3. Sueño Lavanda
+Cobertura completa lavanda con top coat brillante.
+
+### 4. French Rosa con Puntas de Cinta
+En vez de puntas blancas, un rosa ligeramente más oscuro con detalles de cinta.
+
+### 5. Acentos de Corazón
+Base rosa suave con micro corazones en blanco o rojo.
+
+### 6. Glazed Donut Coquette
+El acabado glazed donut de Hailey Bieber en rosa suave o lavanda.
+
+### 7. Patrón de Encaje
+Base rosa transparente con nail art inspirado en encaje blanco.
+
+### 8. Flor de Cerezo
+Base rosa suave con ramas delicadas de cerezo pintadas.
+
+### 9. Rosa Balletcore
+Rosa de zapatilla de ballet con acabado satinado mate.
+
+### 10. Uñas Roseta
+Detalles de rosetas 3D sobre base crema.
+
+## Cómo Probar Virtualmente Uñas Coquette
+
+Antes de gastar 60€+ en el salón, ve cómo se ven estos diseños en **tus manos reales**:
+
+1. **Ve a [agalaz.com/try-on](https://agalaz.com/try-on)** — regístrate para la prueba gratis
+2. **Sube una foto de tu mano** — clara y bien iluminada
+3. **Sube el diseño de uñas** — guarda una foto de Pinterest, Instagram o catálogo del salón
+4. **Obtén tu preview** — la IA genera imagen fotorrealista de TU mano con ese diseño exacto
+5. **Compara diseños** — prueba varios estilos coquette antes de comprometerte
+
+### Por Qué Esto Lo Cambia Todo
+
+- **No más "se veía diferente en Pinterest"** — vélo en TUS manos primero
+- **Ahorra dinero** — no pagues por un diseño que odiarás en 2 días
+- **Muéstraselo a tu manicurista** — lleva la imagen generada como referencia perfecta
+
+## Uñas Coquette por Tono de Piel
+
+No todos los rosas funcionan para todos:
+
+| Tono de Piel | Mejores Rosas Coquette | Evitar |
+|---|---|---|
+| **Clara** | Rosa bebé, rubor, lavanda suave | Rosa neón |
+| **Media/oliva** | Rosa, rosa empolvado, malva | Rosa muy claro |
+| **Bronceada/cálida** | Rosa cálido, coral-rosa, melocotón | Rosas azulados fríos |
+| **Oscura** | Rosa intenso, magenta, berry | Pasteles muy claros |
+
+## Conclusión
+
+Las uñas coquette son la tendencia beauty de Primavera 2026. No apuestes con una cita de 60€.
+
+**[Prueba diseños coquette en tus manos gratis con Agalaz IA →](https://agalaz.com/try-on)**`,
+  },
+  {
+    slug: 'short-almond-spring-nails-clean-girl-look',
+    title: 'Short Almond Spring Nails for the \'Clean Girl\' Look — Minimal Mani Guide + Virtual Try-On',
+    titleEs: 'Uñas Cortas Almendra de Primavera para el Look \'Clean Girl\' — Guía Minimal + Prueba Virtual',
+    description: 'Master the clean girl short almond nail look for spring 2026. Neutral tones, glazed finishes, and minimal art — preview on your hands with free AI.',
+    descriptionEs: 'Domina el look de uñas cortas almendra clean girl para primavera 2026. Tonos neutros, acabados glaseados y arte minimal — previsualiza en tus manos con IA gratis.',
+    keyword: 'short almond spring nails clean girl look',
+    readTime: 6,
+    date: '2026-03-19',
+    category: 'Nails & Beauty',
+    categoryEs: 'Uñas y Belleza',
+    content: `The **clean girl aesthetic** is all about looking polished without looking like you tried too hard. And when it comes to nails, nothing says "effortless" like **short almond nails** in neutral, understated tones.
+
+For Spring 2026, the clean girl mani has evolved — it's still minimal, but with subtle touches that make it *interesting*. Here's everything you need to know, plus how to preview each look on your own hands before committing.
+
+## Why Short Almond Is THE Clean Girl Shape
+
+The almond shape hits the sweet spot:
+
+| Shape | Clean Girl Score | Why |
+|---|---|---|
+| **Short almond** | ⭐⭐⭐⭐⭐ | Feminine but practical, elongates fingers without drama |
+| **Short oval** | ⭐⭐⭐⭐ | Very close — slightly less defined than almond |
+| **Short square** | ⭐⭐⭐ | Works but reads more "corporate" than "effortless" |
+| **Short round** | ⭐⭐⭐ | Fine but less intentional-looking |
+| **Long stiletto** | ⭐ | Too dramatic — breaks the clean girl illusion |
+| **Long coffin** | ⭐ | Same — clean girl is about *restraint* |
+
+The key is **short to medium length**. Your nails should look like you take care of them, not like they're a statement piece.
+
+## Top 8 Clean Girl Spring Nail Looks
+
+### 1. Milky White
+The ultimate clean girl nail. Sheer, milky white that looks like you just moisturize really well. Two coats of a jelly white polish.
+
+### 2. Glazed Donut
+The Hailey Bieber signature that refuses to die. Chrome powder over a nude pink base. Still looks fresh in 2026.
+
+### 3. Nude Pink
+Your-lips-but-better but for nails. A warm nude pink that matches your skin tone perfectly. The "no makeup makeup" of nails.
+
+### 4. Soft Latte
+A warm, creamy beige that reads as "I have a 401k and a skincare routine." The most sophisticated clean girl option.
+
+### 5. Sheer Pink French
+The subtlest French manicure possible — sheer pink base with barely-there white tips. You almost can't tell it's there, which is the whole point.
+
+### 6. Glazed Peach
+A spring update on glazed donut. Warm peach base with a chrome top coat. Adds just enough color for the season.
+
+### 7. Butter Yellow (Micro)
+Not a full yellow nail — just the faintest wash of warm butter yellow over a nude base. Barely there but unmistakably spring.
+
+### 8. Clear Gloss
+Just your natural nails with a high-shine clear coat. The most minimal clean girl option. Requires well-maintained natural nails.
+
+## How to Preview These on Your Hands
+
+Every skin tone reads these neutral colors differently. A nude pink that looks dreamy on fair skin might look ashy on deeper skin tones. Here's how to know for sure:
+
+1. **Visit [agalaz.com/try-on](https://agalaz.com/try-on)** — free trial available
+2. **Upload a photo of your hands** — make sure your nails are visible
+3. **Upload the nail reference** — save an image of the design you want from Pinterest or Instagram
+4. **See the result** — photorealistic preview on YOUR actual hands
+5. **Try multiple shades** — test milky white vs nude pink vs glazed donut to see which flatters YOUR skin tone
+
+This is especially important for the clean girl look because the colors are so subtle — small shade differences matter a LOT more when you're working with neutrals.
+
+## The Clean Girl Nail Routine
+
+It's not just about the color. The clean girl mani has a specific *maintenance* vibe:
+
+### Weekly Care
+- **Cuticle oil** — every night before bed
+- **Hand cream** — after every hand wash
+- **Nail file** — maintain the almond shape, never clip
+
+### At the Salon
+- **Ask for:** "Short almond, natural looking" + your chosen shade
+- **Gel vs regular:** Gel lasts longer and stays glossy, which is more clean girl
+- **Avoid:** Nail art, rhinestones, glitter, anything that screams "look at my nails"
+
+### Products for DIY
+- **OPI Bubble Bath** — the classic clean girl pink
+- **Essie Ballet Slippers** — slightly sheerer, more natural
+- **Chanel Le Vernis in Ballerina** — if you want to splurge
+- **Hailey Bieber's OPI x Hailey collab** — glazed donut perfection
+
+## Clean Girl Nails + Outfit Pairing
+
+The beauty of clean girl nails is they go with everything. But here are the peak combos:
+
+- **Milky white nails** + white linen shirt + gold hoops = Sunday brunch clean girl
+- **Glazed donut nails** + black turtleneck + minimal watch = work clean girl
+- **Nude pink nails** + cashmere sweater + tennis bracelet = luxury clean girl
+- **Latte nails** + trench coat + slicked back hair = street style clean girl
+
+## Common Mistakes to Avoid
+
+1. **Going too long** — if your nails extend more than 3-4mm past your fingertip, it stops being clean girl
+2. **Choosing the wrong nude** — a nude that doesn't match your skin tone looks off. Test with [virtual try-on](https://agalaz.com/try-on) first
+3. **Skipping top coat** — the glossy finish IS the clean girl look. Matte neutrals are a different aesthetic
+4. **Mixing aesthetics** — one accent nail with art breaks the clean girl spell
+5. **Ignoring cuticles** — messy cuticles ruin even the most perfect clean girl mani
+
+## The Bottom Line
+
+Short almond spring nails in neutral tones are the **easiest, most universally flattering** nail trend of 2026. The key is finding the exact right shade for YOUR skin tone — and that's where [AI virtual try-on](https://agalaz.com/try-on) becomes your secret weapon.
+
+Stop guessing which nude works for you. **[Try them on your hands for free →](https://agalaz.com/try-on)**`,
+    contentEs: `La **estética clean girl** trata de verse pulida sin parecer que te esforzaste demasiado. Y cuando se trata de uñas, nada dice "sin esfuerzo" como **uñas cortas almendra** en tonos neutros y discretos.
+
+Para Primavera 2026, la mani clean girl ha evolucionado — sigue siendo minimal, pero con toques sutiles que la hacen *interesante*.
+
+## ¿Por Qué Almendra Corta Es LA Forma Clean Girl?
+
+| Forma | Puntuación | Por Qué |
+|---|---|---|
+| **Almendra corta** | ⭐⭐⭐⭐⭐ | Femenina pero práctica, alarga los dedos sin drama |
+| **Ovalada corta** | ⭐⭐⭐⭐ | Muy cercana — ligeramente menos definida |
+| **Cuadrada corta** | ⭐⭐⭐ | Funciona pero se lee más "corporativa" |
+| **Redonda corta** | ⭐⭐⭐ | Bien pero menos intencional |
+| **Stiletto largo** | ⭐ | Demasiado dramática |
+
+La clave es **largo corto a medio**. Tus uñas deben verse como que te cuidas, no como que son una declaración.
+
+## Top 8 Looks Clean Girl de Primavera
+
+### 1. Blanco Lechoso
+La uña clean girl definitiva. Blanco transparente que parece que simplemente te hidratas bien.
+
+### 2. Glazed Donut
+La firma de Hailey Bieber. Polvo chrome sobre base nude rosa.
+
+### 3. Rosa Nude
+Un rosa nude cálido que combina perfectamente con tu tono de piel.
+
+### 4. Latte Suave
+Un beige cremoso y cálido que dice "tengo una rutina de skincare."
+
+### 5. French Rosa Transparente
+La manicura francesa más sutil posible — base rosa transparente con puntas blancas apenas visibles.
+
+### 6. Melocotón Glaseado
+Actualización primaveral del glazed donut. Base melocotón cálida con top coat chrome.
+
+### 7. Amarillo Mantequilla (Micro)
+No una uña amarilla completa — solo el más leve toque de amarillo mantequilla sobre base nude.
+
+### 8. Brillo Transparente
+Solo tus uñas naturales con una capa transparente de alto brillo.
+
+## Cómo Previsualizarlas en Tus Manos
+
+Cada tono de piel lee estos colores neutros diferente. Un rosa nude que se ve soñado en piel clara puede verse cenizo en tonos más oscuros.
+
+1. **Visita [agalaz.com/try-on](https://agalaz.com/try-on)** — prueba gratis disponible
+2. **Sube una foto de tus manos** — que se vean tus uñas
+3. **Sube la referencia** — imagen del diseño de Pinterest o Instagram
+4. **Ve el resultado** — preview fotorrealista en TUS manos
+5. **Prueba varios tonos** — blanco lechoso vs rosa nude vs glazed donut
+
+## Errores Comunes a Evitar
+
+1. **Demasiado largo** — si tus uñas sobresalen más de 3-4mm, deja de ser clean girl
+2. **Nude equivocado** — un nude que no combina con tu piel se ve mal. Prueba con [prueba virtual](https://agalaz.com/try-on) primero
+3. **Sin top coat** — el acabado brillante ES el look clean girl
+4. **Mezclar estéticas** — una uña con arte rompe el hechizo clean girl
+5. **Ignorar cutículas** — cutículas desordenadas arruinan la mejor mani clean girl
+
+## Conclusión
+
+Las uñas cortas almendra en tonos neutros son la **tendencia más fácil y universalmente favorecedora** de 2026. La clave es encontrar el tono exacto para TU piel.
+
+Deja de adivinar qué nude te funciona. **[Pruébalas en tus manos gratis →](https://agalaz.com/try-on)**`,
+  },
+  {
+    slug: 'pastel-chrome-nails-2026-futuristic-spring-trend',
+    title: 'Pastel Chrome Nails: 2026\'s Futuristic Spring Trend — Virtual Try-On Guide',
+    titleEs: 'Uñas Chrome Pastel: La Tendencia Futurista de Primavera 2026 — Guía con Prueba Virtual',
+    description: 'Pastel chrome nails are the hottest spring 2026 nail trend. See how iridescent lavender, mint, and peach chrome looks on YOUR hands with free AI try-on.',
+    descriptionEs: 'Las uñas chrome pastel son la tendencia más caliente de primavera 2026. Ve cómo el chrome iridiscente lavanda, menta y melocotón se ve en TUS manos con prueba virtual IA gratis.',
+    keyword: 'pastel chrome nails 2026 futuristic spring trend',
+    readTime: 6,
+    date: '2026-03-19',
+    category: 'Nails & Beauty',
+    categoryEs: 'Uñas y Belleza',
+    content: `Move over, glazed donut. **Pastel chrome nails** are the nail trend that's defining Spring 2026 — a futuristic twist on soft spring colors that makes your fingertips look like they belong in a sci-fi movie set in a flower garden.
+
+The concept is simple but the result is mesmerizing: **pastel base colors + chrome powder finish = iridescent, holographic, otherworldly nails** that shift color in the light.
+
+## What Are Pastel Chrome Nails?
+
+Traditional chrome nails use silver or gold chrome powder for a mirror-like metallic finish. Pastel chrome takes this technology and applies it to **soft spring colors**:
+
+| Pastel Chrome Shade | Effect | Trend Level 2026 |
+|---|---|---|
+| **Lavender chrome** | Shifts purple-to-silver in light | 🔥🔥🔥🔥🔥 #1 trend |
+| **Mint chrome** | Shifts green-to-blue-to-silver | 🔥🔥🔥🔥 Rising fast |
+| **Peach chrome** | Shifts pink-to-gold-to-copper | 🔥🔥🔥🔥 Spring staple |
+| **Baby blue chrome** | Shifts blue-to-lilac-to-silver | 🔥🔥🔥 Growing |
+| **Butter yellow chrome** | Shifts yellow-to-gold-to-green | 🔥🔥🔥 Emerging |
+| **Pink chrome** | Shifts pink-to-rose gold | 🔥🔥🔥🔥 Classic |
+
+## Why Pastel Chrome Is THE Trend for Spring 2026
+
+Three forces converged:
+
+1. **The glazed donut era** trained everyone to love chrome finishes — now we want MORE color
+2. **Y2K/futurism nostalgia** is peaking — iridescent, holographic, sci-fi-inspired beauty is everywhere
+3. **Spring demands pastels** — but plain pastels feel boring after years of nail art innovation. Chrome makes them exciting again
+
+## The 7 Best Pastel Chrome Nail Looks
+
+### 1. Lavender Haze Chrome
+The #1 most requested nail of spring 2026. A soft lavender base with chrome powder that shifts to silver and lilac. Looks like a purple pearl.
+
+### 2. Mint Gelato Chrome
+Fresh mint green base with chrome that shifts to teal and silver. Feels like spring rain on your fingertips.
+
+### 3. Peach Sunset Chrome
+Warm peach base with chrome that shifts to rose gold and copper. The most wearable option for warm skin tones.
+
+### 4. Cotton Candy Duo Chrome
+Alternating baby pink and baby blue chrome nails. The most playful option that still reads as sophisticated.
+
+### 5. Butter Chrome
+Soft butter yellow with chrome that shifts to gold and champagne. The unexpected choice that's gaining momentum.
+
+### 6. Lilac Frost
+Deeper than lavender — a rich lilac base with icy chrome powder. More dramatic, perfect for making a statement.
+
+### 7. Aurora Borealis Mix
+Different pastel chrome colors on each nail — lavender, mint, peach, blue, pink. The maximalist approach.
+
+## How Chrome Powder Actually Works
+
+Understanding the tech helps you communicate with your nail artist:
+
+1. **Base coat** → colored gel polish (the pastel shade)
+2. **Cure** → under UV/LED lamp
+3. **No-wipe top coat** → special top coat that stays slightly tacky
+4. **Chrome powder** → rubbed onto the tacky surface with a silicone applicator or eyeshadow sponge
+5. **Seal** → another layer of top coat to lock the chrome in
+6. **Final cure** → UV/LED lamp
+
+The quality of the chrome powder matters enormously. Cheap powders look metallic rather than chrome. Ask your nail tech what brand they use.
+
+## Try Pastel Chrome on YOUR Hands — Free
+
+The tricky thing about chrome nails is that **they look different on every skin tone** because the color shifts interact with your natural skin color underneath. A lavender chrome that looks angelic on fair skin might look completely different on deep skin.
+
+Here's how to preview before you commit:
+
+1. **Go to [agalaz.com/try-on](https://agalaz.com/try-on)** — free trial, no credit card
+2. **Upload a clear photo of your hands**
+3. **Upload the chrome nail design** — save a reference image from Instagram, TikTok, or Pinterest
+4. **See the AI result** — your hands, with those exact chrome nails, in under 60 seconds
+5. **Try multiple shades** — lavender vs mint vs peach chrome on YOUR skin tone
+
+### The Skin Tone Factor
+
+| Skin Tone | Best Pastel Chrome | Avoid |
+|---|---|---|
+| **Fair/cool** | Lavender, baby blue, mint | Butter yellow (can look sallow) |
+| **Fair/warm** | Peach, butter, pink | Cool lavender (can clash) |
+| **Medium/olive** | Mint, peach, lavender | Baby blue (can look gray) |
+| **Tan/warm** | Peach, pink, butter | Cool blue and lilac |
+| **Deep/cool** | Lavender, mint, blue | Butter yellow (low contrast) |
+| **Deep/warm** | Peach, pink, butter | Cool lavender and blue |
+
+This chart helps, but nothing beats **seeing it on your actual hands**. [Try it with AI →](https://agalaz.com/try-on)
+
+## Pastel Chrome vs. Other Spring 2026 Nail Trends
+
+| Trend | Vibe | Maintenance | Cost |
+|---|---|---|---|
+| **Pastel chrome** | Futuristic, eye-catching | Medium (lasts 2-3 weeks) | $60-90 |
+| **Clean girl neutrals** | Minimal, effortless | Low (easy to maintain) | $40-60 |
+| **Coquette bows** | Feminine, playful | High (3D elements chip) | $70-100 |
+| **Aura nails** | Mystical, artistic | Medium | $60-80 |
+| **Micro French** | Classic, refined | Low | $40-60 |
+
+## How to Make Pastel Chrome Last
+
+Chrome nails are gorgeous but notoriously finicky. Tips for longevity:
+
+1. **Don't skip the sealing top coat** — this is what keeps chrome from peeling
+2. **Avoid acetone-based removers** on the surface — they dissolve chrome
+3. **Wear gloves for dishes** — water and soap are chrome's enemy
+4. **Ask for a gel base** — regular polish under chrome chips faster
+5. **Touch-up at 2 weeks** — chrome starts to dull around day 14
+
+## The Bottom Line
+
+Pastel chrome nails are where **spring softness meets futuristic technology**. They're eye-catching without being aggressive, trendy without being temporary, and absolutely stunning in person.
+
+The only question is which pastel chrome shade is YOUR shade. Don't guess — **[see it on your hands with free AI try-on →](https://agalaz.com/try-on)**
+
+Your nails are about to enter the future.`,
+    contentEs: `Fuera, glazed donut. Las **uñas chrome pastel** son la tendencia que define la Primavera 2026 — un giro futurista a los colores suaves de primavera que hace que tus dedos parezcan de una película de ciencia ficción ambientada en un jardín de flores.
+
+El concepto es simple pero el resultado es hipnotizante: **colores base pastel + acabado chrome = uñas iridiscentes, holográficas y de otro mundo** que cambian de color con la luz.
+
+## ¿Qué Son las Uñas Chrome Pastel?
+
+El chrome tradicional usa polvo plateado o dorado para un acabado metálico tipo espejo. El chrome pastel aplica esta tecnología a **colores suaves de primavera**:
+
+| Tono Chrome Pastel | Efecto | Nivel Tendencia 2026 |
+|---|---|---|
+| **Lavanda chrome** | Cambia púrpura a plata con la luz | 🔥🔥🔥🔥🔥 #1 |
+| **Menta chrome** | Cambia verde a azul a plata | 🔥🔥🔥🔥 Subiendo |
+| **Melocotón chrome** | Cambia rosa a dorado a cobre | 🔥🔥🔥🔥 Básico primaveral |
+| **Azul bebé chrome** | Cambia azul a lila a plata | 🔥🔥🔥 Creciendo |
+| **Amarillo mantequilla chrome** | Cambia amarillo a dorado a verde | 🔥🔥🔥 Emergente |
+| **Rosa chrome** | Cambia rosa a oro rosa | 🔥🔥🔥🔥 Clásico |
+
+## Los 7 Mejores Looks Chrome Pastel
+
+### 1. Lavender Haze Chrome
+El #1 más solicitado de primavera 2026. Base lavanda suave con polvo chrome que cambia a plata y lila.
+
+### 2. Gelato de Menta Chrome
+Base verde menta fresco con chrome que cambia a teal y plata.
+
+### 3. Atardecer Melocotón Chrome
+Base melocotón cálida con chrome que cambia a oro rosa y cobre.
+
+### 4. Algodón de Azúcar Duo Chrome
+Alternando chrome rosa bebé y azul bebé.
+
+### 5. Chrome Mantequilla
+Amarillo mantequilla suave con chrome que cambia a dorado y champagne.
+
+### 6. Escarcha Lila
+Más profundo que lavanda — base lila rica con polvo chrome helado.
+
+### 7. Aurora Boreal Mix
+Diferentes colores chrome pastel en cada uña.
+
+## Prueba Chrome Pastel en TUS Manos — Gratis
+
+Lo complicado del chrome es que **se ve diferente en cada tono de piel** porque los cambios de color interactúan con tu color natural.
+
+1. **Ve a [agalaz.com/try-on](https://agalaz.com/try-on)** — prueba gratis
+2. **Sube una foto clara de tus manos**
+3. **Sube el diseño chrome** — referencia de Instagram, TikTok o Pinterest
+4. **Ve el resultado IA** — tus manos con esas uñas chrome exactas
+5. **Prueba varios tonos** — lavanda vs menta vs melocotón en TU tono de piel
+
+### El Factor Tono de Piel
+
+| Tono de Piel | Mejor Chrome Pastel | Evitar |
+|---|---|---|
+| **Clara/fría** | Lavanda, azul bebé, menta | Amarillo mantequilla |
+| **Clara/cálida** | Melocotón, mantequilla, rosa | Lavanda fría |
+| **Media/oliva** | Menta, melocotón, lavanda | Azul bebé |
+| **Bronceada/cálida** | Melocotón, rosa, mantequilla | Azul y lila fríos |
+| **Oscura/fría** | Lavanda, menta, azul | Amarillo mantequilla |
+| **Oscura/cálida** | Melocotón, rosa, mantequilla | Lavanda y azul fríos |
+
+## Cómo Hacer Que el Chrome Pastel Dure
+
+1. **No te saltes el top coat sellador** — es lo que evita que el chrome se pele
+2. **Evita removedores con acetona** sobre la superficie
+3. **Usa guantes para fregar** — el agua y jabón son enemigos del chrome
+4. **Pide base de gel** — el esmalte regular bajo chrome se descascarilla más rápido
+5. **Retoque a las 2 semanas** — el chrome empieza a opacarse al día 14
+
+## Conclusión
+
+Las uñas chrome pastel son donde la **suavidad primaveral se encuentra con la tecnología futurista**. Son llamativas sin ser agresivas, trendy sin ser temporales, y absolutamente impresionantes en persona.
+
+La única pregunta es qué tono chrome pastel es TU tono. No adivines — **[vélo en tus manos con prueba virtual IA gratis →](https://agalaz.com/try-on)**`,
+  },
 ];
