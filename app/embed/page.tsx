@@ -21,6 +21,7 @@ export default function EmbedPage() {
   const [previewSize, setPreviewSize] = useState<string | null>(null);
 
   const userRef = useRef<HTMLInputElement>(null);
+  const garmentRef = useRef<HTMLInputElement>(null);
 
   const t = lang === 'es' ? {
     title: 'Prueba Virtual',
@@ -426,29 +427,62 @@ export default function EmbedPage() {
               )}
             </div>
 
-            {/* Garment preview (if auto-loaded from store) */}
-            {(garmentImage || garmentUrl) && (
-              <div className={`flex items-center gap-3 p-3 rounded-xl border ${garmentError && !garmentImage ? 'bg-amber-50 border-amber-200' : 'bg-indigo-50 border-indigo-100'}`}>
+            {/* Garment preview or upload */}
+            {garmentImage ? (
+              <div className="flex items-center gap-3 p-3 rounded-xl border bg-indigo-50 border-indigo-100">
                 <div className="w-12 h-16 rounded-lg overflow-hidden ring-2 ring-indigo-200 shrink-0">
                   <img
-                    src={garmentImage ? `data:image/jpeg;base64,${garmentImage}` : `/api/v1/image-proxy?url=${encodeURIComponent(garmentUrl!)}`}
+                    src={`data:image/jpeg;base64,${garmentImage}`}
                     alt="Garment"
-                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div>
-                  <span className={`text-[9px] font-black uppercase tracking-widest ${garmentError && !garmentImage ? 'text-amber-600' : 'text-indigo-600'}`}>
-                    {garmentError && !garmentImage
-                      ? (lang === 'es' ? 'Cargando prenda...' : 'Loading garment...')
-                      : (lang === 'es' ? 'Prenda seleccionada' : 'Selected garment')}
+                <div className="flex-1">
+                  <span className="text-[9px] font-black text-indigo-600 uppercase tracking-widest">
+                    {lang === 'es' ? 'Prenda seleccionada' : 'Selected garment'}
                   </span>
-                  <p className={`text-[10px] mt-0.5 ${garmentError && !garmentImage ? 'text-amber-500' : 'text-indigo-400'}`}>
-                    {garmentError && !garmentImage
-                      ? (lang === 'es' ? 'Se cargará desde el servidor' : 'Will load server-side')
-                      : (lang === 'es' ? 'Se aplicará automáticamente' : 'Will be applied automatically')}
+                  <p className="text-[10px] text-indigo-400 mt-0.5">
+                    {lang === 'es' ? 'Se aplicará automáticamente' : 'Will be applied automatically'}
                   </p>
                 </div>
+                <button
+                  onClick={() => { setGarmentImage(null); garmentRef.current?.click(); }}
+                  className="p-1.5 hover:bg-indigo-100 rounded-full transition-colors"
+                >
+                  <X size={14} className="text-indigo-400" />
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {garmentUrl && (
+                  <div className="flex items-center gap-3 p-3 rounded-xl border bg-amber-50 border-amber-200">
+                    <div className="w-12 h-16 rounded-lg overflow-hidden ring-2 ring-amber-200 shrink-0">
+                      <img
+                        src={`/api/v1/image-proxy?url=${encodeURIComponent(garmentUrl)}`}
+                        alt="Garment"
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <span className="text-[9px] font-black text-amber-600 uppercase tracking-widest">
+                        {lang === 'es' ? 'Prenda detectada' : 'Garment detected'}
+                      </span>
+                      <p className="text-[10px] text-amber-500 mt-0.5">
+                        {lang === 'es' ? 'Se cargará desde el servidor' : 'Will load server-side'}
+                      </p>
+                    </div>
+                  </div>
+                )}
+                <button
+                  onClick={() => garmentRef.current?.click()}
+                  className="w-full flex items-center justify-center gap-2 p-3 rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 hover:bg-indigo-50 hover:border-indigo-200 transition-all"
+                >
+                  <ImagePlus size={16} className="text-slate-400" />
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                    {lang === 'es' ? 'Subir prenda manualmente' : 'Upload garment manually'}
+                  </span>
+                </button>
               </div>
             )}
 
@@ -530,8 +564,9 @@ export default function EmbedPage() {
         </a>
       </div>
 
-      {/* Hidden file input */}
+      {/* Hidden file inputs */}
       <input ref={userRef} type="file" accept="image/*" onChange={handleFile(setUserImage)} className="hidden" />
+      <input ref={garmentRef} type="file" accept="image/*" onChange={handleFile(setGarmentImage)} className="hidden" />
     </div>
   );
 }

@@ -65,18 +65,18 @@ export async function generateTryOnImage(
       // Modification flow — keep it short
       promptText = `Modify the previous render (IMG ${hasGarment ? '3' : '2'}): "${modificationPrompt}". Keep the same person, change ONLY what was requested. Output one photorealistic image.`;
     } else if (hasGarment) {
-      // Main try-on flow — optimized compact prompt
-      promptText = `CLOTHING SWAP: IMG1=person, IMG2=new garment.${sizeNote}
+      // Main try-on flow — optimized for quality and speed
+      promptText = `VIRTUAL TRY-ON: IMG1 is a photo of a PERSON. IMG2 is a photo of a GARMENT (clothing item).${sizeNote}
 
-SWAP the person's current clothing with the garment from IMG2. Rules:
-- Person's face, skin, hair, body, pose, background must be IDENTICAL to IMG1
-- REMOVE original clothing in the relevant area, REPLACE with IMG2 garment exactly
-- If IMG2 is a top → replace upper body only, keep original pants/bottom
-- If IMG2 is pants → replace lower body only, keep original top
-- If IMG2 is a full outfit/dress → replace everything
-- Garment must drape naturally with realistic wrinkles and shadows${hasSize ? '\n- Show realistic size fit as specified' : ''}
+TASK: Generate ONE photorealistic image where the person from IMG1 is wearing the garment from IMG2.
 
-Output: one single photorealistic image of the person wearing the new garment. You MUST generate an image.`;
+CRITICAL INSTRUCTIONS:
+1. IDENTITY: The person must look EXACTLY like IMG1 — same face, skin tone, hair, body shape, pose, and background. Do NOT alter the person.
+2. GARMENT SWAP: Look at IMG2 carefully. It shows a specific garment (could be a shirt, dress, pants, jacket, etc). REMOVE the person's current clothing in that body area and REPLACE it with this exact garment from IMG2, preserving its color, pattern, texture, and design details.
+3. GARMENT TYPE DETECTION: If IMG2 shows a top/shirt/blouse/jacket → only replace upper body clothing. If IMG2 shows pants/skirt → only replace lower body. If IMG2 shows a dress/jumpsuit/full outfit → replace all clothing.
+4. REALISM: The garment must fit naturally on the person's body with proper draping, wrinkles, shadows, and proportions. It should look like a real photograph, not a collage.${hasSize ? '\n5. SIZE: Adjust the garment fit to match the specified size realistically.' : ''}
+
+You MUST output exactly one photorealistic image. Do not output text only.`;
     } else {
       // Enhancement flow
       promptText = `Enhance this fashion photo. Keep person, clothing, pose identical. Improve lighting and quality. Output one photorealistic image. You MUST generate an image.`;
@@ -91,7 +91,7 @@ Output: one single photorealistic image of the person wearing the new garment. Y
           const currentParts = attempt === 1 ? inputParts : [
             ...inputParts.slice(0, -1),
             { text: hasGarment
-              ? `SWAP clothing: Remove person's current clothes, dress them in garment from IMG2. Keep face/body/pose identical. Photorealistic. You MUST generate an image.`
+              ? `Generate a photorealistic image of the person in IMG1 wearing the garment shown in IMG2. Keep the person identical (face, body, pose, background). The garment from IMG2 must replace their current clothing naturally. Output one image.`
               : `Enhance this fashion photo. Keep person identical. You MUST generate an image.`
             },
           ];

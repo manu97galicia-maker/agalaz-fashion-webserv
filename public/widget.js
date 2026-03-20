@@ -5,12 +5,11 @@
  *   <script src="https://agalaz.com/widget.js" data-api-key="agz_live_..."></script>
  *   <div id="agalaz-tryon" data-garment="https://example.com/product.jpg"></div>
  *
- * The widget injects a "Try it on" button and opens a modal with the try-on UI.
+ * If data-garment is not set, the widget auto-detects the main product image.
  */
 (function () {
   'use strict';
 
-  // Find our script tag to read the API key
   var currentScript = document.currentScript || (function () {
     var scripts = document.getElementsByTagName('script');
     for (var i = 0; i < scripts.length; i++) {
@@ -26,13 +25,11 @@
     return;
   }
 
-  // Detect language from page
   var lang = document.documentElement.lang === 'es' ? 'es' : 'en';
-
   var BUTTON_TEXT = lang === 'es' ? 'Pruébatela con IA' : 'Try it on with AI';
   var MODAL_ID = 'agalaz-modal-overlay';
 
-  // Styles for the button and modal
+  // Styles
   var style = document.createElement('style');
   style.textContent = [
     '.agalaz-btn {',
@@ -66,11 +63,94 @@
   ].join('\n');
   document.head.appendChild(style);
 
-  // Sparkles SVG icon
   var sparklesSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>';
 
+  /**
+   * Auto-detect the main product image on the page.
+   * Checks common selectors used by Shopify, WooCommerce, and other platforms.
+   */
+  function detectProductImage() {
+    // Common product image selectors (ordered by specificity)
+    var selectors = [
+      // Shopify (Dawn theme and common themes)
+      '.product__media img',
+      '.product-featured-media img',
+      '[data-product-featured-image]',
+      '.product-single__photo img',
+      '.product__main-photos img',
+      '.product-gallery__image img',
+      // Shopify generic
+      '.product__image-wrapper img',
+      '[data-product-image]',
+      '.featured-image',
+      // WooCommerce
+      '.woocommerce-product-gallery__image img',
+      '.woocommerce-main-image img',
+      '.wp-post-image',
+      // Generic ecommerce
+      '[data-main-image]',
+      '.product-image-main img',
+      '.product-detail-image img',
+      '.pdp-image img',
+      '.gallery-image--active img',
+      '.product-photo-container img',
+    ];
+
+    for (var i = 0; i < selectors.length; i++) {
+      var img = document.querySelector(selectors[i]);
+      if (img) {
+        var src = img.getAttribute('src') || img.getAttribute('data-src') || img.getAttribute('data-zoom-image') || '';
+        if (src && src.length > 10) {
+          console.log('[Agalaz] Auto-detected product image via:', selectors[i]);
+          return src;
+        }
+      }
+    }
+
+    // Fallback: find the largest image in the product area
+    var productArea = document.querySelector('.product, [data-product], .product-detail, #product, main');
+    if (productArea) {
+      var imgs = productArea.querySelectorAll('img');
+      var best = null;
+      var bestSize = 0;
+      for (var j = 0; j < imgs.length; j++) {
+        var w = imgs[j].naturalWidth || imgs[j].width || 0;
+        var h = imgs[j].naturalHeight || imgs[j].height || 0;
+        var size = w * h;
+        if (size > bestSize && size > 10000) { // at least 100x100
+          bestSize = size;
+          best = imgs[j];
+        }
+      }
+      if (best) {
+        var bestSrc = best.getAttribute('src') || best.getAttribute('data-src') || '';
+        if (bestSrc) {
+          console.log('[Agalaz] Auto-detected product image via largest image in product area');
+          return bestSrc;
+        }
+      }
+    }
+
+    console.warn('[Agalaz] Could not auto-detect product image. Use data-garment attribute.');
+    return '';
+  }
+
+  /**
+   * Resolve a URL to absolute.
+   */
+  function resolveUrl(rawUrl) {
+    if (!rawUrl) return '';
+    if (rawUrl.indexOf('http') === 0) return rawUrl;
+    // Handle protocol-relative URLs
+    if (rawUrl.indexOf('//') === 0) return window.location.protocol + rawUrl;
+    try {
+      return new URL(rawUrl, window.location.href).href;
+    } catch (e) {
+      return window.location.origin + (rawUrl.charAt(0) === '/' ? '' : '/') + rawUrl;
+    }
+  }
+
   function openModal(garmentUrl) {
-    // Don't open twice
     if (document.getElementById(MODAL_ID)) return;
 
     var params = 'key=' + encodeURIComponent(apiKey) + '&lang=' + lang;
@@ -90,12 +170,9 @@
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
 
-    // Close on overlay click (outside modal)
     overlay.addEventListener('click', function (e) {
       if (e.target === overlay) closeModal();
     });
-
-    // Close on Escape
     document.addEventListener('keydown', handleEscape);
   }
 
@@ -109,35 +186,34 @@
     if (e.key === 'Escape') closeModal();
   }
 
-  // Listen for messages from the iframe
   window.addEventListener('message', function (e) {
     if (!e.data || !e.data.type) return;
     if (e.data.type === 'agalaz:close') closeModal();
-    // Stores can listen for 'agalaz:result' to get the generated image
   });
 
-  // Initialize: find all #agalaz-tryon containers and inject buttons
   function init() {
     var containers = document.querySelectorAll('#agalaz-tryon, [data-agalaz-tryon]');
     containers.forEach(function (container) {
       if (container.getAttribute('data-agalaz-init')) return;
       container.setAttribute('data-agalaz-init', 'true');
 
-      // Resolve relative URLs to absolute (widget runs on partner domain)
-      var rawGarment = container.getAttribute('data-garment') || '';
-      var garmentUrl = rawGarment;
-      if (rawGarment && rawGarment.indexOf('http') !== 0) {
-        try {
-          garmentUrl = new URL(rawGarment, window.location.href).href;
-        } catch (e) {
-          garmentUrl = window.location.origin + (rawGarment.charAt(0) === '/' ? '' : '/') + rawGarment;
-        }
-      }
-
       var btn = document.createElement('button');
       btn.className = 'agalaz-btn';
       btn.innerHTML = sparklesSvg + ' ' + BUTTON_TEXT;
       btn.addEventListener('click', function () {
+        // Resolve garment URL at click time (not init time) to catch variant changes
+        var rawGarment = container.getAttribute('data-garment') || '';
+        var garmentUrl = resolveUrl(rawGarment);
+
+        // If no explicit garment, auto-detect from page
+        if (!garmentUrl) {
+          garmentUrl = resolveUrl(detectProductImage());
+        }
+
+        if (!garmentUrl) {
+          console.warn('[Agalaz] No garment image found. Opening widget without garment.');
+        }
+
         openModal(garmentUrl);
       });
 
@@ -145,7 +221,6 @@
     });
   }
 
-  // Start observing for containers (SPA/React support)
   function startObserver() {
     if (typeof MutationObserver !== 'undefined' && document.body) {
       var observer = new MutationObserver(function () {
@@ -156,11 +231,9 @@
     }
   }
 
-  // Run on DOM ready, then start observer
   function bootstrap() {
     init();
     startObserver();
-    // Retry init after short delays for slow-rendering SPAs (React, Vue, etc.)
     setTimeout(init, 500);
     setTimeout(init, 1500);
     setTimeout(init, 3000);
