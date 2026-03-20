@@ -80,8 +80,16 @@ export async function POST(request: NextRequest) {
     if (!finalClothingImage && garmentUrl) {
       try {
         const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 8000);
-        const garmentRes = await fetch(garmentUrl, { redirect: 'follow', signal: controller.signal });
+        const timeout = setTimeout(() => controller.abort(), 12000);
+        const garmentRes = await fetch(garmentUrl, {
+          redirect: 'follow',
+          signal: controller.signal,
+          headers: {
+            'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
+            'Referer': garmentUrl,
+          },
+        });
         clearTimeout(timeout);
         const contentType = garmentRes.headers.get('content-type') || '';
         if (garmentRes.ok && contentType.startsWith('image/')) {
@@ -89,11 +97,19 @@ export async function POST(request: NextRequest) {
           finalClothingImage = Buffer.from(buffer).toString('base64');
           garmentMimeType = contentType.split(';')[0].trim();
         } else {
-          console.warn(`Garment URL returned non-image: ${contentType}`);
+          console.warn(`Garment URL fetch failed: status=${garmentRes.status}, type=${contentType}`);
         }
       } catch (e: any) {
         console.warn('Failed to fetch garment URL:', e?.message);
       }
+    }
+
+    // CRITICAL: If no garment image available, fail instead of doing photo enhancement
+    if (!finalClothingImage) {
+      return NextResponse.json(
+        { error: 'Could not load the garment image. Please check the garment URL or upload the image directly.', debug: { garmentUrl: garmentUrl || 'none', clothingImageProvided: !!clothingImage } },
+        { status: 400, headers }
+      );
     }
 
     const debugInfo = {

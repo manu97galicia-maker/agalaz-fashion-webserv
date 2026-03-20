@@ -60,10 +60,28 @@ export default function EmbedPage() {
     if (params.get('lang') === 'es') setLang('es');
   }, []);
 
-  // Load garment image from URL if provided
+  const [garmentError, setGarmentError] = useState(false);
+
+  // Load garment image from URL if provided — retry up to 2 times
   useEffect(() => {
     if (!garmentUrl) return;
-    fetchImageAsBase64(garmentUrl).then(setGarmentImage).catch(() => {});
+    let cancelled = false;
+    async function loadGarment() {
+      for (let attempt = 0; attempt < 2; attempt++) {
+        try {
+          const base64 = await fetchImageAsBase64(garmentUrl!);
+          if (!cancelled && base64 && base64.length > 100) {
+            setGarmentImage(base64);
+            setGarmentError(false);
+            return;
+          }
+        } catch { /* retry */ }
+        if (attempt < 1) await new Promise(r => setTimeout(r, 1000));
+      }
+      if (!cancelled) setGarmentError(true);
+    }
+    loadGarment();
+    return () => { cancelled = true; };
   }, [garmentUrl]);
 
   async function fetchImageAsBase64(url: string): Promise<string> {
@@ -185,6 +203,11 @@ export default function EmbedPage() {
     if (!userImage) {
       setError(t.errorNoPhoto);
       return;
+    }
+
+    // If garment URL was provided but image didn't load, send URL for server-side fetch
+    if (garmentUrl && !garmentImage && garmentError) {
+      console.warn('Garment image failed to load client-side, will rely on server-side fetch via garmentUrl');
     }
 
     setIsLoading(true);
@@ -407,7 +430,7 @@ export default function EmbedPage() {
 
             {/* Garment preview (if auto-loaded from store) */}
             {(garmentImage || garmentUrl) && (
-              <div className="flex items-center gap-3 p-3 bg-indigo-50 rounded-xl border border-indigo-100">
+              <div className={`flex items-center gap-3 p-3 rounded-xl border ${garmentError && !garmentImage ? 'bg-amber-50 border-amber-200' : 'bg-indigo-50 border-indigo-100'}`}>
                 <div className="w-12 h-16 rounded-lg overflow-hidden ring-2 ring-indigo-200 shrink-0">
                   <img
                     src={garmentImage ? `data:image/jpeg;base64,${garmentImage}` : `/api/v1/image-proxy?url=${encodeURIComponent(garmentUrl!)}`}
@@ -417,11 +440,15 @@ export default function EmbedPage() {
                   />
                 </div>
                 <div>
-                  <span className="text-[9px] font-black text-indigo-600 uppercase tracking-widest">
-                    {lang === 'es' ? 'Prenda seleccionada' : 'Selected garment'}
+                  <span className={`text-[9px] font-black uppercase tracking-widest ${garmentError && !garmentImage ? 'text-amber-600' : 'text-indigo-600'}`}>
+                    {garmentError && !garmentImage
+                      ? (lang === 'es' ? 'Cargando prenda...' : 'Loading garment...')
+                      : (lang === 'es' ? 'Prenda seleccionada' : 'Selected garment')}
                   </span>
-                  <p className="text-[10px] text-indigo-400 mt-0.5">
-                    {lang === 'es' ? 'Se aplicará automáticamente' : 'Will be applied automatically'}
+                  <p className={`text-[10px] mt-0.5 ${garmentError && !garmentImage ? 'text-amber-500' : 'text-indigo-400'}`}>
+                    {garmentError && !garmentImage
+                      ? (lang === 'es' ? 'Se cargará desde el servidor' : 'Will load server-side')
+                      : (lang === 'es' ? 'Se aplicará automáticamente' : 'Will be applied automatically')}
                   </p>
                 </div>
               </div>
