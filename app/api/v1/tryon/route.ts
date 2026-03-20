@@ -81,34 +81,30 @@ export async function POST(request: NextRequest) {
       console.log('No clothingImage base64, fetching garment from URL:', garmentUrl);
 
       // Try multiple fetch strategies
-      const fetchStrategies = [
+      const fetchHeaders: (Record<string, string> | undefined)[] = [
         // Strategy 1: Full browser-like headers
         {
-          headers: {
-            'Accept': 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
-            'Referer': new URL(garmentUrl).origin + '/',
-          },
+          'Accept': 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
+          'Referer': new URL(garmentUrl).origin + '/',
         },
-        // Strategy 2: Minimal headers (some CDNs reject complex Accept headers)
+        // Strategy 2: Minimal headers
         {
-          headers: {
-            'Accept': '*/*',
-            'User-Agent': 'Mozilla/5.0 (compatible; Agalaz/1.0)',
-          },
+          'Accept': '*/*',
+          'User-Agent': 'Mozilla/5.0 (compatible; Agalaz/1.0)',
         },
-        // Strategy 3: No custom headers at all
-        {},
+        // Strategy 3: No custom headers
+        undefined,
       ];
 
-      for (let i = 0; i < fetchStrategies.length; i++) {
+      for (let i = 0; i < fetchHeaders.length; i++) {
         try {
           const controller = new AbortController();
           const timeout = setTimeout(() => controller.abort(), 15000);
           const garmentRes = await fetch(garmentUrl, {
             redirect: 'follow',
             signal: controller.signal,
-            ...fetchStrategies[i],
+            ...(fetchHeaders[i] ? { headers: fetchHeaders[i] } : {}),
           });
           clearTimeout(timeout);
 
