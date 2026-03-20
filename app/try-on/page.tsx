@@ -212,7 +212,7 @@ export default function TryOnPage() {
       reader.onload = () => {
         const img = new Image();
         img.onload = () => {
-          const MAX_DIM = 1536;
+          const MAX_DIM = 1024;
           const MIN_DIM = 512;
           let { width, height } = img;
           if (width < MIN_DIM && height < MIN_DIM) {
@@ -230,7 +230,7 @@ export default function TryOnPage() {
           canvas.height = height;
           const ctx = canvas.getContext('2d')!;
           ctx.drawImage(img, 0, 0, width, height);
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
           resolve(dataUrl.split(',')[1]);
         };
         img.onerror = reject;

@@ -104,9 +104,15 @@ export default function EmbedPage() {
       img.crossOrigin = 'anonymous';
       img.onload = () => {
         const MIN_DIM = 512;
+        const MAX_DIM = 1024;
         let w = img.naturalWidth, h = img.naturalHeight;
         if (w < MIN_DIM && h < MIN_DIM) {
           const scale = MIN_DIM / Math.max(w, h);
+          w = Math.round(w * scale);
+          h = Math.round(h * scale);
+        }
+        if (w > MAX_DIM || h > MAX_DIM) {
+          const scale = MAX_DIM / Math.max(w, h);
           w = Math.round(w * scale);
           h = Math.round(h * scale);
         }
@@ -115,7 +121,7 @@ export default function EmbedPage() {
         canvas.height = h;
         const ctx = canvas.getContext('2d')!;
         ctx.drawImage(img, 0, 0, w, h);
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
         resolve(dataUrl.split(',')[1]);
       };
       img.onerror = reject;
@@ -129,7 +135,7 @@ export default function EmbedPage() {
       reader.onload = () => {
         const img = new Image();
         img.onload = () => {
-          const MAX_DIM = 1536;
+          const MAX_DIM = 1024;
           const MIN_DIM = 512;
           let { width, height } = img;
           // Upscale tiny images so Gemini can process them
@@ -148,7 +154,7 @@ export default function EmbedPage() {
           canvas.height = height;
           const ctx = canvas.getContext('2d')!;
           ctx.drawImage(img, 0, 0, width, height);
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
           resolve(dataUrl.split(',')[1]);
         };
         img.onerror = reject;
