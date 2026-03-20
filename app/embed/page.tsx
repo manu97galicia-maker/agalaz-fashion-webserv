@@ -205,13 +205,17 @@ export default function EmbedPage() {
       return;
     }
 
-    // If garment URL was provided but image didn't load, send URL for server-side fetch
-    if (garmentUrl && !garmentImage && garmentError) {
-      console.warn('Garment image failed to load client-side, will rely on server-side fetch via garmentUrl');
-    }
-
     setIsLoading(true);
     setError(null);
+
+    // Build payload — always include garmentUrl as fallback for server-side fetch
+    const payload: Record<string, any> = { userImage };
+    if (garmentImage) payload.clothingImage = garmentImage;
+    if (garmentUrl) payload.garmentUrl = garmentUrl;  // ALWAYS send URL as backup
+    if (currentSize) payload.currentSize = currentSize;
+    if (previewSize) payload.previewSize = previewSize;
+
+    console.log('[Agalaz] Generate payload:', { hasUser: !!userImage, hasGarmentBase64: !!garmentImage, garmentUrl: garmentUrl || 'none' });
 
     try {
       const res = await fetch('/api/v1/tryon', {
@@ -220,20 +224,14 @@ export default function EmbedPage() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${apiKey}`,
         },
-        body: JSON.stringify({
-          userImage,
-          clothingImage: garmentImage || undefined,
-          garmentUrl: !garmentImage && garmentUrl ? garmentUrl : undefined,
-          currentSize: currentSize || undefined,
-          previewSize: previewSize || undefined,
-        }),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
         console.error('Embed generation failed:', JSON.stringify(data));
-        const debugStr = data.debug ? ` [user:${data.debug.userSize}, garment:${data.debug.garmentSize}]` : '';
+        const debugStr = data.debug ? ` [${Object.entries(data.debug).map(([k, v]) => `${k}:${v}`).join(', ')}]` : '';
         setError((data.error || t.errorGeneric) + debugStr);
         setIsLoading(false);
         return;

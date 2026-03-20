@@ -74,40 +74,74 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // If garmentUrl provided but no clothingImage, fetch server-side
+    // If no clothingImage base64, try to fetch from garmentUrl server-side
     let finalClothingImage = clothingImage;
     let garmentMimeType = 'image/jpeg';
     if (!finalClothingImage && garmentUrl) {
-      try {
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 12000);
-        const garmentRes = await fetch(garmentUrl, {
-          redirect: 'follow',
-          signal: controller.signal,
+      console.log('No clothingImage base64, fetching garment from URL:', garmentUrl);
+
+      // Try multiple fetch strategies
+      const fetchStrategies = [
+        // Strategy 1: Full browser-like headers
+        {
           headers: {
-            'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+            'Accept': 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
-            'Referer': garmentUrl,
+            'Referer': new URL(garmentUrl).origin + '/',
           },
-        });
-        clearTimeout(timeout);
-        const contentType = garmentRes.headers.get('content-type') || '';
-        if (garmentRes.ok && contentType.startsWith('image/')) {
-          const buffer = await garmentRes.arrayBuffer();
-          finalClothingImage = Buffer.from(buffer).toString('base64');
-          garmentMimeType = contentType.split(';')[0].trim();
-        } else {
-          console.warn(`Garment URL fetch failed: status=${garmentRes.status}, type=${contentType}`);
+        },
+        // Strategy 2: Minimal headers (some CDNs reject complex Accept headers)
+        {
+          headers: {
+            'Accept': '*/*',
+            'User-Agent': 'Mozilla/5.0 (compatible; Agalaz/1.0)',
+          },
+        },
+        // Strategy 3: No custom headers at all
+        {},
+      ];
+
+      for (let i = 0; i < fetchStrategies.length; i++) {
+        try {
+          const controller = new AbortController();
+          const timeout = setTimeout(() => controller.abort(), 15000);
+          const garmentRes = await fetch(garmentUrl, {
+            redirect: 'follow',
+            signal: controller.signal,
+            ...fetchStrategies[i],
+          });
+          clearTimeout(timeout);
+
+          const contentType = garmentRes.headers.get('content-type') || '';
+          console.log(`Garment fetch strategy ${i + 1}: status=${garmentRes.status}, type=${contentType}, size=${garmentRes.headers.get('content-length') || '?'}`);
+
+          if (garmentRes.ok) {
+            const buffer = await garmentRes.arrayBuffer();
+            if (buffer.byteLength > 100) {
+              finalClothingImage = Buffer.from(buffer).toString('base64');
+              if (contentType.startsWith('image/')) {
+                garmentMimeType = contentType.split(';')[0].trim();
+              }
+              console.log(`Garment loaded via strategy ${i + 1}: ${Math.round(buffer.byteLength / 1024)}KB`);
+              break;
+            }
+          }
+        } catch (e: any) {
+          console.warn(`Garment fetch strategy ${i + 1} failed:`, e?.message?.substring(0, 100));
         }
-      } catch (e: any) {
-        console.warn('Failed to fetch garment URL:', e?.message);
       }
     }
 
     // CRITICAL: If no garment image available, fail instead of doing photo enhancement
     if (!finalClothingImage) {
+      console.error('All garment loading failed. clothingImage provided:', !!clothingImage, 'garmentUrl:', garmentUrl || 'none');
       return NextResponse.json(
-        { error: 'Could not load the garment image. Please check the garment URL or upload the image directly.', debug: { garmentUrl: garmentUrl || 'none', clothingImageProvided: !!clothingImage } },
+        {
+          error: garmentUrl
+            ? `Could not load garment from URL: ${garmentUrl.substring(0, 100)}. The store may be blocking image access.`
+            : 'No garment image provided. Please upload a garment or provide a garment URL.',
+          debug: { garmentUrl: garmentUrl || 'none', clothingImageProvided: !!clothingImage, userSize: userImage?.length || 0 },
+        },
         { status: 400, headers }
       );
     }
