@@ -6,10 +6,14 @@ const SYSTEM_INSTRUCTION = `
 You are Agalaz, a virtual try-on engine. You take a photo of a person and a garment, and generate a realistic image of that person wearing the garment.
 `;
 
-// Warn on oversized images
-function trimBase64(data: string, maxBytes: number = 1_000_000): string {
+const MODELS = [
+  'gemini-2.0-flash-preview-image-generation',
+  'gemini-2.0-flash-exp',
+];
+
+function trimBase64(data: string, maxBytes: number = 2_000_000): string {
   if (data.length * 0.75 > maxBytes) {
-    console.warn(`Image too large (${Math.round(data.length * 0.75 / 1024)}KB), may cause issues`);
+    console.warn(`Image large (${Math.round(data.length * 0.75 / 1024)}KB)`);
   }
   return data;
 }
@@ -84,62 +88,57 @@ You MUST output exactly one photorealistic image. Do not output text only.`;
 
     parts.push({ text: promptText });
 
-    // Retry logic — 2 attempts, minimal delay
-    const tryGenerate = async (inputParts: any[], label: string): Promise<string | null> => {
+    // Try each model with retry
+    let lastFailReason = '';
+
+    for (const model of MODELS) {
       for (let attempt = 1; attempt <= 2; attempt++) {
         try {
-          const currentParts = attempt === 1 ? inputParts : [
-            ...inputParts.slice(0, -1),
+          const currentParts = attempt === 1 ? parts : [
+            ...parts.slice(0, -1),
             { text: hasGarment
               ? `Generate a photorealistic image of the person in IMG1 wearing the garment shown in IMG2. Keep the person identical (face, body, pose, background). The garment from IMG2 must replace their current clothing naturally. Output one image.`
               : `Enhance this fashion photo. Keep person identical. You MUST generate an image.`
             },
           ];
 
+          console.log(`Trying ${model} attempt ${attempt}...`);
+
           const response = await ai.models.generateContent({
-            model: 'gemini-3.1-flash-image-preview',
+            model,
             contents: { parts: currentParts },
             config: {
               responseModalities: ["TEXT", "IMAGE"],
-              temperature: 0.4,
             },
           });
 
           const candidate = response.candidates?.[0];
           const responseParts = candidate?.content?.parts || [];
-          console.log(`${label} attempt ${attempt} - finishReason:`, candidate?.finishReason, "parts:", responseParts.length);
+          console.log(`${model} attempt ${attempt} - finishReason:`, candidate?.finishReason, "parts:", responseParts.length);
 
           for (const part of responseParts) {
             if ((part as any).inlineData?.data) {
-              console.log(`Image generated (${label} attempt ${attempt}), size:`, (part as any).inlineData.data.length);
-              return (part as any).inlineData.data;
+              console.log(`Image generated (${model} attempt ${attempt}), size:`, (part as any).inlineData.data.length);
+              return { image: `data:image/png;base64,${(part as any).inlineData.data}` };
             }
             if ((part as any).text) {
               console.log("Text part:", (part as any).text.substring(0, 200));
             }
           }
-          console.warn(`${label} attempt ${attempt}/2 - no image returned, reason: ${candidate?.finishReason}`);
-        } catch (retryErr: any) {
-          console.warn(`${label} attempt ${attempt}/2 error:`, retryErr?.message?.substring(0, 200));
-          if (retryErr?.message?.includes('INVALID_ARGUMENT')) throw retryErr;
-          if (attempt === 2) throw retryErr;
+          console.warn(`${model} attempt ${attempt} - no image returned`);
+          lastFailReason = `${model}: no image returned (${candidate?.finishReason})`;
+        } catch (err: any) {
+          const msg = err?.message?.substring(0, 200) || 'unknown';
+          console.warn(`${model} attempt ${attempt} error:`, msg);
+          lastFailReason = `${model}: ${msg}`;
+          // If model doesn't exist or is invalid, skip to next model
+          if (msg.includes('not found') || msg.includes('not supported') || msg.includes('does not exist')) break;
         }
-        if (attempt < 2) await new Promise(r => setTimeout(r, 150));
+        if (attempt < 2) await new Promise(r => setTimeout(r, 200));
       }
-      return null;
-    };
-
-    let lastFailReason = '';
-    try {
-      const result = await tryGenerate(parts, 'TryOn');
-      if (result) return { image: `data:image/png;base64,${result}` };
-      lastFailReason = 'no image returned';
-    } catch (err: any) {
-      lastFailReason = err?.message?.substring(0, 200) || 'unknown';
-      console.warn('Generation failed:', lastFailReason);
     }
 
-    console.error("All generation attempts failed, lastReason:", lastFailReason);
+    console.error("All models/attempts failed, lastReason:", lastFailReason);
     return { image: null, failReason: lastFailReason };
   } catch (error: any) {
     const status = error?.status || error?.code;
