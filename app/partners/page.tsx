@@ -3,7 +3,8 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
-import { Sparkles, Copy, Check, ArrowRight, Shield, Zap, Globe, Code2 } from 'lucide-react';
+import Link from 'next/link';
+import { Sparkles, Copy, Check, ArrowRight, Shield, Zap, Globe, Code2, ChevronDown, ShoppingBag, TrendingDown, BarChart3 } from 'lucide-react';
 
 const PLANS = [
   {
@@ -247,6 +248,7 @@ function PartnersContent() {
   }
 
   const currentPlan = PLANS.find(p => p.id === (partnerProfile?.plan || selectedPlan));
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   // ─── LOADING ───
   if (step === 'loading') {
@@ -281,50 +283,316 @@ function PartnersContent() {
         {/* ═══ STEP: LOGIN ═══ */}
         {step === 'login' && (
           <>
-            {/* Hero */}
-            <div className="text-center space-y-4 mb-16">
+            {/* ── HERO ── */}
+            <div className="text-center space-y-5 mb-20">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 rounded-full">
-                <Sparkles size={14} className="text-indigo-600" />
+                <ShoppingBag size={14} className="text-indigo-600" />
                 <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">
-                  Virtual Try-On API
+                  For Online Stores
                 </span>
               </div>
-              <h1 className="font-serif text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
-                Add AI Try-On to<br />
-                <span className="italic text-slate-400">your store</span>
+              <h1 className="font-serif text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+                Reduce Returns.<br />
+                <span className="italic text-indigo-600">Boost Sales.</span>
               </h1>
-              <p className="text-slate-500 text-sm font-light max-w-md mx-auto">
-                Let your customers try on clothes virtually. 2 lines of code. Works on any platform.
+              <p className="text-slate-500 text-base font-light max-w-lg mx-auto">
+                Let your customers try on clothes, glasses, jewelry, and accessories with AI before they buy. 2 lines of code. Works on Shopify, WooCommerce, or any platform.
               </p>
+              <div className="flex items-center justify-center gap-6 text-xs text-slate-400 font-bold pt-2">
+                <span className="flex items-center gap-1.5"><TrendingDown size={14} className="text-emerald-500" /> -40% returns</span>
+                <span className="flex items-center gap-1.5"><BarChart3 size={14} className="text-indigo-500" /> +25% conversion</span>
+                <span className="flex items-center gap-1.5"><Zap size={14} className="text-amber-500" /> ~10s render</span>
+              </div>
             </div>
 
-            {/* Features */}
-            <div className="grid md:grid-cols-3 gap-6 mb-16">
+            {/* ── FEATURES ── */}
+            <div className="grid md:grid-cols-3 gap-6 mb-20">
               {[
-                { icon: <Code2 size={20} />, title: '2 Lines of Code', desc: 'Paste our script + a div. That\'s it. Shopify, WooCommerce, or custom.' },
-                { icon: <Shield size={20} />, title: 'Secure by Default', desc: 'Domain allowlisting, hashed API keys, rate limits. Zero data retention.' },
-                { icon: <Zap size={20} />, title: '~10s Results', desc: 'AI generates photorealistic try-on images. Reduce returns, boost conversion.' },
+                { icon: <Code2 size={20} />, title: '2 Lines of Code', desc: 'Paste our script tag + a div on your product page. That\'s it. No server setup, no complex integration.' },
+                { icon: <Shield size={20} />, title: 'Secure by Default', desc: 'Domain allowlisting, SHA-256 hashed API keys, rate limits. We never store your customers\' photos.' },
+                { icon: <Sparkles size={20} />, title: 'AI-Powered Results', desc: 'Photorealistic try-on for clothing, glasses, jewelry, hats, shoes, bags — even tattoos and nail art.' },
               ].map((f, i) => (
                 <div key={i} className="p-6 border border-slate-100 rounded-2xl space-y-3">
                   <div className="text-indigo-600">{f.icon}</div>
                   <h3 className="font-black text-slate-900 text-sm">{f.title}</h3>
-                  <p className="text-slate-400 text-xs font-light">{f.desc}</p>
+                  <p className="text-slate-400 text-xs font-light leading-relaxed">{f.desc}</p>
                 </div>
               ))}
             </div>
 
-            {/* Login CTA */}
-            <div className="text-center">
+            {/* ── PRICING ── */}
+            <div className="mb-20">
+              <div className="text-center space-y-3 mb-10">
+                <h2 className="font-serif text-3xl font-black text-slate-900">Pricing</h2>
+                <p className="text-slate-400 text-sm font-light">One-time setup + monthly subscription. Cancel anytime.</p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                {PLANS.map((plan) => (
+                  <div
+                    key={plan.id}
+                    className={`relative p-8 rounded-2xl border-2 transition-all ${
+                      plan.popular
+                        ? 'border-indigo-600 shadow-lg shadow-indigo-100'
+                        : 'border-slate-200'
+                    }`}
+                  >
+                    {plan.popular && (
+                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-indigo-600 text-white text-[9px] font-black uppercase tracking-widest rounded-full">
+                        Most Popular
+                      </div>
+                    )}
+                    <div className="space-y-5">
+                      <div>
+                        <h3 className="font-black text-slate-900 text-lg">{plan.name}</h3>
+                        <div className="flex items-baseline gap-1 mt-2">
+                          <span className="font-serif text-4xl font-black text-slate-900">{plan.price}</span>
+                          <span className="text-slate-400 text-sm font-bold">&euro;/month</span>
+                        </div>
+                        <p className="text-xs text-slate-400 mt-1">
+                          + {plan.setup}&euro; one-time setup fee
+                        </p>
+                      </div>
+                      <ul className="space-y-2.5">
+                        {plan.features.map((f, i) => (
+                          <li key={i} className="flex items-center gap-2 text-xs text-slate-600">
+                            <Check size={14} className="text-emerald-500 shrink-0" />
+                            {f}
+                          </li>
+                        ))}
+                        <li className="flex items-center gap-2 text-xs text-slate-400">
+                          <ArrowRight size={14} className="text-slate-300 shrink-0" />
+                          Extra: {plan.extra}&euro;/render
+                        </li>
+                      </ul>
+                      <div className="pt-2 border-t border-slate-100">
+                        <p className="text-[10px] text-emerald-600 font-bold">
+                          Includes 10 free trial renders after setup
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ── ROI CALCULATOR ── */}
+            <div className="mb-20">
+              <div className="text-center space-y-3 mb-10">
+                <h2 className="font-serif text-3xl font-black text-slate-900">Return on Investment</h2>
+                <p className="text-slate-400 text-sm font-light">How much can virtual try-on save your business?</p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-6">
+                {[
+                  {
+                    type: 'Boutique',
+                    orders: '500 orders/mo',
+                    returns: '25% return rate → 15%',
+                    saved: '50 fewer returns/mo',
+                    value: '~€1,500/mo saved',
+                    cost: 'Starter: €150/mo',
+                    roi: '7x ROI',
+                    roiColor: 'text-emerald-600',
+                  },
+                  {
+                    type: 'Mid-size Store',
+                    orders: '2,000 orders/mo',
+                    returns: '30% return rate → 18%',
+                    saved: '240 fewer returns/mo',
+                    value: '~€7,200/mo saved',
+                    cost: 'Growth: €499/mo',
+                    roi: '8x ROI',
+                    roiColor: 'text-indigo-600',
+                  },
+                  {
+                    type: 'Large Retailer',
+                    orders: '10,000 orders/mo',
+                    returns: '35% return rate → 20%',
+                    saved: '1,500 fewer returns/mo',
+                    value: '~€45,000/mo saved',
+                    cost: 'Custom plan',
+                    roi: '34x ROI',
+                    roiColor: 'text-amber-600',
+                  },
+                ].map((tier, i) => (
+                  <div key={i} className="p-6 border border-slate-100 rounded-2xl space-y-4">
+                    <div>
+                      <h3 className="font-black text-slate-900 text-sm">{tier.type}</h3>
+                      <p className="text-[10px] text-slate-400 mt-0.5">{tier.orders}</p>
+                    </div>
+                    <div className="space-y-2 text-xs text-slate-600">
+                      <div className="flex justify-between">
+                        <span>Returns reduction</span>
+                        <span className="font-bold text-emerald-600">{tier.returns}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Returns avoided</span>
+                        <span className="font-bold">{tier.saved}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Estimated savings</span>
+                        <span className="font-bold text-slate-900">{tier.value}</span>
+                      </div>
+                      <div className="h-px bg-slate-100" />
+                      <div className="flex justify-between">
+                        <span>Agalaz cost</span>
+                        <span className="font-bold">{tier.cost}</span>
+                      </div>
+                    </div>
+                    <div className={`text-center py-3 bg-slate-50 rounded-xl font-black text-lg ${tier.roiColor}`}>
+                      {tier.roi}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <p className="text-center text-[10px] text-slate-300 mt-4">
+                * Based on average €30 return processing cost. Actual results vary by industry and product type.
+              </p>
+            </div>
+
+            {/* ── HOW IT WORKS: ONBOARDING FLOW ── */}
+            <div className="mb-20">
+              <div className="text-center space-y-3 mb-10">
+                <h2 className="font-serif text-3xl font-black text-slate-900">How to Get Started</h2>
+                <p className="text-slate-400 text-sm font-light">From sign-up to live widget in under 30 minutes.</p>
+              </div>
+
+              <div className="space-y-0">
+                {[
+                  {
+                    step: '1',
+                    title: 'Sign up with Google',
+                    desc: 'Create your partner account in one click. No credit card needed for this step.',
+                  },
+                  {
+                    step: '2',
+                    title: 'Choose your plan',
+                    desc: 'Select Starter (€150/mo, 200 renders) or Growth (€499/mo, 1,000 renders) depending on your traffic.',
+                  },
+                  {
+                    step: '3',
+                    title: 'Pay setup fee & get your API key',
+                    desc: 'A one-time setup fee (€250 or €499) covers implementation, onboarding, and configuration. You receive your secure API key + 10 free trial renders immediately.',
+                  },
+                  {
+                    step: '4',
+                    title: 'Install the widget (2 lines of code)',
+                    desc: 'Copy the <script> tag into your store\'s <head>, and place a <div> on your product pages. The widget auto-detects product images on Shopify, WooCommerce, and most platforms.',
+                  },
+                  {
+                    step: '5',
+                    title: 'Test with 10 free renders',
+                    desc: 'Use your trial renders to verify everything works perfectly. No subscription is charged until you activate it.',
+                  },
+                  {
+                    step: '6',
+                    title: 'Activate monthly subscription',
+                    desc: 'When you\'re ready, activate your plan from the dashboard. Your renders refill monthly. If you exceed your quota, extra renders are billed at €0.75 (Starter) or €0.50 (Growth) each.',
+                  },
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-5 pb-8 last:pb-0">
+                    <div className="flex flex-col items-center">
+                      <div className="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-black text-sm shrink-0">
+                        {item.step}
+                      </div>
+                      {i < 5 && <div className="w-px flex-1 bg-indigo-200 mt-2" />}
+                    </div>
+                    <div className="pt-2 pb-4">
+                      <h3 className="font-black text-slate-900 text-sm">{item.title}</h3>
+                      <p className="text-slate-400 text-xs font-light mt-1 leading-relaxed max-w-md">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ── FAQ ── */}
+            <div className="mb-20">
+              <div className="text-center space-y-3 mb-10">
+                <h2 className="font-serif text-3xl font-black text-slate-900">Frequently Asked Questions</h2>
+              </div>
+
+              <div className="max-w-2xl mx-auto space-y-3">
+                {[
+                  {
+                    q: 'How does the free trial work?',
+                    a: 'After paying the one-time setup fee and generating your API key, you receive 10 free renders to test the widget on your store. No monthly subscription is charged during this trial period. You decide when to activate the monthly plan.',
+                  },
+                  {
+                    q: 'What happens if I don\'t cancel after the trial?',
+                    a: 'The trial has no automatic billing — you must manually activate your monthly subscription from the dashboard. However, once you activate the subscription, it renews automatically each month. If you don\'t cancel before the next billing cycle, you will be charged for the full month. You can cancel anytime from your Stripe customer portal.',
+                  },
+                  {
+                    q: 'Is there an annual plan?',
+                    a: 'Yes. Once subscribed, you can switch to annual billing for a discount. Annual plans are billed upfront for the full year. If you don\'t cancel before renewal, the annual fee is charged automatically. Contact us for annual pricing.',
+                  },
+                  {
+                    q: 'What platforms are supported?',
+                    a: 'The widget works on any website: Shopify, WooCommerce, PrestaShop, Magento, Wix, Squarespace, and any custom-built store. It auto-detects product images on Shopify and WooCommerce. For other platforms, just pass the product image URL in the data-garment attribute.',
+                  },
+                  {
+                    q: 'What items can customers try on?',
+                    a: 'Clothing (shirts, dresses, pants, jackets), glasses & sunglasses, jewelry (necklaces, earrings, bracelets, rings, watches), hats, shoes, bags, and even tattoos or nail art. The AI detects the item type automatically.',
+                  },
+                  {
+                    q: 'How fast is the rendering?',
+                    a: 'Average render time is ~10 seconds depending on image quality and server load. The AI generates a photorealistic image of the customer wearing the item.',
+                  },
+                  {
+                    q: 'Do you store customer photos?',
+                    a: 'No. Customer images are processed in real-time and never stored on our servers. We take privacy seriously — zero data retention policy.',
+                  },
+                  {
+                    q: 'What if I exceed my monthly renders?',
+                    a: 'You\'ll be billed for extra renders at the rate of your plan: €0.75/render (Starter) or €0.50/render (Growth). There\'s no hard cutoff — your widget keeps working.',
+                  },
+                  {
+                    q: 'Can I cancel anytime?',
+                    a: 'Yes. Monthly subscriptions can be cancelled anytime. You\'ll keep access until the end of your current billing period. The one-time setup fee is non-refundable.',
+                  },
+                  {
+                    q: 'How do I install on Shopify?',
+                    a: 'Go to Online Store → Themes → Edit code. Paste the <script> tag in theme.liquid before </head>. Then add the try-on div in your product template. Full guide available in the dashboard after setup.',
+                  },
+                ].map((faq, i) => (
+                  <div key={i} className="border border-slate-200 rounded-xl overflow-hidden">
+                    <button
+                      onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                      className="w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 transition-colors"
+                    >
+                      <span className="font-bold text-slate-900 text-sm pr-4">{faq.q}</span>
+                      <ChevronDown size={16} className={`text-slate-400 shrink-0 transition-transform ${openFaq === i ? 'rotate-180' : ''}`} />
+                    </button>
+                    {openFaq === i && (
+                      <div className="px-5 pb-5 -mt-1">
+                        <p className="text-xs text-slate-500 font-light leading-relaxed">{faq.a}</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ── LOGIN CTA ── */}
+            <div className="text-center space-y-4">
+              <h2 className="font-serif text-2xl font-black text-slate-900">Ready to get started?</h2>
               <button
                 onClick={handleLogin}
                 className="px-8 py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-[0.15em] text-xs hover:bg-indigo-600 transition-colors inline-flex items-center gap-3"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-                Acceder con Google
+                Sign up with Google
               </button>
-              <p className="text-[10px] text-slate-300 mt-3 font-bold">
-                Necesitas una cuenta para registrarte como partner
+              <p className="text-[10px] text-slate-300 font-bold">
+                You need a Google account to register as a partner
               </p>
+              <div className="pt-4">
+                <Link href="/blog/virtual-dressing-room-online-free" className="text-[10px] text-indigo-500 font-bold hover:text-indigo-700 transition-colors">
+                  Learn more: What is a Virtual Dressing Room? →
+                </Link>
+              </div>
             </div>
           </>
         )}

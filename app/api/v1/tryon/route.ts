@@ -66,6 +66,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Minimum quality check — images under 25KB base64 are too small for Gemini
+    if (userImage.length < 25000) {
+      console.warn(`User image too small: ${userImage.length} chars (~${Math.round(userImage.length * 0.75 / 1024)}KB). Gemini may reject it.`);
+      return NextResponse.json(
+        { error: 'Photo quality too low. Please upload a higher resolution photo (at least 500x500 pixels).', debug: { userSize: userImage.length } },
+        { status: 400, headers }
+      );
+    }
+
     const maxSize = 10 * 1024 * 1024;
     if (userImage.length > maxSize) {
       return NextResponse.json(

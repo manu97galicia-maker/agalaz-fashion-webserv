@@ -122,11 +122,11 @@ export default function EmbedPage() {
       const img = new Image();
       img.crossOrigin = 'anonymous';
       img.onload = () => {
-        const MIN_DIM = 512;
+        const MIN_DIM = 768;
         const MAX_DIM = 1280;
         let w = img.naturalWidth, h = img.naturalHeight;
-        if (w < MIN_DIM && h < MIN_DIM) {
-          const scale = MIN_DIM / Math.max(w, h);
+        if (w < MIN_DIM || h < MIN_DIM) {
+          const scale = MIN_DIM / Math.min(w, h);
           w = Math.round(w * scale);
           h = Math.round(h * scale);
         }
@@ -140,8 +140,18 @@ export default function EmbedPage() {
         canvas.height = h;
         const ctx = canvas.getContext('2d')!;
         ctx.drawImage(img, 0, 0, w, h);
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
-        resolve(dataUrl.split(',')[1]);
+        let dataUrl = canvas.toDataURL('image/jpeg', 0.90);
+        let base64 = dataUrl.split(',')[1];
+        if (base64.length < 40000) {
+          dataUrl = canvas.toDataURL('image/jpeg', 0.97);
+          base64 = dataUrl.split(',')[1];
+        }
+        if (base64.length < 30000) {
+          dataUrl = canvas.toDataURL('image/png');
+          base64 = dataUrl.split(',')[1];
+        }
+        console.log(`[Agalaz] Garment image: ${w}x${h}, ${Math.round(base64.length / 1024)}KB base64`);
+        resolve(base64);
       };
       img.onerror = reject;
       img.src = url;
@@ -155,11 +165,11 @@ export default function EmbedPage() {
         const img = new Image();
         img.onload = () => {
           const MAX_DIM = 1280;
-          const MIN_DIM = 512;
+          const MIN_DIM = 768;
           let { width, height } = img;
-          // Upscale tiny images so Gemini can process them
-          if (width < MIN_DIM && height < MIN_DIM) {
-            const scale = MIN_DIM / Math.max(width, height);
+          // Upscale small images so Gemini can process them
+          if (width < MIN_DIM || height < MIN_DIM) {
+            const scale = MIN_DIM / Math.min(width, height);
             width = Math.round(width * scale);
             height = Math.round(height * scale);
           }
@@ -173,8 +183,21 @@ export default function EmbedPage() {
           canvas.height = height;
           const ctx = canvas.getContext('2d')!;
           ctx.drawImage(img, 0, 0, width, height);
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
-          resolve(dataUrl.split(',')[1]);
+          // Try high quality first, then check size
+          let dataUrl = canvas.toDataURL('image/jpeg', 0.90);
+          let base64 = dataUrl.split(',')[1];
+          // If still too small (< 40KB base64 ~ 30KB image), use max quality
+          if (base64.length < 40000) {
+            dataUrl = canvas.toDataURL('image/jpeg', 0.97);
+            base64 = dataUrl.split(',')[1];
+          }
+          // If STILL too small, use PNG for lossless
+          if (base64.length < 30000) {
+            dataUrl = canvas.toDataURL('image/png');
+            base64 = dataUrl.split(',')[1];
+          }
+          console.log(`[Agalaz] Compressed image: ${width}x${height}, ${Math.round(base64.length / 1024)}KB base64`);
+          resolve(base64);
         };
         img.onerror = reject;
         img.src = reader.result as string;
