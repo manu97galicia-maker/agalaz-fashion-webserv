@@ -6,10 +6,7 @@ const SYSTEM_INSTRUCTION = `
 You are Agalaz, a virtual try-on engine. You take a photo of a person and a garment, and generate a realistic image of that person wearing the garment.
 `;
 
-const MODELS = [
-  'gemini-2.0-flash-preview-image-generation',
-  'gemini-2.0-flash-exp',
-];
+const MODEL = 'gemini-3.1-flash-image-preview';
 
 function trimBase64(data: string, maxBytes: number = 2_000_000): string {
   if (data.length * 0.75 > maxBytes) {
@@ -66,79 +63,81 @@ export async function generateTryOnImage(
     let promptText: string;
 
     if (modificationPrompt && lastRenderedImage) {
-      // Modification flow — keep it short
       promptText = `Modify the previous render (IMG ${hasGarment ? '3' : '2'}): "${modificationPrompt}". Keep the same person, change ONLY what was requested. Output one photorealistic image.`;
     } else if (hasGarment) {
-      // Main try-on flow — optimized for quality and speed
-      promptText = `VIRTUAL TRY-ON: IMG1 is a photo of a PERSON. IMG2 is a photo of a GARMENT (clothing item).${sizeNote}
+      promptText = `VIRTUAL TRY-ON: IMG1=person, IMG2=item to wear/apply.${sizeNote}
 
-TASK: Generate ONE photorealistic image where the person from IMG1 is wearing the garment from IMG2.
+Generate ONE photorealistic image of the person from IMG1 wearing/using the item from IMG2.
 
-CRITICAL INSTRUCTIONS:
-1. IDENTITY: The person must look EXACTLY like IMG1 — same face, skin tone, hair, body shape, pose, and background. Do NOT alter the person.
-2. GARMENT SWAP: Look at IMG2 carefully. It shows a specific garment (could be a shirt, dress, pants, jacket, etc). REMOVE the person's current clothing in that body area and REPLACE it with this exact garment from IMG2, preserving its color, pattern, texture, and design details.
-3. GARMENT TYPE DETECTION: If IMG2 shows a top/shirt/blouse/jacket → only replace upper body clothing. If IMG2 shows pants/skirt → only replace lower body. If IMG2 shows a dress/jumpsuit/full outfit → replace all clothing.
-4. REALISM: The garment must fit naturally on the person's body with proper draping, wrinkles, shadows, and proportions. It should look like a real photograph, not a collage.${hasSize ? '\n5. SIZE: Adjust the garment fit to match the specified size realistically.' : ''}
+Rules:
+1. The person must look EXACTLY like IMG1 — same face, skin, hair, body, pose, background.
+2. Detect what IMG2 shows and apply it correctly:
+   - Clothing (shirt, dress, pants, jacket, etc) → swap the relevant clothing area
+   - Glasses/sunglasses → place on the person's face naturally
+   - Jewelry (necklace, earrings, bracelet, ring, watch) → add to the correct body part
+   - Hat/headwear → place on head naturally
+   - Shoes → replace footwear
+   - Bag/purse → add as carried accessory
+   - Tattoo → apply to visible skin naturally
+   - Nails/manicure → apply to fingernails
+   - Any other wearable item → apply where it naturally belongs
+3. Keep clothing/items that are NOT being replaced.
+4. Result must look like a real photograph with natural shadows and proportions.${hasSize ? '\n5. Adjust fit to match specified size.' : ''}
 
-You MUST output exactly one photorealistic image. Do not output text only.`;
+You MUST generate an image.`;
     } else {
-      // Enhancement flow
-      promptText = `Enhance this fashion photo. Keep person, clothing, pose identical. Improve lighting and quality. Output one photorealistic image. You MUST generate an image.`;
+      promptText = `Enhance this fashion photo. Keep person, clothing, pose identical. Improve lighting and quality. You MUST generate an image.`;
     }
 
     parts.push({ text: promptText });
 
-    // Try each model with retry
+    // Retry with single model
     let lastFailReason = '';
 
-    for (const model of MODELS) {
-      for (let attempt = 1; attempt <= 2; attempt++) {
-        try {
-          const currentParts = attempt === 1 ? parts : [
-            ...parts.slice(0, -1),
-            { text: hasGarment
-              ? `Generate a photorealistic image of the person in IMG1 wearing the garment shown in IMG2. Keep the person identical (face, body, pose, background). The garment from IMG2 must replace their current clothing naturally. Output one image.`
-              : `Enhance this fashion photo. Keep person identical. You MUST generate an image.`
-            },
-          ];
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        const currentParts = attempt === 1 ? parts : [
+          ...parts.slice(0, -1),
+          { text: hasGarment
+            ? `Put the item from IMG2 on the person from IMG1. Keep person identical. Photorealistic output. You MUST generate an image.`
+            : `Enhance this photo. Keep person identical. You MUST generate an image.`
+          },
+        ];
 
-          console.log(`Trying ${model} attempt ${attempt}...`);
+        console.log(`${MODEL} attempt ${attempt}...`);
 
-          const response = await ai.models.generateContent({
-            model,
-            contents: { parts: currentParts },
-            config: {
-              responseModalities: ["TEXT", "IMAGE"],
-            },
-          });
+        const response = await ai.models.generateContent({
+          model: MODEL,
+          contents: { parts: currentParts },
+          config: {
+            responseModalities: ["TEXT", "IMAGE"],
+          },
+        });
 
-          const candidate = response.candidates?.[0];
-          const responseParts = candidate?.content?.parts || [];
-          console.log(`${model} attempt ${attempt} - finishReason:`, candidate?.finishReason, "parts:", responseParts.length);
+        const candidate = response.candidates?.[0];
+        const responseParts = candidate?.content?.parts || [];
+        console.log(`Attempt ${attempt} - finishReason:`, candidate?.finishReason, "parts:", responseParts.length);
 
-          for (const part of responseParts) {
-            if ((part as any).inlineData?.data) {
-              console.log(`Image generated (${model} attempt ${attempt}), size:`, (part as any).inlineData.data.length);
-              return { image: `data:image/png;base64,${(part as any).inlineData.data}` };
-            }
-            if ((part as any).text) {
-              console.log("Text part:", (part as any).text.substring(0, 200));
-            }
+        for (const part of responseParts) {
+          if ((part as any).inlineData?.data) {
+            console.log(`Image generated (attempt ${attempt}), size:`, (part as any).inlineData.data.length);
+            return { image: `data:image/png;base64,${(part as any).inlineData.data}` };
           }
-          console.warn(`${model} attempt ${attempt} - no image returned`);
-          lastFailReason = `${model}: no image returned (${candidate?.finishReason})`;
-        } catch (err: any) {
-          const msg = err?.message?.substring(0, 200) || 'unknown';
-          console.warn(`${model} attempt ${attempt} error:`, msg);
-          lastFailReason = `${model}: ${msg}`;
-          // If model doesn't exist or is invalid, skip to next model
-          if (msg.includes('not found') || msg.includes('not supported') || msg.includes('does not exist')) break;
+          if ((part as any).text) {
+            console.log("Text part:", (part as any).text.substring(0, 200));
+          }
         }
-        if (attempt < 2) await new Promise(r => setTimeout(r, 200));
+        console.warn(`Attempt ${attempt} - no image returned`);
+        lastFailReason = `no image returned (${candidate?.finishReason})`;
+      } catch (err: any) {
+        const msg = err?.message?.substring(0, 200) || 'unknown';
+        console.warn(`Attempt ${attempt} error:`, msg);
+        lastFailReason = msg;
       }
+      if (attempt < 2) await new Promise(r => setTimeout(r, 200));
     }
 
-    console.error("All models/attempts failed, lastReason:", lastFailReason);
+    console.error("All attempts failed:", lastFailReason);
     return { image: null, failReason: lastFailReason };
   } catch (error: any) {
     const status = error?.status || error?.code;
