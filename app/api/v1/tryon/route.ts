@@ -5,14 +5,20 @@ import { validateApiKey, deductPartnerCredit } from '@/lib/partners';
 export const maxDuration = 120;
 
 // Detect actual image MIME type from base64 data (magic bytes)
-function detectMimeType(base64: string): string {
-  const header = base64.substring(0, 16);
+// Returns null if the data is NOT an image (e.g. HTML, JSON, text)
+function detectMimeType(base64: string): string | null {
+  const header = base64.substring(0, 20);
   if (header.startsWith('/9j/')) return 'image/jpeg';
   if (header.startsWith('iVBOR')) return 'image/png';
   if (header.startsWith('UklGR')) return 'image/webp';
-  if (header.startsWith('AAAA') && base64.substring(4, 8) === 'GAAH') return 'image/avif';
   if (header.startsWith('R0lG')) return 'image/gif';
-  return 'image/jpeg'; // fallback
+  // Check for NON-image data (HTML, JSON, text, XML)
+  if (header.startsWith('PCFET0NUWVB') || // <!DOCTYPE
+      header.startsWith('PGh0bWw')      || // <html
+      header.startsWith('eyJ')           || // { (JSON)
+      header.startsWith('PD94bWw'))         // <?xml
+    return null;
+  return 'image/jpeg'; // fallback for unknown binary
 }
 
 // CORS headers for cross-origin widget/iframe requests
@@ -134,9 +140,15 @@ export async function POST(request: NextRequest) {
           if (garmentRes.ok) {
             const buffer = await garmentRes.arrayBuffer();
             if (buffer.byteLength > 100) {
-              finalClothingImage = Buffer.from(buffer).toString('base64');
-              // Detect ACTUAL format from bytes (don't trust Content-Type — CDNs lie)
-              garmentMimeType = detectMimeType(finalClothingImage);
+              const b64 = Buffer.from(buffer).toString('base64');
+              // Detect ACTUAL format from bytes (don't trust Content-Type — SPAs return HTML!)
+              const detectedMime = detectMimeType(b64);
+              if (!detectedMime) {
+                console.warn(`Strategy ${i + 1}: got non-image data (HTML/JSON/text), skipping`);
+                continue; // try next strategy
+              }
+              finalClothingImage = b64;
+              garmentMimeType = detectedMime;
               console.log(`Garment loaded via strategy ${i + 1}: ${Math.round(buffer.byteLength / 1024)}KB, detected: ${garmentMimeType}, header-type: ${contentType}`);
               break;
             }
@@ -153,7 +165,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           error: garmentUrl
-            ? `Could not load garment from URL: ${garmentUrl.substring(0, 100)}. The store may be blocking image access.`
+            ? `Could not load garment image from: ${garmentUrl.substring(0, 100)}. The URL may return a web page instead of an image file. Try uploading the garment image directly.`
             : 'No garment image provided. Please upload a garment or provide a garment URL.',
           debug: { garmentUrl: garmentUrl || 'none', clothingImageProvided: !!clothingImage, userSize: userImage?.length || 0 },
         },
@@ -162,9 +174,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Detect actual MIME types from bytes
-    const userMimeType = detectMimeType(userImage);
+    const userMimeType = detectMimeType(userImage) || 'image/jpeg';
     if (finalClothingImage && !garmentMimeType.startsWith('image/')) {
-      garmentMimeType = detectMimeType(finalClothingImage);
+      garmentMimeType = detectMimeType(finalClothingImage) || 'image/jpeg';
     }
 
     const debugInfo = {
