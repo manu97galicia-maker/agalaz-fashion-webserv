@@ -85,6 +85,19 @@ export default function EmbedPage() {
     return () => { cancelled = true; };
   }, [garmentUrl]);
 
+  // Check if base64 string is actually an image (not HTML/JSON/text)
+  function isValidImageBase64(b64: string): boolean {
+    if (!b64 || b64.length < 100) return false;
+    // Check magic bytes
+    if (b64.startsWith('/9j/')) return true;  // JPEG
+    if (b64.startsWith('iVBOR')) return true;  // PNG
+    if (b64.startsWith('UklGR')) return true;  // WebP
+    if (b64.startsWith('R0lG')) return true;   // GIF
+    // Reject known non-image formats
+    if (b64.startsWith('PCFET0') || b64.startsWith('PGh0bW') || b64.startsWith('eyJ')) return false; // HTML/JSON
+    return true; // unknown binary — probably ok
+  }
+
   async function fetchImageAsBase64(url: string): Promise<string> {
     // Use our server-side image proxy to bypass CORS
     const proxyUrl = `/api/v1/image-proxy?url=${encodeURIComponent(url)}`;
@@ -94,12 +107,14 @@ export default function EmbedPage() {
       const res = await fetch(proxyUrl);
       if (res.ok) {
         const blob = await res.blob();
-        return new Promise((resolve, reject) => {
+        const b64: string = await new Promise((resolve, reject) => {
           const reader = new FileReader();
           reader.onload = () => resolve((reader.result as string).split(',')[1]);
           reader.onerror = reject;
           reader.readAsDataURL(blob);
         });
+        if (isValidImageBase64(b64)) return b64;
+        console.warn('[Agalaz] Proxy returned non-image data (HTML?), skipping');
       }
     } catch { /* continue to fallbacks */ }
 
@@ -108,12 +123,14 @@ export default function EmbedPage() {
       const res = await fetch(url, { mode: 'cors' });
       if (res.ok) {
         const blob = await res.blob();
-        return new Promise((resolve, reject) => {
+        const b64: string = await new Promise((resolve, reject) => {
           const reader = new FileReader();
           reader.onload = () => resolve((reader.result as string).split(',')[1]);
           reader.onerror = reject;
           reader.readAsDataURL(blob);
         });
+        if (isValidImageBase64(b64)) return b64;
+        console.warn('[Agalaz] Direct fetch returned non-image data, skipping');
       }
     } catch { /* continue to fallback */ }
 

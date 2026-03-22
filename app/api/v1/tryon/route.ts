@@ -100,9 +100,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // If no clothingImage base64, try to fetch from garmentUrl server-side
+    // Validate client-sent clothingImage is actually an image, not HTML/JSON
     let finalClothingImage = clothingImage;
     let garmentMimeType = 'image/jpeg';
+    if (finalClothingImage) {
+      const detectedType = detectMimeType(finalClothingImage);
+      if (!detectedType) {
+        console.warn('Client sent non-image data as clothingImage (HTML/JSON?), discarding');
+        finalClothingImage = undefined;
+      } else {
+        garmentMimeType = detectedType;
+      }
+    }
     if (!finalClothingImage && garmentUrl) {
       console.log('No clothingImage base64, fetching garment from URL:', garmentUrl);
 
