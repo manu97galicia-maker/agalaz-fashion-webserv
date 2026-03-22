@@ -51,8 +51,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create partner — INACTIVE until setup fee is paid, no API key yet
-    const selectedPlan = plan === 'growth' ? 'growth' : 'starter';
+    // Create partner — for trial: active immediately, no setup fee
+    const selectedPlan = plan === 'growth' ? 'growth' : plan === 'starter' ? 'starter' : 'trial';
     const { data: partner, error } = await admin
       .from('partners')
       .insert({
@@ -60,16 +60,16 @@ export async function POST(request: NextRequest) {
         email,
         store_name,
         store_url: store_url.startsWith('http') ? store_url : `https://${store_url}`,
-        api_key_hash: 'pending',    // No key until setup paid + user clicks "Get API Key"
+        api_key_hash: 'pending',
         api_key_prefix: 'pending',
         allowed_domains: domains,
         plan: selectedPlan,
-        price_eur: selectedPlan === 'growth' ? 499 : 150,
-        setup_fee_eur: selectedPlan === 'growth' ? 499 : 250,
+        price_eur: selectedPlan === 'growth' ? 499 : selectedPlan === 'starter' ? 150 : 0,
+        setup_fee_eur: 0,  // No setup fee
         credits_remaining: 0,
-        credits_monthly_limit: selectedPlan === 'growth' ? 1000 : 200,
-        is_active: false,
-        setup_paid: false,
+        credits_monthly_limit: selectedPlan === 'growth' ? 1000 : selectedPlan === 'starter' ? 200 : 5,
+        is_active: selectedPlan === 'trial',  // Trial is active immediately
+        setup_paid: true,  // No setup fee needed
       })
       .select('id, store_name, plan')
       .single();

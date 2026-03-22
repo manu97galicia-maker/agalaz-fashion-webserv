@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     // Verify partner exists and has paid setup
     const { data: partner, error } = await admin
       .from('partners')
-      .select('id, setup_paid, is_active')
+      .select('id, setup_paid, is_active, api_key_hash')
       .eq('id', partner_id)
       .single();
 
@@ -23,23 +23,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Partner not found' }, { status: 404 });
     }
 
-    if (!partner.setup_paid) {
-      return NextResponse.json({ error: 'Setup fee must be paid first' }, { status: 403 });
-    }
-
-    if (partner.is_active) {
+    if (partner.is_active && partner.api_key_hash !== 'pending') {
       return NextResponse.json({ error: 'API key already generated' }, { status: 409 });
     }
 
     // Generate new API key
     const { raw, hash, prefix } = generateApiKey();
 
-    // Activate partner + set 10 trial credits
+    // Activate partner + set 5 free trial credits
     await admin.from('partners').update({
       api_key_hash: hash,
       api_key_prefix: prefix,
       is_active: true,
-      credits_remaining: 10,
+      credits_remaining: 5,
+      setup_paid: true,
       updated_at: new Date().toISOString(),
     }).eq('id', partner_id);
 

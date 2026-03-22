@@ -11,7 +11,6 @@ const PLANS = [
     id: 'starter',
     name: 'Starter',
     price: 150,
-    setup: 250,
     renders: 200,
     extra: '0,75',
     features: ['200 renders/mes', 'Widget personalizable', 'Soporte por email', 'Dashboard de uso'],
@@ -21,7 +20,6 @@ const PLANS = [
     id: 'growth',
     name: 'Growth',
     price: 499,
-    setup: 499,
     renders: 1000,
     extra: '0,50',
     features: ['1.000 renders/mes', 'Widget personalizable', 'Soporte prioritario', 'Dashboard + analytics', 'Dominios ilimitados', 'Onboarding call'],
@@ -32,8 +30,8 @@ const PLANS = [
 interface PartnerProfile {
   id: string;
   store_name: string;
+  store_url: string;
   plan: string;
-  setup_paid: boolean;
   is_active: boolean;
   credits_remaining: number;
   api_key_prefix: string | null;
@@ -41,7 +39,8 @@ interface PartnerProfile {
   has_subscription: boolean;
 }
 
-type FlowStep = 'loading' | 'login' | 'plans' | 'form' | 'setup_paid' | 'has_key' | 'subscribed';
+// New flow: url → login → free trial (5 credits) → paywall → choose plan → subscribe
+type FlowStep = 'loading' | 'landing' | 'login' | 'has_key' | 'paywall' | 'subscribed';
 
 export default function PartnersPage() {
   return (
@@ -58,8 +57,8 @@ export default function PartnersPage() {
 function PartnersContent() {
   const searchParams = useSearchParams();
   const [step, setStep] = useState<FlowStep>('loading');
-  const [selectedPlan, setSelectedPlan] = useState('starter');
-  const [formData, setFormData] = useState({ store_name: '', store_url: '' });
+  const [storeUrl, setStoreUrl] = useState('');
+  const [selectedPlan, setSelectedPlan] = useState('growth');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
@@ -68,7 +67,7 @@ function PartnersContent() {
   const [userName, setUserName] = useState<string | null>(null);
   const [partnerProfile, setPartnerProfile] = useState<PartnerProfile | null>(null);
   const [apiKey, setApiKey] = useState<string | null>(null);
-  const [showLogin, setShowLogin] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   function getSupabase() {
     return createBrowserClient(
@@ -77,7 +76,7 @@ function PartnersContent() {
     );
   }
 
-  // 1. Check auth state on mount
+  // Check auth on mount
   useEffect(() => {
     const supabase = getSupabase();
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -87,47 +86,50 @@ function PartnersContent() {
         setUserName(user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || null);
         loadPartnerProfile(user.id);
       } else {
-        setStep('login');
+        setStep('landing');
       }
     });
   }, []);
 
-  // 2. Check URL params for post-payment redirects
+  // Post-payment redirect
   useEffect(() => {
-    const activated = searchParams.get('activated');
     const subscribed = searchParams.get('subscribed');
-    if ((activated === 'true' || subscribed === 'true') && userId) {
+    if (subscribed === 'true' && userId) {
       loadPartnerProfile(userId);
     }
   }, [searchParams, userId]);
 
-  // Load partner profile from API
   async function loadPartnerProfile(uid: string) {
     try {
       const res = await fetch(`/api/partners/profile?user_id=${uid}`);
       if (res.ok) {
         const data = await res.json();
         setPartnerProfile(data.partner);
-        // Determine step based on profile state
         if (data.partner.has_subscription) {
           setStep('subscribed');
-        } else if (data.partner.has_api_key) {
+        } else if (data.partner.has_api_key && data.partner.credits_remaining > 0) {
           setStep('has_key');
-        } else if (data.partner.setup_paid) {
-          setStep('setup_paid');
+        } else if (data.partner.has_api_key && data.partner.credits_remaining <= 0) {
+          setStep('paywall');
         } else {
-          setStep('plans'); // Registered but hasn't paid setup
+          // Has partner record but no key yet — generate it
+          setStep('has_key');
         }
       } else {
-        setStep('plans'); // No partner record yet
+        // No partner record — show login/landing with URL prompt
+        setStep('login');
       }
     } catch {
-      setStep('plans');
+      setStep('landing');
     }
   }
 
-  // Google login → redirect back to /partners
+  // Google login
   async function handleLogin() {
+    // Save store URL for after login
+    if (storeUrl) {
+      localStorage.setItem('agalaz_partner_url', storeUrl);
+    }
     const supabase = getSupabase();
     await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -135,87 +137,78 @@ function PartnersContent() {
     });
   }
 
-  // Register + redirect to Stripe for setup fee
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  // Register partner + generate API key immediately (free trial)
+  async function handleRegisterAndGetKey() {
     if (!userId || !userEmail) return;
+    const url = storeUrl || localStorage.getItem('agalaz_partner_url') || '';
+    if (!url) {
+      setError('Introduce la URL de tu tienda');
+      return;
+    }
     setIsSubmitting(true);
     setError(null);
 
     try {
-      // 1. Create partner account (inactive)
+      // 1. Register partner
       const registerRes = await fetch('/api/partners/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           user_id: userId,
           email: userEmail,
-          store_name: formData.store_name,
-          store_url: formData.store_url,
-          plan: selectedPlan,
+          store_name: new URL(url.startsWith('http') ? url : `https://${url}`).hostname,
+          store_url: url,
+          plan: 'trial',
         }),
       });
       const registerData = await registerRes.json();
 
       if (!registerRes.ok) {
+        if (registerRes.status === 409) {
+          // Already registered — load profile
+          loadPartnerProfile(userId);
+          setIsSubmitting(false);
+          return;
+        }
         setError(registerData.error || 'Registration failed');
         setIsSubmitting(false);
         return;
       }
 
-      // 2. Redirect to Stripe for setup fee
-      const checkoutRes = await fetch('/api/partners/checkout', {
+      // 2. Generate API key immediately with 5 free credits
+      const keyRes = await fetch('/api/partners/generate-key', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          plan: selectedPlan,
-          partnerId: registerData.partner.id,
-          email: userEmail,
-        }),
+        body: JSON.stringify({ partner_id: registerData.partner.id }),
       });
-      const checkoutData = await checkoutRes.json();
+      const keyData = await keyRes.json();
 
-      if (checkoutData.url) {
-        window.location.href = checkoutData.url;
+      if (keyRes.ok) {
+        setApiKey(keyData.api_key);
+        setPartnerProfile({
+          id: registerData.partner.id,
+          store_name: registerData.partner.store_name,
+          store_url: url,
+          plan: 'trial',
+          is_active: true,
+          credits_remaining: 5,
+          api_key_prefix: keyData.api_key.substring(0, 14),
+          has_api_key: true,
+          has_subscription: false,
+        });
+        setStep('has_key');
+        localStorage.removeItem('agalaz_partner_url');
       } else {
-        setError(checkoutData.error || 'Failed to start checkout');
-        setIsSubmitting(false);
+        setError(keyData.error || 'Failed to generate API key');
       }
     } catch {
       setError('Something went wrong. Please try again.');
-      setIsSubmitting(false);
-    }
-  }
-
-  // Generate API key (after setup is paid)
-  async function handleGetApiKey() {
-    if (!partnerProfile) return;
-    setIsSubmitting(true);
-    setError(null);
-
-    try {
-      const res = await fetch('/api/partners/generate-key', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ partner_id: partnerProfile.id }),
-      });
-      const data = await res.json();
-
-      if (res.ok) {
-        setApiKey(data.api_key);
-        setPartnerProfile({ ...partnerProfile, has_api_key: true, is_active: true, credits_remaining: 10 });
-        setStep('has_key');
-      } else {
-        setError(data.error || 'Failed to generate API key');
-      }
-    } catch {
-      setError('Something went wrong');
     }
     setIsSubmitting(false);
   }
 
-  // Activate monthly subscription
-  async function handleActivateSubscription() {
+  // Subscribe to plan (after trial ends)
+  async function handleSubscribe() {
     if (!partnerProfile || !userEmail) return;
     setIsSubmitting(true);
     try {
@@ -223,17 +216,17 @@ function PartnersContent() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          plan: partnerProfile.plan,
+          plan: selectedPlan,
           partnerId: partnerProfile.id,
           email: userEmail,
-          action: 'activate',
+          action: 'subscribe',
         }),
       });
       const data = await res.json();
       if (data.url) {
         window.location.href = data.url;
       } else {
-        setError(data.error || 'Failed to start subscription checkout');
+        setError(data.error || 'Failed to start checkout');
       }
     } catch {
       setError('Something went wrong');
@@ -248,7 +241,6 @@ function PartnersContent() {
   }
 
   const currentPlan = PLANS.find(p => p.id === (partnerProfile?.plan || selectedPlan));
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   // ─── LOADING ───
   if (step === 'loading') {
@@ -280,8 +272,8 @@ function PartnersContent() {
 
       <div className="max-w-5xl mx-auto px-6 py-16">
 
-        {/* ═══ STEP: LOGIN ═══ */}
-        {step === 'login' && (
+        {/* ═══ STEP: LANDING (not logged in) ═══ */}
+        {(step === 'landing' || step === 'login') && (
           <>
             {/* ── HERO ── */}
             <div className="text-center space-y-5 mb-20">
@@ -305,6 +297,75 @@ function PartnersContent() {
               </div>
             </div>
 
+            {/* ── START: Enter URL + Login ── */}
+            <div className="max-w-md mx-auto mb-20">
+              <div className="border-2 border-indigo-200 rounded-2xl p-8 space-y-6 bg-indigo-50/30">
+                <div className="text-center space-y-2">
+                  <Sparkles size={28} className="text-indigo-600 mx-auto" />
+                  <h2 className="font-serif text-2xl font-black text-slate-900">Start Free Trial</h2>
+                  <p className="text-slate-400 text-xs font-light">
+                    5 free renders. No credit card required. No setup fee.
+                  </p>
+                </div>
+
+                {/* Step 1: Enter store URL */}
+                <div>
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Your store URL</label>
+                  <input
+                    type="text"
+                    value={storeUrl}
+                    onChange={(e) => setStoreUrl(e.target.value)}
+                    className="w-full mt-1.5 px-4 py-3 border border-slate-200 rounded-xl text-sm text-slate-900 font-bold placeholder:text-slate-300 outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-300 transition-all bg-white"
+                    placeholder="https://mitienda.com"
+                  />
+                </div>
+
+                {error && (
+                  <div className="p-3 bg-red-50 rounded-xl border border-red-100 text-xs font-bold text-red-600">
+                    {error}
+                  </div>
+                )}
+
+                {/* Step 2: Login with Google */}
+                {step === 'landing' ? (
+                  <button
+                    onClick={() => {
+                      if (!storeUrl) {
+                        setError('Introduce la URL de tu tienda primero');
+                        return;
+                      }
+                      setError(null);
+                      handleLogin();
+                    }}
+                    className="w-full py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-[0.15em] text-xs hover:bg-indigo-600 transition-colors flex items-center justify-center gap-3"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                    Continue with Google
+                  </button>
+                ) : (
+                  /* step === 'login' — already logged in, needs to register */
+                  <button
+                    onClick={handleRegisterAndGetKey}
+                    disabled={isSubmitting}
+                    className="w-full py-4 bg-indigo-600 text-white rounded-xl font-black uppercase tracking-[0.15em] text-xs hover:bg-indigo-700 transition-colors flex items-center justify-center gap-3 disabled:opacity-50"
+                  >
+                    {isSubmitting ? 'Generando...' : 'Get API Key + 5 Free Renders'}
+                    <ArrowRight size={16} />
+                  </button>
+                )}
+
+                {step === 'login' && userEmail && (
+                  <p className="text-center text-[10px] text-slate-400">
+                    Logged in as <span className="font-bold text-slate-600">{userEmail}</span>
+                  </p>
+                )}
+
+                <p className="text-center text-[10px] text-slate-300 font-bold">
+                  No credit card required
+                </p>
+              </div>
+            </div>
+
             {/* ── FEATURES ── */}
             <div className="grid md:grid-cols-3 gap-6 mb-20">
               {[
@@ -320,11 +381,42 @@ function PartnersContent() {
               ))}
             </div>
 
+            {/* ── HOW IT WORKS ── */}
+            <div className="mb-20">
+              <div className="text-center space-y-3 mb-10">
+                <h2 className="font-serif text-3xl font-black text-slate-900">How to Get Started</h2>
+                <p className="text-slate-400 text-sm font-light">From sign-up to live widget in under 5 minutes.</p>
+              </div>
+
+              <div className="space-y-0 max-w-lg mx-auto">
+                {[
+                  { step: '1', title: 'Enter your store URL', desc: 'Tell us where your store lives. We\'ll allowlist the domain automatically.' },
+                  { step: '2', title: 'Sign in with Google', desc: 'One-click authentication. No passwords, no forms.' },
+                  { step: '3', title: 'Get your API key + 5 free renders', desc: 'Instantly receive your secure API key and 5 renders to test on your real store. No credit card needed.' },
+                  { step: '4', title: 'Install the widget (2 lines of code)', desc: 'Copy the <script> tag into your store\'s <head>, and place a <div> on your product pages. Auto-detects images on Shopify & WooCommerce.' },
+                  { step: '5', title: 'When trial ends, choose a plan', desc: 'After your 5 free renders, pick Starter (€150/mo) or Growth (€499/mo). No setup fees. Cancel anytime.' },
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-5 pb-8 last:pb-0">
+                    <div className="flex flex-col items-center">
+                      <div className="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-black text-sm shrink-0">
+                        {item.step}
+                      </div>
+                      {i < 4 && <div className="w-px flex-1 bg-indigo-200 mt-2" />}
+                    </div>
+                    <div className="pt-2 pb-4">
+                      <h3 className="font-black text-slate-900 text-sm">{item.title}</h3>
+                      <p className="text-slate-400 text-xs font-light mt-1 leading-relaxed max-w-md">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* ── PRICING ── */}
             <div className="mb-20">
               <div className="text-center space-y-3 mb-10">
                 <h2 className="font-serif text-3xl font-black text-slate-900">Pricing</h2>
-                <p className="text-slate-400 text-sm font-light">One-time setup + monthly subscription. Cancel anytime.</p>
+                <p className="text-slate-400 text-sm font-light">No setup fees. Start with 5 free renders. Upgrade when ready.</p>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
@@ -349,8 +441,8 @@ function PartnersContent() {
                           <span className="font-serif text-4xl font-black text-slate-900">{plan.price}</span>
                           <span className="text-slate-400 text-sm font-bold">&euro;/month</span>
                         </div>
-                        <p className="text-xs text-slate-400 mt-1">
-                          + {plan.setup}&euro; one-time setup fee
+                        <p className="text-xs text-emerald-600 font-bold mt-1">
+                          No setup fee
                         </p>
                       </div>
                       <ul className="space-y-2.5">
@@ -365,11 +457,6 @@ function PartnersContent() {
                           Extra: {plan.extra}&euro;/render
                         </li>
                       </ul>
-                      <div className="pt-2 border-t border-slate-100">
-                        <p className="text-[10px] text-emerald-600 font-bold">
-                          Includes 10 free trial renders after setup
-                        </p>
-                      </div>
                     </div>
                   </div>
                 ))}
@@ -385,36 +472,9 @@ function PartnersContent() {
 
               <div className="grid md:grid-cols-3 gap-6">
                 {[
-                  {
-                    type: 'Boutique',
-                    orders: '500 orders/mo',
-                    returns: '25% return rate → 15%',
-                    saved: '50 fewer returns/mo',
-                    value: '~€1,500/mo saved',
-                    cost: 'Starter: €150/mo',
-                    roi: '7x ROI',
-                    roiColor: 'text-emerald-600',
-                  },
-                  {
-                    type: 'Mid-size Store',
-                    orders: '2,000 orders/mo',
-                    returns: '30% return rate → 18%',
-                    saved: '240 fewer returns/mo',
-                    value: '~€7,200/mo saved',
-                    cost: 'Growth: €499/mo',
-                    roi: '8x ROI',
-                    roiColor: 'text-indigo-600',
-                  },
-                  {
-                    type: 'Large Retailer',
-                    orders: '10,000 orders/mo',
-                    returns: '35% return rate → 20%',
-                    saved: '1,500 fewer returns/mo',
-                    value: '~€45,000/mo saved',
-                    cost: 'Custom plan',
-                    roi: '34x ROI',
-                    roiColor: 'text-amber-600',
-                  },
+                  { type: 'Boutique', orders: '500 orders/mo', returns: '25% → 15%', saved: '50 fewer returns/mo', value: '~€1,500/mo saved', cost: 'Starter: €150/mo', roi: '10x ROI', roiColor: 'text-emerald-600' },
+                  { type: 'Mid-size Store', orders: '2,000 orders/mo', returns: '30% → 18%', saved: '240 fewer returns/mo', value: '~€7,200/mo saved', cost: 'Growth: €499/mo', roi: '14x ROI', roiColor: 'text-indigo-600' },
+                  { type: 'Large Retailer', orders: '10,000 orders/mo', returns: '35% → 20%', saved: '1,500 fewer returns/mo', value: '~€45,000/mo saved', cost: 'Custom plan', roi: '50x+ ROI', roiColor: 'text-amber-600' },
                 ].map((tier, i) => (
                   <div key={i} className="p-6 border border-slate-100 rounded-2xl space-y-4">
                     <div>
@@ -422,23 +482,11 @@ function PartnersContent() {
                       <p className="text-[10px] text-slate-400 mt-0.5">{tier.orders}</p>
                     </div>
                     <div className="space-y-2 text-xs text-slate-600">
-                      <div className="flex justify-between">
-                        <span>Returns reduction</span>
-                        <span className="font-bold text-emerald-600">{tier.returns}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Returns avoided</span>
-                        <span className="font-bold">{tier.saved}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Estimated savings</span>
-                        <span className="font-bold text-slate-900">{tier.value}</span>
-                      </div>
+                      <div className="flex justify-between"><span>Returns reduction</span><span className="font-bold text-emerald-600">{tier.returns}</span></div>
+                      <div className="flex justify-between"><span>Returns avoided</span><span className="font-bold">{tier.saved}</span></div>
+                      <div className="flex justify-between"><span>Estimated savings</span><span className="font-bold text-slate-900">{tier.value}</span></div>
                       <div className="h-px bg-slate-100" />
-                      <div className="flex justify-between">
-                        <span>Agalaz cost</span>
-                        <span className="font-bold">{tier.cost}</span>
-                      </div>
+                      <div className="flex justify-between"><span>Agalaz cost</span><span className="font-bold">{tier.cost}</span></div>
                     </div>
                     <div className={`text-center py-3 bg-slate-50 rounded-xl font-black text-lg ${tier.roiColor}`}>
                       {tier.roi}
@@ -446,66 +494,9 @@ function PartnersContent() {
                   </div>
                 ))}
               </div>
-
               <p className="text-center text-[10px] text-slate-300 mt-4">
-                * Based on average €30 return processing cost. Actual results vary by industry and product type.
+                * Based on average €30 return processing cost. ROI improved vs old plans — no setup fees.
               </p>
-            </div>
-
-            {/* ── HOW IT WORKS: ONBOARDING FLOW ── */}
-            <div className="mb-20">
-              <div className="text-center space-y-3 mb-10">
-                <h2 className="font-serif text-3xl font-black text-slate-900">How to Get Started</h2>
-                <p className="text-slate-400 text-sm font-light">From sign-up to live widget in under 30 minutes.</p>
-              </div>
-
-              <div className="space-y-0">
-                {[
-                  {
-                    step: '1',
-                    title: 'Sign up with Google',
-                    desc: 'Create your partner account in one click. No credit card needed for this step.',
-                  },
-                  {
-                    step: '2',
-                    title: 'Choose your plan',
-                    desc: 'Select Starter (€150/mo, 200 renders) or Growth (€499/mo, 1,000 renders) depending on your traffic.',
-                  },
-                  {
-                    step: '3',
-                    title: 'Pay setup fee & get your API key',
-                    desc: 'A one-time setup fee (€250 or €499) covers implementation, onboarding, and configuration. You receive your secure API key + 10 free trial renders immediately.',
-                  },
-                  {
-                    step: '4',
-                    title: 'Install the widget (2 lines of code)',
-                    desc: 'Copy the <script> tag into your store\'s <head>, and place a <div> on your product pages. The widget auto-detects product images on Shopify, WooCommerce, and most platforms.',
-                  },
-                  {
-                    step: '5',
-                    title: 'Test with 10 free renders',
-                    desc: 'Use your trial renders to verify everything works perfectly. No subscription is charged until you activate it.',
-                  },
-                  {
-                    step: '6',
-                    title: 'Activate monthly subscription',
-                    desc: 'When you\'re ready, activate your plan from the dashboard. Your renders refill monthly. If you exceed your quota, extra renders are billed at €0.75 (Starter) or €0.50 (Growth) each.',
-                  },
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-5 pb-8 last:pb-0">
-                    <div className="flex flex-col items-center">
-                      <div className="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-black text-sm shrink-0">
-                        {item.step}
-                      </div>
-                      {i < 5 && <div className="w-px flex-1 bg-indigo-200 mt-2" />}
-                    </div>
-                    <div className="pt-2 pb-4">
-                      <h3 className="font-black text-slate-900 text-sm">{item.title}</h3>
-                      <p className="text-slate-400 text-xs font-light mt-1 leading-relaxed max-w-md">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
 
             {/* ── FAQ ── */}
@@ -516,46 +507,16 @@ function PartnersContent() {
 
               <div className="max-w-2xl mx-auto space-y-3">
                 {[
-                  {
-                    q: 'How does the free trial work?',
-                    a: 'After paying the one-time setup fee and generating your API key, you receive 10 free renders to test the widget on your store. No monthly subscription is charged during this trial period. You decide when to activate the monthly plan.',
-                  },
-                  {
-                    q: 'What happens if I don\'t cancel after the trial?',
-                    a: 'The trial has no automatic billing — you must manually activate your monthly subscription from the dashboard. However, once you activate the subscription, it renews automatically each month. If you don\'t cancel before the next billing cycle, you will be charged for the full month. You can cancel anytime from your Stripe customer portal.',
-                  },
-                  {
-                    q: 'Is there an annual plan?',
-                    a: 'Yes. Once subscribed, you can switch to annual billing for a discount. Annual plans are billed upfront for the full year. If you don\'t cancel before renewal, the annual fee is charged automatically. Contact us for annual pricing.',
-                  },
-                  {
-                    q: 'What platforms are supported?',
-                    a: 'The widget works on any website: Shopify, WooCommerce, PrestaShop, Magento, Wix, Squarespace, and any custom-built store. It auto-detects product images on Shopify and WooCommerce. For other platforms, just pass the product image URL in the data-garment attribute.',
-                  },
-                  {
-                    q: 'What items can customers try on?',
-                    a: 'Clothing (shirts, dresses, pants, jackets), glasses & sunglasses, jewelry (necklaces, earrings, bracelets, rings, watches), hats, shoes, bags, and even tattoos or nail art. The AI detects the item type automatically.',
-                  },
-                  {
-                    q: 'How fast is the rendering?',
-                    a: 'Average render time is ~10 seconds depending on image quality and server load. The AI generates a photorealistic image of the customer wearing the item.',
-                  },
-                  {
-                    q: 'Do you store customer photos?',
-                    a: 'No. Customer images are processed in real-time and never stored on our servers. We take privacy seriously — zero data retention policy.',
-                  },
-                  {
-                    q: 'What if I exceed my monthly renders?',
-                    a: 'You\'ll be billed for extra renders at the rate of your plan: €0.75/render (Starter) or €0.50/render (Growth). There\'s no hard cutoff — your widget keeps working.',
-                  },
-                  {
-                    q: 'Can I cancel anytime?',
-                    a: 'Yes. Monthly subscriptions can be cancelled anytime. You\'ll keep access until the end of your current billing period. The one-time setup fee is non-refundable.',
-                  },
-                  {
-                    q: 'How do I install on Shopify?',
-                    a: 'Go to Online Store → Themes → Edit code. Paste the <script> tag in theme.liquid before </head>. Then add the try-on div in your product template. Full guide available in the dashboard after setup.',
-                  },
+                  { q: 'How does the free trial work?', a: 'Enter your store URL, sign in with Google, and you instantly receive an API key with 5 free renders. No credit card required. No setup fee. Test the widget on your real store before committing to a plan.' },
+                  { q: 'What happens when my 5 free renders run out?', a: 'The widget stops working until you subscribe to a plan. Choose Starter (€150/mo, 200 renders) or Growth (€499/mo, 1,000 renders). No pressure — your API key stays valid.' },
+                  { q: 'Is there a setup fee?', a: 'No. We eliminated setup fees. You only pay the monthly subscription when you\'re ready to go live.' },
+                  { q: 'What happens if I don\'t cancel the subscription?', a: 'The subscription renews automatically each month. If you don\'t cancel before the next billing cycle, you will be charged for the next month. You can cancel anytime from your Stripe customer portal. Annual plans are also available — if you switch to annual and don\'t cancel, the full year is charged at renewal.' },
+                  { q: 'What platforms are supported?', a: 'The widget works on any website: Shopify, WooCommerce, PrestaShop, Magento, Wix, Squarespace, and any custom-built store. It auto-detects product images on Shopify and WooCommerce. For other platforms, just pass the image URL in the data-garment attribute.' },
+                  { q: 'What items can customers try on?', a: 'Clothing (shirts, dresses, pants, jackets), glasses & sunglasses, jewelry (necklaces, earrings, bracelets, rings, watches), hats, shoes, bags, and even tattoos or nail art. The AI detects the item type automatically.' },
+                  { q: 'How fast is the rendering?', a: 'Average render time is ~10 seconds depending on image quality. The AI generates a photorealistic image of the customer wearing the item.' },
+                  { q: 'Do you store customer photos?', a: 'No. Customer images are processed in real-time and never stored on our servers. Zero data retention policy.' },
+                  { q: 'What if I exceed my monthly renders?', a: 'Extra renders are billed at €0.75/render (Starter) or €0.50/render (Growth). No hard cutoff — your widget keeps working.' },
+                  { q: 'Can I cancel anytime?', a: 'Yes. Monthly subscriptions can be cancelled anytime. You keep access until the end of your billing period.' },
                 ].map((faq, i) => (
                   <div key={i} className="border border-slate-200 rounded-xl overflow-hidden">
                     <button
@@ -575,19 +536,18 @@ function PartnersContent() {
               </div>
             </div>
 
-            {/* ── LOGIN CTA ── */}
+            {/* ── BOTTOM CTA ── */}
             <div className="text-center space-y-4">
               <h2 className="font-serif text-2xl font-black text-slate-900">Ready to get started?</h2>
+              <p className="text-slate-400 text-sm font-light">5 free renders. No credit card. No setup fee.</p>
               <button
-                onClick={handleLogin}
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className="px-8 py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-[0.15em] text-xs hover:bg-indigo-600 transition-colors inline-flex items-center gap-3"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-                Sign up with Google
+                <Sparkles size={16} />
+                Start Free Trial
+                <ArrowRight size={14} />
               </button>
-              <p className="text-[10px] text-slate-300 font-bold">
-                You need a Google account to register as a partner
-              </p>
               <div className="pt-4">
                 <Link href="/blog/virtual-dressing-room-online-free" className="text-[10px] text-indigo-500 font-bold hover:text-indigo-700 transition-colors">
                   Learn more: What is a Virtual Dressing Room? →
@@ -597,20 +557,135 @@ function PartnersContent() {
           </>
         )}
 
-        {/* ═══ STEP: PLANS (logged in, no partner record or not paid) ═══ */}
-        {step === 'plans' && (
-          <>
-            <div className="text-center space-y-4 mb-12">
-              <h1 className="font-serif text-3xl font-black text-slate-900 tracking-tight">
-                Elige tu plan
-              </h1>
+        {/* ═══ STEP: HAS_KEY — Show API key + integration ═══ */}
+        {step === 'has_key' && (
+          <div className="max-w-lg mx-auto space-y-8">
+            <div className="text-center space-y-3">
+              <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto">
+                <Check size={32} className="text-emerald-600" />
+              </div>
+              <h1 className="font-serif text-3xl font-black text-slate-900">Your account is ready</h1>
               <p className="text-slate-400 text-sm font-light">
-                Paga el setup fee y recibe 10 renders de prueba gratis.
+                {partnerProfile?.credits_remaining || 5} free renders available
               </p>
             </div>
 
-            {/* Pricing cards */}
-            <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-12">
+            {/* API Key — only shown when just generated */}
+            {apiKey && (
+              <div className="p-6 bg-amber-50 border border-amber-200 rounded-2xl space-y-3">
+                <div className="flex items-center gap-2">
+                  <Shield size={16} className="text-amber-600" />
+                  <span className="text-[10px] font-black text-amber-700 uppercase tracking-widest">
+                    Your API Key — save it now
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <code className="flex-1 bg-white px-4 py-3 rounded-lg text-sm font-mono text-slate-900 border border-amber-200 break-all">
+                    {apiKey}
+                  </code>
+                  <button
+                    onClick={() => copyToClipboard(apiKey, 'key')}
+                    className="p-3 bg-white border border-amber-200 rounded-lg hover:bg-amber-100 transition-colors shrink-0"
+                  >
+                    {copied === 'key' ? <Check size={16} className="text-emerald-600" /> : <Copy size={16} className="text-amber-600" />}
+                  </button>
+                </div>
+                <p className="text-[11px] text-amber-600 font-bold">
+                  This key is shown only once. If you lose it, you'll need to generate a new one.
+                </p>
+              </div>
+            )}
+
+            {/* Integration instructions */}
+            <div className="space-y-4">
+              <h2 className="font-black text-slate-900 text-sm flex items-center gap-2">
+                <Globe size={16} className="text-indigo-600" />
+                Integration (2 steps)
+              </h2>
+
+              <div className="space-y-3">
+                <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                      Step 1 — Paste in {'<head>'}
+                    </span>
+                    <button
+                      onClick={() => copyToClipboard(`<script src="https://agalaz.com/widget.js" data-api-key="${apiKey || partnerProfile?.api_key_prefix + '...'}"></script>`, 'script')}
+                      className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:text-indigo-800 flex items-center gap-1"
+                    >
+                      {copied === 'script' ? <Check size={12} /> : <Copy size={12} />}
+                      {copied === 'script' ? 'Copied' : 'Copy'}
+                    </button>
+                  </div>
+                  <code className="block text-xs font-mono text-slate-700 bg-white p-3 rounded-lg border border-slate-200 break-all">
+                    {`<script src="https://agalaz.com/widget.js" data-api-key="${apiKey || partnerProfile?.api_key_prefix + '...'}"></script>`}
+                  </code>
+                </div>
+
+                <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                      Step 2 — Place on product page
+                    </span>
+                    <button
+                      onClick={() => copyToClipboard('<div id="agalaz-tryon" data-garment="PRODUCT_IMAGE_URL"></div>', 'div')}
+                      className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:text-indigo-800 flex items-center gap-1"
+                    >
+                      {copied === 'div' ? <Check size={12} /> : <Copy size={12} />}
+                      {copied === 'div' ? 'Copied' : 'Copy'}
+                    </button>
+                  </div>
+                  <code className="block text-xs font-mono text-slate-700 bg-white p-3 rounded-lg border border-slate-200 break-all">
+                    {'<div id="agalaz-tryon" data-garment="PRODUCT_IMAGE_URL"></div>'}
+                  </code>
+                  <p className="text-[10px] text-slate-400">
+                    Shopify: <code className="text-indigo-600">{'{{ product.featured_image | img_url }}'}</code>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Trial credits counter */}
+            <div className="p-6 bg-indigo-50 border border-indigo-100 rounded-2xl space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">
+                    Free Trial
+                  </span>
+                  <p className="text-sm font-bold text-indigo-900 mt-1">
+                    {partnerProfile?.credits_remaining || 0} renders remaining
+                  </p>
+                </div>
+                <Zap size={24} className="text-indigo-300" />
+              </div>
+              <div className="h-2 bg-indigo-200 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-indigo-600 rounded-full transition-all"
+                  style={{ width: `${((partnerProfile?.credits_remaining || 0) / 5) * 100}%` }}
+                />
+              </div>
+              <p className="text-[10px] text-indigo-400">
+                When your trial renders run out, choose a plan to continue.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* ═══ STEP: PAYWALL — Trial ended, choose plan ═══ */}
+        {step === 'paywall' && (
+          <div className="max-w-2xl mx-auto space-y-8">
+            <div className="text-center space-y-3">
+              <div className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mx-auto">
+                <Zap size={32} className="text-amber-600" />
+              </div>
+              <h1 className="font-serif text-3xl font-black text-slate-900">Trial ended</h1>
+              <p className="text-slate-400 text-sm font-light">
+                Your 5 free renders have been used. Choose a plan to continue.
+              </p>
+            </div>
+
+            {/* Plan selection */}
+            <div className="grid md:grid-cols-2 gap-6">
               {PLANS.map((plan) => (
                 <div
                   key={plan.id}
@@ -630,20 +705,10 @@ function PartnersContent() {
                     <div>
                       <h3 className="font-black text-slate-900 text-lg">{plan.name}</h3>
                       <div className="flex items-baseline gap-1 mt-2">
-                        <span className="font-serif text-4xl font-black text-slate-900">{plan.setup}</span>
-                        <span className="text-slate-400 text-sm font-bold">&euro; setup</span>
+                        <span className="font-serif text-4xl font-black text-slate-900">{plan.price}</span>
+                        <span className="text-slate-400 text-sm font-bold">&euro;/month</span>
                       </div>
-                      <p className="text-[10px] text-slate-400 mt-1">
-                        Incluye implantación + 10 renders de prueba gratis
-                      </p>
-                      <div className="mt-3 pt-3 border-t border-slate-100">
-                        <p className="text-xs text-slate-500">
-                          Después: <span className="font-black text-slate-900">{plan.price}&euro;/mes</span> por {plan.renders} renders/mes
-                        </p>
-                        <p className="text-[10px] text-slate-300 mt-0.5">
-                          Extra: {plan.extra}&euro;/render adicional
-                        </p>
-                      </div>
+                      <p className="text-xs text-emerald-600 font-bold mt-1">No setup fee</p>
                     </div>
                     <ul className="space-y-2">
                       {plan.features.map((f, i) => (
@@ -652,277 +717,90 @@ function PartnersContent() {
                           {f}
                         </li>
                       ))}
+                      <li className="flex items-center gap-2 text-xs text-slate-400">
+                        <ArrowRight size={14} className="text-slate-300 shrink-0" />
+                        Extra: {plan.extra}&euro;/render
+                      </li>
                     </ul>
                     <div className={`w-full py-3 rounded-xl text-center text-xs font-black uppercase tracking-widest transition-all ${
                       selectedPlan === plan.id ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-400'
                     }`}>
-                      {selectedPlan === plan.id ? 'Seleccionado' : 'Seleccionar'}
+                      {selectedPlan === plan.id ? 'Selected' : 'Select'}
                     </div>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="text-center">
-              <button
-                onClick={() => setStep('form')}
-                className="px-8 py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-[0.15em] text-xs hover:bg-indigo-600 transition-colors inline-flex items-center gap-2"
-              >
-                Continuar con {PLANS.find(p => p.id === selectedPlan)?.name}
-                <ArrowRight size={16} />
-              </button>
-            </div>
-          </>
-        )}
-
-        {/* ═══ STEP: FORM (fill store details + pay setup) ═══ */}
-        {step === 'form' && (
-          <div className="max-w-md mx-auto">
-            <div className="border border-slate-200 rounded-2xl p-8 space-y-6">
-              <div className="text-center space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-indigo-50 rounded-full">
-                  <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">
-                    {PLANS.find(p => p.id === selectedPlan)?.name} — Setup {PLANS.find(p => p.id === selectedPlan)?.setup}&euro;
-                  </span>
-                </div>
-                <h2 className="font-serif text-2xl font-black text-slate-900">Datos de tu tienda</h2>
-                <p className="text-slate-400 text-xs font-light">
-                  Registrado como <span className="font-bold text-slate-600">{userEmail}</span>
-                </p>
-              </div>
-
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Nombre de la tienda</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.store_name}
-                    onChange={(e) => setFormData({ ...formData, store_name: e.target.value })}
-                    className="w-full mt-1.5 px-4 py-3 border border-slate-200 rounded-xl text-sm text-slate-900 font-bold placeholder:text-slate-300 outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-300 transition-all"
-                    placeholder="Mi Tienda de Moda"
-                  />
-                </div>
-                <div>
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">URL de la tienda</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.store_url}
-                    onChange={(e) => setFormData({ ...formData, store_url: e.target.value })}
-                    className="w-full mt-1.5 px-4 py-3 border border-slate-200 rounded-xl text-sm text-slate-900 font-bold placeholder:text-slate-300 outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-300 transition-all"
-                    placeholder="https://mitienda.com"
-                  />
-                </div>
-
-                {error && (
-                  <div className="p-3 bg-red-50 rounded-xl border border-red-100 text-xs font-bold text-red-600">
-                    {error}
-                  </div>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-[0.15em] text-xs hover:bg-indigo-600 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
-                >
-                  {isSubmitting ? 'Procesando...' : `Registrar y pagar setup (${PLANS.find(p => p.id === selectedPlan)?.setup}\u20AC)`}
-                  <ArrowRight size={16} />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setStep('plans')}
-                  className="w-full text-center text-[10px] font-bold text-slate-300 hover:text-slate-500 transition-colors"
-                >
-                  Volver a los planes
-                </button>
-              </form>
-            </div>
-          </div>
-        )}
-
-        {/* ═══ STEP: SETUP PAID — Show "Get API Key" button ═══ */}
-        {step === 'setup_paid' && (
-          <div className="max-w-lg mx-auto space-y-8">
-            <div className="text-center space-y-3">
-              <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto">
-                <Check size={32} className="text-emerald-600" />
-              </div>
-              <h1 className="font-serif text-3xl font-black text-slate-900">Setup completado</h1>
-              <p className="text-slate-400 text-sm font-light">
-                Plan <span className="font-bold text-slate-600">{currentPlan?.name}</span> — setup pagado correctamente.
-              </p>
-            </div>
-
-            <div className="p-8 bg-indigo-50 border border-indigo-100 rounded-2xl space-y-4 text-center">
-              <Sparkles size={32} className="text-indigo-400 mx-auto" />
-              <h2 className="font-serif text-xl font-black text-slate-900">Genera tu API Key</h2>
-              <p className="text-xs text-indigo-700 font-light">
-                Al generar tu API key recibirás <span className="font-bold">10 renders de prueba gratis</span> para testear el widget en tu tienda.
-              </p>
-
-              {error && (
-                <div className="p-3 bg-red-50 rounded-xl border border-red-100 text-xs font-bold text-red-600">
-                  {error}
-                </div>
-              )}
-
-              <button
-                onClick={handleGetApiKey}
-                disabled={isSubmitting}
-                className="px-8 py-4 bg-indigo-600 text-white rounded-xl font-black uppercase tracking-[0.15em] text-xs hover:bg-indigo-700 transition-colors inline-flex items-center gap-2 disabled:opacity-50"
-              >
-                {isSubmitting ? 'Generando...' : 'Obtener API Key + 10 renders gratis'}
-                <ArrowRight size={16} />
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* ═══ STEP: HAS KEY — Show API key + integration + activate monthly ═══ */}
-        {(step === 'has_key' || step === 'subscribed') && (
-          <div className="max-w-lg mx-auto space-y-8">
-            <div className="text-center space-y-3">
-              <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto">
-                <Check size={32} className="text-emerald-600" />
-              </div>
-              <h1 className="font-serif text-3xl font-black text-slate-900">
-                {step === 'subscribed' ? 'Plan activo' : 'Tu cuenta está lista'}
-              </h1>
-              <p className="text-slate-400 text-sm font-light">
-                {step === 'subscribed'
-                  ? `Plan ${currentPlan?.name} — ${partnerProfile?.credits_remaining} renders disponibles`
-                  : `${partnerProfile?.credits_remaining || 10} renders de prueba disponibles`
-                }
-              </p>
-            </div>
-
-            {/* API Key — only shown when just generated */}
-            {apiKey && (
-              <div className="p-6 bg-amber-50 border border-amber-200 rounded-2xl space-y-3">
-                <div className="flex items-center gap-2">
-                  <Shield size={16} className="text-amber-600" />
-                  <span className="text-[10px] font-black text-amber-700 uppercase tracking-widest">
-                    Tu API Key — guárdala ahora
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <code className="flex-1 bg-white px-4 py-3 rounded-lg text-sm font-mono text-slate-900 border border-amber-200 break-all">
-                    {apiKey}
-                  </code>
-                  <button
-                    onClick={() => copyToClipboard(apiKey, 'key')}
-                    className="p-3 bg-white border border-amber-200 rounded-lg hover:bg-amber-100 transition-colors shrink-0"
-                  >
-                    {copied === 'key' ? <Check size={16} className="text-emerald-600" /> : <Copy size={16} className="text-amber-600" />}
-                  </button>
-                </div>
-                <p className="text-[11px] text-amber-600 font-bold">
-                  Esta key solo se muestra una vez. Si la pierdes, tendrás que generar una nueva.
-                </p>
+            {error && (
+              <div className="p-3 bg-red-50 rounded-xl border border-red-100 text-xs font-bold text-red-600">
+                {error}
               </div>
             )}
+
+            <div className="text-center">
+              <button
+                onClick={handleSubscribe}
+                disabled={isSubmitting}
+                className="px-10 py-4 bg-indigo-600 text-white rounded-xl font-black uppercase tracking-[0.15em] text-xs hover:bg-indigo-700 transition-colors inline-flex items-center gap-3 disabled:opacity-50"
+              >
+                {isSubmitting ? 'Redirecting to Stripe...' : `Subscribe — ${PLANS.find(p => p.id === selectedPlan)?.price}€/month`}
+                <ArrowRight size={16} />
+              </button>
+              <p className="text-[10px] text-slate-300 mt-3">Cancel anytime. No setup fee.</p>
+            </div>
+          </div>
+        )}
+
+        {/* ═══ STEP: SUBSCRIBED — Active plan ═══ */}
+        {step === 'subscribed' && (
+          <div className="max-w-lg mx-auto space-y-8">
+            <div className="text-center space-y-3">
+              <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto">
+                <Check size={32} className="text-emerald-600" />
+              </div>
+              <h1 className="font-serif text-3xl font-black text-slate-900">Plan active</h1>
+              <p className="text-slate-400 text-sm font-light">
+                {currentPlan?.name} — {partnerProfile?.credits_remaining} renders available
+              </p>
+            </div>
 
             {/* Integration instructions */}
             <div className="space-y-4">
               <h2 className="font-black text-slate-900 text-sm flex items-center gap-2">
                 <Globe size={16} className="text-indigo-600" />
-                Integración (2 pasos)
+                Integration
               </h2>
-
-              <div className="space-y-3">
-                <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                      Paso 1 — Pega en {'<head>'}
-                    </span>
-                    <button
-                      onClick={() => copyToClipboard(`<script src="https://agalaz.com/widget.js" data-api-key="${apiKey || partnerProfile?.api_key_prefix + '...'}"></script>`, 'script')}
-                      className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:text-indigo-800 flex items-center gap-1"
-                    >
-                      {copied === 'script' ? <Check size={12} /> : <Copy size={12} />}
-                      {copied === 'script' ? 'Copiado' : 'Copiar'}
-                    </button>
-                  </div>
-                  <code className="block text-xs font-mono text-slate-700 bg-white p-3 rounded-lg border border-slate-200 break-all">
-                    {`<script src="https://agalaz.com/widget.js" data-api-key="${apiKey || partnerProfile?.api_key_prefix + '...'}"></script>`}
-                  </code>
-                </div>
-
-                <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                      Paso 2 — Coloca en la página de producto
-                    </span>
-                    <button
-                      onClick={() => copyToClipboard('<div id="agalaz-tryon" data-garment="URL_IMAGEN_PRODUCTO"></div>', 'div')}
-                      className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:text-indigo-800 flex items-center gap-1"
-                    >
-                      {copied === 'div' ? <Check size={12} /> : <Copy size={12} />}
-                      {copied === 'div' ? 'Copiado' : 'Copiar'}
-                    </button>
-                  </div>
-                  <code className="block text-xs font-mono text-slate-700 bg-white p-3 rounded-lg border border-slate-200 break-all">
-                    {'<div id="agalaz-tryon" data-garment="URL_IMAGEN_PRODUCTO"></div>'}
-                  </code>
-                  <p className="text-[10px] text-slate-400">
-                    En Shopify: <code className="text-indigo-600">{'{{ product.featured_image | img_url }}'}</code>
-                  </p>
-                </div>
+              <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                  Widget script
+                </span>
+                <code className="block text-xs font-mono text-slate-700 bg-white p-3 rounded-lg border border-slate-200 break-all">
+                  {`<script src="https://agalaz.com/widget.js" data-api-key="${partnerProfile?.api_key_prefix || 'agz_live_'}..."></script>`}
+                </code>
               </div>
             </div>
 
-            {/* Activate monthly subscription (only if not already subscribed) */}
-            {step === 'has_key' && (
-              <div className="p-6 bg-indigo-50 border border-indigo-100 rounded-2xl space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">
-                      Prueba gratuita
-                    </span>
-                    <p className="text-sm font-bold text-indigo-900 mt-1">
-                      {partnerProfile?.credits_remaining || 0} renders restantes
-                    </p>
-                  </div>
-                  <Zap size={24} className="text-indigo-300" />
-                </div>
-                <div className="h-px bg-indigo-200" />
+            {/* Usage */}
+            <div className="p-6 bg-emerald-50 border border-emerald-100 rounded-2xl">
+              <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-xs text-indigo-700 font-light mb-3">
-                    Activa el plan mensual para obtener {currentPlan?.renders} renders/mes con recarga automática.
-                  </p>
-                  <button
-                    onClick={handleActivateSubscription}
-                    disabled={isSubmitting}
-                    className="w-full py-4 bg-indigo-600 text-white rounded-xl font-black uppercase tracking-[0.15em] text-xs hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
-                  >
-                    {isSubmitting ? 'Redirigiendo...' : `Activar plan ${currentPlan?.name} — ${currentPlan?.price}\u20AC/mes`}
-                    <ArrowRight size={14} />
-                  </button>
-                  <p className="text-[10px] text-indigo-400 mt-2 text-center">
-                    Puedes probar primero con los renders gratis.
+                  <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">
+                    {currentPlan?.name} plan active
+                  </span>
+                  <p className="text-sm font-bold text-emerald-900 mt-1">
+                    {partnerProfile?.credits_remaining} / {currentPlan?.renders} renders this month
                   </p>
                 </div>
+                <Check size={24} className="text-emerald-400" />
               </div>
-            )}
-
-            {/* Already subscribed */}
-            {step === 'subscribed' && (
-              <div className="p-6 bg-emerald-50 border border-emerald-100 rounded-2xl">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">
-                      Plan {currentPlan?.name} activo
-                    </span>
-                    <p className="text-sm font-bold text-emerald-900 mt-1">
-                      {partnerProfile?.credits_remaining} / {currentPlan?.renders} renders este mes
-                    </p>
-                  </div>
-                  <Check size={24} className="text-emerald-400" />
-                </div>
+              <div className="mt-3 h-2 bg-emerald-200 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-emerald-600 rounded-full transition-all"
+                  style={{ width: `${((partnerProfile?.credits_remaining || 0) / (currentPlan?.renders || 200)) * 100}%` }}
+                />
               </div>
-            )}
+            </div>
           </div>
         )}
       </div>
