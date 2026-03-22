@@ -77,26 +77,39 @@ export async function generateTryOnImage(
     if (modificationPrompt && lastRenderedImage) {
       promptText = `Modify the previous render (IMG ${hasGarment ? '3' : '2'}): "${modificationPrompt}". Keep the same person, change ONLY what was requested. Output one photorealistic image.`;
     } else if (hasGarment) {
-      promptText = `VIRTUAL TRY-ON: IMG1=person, IMG2=item to wear/apply.${sizeNote}
+      promptText = `VIRTUAL TRY-ON ENGINE. IMG1=person photo. IMG2=product to apply.${sizeNote}
 
-Generate ONE photorealistic image of the person from IMG1 wearing/using the item from IMG2.
+TASK: Generate ONE photorealistic image of the person from IMG1 wearing/using the product from IMG2.
 
-Rules:
-1. The person must look EXACTLY like IMG1 — same face, skin, hair, body, pose, background.
-2. Detect what IMG2 shows and apply it correctly:
-   - Clothing (shirt, dress, pants, jacket, etc) → swap the relevant clothing area
-   - Glasses/sunglasses → place on the person's face naturally
-   - Jewelry (necklace, earrings, bracelet, ring, watch) → add to the correct body part
-   - Hat/headwear → place on head naturally
-   - Shoes → replace footwear
-   - Bag/purse → add as carried accessory
-   - Tattoo → apply to visible skin naturally
-   - Nails/manicure → apply to fingernails
-   - Any other wearable item → apply where it naturally belongs
-3. Keep clothing/items that are NOT being replaced.
-4. Result must look like a real photograph with natural shadows and proportions.${hasSize ? '\n5. Adjust fit to match specified size.' : ''}
+IDENTITY PRESERVATION (critical):
+- Face, skin tone, hair, body shape, pose = IDENTICAL to IMG1
+- Background, lighting, camera angle = IDENTICAL to IMG1
+- Only modify the specific body area where the product belongs
 
-You MUST generate an image.`;
+PRODUCT DETECTION & APPLICATION — detect what IMG2 shows and apply accordingly:
+- TOPS (shirt, t-shirt, blouse, sweater, hoodie, polo) → replace upper body clothing only, keep pants/skirt/jacket if visible
+- BOTTOMS (pants, jeans, trousers, skirt, shorts, leggings) → replace lower body clothing only, keep top unchanged
+- FULL BODY (dress, jumpsuit, romper, overalls) → replace both top and bottom clothing
+- OUTERWEAR (jacket, coat, blazer, cardigan, vest) → layer OVER existing top, do not remove the shirt underneath
+- GLASSES (sunglasses, prescription frames, goggles, reading glasses) → place on face bridge naturally, adjust to face width, add realistic reflections/shadows
+- JEWELRY:
+  • Necklace/pendant/choker → drape around neck naturally, show chain following collarbone
+  • Earrings → attach to earlobes, match ear position and angle
+  • Bracelet/bangle/watch → place on wrist with correct perspective
+  • Ring → place on finger naturally
+- HEADWEAR (hat, cap, beanie, headband, turban, crown) → place on head, adjust hair visibility naturally
+- SHOES (sneakers, heels, boots, sandals, loafers, flats) → replace footwear, match ground plane and shadows
+- BAGS (handbag, backpack, clutch, tote, crossbody) → add as held/worn accessory with natural arm position
+- TATTOO (any body art design) → apply to visible skin as if permanently inked, follow skin contours and muscle definition
+- NAIL ART (manicure, nail polish, nail design) → apply to fingernails with correct perspective, show on all visible fingers
+
+QUALITY RULES:
+1. Result must look like a real photograph — proper shadows, wrinkles, fabric texture, light interaction
+2. Fabric must follow body contours naturally — no floating or flat-looking garments
+3. Keep ALL items that are NOT being replaced (other clothing, accessories, background objects)
+4. Colors and patterns from IMG2 must be preserved exactly${hasSize ? '\n5. Adjust garment fit to match specified size — show realistic draping for the size' : ''}
+
+You MUST output exactly one photorealistic image.`;
     } else {
       promptText = `Enhance this fashion photo. Keep person, clothing, pose identical. Improve lighting and quality. You MUST generate an image.`;
     }
@@ -111,7 +124,7 @@ You MUST generate an image.`;
         const currentParts = attempt === 1 ? parts : [
           ...parts.slice(0, -1),
           { text: hasGarment
-            ? `Put the item from IMG2 on the person from IMG1. Keep person identical. Photorealistic output. You MUST generate an image.`
+            ? `Virtual try-on: detect what the product in IMG2 is (clothing, glasses, jewelry, hat, shoes, bag, tattoo, or nails) and apply it to the person in IMG1. Keep the person identical — same face, body, pose, background. Photorealistic result. You MUST generate an image.`
             : `Enhance this photo. Keep person identical. You MUST generate an image.`
           },
         ];

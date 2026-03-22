@@ -18,13 +18,20 @@ import {
   TrendingDown,
   TrendingUp,
   Code2,
+  Glasses,
+  Gem,
+  Crown,
+  Footprints,
+  ShoppingBag,
+  Pen,
+  Hand,
 } from 'lucide-react';
 import { useLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
 
 const STEP_ICONS = [Camera, Layers, Shirt];
 const FEATURE_ICONS = [ShieldCheck, Target, Zap];
-const CAPABILITY_ICONS = [Palette, Ruler, Shirt, User];
+const CAPABILITY_ICONS = [Shirt, Glasses, Gem, Crown, Footprints, ShoppingBag, Pen, Hand];
 
 const COLOR_SWATCHES = [
   { color: 'bg-red-500', ring: 'ring-red-500' },
@@ -46,14 +53,18 @@ const landingText = {
       cta: 'Explore Colors',
     },
     capabilities: {
-      label: 'What You Can Do',
-      title: 'Unlimited',
-      titleHighlight: 'Possibilities.',
+      label: 'What You Can Try On',
+      title: 'Not Just',
+      titleHighlight: 'Clothing.',
       items: [
-        { title: 'Any Color', desc: 'Try the same garment in infinite color combinations instantly.' },
-        { title: 'Any Size', desc: 'See how different sizes look on your actual body proportions.' },
-        { title: 'Any Style', desc: 'From casual to formal — see every style on you before buying.' },
-        { title: 'Your Body', desc: 'AI that respects your real shape, proportions and skin tone.' },
+        { title: 'Clothing', desc: 'Shirts, dresses, pants, jackets, coats, skirts, sweaters, hoodies — any garment, any style.' },
+        { title: 'Glasses', desc: 'Sunglasses, prescription frames, goggles — see how they look on your face before buying.' },
+        { title: 'Jewelry', desc: 'Necklaces, earrings, bracelets, rings, watches — placed on the correct body part automatically.' },
+        { title: 'Headwear', desc: 'Hats, caps, beanies, headbands — see how they fit with your face and hair.' },
+        { title: 'Shoes', desc: 'Sneakers, heels, boots, sandals — see them on your feet with realistic shadows.' },
+        { title: 'Bags', desc: 'Handbags, backpacks, clutches, totes — held or worn naturally on your body.' },
+        { title: 'Tattoos', desc: 'Try any tattoo design on your skin — follows your body contours and muscle definition.' },
+        { title: 'Nail Art', desc: 'Manicure styles, nail polish colors — preview any nail design on your actual hands.' },
       ],
     },
     tryBefore: {
@@ -117,14 +128,18 @@ const landingText = {
       cta: 'Explorar Colores',
     },
     capabilities: {
-      label: 'Qué Puedes Hacer',
-      title: 'Posibilidades',
-      titleHighlight: 'Ilimitadas.',
+      label: 'Qué Puedes Probar',
+      title: 'No Solo',
+      titleHighlight: 'Ropa.',
       items: [
-        { title: 'Cualquier Color', desc: 'Prueba la misma prenda en infinitas combinaciones de color al instante.' },
-        { title: 'Cualquier Talla', desc: 'Ve cómo diferentes tallas se ven en las proporciones reales de tu cuerpo.' },
-        { title: 'Cualquier Estilo', desc: 'De casual a formal — ve cada estilo en ti antes de comprar.' },
-        { title: 'Tu Cuerpo', desc: 'IA que respeta tu forma real, proporciones y tono de piel.' },
+        { title: 'Ropa', desc: 'Camisetas, vestidos, pantalones, chaquetas, abrigos, faldas, sudaderas — cualquier prenda, cualquier estilo.' },
+        { title: 'Gafas', desc: 'Gafas de sol, monturas graduadas, gafas deportivas — ve cómo quedan en tu cara antes de comprar.' },
+        { title: 'Joyería', desc: 'Collares, pendientes, pulseras, anillos, relojes — colocados automáticamente en la parte correcta del cuerpo.' },
+        { title: 'Sombreros', desc: 'Gorras, gorros, diademas, turbantes — ve cómo combinan con tu cara y pelo.' },
+        { title: 'Zapatos', desc: 'Zapatillas, tacones, botas, sandalias — pruébalos con sombras realistas.' },
+        { title: 'Bolsos', desc: 'Bolsos de mano, mochilas, clutches, totes — llevados de forma natural en tu cuerpo.' },
+        { title: 'Tatuajes', desc: 'Prueba cualquier diseño de tatuaje en tu piel — sigue los contornos de tu cuerpo.' },
+        { title: 'Uñas', desc: 'Estilos de manicura, colores de esmalte — previsualiza cualquier diseño en tus manos.' },
       ],
     },
     tryBefore: {
@@ -370,18 +385,18 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
             {lt.capabilities.items.map((item, i) => {
-              const Icon = CAPABILITY_ICONS[i];
+              const Icon = CAPABILITY_ICONS[i] || Sparkles;
               return (
-                <div key={i} className="group p-8 border border-slate-200 hover:border-indigo-300 transition-colors hover:shadow-lg hover:shadow-indigo-50 bg-white">
-                  <div className="w-14 h-14 bg-slate-900 group-hover:bg-indigo-600 transition-colors flex items-center justify-center mb-6">
-                    <Icon size={24} className="text-white" />
+                <div key={i} className="group p-5 md:p-6 border border-slate-200 hover:border-indigo-300 transition-colors hover:shadow-lg hover:shadow-indigo-50 bg-white rounded-xl">
+                  <div className="w-10 h-10 bg-slate-900 group-hover:bg-indigo-600 transition-colors flex items-center justify-center mb-4 rounded-lg">
+                    <Icon size={18} className="text-white" />
                   </div>
-                  <h3 className="font-serif text-xl font-bold text-slate-900 mb-3 tracking-tight">
+                  <h3 className="font-black text-slate-900 text-sm mb-2 tracking-tight">
                     {item.title}
                   </h3>
-                  <p className="text-slate-500 text-sm leading-relaxed font-light">
+                  <p className="text-slate-400 text-xs leading-relaxed font-light">
                     {item.desc}
                   </p>
                 </div>
