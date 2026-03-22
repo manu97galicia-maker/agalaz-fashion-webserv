@@ -33,8 +33,20 @@ export async function generateTryOnImage(
 
     const cleanBase64 = (s: string) => s.replace(/^data:image\/[^;]+;base64,/, '');
 
+    // Detect actual mime type from base64 magic bytes
+    const detectMime = (b64: string): string => {
+      if (b64.startsWith('/9j/')) return 'image/jpeg';
+      if (b64.startsWith('iVBOR')) return 'image/png';
+      if (b64.startsWith('UklGR')) return 'image/webp';
+      if (b64.startsWith('R0lG')) return 'image/gif';
+      return 'image/jpeg';
+    };
+
+    const cleanUser = trimBase64(cleanBase64(userImage));
+    const userMime = detectMime(cleanUser);
+
     const parts: any[] = [
-      { inlineData: { mimeType: 'image/jpeg', data: trimBase64(cleanBase64(userImage)) } },
+      { inlineData: { mimeType: userMime, data: cleanUser } },
     ];
 
     if (clothingImage) {
@@ -108,7 +120,7 @@ You MUST generate an image.`;
 
         const response = await ai.models.generateContent({
           model: MODEL,
-          contents: { parts: currentParts },
+          contents: [{ role: 'user', parts: currentParts }],
           config: {
             responseModalities: ["TEXT", "IMAGE"],
           },

@@ -4,6 +4,17 @@ import { validateApiKey, deductPartnerCredit } from '@/lib/partners';
 
 export const maxDuration = 120;
 
+// Detect actual image MIME type from base64 data (magic bytes)
+function detectMimeType(base64: string): string {
+  const header = base64.substring(0, 16);
+  if (header.startsWith('/9j/')) return 'image/jpeg';
+  if (header.startsWith('iVBOR')) return 'image/png';
+  if (header.startsWith('UklGR')) return 'image/webp';
+  if (header.startsWith('AAAA') && base64.substring(4, 8) === 'GAAH') return 'image/avif';
+  if (header.startsWith('R0lG')) return 'image/gif';
+  return 'image/jpeg'; // fallback
+}
+
 // CORS headers for cross-origin widget/iframe requests
 function corsHeaders(origin?: string | null) {
   return {
@@ -91,15 +102,15 @@ export async function POST(request: NextRequest) {
 
       // Try multiple fetch strategies
       const fetchHeaders: (Record<string, string> | undefined)[] = [
-        // Strategy 1: Full browser-like headers
+        // Strategy 1: Request ONLY JPEG/PNG (Gemini handles these best)
         {
-          'Accept': 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
+          'Accept': 'image/jpeg,image/png,image/*;q=0.5',
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
           'Referer': new URL(garmentUrl).origin + '/',
         },
         // Strategy 2: Minimal headers
         {
-          'Accept': '*/*',
+          'Accept': 'image/jpeg,image/png',
           'User-Agent': 'Mozilla/5.0 (compatible; Agalaz/1.0)',
         },
         // Strategy 3: No custom headers
@@ -124,10 +135,9 @@ export async function POST(request: NextRequest) {
             const buffer = await garmentRes.arrayBuffer();
             if (buffer.byteLength > 100) {
               finalClothingImage = Buffer.from(buffer).toString('base64');
-              if (contentType.startsWith('image/')) {
-                garmentMimeType = contentType.split(';')[0].trim();
-              }
-              console.log(`Garment loaded via strategy ${i + 1}: ${Math.round(buffer.byteLength / 1024)}KB`);
+              // Detect ACTUAL format from bytes (don't trust Content-Type — CDNs lie)
+              garmentMimeType = detectMimeType(finalClothingImage);
+              console.log(`Garment loaded via strategy ${i + 1}: ${Math.round(buffer.byteLength / 1024)}KB, detected: ${garmentMimeType}, header-type: ${contentType}`);
               break;
             }
           }
@@ -151,8 +161,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Detect actual MIME types from bytes
+    const userMimeType = detectMimeType(userImage);
+    if (finalClothingImage && !garmentMimeType.startsWith('image/')) {
+      garmentMimeType = detectMimeType(finalClothingImage);
+    }
+
     const debugInfo = {
       userSize: userImage.length,
+      userMime: userMimeType,
       garmentSize: finalClothingImage ? finalClothingImage.length : 0,
       garmentUrl: garmentUrl || 'none',
       garmentMime: garmentMimeType,
