@@ -578,116 +578,297 @@ function PartnersContent() {
           </>
         )}
 
-        {/* ═══ STEP: HAS_KEY — Show API key + integration ═══ */}
+        {/* ═══ STEP: HAS_KEY — Full dashboard + detailed integration ═══ */}
         {step === 'has_key' && (
-          <div className="max-w-lg mx-auto space-y-8">
+          <div className="max-w-3xl mx-auto space-y-10">
+            {/* Header */}
             <div className="text-center space-y-3">
               <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto">
                 <Check size={32} className="text-emerald-600" />
               </div>
               <h1 className="font-serif text-3xl font-black text-slate-900">Your account is ready</h1>
               <p className="text-slate-400 text-sm font-light">
-                {partnerProfile?.credits_remaining || 5} free renders available
+                {partnerProfile?.credits_remaining || 5} free renders available — follow the steps below to go live
               </p>
-            </div>
-
-            {/* API Key — only shown when just generated */}
-            {apiKey && (
-              <div className="p-6 bg-amber-50 border border-amber-200 rounded-2xl space-y-3">
-                <div className="flex items-center gap-2">
-                  <Shield size={16} className="text-amber-600" />
-                  <span className="text-[10px] font-black text-amber-700 uppercase tracking-widest">
-                    Your API Key — save it now
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <code className="flex-1 bg-white px-4 py-3 rounded-lg text-sm font-mono text-slate-900 border border-amber-200 break-all">
-                    {apiKey}
-                  </code>
-                  <button
-                    onClick={() => copyToClipboard(apiKey, 'key')}
-                    className="p-3 bg-white border border-amber-200 rounded-lg hover:bg-amber-100 transition-colors shrink-0"
-                  >
-                    {copied === 'key' ? <Check size={16} className="text-emerald-600" /> : <Copy size={16} className="text-amber-600" />}
-                  </button>
-                </div>
-                <p className="text-[11px] text-amber-600 font-bold">
-                  This key is shown only once. If you lose it, you'll need to generate a new one.
-                </p>
-              </div>
-            )}
-
-            {/* Integration instructions */}
-            <div className="space-y-4">
-              <h2 className="font-black text-slate-900 text-sm flex items-center gap-2">
-                <Globe size={16} className="text-indigo-600" />
-                Integration (2 steps)
-              </h2>
-
-              <div className="space-y-3">
-                <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                      Step 1 — Paste in {'<head>'}
-                    </span>
-                    <button
-                      onClick={() => copyToClipboard(`<script src="https://agalaz.com/widget.js" data-api-key="${apiKey || partnerProfile?.api_key_prefix + '...'}"></script>`, 'script')}
-                      className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:text-indigo-800 flex items-center gap-1"
-                    >
-                      {copied === 'script' ? <Check size={12} /> : <Copy size={12} />}
-                      {copied === 'script' ? 'Copied' : 'Copy'}
-                    </button>
-                  </div>
-                  <code className="block text-xs font-mono text-slate-700 bg-white p-3 rounded-lg border border-slate-200 break-all">
-                    {`<script src="https://agalaz.com/widget.js" data-api-key="${apiKey || partnerProfile?.api_key_prefix + '...'}"></script>`}
-                  </code>
-                </div>
-
-                <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                      Step 2 — Place on product page
-                    </span>
-                    <button
-                      onClick={() => copyToClipboard('<div id="agalaz-tryon" data-garment="PRODUCT_IMAGE_URL"></div>', 'div')}
-                      className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:text-indigo-800 flex items-center gap-1"
-                    >
-                      {copied === 'div' ? <Check size={12} /> : <Copy size={12} />}
-                      {copied === 'div' ? 'Copied' : 'Copy'}
-                    </button>
-                  </div>
-                  <code className="block text-xs font-mono text-slate-700 bg-white p-3 rounded-lg border border-slate-200 break-all">
-                    {'<div id="agalaz-tryon" data-garment="PRODUCT_IMAGE_URL"></div>'}
-                  </code>
-                  <p className="text-[10px] text-slate-400">
-                    Shopify: <code className="text-indigo-600">{'{{ product.featured_image | img_url }}'}</code>
-                  </p>
-                </div>
-              </div>
             </div>
 
             {/* Trial credits counter */}
             <div className="p-6 bg-indigo-50 border border-indigo-100 rounded-2xl space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">
-                    Free Trial
-                  </span>
+                  <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">Free Trial</span>
                   <p className="text-sm font-bold text-indigo-900 mt-1">
-                    {partnerProfile?.credits_remaining || 0} renders remaining
+                    {partnerProfile?.credits_remaining || 0} / 5 renders remaining
                   </p>
                 </div>
                 <Zap size={24} className="text-indigo-300" />
               </div>
               <div className="h-2 bg-indigo-200 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-indigo-600 rounded-full transition-all"
-                  style={{ width: `${((partnerProfile?.credits_remaining || 0) / 5) * 100}%` }}
-                />
+                <div className="h-full bg-indigo-600 rounded-full transition-all" style={{ width: `${((partnerProfile?.credits_remaining || 0) / 5) * 100}%` }} />
               </div>
               <p className="text-[10px] text-indigo-400">
-                When your trial renders run out, choose a plan to continue.
+                Each time a customer generates a virtual try-on, 1 render credit is consumed. When your 5 free renders are used, you can subscribe to a plan to continue.
               </p>
+            </div>
+
+            {/* ── 1. API KEY ── */}
+            {apiKey && (
+              <div className="space-y-3">
+                <h2 className="font-black text-slate-900 flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-black shrink-0">1</div>
+                  Save your API Key
+                </h2>
+                <div className="p-6 bg-amber-50 border border-amber-200 rounded-2xl space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Shield size={16} className="text-amber-600" />
+                    <span className="text-[10px] font-black text-amber-700 uppercase tracking-widest">
+                      Secret key — save it now
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <code className="flex-1 bg-white px-4 py-3 rounded-lg text-sm font-mono text-slate-900 border border-amber-200 break-all">
+                      {apiKey}
+                    </code>
+                    <button
+                      onClick={() => copyToClipboard(apiKey, 'key')}
+                      className="p-3 bg-white border border-amber-200 rounded-lg hover:bg-amber-100 transition-colors shrink-0"
+                    >
+                      {copied === 'key' ? <Check size={16} className="text-emerald-600" /> : <Copy size={16} className="text-amber-600" />}
+                    </button>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[11px] text-amber-600 font-bold">
+                      This key is shown only once. Copy it and store it somewhere safe.
+                    </p>
+                    <p className="text-[10px] text-amber-500">
+                      Your key authenticates all try-on requests from your store. It is hashed on our servers — we cannot retrieve it for you. If you lose it, you will need to generate a new one.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ── 2. INTEGRATION GUIDE ── */}
+            <div className="space-y-4">
+              <h2 className="font-black text-slate-900 flex items-center gap-2">
+                <div className="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-black shrink-0">{apiKey ? '2' : '1'}</div>
+                Install the widget on your store
+              </h2>
+              <p className="text-slate-400 text-xs font-light leading-relaxed">
+                The Agalaz widget consists of two pieces: a <strong className="text-slate-600">script tag</strong> that loads our widget engine, and a <strong className="text-slate-600">div element</strong> on each product page where the &ldquo;Try it on&rdquo; button will appear. The widget automatically detects the product image on Shopify and WooCommerce. For other platforms, you pass the image URL manually.
+              </p>
+
+              {/* Step 2a: Script tag */}
+              <div className="p-5 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                    Step A — Add the script to your store&apos;s {'<head>'}
+                  </span>
+                  <button
+                    onClick={() => copyToClipboard(`<script src="https://agalaz.com/widget.js" data-api-key="${apiKey || partnerProfile?.api_key_prefix + '...'}"></script>`, 'script')}
+                    className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:text-indigo-800 flex items-center gap-1"
+                  >
+                    {copied === 'script' ? <Check size={12} /> : <Copy size={12} />}
+                    {copied === 'script' ? 'Copied' : 'Copy'}
+                  </button>
+                </div>
+                <code className="block text-xs font-mono text-slate-700 bg-white p-3 rounded-lg border border-slate-200 break-all">
+                  {`<script src="https://agalaz.com/widget.js" data-api-key="${apiKey || partnerProfile?.api_key_prefix + '...'}"></script>`}
+                </code>
+                <p className="text-[10px] text-slate-400 leading-relaxed">
+                  This script is lightweight (~3KB). It loads asynchronously and does not affect your page speed. It only activates on pages that contain the try-on div below.
+                </p>
+              </div>
+
+              {/* Step 2b: Div */}
+              <div className="p-5 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                    Step B — Place the try-on button on product pages
+                  </span>
+                  <button
+                    onClick={() => copyToClipboard('<div id="agalaz-tryon" data-garment="PRODUCT_IMAGE_URL"></div>', 'div')}
+                    className="text-[9px] font-black text-indigo-600 uppercase tracking-widest hover:text-indigo-800 flex items-center gap-1"
+                  >
+                    {copied === 'div' ? <Check size={12} /> : <Copy size={12} />}
+                    {copied === 'div' ? 'Copied' : 'Copy'}
+                  </button>
+                </div>
+                <code className="block text-xs font-mono text-slate-700 bg-white p-3 rounded-lg border border-slate-200 break-all">
+                  {'<div id="agalaz-tryon" data-garment="PRODUCT_IMAGE_URL"></div>'}
+                </code>
+                <p className="text-[10px] text-slate-400 leading-relaxed">
+                  Place this div where you want the &ldquo;Try it on with AI&rdquo; button to appear — typically below the product image or near the &ldquo;Add to cart&rdquo; button. Replace <code className="text-indigo-600 font-bold">PRODUCT_IMAGE_URL</code> with the direct URL of the product image (must be a real image URL ending in .jpg/.png/.webp, not a page URL).
+                </p>
+              </div>
+            </div>
+
+            {/* ── 3. PLATFORM GUIDES ── */}
+            <div className="space-y-4">
+              <h2 className="font-black text-slate-900 flex items-center gap-2">
+                <div className="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-black shrink-0">{apiKey ? '3' : '2'}</div>
+                Platform-specific instructions
+              </h2>
+
+              {/* Shopify */}
+              <div className="p-5 border border-slate-200 rounded-xl space-y-3">
+                <h3 className="font-black text-slate-900 text-sm flex items-center gap-2">
+                  <span className="w-5 h-5 rounded bg-green-100 flex items-center justify-center text-[10px]">🛒</span>
+                  Shopify
+                </h3>
+                <ol className="space-y-2 text-xs text-slate-600 list-decimal list-inside">
+                  <li>Go to <strong>Online Store → Themes → Edit code</strong></li>
+                  <li>Open <code className="bg-slate-100 px-1.5 py-0.5 rounded text-indigo-600">theme.liquid</code></li>
+                  <li>Paste the <code className="bg-slate-100 px-1.5 py-0.5 rounded text-indigo-600">{'<script>'}</code> tag just before <code className="bg-slate-100 px-1.5 py-0.5 rounded text-indigo-600">{'</head>'}</code></li>
+                  <li>Open your product template (e.g. <code className="bg-slate-100 px-1.5 py-0.5 rounded text-indigo-600">sections/main-product.liquid</code>)</li>
+                  <li>Add the div where you want the button:</li>
+                </ol>
+                <code className="block text-xs font-mono text-slate-700 bg-white p-3 rounded-lg border border-slate-200 break-all">
+                  {'<div id="agalaz-tryon" data-garment="{{ product.featured_image | image_url: width: 800 }}"></div>'}
+                </code>
+                <p className="text-[10px] text-emerald-600 font-bold">
+                  The widget also auto-detects Shopify product images — so even without data-garment, it usually works automatically.
+                </p>
+              </div>
+
+              {/* WooCommerce */}
+              <div className="p-5 border border-slate-200 rounded-xl space-y-3">
+                <h3 className="font-black text-slate-900 text-sm flex items-center gap-2">
+                  <span className="w-5 h-5 rounded bg-purple-100 flex items-center justify-center text-[10px]">🔮</span>
+                  WooCommerce (WordPress)
+                </h3>
+                <ol className="space-y-2 text-xs text-slate-600 list-decimal list-inside">
+                  <li>Install a plugin like <strong>&ldquo;Insert Headers and Footers&rdquo;</strong> (by WPCode)</li>
+                  <li>Paste the <code className="bg-slate-100 px-1.5 py-0.5 rounded text-indigo-600">{'<script>'}</code> tag in the Header section</li>
+                  <li>To add the button, edit your product template or use a shortcode plugin to insert:</li>
+                </ol>
+                <code className="block text-xs font-mono text-slate-700 bg-white p-3 rounded-lg border border-slate-200 break-all">
+                  {'<div id="agalaz-tryon"></div>'}
+                </code>
+                <p className="text-[10px] text-emerald-600 font-bold">
+                  WooCommerce product images are auto-detected — no data-garment attribute needed.
+                </p>
+              </div>
+
+              {/* PrestaShop / Magento / Other */}
+              <div className="p-5 border border-slate-200 rounded-xl space-y-3">
+                <h3 className="font-black text-slate-900 text-sm flex items-center gap-2">
+                  <span className="w-5 h-5 rounded bg-blue-100 flex items-center justify-center text-[10px]">🌐</span>
+                  PrestaShop, Magento, Wix, or any other platform
+                </h3>
+                <ol className="space-y-2 text-xs text-slate-600 list-decimal list-inside">
+                  <li>Add the script tag to the global header/head of your store</li>
+                  <li>On your product page template, add the div with <code className="bg-slate-100 px-1.5 py-0.5 rounded text-indigo-600">data-garment</code> pointing to the product image URL</li>
+                  <li>Make sure the URL is a <strong>direct image link</strong> (e.g. <code className="bg-slate-100 px-1.5 py-0.5 rounded text-indigo-600">https://cdn.store.com/product.jpg</code>), not a page URL</li>
+                </ol>
+                <p className="text-[10px] text-slate-400 leading-relaxed">
+                  For platforms where the widget can&apos;t auto-detect images, the <code className="text-indigo-600">data-garment</code> attribute is required. The URL must return an actual image file (JPEG, PNG, or WebP) — not an HTML page.
+                </p>
+              </div>
+            </div>
+
+            {/* ── 4. HOW IT WORKS FOR YOUR CUSTOMERS ── */}
+            <div className="space-y-4">
+              <h2 className="font-black text-slate-900 flex items-center gap-2">
+                <div className="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-black shrink-0">{apiKey ? '4' : '3'}</div>
+                How it works for your customers
+              </h2>
+              <div className="grid md:grid-cols-4 gap-4">
+                {[
+                  { num: '1', title: 'See the button', desc: 'A "Try it on with AI" button appears on your product pages, next to the product image.' },
+                  { num: '2', title: 'Upload a photo', desc: 'Your customer uploads a selfie, half body, or full body photo. Photos are never stored — zero data retention.' },
+                  { num: '3', title: 'AI generates the result', desc: 'In ~10 seconds, our AI generates a photorealistic image of the customer wearing the product. 1 render credit is used.' },
+                  { num: '4', title: 'Buy with confidence', desc: 'The customer sees exactly how the product looks on their real body. Fewer returns, higher conversion, happier customers.' },
+                ].map((s, i) => (
+                  <div key={i} className="p-4 border border-slate-100 rounded-xl space-y-2 text-center">
+                    <div className="w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center font-black text-sm mx-auto">{s.num}</div>
+                    <h4 className="font-black text-slate-900 text-xs">{s.title}</h4>
+                    <p className="text-[10px] text-slate-400 font-light leading-relaxed">{s.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ── 5. WHAT CAN CUSTOMERS TRY ON ── */}
+            <div className="space-y-4">
+              <h2 className="font-black text-slate-900 flex items-center gap-2">
+                <div className="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-black shrink-0">{apiKey ? '5' : '4'}</div>
+                Supported items
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {[
+                  { item: 'Clothing', examples: 'Shirts, dresses, pants, jackets, coats, skirts' },
+                  { item: 'Glasses', examples: 'Sunglasses, prescription frames, goggles' },
+                  { item: 'Jewelry', examples: 'Necklaces, earrings, bracelets, rings, watches' },
+                  { item: 'Headwear', examples: 'Hats, caps, beanies, headbands' },
+                  { item: 'Shoes', examples: 'Sneakers, heels, boots, sandals' },
+                  { item: 'Bags', examples: 'Handbags, backpacks, clutches' },
+                  { item: 'Tattoos', examples: 'Temporary tattoos, body art designs' },
+                  { item: 'Nail art', examples: 'Manicure styles, nail polish colors' },
+                ].map((cat, i) => (
+                  <div key={i} className="p-3 bg-slate-50 border border-slate-100 rounded-xl">
+                    <h4 className="font-black text-slate-900 text-xs">{cat.item}</h4>
+                    <p className="text-[10px] text-slate-400 mt-1">{cat.examples}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[10px] text-slate-300">
+                The AI automatically detects what type of item is in the garment image and applies it to the correct body area.
+              </p>
+            </div>
+
+            {/* ── 6. SECURITY & PRIVACY ── */}
+            <div className="space-y-3">
+              <h2 className="font-black text-slate-900 flex items-center gap-2">
+                <div className="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-black shrink-0">{apiKey ? '6' : '5'}</div>
+                Security & privacy
+              </h2>
+              <div className="grid md:grid-cols-3 gap-4">
+                {[
+                  { title: 'Domain allowlisting', desc: 'Your API key only works from your registered domain. Requests from unauthorized domains are blocked automatically.' },
+                  { title: 'Zero data retention', desc: 'Customer photos are processed in real-time and immediately discarded. We never store, log, or train on customer images.' },
+                  { title: 'SHA-256 hashed keys', desc: 'Your API key is hashed before storage. Even if our database were compromised, your key cannot be recovered.' },
+                ].map((s, i) => (
+                  <div key={i} className="p-4 border border-slate-100 rounded-xl space-y-2">
+                    <Shield size={16} className="text-emerald-600" />
+                    <h4 className="font-black text-slate-900 text-xs">{s.title}</h4>
+                    <p className="text-[10px] text-slate-400 font-light leading-relaxed">{s.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ── WHAT'S NEXT ── */}
+            <div className="p-6 bg-slate-50 border border-slate-200 rounded-2xl space-y-4">
+              <h3 className="font-black text-slate-900 text-sm">What happens next?</h3>
+              <div className="space-y-3">
+                {[
+                  { status: 'now', label: 'Free trial active', desc: `You have ${partnerProfile?.credits_remaining || 5} renders to test the widget on your real store with real customers.` },
+                  { status: 'soon', label: 'Trial ends', desc: 'When your 5 renders are used, the widget pauses and you\'ll see the option to subscribe.' },
+                  { status: 'later', label: 'Choose a plan', desc: 'Starter (€150/mo, 200 renders) or Growth (€499/mo, 1,000 renders). No setup fee. Cancel anytime.' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <div className={`w-2 h-2 rounded-full mt-1.5 shrink-0 ${
+                      item.status === 'now' ? 'bg-emerald-500' : item.status === 'soon' ? 'bg-amber-400' : 'bg-slate-300'
+                    }`} />
+                    <div>
+                      <span className="text-xs font-black text-slate-900">{item.label}</span>
+                      <p className="text-[10px] text-slate-400 mt-0.5">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ── NEED HELP ── */}
+            <div className="text-center space-y-2 pt-4">
+              <p className="text-xs text-slate-400">
+                Need help with the integration? Contact us at{' '}
+                <a href="mailto:partners@agalaz.com" className="text-indigo-600 font-bold hover:text-indigo-800">partners@agalaz.com</a>
+              </p>
+              <Link href="/blog/virtual-dressing-room-online-free" className="text-[10px] text-indigo-500 font-bold hover:text-indigo-700 transition-colors inline-block">
+                Learn more: What is a Virtual Dressing Room? →
+              </Link>
             </div>
           </div>
         )}
