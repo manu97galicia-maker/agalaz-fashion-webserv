@@ -12,12 +12,7 @@ import {
   Sparkles,
   Target,
   Palette,
-  Ruler,
-  User,
   Store,
-  TrendingDown,
-  TrendingUp,
-  Code2,
   Glasses,
   Gem,
   Crown,
@@ -614,6 +609,18 @@ export default function HomePage() {
             })}
           </div>
 
+          {/* Demo video */}
+          <div className="mt-16 max-w-3xl mx-auto">
+            <video
+              src="/agalaz-tryon-demo.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full rounded-2xl shadow-2xl shadow-slate-200 border border-slate-200"
+            />
+          </div>
+
           <div className="text-center mt-14">
             <Link
               href="/try-on"
@@ -661,141 +668,30 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Partners / B2B Section */}
-      <section id="partners" className="py-24 md:py-32 bg-white border-t border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          {/* Header */}
-          <div className="text-center mb-16">
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 mb-6 block">
-              <Store size={14} className="inline mr-2 -mt-0.5" />
-              {lt.partners.label}
-            </span>
-            <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-slate-900 tracking-tight leading-[0.9]">
-              {lt.partners.title}{' '}
-              <span className="italic text-slate-400">{lt.partners.titleHighlight}</span>
-            </h2>
-            <p className="text-slate-500 mt-8 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed">
-              {lt.partners.subtitle}
-            </p>
-          </div>
-
-          {/* Pricing cards */}
-          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-20">
-            {/* Starter */}
-            <div className="p-8 border-2 border-slate-200 rounded-2xl hover:border-slate-300 transition-all">
-              <h3 className="font-black text-slate-900 text-lg">Starter</h3>
-              <div className="flex items-baseline gap-1 mt-2">
-                <span className="font-serif text-4xl font-black text-slate-900">150</span>
-                <span className="text-slate-400 text-sm font-bold">&euro;{lt.partners.month}</span>
-              </div>
-              <p className="text-[10px] text-slate-400 mt-1">+ 250&euro; {lt.partners.setup}</p>
-              <ul className="mt-6 space-y-2.5">
-                {['200 ' + lt.partners.renders, 'Widget personalizable', lang === 'es' ? 'Soporte por email' : 'Email support', 'Dashboard', '0,63\u20AC' + lt.partners.extraRender].map((f, i) => (
-                  <li key={i} className="flex items-center gap-2 text-xs text-slate-600">
-                    <ShieldCheck size={14} className="text-emerald-500 shrink-0" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/partners" className="block mt-6 w-full py-3 bg-slate-100 text-slate-600 rounded-xl text-center text-xs font-black uppercase tracking-widest hover:bg-slate-200 transition-colors">
-                {lt.partners.cta}
-              </Link>
-            </div>
-
-            {/* Growth */}
-            <div className="relative p-8 border-2 border-indigo-600 rounded-2xl shadow-lg shadow-indigo-100">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-indigo-600 text-white text-[9px] font-black uppercase tracking-widest rounded-full">
-                {lt.partners.popular}
-              </div>
-              <h3 className="font-black text-slate-900 text-lg">Growth</h3>
-              <div className="flex items-baseline gap-1 mt-2">
-                <span className="font-serif text-4xl font-black text-slate-900">499</span>
-                <span className="text-slate-400 text-sm font-bold">&euro;{lt.partners.month}</span>
-              </div>
-              <p className="text-[10px] text-slate-400 mt-1">+ 499&euro; {lt.partners.setup}</p>
-              <ul className="mt-6 space-y-2.5">
-                {['1.000 ' + lt.partners.renders, 'Widget personalizable', lang === 'es' ? 'Soporte prioritario' : 'Priority support', 'Dashboard + analytics', 'Onboarding call', '0,50\u20AC' + lt.partners.extraRender].map((f, i) => (
-                  <li key={i} className="flex items-center gap-2 text-xs text-slate-600">
-                    <ShieldCheck size={14} className="text-emerald-500 shrink-0" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/partners" className="block mt-6 w-full py-3 bg-indigo-600 text-white rounded-xl text-center text-xs font-black uppercase tracking-widest hover:bg-indigo-700 transition-colors">
-                {lt.partners.cta}
-              </Link>
-            </div>
-          </div>
-
-          {/* ROI Examples */}
-          <div className="max-w-4xl mx-auto">
-            <h3 className="font-serif text-3xl md:text-4xl font-black text-slate-900 tracking-tight text-center mb-10">
-              {lt.partners.casesTitle}
-            </h3>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {lt.partners.cases.map((c, i) => (
-                <div key={i} className="p-6 bg-slate-50 border border-slate-200 rounded-2xl space-y-4 hover:shadow-lg hover:shadow-slate-100 transition-all">
-                  <div>
-                    <h4 className="font-black text-slate-900 text-sm">{c.name}</h4>
-                    <p className="text-[10px] text-slate-400 mt-1">
-                      {c.orders} {lang === 'es' ? 'pedidos/mes' : 'orders/mo'} &middot; {c.ticket}&euro; ticket &middot; {c.returns} {lang === 'es' ? 'devoluciones' : 'returns'}
-                    </p>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="flex items-center gap-1.5 text-[10px] text-slate-500">
-                        <TrendingDown size={12} className="text-emerald-500" />
-                        {lt.partners.savingsLabel}
-                      </span>
-                      <span className="text-xs font-black text-emerald-600">+{c.savings}&euro;</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="flex items-center gap-1.5 text-[10px] text-slate-500">
-                        <TrendingUp size={12} className="text-indigo-500" />
-                        {lt.partners.extraSalesLabel}
-                      </span>
-                      <span className="text-xs font-black text-indigo-600">+{c.extraSales.toLocaleString()}&euro;</span>
-                    </div>
-                    <div className="h-px bg-slate-200" />
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-black text-slate-700">{lt.partners.totalLabel}</span>
-                      <span className="text-sm font-black text-slate-900">+{c.total.toLocaleString()}&euro;</span>
-                    </div>
-                  </div>
-
-                  <div className="p-3 bg-emerald-50 border border-emerald-100 rounded-xl text-center">
-                    <span className="text-[10px] text-emerald-600 font-bold">
-                      {c.plan} ({c.planCost}&euro;{lt.partners.month}) &rarr;{' '}
-                    </span>
-                    <span className="text-sm font-black text-emerald-700">
-                      {lt.partners.roiLabel} {Math.round(c.total / c.planCost)}x
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center mt-10 space-y-3">
-              <Link
-                href="/partners"
-                className="group inline-flex items-center gap-3 px-10 py-4 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-600 transition-colors"
-              >
-                <Store size={16} className="group-hover:scale-110 transition-transform" />
-                {lt.partners.cta}
-                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <div>
-                <Link
-                  href="/partners/docs"
-                  className="text-[10px] font-bold text-slate-400 hover:text-indigo-600 transition-colors uppercase tracking-widest"
-                >
-                  {lt.partners.docs} &rarr;
-                </Link>
-              </div>
-            </div>
-          </div>
+      {/* Partners CTA Banner */}
+      <section id="partners" className="py-16 md:py-20 bg-white border-t border-slate-100">
+        <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
+          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 mb-4 block">
+            <Store size={14} className="inline mr-2 -mt-0.5" />
+            {lang === 'es' ? 'Para tiendas online' : 'For Online Stores'}
+          </span>
+          <h2 className="font-serif text-3xl md:text-5xl text-slate-900 tracking-tight leading-[0.9] mb-4">
+            {lang === 'es' ? 'Reduce devoluciones,' : 'Reduce returns,'}{' '}
+            <span className="italic text-slate-400">{lang === 'es' ? 'aumenta ventas' : 'boost sales'}</span>
+          </h2>
+          <p className="text-slate-500 text-sm md:text-base font-light max-w-xl mx-auto mb-8">
+            {lang === 'es'
+              ? 'Integra el probador virtual de Agalaz en tu ecommerce. Prueba gratis con 5 renders, sin coste de instalación.'
+              : 'Integrate Agalaz virtual try-on into your ecommerce. Free trial with 5 renders, no setup fee.'}
+          </p>
+          <Link
+            href="/partners"
+            className="group inline-flex items-center gap-3 px-10 py-4 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-600 transition-colors"
+          >
+            <Store size={16} className="group-hover:scale-110 transition-transform" />
+            {lang === 'es' ? 'Más información' : 'Learn More'}
+            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
       </section>
 
