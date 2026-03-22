@@ -366,6 +366,27 @@ function PartnersContent() {
               </div>
             </div>
 
+            {/* ── DEMO VIDEO ── */}
+            <div className="mb-20">
+              <div className="text-center space-y-3 mb-8">
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600">See it in action</span>
+                <h2 className="font-serif text-3xl font-black text-slate-900">Virtual Try-On for Your Store</h2>
+              </div>
+              <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden border-2 border-slate-200 shadow-lg">
+                <video
+                  src="/demo-tryon.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full"
+                />
+              </div>
+              <p className="text-center text-[10px] text-slate-300 mt-4">
+                Real demo — AI virtual try-on running on an ecommerce product page
+              </p>
+            </div>
+
             {/* ── FEATURES ── */}
             <div className="grid md:grid-cols-3 gap-6 mb-20">
               {[
