@@ -268,7 +268,7 @@ export default function HomePage() {
               <span className="text-xs font-black text-slate-900 uppercase tracking-widest">
                 {lang === 'es' ? 'Contacto' : 'Contact'}
               </span>
-              <p className="text-[10px] text-slate-400 mt-0.5">partners@agalaz.com</p>
+              <p className="text-[10px] text-slate-400 mt-0.5">infoagalaz@gmail.com</p>
             </Link>
           </div>
         )}

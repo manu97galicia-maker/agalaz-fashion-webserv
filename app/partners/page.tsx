@@ -574,7 +574,7 @@ function PartnersContent() {
                   Learn more: What is a Virtual Dressing Room? →
                 </Link>
                 <p className="text-xs text-slate-400">
-                  Questions? <a href="mailto:partners@agalaz.com" className="text-indigo-600 font-bold hover:text-indigo-800">partners@agalaz.com</a>
+                  Questions? <a href="mailto:infoagalaz@gmail.com" className="text-indigo-600 font-bold hover:text-indigo-800">infoagalaz@gmail.com</a>
                 </p>
               </div>
             </div>
@@ -867,7 +867,7 @@ function PartnersContent() {
             <div className="text-center space-y-2 pt-4">
               <p className="text-xs text-slate-400">
                 Need help with the integration? Contact us at{' '}
-                <a href="mailto:partners@agalaz.com" className="text-indigo-600 font-bold hover:text-indigo-800">partners@agalaz.com</a>
+                <a href="mailto:infoagalaz@gmail.com" className="text-indigo-600 font-bold hover:text-indigo-800">infoagalaz@gmail.com</a>
               </p>
               <Link href="/blog/virtual-dressing-room-online-free" className="text-[10px] text-indigo-500 font-bold hover:text-indigo-700 transition-colors inline-block">
                 Learn more: What is a Virtual Dressing Room? →
