@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -25,6 +25,8 @@ import {
   ShoppingBag,
   Pen,
   Hand,
+  Menu,
+  X,
 } from 'lucide-react';
 import { useLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
@@ -196,6 +198,7 @@ const landingText = {
 export default function HomePage() {
   const { lang, t } = useLang();
   const lt = landingText[lang];
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     (window as any).datafast?.('landing_view');
@@ -206,13 +209,14 @@ export default function HomePage() {
       {/* Nav */}
       <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
-          <Link href="/" className="font-serif text-2xl tracking-[0.15em] text-slate-900 font-black">
+          <Link href="/" className="font-serif text-2xl tracking-[0.15em] text-slate-900 font-black" style={{ fontVariantLigatures: 'none' }}>
             AGALAZ
           </Link>
           <div className="flex items-center gap-5">
+            {/* Desktop links */}
             <Link
               href="/partners"
-              className="text-slate-400 text-[10px] font-black uppercase tracking-[0.15em] hover:text-indigo-600 transition-colors hidden sm:block"
+              className="text-slate-400 text-[10px] font-black uppercase tracking-[0.15em] hover:text-indigo-600 transition-colors hidden md:block"
             >
               Partners
             </Link>
@@ -223,8 +227,51 @@ export default function HomePage() {
             >
               {t.tryNow}
             </Link>
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="md:hidden p-2 hover:bg-slate-100 rounded-lg transition-colors"
+            >
+              {menuOpen ? <X size={20} className="text-slate-600" /> : <Menu size={20} className="text-slate-600" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile dropdown */}
+        {menuOpen && (
+          <div className="md:hidden border-t border-slate-100 bg-white px-6 py-4 space-y-1 animate-fade-in">
+            <Link
+              href="/partners"
+              onClick={() => setMenuOpen(false)}
+              className="block px-4 py-3 rounded-xl hover:bg-indigo-50 transition-colors"
+            >
+              <span className="text-xs font-black text-slate-900 uppercase tracking-widest">Partners</span>
+              <p className="text-[10px] text-slate-400 mt-0.5">
+                {lang === 'es' ? 'Para tiendas online — reduce devoluciones, aumenta ventas' : 'For online stores — reduce returns, boost sales'}
+              </p>
+            </Link>
+            <Link
+              href="/partners#faq"
+              onClick={() => setMenuOpen(false)}
+              className="block px-4 py-3 rounded-xl hover:bg-indigo-50 transition-colors"
+            >
+              <span className="text-xs font-black text-slate-900 uppercase tracking-widest">FAQ</span>
+              <p className="text-[10px] text-slate-400 mt-0.5">
+                {lang === 'es' ? 'Preguntas frecuentes' : 'Frequently asked questions'}
+              </p>
+            </Link>
+            <Link
+              href="/partners#contact"
+              onClick={() => setMenuOpen(false)}
+              className="block px-4 py-3 rounded-xl hover:bg-indigo-50 transition-colors"
+            >
+              <span className="text-xs font-black text-slate-900 uppercase tracking-widest">
+                {lang === 'es' ? 'Contacto' : 'Contact'}
+              </span>
+              <p className="text-[10px] text-slate-400 mt-0.5">partners@agalaz.com</p>
+            </Link>
+          </div>
+        )}
       </nav>
 
       {/* Hero */}

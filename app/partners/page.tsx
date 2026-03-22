@@ -521,7 +521,7 @@ function PartnersContent() {
             </div>
 
             {/* ── FAQ ── */}
-            <div className="mb-20">
+            <div id="faq" className="mb-20 scroll-mt-20">
               <div className="text-center space-y-3 mb-10">
                 <h2 className="font-serif text-3xl font-black text-slate-900">Frequently Asked Questions</h2>
               </div>
@@ -558,7 +558,7 @@ function PartnersContent() {
             </div>
 
             {/* ── BOTTOM CTA ── */}
-            <div className="text-center space-y-4">
+            <div id="contact" className="text-center space-y-4 scroll-mt-20">
               <h2 className="font-serif text-2xl font-black text-slate-900">Ready to get started?</h2>
               <p className="text-slate-400 text-sm font-light">5 free renders. No credit card. No setup fee.</p>
               <button
@@ -569,10 +569,13 @@ function PartnersContent() {
                 Start Free Trial
                 <ArrowRight size={14} />
               </button>
-              <div className="pt-4">
-                <Link href="/blog/virtual-dressing-room-online-free" className="text-[10px] text-indigo-500 font-bold hover:text-indigo-700 transition-colors">
+              <div className="pt-4 space-y-2">
+                <Link href="/blog/virtual-dressing-room-online-free" className="text-[10px] text-indigo-500 font-bold hover:text-indigo-700 transition-colors block">
                   Learn more: What is a Virtual Dressing Room? →
                 </Link>
+                <p className="text-xs text-slate-400">
+                  Questions? <a href="mailto:partners@agalaz.com" className="text-indigo-600 font-bold hover:text-indigo-800">partners@agalaz.com</a>
+                </p>
               </div>
             </div>
           </>
