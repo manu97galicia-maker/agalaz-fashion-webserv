@@ -282,33 +282,60 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-              {lt.colorExplorer.colors.map((colorName, i) => (
-                <div key={i} className="group relative">
-                  <div className="aspect-[3/4] rounded-lg overflow-hidden border-2 border-slate-200 group-hover:border-indigo-400 transition-colors bg-gradient-to-b from-slate-100 to-slate-200 relative">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="relative w-3/4 h-4/5 flex flex-col items-center">
-                        <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-amber-200 mb-1" />
-                        <div
-                          className={`flex-1 w-full rounded-t-xl ${
-                            i === 0 ? 'bg-red-500' : i === 1 ? 'bg-blue-900' : i === 2 ? 'bg-emerald-600' : 'bg-slate-900'
-                          }`}
-                          style={{ clipPath: 'polygon(30% 0%, 70% 0%, 90% 100%, 10% 100%)' }}
-                        />
-                      </div>
-                    </div>
-                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
-                      <div className={`w-5 h-5 rounded-full ${COLOR_SWATCHES[i].color} ring-2 ring-white shadow-md`} />
-                    </div>
+          <div className="max-w-5xl mx-auto">
+            {/* Before → Garment → After real transformation */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-center">
+              {/* Before */}
+              <div className="group text-center">
+                <div className="aspect-[3/4] rounded-2xl overflow-hidden border-2 border-slate-200 relative shadow-sm group-hover:shadow-lg transition-all bg-slate-100">
+                  <img src="/images/before.png" alt={lang === 'es' ? 'Foto original' : 'Original photo'} className="w-full h-full object-cover" />
+                  <div className="absolute top-3 left-3 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full">
+                    <span className="text-[9px] font-black uppercase tracking-widest text-slate-500">
+                      {lang === 'es' ? 'Tu foto' : 'Your photo'}
+                    </span>
                   </div>
-                  <p className="text-center mt-3 text-xs font-bold text-slate-600 uppercase tracking-wider">
-                    {colorName}
-                  </p>
                 </div>
-              ))}
+              </div>
+
+              {/* Arrow + Garment */}
+              <div className="flex flex-col items-center gap-4">
+                <div className="hidden md:flex items-center gap-3 text-slate-300">
+                  <div className="w-12 h-[2px] bg-slate-200" />
+                  <Sparkles size={20} className="text-indigo-500 animate-pulse" />
+                  <div className="w-12 h-[2px] bg-slate-200" />
+                </div>
+                <div className="aspect-square w-40 md:w-48 rounded-2xl overflow-hidden border-2 border-indigo-200 bg-white shadow-md relative">
+                  <img src="/images/garment.jpg" alt={lang === 'es' ? 'Prenda' : 'Garment'} className="w-full h-full object-cover" />
+                  <div className="absolute top-2 left-2 px-2 py-0.5 bg-indigo-600/90 backdrop-blur-sm rounded-full">
+                    <span className="text-[8px] font-black uppercase tracking-widest text-white">
+                      {lang === 'es' ? 'Prenda' : 'Garment'}
+                    </span>
+                  </div>
+                </div>
+                <div className="hidden md:flex items-center gap-3 text-slate-300">
+                  <div className="w-12 h-[2px] bg-slate-200" />
+                  <ArrowRight size={20} className="text-indigo-500" />
+                  <div className="w-12 h-[2px] bg-slate-200" />
+                </div>
+                <div className="md:hidden flex items-center gap-3 text-slate-300 my-2">
+                  <ArrowRight size={20} className="text-indigo-500 rotate-90" />
+                </div>
+              </div>
+
+              {/* After */}
+              <div className="group text-center">
+                <div className="aspect-[3/4] rounded-2xl overflow-hidden border-2 border-indigo-300 relative shadow-lg group-hover:shadow-xl transition-all ring-4 ring-indigo-100 bg-indigo-50">
+                  <img src="/images/after.png" alt="AI try-on result" className="w-full h-full object-cover" />
+                  <div className="absolute top-3 left-3 px-3 py-1 bg-indigo-600/90 backdrop-blur-sm rounded-full">
+                    <span className="text-[9px] font-black uppercase tracking-widest text-white">
+                      AI Result
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
 
+            {/* Color swatches hint */}
             <div className="flex items-center justify-center gap-3 mt-10">
               {COLOR_SWATCHES.map((swatch, i) => (
                 <div key={i} className={`w-8 h-8 rounded-full ${swatch.color} ring-2 ring-offset-2 ring-slate-200 cursor-pointer transition-all hover:scale-110`} />
