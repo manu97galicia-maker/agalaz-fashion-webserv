@@ -27,6 +27,7 @@ export async function generateTryOnImage(
   clothingMimeType?: string,
   currentSize?: string,
   previewSize?: string,
+  category?: string,
 ): Promise<{ image: string | null; failReason?: string }> {
   try {
     const ai = new GoogleGenAI({ apiKey: API_KEY });
@@ -70,14 +71,17 @@ export async function generateTryOnImage(
           }).`
         : ` Size ${currentSize}, natural fit.`
       : '';
-    console.log('Gemini input:', { hasGarment, hasSize, currentSize, previewSize, partsCount: parts.length, userSize: userImage.length, garmentSize: clothingImage?.length || 0 });
+    const categoryHint = category && category !== 'auto'
+      ? `\nUSER SELECTED CATEGORY: ${category.toUpperCase()}. IMG2 is a ${category} item — apply it as such.`
+      : '';
+    console.log('Gemini input:', { hasGarment, hasSize, currentSize, previewSize, category, partsCount: parts.length, userSize: userImage.length, garmentSize: clothingImage?.length || 0 });
 
     let promptText: string;
 
     if (modificationPrompt && lastRenderedImage) {
       promptText = `Modify the previous render (IMG ${hasGarment ? '3' : '2'}): "${modificationPrompt}". Keep the same person, change ONLY what was requested. Output one photorealistic image.`;
     } else if (hasGarment) {
-      promptText = `VIRTUAL TRY-ON ENGINE. IMG1=person photo. IMG2=product to apply.${sizeNote}
+      promptText = `VIRTUAL TRY-ON ENGINE. IMG1=person photo. IMG2=product to apply.${sizeNote}${categoryHint}
 
 TASK: Generate ONE photorealistic image of the person from IMG1 wearing/using the product from IMG2.
 
@@ -86,7 +90,7 @@ IDENTITY PRESERVATION (critical):
 - Background, lighting, camera angle = IDENTICAL to IMG1
 - Only modify the specific body area where the product belongs
 
-PRODUCT DETECTION & APPLICATION — detect what IMG2 shows and apply accordingly:
+PRODUCT DETECTION & APPLICATION${category && category !== 'auto' ? ` (user confirmed: ${category.toUpperCase()})` : '' } — detect what IMG2 shows and apply accordingly:
 - TOPS (shirt, t-shirt, blouse, sweater, hoodie, polo) → replace upper body clothing only, keep pants/skirt/jacket if visible
 - BOTTOMS (pants, jeans, trousers, skirt, shorts, leggings) → replace lower body clothing only, keep top unchanged
 - FULL BODY (dress, jumpsuit, romper, overalls) → replace both top and bottom clothing

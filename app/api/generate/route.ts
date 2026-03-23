@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     // Single photo flow: userImage (or legacy faceImage+bodyImage)
     const userImage = body.userImage || body.faceImage;
-    const { clothingImage, modificationPrompt, lastRenderedImage, currentSize, previewSize } = body;
+    const { clothingImage, modificationPrompt, lastRenderedImage, category } = body;
 
     if (!userImage) {
       return NextResponse.json({ error: 'Please upload a photo before rendering.' }, { status: 400 });
@@ -64,8 +64,9 @@ export async function POST(request: NextRequest) {
       modificationPrompt,
       lastRenderedImage,
       undefined,
-      currentSize || undefined,
-      previewSize || undefined,
+      undefined,
+      undefined,
+      category || undefined,
     );
 
     if (image) {

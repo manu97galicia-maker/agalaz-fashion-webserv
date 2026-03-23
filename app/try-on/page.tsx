@@ -33,8 +33,7 @@ export default function TryOnPage() {
   const [user, setUser] = useState<AppUser | null>(null);
   const [userImage, setUserImage] = useState<string | null>(null);
   const [clothingImage, setClothingImage] = useState<string | null>(null);
-  const [currentSize, setCurrentSize] = useState<string | null>(null);
-  const [previewSize, setPreviewSize] = useState<string | null>(null);
+  const [tryOnCategory, setTryOnCategory] = useState<string>('auto');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -116,8 +115,7 @@ export default function TryOnPage() {
   const resetApp = () => {
     setUserImage(null);
     setClothingImage(null);
-    setCurrentSize(null);
-    setPreviewSize(null);
+    setTryOnCategory('auto');
     setMessages([]);
     setInputValue('');
     setError(null);
@@ -167,7 +165,7 @@ export default function TryOnPage() {
         const res = await fetch('/api/generate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userImage, clothingImage, currentSize, previewSize }),
+          body: JSON.stringify({ userImage, clothingImage, category: tryOnCategory !== 'auto' ? tryOnCategory : undefined }),
         });
         const data = await res.json();
 
@@ -489,10 +487,46 @@ export default function TryOnPage() {
               </div>
 
               <div className="space-y-4">
-                {/* Single photo upload */}
+                {/* Category selector */}
                 <div>
                   <div className="flex items-center gap-1.5 mb-2">
                     <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">1</span>
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                      {lang === 'es' ? 'Qué quieres probar' : 'What to try on'}
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {[
+                      { value: 'auto', es: 'Auto-detectar', en: 'Auto-detect', icon: '✨' },
+                      { value: 'clothing', es: 'Ropa', en: 'Clothing', icon: '👕' },
+                      { value: 'glasses', es: 'Gafas', en: 'Glasses', icon: '👓' },
+                      { value: 'jewelry', es: 'Joyería', en: 'Jewelry', icon: '💎' },
+                      { value: 'headwear', es: 'Sombreros', en: 'Headwear', icon: '🎩' },
+                      { value: 'shoes', es: 'Zapatos', en: 'Shoes', icon: '👟' },
+                      { value: 'bags', es: 'Bolsos', en: 'Bags', icon: '👜' },
+                      { value: 'tattoo', es: 'Tatuajes', en: 'Tattoos', icon: '🖋' },
+                      { value: 'nails', es: 'Uñas', en: 'Nails', icon: '💅' },
+                    ].map((cat) => (
+                      <button
+                        key={cat.value}
+                        onClick={() => setTryOnCategory(cat.value)}
+                        className={`px-3 py-1.5 rounded-lg text-[10px] font-black transition-all flex items-center gap-1.5 ${
+                          tryOnCategory === cat.value
+                            ? 'bg-indigo-600 text-white shadow-sm'
+                            : 'bg-slate-50 border border-slate-200 text-slate-400 hover:border-indigo-300 hover:text-indigo-600'
+                        }`}
+                      >
+                        <span>{cat.icon}</span>
+                        {lang === 'es' ? cat.es : cat.en}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Photo upload */}
+                <div>
+                  <div className="flex items-center gap-1.5 mb-2">
+                    <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">2</span>
                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                       {lang === 'es' ? 'Tu foto' : 'Your photo'}
                     </span>
@@ -512,7 +546,7 @@ export default function TryOnPage() {
                 {/* Garment upload */}
                 <div>
                   <div className="flex items-center gap-1.5 mb-2">
-                    <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">2</span>
+                    <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">3</span>
                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                       {t.clothingLabel} ({t.optional})
                     </span>
@@ -526,74 +560,13 @@ export default function TryOnPage() {
                   />
                 </div>
 
-                {/* Size selector (optional) */}
-                <div>
-                  <div className="flex items-center gap-1.5 mb-2">
-                    <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">3</span>
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                      {lang === 'es' ? 'Talla' : 'Size'} ({t.optional})
-                    </span>
-                  </div>
-                  <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
-                    {/* Current size */}
-                    <div>
-                      <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
-                        {lang === 'es' ? 'Tu talla actual' : 'Your current size'}
-                      </span>
-                      <div className="flex flex-wrap gap-1.5 mt-1.5">
-                        {['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'].map((size) => (
-                          <button
-                            key={size}
-                            onClick={() => setCurrentSize(currentSize === size ? null : size)}
-                            className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all ${
-                              currentSize === size
-                                ? 'bg-indigo-600 text-white shadow-sm'
-                                : 'bg-white border border-slate-200 text-slate-400 hover:border-indigo-300 hover:text-indigo-600'
-                            }`}
-                          >
-                            {size}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                    {/* Preview with different size */}
-                    {currentSize && (
-                      <div className="animate-fade-in">
-                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
-                          {lang === 'es' ? 'Previsualizar en talla' : 'Preview in size'}
-                        </span>
-                        <div className="flex flex-wrap gap-1.5 mt-1.5">
-                          {['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'].filter(s => s !== currentSize).map((size) => (
-                            <button
-                              key={size}
-                              onClick={() => setPreviewSize(previewSize === size ? null : size)}
-                              className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all ${
-                                previewSize === size
-                                  ? 'bg-slate-900 text-white shadow-sm'
-                                  : 'bg-white border border-slate-200 text-slate-400 hover:border-slate-400 hover:text-slate-600'
-                              }`}
-                            >
-                              {size}
-                            </button>
-                          ))}
-                        </div>
-                        {previewSize && (
-                          <p className="text-[10px] font-bold text-indigo-600 mt-2 animate-fade-in">
-                            {lang === 'es'
-                              ? `Verás cómo te queda la talla ${previewSize} (tu talla es ${currentSize})`
-                              : `You'll see how size ${previewSize} fits you (your size is ${currentSize})`}
-                          </p>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
                 {/* Chat tip */}
                 <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-3 flex items-start gap-2.5">
                   <Send size={14} className="text-indigo-500 shrink-0 mt-0.5" />
                   <p className="text-[11px] font-bold text-indigo-600/70 leading-relaxed">
-                    {t.chatTip}
+                    {lang === 'es'
+                      ? 'Después del render, usa el chat para pedir cambios: otra talla, otro color, mangas, ajuste...'
+                      : 'After the render, use the chat to request changes: different size, color, sleeves, fit...'}
                   </p>
                 </div>
               </div>
@@ -731,8 +704,8 @@ export default function TryOnPage() {
             {!isLoading && messages.some(m => m.image) && (
               <div className="flex gap-2 px-4 pt-3 pb-1 overflow-x-auto hide-scrollbar">
                 {(lang === 'es'
-                  ? ['Manga larga', 'Cambiar color', 'Más oscuro', 'Sin logo', 'Más ajustado']
-                  : ['Long sleeves', 'Change color', 'Darker', 'No logo', 'Tighter fit']
+                  ? ['Talla más grande', 'Talla más pequeña', 'Manga larga', 'Cambiar color', 'Más ajustado']
+                  : ['Bigger size', 'Smaller size', 'Long sleeves', 'Change color', 'Tighter fit']
                 ).map((chip) => (
                   <button
                     key={chip}
