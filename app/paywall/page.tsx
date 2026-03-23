@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { X, Zap, Check, Shield, Crown } from 'lucide-react';
+import Link from 'next/link';
+import { X, Check, Shield, Sparkles, ArrowRight, Gift } from 'lucide-react';
 import { createBrowserClient } from '@supabase/ssr';
 import { signInWithGoogle } from '@/services/authService';
-
 import { useLang } from '@/components/LanguageProvider';
 
 type Plan = 'weekly' | 'yearly';
@@ -30,7 +30,6 @@ export default function PaywallPage() {
       if (user) {
         setUserEmail(user.email || null);
         setUserId(user.id);
-        // Check if user already had a trial (has subscription but no credits)
         fetch('/api/subscription').then(r => r.json()).then(status => {
           if (status.isPro && status.creditsRemaining <= 0) {
             setHasUsedTrial(true);
@@ -38,48 +37,36 @@ export default function PaywallPage() {
         }).catch(() => {});
       }
     });
-
-    // Track paywall view
     (window as any).datafast?.('paywall_view');
   }, []);
 
-  const features = [
-    t.payFeat1,
-    t.payFeat2,
-    t.payFeat3,
-    t.payFeat4,
-    t.payFeat5,
-  ];
+  const features = en
+    ? ['14 renders per week', 'Clothing, glasses, jewelry, tattoos & more', 'AI chat to adjust size, color, fit', 'Download & share your renders', 'Cancel anytime — no commitment']
+    : ['14 renders por semana', 'Ropa, gafas, joyería, tatuajes y más', 'Chat IA para ajustar talla, color, ajuste', 'Descarga y comparte tus renders', 'Cancela cuando quieras — sin compromiso'];
 
   const plans = {
     weekly: {
-      price: '$4.99',
+      price: '4,99',
       period: en ? '/week' : '/semana',
       perDay: en ? '$0.71/day' : '0,71€/día',
       label: en ? 'Weekly' : 'Semanal',
-      badge: null,
-      cta: en ? 'Subscribe Now' : 'Suscribirse Ahora',
+      renders: en ? '14 renders/week' : '14 renders/semana',
     },
     yearly: {
-      price: '$59.99',
+      price: '59,99',
       period: en ? '/year' : '/año',
       perDay: en ? '$0.16/day' : '0,16€/día',
       label: en ? 'Yearly' : 'Anual',
-      badge: en ? 'Save 77%' : 'Ahorra 77%',
-      cta: en ? 'Get Yearly Access' : 'Acceder al Plan Anual',
+      renders: en ? '14 renders/week' : '14 renders/semana',
     },
   };
-
-  const activePlan = plans[selected];
 
   const handleSubscribe = async () => {
     if (!userId || !userEmail) {
       setShowLogin(true);
       return;
     }
-
     setLoading(true);
-    // Track checkout initiation
     (window as any).datafast?.('initiate_checkout', { plan: selected });
     try {
       const res = await fetch('/api/stripe/checkout', {
@@ -101,157 +88,205 @@ export default function PaywallPage() {
   };
 
   return (
-    <main className="min-h-screen bg-black flex flex-col relative overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-600/15 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-violet-600/10 rounded-full blur-[100px] pointer-events-none" />
+    <main className="min-h-screen bg-white">
+      {/* Nav */}
+      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
+          <Link href="/" className="font-serif text-2xl tracking-[0.15em] text-slate-900 font-black" style={{ fontVariantLigatures: 'none' }}>
+            Agalaz
+          </Link>
+          <button
+            onClick={() => router.back()}
+            className="p-2 rounded-full hover:bg-slate-100 transition-colors"
+          >
+            <X size={20} className="text-slate-400" />
+          </button>
+        </div>
+      </nav>
 
-      <div className="animate-fade-in-up flex-1 px-6 pt-4 pb-8 max-w-md mx-auto w-full flex flex-col relative z-10">
-        {/* Close */}
-        <button
-          onClick={() => router.back()}
-          className="self-end p-2.5 glass rounded-full mb-4 hover:bg-white/10 transition-colors press-scale"
-        >
-          <X size={20} className="text-white/60" />
-        </button>
-
-        {/* Content */}
-        <div className="flex-1 space-y-5">
-          {/* Badge */}
-          <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-violet-600 rounded-full w-fit shadow-lg shadow-indigo-500/25">
-            <Zap size={14} className="text-white fill-white" />
-            <span className="text-[10px] font-black uppercase tracking-widest text-white">
-              {t.auraPro}
-            </span>
+      <div className="max-w-xl mx-auto px-6 py-12 md:py-20">
+        {/* Free Trial Banner — only show if they haven't used it */}
+        {!hasUsedTrial && (
+          <div className="mb-10 p-5 bg-gradient-to-r from-emerald-50 to-indigo-50 border-2 border-emerald-200 rounded-2xl animate-fade-in">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center">
+                <Gift size={20} className="text-white" />
+              </div>
+              <div>
+                <h3 className="font-black text-slate-900 text-sm uppercase tracking-wide">
+                  {en ? 'Free Trial Included' : 'Prueba Gratis Incluida'}
+                </h3>
+                <p className="text-emerald-600 text-xs font-bold">
+                  {en ? '3 days free — you won\'t be charged today' : '3 días gratis — no se te cobra hoy'}
+                </p>
+              </div>
+            </div>
+            <p className="text-slate-500 text-xs font-light leading-relaxed mt-2">
+              {en
+                ? 'Try Agalaz Pro for free. If you love it, your subscription starts automatically. If not, cancel before the trial ends and pay nothing.'
+                : 'Prueba Agalaz Pro gratis. Si te gusta, tu suscripción empieza automáticamente. Si no, cancela antes de que termine la prueba y no pagas nada.'}
+            </p>
           </div>
+        )}
 
-          {/* Title */}
-          <h1 className="text-4xl font-black text-white tracking-tight leading-[1]">
+        {/* Header */}
+        <div className="text-center mb-10">
+          <span className="inline-block px-4 py-1.5 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-6">
+            Agalaz Pro
+          </span>
+          <h1 className="font-serif text-5xl md:text-7xl text-slate-900 tracking-tight leading-[0.9]">
             {hasUsedTrial
-              ? (en ? 'Loved It?' : '¿Te ha gustado?')
-              : (en ? 'See It On' : 'Pruébatelo')}
-            <br />
-            <span className="text-gradient italic">
+              ? (en ? 'Keep' : 'Sigue')
+              : (en ? 'Try It' : 'Pruébatelo')}
+            {' '}
+            <span className="italic text-slate-400">
               {hasUsedTrial
-                ? (en ? 'Keep Going.' : 'Continúa.')
-                : (en ? 'Before You Buy.' : 'Antes de Comprar.')}
+                ? (en ? 'Going.' : 'Probando.')
+                : (en ? 'On You.' : 'Todo.')}
             </span>
           </h1>
-          <p className="text-white/40 text-sm font-light leading-relaxed">
+          <p className="text-slate-500 mt-6 max-w-md mx-auto text-sm font-light leading-relaxed">
             {hasUsedTrial
               ? (en
-                ? 'Your free trial renders are used up. Subscribe now to get 14 renders per week and keep trying on.'
-                : 'Tus renders de prueba se han agotado. Suscríbete ahora para obtener 14 renders por semana y seguir probándote ropa.')
+                ? 'Your free trial renders are used up. Subscribe to keep trying on unlimited styles.'
+                : 'Tus renders de prueba se han agotado. Suscríbete para seguir probándote estilos sin límite.')
               : (en
-                ? '14 renders per week. Try on your clothes or any garment you want to buy, on your real body. Cancel anytime.'
-                : '14 renders por semana. Pruébate tu ropa o cualquier prenda que quieras comprar, en tu cuerpo real. Cancela cuando quieras.')}
+                ? 'Clothing, glasses, jewelry, tattoos — see how anything looks on your real body before you buy.'
+                : 'Ropa, gafas, joyería, tatuajes — mira cómo te queda cualquier cosa en tu cuerpo real antes de comprar.')}
           </p>
-
-          {/* Features */}
-          <div className="space-y-3">
-            {features.map((feature, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-3 opacity-0 animate-fade-in"
-                style={{ animationDelay: `${(i + 1) * 80}ms`, animationFillMode: 'forwards' }}
-              >
-                <div className="w-6 h-6 bg-gradient-to-br from-indigo-500/20 to-violet-500/20 rounded-full flex items-center justify-center shrink-0 border border-indigo-500/20">
-                  <Check size={12} className="text-indigo-400" />
-                </div>
-                <span className="text-white/60 font-bold text-[14px]">{feature}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Plan selector */}
-          <div className="space-y-2.5 pt-2">
-            {/* Yearly plan */}
-            <button
-              onClick={() => { setSelected('yearly'); (window as any).datafast?.('plan_select', { plan: 'yearly' }); }}
-              className={`w-full p-4 rounded-2xl flex items-center justify-between transition-all press-scale ${
-                selected === 'yearly'
-                  ? 'bg-gradient-to-r from-indigo-600/20 to-violet-600/20 border-2 border-indigo-500/50 ring-1 ring-indigo-500/20'
-                  : 'glass border-2 border-transparent'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                  selected === 'yearly' ? 'border-indigo-400 bg-indigo-500' : 'border-white/20'
-                }`}>
-                  {selected === 'yearly' && <div className="w-2 h-2 bg-white rounded-full" />}
-                </div>
-                <div className="text-left">
-                  <div className="flex items-center gap-2">
-                    <span className="text-white font-black text-[15px]">{plans.yearly.label}</span>
-                    <span className="px-2 py-0.5 bg-emerald-500/20 rounded-full border border-emerald-500/30 text-[8px] font-black text-emerald-400 uppercase tracking-widest">
-                      {plans.yearly.badge}
-                    </span>
-                  </div>
-                  <span className="text-white/25 text-[11px] font-bold">{plans.yearly.perDay}</span>
-                  {!hasUsedTrial && (
-                    <span className="text-emerald-400 text-[10px] font-black block mt-0.5">
-                      {en ? 'Includes free trial' : 'Incluye prueba gratis'}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="text-right">
-                <span className="text-white font-black text-lg">{plans.yearly.price}</span>
-                <span className="text-white/30 text-xs font-bold">{plans.yearly.period}</span>
-              </div>
-            </button>
-
-            {/* Weekly plan */}
-            <button
-              onClick={() => { setSelected('weekly'); (window as any).datafast?.('plan_select', { plan: 'weekly' }); }}
-              className={`w-full p-4 rounded-2xl flex items-center justify-between transition-all press-scale ${
-                selected === 'weekly'
-                  ? 'bg-gradient-to-r from-indigo-600/20 to-violet-600/20 border-2 border-indigo-500/50 ring-1 ring-indigo-500/20'
-                  : 'glass border-2 border-transparent'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                  selected === 'weekly' ? 'border-indigo-400 bg-indigo-500' : 'border-white/20'
-                }`}>
-                  {selected === 'weekly' && <div className="w-2 h-2 bg-white rounded-full" />}
-                </div>
-                <div className="text-left">
-                  <span className="text-white font-black text-[15px]">{plans.weekly.label}</span>
-                  <br />
-                  <span className="text-white/25 text-[11px] font-bold">{plans.weekly.perDay}</span>
-                </div>
-              </div>
-              <div className="text-right">
-                <span className="text-white font-black text-lg">{plans.weekly.price}</span>
-                <span className="text-white/30 text-xs font-bold">{plans.weekly.period}</span>
-              </div>
-            </button>
-          </div>
-
         </div>
 
-        {/* Purchase buttons */}
-        <div className="space-y-3 mt-4">
+        {/* Features */}
+        <div className="space-y-3 mb-10">
+          {features.map((feature, i) => (
+            <div
+              key={i}
+              className="flex items-center gap-3 animate-fade-in"
+              style={{ animationDelay: `${i * 60}ms`, animationFillMode: 'forwards' }}
+            >
+              <div className="w-6 h-6 bg-indigo-600 rounded-full flex items-center justify-center shrink-0">
+                <Check size={12} className="text-white" />
+              </div>
+              <span className="text-slate-600 font-bold text-sm">{feature}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Plan selector */}
+        <div className="space-y-3 mb-8">
+          {/* Yearly */}
           <button
-            onClick={handleSubscribe}
-            disabled={loading}
-            className="w-full py-4 bg-gradient-to-r from-indigo-600 to-violet-600 rounded-2xl flex items-center justify-center gap-3 hover:opacity-90 transition-all press-scale shadow-xl shadow-indigo-500/25 animate-glow disabled:opacity-50"
+            onClick={() => { setSelected('yearly'); (window as any).datafast?.('plan_select', { plan: 'yearly' }); }}
+            className={`w-full p-5 rounded-xl flex items-center justify-between transition-all ${
+              selected === 'yearly'
+                ? 'bg-slate-900 text-white shadow-lg'
+                : 'bg-slate-50 border-2 border-slate-200 hover:border-slate-300'
+            }`}
           >
-            <Crown size={18} className="text-white" />
-            <span className="text-white font-black uppercase tracking-widest text-xs">
-              {loading ? (en ? 'Loading...' : 'Cargando...') : activePlan.cta}
-            </span>
+            <div className="flex items-center gap-3">
+              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                selected === 'yearly' ? 'border-indigo-400 bg-indigo-500' : 'border-slate-300'
+              }`}>
+                {selected === 'yearly' && <div className="w-2 h-2 bg-white rounded-full" />}
+              </div>
+              <div className="text-left">
+                <div className="flex items-center gap-2">
+                  <span className={`font-black text-[15px] ${selected === 'yearly' ? 'text-white' : 'text-slate-900'}`}>
+                    {plans.yearly.label}
+                  </span>
+                  <span className="px-2 py-0.5 bg-emerald-500 rounded-full text-[8px] font-black text-white uppercase tracking-widest">
+                    {en ? 'Save 77%' : 'Ahorra 77%'}
+                  </span>
+                </div>
+                <span className={`text-[11px] font-bold ${selected === 'yearly' ? 'text-white/40' : 'text-slate-400'}`}>
+                  {plans.yearly.renders} &middot; {plans.yearly.perDay}
+                </span>
+                {!hasUsedTrial && (
+                  <span className={`text-[10px] font-black block mt-0.5 ${selected === 'yearly' ? 'text-emerald-400' : 'text-emerald-600'}`}>
+                    {en ? '+ 3 days free trial' : '+ 3 días de prueba gratis'}
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className="text-right">
+              <span className={`font-black text-xl ${selected === 'yearly' ? 'text-white' : 'text-slate-900'}`}>
+                {plans.yearly.price}&euro;
+              </span>
+              <span className={`text-xs font-bold ${selected === 'yearly' ? 'text-white/30' : 'text-slate-400'}`}>
+                {plans.yearly.period}
+              </span>
+            </div>
           </button>
 
-          <p className="text-center text-emerald-400/70 text-[11px] font-black uppercase tracking-widest">
-            {en ? '✓ Cancel anytime' : '✓ Cancela cuando quieras'}
-          </p>
+          {/* Weekly */}
+          <button
+            onClick={() => { setSelected('weekly'); (window as any).datafast?.('plan_select', { plan: 'weekly' }); }}
+            className={`w-full p-5 rounded-xl flex items-center justify-between transition-all ${
+              selected === 'weekly'
+                ? 'bg-slate-900 text-white shadow-lg'
+                : 'bg-slate-50 border-2 border-slate-200 hover:border-slate-300'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                selected === 'weekly' ? 'border-indigo-400 bg-indigo-500' : 'border-slate-300'
+              }`}>
+                {selected === 'weekly' && <div className="w-2 h-2 bg-white rounded-full" />}
+              </div>
+              <div className="text-left">
+                <span className={`font-black text-[15px] ${selected === 'weekly' ? 'text-white' : 'text-slate-900'}`}>
+                  {plans.weekly.label}
+                </span>
+                <br />
+                <span className={`text-[11px] font-bold ${selected === 'weekly' ? 'text-white/40' : 'text-slate-400'}`}>
+                  {plans.weekly.renders} &middot; {plans.weekly.perDay}
+                </span>
+              </div>
+            </div>
+            <div className="text-right">
+              <span className={`font-black text-xl ${selected === 'weekly' ? 'text-white' : 'text-slate-900'}`}>
+                {plans.weekly.price}&euro;
+              </span>
+              <span className={`text-xs font-bold ${selected === 'weekly' ? 'text-white/30' : 'text-slate-400'}`}>
+                {plans.weekly.period}
+              </span>
+            </div>
+          </button>
+        </div>
 
-          <div className="flex items-center justify-center gap-4">
-            <button className="flex items-center gap-1.5 press-scale py-2">
-              <Shield size={12} className="text-white/15" />
-              <span className="text-white/15 font-bold text-[11px]">{t.restorePurchase}</span>
+        {/* CTA */}
+        <button
+          onClick={handleSubscribe}
+          disabled={loading}
+          className="w-full py-4 bg-slate-900 text-white flex items-center justify-center gap-3 hover:bg-indigo-600 transition-all font-black uppercase tracking-[0.2em] text-xs disabled:opacity-50"
+        >
+          {loading ? (
+            <span>{en ? 'Loading...' : 'Cargando...'}</span>
+          ) : (
+            <>
+              <Sparkles size={16} />
+              {!hasUsedTrial
+                ? (en ? 'Start Free Trial' : 'Empezar Prueba Gratis')
+                : (en ? 'Subscribe Now' : 'Suscribirse Ahora')}
+              <ArrowRight size={14} />
+            </>
+          )}
+        </button>
+
+        {/* Trust signals */}
+        <div className="mt-4 space-y-2 text-center">
+          {!hasUsedTrial && (
+            <p className="text-emerald-600 text-[11px] font-black uppercase tracking-widest">
+              {en ? '0€ today — your trial starts now' : '0€ hoy — tu prueba empieza ahora'}
+            </p>
+          )}
+          <p className="text-slate-400 text-[11px] font-bold">
+            {en ? 'Cancel anytime · Secure payment via Stripe' : 'Cancela cuando quieras · Pago seguro con Stripe'}
+          </p>
+          <div className="flex items-center justify-center gap-4 pt-1">
+            <button className="flex items-center gap-1.5 py-2">
+              <Shield size={12} className="text-slate-300" />
+              <span className="text-slate-300 font-bold text-[11px]">{t.restorePurchase}</span>
             </button>
           </div>
         </div>
@@ -259,9 +294,9 @@ export default function PaywallPage() {
 
       {/* Login Modal */}
       {showLogin && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center animate-fade-in" onClick={() => setShowLogin(false)}>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center animate-fade-in" onClick={() => setShowLogin(false)}>
           <div className="bg-white mx-6 p-8 rounded-2xl max-w-sm w-full text-center space-y-6 shadow-2xl animate-fade-in-up" onClick={(e) => e.stopPropagation()}>
-            <div className="w-14 h-14 bg-slate-900 rounded-xl flex items-center justify-center mx-auto">
+            <div className="w-14 h-14 bg-slate-900 flex items-center justify-center mx-auto">
               <span className="text-white font-serif font-black text-2xl italic">A</span>
             </div>
             <div>
@@ -269,7 +304,7 @@ export default function PaywallPage() {
                 {en ? 'Sign in first' : 'Inicia sesión'}
               </h3>
               <p className="text-slate-400 text-sm mt-2 font-light">
-                {en ? 'Sign in to subscribe and start trying on' : 'Inicia sesión para suscribirte y empezar a probarte ropa'}
+                {en ? 'Sign in to start your free trial' : 'Inicia sesión para empezar tu prueba gratis'}
               </p>
             </div>
             <button
@@ -279,7 +314,7 @@ export default function PaywallPage() {
                   await signInWithGoogle();
                 } catch {}
               }}
-              className="w-full py-4 bg-slate-900 text-white rounded-lg flex items-center justify-center gap-3 hover:bg-indigo-600 transition-colors font-black uppercase tracking-[0.15em] text-xs"
+              className="w-full py-4 bg-slate-900 text-white flex items-center justify-center gap-3 hover:bg-indigo-600 transition-colors font-black uppercase tracking-[0.15em] text-xs"
             >
               <svg width="18" height="18" viewBox="0 0 24 24">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
