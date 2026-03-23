@@ -109,7 +109,7 @@ export default function PaywallPage() {
       <div className="animate-fade-in-up flex-1 px-6 pt-4 pb-8 max-w-md mx-auto w-full flex flex-col relative z-10">
         {/* Close */}
         <button
-          onClick={() => router.push('/try-on')}
+          onClick={() => router.back()}
           className="self-end p-2.5 glass rounded-full mb-4 hover:bg-white/10 transition-colors press-scale"
         >
           <X size={20} className="text-white/60" />

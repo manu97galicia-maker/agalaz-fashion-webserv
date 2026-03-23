@@ -190,13 +190,26 @@ const landingText = {
   },
 } as const;
 
+const HERO_CATEGORIES = {
+  en: ['Clothing', 'Glasses', 'Jewelry', 'Headwear', 'Shoes', 'Bags', 'Tattoos', 'Nails'],
+  es: ['Ropa', 'Gafas', 'Joyería', 'Sombreros', 'Zapatos', 'Bolsos', 'Tatuajes', 'Uñas'],
+};
+
 export default function HomePage() {
   const { lang, t } = useLang();
   const lt = landingText[lang];
   const [menuOpen, setMenuOpen] = useState(false);
+  const [heroWordIdx, setHeroWordIdx] = useState(0);
 
   useEffect(() => {
     (window as any).datafast?.('landing_view');
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroWordIdx((prev) => (prev + 1) % HERO_CATEGORIES.en.length);
+    }, 1500);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -281,15 +294,17 @@ export default function HomePage() {
             </span>
 
             <h1 className="font-serif text-6xl sm:text-8xl md:text-9xl lg:text-[11rem] text-slate-900 leading-[0.85] tracking-tight animate-fade-in">
-              <span className="font-black">{t.heroLine1}</span>
+              <span className="font-black">{lang === 'es' ? 'PRUEBA' : 'TRY'}</span>
               <br />
-              <span className="italic font-normal text-slate-400">{t.heroLine2}</span>
+              <span key={heroWordIdx} className="italic font-normal text-slate-400 inline-block transition-all duration-500 animate-fade-in">
+                {HERO_CATEGORIES[lang][heroWordIdx]}
+              </span>
               <br />
-              <span className="font-black">{t.heroLine3}</span>
+              <span className="font-black">{lang === 'es' ? 'ANTES DE COMPRAR.' : 'BEFORE YOU BUY.'}</span>
             </h1>
 
-            <p className="text-slate-500 text-sm md:text-base mt-8 max-w-xl mx-auto font-light leading-relaxed animate-fade-in-delay">
-              {t.heroDesc}
+            <p className="text-slate-500 text-sm md:text-base mt-8 max-w-xl mx-auto font-light leading-relaxed animate-fade-in-delay min-h-[3rem]">
+              {lt.capabilities.items[heroWordIdx]?.desc || t.heroDesc}
             </p>
 
             <div className="mt-10 animate-fade-in-delay">
