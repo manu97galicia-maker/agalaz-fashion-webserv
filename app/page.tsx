@@ -40,7 +40,7 @@ const COLOR_SWATCHES = [
 
 const landingText = {
   en: {
-    badge: 'The #1 AI Virtual Fitting Room',
+    badge: 'The #1 AI Virtual Try-On',
     strip: ['Any Garment', 'Any Color', 'Your Real Body', 'Instant Preview'],
     colorExplorer: {
       label: 'AI Virtual Fitting Room — Free Trial',
@@ -72,7 +72,7 @@ const landingText = {
       subtitle: 'Upload a photo of yourself — selfie, half body or full body. Add a garment optionally. Our AI does the rest.',
       steps: [
         { num: '01', title: 'Your Photo', desc: 'Upload any photo of yourself — selfie, half body, or full body. One photo is all you need.' },
-        { num: '02', title: 'Your Garment', desc: 'Optionally upload a photo of the garment or accessory you want to try on.' },
+        { num: '02', title: 'Your Garment, Accessory or Tattoo', desc: 'Optionally upload a photo of the garment, accessory or tattoo you want to try on.' },
         { num: '03', title: 'AI Render', desc: 'Our AI generates a photorealistic image of you wearing the garment in under 60 seconds.' },
       ],
     },
@@ -115,7 +115,7 @@ const landingText = {
     footer: { privacy: 'Privacy', terms: 'Terms', contact: 'Contact', copyright: '© 2025 Agalaz — AI Virtual Try-On for Clothes, Glasses & Accessories' },
   },
   es: {
-    badge: 'El Mejor Probador Virtual de Ropa con IA',
+    badge: 'El Mejor Probador Virtual con IA',
     strip: ['Cualquier Prenda', 'Cualquier Color', 'Tu Cuerpo Real', 'Vista Previa Instantánea'],
     colorExplorer: {
       label: 'Probador Virtual con IA — Prueba Gratis',
@@ -147,7 +147,7 @@ const landingText = {
       subtitle: 'Sube una foto tuya — selfie, medio cuerpo o cuerpo entero. Añade una prenda opcionalmente. Nuestra IA hace el resto.',
       steps: [
         { num: '01', title: 'Tu Foto', desc: 'Sube cualquier foto tuya — selfie, medio cuerpo o cuerpo entero. Una foto es todo lo que necesitas.' },
-        { num: '02', title: 'Tu Prenda', desc: 'Opcionalmente sube una foto de la prenda o accesorio que quieras probarte.' },
+        { num: '02', title: 'Tu Prenda, Accesorio o Tatuaje', desc: 'Opcionalmente sube una foto de la prenda, accesorio o tatuaje que quieras probarte.' },
         { num: '03', title: 'Render IA', desc: 'Nuestra IA genera una imagen fotorrealista de ti con la prenda en menos de 60 segundos.' },
       ],
     },

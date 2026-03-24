@@ -484,7 +484,7 @@ export default function TryOnPage() {
         <div
           ref={scrollRef}
           className="flex-1 overflow-y-auto px-4 py-6 hide-scrollbar"
-          style={{ paddingBottom: messages.length > 0 ? 160 : 24 }}
+          style={{ paddingBottom: 160 }}
         >
           {messages.length === 0 ? (
             <div className="max-w-lg mx-auto space-y-8 animate-fade-in">
@@ -522,8 +522,8 @@ export default function TryOnPage() {
                       { value: 'headwear', es: 'Sombreros', en: 'Headwear', icon: '🎩' },
                       { value: 'shoes', es: 'Zapatos', en: 'Shoes', icon: '👟' },
                       { value: 'bags', es: 'Bolsos', en: 'Bags', icon: '👜' },
-                      { value: 'tattoo', es: 'Tatuajes', en: 'Tattoos', icon: '🖋' },
-                      { value: 'nails', es: 'Uñas', en: 'Nails', icon: '💅' },
+                      { value: 'tattoo', es: 'Tatuajes', en: 'Tattoos', icon: '🪡' },
+                      { value: 'nails', es: 'Uñas / Nail Art', en: 'Nails / Nail Art', icon: '💅' },
                     ].map((cat) => (
                       <button
                         key={cat.value}
@@ -566,11 +566,11 @@ export default function TryOnPage() {
                   <div className="flex items-center gap-1.5 mb-2">
                     <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">3</span>
                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                      {t.clothingLabel} ({t.optional})
+                      {lang === 'es' ? 'Prenda, accesorio o tatuaje' : 'Garment, accessory or tattoo'} ({t.optional})
                     </span>
                   </div>
                   <ImageUploader
-                    label={`${t.clothingLabel} (${t.optional})`}
+                    label={lang === 'es' ? `Prenda, accesorio o tatuaje (${t.optional})` : `Garment, accessory or tattoo (${t.optional})`}
                     type="clothing"
                     image={clothingImage}
                     onImageSelect={trackAndSetClothing}
@@ -583,8 +583,8 @@ export default function TryOnPage() {
                   <Send size={14} className="text-indigo-500 shrink-0 mt-0.5" />
                   <p className="text-[11px] font-bold text-indigo-600/70 leading-relaxed">
                     {lang === 'es'
-                      ? 'Después del render, usa el chat para pedir cambios: otra talla, otro color, mangas, ajuste...'
-                      : 'After the render, use the chat to request changes: different size, color, sleeves, fit...'}
+                      ? 'Usa el chat para describir lo que quieres antes o después del render: talla, color, manga, tatuaje, uñas...'
+                      : 'Use the chat to describe what you want before or after the render: size, color, sleeves, tattoo, nails...'}
                   </p>
                 </div>
               </div>
@@ -717,7 +717,7 @@ export default function TryOnPage() {
         </div>
 
         {/* Chat Input */}
-        {messages.length > 0 && (
+        {(
           <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-slate-100 z-20" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
             {!isLoading && messages.some(m => m.image) && (
               <div className="flex gap-2 px-4 pt-3 pb-1 overflow-x-auto hide-scrollbar">
