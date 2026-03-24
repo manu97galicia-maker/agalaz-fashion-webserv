@@ -179,8 +179,9 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" translate="no" className="notranslate">
       <head>
+        <meta name="google" content="notranslate" />
         <link rel="preconnect" href="https://vpfawwcoqyglclpckrrl.supabase.co" />
         <link rel="dns-prefetch" href="https://vpfawwcoqyglclpckrrl.supabase.co" />
         <link rel="preconnect" href="https://datafa.st" />
