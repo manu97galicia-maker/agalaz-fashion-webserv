@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { useLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
+import { ChatBot } from '@/components/ChatBot';
 
 const STEP_ICONS = [Camera, Layers, Shirt];
 const FEATURE_ICONS = [ShieldCheck, Target, Zap];
@@ -822,6 +823,9 @@ export default function HomePage() {
           })
         }}
       />
+
+      {/* AI Chatbot */}
+      <ChatBot />
     </main>
   );
 }

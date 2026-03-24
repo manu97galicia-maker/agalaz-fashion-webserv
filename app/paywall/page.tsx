@@ -20,6 +20,7 @@ export default function PaywallPage() {
   const [userId, setUserId] = useState<string | null>(null);
   const [showLogin, setShowLogin] = useState(false);
   const [hasUsedTrial, setHasUsedTrial] = useState(false);
+  const [checkingTrial, setCheckingTrial] = useState(true);
 
   useEffect(() => {
     const supabase = createBrowserClient(
@@ -34,7 +35,9 @@ export default function PaywallPage() {
           if (status.isPro && status.creditsRemaining <= 0) {
             setHasUsedTrial(true);
           }
-        }).catch(() => {});
+        }).catch(() => {}).finally(() => setCheckingTrial(false));
+      } else {
+        setCheckingTrial(false);
       }
     });
     (window as any).datafast?.('paywall_view');
@@ -105,6 +108,12 @@ export default function PaywallPage() {
       </nav>
 
       <div className="max-w-xl mx-auto px-6 py-12 md:py-20">
+        {checkingTrial ? (
+          <div className="flex items-center justify-center py-20">
+            <div className="animate-pulse text-slate-400 text-sm font-bold">{en ? 'Loading...' : 'Cargando...'}</div>
+          </div>
+        ) : (
+        <>
         {/* Free Trial Banner — only for yearly plan, if they haven't used it */}
         {!hasUsedTrial && selected === 'yearly' && (
           <div className="mb-10 p-5 bg-gradient-to-r from-emerald-50 to-indigo-50 border-2 border-emerald-200 rounded-2xl animate-fade-in">
@@ -290,6 +299,8 @@ export default function PaywallPage() {
             </button>
           </div>
         </div>
+        </>
+        )}
       </div>
 
       {/* Login Modal */}
