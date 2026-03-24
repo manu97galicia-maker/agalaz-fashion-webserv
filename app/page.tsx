@@ -216,6 +216,16 @@ export default function HomePage() {
     <main className="min-h-screen bg-white">
       {/* Nav */}
       <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-100">
+        {/* Top bar for ecommerce */}
+        <div className="hidden md:block bg-slate-900 text-center py-1.5">
+          <Link href="/partners" className="text-[10px] text-white/80 font-bold hover:text-white transition-colors">
+            <Store size={10} className="inline mr-1.5 -mt-0.5" />
+            {lang === 'es'
+              ? '¿Tienes un ecommerce? Dispara tus ventas, reduce devoluciones y aumenta retención → Aplica ahora gratis'
+              : 'Have an ecommerce? Skyrocket sales, reduce returns & boost retention → Apply now for free'}
+            <ArrowRight size={10} className="inline ml-1 -mt-0.5" />
+          </Link>
+        </div>
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
           <Link href="/" className="font-serif text-2xl tracking-[0.15em] text-slate-900 font-black" style={{ fontVariantLigatures: 'none' }}>
             AGALAZ
