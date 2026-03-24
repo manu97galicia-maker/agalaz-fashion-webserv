@@ -105,8 +105,8 @@ export default function PaywallPage() {
       </nav>
 
       <div className="max-w-xl mx-auto px-6 py-12 md:py-20">
-        {/* Free Trial Banner — only show if they haven't used it */}
-        {!hasUsedTrial && (
+        {/* Free Trial Banner — only for yearly plan, if they haven't used it */}
+        {!hasUsedTrial && selected === 'yearly' && (
           <div className="mb-10 p-5 bg-gradient-to-r from-emerald-50 to-indigo-50 border-2 border-emerald-200 rounded-2xl animate-fade-in">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center">
@@ -117,14 +117,14 @@ export default function PaywallPage() {
                   {en ? 'Free Trial Included' : 'Prueba Gratis Incluida'}
                 </h3>
                 <p className="text-emerald-600 text-xs font-bold">
-                  {en ? '3 days free — you won\'t be charged today' : '3 días gratis — no se te cobra hoy'}
+                  {en ? '1 day free + 2 renders — you won\'t be charged today' : '1 día gratis + 2 renders — no se te cobra hoy'}
                 </p>
               </div>
             </div>
             <p className="text-slate-500 text-xs font-light leading-relaxed mt-2">
               {en
-                ? 'Try Agalaz Pro for free. If you love it, your subscription starts automatically. If not, cancel before the trial ends and pay nothing.'
-                : 'Prueba Agalaz Pro gratis. Si te gusta, tu suscripción empieza automáticamente. Si no, cancela antes de que termine la prueba y no pagas nada.'}
+                ? 'Choose the yearly plan and get 1 day free with 2 renders to try. If you love it, your subscription starts automatically. Cancel before the trial ends and pay nothing.'
+                : 'Elige el plan anual y prueba 1 día gratis con 2 renders. Si te gusta, tu suscripción empieza automáticamente. Cancela antes de que termine la prueba y no pagas nada.'}
             </p>
           </div>
         )}
@@ -203,7 +203,7 @@ export default function PaywallPage() {
                 </span>
                 {!hasUsedTrial && (
                   <span className={`text-[10px] font-black block mt-0.5 ${selected === 'yearly' ? 'text-emerald-400' : 'text-emerald-600'}`}>
-                    {en ? '+ 3 days free trial' : '+ 3 días de prueba gratis'}
+                    {en ? '+ 1 day free trial (2 renders)' : '+ 1 día de prueba gratis (2 renders)'}
                   </span>
                 )}
               </div>
@@ -265,7 +265,7 @@ export default function PaywallPage() {
           ) : (
             <>
               <Sparkles size={16} />
-              {!hasUsedTrial
+              {!hasUsedTrial && selected === 'yearly'
                 ? (en ? 'Start Free Trial' : 'Empezar Prueba Gratis')
                 : (en ? 'Subscribe Now' : 'Suscribirse Ahora')}
               <ArrowRight size={14} />
@@ -275,9 +275,9 @@ export default function PaywallPage() {
 
         {/* Trust signals */}
         <div className="mt-4 space-y-2 text-center">
-          {!hasUsedTrial && (
+          {!hasUsedTrial && selected === 'yearly' && (
             <p className="text-emerald-600 text-[11px] font-black uppercase tracking-widest">
-              {en ? '0€ today — your trial starts now' : '0€ hoy — tu prueba empieza ahora'}
+              {en ? '0€ today — 1 day free trial with 2 renders' : '0€ hoy — 1 día de prueba gratis con 2 renders'}
             </p>
           )}
           <p className="text-slate-400 text-[11px] font-bold">

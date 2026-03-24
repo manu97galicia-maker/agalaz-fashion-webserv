@@ -236,7 +236,7 @@ export default function HomePage() {
               href="/partners"
               className="text-slate-400 text-[10px] font-black uppercase tracking-[0.15em] hover:text-indigo-600 transition-colors hidden md:block"
             >
-              Partners
+              {lang === 'es' ? 'Partner? Prueba gratis' : 'Partner? Free trial'}
             </Link>
             <LanguageToggle />
             <Link
