@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Typography */
+body {
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-serif {
+  font-family: var(--font-playfair), Georgia, 'Times New Roman', serif;
+}
+
 @theme {
   --color-indigo-400: #818cf8;
   --color-indigo-500: #6366f1;

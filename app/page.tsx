@@ -42,12 +42,12 @@ const landingText = {
     badge: 'The #1 AI Virtual Fitting Room',
     strip: ['Any Garment', 'Any Color', 'Your Real Body', 'Instant Preview'],
     colorExplorer: {
-      label: 'Color Explorer',
-      title: 'Every Color,',
-      titleHighlight: 'Your Body.',
-      subtitle: 'See how your clothes look in different colors — on your actual body, not a mannequin.',
+      label: 'AI Virtual Fitting Room — Free Trial',
+      title: 'See It On You.',
+      titleHighlight: 'Before You Buy.',
+      subtitle: 'Upload your photo. Choose any garment. Our AI shows you exactly how it looks on your real body — clothing, glasses, jewelry, tattoos and more. Try 2 renders free.',
       colors: ['Red', 'Navy', 'Emerald', 'Black'],
-      cta: 'Explore Colors',
+      cta: 'Try It Free Now',
     },
     capabilities: {
       label: 'What You Can Try On',
@@ -117,12 +117,12 @@ const landingText = {
     badge: 'El Mejor Probador Virtual de Ropa con IA',
     strip: ['Cualquier Prenda', 'Cualquier Color', 'Tu Cuerpo Real', 'Vista Previa Instantánea'],
     colorExplorer: {
-      label: 'Explorador de Color',
-      title: 'Cada Color,',
-      titleHighlight: 'Tu Cuerpo.',
-      subtitle: 'Mira cómo tu ropa se ve en diferentes colores — en tu cuerpo real, no en un maniquí.',
+      label: 'Probador Virtual con IA — Prueba Gratis',
+      title: 'Míratelo Puesto.',
+      titleHighlight: 'Antes de Comprar.',
+      subtitle: 'Sube tu foto. Elige cualquier prenda. Nuestra IA te muestra exactamente cómo te queda en tu cuerpo real — ropa, gafas, joyería, tatuajes y más. Prueba 2 renders gratis.',
       colors: ['Rojo', 'Marino', 'Esmeralda', 'Negro'],
-      cta: 'Explorar Colores',
+      cta: 'Probar Gratis Ahora',
     },
     capabilities: {
       label: 'Qué Puedes Probar',
@@ -570,29 +570,35 @@ export default function HomePage() {
       </section>
 
       {/* Partners CTA Banner */}
-      <section id="partners" className="py-16 md:py-20 bg-white border-t border-slate-100">
+      <section id="partners" className="py-20 md:py-28 bg-slate-900">
         <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
-          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 mb-4 block">
-            <Store size={14} className="inline mr-2 -mt-0.5" />
-            {lang === 'es' ? 'Para tiendas online' : 'For Online Stores'}
+          <span className="inline-block px-4 py-1.5 bg-indigo-600 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-8">
+            <Store size={12} className="inline mr-2 -mt-0.5" />
+            {lang === 'es' ? '¿Tienes un ecommerce?' : 'Have an ecommerce?'}
           </span>
-          <h2 className="font-serif text-3xl md:text-5xl text-slate-900 tracking-tight leading-[0.9] mb-4">
-            {lang === 'es' ? 'Reduce devoluciones,' : 'Reduce returns,'}{' '}
-            <span className="italic text-slate-400">{lang === 'es' ? 'aumenta ventas' : 'boost sales'}</span>
+          <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white tracking-tight leading-[0.9] mb-6">
+            {lang === 'es' ? 'Dispara tus ventas.' : 'Skyrocket your sales.'}{' '}
+            <br className="hidden md:block" />
+            <span className="italic text-indigo-400">{lang === 'es' ? 'Reduce devoluciones.' : 'Reduce returns.'}</span>
           </h2>
-          <p className="text-slate-500 text-sm md:text-base font-light max-w-xl mx-auto mb-8">
+          <p className="text-white/50 text-base md:text-lg font-light max-w-2xl mx-auto mb-10 leading-relaxed">
             {lang === 'es'
-              ? 'Integra el probador virtual de Agalaz en tu ecommerce. Prueba gratis con 5 renders, sin coste de instalación.'
-              : 'Integrate Agalaz virtual try-on into your ecommerce. Free trial with 5 renders, no setup fee.'}
+              ? 'Añade el probador virtual de Agalaz a tu tienda online en 2 líneas de código. Tus clientes se prueban la ropa antes de comprar — menos devoluciones, más conversión. Empieza con prueba gratis.'
+              : 'Add Agalaz virtual try-on to your store in 2 lines of code. Your customers try before they buy — fewer returns, higher conversion. Start with a free trial.'}
           </p>
-          <Link
-            href="/partners"
-            className="group inline-flex items-center gap-3 px-10 py-4 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-600 transition-colors"
-          >
-            <Store size={16} className="group-hover:scale-110 transition-transform" />
-            {lang === 'es' ? 'Más información' : 'Learn More'}
-            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href="/partners"
+              className="group inline-flex items-center gap-3 px-10 py-4 bg-white text-slate-900 font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-600 hover:text-white transition-all"
+            >
+              <Store size={16} className="group-hover:scale-110 transition-transform" />
+              {lang === 'es' ? 'Aplica ahora — prueba gratis' : 'Apply now — free trial'}
+              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <span className="text-white/30 text-xs font-bold">
+              {lang === 'es' ? '5 renders gratis · Sin coste de instalación' : '5 free renders · No setup fee'}
+            </span>
+          </div>
         </div>
       </section>
 

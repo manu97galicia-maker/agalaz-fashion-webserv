@@ -277,23 +277,23 @@ function PartnersContent() {
           <>
             {/* ── HERO ── */}
             <div className="text-center space-y-5 mb-20">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 rounded-full">
-                <ShoppingBag size={14} className="text-indigo-600" />
-                <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">
-                  For Online Stores
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 border border-emerald-200 rounded-full">
+                <ShoppingBag size={14} className="text-emerald-600" />
+                <span className="text-[10px] font-black text-emerald-700 uppercase tracking-widest">
+                  ¿Tienes un ecommerce?
                 </span>
               </div>
               <h1 className="font-serif text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight">
-                Reduce Returns.<br />
-                <span className="italic text-indigo-600">Boost Sales.</span>
+                Dispara tus ventas.<br />
+                <span className="italic text-indigo-600">Reduce devoluciones.</span>
               </h1>
               <p className="text-slate-500 text-base font-light max-w-lg mx-auto">
-                Let your customers try on clothes, glasses, jewelry, and accessories with AI before they buy. 2 lines of code. Works on Shopify, WooCommerce, or any platform.
+                Tus clientes se prueban la ropa, gafas, joyería y accesorios con IA antes de comprar. 2 líneas de código. Funciona en Shopify, WooCommerce o cualquier plataforma.
               </p>
-              <div className="flex items-center justify-center gap-6 text-xs text-slate-400 font-bold pt-2">
-                <span className="flex items-center gap-1.5"><TrendingDown size={14} className="text-emerald-500" /> -40% returns</span>
-                <span className="flex items-center gap-1.5"><BarChart3 size={14} className="text-indigo-500" /> +25% conversion</span>
-                <span className="flex items-center gap-1.5"><Zap size={14} className="text-amber-500" /> ~10s render</span>
+              <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400 font-bold pt-2">
+                <span className="flex items-center gap-1.5"><TrendingDown size={14} className="text-emerald-500" /> -40% devoluciones</span>
+                <span className="flex items-center gap-1.5"><BarChart3 size={14} className="text-indigo-500" /> +25% conversión</span>
+                <span className="flex items-center gap-1.5"><Zap size={14} className="text-amber-500" /> Prueba gratis</span>
               </div>
             </div>
 
@@ -302,9 +302,9 @@ function PartnersContent() {
               <div className="border-2 border-indigo-200 rounded-2xl p-8 space-y-6 bg-indigo-50/30">
                 <div className="text-center space-y-2">
                   <Sparkles size={28} className="text-indigo-600 mx-auto" />
-                  <h2 className="font-serif text-2xl font-black text-slate-900">Start Free Trial</h2>
+                  <h2 className="font-serif text-2xl font-black text-slate-900">Aplica ahora — Prueba Gratis</h2>
                   <p className="text-slate-400 text-xs font-light">
-                    5 free renders. No credit card required. No setup fee.
+                    5 renders gratis. Sin tarjeta de crédito. Sin coste de instalación.
                   </p>
                 </div>
 
