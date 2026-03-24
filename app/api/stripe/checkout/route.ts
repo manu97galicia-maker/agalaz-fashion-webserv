@@ -18,7 +18,7 @@ function getPrices(): Record<string, string> {
 
 export async function POST(req: NextRequest) {
   try {
-    const { plan, email, userId, skipTrial } = await req.json();
+    const { plan, email, userId, skipTrial, quantity } = await req.json();
 
     const PRICES = getPrices();
     if (!plan || !PRICES[plan]) {
@@ -39,17 +39,19 @@ export async function POST(req: NextRequest) {
 
     // Credit pack — one-time payment
     if (plan === 'credits20') {
+      const qty = Math.max(1, Math.min(10, parseInt(quantity) || 1));
+      const totalCredits = qty * 20;
       const session = await stripe.checkout.sessions.create({
         mode: 'payment',
         payment_method_types: ['card'],
-        line_items: [{ price: PRICES.credits20, quantity: 1 }],
-        success_url: `${origin}/try-on?credits_purchased=20`,
-        cancel_url: `${origin}/paywall`,
+        line_items: [{ price: PRICES.credits20, quantity: qty }],
+        success_url: `${origin}/try-on?credits_purchased=${totalCredits}`,
+        cancel_url: `${origin}/try-on`,
         customer_email: email,
         client_reference_id: userId,
         metadata: {
           type: 'credit_pack',
-          credits: '20',
+          credits: String(totalCredits),
           datafast_visitor_id: datafastVisitorId || '',
           datafast_session_id: datafastSessionId || '',
         },

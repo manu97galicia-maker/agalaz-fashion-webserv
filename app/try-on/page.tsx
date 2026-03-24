@@ -45,6 +45,8 @@ export default function TryOnPage() {
   const [chatAttachment, setChatAttachment] = useState<string | null>(null);
   const [showLogin, setShowLogin] = useState(false);
   const [gateReady, setGateReady] = useState(false);
+  const [showCreditShop, setShowCreditShop] = useState(false);
+  const [creditQty, setCreditQty] = useState(1);
   const chatFileRef = useRef<HTMLInputElement>(null);
 
   // Gate: check auth → check subscription → allow or redirect
@@ -424,29 +426,13 @@ export default function TryOnPage() {
               {/* Buy credits button */}
               {user && (
                 <button
-                  onClick={async () => {
-                    (window as any).datafast?.('credits_pack_click');
-                    try {
-                      // Get userId from supabase
-                      const { createBrowserClient } = await import('@supabase/ssr');
-                      const sb = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL || '', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '');
-                      const { data: { user: sbUser } } = await sb.auth.getUser();
-                      if (!sbUser) return;
-                      const res = await fetch('/api/stripe/checkout', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ plan: 'credits20', email: user.email, userId: sbUser.id }),
-                      });
-                      const data = await res.json();
-                      if (data.url) window.location.href = data.url;
-                    } catch {}
-                  }}
+                  onClick={() => { setCreditQty(1); setShowCreditShop(true); }}
                   className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 border border-amber-200 rounded-full hover:bg-amber-100 transition-colors"
-                  title={lang === 'es' ? 'Comprar 20 créditos por 9,99€' : 'Buy 20 credits for €9.99'}
+                  title={lang === 'es' ? 'Comprar créditos' : 'Buy credits'}
                 >
                   <Zap size={12} className="text-amber-600" />
                   <span className="text-[9px] font-black text-amber-700 uppercase tracking-wide">
-                    +20
+                    +{lang === 'es' ? 'Créditos' : 'Credits'}
                   </span>
                 </button>
               )}
@@ -807,6 +793,86 @@ export default function TryOnPage() {
           </div>
         )}
       </div>
+
+      {/* Credit Shop Modal */}
+      {showCreditShop && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center animate-fade-in" onClick={() => setShowCreditShop(false)}>
+          <div className="bg-white mx-6 p-8 rounded-2xl max-w-sm w-full text-center space-y-6 shadow-2xl animate-fade-in-up" onClick={(e) => e.stopPropagation()}>
+            <div className="w-14 h-14 bg-amber-500 rounded-xl flex items-center justify-center mx-auto">
+              <Zap size={24} className="text-white" />
+            </div>
+            <div>
+              <h3 className="font-serif text-2xl font-black text-slate-900 tracking-tight">
+                {lang === 'es' ? 'Comprar Créditos' : 'Buy Credits'}
+              </h3>
+              <p className="text-slate-400 text-sm mt-2 font-light">
+                {lang === 'es' ? '20 renders por pack · sin suscripción' : '20 renders per pack · no subscription'}
+              </p>
+            </div>
+
+            {/* Quantity selector */}
+            <div className="flex items-center justify-center gap-4">
+              <button
+                onClick={() => setCreditQty(Math.max(1, creditQty - 1))}
+                className="w-10 h-10 rounded-full border-2 border-slate-200 flex items-center justify-center text-slate-400 hover:border-slate-300 hover:text-slate-600 transition-colors text-lg font-bold"
+              >
+                −
+              </button>
+              <div className="text-center min-w-[80px]">
+                <span className="text-3xl font-black text-slate-900">{creditQty}</span>
+                <p className="text-[10px] text-slate-400 font-bold">{creditQty === 1 ? 'pack' : 'packs'}</p>
+              </div>
+              <button
+                onClick={() => setCreditQty(creditQty + 1)}
+                className="w-10 h-10 rounded-full border-2 border-slate-200 flex items-center justify-center text-slate-400 hover:border-slate-300 hover:text-slate-600 transition-colors text-lg font-bold"
+              >
+                +
+              </button>
+            </div>
+
+            {/* Summary */}
+            <div className="bg-slate-50 rounded-xl p-4 space-y-1">
+              <div className="flex justify-between text-sm">
+                <span className="text-slate-500">{creditQty}x 20 {lang === 'es' ? 'créditos' : 'credits'}</span>
+                <span className="font-black text-slate-900">{(creditQty * 20)} renders</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-slate-500">{lang === 'es' ? 'Total' : 'Total'}</span>
+                <span className="font-black text-slate-900">{(creditQty * 9.99).toFixed(2).replace('.', ',')}€</span>
+              </div>
+            </div>
+
+            <button
+              onClick={async () => {
+                (window as any).datafast?.('credits_pack_purchase', { qty: creditQty, credits: creditQty * 20 });
+                try {
+                  const { createBrowserClient } = await import('@supabase/ssr');
+                  const sb = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL || '', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '');
+                  const { data: { user: sbUser } } = await sb.auth.getUser();
+                  if (!sbUser) return;
+                  const res = await fetch('/api/stripe/checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ plan: 'credits20', quantity: creditQty, email: user!.email, userId: sbUser.id }),
+                  });
+                  const data = await res.json();
+                  if (data.url) window.location.href = data.url;
+                } catch {}
+              }}
+              className="w-full py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-[0.15em] text-xs hover:bg-amber-600 transition-colors flex items-center justify-center gap-3"
+            >
+              <Zap size={16} />
+              {lang === 'es' ? `Comprar ${creditQty * 20} créditos` : `Buy ${creditQty * 20} credits`}
+            </button>
+            <button
+              onClick={() => setShowCreditShop(false)}
+              className="text-slate-300 text-xs font-bold hover:text-slate-500 transition-colors"
+            >
+              {lang === 'es' ? 'Cancelar' : 'Cancel'}
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Login Modal */}
       {showLogin && (
