@@ -15,6 +15,7 @@ import {
   Loader2,
   ArrowLeft,
   Download,
+  Zap,
   Share2,
   ImagePlus,
   Camera,
@@ -420,6 +421,35 @@ export default function TryOnPage() {
             </div>
 
             <div className="flex items-center gap-3">
+              {/* Buy credits button */}
+              {user && (
+                <button
+                  onClick={async () => {
+                    (window as any).datafast?.('credits_pack_click');
+                    try {
+                      // Get userId from supabase
+                      const { createBrowserClient } = await import('@supabase/ssr');
+                      const sb = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL || '', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '');
+                      const { data: { user: sbUser } } = await sb.auth.getUser();
+                      if (!sbUser) return;
+                      const res = await fetch('/api/stripe/checkout', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ plan: 'credits20', email: user.email, userId: sbUser.id }),
+                      });
+                      const data = await res.json();
+                      if (data.url) window.location.href = data.url;
+                    } catch {}
+                  }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 border border-amber-200 rounded-full hover:bg-amber-100 transition-colors"
+                  title={lang === 'es' ? 'Comprar 20 créditos por 9,99€' : 'Buy 20 credits for €9.99'}
+                >
+                  <Zap size={12} className="text-amber-600" />
+                  <span className="text-[9px] font-black text-amber-700 uppercase tracking-wide">
+                    +20
+                  </span>
+                </button>
+              )}
               <LanguageToggle />
               {(userImage || messages.length > 0) && (
                 <>
