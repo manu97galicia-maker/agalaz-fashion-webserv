@@ -8,7 +8,7 @@ import { createBrowserClient } from '@supabase/ssr';
 import { signInWithGoogle } from '@/services/authService';
 import { useLang } from '@/components/LanguageProvider';
 
-type Plan = 'weekly' | 'yearly';
+type Plan = 'weekly' | 'yearly' | 'credits20';
 
 export default function PaywallPage() {
   const router = useRouter();
@@ -258,6 +258,42 @@ export default function PaywallPage() {
               </span>
               <span className={`text-xs font-bold ${selected === 'weekly' ? 'text-white/30' : 'text-slate-400'}`}>
                 {plans.weekly.period}
+              </span>
+            </div>
+          </button>
+
+          {/* Credit Pack */}
+          <button
+            onClick={() => { setSelected('credits20'); (window as any).datafast?.('plan_select', { plan: 'credits20' }); }}
+            className={`w-full p-5 rounded-xl flex items-center justify-between transition-all ${
+              selected === 'credits20'
+                ? 'bg-slate-900 text-white shadow-lg'
+                : 'bg-slate-50 border-2 border-slate-200 hover:border-slate-300'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                selected === 'credits20' ? 'border-indigo-400 bg-indigo-500' : 'border-slate-300'
+              }`}>
+                {selected === 'credits20' && <div className="w-2 h-2 bg-white rounded-full" />}
+              </div>
+              <div className="text-left">
+                <div className="flex items-center gap-2">
+                  <span className={`font-black text-[15px] ${selected === 'credits20' ? 'text-white' : 'text-slate-900'}`}>
+                    {en ? '20 Credits Pack' : 'Pack 20 Créditos'}
+                  </span>
+                  <span className="px-2 py-0.5 bg-amber-500 rounded-full text-[8px] font-black text-white uppercase tracking-widest">
+                    {en ? 'One-time' : 'Pago único'}
+                  </span>
+                </div>
+                <span className={`text-[11px] font-bold ${selected === 'credits20' ? 'text-white/40' : 'text-slate-400'}`}>
+                  {en ? '20 renders · no subscription' : '20 renders · sin suscripción'}
+                </span>
+              </div>
+            </div>
+            <div className="text-right">
+              <span className={`font-black text-xl ${selected === 'credits20' ? 'text-white' : 'text-slate-900'}`}>
+                9,99&euro;
               </span>
             </div>
           </button>

@@ -46,11 +46,11 @@ export async function GET() {
     let creditsRemaining = rc.credits_remaining ?? 0;
     let creditsResetAt = rc.credits_reset_at ?? null;
 
-    // Lazy reset: if user is Pro and reset date has passed, refill credits to 7
+    // Lazy reset: if user is Pro and reset date has passed, ADD credits (accumulate, don't reset)
     if (isPro && creditsResetAt && new Date(creditsResetAt) <= new Date()) {
       const nextReset = new Date();
       nextReset.setDate(nextReset.getDate() + CREDITS_RESET_DAYS);
-      creditsRemaining = PLAN_CREDITS;
+      creditsRemaining = creditsRemaining + PLAN_CREDITS; // Accumulate unused credits
       creditsResetAt = nextReset.toISOString();
 
       await admin

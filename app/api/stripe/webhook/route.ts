@@ -61,6 +61,29 @@ export async function POST(req: NextRequest) {
         break;
       }
 
+      // ── Credit pack purchase (one-time payment) ──
+      if (session.metadata?.type === 'credit_pack') {
+        const packUserId = session.client_reference_id;
+        const packCredits = parseInt(session.metadata.credits || '20', 10);
+        if (packUserId) {
+          const { data: existingCredits } = await admin
+            .from('render_counts')
+            .select('credits_remaining')
+            .eq('user_id', packUserId)
+            .single();
+
+          const currentCredits = existingCredits?.credits_remaining ?? 0;
+          await admin.from('render_counts').upsert({
+            user_id: packUserId,
+            credits_remaining: currentCredits + packCredits,
+            updated_at: new Date().toISOString(),
+          }, { onConflict: 'user_id' });
+
+          console.log(`Credit pack purchased: ${packUserId} (+${packCredits} credits, total: ${currentCredits + packCredits})`);
+        }
+        break;
+      }
+
       // ── B2C user checkout ──
       const userId = session.client_reference_id;
       const subscriptionId = session.subscription as string;
@@ -167,12 +190,19 @@ export async function POST(req: NextRequest) {
         current_period_end: periodEnd,
       }).eq('user_id', sub.user_id);
 
-      // Give full 14 credits (first payment after yearly trial or any renewal)
+      // Add 14 credits (accumulate with unused credits)
+      const { data: currentRc } = await admin
+        .from('render_counts')
+        .select('credits_remaining')
+        .eq('user_id', sub.user_id)
+        .single();
+
+      const currentCreds = currentRc?.credits_remaining ?? 0;
       const nextReset = new Date();
       nextReset.setDate(nextReset.getDate() + CREDITS_RESET_DAYS);
 
       await admin.from('render_counts').update({
-        credits_remaining: PLAN_CREDITS,
+        credits_remaining: currentCreds + PLAN_CREDITS,
         credits_reset_at: nextReset.toISOString(),
         updated_at: new Date().toISOString(),
       }).eq('user_id', sub.user_id);

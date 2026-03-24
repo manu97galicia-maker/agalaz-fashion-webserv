@@ -55,11 +55,9 @@ export default function TryOnPage() {
           const res = await fetch('/api/subscription');
           if (res.ok) {
             const status = await res.json();
-            if (!status.isPro && status.creditsRemaining <= 0) {
-              router.push('/paywall');
-              return;
-            }
-            if (status.creditsRemaining <= 0) {
+            // Only redirect to paywall if NOT pro AND no credits
+            // Pro users with 0 credits will get lazy-reset by the API
+            if (status.creditsRemaining <= 0 && !status.isPro) {
               router.push('/paywall');
               return;
             }
@@ -94,6 +92,10 @@ export default function TryOnPage() {
       }).catch(() => {
         (window as any).datafast?.('subscription_success');
       });
+    }
+    // Credit pack purchase redirect
+    if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('credits_purchased')) {
+      (window as any).datafast?.('credits_purchased', { amount: 20 });
     }
   }, []);
 

@@ -12,6 +12,7 @@ function getPrices(): Record<string, string> {
   return {
     weekly: (process.env.STRIPE_PRICE_WEEKLY || '').trim(),
     yearly: (process.env.STRIPE_PRICE_YEARLY || '').trim(),
+    credits20: (process.env.STRIPE_PRICE_CREDITS_20 || '').trim(),
   };
 }
 
@@ -35,6 +36,28 @@ export async function POST(req: NextRequest) {
     const datafastSessionId = cookieStore.get('datafast_session_id')?.value;
 
     const stripe = getStripe();
+
+    // Credit pack — one-time payment
+    if (plan === 'credits20') {
+      const session = await stripe.checkout.sessions.create({
+        mode: 'payment',
+        payment_method_types: ['card'],
+        line_items: [{ price: PRICES.credits20, quantity: 1 }],
+        success_url: `${origin}/try-on?credits_purchased=20`,
+        cancel_url: `${origin}/paywall`,
+        customer_email: email,
+        client_reference_id: userId,
+        metadata: {
+          type: 'credit_pack',
+          credits: '20',
+          datafast_visitor_id: datafastVisitorId || '',
+          datafast_session_id: datafastSessionId || '',
+        },
+      });
+      return NextResponse.json({ url: session.url });
+    }
+
+    // Subscription plans
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
       payment_method_types: ['card'],
