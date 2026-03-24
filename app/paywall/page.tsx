@@ -132,8 +132,8 @@ export default function PaywallPage() {
             </div>
             <p className="text-slate-500 text-xs font-light leading-relaxed mt-2">
               {en
-                ? 'Choose the yearly plan and get 1 day free with 2 renders to try. If you love it, your subscription starts automatically. Cancel before the trial ends and pay nothing.'
-                : 'Elige el plan anual y prueba 1 día gratis con 2 renders. Si te gusta, tu suscripción empieza automáticamente. Cancela antes de que termine la prueba y no pagas nada.'}
+                ? 'Choose the yearly plan and get 1 day free with 2 renders. Your card is required but won\'t be charged today. If you don\'t cancel within 24h, the yearly plan activates automatically.'
+                : 'Elige el plan anual y prueba 1 día gratis con 2 renders. Introduces tu tarjeta pero no se te cobra hoy. Si no cancelas en 24h, se activa el plan anual automáticamente.'}
             </p>
           </div>
         )}

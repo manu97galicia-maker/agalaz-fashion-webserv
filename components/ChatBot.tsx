@@ -9,63 +9,6 @@ interface Message {
   text: string;
 }
 
-const KNOWLEDGE_ES = `
-Eres el asistente virtual de Agalaz, un probador virtual con IA. Responde SOLO en español, de forma breve y amigable (máximo 3 frases). Solo respondes sobre Agalaz y sus servicios.
-
-FUNCIONALIDADES:
-- Probador virtual con IA: sube tu foto y cualquier prenda/accesorio, nuestra IA genera una imagen fotorrealista de ti con esa prenda
-- Categorías soportadas: ropa (camisetas, vestidos, pantalones, chaquetas, abrigos, faldas, sudaderas), gafas (de sol, graduadas, deportivas), joyería (collares, pendientes, pulseras, anillos, relojes), sombreros (gorras, gorros, diademas), zapatos (zapatillas, tacones, botas, sandalias), bolsos, tatuajes, uñas/manicura
-- Chat IA post-render: después de generar tu imagen puedes pedir cambios por chat (otra talla, otro color, otro estilo)
-- Descargar y compartir renders
-
-PLANES Y PRECIOS (usuarios finales):
-- 2 renders gratis al registrarte (sin tarjeta)
-- Plan Semanal: 4,99€/semana — 14 renders por semana
-- Plan Anual: 59,99€/año — 14 renders por semana — INCLUYE 1 día de prueba gratis con 2 renders (solo plan anual)
-- Cancela cuando quieras, sin compromiso
-
-PARTNERS (para ecommerce/tiendas online):
-- Integra el probador virtual en tu tienda en 2 líneas de código
-- Funciona en Shopify, WooCommerce, PrestaShop, Magento o cualquier plataforma
-- Prueba gratis: 5 renders sin tarjeta, sin coste de instalación
-- Plan Starter: 150€/mes (200 renders)
-- Plan Growth: 499€/mes (1000 renders)
-- Reduce devoluciones hasta un 40%, aumenta conversión un 25%
-- Más info en /partners
-
-CONTACTO: infoagalaz@gmail.com
-
-Si preguntan algo que no sabes o no es sobre Agalaz, di que contacten a infoagalaz@gmail.com.
-`;
-
-const KNOWLEDGE_EN = `
-You are Agalaz's virtual assistant, an AI virtual try-on platform. Reply ONLY in English, briefly and friendly (max 3 sentences). Only answer about Agalaz and its services.
-
-FEATURES:
-- AI virtual try-on: upload your photo and any garment/accessory, our AI generates a photorealistic image of you wearing it
-- Supported categories: clothing (shirts, dresses, pants, jackets, coats, skirts, sweaters, hoodies), glasses (sunglasses, prescription, sports), jewelry (necklaces, earrings, bracelets, rings, watches), headwear (hats, caps, beanies, headbands), shoes (sneakers, heels, boots, sandals), bags, tattoos, nail art
-- Post-render AI chat: after generating your image you can ask for changes (different size, color, style)
-- Download and share renders
-
-PLANS & PRICING (end users):
-- 2 free renders on signup (no card needed)
-- Weekly Plan: $4.99/week — 14 renders per week
-- Yearly Plan: $59.99/year — 14 renders per week — INCLUDES 1 day free trial with 2 renders (yearly only)
-- Cancel anytime, no commitment
-
-PARTNERS (for ecommerce/online stores):
-- Integrate virtual try-on in your store with 2 lines of code
-- Works on Shopify, WooCommerce, PrestaShop, Magento or any platform
-- Free trial: 5 renders, no credit card, no setup fee
-- Starter Plan: €150/mo (200 renders)
-- Growth Plan: €499/mo (1000 renders)
-- Reduce returns by up to 40%, boost conversion by 25%
-- More info at /partners
-
-CONTACT: infoagalaz@gmail.com
-
-If they ask something you don't know or it's not about Agalaz, tell them to contact infoagalaz@gmail.com.
-`;
 
 function getBotReply(userMsg: string, lang: string): string {
   const msg = userMsg.toLowerCase().trim();
@@ -81,15 +24,15 @@ function getBotReply(userMsg: string, lang: string): string {
   // Pricing / plans
   if (/precio|plan|cost|cuánto|cuanto|pricing|suscri|subscri|pagar|pay/.test(msg)) {
     return es
-      ? '💰 Tienes 2 renders gratis al registrarte. Luego: Plan Semanal 4,99€/semana o Plan Anual 59,99€/año (con 1 día de prueba gratis + 2 renders). Ambos incluyen 14 renders/semana. Cancela cuando quieras.'
-      : '💰 You get 2 free renders on signup. Then: Weekly $4.99/week or Yearly $59.99/year (includes 1 day free trial + 2 renders). Both include 14 renders/week. Cancel anytime.';
+      ? '💰 Plan Semanal: 4,99€/semana (14 renders). Plan Anual: 59,99€/año (14 renders/semana + 1 día de prueba gratis con 2 renders, introduces tarjeta pero no se cobra hasta pasadas 24h). Cancela cuando quieras.'
+      : '💰 Weekly: $4.99/week (14 renders). Yearly: $59.99/year (14 renders/week + 1 day free trial with 2 renders, card required but not charged for 24h). Cancel anytime.';
   }
 
   // Free trial
   if (/gratis|free|trial|prueba/.test(msg)) {
     return es
-      ? '🎁 Tienes 2 renders totalmente gratis al registrarte (sin tarjeta). Si eliges el plan anual, además incluye 1 día de prueba gratis con 2 renders extra. ¡Pruébalo sin compromiso!'
-      : '🎁 You get 2 completely free renders on signup (no card needed). The yearly plan also includes a 1-day free trial with 2 extra renders. Try it risk-free!';
+      ? '🎁 Con el plan anual tienes 1 día de prueba gratis con 2 renders. Introduces tu tarjeta pero NO se te cobra nada el primer día. Si no cancelas en 24h, se activa el plan anual (59,99€/año) automáticamente.'
+      : '🎁 The yearly plan includes a 1-day free trial with 2 renders. You enter your card but are NOT charged on day one. If you don\'t cancel within 24h, the yearly plan ($59.99/year) activates automatically.';
   }
 
   // Partners / ecommerce
