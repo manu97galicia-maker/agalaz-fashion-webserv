@@ -79,7 +79,7 @@ const landingText = {
       label: 'Technology',
       title: 'Surgical',
       titleHighlight: 'Precision',
-      subtitle: 'Component Engine V7.0 — every pixel preserved, every garment respected.',
+      subtitle: 'AI virtual try-on for clothes, glasses, jewelry, shoes and more — your face, body and background stay untouched.',
       items: [
         { title: 'Total Preservation', desc: 'Your pants, shoes and original background stay untouched. We only change what you ask.' },
         { title: 'Real Face Mapping', desc: 'Agalaz integrates your identity onto your real body, respecting your features and neckline.' },
@@ -111,7 +111,7 @@ const landingText = {
       docs: 'See installation guide',
     },
     cta: { title: 'Try It Now.', subtitle: 'Upload your photos and see the result in seconds.', button: 'Start Now' },
-    footer: { privacy: 'Privacy', terms: 'Terms', contact: 'Contact', copyright: '© 2025 Agalaz Labs. Precision Engine V7.0' },
+    footer: { privacy: 'Privacy', terms: 'Terms', contact: 'Contact', copyright: '© 2025 Agalaz — AI Virtual Try-On for Clothes, Glasses & Accessories' },
   },
   es: {
     badge: 'El Mejor Probador Virtual de Ropa con IA',
@@ -154,7 +154,7 @@ const landingText = {
       label: 'Tecnología',
       title: 'Precisión',
       titleHighlight: 'Quirúrgica',
-      subtitle: 'Motor de componentes V7.0 — cada píxel preservado, cada prenda respetada.',
+      subtitle: 'Probador virtual con IA para ropa, gafas, joyería, zapatos y más — tu cara, cuerpo y fondo se mantienen intactos.',
       items: [
         { title: 'Preservación Total', desc: 'Tus pantalones, calzado y fondo original se mantienen intactos. Solo cambiamos lo que pidas.' },
         { title: 'Mapeo Facial Real', desc: 'Agalaz integra tu identidad sobre tu cuerpo real, respetando tu fisonomía y cuello.' },
@@ -186,7 +186,7 @@ const landingText = {
       docs: 'Ver guía de instalación',
     },
     cta: { title: 'Pruébalo Ahora.', subtitle: 'Sube tus fotos y ve el resultado en segundos.', button: 'Empezar Ahora' },
-    footer: { privacy: 'Privacidad', terms: 'Términos', contact: 'Contacto', copyright: '© 2025 Agalaz Labs. Motor de Precisión V7.0' },
+    footer: { privacy: 'Privacidad', terms: 'Términos', contact: 'Contacto', copyright: '© 2025 Agalaz — Probador Virtual con IA para Ropa, Gafas y Accesorios' },
   },
 } as const;
 
