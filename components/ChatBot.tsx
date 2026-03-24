@@ -43,7 +43,7 @@ function getBotReply(userMsg: string, lang: string): string {
   }
 
   // How it works
-  if (/cómo funciona|como funciona|how.*work|qué hace|que hace|what.*do/.test(msg)) {
+  if (/^c[oó]mo$|cómo funciona|como funciona|how.*work|qué hace|que hace|what.*do/.test(msg)) {
     return es
       ? '✨ Es muy fácil: 1) Sube tu foto (selfie o cuerpo entero) 2) Sube la prenda o accesorio que quieras probar 3) Nuestra IA genera una imagen fotorrealista de ti con esa prenda en menos de 60 segundos.'
       : '✨ It\'s simple: 1) Upload your photo (selfie or full body) 2) Upload the garment or accessory you want to try 3) Our AI generates a photorealistic image of you wearing it in under 60 seconds.';
