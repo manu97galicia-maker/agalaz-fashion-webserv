@@ -77,6 +77,41 @@ function getBotReply(userMsg: string, lang: string): string {
       : '✅ You can cancel anytime from your profile (tap your photo icon top left → Manage Subscription). No lock-in, no penalties.';
   }
 
+  // Installation / how to install / widget / code
+  if (/instala|install|widget|código|codigo|code|script|integra|línea|linea|line|implementa|setup|configurar|configur/.test(msg)) {
+    return es
+      ? '🔧 Instalar Agalaz en tu tienda es muy fácil — solo 2 pasos:\n\n1️⃣ Copia este script en el <head> de tu web:\n<script src="https://agalaz.com/widget.js" data-api-key="TU_API_KEY"></script>\n\n2️⃣ Añade este div en la página de producto:\n<div id="agalaz-tryon"></div>\n\nEl widget detecta automáticamente las imágenes del producto. Funciona en Shopify, WooCommerce, PrestaShop y cualquier plataforma. Regístrate en /partners para obtener tu API key gratis.'
+      : '🔧 Installing Agalaz on your store is easy — just 2 steps:\n\n1️⃣ Add this script to your <head>:\n<script src="https://agalaz.com/widget.js" data-api-key="YOUR_API_KEY"></script>\n\n2️⃣ Place this div on your product page:\n<div id="agalaz-tryon"></div>\n\nThe widget auto-detects product images. Works on Shopify, WooCommerce, PrestaShop and any platform. Sign up at /partners to get your free API key.';
+  }
+
+  // Shopify specific
+  if (/shopify/.test(msg)) {
+    return es
+      ? '🛍️ Para Shopify: ve a Tienda Online → Temas → Editar código → theme.liquid. Pega el script de Agalaz antes de </head>. Luego en la plantilla de producto (product.liquid o main-product.liquid) añade <div id="agalaz-tryon"></div> donde quieras el botón. ¡Listo! Más detalles en /partners.'
+      : '🛍️ For Shopify: go to Online Store → Themes → Edit Code → theme.liquid. Paste the Agalaz script before </head>. Then in your product template (product.liquid or main-product.liquid) add <div id="agalaz-tryon"></div> where you want the button. Done! More details at /partners.';
+  }
+
+  // WooCommerce specific
+  if (/woocommerce|wordpress/.test(msg)) {
+    return es
+      ? '🔌 Para WooCommerce: ve a Apariencia → Editor de temas → header.php. Pega el script antes de </head>. Luego en la plantilla de producto individual (single-product.php o via hooks) añade el div. También puedes usar un plugin de "Insert Headers and Footers". Más en /partners.'
+      : '🔌 For WooCommerce: go to Appearance → Theme Editor → header.php. Paste the script before </head>. Then add the div to your product template. You can also use an "Insert Headers and Footers" plugin. More at /partners.';
+  }
+
+  // API key
+  if (/api.?key|clave|llave/.test(msg)) {
+    return es
+      ? '🔑 Para obtener tu API key: ve a /partners, introduce la URL de tu tienda y haz login con Google. Recibirás tu API key al instante + 5 renders gratis para probar. Sin tarjeta de crédito.'
+      : '🔑 To get your API key: go to /partners, enter your store URL and sign in with Google. You\'ll get your API key instantly + 5 free renders to test. No credit card needed.';
+  }
+
+  // Render time / speed
+  if (/tarda|cuánto tarda|cuanto tarda|tiempo|speed|fast|rápido|rapido|slow|lento|second|segundo/.test(msg)) {
+    return es
+      ? '⚡ Cada render tarda entre 10 y 60 segundos dependiendo de la complejidad. La mayoría se completan en menos de 30 segundos.'
+      : '⚡ Each render takes 10-60 seconds depending on complexity. Most complete in under 30 seconds.';
+  }
+
   // Privacy / photos
   if (/privacidad|privacy|foto|photo|datos|data|segur|secur/.test(msg)) {
     return es
