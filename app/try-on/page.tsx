@@ -844,20 +844,29 @@ export default function TryOnPage() {
 
             <button
               onClick={async () => {
+                if (!user) { setShowLogin(true); return; }
                 (window as any).datafast?.('credits_pack_purchase', { qty: creditQty, credits: creditQty * 20 });
                 try {
                   const { createBrowserClient } = await import('@supabase/ssr');
                   const sb = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL || '', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '');
                   const { data: { user: sbUser } } = await sb.auth.getUser();
-                  if (!sbUser) return;
+                  if (!sbUser) { alert(lang === 'es' ? 'Error de autenticación. Recarga la página.' : 'Auth error. Please reload.'); return; }
                   const res = await fetch('/api/stripe/checkout', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ plan: 'credits20', quantity: creditQty, email: user!.email, userId: sbUser.id }),
+                    body: JSON.stringify({ plan: 'credits20', quantity: creditQty, email: user.email, userId: sbUser.id }),
                   });
                   const data = await res.json();
-                  if (data.url) window.location.href = data.url;
-                } catch {}
+                  if (data.url) {
+                    window.location.href = data.url;
+                  } else {
+                    console.error('Stripe checkout error:', data.error);
+                    alert(lang === 'es' ? 'Error al conectar con Stripe. Inténtalo de nuevo.' : 'Stripe connection error. Please try again.');
+                  }
+                } catch (err) {
+                  console.error('Credit purchase error:', err);
+                  alert(lang === 'es' ? 'Error al procesar la compra. Inténtalo de nuevo.' : 'Purchase error. Please try again.');
+                }
               }}
               className="w-full py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-[0.15em] text-xs hover:bg-amber-600 transition-colors flex items-center justify-center gap-3"
             >
