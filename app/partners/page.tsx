@@ -307,47 +307,26 @@ function PartnersContent() {
               </div>
             </div>
 
-            {/* ── ECOMMERCE WIDGET (large) ── */}
-            <div className="flex items-center justify-center gap-4 md:gap-8 mb-14">
-              <button onClick={() => setExpandedImage('/images/agalaz before check.jpg')} className="cursor-zoom-in group">
+            {/* ── BEFORE / AFTER / I WANT IT ── */}
+            <div className="flex items-center justify-center gap-3 md:gap-6 mb-16">
+              <button onClick={() => setExpandedImage('/images/before.png')} className="cursor-zoom-in group text-center space-y-2">
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{lang === 'es' ? 'Antes' : 'Before'}</span>
                 <div className="rounded-2xl overflow-hidden border-2 border-slate-200 shadow-md group-hover:border-indigo-300 group-hover:shadow-lg transition-all">
-                  <img src="/images/agalaz before check.jpg" alt="Ecommerce without try-on" className="w-56 md:w-80 h-auto" />
+                  <img src="/images/before.png" alt="Before try-on" className="w-40 md:w-52 h-auto" />
                 </div>
               </button>
-              <ChevronRight size={28} className="text-indigo-400 shrink-0" />
-              <button onClick={() => setExpandedImage('/images/agalaz check.jpg')} className="cursor-zoom-in group">
+              <ChevronRight size={24} className="text-indigo-400 shrink-0 mt-6" />
+              <button onClick={() => setExpandedImage('/images/after.png')} className="cursor-zoom-in group text-center space-y-2">
+                <span className="text-[10px] font-black uppercase tracking-widest text-indigo-600">{lang === 'es' ? 'Después' : 'After'}</span>
                 <div className="rounded-2xl overflow-hidden border-2 border-indigo-300 shadow-md group-hover:border-indigo-500 group-hover:shadow-lg transition-all">
-                  <img src="/images/agalaz check.jpg" alt="Ecommerce with try-on" className="w-56 md:w-80 h-auto" />
+                  <img src="/images/after.png" alt="After try-on" className="w-40 md:w-52 h-auto" />
                 </div>
               </button>
-              <ChevronRight size={28} className="text-indigo-400 shrink-0" />
-              <button onClick={() => setExpandedImage('/images/after.png')} className="cursor-zoom-in group">
-                <div className="rounded-2xl overflow-hidden border-2 border-indigo-300 shadow-md group-hover:border-indigo-500 group-hover:shadow-lg transition-all">
-                  <img src="/images/after.png" alt="Try-on result" className="w-56 md:w-80 h-auto" />
-                </div>
-              </button>
-            </div>
-
-            {/* ── BEFORE / AFTER (small) ── */}
-            <div className="flex items-center justify-center gap-3 md:gap-5 mb-16">
-              <button onClick={() => setExpandedImage('/images/before.png')} className="cursor-zoom-in group text-center space-y-1.5">
-                <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">{lang === 'es' ? 'Antes' : 'Before'}</span>
-                <div className="rounded-2xl overflow-hidden border-2 border-slate-200 shadow-md group-hover:border-indigo-300 group-hover:shadow-lg transition-all">
-                  <img src="/images/before.png" alt="Before try-on" className="w-28 md:w-36 h-auto" />
-                </div>
-              </button>
-              <ChevronRight size={20} className="text-indigo-400 shrink-0 mt-5" />
-              <button onClick={() => setExpandedImage('/images/after.png')} className="cursor-zoom-in group text-center space-y-1.5">
-                <span className="text-[9px] font-black uppercase tracking-widest text-indigo-600">{lang === 'es' ? 'Después' : 'After'}</span>
-                <div className="rounded-2xl overflow-hidden border-2 border-indigo-300 shadow-md group-hover:border-indigo-500 group-hover:shadow-lg transition-all">
-                  <img src="/images/after.png" alt="After try-on" className="w-28 md:w-36 h-auto" />
-                </div>
-              </button>
-              <ChevronRight size={20} className="text-indigo-400 shrink-0 mt-5" />
-              <button onClick={() => setExpandedImage('/images/Agalaz I want it.jpg')} className="cursor-zoom-in group text-center space-y-1.5">
-                <span className="text-[9px] font-black uppercase tracking-widest text-emerald-600">{lang === 'es' ? '¡Lo quiero!' : 'I want it!'}</span>
+              <ChevronRight size={24} className="text-indigo-400 shrink-0 mt-6" />
+              <button onClick={() => setExpandedImage('/images/Agalaz I want it.jpg')} className="cursor-zoom-in group text-center space-y-2">
+                <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">{lang === 'es' ? '¡Lo quiero!' : 'I want it!'}</span>
                 <div className="rounded-2xl overflow-hidden border-2 border-emerald-300 shadow-md group-hover:border-emerald-500 group-hover:shadow-lg transition-all">
-                  <img src="/images/Agalaz I want it.jpg" alt="I want it" className="w-28 md:w-36 h-auto" />
+                  <img src="/images/Agalaz I want it.jpg" alt="I want it" className="w-40 md:w-52 h-auto" />
                 </div>
               </button>
             </div>
