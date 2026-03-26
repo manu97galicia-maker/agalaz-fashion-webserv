@@ -359,7 +359,7 @@ function PartnersContent() {
             )}
 
             {/* ── START: Enter URL + Login ── */}
-            <div className="max-w-md mx-auto mb-20">
+            <div id="apply" className="max-w-md mx-auto mb-20 scroll-mt-20">
               <div className="border-2 border-indigo-400 rounded-2xl p-8 space-y-6 bg-gradient-to-b from-indigo-50 to-white shadow-xl shadow-indigo-100">
                 <div className="text-center space-y-3">
                   <div className="w-14 h-14 bg-indigo-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg shadow-indigo-200">
@@ -516,10 +516,11 @@ function PartnersContent() {
                 {PLANS.map((plan) => (
                   <div
                     key={plan.id}
-                    className={`relative p-8 rounded-2xl border-2 transition-all ${
+                    onClick={() => document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' })}
+                    className={`relative p-8 rounded-2xl border-2 transition-all cursor-pointer hover:shadow-xl ${
                       plan.popular
                         ? 'border-indigo-600 shadow-lg shadow-indigo-100'
-                        : 'border-slate-200'
+                        : 'border-slate-200 hover:border-indigo-300'
                     }`}
                   >
                     {plan.popular && (
