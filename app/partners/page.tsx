@@ -353,12 +353,17 @@ function PartnersContent() {
 
             {/* ── START: Enter URL + Login ── */}
             <div className="max-w-md mx-auto mb-20">
-              <div className="border-2 border-indigo-200 rounded-2xl p-8 space-y-6 bg-indigo-50/30">
-                <div className="text-center space-y-2">
-                  <Sparkles size={28} className="text-indigo-600 mx-auto" />
-                  <h2 className="font-serif text-2xl font-black text-slate-900">Aplica ahora — Prueba Gratis</h2>
+              <div className="border-2 border-indigo-400 rounded-2xl p-8 space-y-6 bg-gradient-to-b from-indigo-50 to-white shadow-xl shadow-indigo-100">
+                <div className="text-center space-y-3">
+                  <div className="w-14 h-14 bg-indigo-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg shadow-indigo-200">
+                    <Sparkles size={24} className="text-white" />
+                  </div>
+                  <h2 className="font-serif text-3xl font-black text-slate-900">{lang === 'es' ? 'Aplica ahora' : 'Apply now'}</h2>
+                  <p className="text-indigo-600 text-sm font-black uppercase tracking-widest">
+                    {lang === 'es' ? 'Prueba Gratis' : 'Free Trial'}
+                  </p>
                   <p className="text-slate-400 text-xs font-light">
-                    5 renders gratis. Sin tarjeta de crédito. Sin coste de instalación.
+                    {lang === 'es' ? '5 renders gratis. Sin tarjeta de crédito. Sin coste de instalación.' : '5 free renders. No credit card. No setup cost.'}
                   </p>
                 </div>
 
