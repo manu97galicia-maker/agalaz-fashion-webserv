@@ -132,17 +132,8 @@ export default function TryOnPage() {
     setError(null);
   };
 
-  const saveToGallery = (imageUrl: string) => {
-    try {
-      const gallery = JSON.parse(localStorage.getItem('agalaz-gallery') || '[]');
-      gallery.unshift({
-        id: `render-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-        dataUrl: imageUrl,
-        createdAt: Date.now(),
-      });
-      if (gallery.length > 50) gallery.length = 50;
-      localStorage.setItem('agalaz-gallery', JSON.stringify(gallery));
-    } catch {}
+  const saveToGallery = (_imageUrl: string) => {
+    // Images are not saved to protect user privacy
   };
 
   const handleStartAnalysis = async () => {

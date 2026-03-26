@@ -605,7 +605,6 @@ function PartnersContent() {
                   { q: '¿Qué artículos pueden probarse los clientes?', a: 'Ropa (camisetas, vestidos, pantalones, chaquetas), gafas y gafas de sol, joyería (collares, pendientes, pulseras, anillos, relojes), sombreros, zapatos, bolsos, e incluso tatuajes o nail art. La IA detecta el tipo de artículo automáticamente.' },
                   { q: '¿Qué velocidad tiene el renderizado?', a: 'El tiempo medio de render es ~10 segundos dependiendo de la calidad de la imagen. La IA genera una imagen fotorrealista del cliente con el artículo puesto.' },
                   { q: '¿Almacenáis las fotos de los clientes?', a: 'No. Las imágenes de los clientes se procesan en tiempo real y nunca se almacenan en nuestros servidores. Política de retención de datos cero.' },
-                  { q: '¿Qué pasa si supero mis renders mensuales?', a: 'Los renders extra se facturan a 0,75€/render (Starter) o 0,50€/render (Growth). Sin corte — tu widget sigue funcionando.' },
                   { q: '¿Puedo cancelar en cualquier momento?', a: 'Sí. Las suscripciones mensuales se pueden cancelar en cualquier momento. Mantienes el acceso hasta el final de tu período de facturación.' },
                 ] : [
                   { q: 'How does the free trial work?', a: 'Enter your store URL, sign in with Google, and you instantly receive an API key with 5 free renders. No credit card required. No setup fee. Test the widget on your real store before committing to a plan.' },
@@ -616,7 +615,6 @@ function PartnersContent() {
                   { q: 'What items can customers try on?', a: 'Clothing (shirts, dresses, pants, jackets), glasses & sunglasses, jewelry (necklaces, earrings, bracelets, rings, watches), hats, shoes, bags, and even tattoos or nail art. The AI detects the item type automatically.' },
                   { q: 'How fast is the rendering?', a: 'Average render time is ~10 seconds depending on image quality. The AI generates a photorealistic image of the customer wearing the item.' },
                   { q: 'Do you store customer photos?', a: 'No. Customer images are processed in real-time and never stored on our servers. Zero data retention policy.' },
-                  { q: 'What if I exceed my monthly renders?', a: 'Extra renders are billed at €0.75/render (Starter) or €0.50/render (Growth). No hard cutoff — your widget keeps working.' },
                   { q: 'Can I cancel anytime?', a: 'Yes. Monthly subscriptions can be cancelled anytime. You keep access until the end of your billing period.' },
                 ]).map((faq, i) => (
                   <div key={i} className="border border-slate-200 rounded-xl overflow-hidden">
