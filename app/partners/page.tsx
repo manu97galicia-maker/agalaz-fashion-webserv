@@ -16,7 +16,7 @@ const PLANS = [
     price: 150,
     renders: 200,
     extra: '0,75',
-    features: ['200 renders/mes', 'Widget personalizable', 'Soporte por email', 'Dashboard de uso'],
+    features: ['200 renders/mes', 'Widget personalizable'],
     popular: false,
   },
   {
@@ -25,7 +25,7 @@ const PLANS = [
     price: 499,
     renders: 1000,
     extra: '0,50',
-    features: ['1.000 renders/mes', 'Widget personalizable', 'Soporte prioritario', 'Dashboard + analytics', 'Dominios ilimitados', 'Onboarding call'],
+    features: ['1.000 renders/mes', 'Widget personalizable'],
     popular: true,
   },
 ];
@@ -546,10 +546,6 @@ function PartnersContent() {
                             {f}
                           </li>
                         ))}
-                        <li className="flex items-center gap-2 text-xs text-slate-400">
-                          <ArrowRight size={14} className="text-slate-300 shrink-0" />
-                          Extra: {plan.extra}&euro;/render
-                        </li>
                       </ul>
                     </div>
                   </div>
