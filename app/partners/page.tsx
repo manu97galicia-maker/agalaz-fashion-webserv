@@ -284,35 +284,34 @@ function PartnersContent() {
         {(step === 'landing' || step === 'login') && (
           <>
             {/* ── BEFORE / AFTER IMAGES ── */}
-            <div className="mb-16">
-              <div className="flex items-center justify-center gap-2 md:gap-4 flex-wrap">
-                {/* agalaz before check */}
+            <div className="mb-16 space-y-8">
+              {/* Row 1: Before → After (person photos) */}
+              <div className="flex items-center justify-center gap-3 md:gap-6">
+                <button onClick={() => setExpandedImage('/images/before.png')} className="cursor-zoom-in group text-center space-y-2">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{lang === 'es' ? 'Antes' : 'Before'}</span>
+                  <div className="rounded-2xl overflow-hidden border-2 border-slate-200 shadow-md group-hover:border-indigo-300 group-hover:shadow-lg transition-all">
+                    <img src="/images/before.png" alt="Before try-on" className="w-40 md:w-56 h-auto" />
+                  </div>
+                </button>
+                <ChevronRight size={24} className="text-indigo-400 shrink-0 mt-6" />
+                <button onClick={() => setExpandedImage('/images/after.png')} className="cursor-zoom-in group text-center space-y-2">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-indigo-600">{lang === 'es' ? 'Después' : 'After'}</span>
+                  <div className="rounded-2xl overflow-hidden border-2 border-indigo-300 shadow-md group-hover:border-indigo-500 group-hover:shadow-lg transition-all">
+                    <img src="/images/after.png" alt="After try-on" className="w-40 md:w-56 h-auto" />
+                  </div>
+                </button>
+              </div>
+              {/* Row 2: Ecommerce without → with widget */}
+              <div className="flex items-center justify-center gap-3 md:gap-6">
                 <button onClick={() => setExpandedImage('/images/agalaz before check.jpg')} className="cursor-zoom-in group">
-                  <div className="relative w-28 h-40 md:w-40 md:h-56 rounded-2xl overflow-hidden border-2 border-slate-200 shadow-md group-hover:border-indigo-300 group-hover:shadow-lg transition-all">
-                    <Image src="/images/agalaz before check.jpg" alt="Ecommerce without try-on" fill className="object-cover" />
+                  <div className="rounded-2xl overflow-hidden border-2 border-slate-200 shadow-md group-hover:border-indigo-300 group-hover:shadow-lg transition-all">
+                    <img src="/images/agalaz before check.jpg" alt="Ecommerce without try-on" className="w-40 md:w-56 h-auto" />
                   </div>
                 </button>
-                <ChevronRight size={22} className="text-indigo-400 shrink-0" />
-                {/* agalaz check */}
+                <ChevronRight size={24} className="text-indigo-400 shrink-0" />
                 <button onClick={() => setExpandedImage('/images/agalaz check.jpg')} className="cursor-zoom-in group">
-                  <div className="relative w-28 h-40 md:w-40 md:h-56 rounded-2xl overflow-hidden border-2 border-indigo-300 shadow-md group-hover:border-indigo-500 group-hover:shadow-lg transition-all">
-                    <Image src="/images/agalaz check.jpg" alt="Ecommerce with try-on" fill className="object-cover" />
-                  </div>
-                </button>
-                <ChevronRight size={22} className="text-indigo-400 shrink-0" />
-                {/* Before */}
-                <button onClick={() => setExpandedImage('/images/before.png')} className="cursor-zoom-in group text-center space-y-1.5">
-                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">{lang === 'es' ? 'Antes' : 'Before'}</span>
-                  <div className="relative w-28 h-40 md:w-40 md:h-56 rounded-2xl overflow-hidden border-2 border-slate-200 shadow-md group-hover:border-indigo-300 group-hover:shadow-lg transition-all">
-                    <Image src="/images/before.png" alt="Before try-on" fill className="object-cover" />
-                  </div>
-                </button>
-                <ChevronRight size={22} className="text-indigo-400 shrink-0 mt-5" />
-                {/* After */}
-                <button onClick={() => setExpandedImage('/images/after.png')} className="cursor-zoom-in group text-center space-y-1.5">
-                  <span className="text-[9px] font-black uppercase tracking-widest text-indigo-600">{lang === 'es' ? 'Después' : 'After'}</span>
-                  <div className="relative w-28 h-40 md:w-40 md:h-56 rounded-2xl overflow-hidden border-2 border-indigo-300 shadow-md group-hover:border-indigo-500 group-hover:shadow-lg transition-all">
-                    <Image src="/images/after.png" alt="After try-on" fill className="object-cover" />
+                  <div className="rounded-2xl overflow-hidden border-2 border-indigo-300 shadow-md group-hover:border-indigo-500 group-hover:shadow-lg transition-all">
+                    <img src="/images/agalaz check.jpg" alt="Ecommerce with try-on" className="w-40 md:w-56 h-auto" />
                   </div>
                 </button>
               </div>
