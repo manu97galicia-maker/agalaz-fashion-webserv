@@ -430,8 +430,8 @@ function PartnersContent() {
             {/* ── DEMO VIDEO ── */}
             <div className="mb-20">
               <div className="text-center space-y-3 mb-8">
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600">See it in action</span>
-                <h2 className="font-serif text-3xl font-black text-slate-900">Virtual Try-On for Your Store</h2>
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600">{lang === 'es' ? 'Míralo en acción' : 'See it in action'}</span>
+                <h2 className="font-serif text-3xl font-black text-slate-900">{lang === 'es' ? 'Probador Virtual para Tu Tienda' : 'Virtual Try-On for Your Store'}</h2>
               </div>
               <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden border-2 border-slate-200 shadow-lg">
                 <video
@@ -444,17 +444,21 @@ function PartnersContent() {
                 />
               </div>
               <p className="text-center text-[10px] text-slate-300 mt-4">
-                Real demo — AI virtual try-on running on an ecommerce product page
+                {lang === 'es' ? 'Demo real — probador virtual con IA en una página de producto ecommerce' : 'Real demo — AI virtual try-on running on an ecommerce product page'}
               </p>
             </div>
 
             {/* ── FEATURES ── */}
             <div className="grid md:grid-cols-3 gap-6 mb-20">
-              {[
+              {(lang === 'es' ? [
+                { icon: <Code2 size={20} />, title: '2 Líneas de Código', desc: 'Pega nuestro script + un div en tu página de producto. Listo. Sin servidor, sin integración compleja.' },
+                { icon: <Shield size={20} />, title: 'Seguro por Defecto', desc: 'Allowlisting de dominios, claves API con SHA-256, límites de peticiones. Nunca almacenamos las fotos de tus clientes.' },
+                { icon: <Sparkles size={20} />, title: 'Resultados con IA', desc: 'Probador fotorrealista para ropa, gafas, joyería, sombreros, zapatos, bolsos — incluso tatuajes y nail art.' },
+              ] : [
                 { icon: <Code2 size={20} />, title: '2 Lines of Code', desc: 'Paste our script tag + a div on your product page. That\'s it. No server setup, no complex integration.' },
                 { icon: <Shield size={20} />, title: 'Secure by Default', desc: 'Domain allowlisting, SHA-256 hashed API keys, rate limits. We never store your customers\' photos.' },
                 { icon: <Sparkles size={20} />, title: 'AI-Powered Results', desc: 'Photorealistic try-on for clothing, glasses, jewelry, hats, shoes, bags — even tattoos and nail art.' },
-              ].map((f, i) => (
+              ]).map((f, i) => (
                 <div key={i} className="p-6 border border-slate-100 rounded-2xl space-y-3">
                   <div className="text-indigo-600">{f.icon}</div>
                   <h3 className="font-black text-slate-900 text-sm">{f.title}</h3>
@@ -466,18 +470,24 @@ function PartnersContent() {
             {/* ── HOW IT WORKS ── */}
             <div className="mb-20">
               <div className="text-center space-y-3 mb-10">
-                <h2 className="font-serif text-3xl font-black text-slate-900">How to Get Started</h2>
-                <p className="text-slate-400 text-sm font-light">From sign-up to live widget in under 5 minutes.</p>
+                <h2 className="font-serif text-3xl font-black text-slate-900">{lang === 'es' ? 'Cómo Empezar' : 'How to Get Started'}</h2>
+                <p className="text-slate-400 text-sm font-light">{lang === 'es' ? 'Del registro al widget en menos de 5 minutos.' : 'From sign-up to live widget in under 5 minutes.'}</p>
               </div>
 
               <div className="space-y-0 max-w-lg mx-auto">
-                {[
+                {(lang === 'es' ? [
+                  { step: '1', title: 'Introduce la URL de tu tienda', desc: 'Dinos dónde está tu tienda. Autorizaremos el dominio automáticamente.' },
+                  { step: '2', title: 'Inicia sesión con Google', desc: 'Autenticación en un clic. Sin contraseñas, sin formularios.' },
+                  { step: '3', title: 'Obtén tu API key + 5 renders gratis', desc: 'Recibe al instante tu clave API segura y 5 renders para probar en tu tienda real. Sin tarjeta de crédito.' },
+                  { step: '4', title: 'Instala el widget (2 líneas de código)', desc: 'Copia el <script> en el <head> de tu tienda y coloca un <div> en tus páginas de producto. Detecta imágenes automáticamente en Shopify y WooCommerce.' },
+                  { step: '5', title: 'Cuando termine la prueba, elige un plan', desc: 'Tras tus 5 renders gratis, elige Starter (150€/mes) o Growth (499€/mes). Sin coste de alta. Cancela cuando quieras.' },
+                ] : [
                   { step: '1', title: 'Enter your store URL', desc: 'Tell us where your store lives. We\'ll allowlist the domain automatically.' },
                   { step: '2', title: 'Sign in with Google', desc: 'One-click authentication. No passwords, no forms.' },
                   { step: '3', title: 'Get your API key + 5 free renders', desc: 'Instantly receive your secure API key and 5 renders to test on your real store. No credit card needed.' },
                   { step: '4', title: 'Install the widget (2 lines of code)', desc: 'Copy the <script> tag into your store\'s <head>, and place a <div> on your product pages. Auto-detects images on Shopify & WooCommerce.' },
                   { step: '5', title: 'When trial ends, choose a plan', desc: 'After your 5 free renders, pick Starter (€150/mo) or Growth (€499/mo). No setup fees. Cancel anytime.' },
-                ].map((item, i) => (
+                ]).map((item, i) => (
                   <div key={i} className="flex gap-5 pb-8 last:pb-0">
                     <div className="flex flex-col items-center">
                       <div className="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-black text-sm shrink-0">
@@ -497,8 +507,8 @@ function PartnersContent() {
             {/* ── PRICING ── */}
             <div className="mb-20">
               <div className="text-center space-y-3 mb-10">
-                <h2 className="font-serif text-3xl font-black text-slate-900">Pricing</h2>
-                <p className="text-slate-400 text-sm font-light">No setup fees. Start with 5 free renders. Upgrade when ready.</p>
+                <h2 className="font-serif text-3xl font-black text-slate-900">{lang === 'es' ? 'Precios' : 'Pricing'}</h2>
+                <p className="text-slate-400 text-sm font-light">{lang === 'es' ? 'Sin coste de alta. Empieza con 5 renders gratis. Amplía cuando quieras.' : 'No setup fees. Start with 5 free renders. Upgrade when ready.'}</p>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
@@ -513,7 +523,7 @@ function PartnersContent() {
                   >
                     {plan.popular && (
                       <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-indigo-600 text-white text-[9px] font-black uppercase tracking-widest rounded-full">
-                        Most Popular
+                        {lang === 'es' ? 'Más Popular' : 'Most Popular'}
                       </div>
                     )}
                     <div className="space-y-5">
@@ -521,10 +531,10 @@ function PartnersContent() {
                         <h3 className="font-black text-slate-900 text-lg">{plan.name}</h3>
                         <div className="flex items-baseline gap-1 mt-2">
                           <span className="font-serif text-4xl font-black text-slate-900">{plan.price}</span>
-                          <span className="text-slate-400 text-sm font-bold">&euro;/month</span>
+                          <span className="text-slate-400 text-sm font-bold">&euro;/{lang === 'es' ? 'mes' : 'month'}</span>
                         </div>
                         <p className="text-xs text-emerald-600 font-bold mt-1">
-                          No setup fee
+                          {lang === 'es' ? 'Sin coste de alta' : 'No setup fee'}
                         </p>
                       </div>
                       <ul className="space-y-2.5">
@@ -548,27 +558,31 @@ function PartnersContent() {
             {/* ── ROI CALCULATOR ── */}
             <div className="mb-20">
               <div className="text-center space-y-3 mb-10">
-                <h2 className="font-serif text-3xl font-black text-slate-900">Return on Investment</h2>
-                <p className="text-slate-400 text-sm font-light">How much can virtual try-on save your business?</p>
+                <h2 className="font-serif text-3xl font-black text-slate-900">{lang === 'es' ? 'Retorno de Inversión' : 'Return on Investment'}</h2>
+                <p className="text-slate-400 text-sm font-light">{lang === 'es' ? '¿Cuánto puede ahorrar el probador virtual a tu negocio?' : 'How much can virtual try-on save your business?'}</p>
               </div>
 
               <div className="grid md:grid-cols-3 gap-6">
-                {[
+                {(lang === 'es' ? [
+                  { type: 'Boutique', orders: '500 pedidos/mes', returns: '25% → 15%', saved: '50 devoluciones menos/mes', value: '~1.500€/mes ahorrados', cost: 'Starter: 150€/mes', roi: '10x ROI', roiColor: 'text-emerald-600' },
+                  { type: 'Tienda Mediana', orders: '2.000 pedidos/mes', returns: '30% → 18%', saved: '240 devoluciones menos/mes', value: '~7.200€/mes ahorrados', cost: 'Growth: 499€/mes', roi: '14x ROI', roiColor: 'text-indigo-600' },
+                  { type: 'Gran Retailer', orders: '10.000 pedidos/mes', returns: '35% → 20%', saved: '1.500 devoluciones menos/mes', value: '~45.000€/mes ahorrados', cost: 'Plan personalizado', roi: '50x+ ROI', roiColor: 'text-amber-600' },
+                ] : [
                   { type: 'Boutique', orders: '500 orders/mo', returns: '25% → 15%', saved: '50 fewer returns/mo', value: '~€1,500/mo saved', cost: 'Starter: €150/mo', roi: '10x ROI', roiColor: 'text-emerald-600' },
                   { type: 'Mid-size Store', orders: '2,000 orders/mo', returns: '30% → 18%', saved: '240 fewer returns/mo', value: '~€7,200/mo saved', cost: 'Growth: €499/mo', roi: '14x ROI', roiColor: 'text-indigo-600' },
                   { type: 'Large Retailer', orders: '10,000 orders/mo', returns: '35% → 20%', saved: '1,500 fewer returns/mo', value: '~€45,000/mo saved', cost: 'Custom plan', roi: '50x+ ROI', roiColor: 'text-amber-600' },
-                ].map((tier, i) => (
+                ]).map((tier, i) => (
                   <div key={i} className="p-6 border border-slate-100 rounded-2xl space-y-4">
                     <div>
                       <h3 className="font-black text-slate-900 text-sm">{tier.type}</h3>
                       <p className="text-[10px] text-slate-400 mt-0.5">{tier.orders}</p>
                     </div>
                     <div className="space-y-2 text-xs text-slate-600">
-                      <div className="flex justify-between"><span>Returns reduction</span><span className="font-bold text-emerald-600">{tier.returns}</span></div>
-                      <div className="flex justify-between"><span>Returns avoided</span><span className="font-bold">{tier.saved}</span></div>
-                      <div className="flex justify-between"><span>Estimated savings</span><span className="font-bold text-slate-900">{tier.value}</span></div>
+                      <div className="flex justify-between"><span>{lang === 'es' ? 'Reducción devoluciones' : 'Returns reduction'}</span><span className="font-bold text-emerald-600">{tier.returns}</span></div>
+                      <div className="flex justify-between"><span>{lang === 'es' ? 'Devoluciones evitadas' : 'Returns avoided'}</span><span className="font-bold">{tier.saved}</span></div>
+                      <div className="flex justify-between"><span>{lang === 'es' ? 'Ahorro estimado' : 'Estimated savings'}</span><span className="font-bold text-slate-900">{tier.value}</span></div>
                       <div className="h-px bg-slate-100" />
-                      <div className="flex justify-between"><span>Agalaz cost</span><span className="font-bold">{tier.cost}</span></div>
+                      <div className="flex justify-between"><span>{lang === 'es' ? 'Coste Agalaz' : 'Agalaz cost'}</span><span className="font-bold">{tier.cost}</span></div>
                     </div>
                     <div className={`text-center py-3 bg-slate-50 rounded-xl font-black text-lg ${tier.roiColor}`}>
                       {tier.roi}
@@ -577,18 +591,29 @@ function PartnersContent() {
                 ))}
               </div>
               <p className="text-center text-[10px] text-slate-300 mt-4">
-                * Based on average €30 return processing cost. ROI improved vs old plans — no setup fees.
+                {lang === 'es' ? '* Basado en un coste medio de 30€ por devolución procesada. Sin costes de alta.' : '* Based on average €30 return processing cost. ROI improved vs old plans — no setup fees.'}
               </p>
             </div>
 
             {/* ── FAQ ── */}
             <div id="faq" className="mb-20 scroll-mt-20">
               <div className="text-center space-y-3 mb-10">
-                <h2 className="font-serif text-3xl font-black text-slate-900">Frequently Asked Questions</h2>
+                <h2 className="font-serif text-3xl font-black text-slate-900">{lang === 'es' ? 'Preguntas Frecuentes' : 'Frequently Asked Questions'}</h2>
               </div>
 
               <div className="max-w-2xl mx-auto space-y-3">
-                {[
+                {(lang === 'es' ? [
+                  { q: '¿Cómo funciona la prueba gratis?', a: 'Introduce la URL de tu tienda, inicia sesión con Google y recibirás al instante una API key con 5 renders gratis. Sin tarjeta de crédito. Sin coste de alta. Prueba el widget en tu tienda real antes de contratar un plan.' },
+                  { q: '¿Qué pasa cuando se acaban mis 5 renders gratis?', a: 'El widget deja de funcionar hasta que te suscribas a un plan. Elige Starter (150€/mes, 200 renders) o Growth (499€/mes, 1.000 renders). Sin presión — tu API key sigue siendo válida.' },
+                  { q: '¿Hay coste de alta?', a: 'No. Hemos eliminado los costes de alta. Solo pagas la suscripción mensual cuando estés listo para lanzar.' },
+                  { q: '¿Qué pasa si no cancelo la suscripción?', a: 'La suscripción se renueva automáticamente cada mes. Si no cancelas antes del siguiente ciclo de facturación, se te cobrará el siguiente mes. Puedes cancelar en cualquier momento desde tu portal de cliente en Stripe.' },
+                  { q: '¿Qué plataformas son compatibles?', a: 'El widget funciona en cualquier web: Shopify, WooCommerce, PrestaShop, Magento, Wix, Squarespace y cualquier tienda personalizada. Detecta automáticamente las imágenes de producto en Shopify y WooCommerce. Para otras plataformas, pasa la URL de la imagen en el atributo data-garment.' },
+                  { q: '¿Qué artículos pueden probarse los clientes?', a: 'Ropa (camisetas, vestidos, pantalones, chaquetas), gafas y gafas de sol, joyería (collares, pendientes, pulseras, anillos, relojes), sombreros, zapatos, bolsos, e incluso tatuajes o nail art. La IA detecta el tipo de artículo automáticamente.' },
+                  { q: '¿Qué velocidad tiene el renderizado?', a: 'El tiempo medio de render es ~10 segundos dependiendo de la calidad de la imagen. La IA genera una imagen fotorrealista del cliente con el artículo puesto.' },
+                  { q: '¿Almacenáis las fotos de los clientes?', a: 'No. Las imágenes de los clientes se procesan en tiempo real y nunca se almacenan en nuestros servidores. Política de retención de datos cero.' },
+                  { q: '¿Qué pasa si supero mis renders mensuales?', a: 'Los renders extra se facturan a 0,75€/render (Starter) o 0,50€/render (Growth). Sin corte — tu widget sigue funcionando.' },
+                  { q: '¿Puedo cancelar en cualquier momento?', a: 'Sí. Las suscripciones mensuales se pueden cancelar en cualquier momento. Mantienes el acceso hasta el final de tu período de facturación.' },
+                ] : [
                   { q: 'How does the free trial work?', a: 'Enter your store URL, sign in with Google, and you instantly receive an API key with 5 free renders. No credit card required. No setup fee. Test the widget on your real store before committing to a plan.' },
                   { q: 'What happens when my 5 free renders run out?', a: 'The widget stops working until you subscribe to a plan. Choose Starter (€150/mo, 200 renders) or Growth (€499/mo, 1,000 renders). No pressure — your API key stays valid.' },
                   { q: 'Is there a setup fee?', a: 'No. We eliminated setup fees. You only pay the monthly subscription when you\'re ready to go live.' },
@@ -599,7 +624,7 @@ function PartnersContent() {
                   { q: 'Do you store customer photos?', a: 'No. Customer images are processed in real-time and never stored on our servers. Zero data retention policy.' },
                   { q: 'What if I exceed my monthly renders?', a: 'Extra renders are billed at €0.75/render (Starter) or €0.50/render (Growth). No hard cutoff — your widget keeps working.' },
                   { q: 'Can I cancel anytime?', a: 'Yes. Monthly subscriptions can be cancelled anytime. You keep access until the end of your billing period.' },
-                ].map((faq, i) => (
+                ]).map((faq, i) => (
                   <div key={i} className="border border-slate-200 rounded-xl overflow-hidden">
                     <button
                       onClick={() => setOpenFaq(openFaq === i ? null : i)}
@@ -620,22 +645,22 @@ function PartnersContent() {
 
             {/* ── BOTTOM CTA ── */}
             <div id="contact" className="text-center space-y-4 scroll-mt-20">
-              <h2 className="font-serif text-2xl font-black text-slate-900">Ready to get started?</h2>
-              <p className="text-slate-400 text-sm font-light">5 free renders. No credit card. No setup fee.</p>
+              <h2 className="font-serif text-2xl font-black text-slate-900">{lang === 'es' ? '¿Listo para empezar?' : 'Ready to get started?'}</h2>
+              <p className="text-slate-400 text-sm font-light">{lang === 'es' ? '5 renders gratis. Sin tarjeta. Sin coste de alta.' : '5 free renders. No credit card. No setup fee.'}</p>
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className="px-8 py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-[0.15em] text-xs hover:bg-indigo-600 transition-colors inline-flex items-center gap-3"
               >
                 <Sparkles size={16} />
-                Start Free Trial
+                {lang === 'es' ? 'Empezar Prueba Gratis' : 'Start Free Trial'}
                 <ArrowRight size={14} />
               </button>
               <div className="pt-4 space-y-2">
                 <Link href="/blog/virtual-dressing-room-online-free" className="text-[10px] text-indigo-500 font-bold hover:text-indigo-700 transition-colors block">
-                  Learn more: What is a Virtual Dressing Room? →
+                  {lang === 'es' ? 'Más info: ¿Qué es un Probador Virtual? →' : 'Learn more: What is a Virtual Dressing Room? →'}
                 </Link>
                 <p className="text-xs text-slate-400">
-                  Questions? <a href="mailto:infoagalaz@gmail.com" className="text-indigo-600 font-bold hover:text-indigo-800">infoagalaz@gmail.com</a>
+                  {lang === 'es' ? '¿Preguntas?' : 'Questions?'} <a href="mailto:infoagalaz@gmail.com" className="text-indigo-600 font-bold hover:text-indigo-800">infoagalaz@gmail.com</a>
                 </p>
               </div>
             </div>
