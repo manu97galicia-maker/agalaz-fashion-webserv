@@ -4,7 +4,8 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
 import Link from 'next/link';
-import { Sparkles, Copy, Check, ArrowRight, Shield, Zap, Globe, Code2, ChevronDown, ShoppingBag, TrendingDown, BarChart3 } from 'lucide-react';
+import Image from 'next/image';
+import { Sparkles, Copy, Check, ArrowRight, ChevronRight, Shield, Zap, Globe, Code2, ChevronDown, ShoppingBag, TrendingDown, BarChart3 } from 'lucide-react';
 import { useLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
 
@@ -281,25 +282,57 @@ function PartnersContent() {
         {/* ═══ STEP: LANDING (not logged in) ═══ */}
         {(step === 'landing' || step === 'login') && (
           <>
+            {/* ── BEFORE / AFTER IMAGES ── */}
+            <div className="mb-16">
+              {/* Row 1: agalaz before check → agalaz check */}
+              <div className="flex items-center justify-center gap-3 md:gap-6 mb-6">
+                <div className="relative w-36 h-48 md:w-48 md:h-64 rounded-2xl overflow-hidden border-2 border-slate-200 shadow-md">
+                  <Image src="/images/agalaz before check.jpg" alt="Before" fill className="object-cover" />
+                </div>
+                <ChevronRight size={28} className="text-indigo-400 shrink-0" />
+                <div className="relative w-36 h-48 md:w-48 md:h-64 rounded-2xl overflow-hidden border-2 border-indigo-300 shadow-md">
+                  <Image src="/images/agalaz check.jpg" alt="After" fill className="object-cover" />
+                </div>
+              </div>
+              {/* Row 2: antes → despues */}
+              <div className="flex items-center justify-center gap-3 md:gap-6">
+                <div className="text-center space-y-2">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{lang === 'es' ? 'Antes' : 'Before'}</span>
+                  <div className="relative w-36 h-48 md:w-48 md:h-64 rounded-2xl overflow-hidden border-2 border-slate-200 shadow-md">
+                    <Image src="/images/before.png" alt="Before" fill className="object-cover" />
+                  </div>
+                </div>
+                <ChevronRight size={28} className="text-indigo-400 shrink-0 mt-6" />
+                <div className="text-center space-y-2">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-indigo-600">{lang === 'es' ? 'Después' : 'After'}</span>
+                  <div className="relative w-36 h-48 md:w-48 md:h-64 rounded-2xl overflow-hidden border-2 border-indigo-300 shadow-md">
+                    <Image src="/images/after.png" alt="After" fill className="object-cover" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* ── HERO ── */}
             <div className="text-center space-y-5 mb-20">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 border border-emerald-200 rounded-full">
                 <ShoppingBag size={14} className="text-emerald-600" />
                 <span className="text-[10px] font-black text-emerald-700 uppercase tracking-widest">
-                  ¿Tienes un ecommerce?
+                  {lang === 'es' ? '¿Tienes un ecommerce?' : 'Got an ecommerce?'}
                 </span>
               </div>
               <h1 className="font-serif text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight">
-                Dispara tus ventas.<br />
-                <span className="italic text-indigo-600">Reduce devoluciones.</span>
+                {lang === 'es' ? 'Dispara tus ventas.' : 'Skyrocket your sales.'}<br />
+                <span className="italic text-indigo-600">{lang === 'es' ? 'Reduce devoluciones.' : 'Reduce returns.'}</span>
               </h1>
               <p className="text-slate-500 text-base font-light max-w-lg mx-auto">
-                Tus clientes se prueban la ropa, gafas, joyería y accesorios con IA antes de comprar. 2 líneas de código. Funciona en Shopify, WooCommerce o cualquier plataforma.
+                {lang === 'es'
+                  ? 'Tus clientes se prueban la ropa, gafas, joyería y accesorios con IA antes de comprar. 2 líneas de código. Funciona en Shopify, WooCommerce o cualquier plataforma.'
+                  : 'Your customers try on clothing, glasses, jewelry & accessories with AI before buying. 2 lines of code. Works on Shopify, WooCommerce, or any platform.'}
               </p>
               <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400 font-bold pt-2">
-                <span className="flex items-center gap-1.5"><TrendingDown size={14} className="text-emerald-500" /> -40% devoluciones</span>
-                <span className="flex items-center gap-1.5"><BarChart3 size={14} className="text-indigo-500" /> +25% conversión</span>
-                <span className="flex items-center gap-1.5"><Zap size={14} className="text-amber-500" /> Prueba gratis</span>
+                <span className="flex items-center gap-1.5"><TrendingDown size={14} className="text-emerald-500" /> {lang === 'es' ? '-40% devoluciones' : '-40% returns'}</span>
+                <span className="flex items-center gap-1.5"><BarChart3 size={14} className="text-indigo-500" /> {lang === 'es' ? '+25% conversión' : '+25% conversion'}</span>
+                <span className="flex items-center gap-1.5"><Zap size={14} className="text-amber-500" /> {lang === 'es' ? 'Prueba gratis' : 'Free trial'}</span>
               </div>
             </div>
 
