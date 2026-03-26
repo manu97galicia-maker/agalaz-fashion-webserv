@@ -478,23 +478,19 @@ function PartnersContent() {
               <div className="space-y-0 max-w-lg mx-auto">
                 {(lang === 'es' ? [
                   { step: '1', title: 'Introduce la URL de tu tienda', desc: 'Dinos dónde está tu tienda. Autorizaremos el dominio automáticamente.' },
-                  { step: '2', title: 'Inicia sesión con Google', desc: 'Autenticación en un clic. Sin contraseñas, sin formularios.' },
-                  { step: '3', title: 'Obtén tu API key + 5 renders gratis', desc: 'Recibe al instante tu clave API segura y 5 renders para probar en tu tienda real. Sin tarjeta de crédito.' },
-                  { step: '4', title: 'Instala el widget (2 líneas de código)', desc: 'Copia el <script> en el <head> de tu tienda y coloca un <div> en tus páginas de producto. Detecta imágenes automáticamente en Shopify y WooCommerce.' },
-                  { step: '5', title: 'Cuando termine la prueba, elige un plan', desc: 'Tras tus 5 renders gratis, elige Starter (150€/mes) o Growth (499€/mes). Sin coste de alta. Cancela cuando quieras.' },
+                  { step: '2', title: 'Obtén tu API key + 5 renders gratis', desc: 'Recibe al instante tu clave API segura y 5 renders para probar en tu tienda real. Sin tarjeta de crédito.' },
+                  { step: '3', title: 'Instala el widget (2 líneas de código)', desc: 'Copia el <script> en el <head> de tu tienda y coloca un <div> en tus páginas de producto. Detecta imágenes automáticamente en Shopify y WooCommerce.' },
                 ] : [
                   { step: '1', title: 'Enter your store URL', desc: 'Tell us where your store lives. We\'ll allowlist the domain automatically.' },
-                  { step: '2', title: 'Sign in with Google', desc: 'One-click authentication. No passwords, no forms.' },
-                  { step: '3', title: 'Get your API key + 5 free renders', desc: 'Instantly receive your secure API key and 5 renders to test on your real store. No credit card needed.' },
-                  { step: '4', title: 'Install the widget (2 lines of code)', desc: 'Copy the <script> tag into your store\'s <head>, and place a <div> on your product pages. Auto-detects images on Shopify & WooCommerce.' },
-                  { step: '5', title: 'When trial ends, choose a plan', desc: 'After your 5 free renders, pick Starter (€150/mo) or Growth (€499/mo). No setup fees. Cancel anytime.' },
+                  { step: '2', title: 'Get your API key + 5 free renders', desc: 'Instantly receive your secure API key and 5 renders to test on your real store. No credit card needed.' },
+                  { step: '3', title: 'Install the widget (2 lines of code)', desc: 'Copy the <script> tag into your store\'s <head>, and place a <div> on your product pages. Auto-detects images on Shopify & WooCommerce.' },
                 ]).map((item, i) => (
                   <div key={i} className="flex gap-5 pb-8 last:pb-0">
                     <div className="flex flex-col items-center">
                       <div className="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-black text-sm shrink-0">
                         {item.step}
                       </div>
-                      {i < 4 && <div className="w-px flex-1 bg-indigo-200 mt-2" />}
+                      {i < 2 && <div className="w-px flex-1 bg-indigo-200 mt-2" />}
                     </div>
                     <div className="pt-2 pb-4">
                       <h3 className="font-black text-slate-900 text-sm">{item.title}</h3>
