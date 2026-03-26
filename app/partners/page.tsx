@@ -343,6 +343,13 @@ function PartnersContent() {
                   <img src="/images/after.png" alt="After try-on" className="w-28 md:w-36 h-auto" />
                 </div>
               </button>
+              <ChevronRight size={20} className="text-indigo-400 shrink-0 mt-5" />
+              <button onClick={() => setExpandedImage('/images/Agalaz I want it.jpg')} className="cursor-zoom-in group text-center space-y-1.5">
+                <span className="text-[9px] font-black uppercase tracking-widest text-emerald-600">{lang === 'es' ? '¡Lo quiero!' : 'I want it!'}</span>
+                <div className="rounded-2xl overflow-hidden border-2 border-emerald-300 shadow-md group-hover:border-emerald-500 group-hover:shadow-lg transition-all">
+                  <img src="/images/Agalaz I want it.jpg" alt="I want it" className="w-28 md:w-36 h-auto" />
+                </div>
+              </button>
             </div>
 
             {/* ── IMAGE LIGHTBOX ── */}
