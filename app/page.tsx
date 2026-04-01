@@ -192,8 +192,8 @@ const landingText = {
 } as const;
 
 const HERO_CATEGORIES = {
-  en: ['Clothing', 'Glasses', 'Jewelry', 'Headwear', 'Shoes', 'Bags', 'Tattoos', 'Nails'],
-  es: ['Ropa', 'Gafas', 'Joyería', 'Sombreros', 'Zapatos', 'Bolsos', 'Tatuajes', 'Uñas'],
+  en: ['Clothing', 'Glasses', 'Jewelry', 'Headwear', 'Shoes', 'Bags'],
+  es: ['Ropa', 'Gafas', 'Joyería', 'Sombreros', 'Zapatos', 'Bolsos'],
 };
 
 export default function HomePage() {
@@ -304,18 +304,20 @@ export default function HomePage() {
               {lt.badge}
             </span>
 
-            <h1 className="font-serif text-6xl sm:text-8xl md:text-9xl lg:text-[11rem] text-slate-900 leading-[0.85] tracking-tight animate-fade-in">
+            <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-slate-900 leading-[0.9] tracking-tight animate-fade-in">
               <span className="font-black">{lang === 'es' ? 'PRUEBA' : 'TRY'}</span>
-              <br />
-              <span key={heroWordIdx} className="italic font-normal text-slate-400 inline-block transition-all duration-500 animate-fade-in">
+              {' '}
+              <span key={heroWordIdx} className="italic font-normal text-indigo-500 inline-block transition-all duration-500 animate-fade-in">
                 {HERO_CATEGORIES[lang][heroWordIdx]}
               </span>
               <br />
               <span className="font-black">{lang === 'es' ? 'ANTES DE COMPRAR.' : 'BEFORE YOU BUY.'}</span>
             </h1>
 
-            <p className="text-slate-500 text-sm md:text-base mt-8 max-w-xl mx-auto font-light leading-relaxed animate-fade-in-delay min-h-[3rem]">
-              {lt.capabilities.items[heroWordIdx]?.desc || t.heroDesc}
+            <p className="text-slate-500 text-base md:text-lg mt-8 max-w-2xl mx-auto font-light leading-relaxed animate-fade-in-delay">
+              {lang === 'es'
+                ? 'Sube tu foto y pruébate cualquier prenda, gafa, joya o accesorio con IA. Ve cómo te queda en tu cuerpo real antes de comprar.'
+                : 'Upload your photo and try on any garment, glasses, jewelry or accessory with AI. See how it looks on your real body before you buy.'}
             </p>
 
             <div className="mt-10 animate-fade-in-delay">

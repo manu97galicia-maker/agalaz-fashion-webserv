@@ -284,27 +284,50 @@ function PartnersContent() {
         {(step === 'landing' || step === 'login') && (
           <>
             {/* ── HERO ── */}
-            <div className="text-center space-y-5 mb-20">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 border border-emerald-200 rounded-full">
-                <ShoppingBag size={14} className="text-emerald-600" />
-                <span className="text-[10px] font-black text-emerald-700 uppercase tracking-widest">
-                  {lang === 'es' ? '¿Tienes un ecommerce?' : 'Got an ecommerce?'}
+            <div className="text-center space-y-6 mb-20">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 border border-indigo-200 rounded-full">
+                <Sparkles size={14} className="text-indigo-600" />
+                <span className="text-[10px] font-black text-indigo-700 uppercase tracking-widest">
+                  {lang === 'es' ? 'Hazte Partner' : 'Become a Partner'}
                 </span>
               </div>
               <h1 className="font-serif text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight">
-                {lang === 'es' ? 'Dispara tus ventas.' : 'Skyrocket your sales.'}<br />
-                <span className="italic text-indigo-600">{lang === 'es' ? 'Reduce devoluciones.' : 'Reduce returns.'}</span>
+                {lang === 'es' ? (
+                  <>Tus clientes se prueban<br /><span className="italic text-indigo-600">antes de comprar.</span></>
+                ) : (
+                  <>Your customers try on<br /><span className="italic text-indigo-600">before they buy.</span></>
+                )}
               </h1>
-              <p className="text-slate-500 text-base font-light max-w-lg mx-auto">
+              <p className="text-slate-500 text-lg font-light max-w-2xl mx-auto leading-relaxed">
                 {lang === 'es'
-                  ? 'Tus clientes se prueban la ropa, gafas, joyería y accesorios con IA antes de comprar. 2 líneas de código. Funciona en Shopify, WooCommerce o cualquier plataforma.'
-                  : 'Your customers try on clothing, glasses, jewelry & accessories with AI before buying. 2 lines of code. Works on Shopify, WooCommerce, or any platform.'}
+                  ? 'Permite a tus clientes previsualizar ropa, gafas, joyería y accesorios sobre ellos mismos con IA. Aumenta conversiones, maximiza el tiempo en tu web y reduce devoluciones.'
+                  : 'Let your customers preview clothing, glasses, jewelry and accessories on themselves with AI. Boost conversions, maximize time on site and reduce returns.'}
               </p>
-              <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400 font-bold pt-2">
-                <span className="flex items-center gap-1.5"><TrendingDown size={14} className="text-emerald-500" /> {lang === 'es' ? '-40% devoluciones' : '-40% returns'}</span>
-                <span className="flex items-center gap-1.5"><BarChart3 size={14} className="text-indigo-500" /> {lang === 'es' ? '+25% conversión' : '+25% conversion'}</span>
-                <span className="flex items-center gap-1.5"><Zap size={14} className="text-amber-500" /> {lang === 'es' ? 'Prueba gratis' : 'Free trial'}</span>
+              <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-slate-600 font-semibold pt-4">
+                <div className="flex flex-col items-center gap-1.5">
+                  <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center">
+                    <TrendingDown size={20} className="text-emerald-500" />
+                  </div>
+                  <span>{lang === 'es' ? 'Menos devoluciones' : 'Fewer returns'}</span>
+                </div>
+                <div className="flex flex-col items-center gap-1.5">
+                  <div className="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center">
+                    <BarChart3 size={20} className="text-indigo-500" />
+                  </div>
+                  <span>{lang === 'es' ? 'Más conversiones' : 'More conversions'}</span>
+                </div>
+                <div className="flex flex-col items-center gap-1.5">
+                  <div className="w-12 h-12 rounded-2xl bg-amber-50 flex items-center justify-center">
+                    <Zap size={20} className="text-amber-500" />
+                  </div>
+                  <span>{lang === 'es' ? 'Mayor retención' : 'Higher retention'}</span>
+                </div>
               </div>
+              <p className="text-slate-400 text-xs font-medium pt-2">
+                {lang === 'es'
+                  ? 'Funciona en Shopify, WooCommerce o cualquier plataforma. 2 líneas de código.'
+                  : 'Works on Shopify, WooCommerce, or any platform. 2 lines of code.'}
+              </p>
             </div>
 
             {/* ── ECOMMERCE WIDGET ── */}
