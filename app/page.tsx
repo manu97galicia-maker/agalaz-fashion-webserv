@@ -420,13 +420,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Color swatches hint */}
-            <div className="flex items-center justify-center gap-3 mt-10">
-              {COLOR_SWATCHES.map((swatch, i) => (
-                <div key={i} className={`w-8 h-8 rounded-full ${swatch.color} ring-2 ring-offset-2 ring-slate-200 cursor-pointer transition-all hover:scale-110`} />
-              ))}
-              <span className="ml-3 text-slate-400 text-xs font-light">+ &infin;</span>
-            </div>
           </div>
 
           <div className="text-center mt-14">
