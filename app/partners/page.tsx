@@ -146,7 +146,7 @@ function PartnersContent() {
 
   // Register partner + generate API key immediately (free trial)
   async function handleRegisterAndGetKey() {
-    if (!userId || !userEmail) return;
+    if (!userEmail) return;
     const url = storeUrl || localStorage.getItem('agalaz_partner_url') || '';
     if (!url) {
       setError('Introduce la URL de tu tienda');
@@ -161,7 +161,7 @@ function PartnersContent() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          user_id: userId,
+          user_id: userId || undefined,
           email: userEmail,
           store_name: new URL(url.startsWith('http') ? url : `https://${url}`).hostname,
           store_url: url,
@@ -373,25 +373,27 @@ function PartnersContent() {
               </div>
             )}
 
-            {/* ── START: Enter URL + Login ── */}
+            {/* ── START: Enter URL + Email — No login required ── */}
             <div id="apply" className="max-w-md mx-auto mb-20 scroll-mt-20">
               <div className="border-2 border-indigo-400 rounded-2xl p-8 space-y-6 bg-gradient-to-b from-indigo-50 to-white shadow-xl shadow-indigo-100">
                 <div className="text-center space-y-3">
                   <div className="w-14 h-14 bg-indigo-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg shadow-indigo-200">
                     <Sparkles size={24} className="text-white" />
                   </div>
-                  <h2 className="font-serif text-3xl font-black text-slate-900">{lang === 'es' ? 'Aplica ahora' : 'Apply now'}</h2>
+                  <h2 className="font-serif text-3xl font-black text-slate-900">{lang === 'es' ? 'Empieza gratis' : 'Start for free'}</h2>
                   <p className="text-indigo-600 text-sm font-black uppercase tracking-widest">
-                    {lang === 'es' ? 'Prueba Gratis' : 'Free Trial'}
+                    {lang === 'es' ? '5 renders gratis' : '5 free renders'}
                   </p>
                   <p className="text-slate-400 text-xs font-light">
-                    {lang === 'es' ? '5 renders gratis. Sin tarjeta de crédito. Sin coste de instalación.' : '5 free renders. No credit card. No setup cost.'}
+                    {lang === 'es' ? 'Sin tarjeta de crédito. Sin registro. Recibe tu API key al instante.' : 'No credit card. No signup. Get your API key instantly.'}
                   </p>
                 </div>
 
-                {/* Step 1: Enter store URL */}
+                {/* Store URL */}
                 <div>
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Your store URL</label>
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                    {lang === 'es' ? 'URL de tu tienda' : 'Your store URL'}
+                  </label>
                   <input
                     type="text"
                     value={storeUrl}
@@ -401,41 +403,47 @@ function PartnersContent() {
                   />
                 </div>
 
+                {/* Email */}
+                <div>
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Email</label>
+                  <input
+                    type="email"
+                    value={userEmail || ''}
+                    onChange={(e) => setUserEmail(e.target.value)}
+                    className="w-full mt-1.5 px-4 py-3 border border-slate-200 rounded-xl text-sm text-slate-900 font-bold placeholder:text-slate-300 outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-300 transition-all bg-white"
+                    placeholder="tu@email.com"
+                  />
+                </div>
+
                 {error && (
                   <div className="p-3 bg-red-50 rounded-xl border border-red-100 text-xs font-bold text-red-600">
                     {error}
                   </div>
                 )}
 
-                {/* Single CTA — login triggers Google OAuth, on return auto-registers */}
+                {/* Direct registration — no Google login */}
                 <button
                   onClick={() => {
                     if (!storeUrl) {
-                      setError(lang === 'es' ? 'Introduce la URL de tu tienda primero' : 'Enter your store URL first');
+                      setError(lang === 'es' ? 'Introduce la URL de tu tienda' : 'Enter your store URL');
+                      return;
+                    }
+                    if (!userEmail) {
+                      setError(lang === 'es' ? 'Introduce tu email' : 'Enter your email');
                       return;
                     }
                     setError(null);
-                    if (step === 'login' && userId) {
-                      handleRegisterAndGetKey();
-                    } else {
-                      handleLogin();
-                    }
+                    handleRegisterAndGetKey();
                   }}
                   disabled={isSubmitting}
                   className="w-full py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-[0.15em] text-xs hover:bg-indigo-600 transition-colors flex items-center justify-center gap-3 disabled:opacity-50"
                 >
                   <Sparkles size={16} />
                   {isSubmitting
-                    ? (lang === 'es' ? 'Generando...' : 'Generating...')
-                    : (lang === 'es' ? 'Empezar prueba gratis' : 'Start free trial')}
+                    ? (lang === 'es' ? 'Generando tu API key...' : 'Generating your API key...')
+                    : (lang === 'es' ? 'Obtener API key gratis' : 'Get free API key')}
                   <ArrowRight size={16} />
                 </button>
-
-                {step === 'login' && userEmail && (
-                  <p className="text-center text-[10px] text-slate-400">
-                    {lang === 'es' ? 'Sesión iniciada como' : 'Logged in as'} <span className="font-bold text-slate-600">{userEmail}</span>
-                  </p>
-                )}
 
                 <p className="text-center text-[10px] text-slate-300 font-bold">
                   {lang === 'es' ? 'Sin tarjeta de crédito' : 'No credit card required'}
