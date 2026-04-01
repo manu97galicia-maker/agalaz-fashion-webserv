@@ -300,8 +300,8 @@ function PartnersContent() {
               </h1>
               <p className="text-slate-500 text-lg font-light max-w-2xl mx-auto leading-relaxed">
                 {lang === 'es'
-                  ? 'Permite a tus clientes previsualizar ropa, gafas, joyería y accesorios sobre ellos mismos con IA. Aumenta conversiones, maximiza el tiempo en tu web y reduce devoluciones.'
-                  : 'Let your customers preview clothing, glasses, jewelry and accessories on themselves with AI. Boost conversions, maximize time on site and reduce returns.'}
+                  ? 'Añadiendo el botón de probarse la ropa antes de comprar, permite a tus clientes previsualizar ropa, gafas, joyería y accesorios sobre ellos mismos con IA. Aumenta conversiones, maximiza el tiempo en tu web y reduce devoluciones.'
+                  : 'By adding a try-on button before buying, let your customers preview clothing, glasses, jewelry and accessories on themselves with AI. Boost conversions, maximize time on site and reduce returns.'}
               </p>
               <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-slate-600 font-semibold pt-4">
                 <div className="flex flex-col items-center gap-1.5">
@@ -330,41 +330,33 @@ function PartnersContent() {
               </p>
             </div>
 
-            {/* ── ECOMMERCE WIDGET ── */}
-            <div className="flex items-center justify-center gap-4 md:gap-8 mb-10">
-              <button onClick={() => setExpandedImage('/images/agalaz before check.jpg')} className="cursor-zoom-in group">
+            {/* ── 3-STEP VISUAL FLOW: Before → Try On Button → After ── */}
+            <div className="flex items-center justify-center gap-3 md:gap-6 mb-16">
+              {/* 1. Before */}
+              <button onClick={() => setExpandedImage('/images/before.png')} className="cursor-zoom-in group text-center space-y-2">
+                <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">{lang === 'es' ? 'Tu cliente' : 'Your customer'}</span>
                 <div className="rounded-2xl overflow-hidden border-2 border-slate-200 shadow-md group-hover:border-indigo-300 group-hover:shadow-lg transition-all">
-                  <img src="/images/agalaz before check.jpg" alt="Ecommerce without try-on" className="w-52 md:w-72 h-auto" />
+                  <img src="/images/before.png" alt="Before try-on" className="w-32 md:w-44 h-auto" />
                 </div>
               </button>
-              <ChevronRight size={26} className="text-indigo-400 shrink-0" />
-              <button onClick={() => setExpandedImage('/images/agalaz check.jpg')} className="cursor-zoom-in group">
-                <div className="rounded-2xl overflow-hidden border-2 border-indigo-300 shadow-md group-hover:border-indigo-500 group-hover:shadow-lg transition-all">
-                  <img src="/images/agalaz check.jpg" alt="Ecommerce with try-on" className="w-52 md:w-72 h-auto" />
-                </div>
-              </button>
-            </div>
 
-            {/* ── BEFORE / AFTER / I WANT IT ── */}
-            <div className="flex items-center justify-center gap-3 md:gap-5 mb-16">
-              <button onClick={() => setExpandedImage('/images/before.png')} className="cursor-zoom-in group text-center space-y-1.5">
-                <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">{lang === 'es' ? 'Antes' : 'Before'}</span>
-                <div className="rounded-2xl overflow-hidden border-2 border-slate-200 shadow-md group-hover:border-indigo-300 group-hover:shadow-lg transition-all">
-                  <img src="/images/before.png" alt="Before try-on" className="w-28 md:w-36 h-auto" />
+              <ChevronRight size={22} className="text-indigo-400 shrink-0 mt-6" />
+
+              {/* 2. Product page with Try On button */}
+              <button onClick={() => setExpandedImage('/images/agalaz check.jpg')} className="cursor-zoom-in group text-center space-y-2">
+                <span className="text-[9px] font-black uppercase tracking-widest text-indigo-600">{lang === 'es' ? 'Se lo prueba' : 'Tries it on'}</span>
+                <div className="rounded-2xl overflow-hidden border-2 border-indigo-300 shadow-lg group-hover:border-indigo-500 group-hover:shadow-xl transition-all">
+                  <img src="/images/agalaz check.jpg" alt="Product page with Try On button" className="w-32 md:w-44 h-auto" />
                 </div>
               </button>
-              <ChevronRight size={20} className="text-indigo-400 shrink-0 mt-5" />
-              <button onClick={() => setExpandedImage('/images/after.png')} className="cursor-zoom-in group text-center space-y-1.5">
-                <span className="text-[9px] font-black uppercase tracking-widest text-indigo-600">{lang === 'es' ? 'Después' : 'After'}</span>
-                <div className="rounded-2xl overflow-hidden border-2 border-indigo-300 shadow-md group-hover:border-indigo-500 group-hover:shadow-lg transition-all">
-                  <img src="/images/after.png" alt="After try-on" className="w-28 md:w-36 h-auto" />
-                </div>
-              </button>
-              <ChevronRight size={20} className="text-indigo-400 shrink-0 mt-5" />
-              <button onClick={() => setExpandedImage('/images/Agalaz I want it.jpg')} className="cursor-zoom-in group text-center space-y-1.5">
-                <span className="text-[9px] font-black uppercase tracking-widest text-emerald-600">{lang === 'es' ? '¡Lo quiero!' : 'I want it!'}</span>
+
+              <ChevronRight size={22} className="text-indigo-400 shrink-0 mt-6" />
+
+              {/* 3. After - result */}
+              <button onClick={() => setExpandedImage('/images/after.png')} className="cursor-zoom-in group text-center space-y-2">
+                <span className="text-[9px] font-black uppercase tracking-widest text-emerald-600">{lang === 'es' ? 'Resultado' : 'Result'}</span>
                 <div className="rounded-2xl overflow-hidden border-2 border-emerald-300 shadow-md group-hover:border-emerald-500 group-hover:shadow-lg transition-all">
-                  <img src="/images/Agalaz I want it.jpg" alt="I want it" className="w-28 md:w-36 h-auto" />
+                  <img src="/images/after.png" alt="Try-on result" className="w-32 md:w-44 h-auto" />
                 </div>
               </button>
             </div>
