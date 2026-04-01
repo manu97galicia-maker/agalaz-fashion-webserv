@@ -217,14 +217,14 @@ export default function HomePage() {
     <main className="min-h-screen bg-white">
       {/* Nav */}
       <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-100">
-        {/* Top bar for ecommerce */}
-        <div className="hidden md:block bg-slate-900 text-center py-1.5">
-          <Link href="/partners" className="text-[10px] text-white/80 font-bold hover:text-white transition-colors">
-            <Store size={10} className="inline mr-1.5 -mt-0.5" />
+        {/* Top bar for ecommerce — visible on all devices */}
+        <div className="bg-indigo-600 text-center py-2">
+          <Link href="/partners" className="text-[11px] md:text-xs text-white font-bold hover:text-white/90 transition-colors">
+            <Store size={12} className="inline mr-1.5 -mt-0.5" />
             {lang === 'es'
-              ? '¿Tienes un ecommerce? Dispara tus ventas, reduce devoluciones y aumenta retención → Aplica ahora gratis'
-              : 'Have an ecommerce? Skyrocket sales, reduce returns & boost retention → Apply now for free'}
-            <ArrowRight size={10} className="inline ml-1 -mt-0.5" />
+              ? '¿Tienes un ecommerce? Hazte Partner → Prueba gratis'
+              : 'Have an ecommerce? Become a Partner → Free trial'}
+            <ArrowRight size={12} className="inline ml-1 -mt-0.5" />
           </Link>
         </div>
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
@@ -235,9 +235,9 @@ export default function HomePage() {
             {/* Desktop links */}
             <Link
               href="/partners"
-              className="text-slate-400 text-[10px] font-black uppercase tracking-[0.15em] hover:text-indigo-600 transition-colors hidden md:block"
+              className="px-4 py-1.5 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-[0.12em] rounded-full hover:bg-indigo-100 transition-colors hidden md:block"
             >
-              {lang === 'es' ? 'Partner? Prueba gratis' : 'Partner? Free trial'}
+              {lang === 'es' ? 'Hazte Partner' : 'Become a Partner'}
             </Link>
             <LanguageToggle />
             <Link
