@@ -16,11 +16,11 @@ export interface Article {
 export const articles: Article[] = [
   {
     slug: 'how-to-know-if-clothes-will-fit-without-trying-them-on',
-    title: 'How to Know If Clothes Will Fit Without Trying Them On',
+    title: 'How to Tell if a Shirt Fits Without Trying It On: 5 Hacks',
     titleEs: 'Cómo Saber Si la Ropa Te Quedará Sin Probártela',
-    description: 'Tired of buying clothes online that don\'t fit? Learn 7 proven methods to check fit before purchasing — from body measurements to AI virtual try-on tools.',
+    description: 'Stop the returns. Learn expert hacks to check if a shirt fits without a fitting room — from measurements to AI virtual try-on technology.',
     descriptionEs: 'Cansado de comprar ropa online que no te queda? Aprende 7 métodos para verificar el ajuste antes de comprar — desde medidas corporales hasta herramientas de prueba virtual con IA.',
-    keyword: 'how to know if clothes will fit without trying them on',
+    keyword: 'how to tell if a shirt will fit without trying them on',
     readTime: 5,
     date: '2026-03-01',
     content: `Online shopping has a dirty secret: **30-40% of all clothing purchased online gets returned**, mostly because it doesn't fit. That's billions of dollars wasted — and countless hours of frustration.
@@ -656,9 +656,9 @@ Prueba antes de comprar — virtualmente. Descubre [cómo reducir devoluciones s
   },
   {
     slug: 'what-to-wear-to-a-job-interview-2026',
-    title: 'What to Wear to Your Job Interview in 2026 (By Industry)',
+    title: 'What to Wear to a Job Interview 2026: Modern Style Guide',
     titleEs: 'Qué Ponerte en Tu Entrevista de Trabajo 2026 (Por Sector)',
-    description: 'Nervous about your interview outfit? Get exact outfit formulas for tech, finance, creative roles — plus a free AI tool to preview your look.',
+    description: 'Master your 2026 job interview with the latest dress code trends. From hybrid roles to corporate looks, find the perfect professional outfit at Agalaz.',
     descriptionEs: 'Nervioso por tu outfit de entrevista? Fórmulas exactas para tech, finanzas, creativos — y una herramienta IA gratis para previsualizar tu look.',
     keyword: 'what to wear to a job interview, interview outfit ideas, job interview clothes',
     readTime: 7,
@@ -1146,9 +1146,9 @@ Calidad sobre cantidad, siempre.`,
   },
   {
     slug: 'barrel-leg-jeans-styling-guide',
-    title: 'Barrel Leg Jeans Flatter EVERY Body Type (Try-On Guide)',
+    title: 'Are Barrel Jeans Ugly? The 2026 Style Guide',
     titleEs: 'Barrel Leg Jeans Favorecen TODO Tipo de Cuerpo (Guía)',
-    description: 'Scared of barrel leg jeans? Learn which body types they actually flatter, exact styling rules, plus try them on your body with free AI before buying.',
+    description: 'Are barrel jeans ugly or high fashion? Discover how to style the horseshoe silhouette, why they\'re trending in 2026, and find your perfect fit at Agalaz.',
     descriptionEs: 'Te dan miedo los barrel leg jeans? Descubre a qué cuerpos favorecen, reglas de styling exactas, y pruébalos en tu cuerpo con IA gratis antes de comprar.',
     keyword: 'barrel leg jeans, how to style barrel leg jeans, horseshoe jeans, barrel jeans for short people, barrel leg jeans outfit',
     readTime: 7,
