@@ -381,7 +381,7 @@ export default function TryOnPage() {
     <>
       <div className="min-h-screen bg-white flex flex-col">
         {/* Nav */}
-        <nav className="sticky top-0 z-30 bg-white/90 backdrop-blur-sm border-b border-slate-100">
+        <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur-sm border-b border-slate-100">
           <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button
@@ -475,7 +475,7 @@ export default function TryOnPage() {
         <div
           ref={scrollRef}
           className="flex-1 overflow-y-auto px-4 py-6 hide-scrollbar"
-          style={{ paddingBottom: 160 }}
+          style={{ paddingBottom: 'max(120px, 18vh)' }}
         >
           {messages.length === 0 ? (
             <div className="max-w-lg mx-auto space-y-8 animate-fade-in">
@@ -515,6 +515,7 @@ export default function TryOnPage() {
                       { value: 'bags', es: 'Bolsos', en: 'Bags', icon: '👜' },
                       { value: 'tattoo', es: 'Tatuajes', en: 'Tattoos', icon: '🪡' },
                       { value: 'nails', es: 'Uñas / Nail Art', en: 'Nails / Nail Art', icon: '💅' },
+                      { value: 'ring-sizer', es: 'Talla de anillo', en: 'Ring Sizer', icon: '💍' },
                     ].map((cat) => (
                       <button
                         key={cat.value}
@@ -537,18 +538,24 @@ export default function TryOnPage() {
                   <div className="flex items-center gap-1.5 mb-2">
                     <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">2</span>
                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                      {lang === 'es' ? 'Tu foto' : 'Your photo'}
+                      {tryOnCategory === 'ring-sizer'
+                        ? (lang === 'es' ? 'Foto de tu mano' : 'Photo of your hand')
+                        : (lang === 'es' ? 'Tu foto' : 'Your photo')}
                     </span>
                   </div>
                   <ImageUploader
-                    label={lang === 'es' ? 'Tu foto' : 'Your photo'}
+                    label={tryOnCategory === 'ring-sizer'
+                      ? (lang === 'es' ? 'Foto de tu mano' : 'Photo of your hand')
+                      : (lang === 'es' ? 'Tu foto' : 'Your photo')}
                     type="user"
                     image={userImage}
                     onImageSelect={trackAndSetUser}
                     icon={<Camera size={20} className="text-indigo-600" />}
                   />
                   <p className="text-[9px] font-bold text-slate-300 text-center mt-1.5">
-                    {lang === 'es' ? 'Selfie, medio cuerpo o cuerpo entero' : 'Selfie, half body, or full body'}
+                    {tryOnCategory === 'ring-sizer'
+                      ? (lang === 'es' ? 'Foto clara de tu mano con los dedos extendidos' : 'Clear photo of your hand with fingers extended')
+                      : (lang === 'es' ? 'Selfie, medio cuerpo o cuerpo entero' : 'Selfie, half body, or full body')}
                   </p>
                 </div>
 
@@ -590,9 +597,9 @@ export default function TryOnPage() {
               <button
                 onClick={handleStartAnalysis}
                 disabled={!canRender}
-                className={`w-full py-4 flex items-center justify-center gap-3 transition-all font-black uppercase tracking-[0.2em] text-xs ${
+                className={`w-full py-4 min-h-[56px] flex items-center justify-center gap-3 transition-all font-black uppercase tracking-[0.2em] text-xs md:text-sm ${
                   canRender
-                    ? 'bg-slate-900 text-white hover:bg-indigo-600 shadow-lg'
+                    ? 'bg-slate-900 text-white hover:bg-indigo-600 active:bg-indigo-700 shadow-lg'
                     : 'bg-slate-100 text-slate-300 border border-slate-200'
                 }`}
               >
@@ -788,7 +795,7 @@ export default function TryOnPage() {
       {/* Credit Shop Modal */}
       {showCreditShop && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center animate-fade-in" onClick={() => setShowCreditShop(false)}>
-          <div className="bg-white mx-6 p-8 rounded-2xl max-w-sm w-full text-center space-y-6 shadow-2xl animate-fade-in-up" onClick={(e) => e.stopPropagation()}>
+          <div className="bg-white mx-4 md:mx-6 p-5 md:p-8 rounded-2xl max-w-sm w-full text-center space-y-5 md:space-y-6 shadow-2xl animate-fade-in-up" onClick={(e) => e.stopPropagation()}>
             <div className="w-14 h-14 bg-amber-500 rounded-xl flex items-center justify-center mx-auto">
               <Zap size={24} className="text-white" />
             </div>
@@ -877,7 +884,7 @@ export default function TryOnPage() {
       {/* Login Modal */}
       {showLogin && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center animate-fade-in" onClick={() => setShowLogin(false)}>
-          <div className="bg-white mx-6 p-8 rounded-2xl max-w-sm w-full text-center space-y-6 shadow-2xl animate-fade-in-up" onClick={(e) => e.stopPropagation()}>
+          <div className="bg-white mx-4 md:mx-6 p-5 md:p-8 rounded-2xl max-w-sm w-full text-center space-y-5 md:space-y-6 shadow-2xl animate-fade-in-up" onClick={(e) => e.stopPropagation()}>
             <div className="w-14 h-14 bg-slate-900 rounded-xl flex items-center justify-center mx-auto">
               <span className="text-white font-serif font-black text-2xl italic">A</span>
             </div>

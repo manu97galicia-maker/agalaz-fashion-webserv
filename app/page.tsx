@@ -216,7 +216,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-white">
       {/* Nav */}
-      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-100">
+      <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur-sm border-b border-slate-100">
         {/* Top bar for ecommerce — visible on all devices */}
         <div className="bg-indigo-600 text-center py-2">
           <Link href="/partners" className="text-[11px] md:text-xs text-white font-bold hover:text-white/90 transition-colors">
@@ -324,7 +324,7 @@ export default function HomePage() {
               <Link
                 href="/try-on"
                 data-fast-goal="hero_cta_click"
-                className="group inline-flex items-center gap-3 px-10 py-4 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-600 transition-all"
+                className="group inline-flex items-center gap-3 px-6 md:px-10 py-4 min-h-[56px] bg-slate-900 text-white font-black uppercase tracking-[0.15em] md:tracking-[0.2em] text-xs md:text-sm hover:bg-indigo-600 active:bg-indigo-700 transition-all"
               >
                 <Sparkles size={16} className="group-hover:rotate-12 transition-transform" />
                 {t.tryNow}
@@ -425,7 +425,7 @@ export default function HomePage() {
           <div className="text-center mt-14">
             <Link
               href="/try-on"
-              className="group inline-flex items-center gap-3 px-10 py-4 bg-indigo-600 text-white font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-700 transition-colors"
+              className="group inline-flex items-center gap-3 px-6 md:px-10 py-4 min-h-[56px] bg-indigo-600 text-white font-black uppercase tracking-[0.15em] md:tracking-[0.2em] text-xs md:text-sm hover:bg-indigo-700 active:bg-indigo-800 transition-colors"
             >
               <Palette size={16} className="group-hover:rotate-12 transition-transform" />
               {lt.colorExplorer.cta}
@@ -749,6 +749,102 @@ export default function HomePage() {
                 {lang === 'es' ? 'Uñas Chrome Pastel 2026' : 'Pastel Chrome Nails 2026'}
               </h3>
               <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Tendencia futurista' : 'Futuristic spring trend'}</p>
+            </Link>
+            <Link href="/blog/why-clothes-look-different-online-vs-in-person" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Por Qué la Ropa Se Ve Diferente Online' : 'Why Clothes Look Different Online'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Colores, ajuste y telas' : 'Colors, fit & fabric'}</p>
+            </Link>
+            <Link href="/blog/how-to-dress-for-your-body-type-without-a-stylist" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Vestir para Tu Tipo de Cuerpo' : 'Dress for Your Body Type'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Sin estilista' : 'Without a stylist'}</p>
+            </Link>
+            <Link href="/blog/online-shopping-mistakes-that-lead-to-returns" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Errores al Comprar Online' : 'Online Shopping Mistakes'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Evita devoluciones' : 'Avoid returns'}</p>
+            </Link>
+            <Link href="/blog/what-to-wear-to-a-job-interview-2026" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Qué Ponerte en una Entrevista 2026' : 'What to Wear to a Job Interview'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Guía por sector' : 'By industry guide'}</p>
+            </Link>
+            <Link href="/blog/best-colors-to-wear-for-your-skin-tone" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Mejores Colores para Tu Tono de Piel' : 'Best Colors for Your Skin Tone'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Análisis de color' : 'Color analysis'}</p>
+            </Link>
+            <Link href="/blog/how-to-style-oversized-clothes-without-looking-sloppy" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Estilizar Ropa Oversized' : 'Style Oversized Clothes'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Sin verte descuidado' : 'Without looking sloppy'}</p>
+            </Link>
+            <Link href="/blog/capsule-wardrobe-guide-30-outfits-15-pieces" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Armario Cápsula: 30 Outfits, 15 Prendas' : 'Capsule Wardrobe: 30 Outfits, 15 Pieces'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Guía completa' : 'Complete guide'}</p>
+            </Link>
+            <Link href="/blog/barrel-leg-jeans-styling-guide" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Guía de Estilo: Barrel Leg Jeans' : 'Barrel Leg Jeans Styling Guide'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Tendencia denim 2026' : 'Denim trend 2026'}</p>
+            </Link>
+            <Link href="/blog/digital-nomad-corporate-crease-free-office-wear" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Ropa de Oficina para Nómadas Digitales' : 'Digital Nomad Office Wear'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Sin arrugas, con estilo' : 'Crease-free & stylish'}</p>
+            </Link>
+            <Link href="/blog/jellyfish-silhouette-styling-guide" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Guía Silueta Jellyfish' : 'Jellyfish Silhouette Guide'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Tendencia viral' : 'Viral trend'}</p>
+            </Link>
+            <Link href="/blog/spring-wedding-guest-mother-of-groom-dresses-2026" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Vestidos Boda Primavera 2026' : 'Spring Wedding Guest Dresses 2026'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Invitada y madrina' : 'Guest & mother of groom'}</p>
+            </Link>
+            <Link href="/blog/ai-clothes-changer-online-free-trial" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Cambiador de Ropa con IA' : 'AI Clothes Changer Online'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Prueba gratis' : 'Free trial'}</p>
+            </Link>
+            <Link href="/blog/como-reducir-devoluciones-tienda-ropa-online" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Reducir Devoluciones en Tu Tienda' : 'Reduce Returns in Your Store'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Guía para e-commerce' : 'E-commerce guide'}</p>
+            </Link>
+            <Link href="/blog/virtual-dressing-room-online-free" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Probador Virtual Online Gratis' : 'Virtual Dressing Room Free'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Sin descargar app' : 'No app download'}</p>
+            </Link>
+            <Link href="/blog/1-5-carat-vs-2-carat-diamond-on-hand" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? '1.5 vs 2 Quilates en la Mano' : '1.5 vs 2 Carat Diamond on Hand'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Comparativa real' : 'Real size comparison'}</p>
+            </Link>
+            <Link href="/blog/diamond-carat-size-on-hand-simulator" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
+              <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {lang === 'es' ? 'Simulador de Diamantes en la Mano' : 'Diamond Size on Hand Simulator'}
+              </h3>
+              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Prueba con IA' : 'AI-powered simulator'}</p>
             </Link>
           </div>
         </div>

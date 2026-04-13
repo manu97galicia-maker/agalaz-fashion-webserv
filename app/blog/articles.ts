@@ -407,7 +407,7 @@ For most purchase decisions, it eliminates 90% of the uncertainty.
 
 The best way to understand virtual try-on is to experience it. Upload your photo, choose a garment you've been eyeing, and see the result. Most people are surprised at how accurate and useful it is.
 
-No more buying 3 sizes. No more returns. Just confidence. For a quick outfit swap, check out our [free AI clothes changer](/blog/ai-clothes-changer-online-free-trial), or browse the best [virtual dressing room options](/blog/virtual-dressing-room-online-free) available today.`,
+No more buying 3 sizes. No more returns. Just confidence. For a quick outfit swap, check out our [free AI clothes changer](/blog/ai-clothes-changer-online-free-trial), or browse the best [virtual dressing room options](/blog/virtual-dressing-room-online-free) available today. Shopping for rings? Try our [diamond carat size simulator](/blog/diamond-carat-size-on-hand-simulator) to see any diamond on your hand.`,
     contentEs: `¿Recuerdas cuando la única forma de probarte ropa era en un probador estrecho con mala iluminación? En 2026, la **prueba virtual con IA** lo ha cambiado todo.
 
 ## ¿Qué Es la Prueba Virtual con IA?
@@ -444,7 +444,7 @@ No todas las herramientas son iguales. Las mejores:
 
 ## Pruébalo Tú Mismo
 
-La mejor forma de entender la prueba virtual es experimentarla. Sube tu foto, elige una prenda que te interese y ve el resultado. Sin más compras de 3 tallas. Sin más devoluciones. Para un cambio de outfit rápido, prueba nuestro [cambiador de ropa con IA gratuito](/blog/ai-clothes-changer-online-free-trial), o explora las mejores opciones de [probador virtual](/blog/virtual-dressing-room-online-free) disponibles hoy.`,
+La mejor forma de entender la prueba virtual es experimentarla. Sube tu foto, elige una prenda que te interese y ve el resultado. Sin más compras de 3 tallas. Sin más devoluciones. Para un cambio de outfit rápido, prueba nuestro [cambiador de ropa con IA gratuito](/blog/ai-clothes-changer-online-free-trial), o explora las mejores opciones de [probador virtual](/blog/virtual-dressing-room-online-free) disponibles hoy. ¿Buscas anillos? Prueba nuestro [simulador de tamaño de diamante](/blog/diamond-carat-size-on-hand-simulator) para ver cualquier diamante en tu mano.`,
   },
   {
     slug: 'how-to-dress-for-your-body-type-without-a-stylist',
@@ -3865,7 +3865,7 @@ These terms get confused a lot:
 | **Realism** | Very high (photorealistic) | Medium (often looks digital) |
 | **Best for** | Shopping from any store | Browsing a specific store |
 
-Want to explore virtual dressing room options too? See our comparison of the [best free virtual dressing room apps](/blog/best-free-virtual-dressing-room-apps-android-ios-2026).
+Want to explore virtual dressing room options too? See our comparison of the [best free virtual dressing room apps](/blog/best-free-virtual-dressing-room-apps-android-ios-2026). Shopping for jewelry? See how any diamond looks on your hand with our [diamond carat size simulator](/blog/diamond-carat-size-on-hand-simulator), or compare [1.5 vs 2 carat diamonds](/blog/1-5-carat-vs-2-carat-diamond-on-hand) side by side.
 
 ## Privacy & Safety
 
@@ -3998,7 +3998,7 @@ Estos términos se confunden mucho:
 | **Realismo** | Muy alto (fotorrealista) | Medio (a menudo se ve digital) |
 | **Mejor para** | Comprar en cualquier tienda | Explorar una tienda específica |
 
-¿Quieres explorar opciones de probadores virtuales también? Lee nuestra comparación de las [mejores apps de probador virtual gratis](/blog/best-free-virtual-dressing-room-apps-android-ios-2026).
+¿Quieres explorar opciones de probadores virtuales también? Lee nuestra comparación de las [mejores apps de probador virtual gratis](/blog/best-free-virtual-dressing-room-apps-android-ios-2026). ¿Comprando joyería? Mira cómo cualquier diamante se ve en tu mano con nuestro [simulador de tamaño de diamante](/blog/diamond-carat-size-on-hand-simulator), o compara [diamantes de 1.5 vs 2 quilates](/blog/1-5-carat-vs-2-carat-diamond-on-hand) lado a lado.
 
 ## Privacidad y Seguridad
 
@@ -4641,5 +4641,627 @@ El vestidor se ha digitalizado. En 2026, puedes probarte cualquier prenda de cua
 No más compras a ciegas. No más devoluciones. No más "se veía diferente online."
 
 **[Prueba el probador virtual gratis →](https://agalaz.com/try-on)**`,
+  },
+  {
+    slug: '1-5-carat-vs-2-carat-diamond-on-hand',
+    title: '1.5 Carat vs 2 Carat Diamond on Hand: Real Size Comparison & How to Visualize It',
+    titleEs: 'Diamante de 1.5 vs 2 Quilates en la Mano: Comparativa Real de Tamaño y Cómo Visualizarlo',
+    description: 'See exactly how 1.5 carat vs 2 carat diamonds look on real hands. Compare sizes, prices, face-up area, and use our AI ring simulator to try both on YOUR hand before buying.',
+    descriptionEs: 'Mira exactamente cómo se ven los diamantes de 1.5 vs 2 quilates en manos reales. Compara tamaños, precios, área visible y usa nuestro simulador IA para probártelos en TU mano antes de comprar.',
+    keyword: '1.5 carat vs 2 carat diamond on hand',
+    readTime: 7,
+    date: '2026-04-05',
+    category: 'Jewelry & Rings',
+    categoryEs: 'Joyería y Anillos',
+    content: `Choosing between a 1.5 carat and a 2 carat diamond is one of the most common dilemmas for engagement ring shoppers. The difference sounds small on paper — just half a carat — but on your hand, the visual impact can be dramatic.
+
+Here's everything you need to know to make the right choice, including how to **see both sizes on your actual hand** using AI.
+
+## The Numbers: 1.5 Carat vs 2 Carat at a Glance
+
+| Specification | 1.5 Carat Round | 2 Carat Round |
+|---|---|---|
+| **Diameter** | ~7.4 mm | ~8.2 mm |
+| **Face-up area** | ~43 mm² | ~53 mm² |
+| **Visual difference** | — | ~23% larger face |
+| **Average price** | $8,000 – $18,000 | $14,000 – $40,000 |
+| **Price jump** | — | +60–120% more |
+
+The key insight: **a 2 carat diamond costs significantly more than a 1.5 carat, but only appears ~23% larger** when viewed from above. That's the face-up area — what everyone actually sees.
+
+## How They Actually Look on Different Hand Sizes
+
+The perceived size of a diamond depends heavily on your hand and finger size. A 1.5 carat on a size 4 finger looks proportionally larger than a 2 carat on a size 8 finger.
+
+### Small Hands (Ring Size 4–5)
+- **1.5 carat** looks substantial and well-proportioned
+- **2 carat** can appear very large — almost "too much" for some tastes
+- Both will have impressive finger coverage
+
+### Medium Hands (Ring Size 6–7)
+- **1.5 carat** looks elegant and noticeable without being flashy
+- **2 carat** hits the "wow factor" sweet spot — large but proportional
+- This is where the difference between the two is most visible
+
+### Large Hands (Ring Size 8–10)
+- **1.5 carat** may look slightly understated
+- **2 carat** looks perfectly proportioned
+- Consider going 2 carat or higher for maximum impact
+
+## The Price Reality
+
+Here's what most jewelers won't tell you upfront:
+
+**1.5 carat diamonds** sit in a pricing sweet spot. They're above the highly demanded 1-carat mark but below the prestige premium of 2 carats. This means you often get better value per carat.
+
+**2 carat diamonds** carry a significant premium because they're a psychological milestone. Demand spikes at round numbers (1ct, 1.5ct, 2ct), and 2ct is the most aspirational for engagement rings.
+
+### Smart Buying Tips
+
+1. **Consider 1.4 or 1.9 carats** — just under the milestone, significantly cheaper, visually identical
+2. **Prioritize cut quality** — a well-cut 1.5ct will outshine a poorly-cut 2ct every time
+3. **Choose the right shape** — elongated shapes (oval, marquise, pear) face up larger than round for the same carat weight
+4. **Check spread** — some diamonds carry weight in depth rather than width; always check diameter, not just carat weight
+
+## Shape Matters More Than You Think
+
+Not all carats are created equal. Different diamond shapes distribute weight differently:
+
+| Shape | 1.5ct Dimensions | 2ct Dimensions | Face-up Advantage |
+|---|---|---|---|
+| **Round** | 7.4 mm | 8.2 mm | Baseline |
+| **Oval** | 9.0 × 6.0 mm | 10.0 × 6.7 mm | Looks 15-20% larger |
+| **Marquise** | 12.0 × 6.0 mm | 13.0 × 6.5 mm | Looks 30-40% larger |
+| **Pear** | 10.0 × 6.5 mm | 11.0 × 7.0 mm | Looks 20-25% larger |
+| **Emerald** | 7.5 × 5.5 mm | 8.5 × 6.5 mm | Looks 10-15% larger |
+
+**Pro tip:** If you love the idea of 2 carats but have a 1.5 carat budget, an oval or marquise shape will give you the visual presence you want.
+
+## How to See Both Sizes on YOUR Hand
+
+This is where technology changes the game. Instead of guessing or relying on stock photos of other people's hands:
+
+### Use Agalaz AI Ring Simulator
+
+1. Go to **[agalaz.com/try-on](https://agalaz.com/try-on)**
+2. Select **"Ring Sizer"** from the category menu
+3. Upload a photo of your hand with fingers extended
+4. Upload an image of the 1.5ct ring you're considering
+5. See it rendered on your actual hand — then try the 2ct version
+
+The AI analyzes your hand proportions and renders the ring at the correct scale, so you see exactly how each size looks on **your** specific fingers. No more guessing from photos of other people's hands.
+
+You can also use the chat to say *"show me this ring in 2 carats"* or *"make the diamond bigger"* and the AI will adjust the render in real-time.
+
+## The Setting Effect
+
+The ring setting dramatically affects how large the diamond appears:
+
+- **Halo setting** — adds 0.3-0.5ct of visual size. A 1.5ct in a halo can look like a 2ct solitaire
+- **Thin band** — makes the center stone appear larger by contrast
+- **Pavé band** — adds sparkle but doesn't significantly change center stone perception
+- **Three-stone** — side stones make the center appear larger
+- **Bezel setting** — adds metal border, can make the diamond appear slightly smaller
+
+**Budget hack:** A 1.5ct diamond in a halo setting gives you 2ct visual impact at roughly half the price.
+
+## Color and Clarity at Each Size
+
+Larger diamonds show color and inclusions more easily:
+
+### 1.5 Carat
+- **Color:** H-I grade looks white in most settings
+- **Clarity:** SI1 is usually eye-clean
+- **Best value combo:** H color, SI1 clarity, Excellent cut
+
+### 2 Carat
+- **Color:** G-H recommended (color more visible at this size)
+- **Clarity:** VS2 or better (inclusions more noticeable)
+- **Best value combo:** G color, VS2 clarity, Excellent cut
+
+## Our Verdict: Which Should You Choose?
+
+**Choose 1.5 carat if:**
+- You want maximum value per dollar
+- Your ring size is 4-6 (it'll look perfectly proportioned)
+- You prefer elegant and refined over flashy
+- You want to invest the savings in a better cut, color, or setting
+
+**Choose 2 carat if:**
+- The "wow factor" matters to you
+- Your ring size is 7+ (proportional impact)
+- Budget isn't the primary concern
+- You want a legacy piece that makes a statement
+
+**The smartest move?** See both on your hand before deciding. **[Try the AI ring simulator →](https://agalaz.com/try-on)** Upload your hand photo and compare 1.5ct vs 2ct side by side on YOUR fingers. It takes 30 seconds and could save you thousands.
+
+---
+
+*Still unsure about your ring size? Agalaz also includes an AI-powered [ring sizer](https://agalaz.com/try-on) that estimates your size from a photo of your hand — in US, EU, and UK sizes. For a full guide on simulating any carat size, check out our [Diamond Carat Size on Hand Simulator](/blog/diamond-carat-size-on-hand-simulator).*`,
+    contentEs: `Elegir entre un diamante de 1.5 y uno de 2 quilates es uno de los dilemas más comunes al comprar un anillo de compromiso. La diferencia suena pequeña — solo medio quilate — pero en tu mano, el impacto visual puede ser dramático.
+
+Aquí tienes todo lo que necesitas saber, incluyendo cómo **ver ambos tamaños en tu mano real** usando IA.
+
+## Los Números: 1.5 vs 2 Quilates de un Vistazo
+
+| Especificación | 1.5 Quilates Redondo | 2 Quilates Redondo |
+|---|---|---|
+| **Diámetro** | ~7.4 mm | ~8.2 mm |
+| **Área frontal** | ~43 mm² | ~53 mm² |
+| **Diferencia visual** | — | ~23% más grande |
+| **Precio medio** | 7.000 – 16.000€ | 12.000 – 35.000€ |
+| **Salto de precio** | — | +60–120% más |
+
+Lo clave: **un diamante de 2 quilates cuesta significativamente más que uno de 1.5, pero solo parece ~23% más grande** visto desde arriba. Esa es el área frontal — lo que todo el mundo ve.
+
+## Cómo Se Ven Según el Tamaño de Tu Mano
+
+El tamaño percibido depende mucho de tu mano y dedo. Un 1.5ct en un dedo talla 4 parece proporcionalmente más grande que un 2ct en un dedo talla 8.
+
+### Manos Pequeñas (Talla 4–5)
+- **1.5 quilates** se ve sustancial y bien proporcionado
+- **2 quilates** puede parecer muy grande — casi "demasiado" para algunos gustos
+- Ambos tendrán una cobertura impresionante
+
+### Manos Medianas (Talla 6–7)
+- **1.5 quilates** se ve elegante y notable sin ser llamativo
+- **2 quilates** consigue el "factor wow" perfecto — grande pero proporcionado
+- Aquí es donde la diferencia entre ambos es más visible
+
+### Manos Grandes (Talla 8–10)
+- **1.5 quilates** puede parecer algo discreto
+- **2 quilates** se ve perfectamente proporcionado
+- Considera 2ct o más para máximo impacto
+
+## La Realidad del Precio
+
+Lo que la mayoría de joyeros no te dicen:
+
+Los **diamantes de 1.5 quilates** están en un punto dulce de precio. Están por encima del demandado 1ct pero debajo de la prima de prestigio de 2ct. Esto significa que obtienes mejor valor por quilate.
+
+Los **diamantes de 2 quilates** llevan una prima significativa porque son un hito psicológico. La demanda se dispara en números redondos (1ct, 1.5ct, 2ct).
+
+### Consejos de Compra Inteligente
+
+1. **Considera 1.4 o 1.9 quilates** — justo por debajo del hito, significativamente más baratos, visualmente idénticos
+2. **Prioriza la calidad del corte** — un 1.5ct bien cortado brillará más que un 2ct mal cortado
+3. **Elige la forma correcta** — formas alargadas (oval, marquesa, pera) parecen más grandes que redondas al mismo peso
+4. **Comprueba la extensión** — algunos diamantes llevan peso en profundidad; siempre revisa el diámetro, no solo los quilates
+
+## La Forma Importa Más de lo que Crees
+
+| Forma | Dimensiones 1.5ct | Dimensiones 2ct | Ventaja Visual |
+|---|---|---|---|
+| **Redondo** | 7.4 mm | 8.2 mm | Base |
+| **Oval** | 9.0 × 6.0 mm | 10.0 × 6.7 mm | Parece 15-20% más grande |
+| **Marquesa** | 12.0 × 6.0 mm | 13.0 × 6.5 mm | Parece 30-40% más grande |
+| **Pera** | 10.0 × 6.5 mm | 11.0 × 7.0 mm | Parece 20-25% más grande |
+| **Esmeralda** | 7.5 × 5.5 mm | 8.5 × 6.5 mm | Parece 10-15% más grande |
+
+**Consejo pro:** Si te encanta la idea de 2 quilates pero tienes presupuesto de 1.5, una forma oval o marquesa te dará la presencia visual que buscas.
+
+## Cómo Ver Ambos Tamaños en TU Mano
+
+Aquí es donde la tecnología cambia las reglas. En vez de adivinar o confiar en fotos de manos ajenas:
+
+### Usa el Simulador de Anillos IA de Agalaz
+
+1. Ve a **[agalaz.com/try-on](https://agalaz.com/try-on)**
+2. Selecciona **"Talla de anillo"** en el menú de categorías
+3. Sube una foto de tu mano con dedos extendidos
+4. Sube una imagen del anillo de 1.5ct que estés considerando
+5. Velo renderizado en tu mano real — luego prueba la versión de 2ct
+
+La IA analiza las proporciones de tu mano y renderiza el anillo a escala correcta. Sin más adivinanzas.
+
+También puedes usar el chat para decir *"muéstrame este anillo en 2 quilates"* o *"haz el diamante más grande"* y la IA ajustará el render en tiempo real.
+
+## El Efecto del Engaste
+
+El engaste afecta dramáticamente cómo de grande parece el diamante:
+
+- **Engaste halo** — añade 0.3-0.5ct de tamaño visual. Un 1.5ct con halo puede parecer un 2ct solitario
+- **Banda fina** — hace que la piedra central parezca más grande por contraste
+- **Banda pavé** — añade brillo sin cambiar significativamente la percepción del centro
+- **Tres piedras** — las piedras laterales hacen que el centro parezca más grande
+- **Engaste bisel** — añade borde metálico, puede hacer el diamante parecer ligeramente más pequeño
+
+**Truco de presupuesto:** Un diamante de 1.5ct con engaste halo te da impacto visual de 2ct a aproximadamente la mitad del precio.
+
+## Color y Pureza en Cada Tamaño
+
+Los diamantes más grandes muestran color e inclusiones más fácilmente:
+
+### 1.5 Quilates
+- **Color:** Grado H-I se ve blanco en la mayoría de engastes
+- **Pureza:** SI1 suele ser limpio a ojo
+- **Mejor combinación:** Color H, pureza SI1, corte Excelente
+
+### 2 Quilates
+- **Color:** G-H recomendado (el color es más visible a este tamaño)
+- **Pureza:** VS2 o mejor (las inclusiones son más notorias)
+- **Mejor combinación:** Color G, pureza VS2, corte Excelente
+
+## Nuestro Veredicto: ¿Cuál Elegir?
+
+**Elige 1.5 quilates si:**
+- Quieres máximo valor por euro
+- Tu talla de anillo es 4-6 (se verá perfectamente proporcionado)
+- Prefieres elegante y refinado a llamativo
+- Quieres invertir el ahorro en mejor corte, color o engaste
+
+**Elige 2 quilates si:**
+- El "factor wow" te importa
+- Tu talla es 7+ (impacto proporcional)
+- El presupuesto no es la prioridad
+- Quieres una pieza legado que haga declaración
+
+**Lo más inteligente:** Ver ambos en tu mano antes de decidir. **[Prueba el simulador IA de anillos →](https://agalaz.com/try-on)** Sube la foto de tu mano y compara 1.5ct vs 2ct en TUS dedos. Tarda 30 segundos y podría ahorrarte miles.
+
+---
+
+*¿No estás segura de tu talla? Agalaz también incluye un [medidor de talla de anillo con IA](https://agalaz.com/try-on) que estima tu talla desde una foto — en tallas US, EU y UK. Para una guía completa sobre simular cualquier tamaño de quilate, mira nuestro [Simulador de Tamaño de Diamante en la Mano](/blog/diamond-carat-size-on-hand-simulator).*`,
+  },
+  {
+    slug: 'diamond-carat-size-on-hand-simulator',
+    title: 'Diamond Carat Size on Hand Simulator: See Any Diamond on YOUR Hand with AI',
+    titleEs: 'Simulador de Tamaño de Diamante en la Mano: Mira Cualquier Diamante en TU Mano con IA',
+    description: 'Use our free AI diamond carat size simulator to see how any diamond (0.5ct to 5ct) looks on your real hand. Upload your photo and compare sizes instantly — no app download needed.',
+    descriptionEs: 'Usa nuestro simulador IA gratuito para ver cómo se ve cualquier diamante (0.5ct a 5ct) en tu mano real. Sube tu foto y compara tamaños al instante — sin descargar app.',
+    keyword: 'diamond carat size on hand simulator',
+    readTime: 8,
+    date: '2026-04-05',
+    category: 'Jewelry & Rings',
+    categoryEs: 'Joyería y Anillos',
+    content: `Every year, millions of people search "diamond size on hand" trying to figure out how a specific carat weight will look on their finger. They scroll through stock photos, watch YouTube videos, and visit jewelry stores — all trying to answer one simple question: **"How will this diamond look on MY hand?"**
+
+Now there's a better way. AI-powered simulators let you see any diamond size on your actual hand in seconds.
+
+## Why Stock Photos Don't Work
+
+When you Google "2 carat diamond on hand," you see photos of other people's hands. The problem?
+
+- **Their fingers aren't your fingers.** A size 5 finger makes every diamond look bigger than a size 8 finger.
+- **Lighting varies wildly.** Studio lighting vs. phone flash creates completely different impressions.
+- **Angles are inconsistent.** Some photos are shot from above, others at an angle — making size comparison impossible.
+- **You can't compare.** Flipping between 10 browser tabs doesn't give you a reliable side-by-side.
+
+What you need is to see the diamond on **your** hand, in **your** proportions.
+
+## Diamond Carat Size Reference Chart
+
+Before simulating, here's what each popular carat weight actually measures (round brilliant cut):
+
+| Carat Weight | Diameter (mm) | Face-up Area (mm²) | Visual Description |
+|---|---|---|---|
+| **0.25 ct** | 4.1 mm | 13 mm² | About the size of a lentil |
+| **0.50 ct** | 5.2 mm | 21 mm² | Size of a small pea |
+| **0.75 ct** | 5.9 mm | 27 mm² | Noticeably present |
+| **1.00 ct** | 6.5 mm | 33 mm² | The classic benchmark |
+| **1.25 ct** | 6.9 mm | 37 mm² | Clearly impressive |
+| **1.50 ct** | 7.4 mm | 43 mm² | Eye-catching |
+| **2.00 ct** | 8.2 mm | 53 mm² | Showstopper |
+| **2.50 ct** | 8.8 mm | 61 mm² | Unmistakably large |
+| **3.00 ct** | 9.3 mm | 68 mm² | Red carpet territory |
+| **4.00 ct** | 10.2 mm | 82 mm² | Exceptional |
+| **5.00 ct** | 11.0 mm | 95 mm² | Museum-worthy |
+
+**Key insight:** Doubling the carat weight does NOT double the visual size. A 2ct diamond is only ~26% wider than a 1ct — because carat measures *weight*, and diamonds carry weight in three dimensions.
+
+## How the AI Diamond Simulator Works
+
+The Agalaz ring simulator uses AI image generation to render jewelry on your real hand photo. Here's the process:
+
+### Step 1: Upload Your Hand Photo
+
+Take a clear photo of your hand with fingers naturally extended. Tips for best results:
+- Use natural lighting (near a window)
+- Keep your hand flat or slightly angled
+- Include your full hand in the frame
+- Remove existing rings for the clearest result (or keep them for context)
+
+### Step 2: Choose Your Diamond
+
+You have two options:
+- **Upload a specific ring image** — screenshot from a jeweler's website, Pinterest, or Instagram
+- **Describe what you want** — use the AI chat: *"Show me a 1.5 carat round solitaire on a thin gold band"*
+
+### Step 3: See It on Your Hand
+
+The AI renders the ring on your actual hand, matching:
+- Your exact skin tone
+- Your finger width and proportions
+- Natural shadows and reflections
+- Correct scale based on your hand size
+
+### Step 4: Compare Sizes
+
+Use the chat to instantly adjust:
+- *"Make it 2 carats instead"*
+- *"Show me oval instead of round"*
+- *"Change to a platinum band"*
+- *"Add a halo setting"*
+
+Each render takes ~15-30 seconds and produces a photorealistic result.
+
+**[Try the simulator now →](https://agalaz.com/try-on)**
+
+## Carat Size vs. Diamond Shape
+
+The same carat weight looks dramatically different depending on the diamond shape. This is because elongated shapes spread their weight across a larger surface area:
+
+### Round Brilliant
+The standard benchmark. A 1ct round measures 6.5mm in diameter. Symmetrical and classic, but has the smallest face-up area per carat of any popular shape.
+
+### Oval
+A 1ct oval is approximately 7.7 × 5.2mm — **18% more face-up area** than a round of the same weight. This is why oval diamonds have surged in popularity: they look bigger for the money.
+
+### Marquise
+The face-up champion. A 1ct marquise spans roughly 10.0 × 5.0mm, creating an elongated shape that maximizes finger coverage. They can look up to **40% larger** than a round of the same weight.
+
+### Emerald Cut
+Rectangular with step cuts that create a "hall of mirrors" effect. A 1ct emerald is about 6.7 × 5.0mm. They don't maximize face-up area, but their clean lines create a sophisticated, larger-looking impression.
+
+### Pear (Teardrop)
+Combines the best of round and marquise. A 1ct pear is roughly 8.5 × 5.5mm — **significant face-up advantage** while maintaining a classic look.
+
+### Cushion
+Square or rectangular with rounded corners. A 1ct cushion is about 5.8 × 5.8mm. Similar face-up area to round, but the softer shape can appear larger due to the wider corners.
+
+## The Ring Sizer Bonus
+
+When you use the Agalaz simulator, it also includes an **AI ring sizer**. The AI analyzes your hand photo and estimates your ring size in:
+
+- **US/Canadian sizing** (e.g., US 7)
+- **European sizing** (e.g., EU 54)
+- **UK/Australian sizing** (e.g., UK O)
+- **Inner diameter** (e.g., 17.3 mm)
+
+This means you can figure out both *what size diamond looks best* AND *what ring size to order* — all from one photo.
+
+**[Get your ring size + simulate diamonds →](https://agalaz.com/try-on)**
+
+## Common Mistakes When Judging Diamond Size
+
+### 1. Comparing carats instead of millimeters
+A 1.5ct diamond from one jeweler might have different proportions than a 1.5ct from another. Always check the actual diameter — it tells you more about visual size than carat weight alone.
+
+### 2. Ignoring the setting
+A halo setting adds 0.3-0.5ct worth of visual size. A thin band makes the center stone look bigger. A bezel setting can make it look smaller. The setting is half the equation.
+
+### 3. Not considering finger size
+A 1ct diamond on a size 4 finger has the same visual impact as a 1.8ct on a size 8. Your finger is the frame — it changes everything.
+
+### 4. Judging from top-down photos only
+In real life, you see your ring from multiple angles throughout the day. A diamond that looks perfect from above might look different in profile. The AI simulator shows the natural wearing angle.
+
+### 5. Forgetting about depth
+Two 1.5ct diamonds can have the same carat weight but very different visual sizes. One might be cut deep (small face, lots of depth) while the other is spread (larger face, shallower). Always check the "spread" — the actual diameter relative to what's expected for the carat weight.
+
+## How to Use the Simulator for Shopping
+
+Here's our recommended workflow for finding your perfect diamond:
+
+1. **Start with the ring sizer** — know your exact size before anything else
+2. **Try your target carat weight** — see how it looks on your hand
+3. **Try one size up and one size down** — compare the visual difference
+4. **Experiment with shapes** — an oval 1.5ct might give you the look of a round 2ct
+5. **Test different settings** — halo vs. solitaire vs. three-stone
+6. **Save your favorites** — download the renders and compare side by side
+7. **Share with your partner** — if it's a surprise, send them the AI renders for input
+
+This process takes 10-15 minutes and can save you from a $10,000+ mistake.
+
+## Frequently Asked Questions
+
+### Is the AI simulation accurate?
+The simulator renders jewelry at proportionally correct scale based on your hand dimensions. It's designed to give you a realistic preview — not replace trying on a physical ring. Think of it as a highly accurate visual guide.
+
+### Does it work for all diamond shapes?
+Yes. You can upload any ring image (round, oval, marquise, emerald, pear, cushion, princess, or any custom cut) and the AI will render it on your hand.
+
+### Can I simulate fancy colored diamonds?
+Absolutely. Upload an image of a yellow, pink, blue, or any colored diamond and the AI will preserve the exact color in the render.
+
+### Is my photo stored?
+Your photos are processed for rendering only and are not permanently stored on our servers.
+
+### How many diamonds can I try?
+With your free trial, you get 2 renders. After that, unlimited renders are available with a subscription — perfect for comparing multiple options.
+
+---
+
+## Start Simulating Now
+
+Stop guessing. Stop scrolling through stock photos. See exactly how any diamond size looks on YOUR hand:
+
+1. Visit **[agalaz.com/try-on](https://agalaz.com/try-on)**
+2. Select **"Ring Sizer"** from the category menu
+3. Upload your hand photo
+4. Upload a diamond ring image (or describe what you want in the chat)
+5. See it on your hand in ~15 seconds
+
+Your first renders are free. No credit card required. No app to download.
+
+**[Try the Diamond Simulator Free →](https://agalaz.com/try-on)**
+
+---
+
+*Deciding between specific sizes? Read our detailed [1.5 Carat vs 2 Carat Diamond on Hand](/blog/1-5-carat-vs-2-carat-diamond-on-hand) comparison with pricing, visual impact analysis, and smart buying tips.*`,
+    contentEs: `Cada año, millones de personas buscan "tamaño de diamante en la mano" intentando averiguar cómo se verá un peso específico en su dedo. Recorren fotos de stock, ven vídeos de YouTube y visitan joyerías — todo para responder una simple pregunta: **"¿Cómo se verá este diamante en MI mano?"**
+
+Ahora hay una forma mejor. Los simuladores con IA te permiten ver cualquier tamaño de diamante en tu mano real en segundos.
+
+## Por Qué las Fotos de Stock No Funcionan
+
+Cuando buscas "diamante 2 quilates en mano" en Google, ves fotos de manos ajenas. El problema:
+
+- **Sus dedos no son tus dedos.** Un dedo talla 5 hace que todo diamante parezca más grande que uno talla 8.
+- **La iluminación varía mucho.** Luz de estudio vs. flash del móvil crea impresiones completamente diferentes.
+- **Los ángulos son inconsistentes.** Algunas fotos son desde arriba, otras en ángulo — haciendo imposible comparar.
+- **No puedes comparar.** Cambiar entre 10 pestañas del navegador no da una comparación fiable.
+
+Lo que necesitas es ver el diamante en **tu** mano, en **tus** proporciones.
+
+## Tabla de Referencia de Tamaños por Quilates
+
+Antes de simular, aquí tienes lo que mide cada peso popular (talla brillante redonda):
+
+| Peso en Quilates | Diámetro (mm) | Área Frontal (mm²) | Descripción Visual |
+|---|---|---|---|
+| **0.25 ct** | 4.1 mm | 13 mm² | Tamaño de una lenteja |
+| **0.50 ct** | 5.2 mm | 21 mm² | Tamaño de un guisante pequeño |
+| **0.75 ct** | 5.9 mm | 27 mm² | Notablemente presente |
+| **1.00 ct** | 6.5 mm | 33 mm² | El clásico referente |
+| **1.25 ct** | 6.9 mm | 37 mm² | Claramente impresionante |
+| **1.50 ct** | 7.4 mm | 43 mm² | Llamativo |
+| **2.00 ct** | 8.2 mm | 53 mm² | Espectacular |
+| **2.50 ct** | 8.8 mm | 61 mm² | Inconfundiblemente grande |
+| **3.00 ct** | 9.3 mm | 68 mm² | Territorio alfombra roja |
+| **4.00 ct** | 10.2 mm | 82 mm² | Excepcional |
+| **5.00 ct** | 11.0 mm | 95 mm² | Digno de museo |
+
+**Dato clave:** Duplicar los quilates NO duplica el tamaño visual. Un 2ct es solo ~26% más ancho que un 1ct — porque el quilate mide *peso*, y los diamantes distribuyen peso en tres dimensiones.
+
+## Cómo Funciona el Simulador de Diamantes IA
+
+El simulador de anillos de Agalaz usa generación de imagen con IA para renderizar joyería en tu foto real. Así funciona:
+
+### Paso 1: Sube la Foto de Tu Mano
+
+Haz una foto clara de tu mano con los dedos extendidos naturalmente. Consejos:
+- Usa luz natural (cerca de una ventana)
+- Mantén la mano plana o ligeramente inclinada
+- Incluye toda la mano en el encuadre
+- Quita anillos existentes para el resultado más claro (o déjalos como referencia)
+
+### Paso 2: Elige Tu Diamante
+
+Tienes dos opciones:
+- **Sube una imagen del anillo** — captura de pantalla de una joyería online, Pinterest o Instagram
+- **Describe lo que quieres** — usa el chat IA: *"Muéstrame un solitario redondo de 1.5 quilates en banda de oro fino"*
+
+### Paso 3: Míralo en Tu Mano
+
+La IA renderiza el anillo en tu mano real, respetando:
+- Tu tono de piel exacto
+- El ancho y proporciones de tu dedo
+- Sombras y reflejos naturales
+- Escala correcta basada en el tamaño de tu mano
+
+### Paso 4: Compara Tamaños
+
+Usa el chat para ajustar al instante:
+- *"Hazlo de 2 quilates"*
+- *"Muéstrame oval en vez de redondo"*
+- *"Cambia a banda de platino"*
+- *"Añade engaste halo"*
+
+Cada render tarda ~15-30 segundos y produce un resultado fotorrealista.
+
+**[Prueba el simulador ahora →](https://agalaz.com/try-on)**
+
+## Quilates vs. Forma del Diamante
+
+El mismo peso se ve dramáticamente diferente según la forma. Esto es porque las formas alargadas distribuyen su peso en mayor superficie:
+
+### Redondo Brillante
+El estándar. Un 1ct redondo mide 6.5mm de diámetro. Simétrico y clásico, pero tiene el área frontal más pequeña por quilate.
+
+### Oval
+Un 1ct oval mide aproximadamente 7.7 × 5.2mm — **18% más de área frontal** que un redondo del mismo peso. Por eso los óvalos han ganado tanta popularidad: parecen más grandes por el mismo dinero.
+
+### Marquesa
+La campeona del área frontal. Un 1ct marquesa mide ~10.0 × 5.0mm, creando una forma alargada que maximiza la cobertura del dedo. Puede parecer hasta **40% más grande** que un redondo del mismo peso.
+
+### Talla Esmeralda
+Rectangular con cortes escalón que crean un efecto "sala de espejos". Un 1ct esmeralda mide ~6.7 × 5.0mm. No maximiza el área frontal, pero sus líneas limpias crean una impresión sofisticada y más grande.
+
+### Pera (Lágrima)
+Combina lo mejor del redondo y la marquesa. Un 1ct pera mide ~8.5 × 5.5mm — **ventaja significativa de área frontal** manteniendo un look clásico.
+
+### Cushion
+Cuadrado o rectangular con esquinas redondeadas. Un 1ct cushion mide ~5.8 × 5.8mm. Área similar al redondo, pero la forma más suave puede parecer más grande por las esquinas anchas.
+
+## El Bonus del Medidor de Talla
+
+Al usar el simulador de Agalaz, también incluye un **medidor de talla con IA**. La IA analiza tu foto y estima tu talla en:
+
+- **Talla US/Canadiense** (ej. US 7)
+- **Talla Europea** (ej. EU 54)
+- **Talla UK/Australiana** (ej. UK O)
+- **Diámetro interior** (ej. 17.3 mm)
+
+Esto significa que puedes averiguar tanto *qué tamaño de diamante queda mejor* como *qué talla de anillo pedir* — todo desde una foto.
+
+**[Obtén tu talla + simula diamantes →](https://agalaz.com/try-on)**
+
+## Errores Comunes al Juzgar el Tamaño
+
+### 1. Comparar quilates en vez de milímetros
+Un diamante de 1.5ct de un joyero puede tener proporciones diferentes al de otro. Siempre revisa el diámetro real — te dice más sobre el tamaño visual que los quilates solos.
+
+### 2. Ignorar el engaste
+Un halo añade 0.3-0.5ct de tamaño visual. Una banda fina hace la piedra central parecer más grande. Un bisel puede hacerla parecer más pequeña. El engaste es la mitad de la ecuación.
+
+### 3. No considerar el tamaño del dedo
+Un diamante de 1ct en un dedo talla 4 tiene el mismo impacto visual que un 1.8ct en un talla 8. Tu dedo es el marco — lo cambia todo.
+
+### 4. Juzgar solo desde arriba
+En la vida real, ves tu anillo desde múltiples ángulos durante el día. Un diamante perfecto desde arriba puede verse diferente de perfil. El simulador IA muestra el ángulo natural de uso.
+
+### 5. Olvidar la profundidad
+Dos diamantes de 1.5ct pueden tener el mismo peso pero tamaños visuales muy diferentes. Uno puede ser profundo (cara pequeña) y el otro extenso (cara más grande, más superficial). Siempre revisa la "extensión" — el diámetro real relativo al esperado para el peso.
+
+## Cómo Usar el Simulador para Comprar
+
+Nuestro flujo recomendado:
+
+1. **Empieza con el medidor de talla** — conoce tu talla exacta primero
+2. **Prueba tu peso objetivo** — mira cómo se ve en tu mano
+3. **Prueba uno más grande y uno más pequeño** — compara la diferencia visual
+4. **Experimenta con formas** — un oval de 1.5ct puede darte el look de un redondo de 2ct
+5. **Prueba diferentes engastes** — halo vs. solitario vs. tres piedras
+6. **Guarda tus favoritos** — descarga los renders y compara lado a lado
+7. **Comparte con tu pareja** — si es sorpresa, envía los renders IA para opinión
+
+Este proceso toma 10-15 minutos y puede ahorrarte un error de 10.000€+.
+
+## Preguntas Frecuentes
+
+### ¿Es precisa la simulación IA?
+El simulador renderiza joyería a escala proporcionalmente correcta basada en las dimensiones de tu mano. Está diseñado para darte una vista previa realista — no para reemplazar probarse un anillo físico. Es una guía visual muy precisa.
+
+### ¿Funciona para todas las formas?
+Sí. Puedes subir cualquier imagen de anillo (redondo, oval, marquesa, esmeralda, pera, cushion, princesa o corte personalizado) y la IA lo renderiza en tu mano.
+
+### ¿Puedo simular diamantes de color?
+Absolutamente. Sube una imagen de un diamante amarillo, rosa, azul o cualquier color y la IA preservará el color exacto.
+
+### ¿Se almacena mi foto?
+Tus fotos se procesan solo para el render y no se almacenan permanentemente en nuestros servidores.
+
+### ¿Cuántos diamantes puedo probar?
+Con tu prueba gratis, tienes 2 renders. Después, renders ilimitados con suscripción — perfecto para comparar múltiples opciones.
+
+---
+
+## Empieza a Simular Ahora
+
+Deja de adivinar. Deja de buscar fotos genéricas. Mira exactamente cómo cualquier tamaño de diamante se ve en TU mano:
+
+1. Visita **[agalaz.com/try-on](https://agalaz.com/try-on)**
+2. Selecciona **"Talla de anillo"** en el menú de categorías
+3. Sube la foto de tu mano
+4. Sube una imagen de un anillo con diamante (o describe lo que quieres en el chat)
+5. Míralo en tu mano en ~15 segundos
+
+Tus primeros renders son gratis. Sin tarjeta de crédito. Sin app que descargar.
+
+**[Prueba el Simulador de Diamantes Gratis →](https://agalaz.com/try-on)**
+
+---
+
+*¿Decidiendo entre tamaños específicos? Lee nuestra comparativa detallada [Diamante 1.5 vs 2 Quilates en la Mano](/blog/1-5-carat-vs-2-carat-diamond-on-hand) con precios, análisis de impacto visual y consejos de compra inteligente.*`,
   },
 ];

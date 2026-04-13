@@ -93,7 +93,7 @@ export default function PaywallPage() {
   return (
     <main className="min-h-screen bg-white">
       {/* Nav */}
-      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-100">
+      <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur-sm border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
           <Link href="/" className="font-serif text-2xl tracking-[0.15em] text-slate-900 font-black" style={{ fontVariantLigatures: 'none' }}>
             Agalaz
@@ -267,7 +267,7 @@ export default function PaywallPage() {
         <button
           onClick={handleSubscribe}
           disabled={loading}
-          className="w-full py-4 bg-slate-900 text-white flex items-center justify-center gap-3 hover:bg-indigo-600 transition-all font-black uppercase tracking-[0.2em] text-xs disabled:opacity-50"
+          className="w-full py-4 min-h-[56px] bg-slate-900 text-white flex items-center justify-center gap-3 hover:bg-indigo-600 active:bg-indigo-700 transition-all font-black uppercase tracking-[0.2em] text-xs md:text-sm disabled:opacity-50"
         >
           {loading ? (
             <span>{en ? 'Loading...' : 'Cargando...'}</span>
@@ -306,7 +306,7 @@ export default function PaywallPage() {
       {/* Login Modal */}
       {showLogin && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center animate-fade-in" onClick={() => setShowLogin(false)}>
-          <div className="bg-white mx-6 p-8 rounded-2xl max-w-sm w-full text-center space-y-6 shadow-2xl animate-fade-in-up" onClick={(e) => e.stopPropagation()}>
+          <div className="bg-white mx-4 md:mx-6 p-5 md:p-8 rounded-2xl max-w-sm w-full text-center space-y-5 md:space-y-6 shadow-2xl animate-fade-in-up" onClick={(e) => e.stopPropagation()}>
             <div className="w-14 h-14 bg-slate-900 flex items-center justify-center mx-auto">
               <span className="text-white font-serif font-black text-2xl italic">A</span>
             </div>

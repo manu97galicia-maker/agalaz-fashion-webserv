@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Sparkles, Loader2, X, Camera, ImagePlus, Check, Download } from 'lucide-react';
+import { Sparkles, X, Camera, ImagePlus, Check, Download } from 'lucide-react';
 
 // Standalone embed page for B2B widget — no Supabase auth required
 // URL: /embed?key=API_KEY&garment=GARMENT_URL&lang=es
@@ -29,28 +29,34 @@ export default function EmbedPage() {
     photo: 'Tu foto',
     photoHint: 'Selfie, medio cuerpo o cuerpo entero',
     generate: 'Probar prenda',
-    generating: 'Generando...',
-    loadingHint: 'Puede tardar 30s - 1 min',
+    generating: 'Generando tu prueba virtual...',
+    loadingHint: 'Puede tardar hasta 1 minuto',
     result: 'Tu prueba virtual',
     tryAgain: 'Probar de nuevo',
     download: 'Guardar',
-    poweredBy: 'Powered by Agalaz',
+    poweredBy: 'Powered by',
     errorGeneric: 'No se pudo generar. Intenta con otra foto.',
     errorNoPhoto: 'Sube una foto para continuar.',
+    trySize: 'Probar otra talla',
+    trySizeHint: 'Mira cómo te queda en otra talla',
+    yourSize: 'Tu talla',
   } : {
     title: 'Virtual Try-On',
     subtitle: 'Upload your photo and try on this garment',
     photo: 'Your photo',
     photoHint: 'Selfie, half body, or full body',
     generate: 'Try it on',
-    generating: 'Generating...',
-    loadingHint: 'This may take 30s - 1 min',
+    generating: 'Generating your virtual try-on...',
+    loadingHint: 'This may take up to 1 minute',
     result: 'Your virtual try-on',
     tryAgain: 'Try again',
     download: 'Save',
-    poweredBy: 'Powered by Agalaz',
+    poweredBy: 'Powered by',
     errorGeneric: 'Generation failed. Try a different photo.',
     errorNoPhoto: 'Upload a photo to continue.',
+    trySize: 'Try another size',
+    trySizeHint: 'See how it looks in a different size',
+    yourSize: 'Your size',
   };
 
   // Parse URL params on mount
@@ -301,6 +307,67 @@ export default function EmbedPage() {
     a.click();
   }
 
+  const ALL_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'];
+
+  function getAdjacentSizes(size: string): string[] {
+    const idx = ALL_SIZES.indexOf(size);
+    if (idx === -1) return ALL_SIZES.filter(s => s !== size);
+    const result: string[] = [];
+    // 2 sizes down, 2 sizes up
+    for (let i = Math.max(0, idx - 2); i <= Math.min(ALL_SIZES.length - 1, idx + 2); i++) {
+      if (i !== idx) result.push(ALL_SIZES[i]);
+    }
+    return result;
+  }
+
+  async function handleTrySize(size: string) {
+    setPreviewSize(size);
+    setIsLoading(true);
+    setError(null);
+    setStep('upload'); // switch to upload view to show loading
+
+    const payload: Record<string, any> = { userImage };
+    if (garmentImage) payload.clothingImage = garmentImage;
+    if (garmentUrl) payload.garmentUrl = garmentUrl;
+    if (currentSize) payload.currentSize = currentSize;
+    payload.previewSize = size;
+
+    try {
+      const res = await fetch('/api/v1/tryon', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        const debugStr = data.debug ? ` [${Object.entries(data.debug).map(([k, v]) => `${k}:${v}`).join(', ')}]` : '';
+        setError((data.error || t.errorGeneric) + debugStr);
+        setStep('result'); // go back to result view
+        setIsLoading(false);
+        return;
+      }
+
+      if (data.image) {
+        setResultImage(data.image);
+        setStep('result');
+        window.parent.postMessage({ type: 'agalaz:result', image: data.image }, '*');
+      } else {
+        setError(t.errorGeneric);
+        setStep('result');
+      }
+    } catch {
+      setError(t.errorGeneric);
+      setStep('result');
+    }
+
+    setIsLoading(false);
+  }
+
   function handleReset() {
     setUserImage(null);
     setResultImage(null);
@@ -532,36 +599,51 @@ export default function EmbedPage() {
               </div>
             )}
 
-            <button
-              onClick={handleGenerate}
-              disabled={!userImage || isLoading}
-              className={`w-full py-4 flex items-center justify-center gap-3 rounded-xl transition-all font-black uppercase tracking-[0.15em] text-xs ${
-                userImage && !isLoading
-                  ? 'bg-slate-900 text-white hover:bg-indigo-600 shadow-lg'
-                  : 'bg-slate-100 text-slate-300'
-              }`}
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 size={18} className="animate-spin" />
-                  <div className="flex flex-col items-center">
-                    <span>{t.generating}</span>
-                    <span className="text-[10px] font-normal normal-case tracking-normal text-slate-300 mt-1">{t.loadingHint}</span>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <Sparkles size={18} />
-                  {t.generate}
-                </>
-              )}
-            </button>
+            {isLoading ? (
+              <div className="flex flex-col items-center justify-center py-12 space-y-6">
+                <div className="relative">
+                  <div className="w-16 h-16 rounded-full border-4 border-slate-100 border-t-indigo-600 animate-spin" />
+                  <Sparkles size={20} className="text-indigo-600 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                </div>
+                <div className="text-center space-y-2">
+                  <p className="text-sm font-black text-slate-700 tracking-tight">{t.generating}</p>
+                  <p className="text-xs text-slate-400">{t.loadingHint}</p>
+                </div>
+                <a
+                  href="https://agalaz.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 mt-4 opacity-60 hover:opacity-100 transition-opacity"
+                >
+                  <span className="text-[10px] font-bold text-slate-400">{t.poweredBy}</span>
+                  <span className="text-[10px] font-black text-indigo-500">agalaz.com</span>
+                </a>
+              </div>
+            ) : (
+              <button
+                onClick={handleGenerate}
+                disabled={!userImage}
+                className={`w-full py-4 flex items-center justify-center gap-3 rounded-xl transition-all font-black uppercase tracking-[0.15em] text-xs ${
+                  userImage
+                    ? 'bg-slate-900 text-white hover:bg-indigo-600 shadow-lg'
+                    : 'bg-slate-100 text-slate-300'
+                }`}
+              >
+                <Sparkles size={18} />
+                {t.generate}
+              </button>
+            )}
           </div>
         ) : (
           /* Result view */
           <div className="max-w-sm mx-auto space-y-4">
             <p className="text-center text-[10px] font-black text-slate-400 uppercase tracking-widest">
               {t.result}
+              {previewSize && (
+                <span className="ml-2 px-2 py-0.5 bg-indigo-100 text-indigo-600 rounded-md">
+                  {previewSize}
+                </span>
+              )}
             </p>
 
             <div className="rounded-2xl overflow-hidden border-2 border-slate-100">
@@ -572,6 +654,63 @@ export default function EmbedPage() {
                 style={{ aspectRatio: '9 / 16', objectFit: 'cover' }}
               />
             </div>
+
+            {/* Size re-try options — only when a garment is present (clothing item) */}
+            {(garmentImage || garmentUrl) && (
+              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-2">
+                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                  {t.trySize}
+                </span>
+                <p className="text-[9px] text-slate-300">{t.trySizeHint}</p>
+                {!currentSize && (
+                  <div>
+                    <span className="text-[8px] font-bold text-slate-300 uppercase tracking-widest">
+                      {t.yourSize}
+                    </span>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {ALL_SIZES.map((size) => (
+                        <button
+                          key={size}
+                          onClick={() => setCurrentSize(size)}
+                          className="px-2 py-1 rounded-md text-[9px] font-black bg-white border border-slate-200 text-slate-400 hover:border-indigo-300 transition-all"
+                        >
+                          {size}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {currentSize && (
+                  <div>
+                    <span className="text-[8px] font-bold text-slate-300 uppercase tracking-widest">
+                      {lang === 'es' ? `Tienes ${currentSize} — probar en:` : `You have ${currentSize} — try in:`}
+                    </span>
+                    <div className="flex flex-wrap gap-1.5 mt-1.5">
+                      {getAdjacentSizes(currentSize).map((size) => (
+                        <button
+                          key={size}
+                          onClick={() => handleTrySize(size)}
+                          disabled={isLoading}
+                          className={`px-3 py-1.5 rounded-lg text-[10px] font-black transition-all ${
+                            previewSize === size
+                              ? 'bg-indigo-600 text-white ring-2 ring-indigo-300'
+                              : 'bg-white border border-slate-200 text-slate-500 hover:border-indigo-400 hover:text-indigo-600'
+                          }`}
+                        >
+                          {size}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {error && (
+              <div className="p-3 bg-red-50 rounded-xl border border-red-100 text-xs font-bold text-red-600">
+                {error}
+              </div>
+            )}
 
             <div className="flex gap-3">
               <button
