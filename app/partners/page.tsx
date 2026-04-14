@@ -100,7 +100,7 @@ function PartnersContent() {
   useEffect(() => {
     const subscribed = searchParams.get('subscribed');
     if (subscribed === 'true' && userId) {
-      loadPartnerProfile(userId);
+      if (userId) loadPartnerProfile(userId);
     }
   }, [searchParams, userId]);
 
@@ -173,7 +173,7 @@ function PartnersContent() {
       if (!registerRes.ok) {
         if (registerRes.status === 409) {
           // Already registered — load profile
-          loadPartnerProfile(userId);
+          if (userId) loadPartnerProfile(userId);
           setIsSubmitting(false);
           return;
         }
