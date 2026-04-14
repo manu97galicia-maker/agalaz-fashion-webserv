@@ -1,15 +1,18 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { Sparkles, Upload, Camera, X, Check, ChevronDown, ChevronUp, ArrowRight, Palette, Target, Shield, Zap, Star, Users, Clock } from 'lucide-react';
+import { useState, useRef, useCallback } from 'react';
+import { Sparkles, Upload, Camera, X, Check, ChevronDown, ChevronUp, ArrowRight, Palette, Target, Shield, Zap, Star, Users, Clock, Lock } from 'lucide-react';
 import Link from 'next/link';
-import { signInWithGoogle, signInWithApple, onAuthStateChange } from '@/services/authService';
+import { signInWithGoogle, signInWithApple } from '@/services/authService';
 import { useLang } from '@/components/LanguageProvider';
 
 export default function VirtualTattooSimulatorPage() {
   const { lang } = useLang();
   const [userImage, setUserImage] = useState<string | null>(null);
   const [tattooImage, setTattooImage] = useState<string | null>(null);
+  const [resultImage, setResultImage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const userRef = useRef<HTMLInputElement>(null);
@@ -27,11 +30,17 @@ export default function VirtualTattooSimulatorPage() {
     tattooDesign: 'Diseño del tatuaje',
     tattooHint: 'Sube tu diseño (PNG, JPG)',
     generate: 'Ver cómo queda en mi piel',
-    loginTitle: 'Inicia sesión para ver tu resultado',
-    loginSubtitle: 'Tu imagen está lista. Inicia sesión gratis para ver el resultado.',
+    generating: 'Generando tu tatuaje...',
+    loadingHint: 'Puede tardar hasta 1 minuto',
+    resultTitle: 'Tu tatuaje virtual',
+    watermarkCta: 'Quitar marca de agua',
+    watermarkDesc: 'Inicia sesión y elige un plan para ver la imagen completa sin marca de agua',
+    loginTitle: 'Desbloquea tu imagen',
+    loginSubtitle: 'Inicia sesión gratis para acceder a la imagen completa y al probador virtual.',
     continueGoogle: 'Continuar con Google',
     continueApple: 'Continuar con Apple',
     free: 'Gratis — sin tarjeta de crédito',
+    tryAnother: 'Probar otro diseño',
     stat1: '50K+',
     stat1d: 'Tatuajes simulados',
     stat2: '< 60s',
@@ -44,40 +53,41 @@ export default function VirtualTattooSimulatorPage() {
     step2: 'Elige el diseño',
     step2d: 'Sube tu diseño o cualquier imagen que quieras como tatuaje.',
     step3: 'Visualiza al instante',
-    step3d: 'La IA coloca el tatuaje de forma realista en tu piel, respetando forma y tono.',
+    step3d: 'La IA coloca el tatuaje de forma realista en tu piel.',
     whyTitle: '¿Por qué usar un simulador de tatuajes?',
     why1t: 'Sin arrepentimientos',
     why1d: 'Un tatuaje es para siempre. Visualiza antes de ir al estudio y evita errores costosos.',
     why2t: 'Tamaño y posición perfectos',
-    why2d: 'Mira cómo se adapta a tu brazo, pierna, pecho o espalda. Prueba diferentes tamaños.',
+    why2d: 'Mira cómo se adapta a tu brazo, pierna, pecho o espalda.',
     why3t: 'Para artistas y estudios',
-    why3d: 'Muestra a tus clientes el resultado antes de tatuar. Reduce retoques y aumenta confianza.',
+    why3d: 'Muestra a tus clientes el resultado antes de tatuar.',
     why4t: 'Gratis y privado',
-    why4d: 'Tus fotos no se guardan. Resultados instantáneos con IA generativa.',
+    why4d: 'Tus fotos no se guardan. Resultados instantáneos con IA.',
     useCasesTitle: 'Ideal para',
     useCase1: 'Personas que quieren su primer tatuaje',
-    useCase2: 'Artistas tatuadores que muestran previews a clientes',
+    useCase2: 'Artistas tatuadores que muestran previews',
     useCase3: 'Estudios de tatuaje con tienda online',
-    useCase4: 'Diseñadores que prueban ubicaciones y tamaños',
+    useCase4: 'Diseñadores que prueban ubicaciones',
     shopifyTitle: '¿Tienes un estudio de tatuajes online?',
-    shopifyDesc: 'Integra nuestro simulador en tu web. Tus clientes podrán visualizar diseños de tu catálogo en su propio cuerpo antes de agendar. Widget listo para Shopify, WooCommerce y cualquier web.',
+    shopifyDesc: 'Integra nuestro simulador en tu web. Tus clientes podrán visualizar diseños en su propio cuerpo antes de agendar.',
     shopifyCta: 'Ver integración para negocios',
     faqTitle: 'Preguntas frecuentes',
     faq1q: '¿Es gratis usar el simulador de tatuajes?',
-    faq1a: 'Sí, Agalaz ofrece una versión gratuita para que pruebes diseños de tatuaje en tu foto con IA. Sin tarjeta de crédito.',
-    faq2q: '¿Puedo usar esto en mi tienda de Shopify o web de tatuajes?',
-    faq2a: 'Sí. Ofrecemos una integración lista para Shopify y cualquier web. Tu widget de prueba virtual de tatuajes en minutos. Visita nuestra sección de Partners.',
+    faq1a: 'Sí, puedes generar una vista previa gratis. Para la imagen completa sin marca de agua, necesitas una cuenta.',
+    faq2q: '¿Puedo usar esto en mi tienda de Shopify?',
+    faq2a: 'Sí. Ofrecemos un widget listo para Shopify y cualquier web. Visita nuestra sección de Partners.',
     faq3q: '¿Qué tan realista es el resultado?',
-    faq3a: 'Nuestra IA preserva el tono de piel, la forma del cuerpo y la posición exacta. El resultado es fotorrealista, incluyendo sombras y curvatura del cuerpo.',
+    faq3a: 'Nuestra IA preserva el tono de piel, la forma del cuerpo y la posición exacta. Resultado fotorrealista.',
     faq4q: '¿Mis fotos son privadas?',
-    faq4a: 'Sí. No almacenamos tus fotos. El procesamiento se hace en tiempo real y se descarta después. Tu privacidad es nuestra prioridad.',
+    faq4a: 'Sí. No almacenamos tus fotos. Se procesan en tiempo real y se descartan.',
     faq5q: '¿Funciona en brazos, piernas, espalda y pecho?',
-    faq5a: 'Sí. La IA detecta automáticamente la zona del cuerpo y adapta el tatuaje a la curvatura y tono de piel de esa área.',
+    faq5a: 'Sí. La IA detecta la zona del cuerpo y adapta el tatuaje automáticamente.',
     alsoTry: 'También te puede interesar',
     alsoTryClothes: 'Probador de ropa virtual',
     alsoTrySwimwear: 'Probador de bañadores',
     alsoTryGlasses: 'Prueba gafas con IA',
     footer: '© 2025 Agalaz. Todos los derechos reservados.',
+    poweredBy: 'Powered by',
   } : {
     nav: 'Agalaz',
     tryOn: 'Try it now',
@@ -90,11 +100,17 @@ export default function VirtualTattooSimulatorPage() {
     tattooDesign: 'Tattoo design',
     tattooHint: 'Upload your design (PNG, JPG)',
     generate: 'See how it looks on my skin',
-    loginTitle: 'Sign in to see your result',
-    loginSubtitle: 'Your image is ready. Sign in for free to see the result.',
+    generating: 'Generating your tattoo...',
+    loadingHint: 'This may take up to 1 minute',
+    resultTitle: 'Your virtual tattoo',
+    watermarkCta: 'Remove watermark',
+    watermarkDesc: 'Sign in and choose a plan to see the full image without watermark',
+    loginTitle: 'Unlock your image',
+    loginSubtitle: 'Sign in for free to access the full image and virtual try-on studio.',
     continueGoogle: 'Continue with Google',
     continueApple: 'Continue with Apple',
     free: 'Free — no credit card required',
+    tryAnother: 'Try another design',
     stat1: '50K+',
     stat1d: 'Tattoos simulated',
     stat2: '< 60s',
@@ -107,40 +123,41 @@ export default function VirtualTattooSimulatorPage() {
     step2: 'Choose your design',
     step2d: 'Upload your design or any image you want as a tattoo.',
     step3: 'Visualize instantly',
-    step3d: 'AI places the tattoo realistically on your skin, respecting shape and skin tone.',
+    step3d: 'AI places the tattoo realistically on your skin.',
     whyTitle: 'Why use a tattoo placement simulator?',
     why1t: 'No regrets',
-    why1d: 'A tattoo is forever. Visualize before going to the studio and avoid costly mistakes.',
+    why1d: 'A tattoo is forever. Visualize before going to the studio.',
     why2t: 'Perfect size & placement',
-    why2d: 'See how it adapts to your arm, leg, chest, or back. Try different sizes.',
+    why2d: 'See how it adapts to your arm, leg, chest, or back.',
     why3t: 'For artists & studios',
-    why3d: 'Show clients the result before tattooing. Reduce touch-ups and build trust.',
+    why3d: 'Show clients the result before tattooing.',
     why4t: 'Free & private',
-    why4d: 'Your photos are never stored. Instant results powered by generative AI.',
+    why4d: 'Your photos are never stored. Instant AI results.',
     useCasesTitle: 'Perfect for',
     useCase1: 'People getting their first tattoo',
     useCase2: 'Tattoo artists showing previews to clients',
     useCase3: 'Tattoo studios with online shops',
     useCase4: 'Designers testing placements and sizes',
     shopifyTitle: 'Own a tattoo studio or shop online?',
-    shopifyDesc: 'Integrate our simulator on your website. Let your clients visualize designs from your catalog on their own body before booking. Widget ready for Shopify, WooCommerce, and any site.',
+    shopifyDesc: 'Integrate our simulator on your website. Let your clients visualize designs on their own body before booking.',
     shopifyCta: 'See business integration',
     faqTitle: 'Frequently asked questions',
     faq1q: 'Is the tattoo simulator free to use?',
-    faq1a: 'Yes, Agalaz offers a free version so you can test tattoo designs on your photo with AI. No credit card needed.',
-    faq2q: 'Can I use this on my Shopify store or tattoo website?',
-    faq2a: 'Yes. We offer a ready-to-use integration for Shopify and any website. Your virtual tattoo try-on widget in minutes. Visit our Partners section.',
+    faq1a: 'Yes, you can generate a preview for free. For the full image without watermark, you need an account.',
+    faq2q: 'Can I use this on my Shopify store?',
+    faq2a: 'Yes. We offer a ready-to-use widget for Shopify and any website. Visit our Partners section.',
     faq3q: 'How realistic is the result?',
-    faq3a: 'Our AI preserves skin tone, body shape, and exact placement. The result is photorealistic, including shadows and body curvature.',
+    faq3a: 'Our AI preserves skin tone, body shape, and exact placement. Photorealistic result.',
     faq4q: 'Are my photos private?',
-    faq4a: 'Yes. We do not store your photos. Processing happens in real-time and is discarded after. Your privacy is our priority.',
+    faq4a: 'Yes. We do not store your photos. Real-time processing, discarded after.',
     faq5q: 'Does it work on arms, legs, back, and chest?',
-    faq5a: 'Yes. The AI automatically detects the body area and adapts the tattoo to the curvature and skin tone of that region.',
+    faq5a: 'Yes. The AI automatically detects the body area and adapts the tattoo.',
     alsoTry: 'You might also like',
     alsoTryClothes: 'Virtual clothing try-on',
     alsoTrySwimwear: 'Swimwear try-on',
     alsoTryGlasses: 'Try glasses with AI',
     footer: '© 2025 Agalaz. All rights reserved.',
+    poweredBy: 'Powered by',
   };
 
   function handleFile(setter: (v: string | null) => void) {
@@ -170,16 +187,112 @@ export default function VirtualTattooSimulatorPage() {
     };
   }
 
-  function handleGenerate() {
-    if (!userImage) return;
-    const sub = onAuthStateChange((user) => {
-      sub.data.subscription.unsubscribe();
-      if (user) {
-        window.location.href = '/try-on?category=tattoo';
-      } else {
-        setShowLoginModal(true);
-      }
+  // Apply watermark to an image data URL
+  const applyWatermark = useCallback((imageDataUrl: string): Promise<string> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d')!;
+
+        // Draw the result image
+        ctx.drawImage(img, 0, 0);
+
+        // Heavy blur overlay
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Diagonal watermark text — repeated grid
+        ctx.save();
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+        ctx.rotate(-Math.PI / 4);
+        ctx.font = `bold ${Math.max(canvas.width, canvas.height) * 0.06}px -apple-system, sans-serif`;
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+        ctx.textAlign = 'center';
+
+        const text = 'AGALAZ';
+        const spacing = Math.max(canvas.width, canvas.height) * 0.2;
+        for (let y = -canvas.height; y < canvas.height * 2; y += spacing) {
+          for (let x = -canvas.width; x < canvas.width * 2; x += spacing) {
+            ctx.fillText(text, x - canvas.width / 2, y - canvas.height / 2);
+          }
+        }
+        ctx.restore();
+
+        // Central lock icon area
+        const cx = canvas.width / 2;
+        const cy = canvas.height / 2;
+        const r = Math.min(canvas.width, canvas.height) * 0.12;
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.fill();
+
+        // Lock symbol
+        ctx.font = `bold ${r * 0.8}px -apple-system, sans-serif`;
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('🔒', cx, cy);
+
+        resolve(canvas.toDataURL('image/jpeg', 0.85));
+      };
+      img.src = imageDataUrl;
     });
+  }, []);
+
+  async function handleGenerate() {
+    if (!userImage) return;
+
+    setIsLoading(true);
+    setError(null);
+    setResultImage(null);
+
+    try {
+      // Extract base64 from data URL
+      const userBase64 = userImage.includes(',') ? userImage.split(',')[1] : userImage;
+      const tattooBase64 = tattooImage ? (tattooImage.includes(',') ? tattooImage.split(',')[1] : tattooImage) : undefined;
+
+      const res = await fetch('/api/demo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userImage: userBase64,
+          clothingImage: tattooBase64,
+          category: 'tattoo',
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || t.generate);
+        setIsLoading(false);
+        return;
+      }
+
+      if (data.image) {
+        // Apply watermark client-side
+        const watermarked = await applyWatermark(data.image);
+        setResultImage(watermarked);
+      } else {
+        setError(lang === 'es' ? 'No se pudo generar. Intenta con otra foto.' : 'Generation failed. Try another photo.');
+      }
+    } catch {
+      setError(lang === 'es' ? 'Error de conexión. Inténtalo de nuevo.' : 'Connection error. Try again.');
+    }
+
+    setIsLoading(false);
+  }
+
+  function handleReset() {
+    setResultImage(null);
+    setUserImage(null);
+    setTattooImage(null);
+    setError(null);
   }
 
   async function handleLogin(provider: 'google' | 'apple') {
@@ -202,11 +315,8 @@ export default function VirtualTattooSimulatorPage() {
       {/* Nav */}
       <nav className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
-          <Link href="/" className="text-lg font-black tracking-tight text-white">
-            {t.nav}
-          </Link>
-          <Link href="/try-on"
-            className="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg hover:bg-indigo-500 transition-colors">
+          <Link href="/" className="text-lg font-black tracking-tight text-white">{t.nav}</Link>
+          <Link href="/try-on" className="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg hover:bg-indigo-500 transition-colors">
             {t.tryOn}
           </Link>
         </div>
@@ -214,27 +324,21 @@ export default function VirtualTattooSimulatorPage() {
 
       {/* Hero */}
       <section className="relative overflow-hidden">
-        {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-indigo-600/10 via-transparent to-transparent pointer-events-none" />
         <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-600/5 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative max-w-4xl mx-auto px-4 pt-16 pb-8 text-center">
-          {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-500/10 border border-indigo-500/20 rounded-full mb-6">
             <Sparkles size={14} className="text-indigo-400" />
             <span className="text-xs font-bold text-indigo-400 uppercase tracking-widest">{t.badge}</span>
           </div>
 
           <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-[1.1]">
-            {t.h1}
-            <br />
+            {t.h1}<br />
             <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">{t.h1highlight}</span>
           </h1>
-          <p className="text-lg text-slate-400 mt-5 max-w-2xl mx-auto leading-relaxed">
-            {t.subtitle}
-          </p>
+          <p className="text-lg text-slate-400 mt-5 max-w-2xl mx-auto leading-relaxed">{t.subtitle}</p>
 
-          {/* Stats */}
           <div className="flex items-center justify-center gap-8 mt-8">
             {[
               { icon: Users, val: t.stat1, label: t.stat1d },
@@ -250,63 +354,108 @@ export default function VirtualTattooSimulatorPage() {
         </div>
       </section>
 
-      {/* Widget */}
+      {/* Widget / Result */}
       <section className="max-w-lg mx-auto px-4 pb-16">
-        <div className="bg-white/[0.04] border border-white/10 rounded-3xl p-6 space-y-4 backdrop-blur-sm">
-          {/* User photo */}
-          <div>
-            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{t.yourPhoto}</span>
-            {userImage ? (
-              <div className="mt-2 relative rounded-xl overflow-hidden ring-2 ring-indigo-500/30" style={{ aspectRatio: '4/3' }}>
-                <img src={userImage} alt="Your photo" className="w-full h-full object-cover" />
-                <div className="absolute top-2 left-2 bg-emerald-500 rounded-full p-1">
-                  <Check size={12} className="text-white" />
+        {resultImage ? (
+          /* ── Result with watermark ── */
+          <div className="space-y-4">
+            <p className="text-center text-[10px] font-black text-slate-500 uppercase tracking-widest">{t.resultTitle}</p>
+
+            <div className="rounded-2xl overflow-hidden border border-white/10 relative">
+              <img src={resultImage} alt="Tattoo preview" className="w-full" style={{ aspectRatio: '3/4', objectFit: 'cover' }} />
+            </div>
+
+            {/* Unlock CTA */}
+            <div className="bg-gradient-to-r from-indigo-600/20 to-violet-600/20 border border-indigo-500/30 rounded-2xl p-5 text-center space-y-3">
+              <Lock size={24} className="text-indigo-400 mx-auto" />
+              <h3 className="text-lg font-black">{t.watermarkCta}</h3>
+              <p className="text-sm text-slate-400">{t.watermarkDesc}</p>
+              <button
+                onClick={() => setShowLoginModal(true)}
+                className="w-full py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-xl text-sm font-bold hover:from-indigo-500 hover:to-violet-500 transition-all shadow-lg shadow-indigo-500/25 flex items-center justify-center gap-2"
+              >
+                <Sparkles size={16} />
+                {t.watermarkCta}
+              </button>
+            </div>
+
+            <button onClick={handleReset}
+              className="w-full py-3 bg-white/5 border border-white/10 rounded-xl text-xs font-bold text-slate-500 hover:bg-white/10 transition-colors">
+              {t.tryAnother}
+            </button>
+          </div>
+        ) : (
+          /* ── Upload widget ── */
+          <div className="bg-white/[0.04] border border-white/10 rounded-3xl p-6 space-y-4 backdrop-blur-sm">
+            {/* User photo */}
+            <div>
+              <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{t.yourPhoto}</span>
+              {userImage ? (
+                <div className="mt-2 relative rounded-xl overflow-hidden ring-2 ring-indigo-500/30" style={{ aspectRatio: '4/3' }}>
+                  <img src={userImage} alt="Your photo" className="w-full h-full object-cover" />
+                  <div className="absolute top-2 left-2 bg-emerald-500 rounded-full p-1"><Check size={12} className="text-white" /></div>
+                  <button onClick={() => setUserImage(null)} className="absolute top-2 right-2 p-1.5 bg-black/60 rounded-full hover:bg-black/80">
+                    <X size={14} className="text-white" />
+                  </button>
                 </div>
-                <button onClick={() => setUserImage(null)}
-                  className="absolute top-2 right-2 p-1.5 bg-black/60 rounded-full hover:bg-black/80">
-                  <X size={14} className="text-white" />
+              ) : (
+                <button onClick={() => userRef.current?.click()}
+                  className="mt-2 w-full flex flex-col items-center justify-center gap-3 p-10 rounded-xl border-2 border-dashed border-white/10 hover:border-indigo-500/40 hover:bg-indigo-500/5 transition-all">
+                  <Camera size={28} className="text-indigo-400" />
+                  <span className="text-xs font-bold text-slate-500">{t.photoHint}</span>
                 </button>
+              )}
+            </div>
+
+            {/* Tattoo design */}
+            <div>
+              <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{t.tattooDesign}</span>
+              {tattooImage ? (
+                <div className="mt-2 relative rounded-xl overflow-hidden ring-2 ring-indigo-500/30 w-24 h-24">
+                  <img src={tattooImage} alt="Tattoo design" className="w-full h-full object-cover" />
+                  <button onClick={() => setTattooImage(null)} className="absolute top-1 right-1 p-1 bg-black/60 rounded-full hover:bg-black/80">
+                    <X size={10} className="text-white" />
+                  </button>
+                </div>
+              ) : (
+                <button onClick={() => tattooRef.current?.click()}
+                  className="mt-2 w-full flex items-center justify-center gap-2 p-4 rounded-xl border-2 border-dashed border-white/10 hover:border-indigo-500/40 hover:bg-indigo-500/5 transition-all">
+                  <Upload size={16} className="text-slate-500" />
+                  <span className="text-xs font-bold text-slate-500">{t.tattooHint}</span>
+                </button>
+              )}
+            </div>
+
+            {error && (
+              <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-xs font-bold text-red-400">{error}</div>
+            )}
+
+            {/* Generate / Loading */}
+            {isLoading ? (
+              <div className="flex flex-col items-center justify-center py-12 space-y-5">
+                <div className="relative">
+                  <div className="w-16 h-16 rounded-full border-4 border-white/10 border-t-indigo-500 animate-spin" />
+                  <Sparkles size={20} className="text-indigo-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                </div>
+                <div className="text-center space-y-1.5">
+                  <p className="text-sm font-black text-white">{t.generating}</p>
+                  <p className="text-xs text-slate-500">{t.loadingHint}</p>
+                </div>
+                <span className="text-[10px] text-slate-600">{t.poweredBy} <span className="text-indigo-500 font-bold">agalaz.com</span></span>
               </div>
             ) : (
-              <button onClick={() => userRef.current?.click()}
-                className="mt-2 w-full flex flex-col items-center justify-center gap-3 p-10 rounded-xl border-2 border-dashed border-white/10 hover:border-indigo-500/40 hover:bg-indigo-500/5 transition-all">
-                <Camera size={28} className="text-indigo-400" />
-                <span className="text-xs font-bold text-slate-500">{t.photoHint}</span>
+              <button onClick={handleGenerate} disabled={!userImage}
+                className={`w-full py-4 rounded-xl text-sm font-black uppercase tracking-widest flex items-center justify-center gap-3 transition-all ${
+                  userImage
+                    ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:from-indigo-500 hover:to-violet-500 shadow-lg shadow-indigo-500/25'
+                    : 'bg-white/5 text-white/20 cursor-not-allowed'
+                }`}>
+                <Sparkles size={18} />
+                {t.generate}
               </button>
             )}
           </div>
-
-          {/* Tattoo design */}
-          <div>
-            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{t.tattooDesign}</span>
-            {tattooImage ? (
-              <div className="mt-2 relative rounded-xl overflow-hidden ring-2 ring-indigo-500/30 w-24 h-24">
-                <img src={tattooImage} alt="Tattoo design" className="w-full h-full object-cover" />
-                <button onClick={() => setTattooImage(null)}
-                  className="absolute top-1 right-1 p-1 bg-black/60 rounded-full hover:bg-black/80">
-                  <X size={10} className="text-white" />
-                </button>
-              </div>
-            ) : (
-              <button onClick={() => tattooRef.current?.click()}
-                className="mt-2 w-full flex items-center justify-center gap-2 p-4 rounded-xl border-2 border-dashed border-white/10 hover:border-indigo-500/40 hover:bg-indigo-500/5 transition-all">
-                <Upload size={16} className="text-slate-500" />
-                <span className="text-xs font-bold text-slate-500">{t.tattooHint}</span>
-              </button>
-            )}
-          </div>
-
-          {/* Generate */}
-          <button onClick={handleGenerate} disabled={!userImage}
-            className={`w-full py-4 rounded-xl text-sm font-black uppercase tracking-widest flex items-center justify-center gap-3 transition-all ${
-              userImage
-                ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:from-indigo-500 hover:to-violet-500 shadow-lg shadow-indigo-500/25'
-                : 'bg-white/5 text-white/20 cursor-not-allowed'
-            }`}>
-            <Sparkles size={18} />
-            {t.generate}
-          </button>
-        </div>
+        )}
       </section>
 
       {/* How it works */}
@@ -373,9 +522,8 @@ export default function VirtualTattooSimulatorPage() {
       <section className="py-16 bg-gradient-to-b from-indigo-600/10 to-transparent">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <h2 className="text-2xl md:text-3xl font-black mb-4">{t.shopifyTitle}</h2>
-          <p className="text-slate-400 text-sm mb-8 max-w-xl mx-auto leading-relaxed">{t.shopifyDesc}</p>
-          <Link href="/partners"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-900 rounded-xl text-sm font-bold hover:bg-indigo-100 transition-colors">
+          <p className="text-slate-400 text-sm mb-8 max-w-xl mx-auto">{t.shopifyDesc}</p>
+          <Link href="/partners" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-900 rounded-xl text-sm font-bold hover:bg-indigo-100 transition-colors">
             {t.shopifyCta} <ArrowRight size={16} />
           </Link>
         </div>
@@ -388,38 +536,26 @@ export default function VirtualTattooSimulatorPage() {
           <div className="space-y-3">
             {faqs.map((faq, i) => (
               <div key={i} className="border border-white/10 rounded-xl overflow-hidden">
-                <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-4 text-left hover:bg-white/5 transition-colors"
-                >
+                <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full flex items-center justify-between p-4 text-left hover:bg-white/5 transition-colors">
                   <span className="font-bold text-sm pr-4">{faq.q}</span>
                   {openFaq === i ? <ChevronUp size={18} className="text-slate-500 shrink-0" /> : <ChevronDown size={18} className="text-slate-500 shrink-0" />}
                 </button>
-                {openFaq === i && (
-                  <div className="px-4 pb-4 text-sm text-slate-400 leading-relaxed">
-                    {faq.a}
-                  </div>
-                )}
+                {openFaq === i && <div className="px-4 pb-4 text-sm text-slate-400 leading-relaxed">{faq.a}</div>}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Internal links — SEO */}
+      {/* Internal links */}
       <section className="py-12 border-t border-white/5">
         <div className="max-w-3xl mx-auto px-4">
           <h3 className="text-lg font-black text-center mb-6 text-slate-500">{t.alsoTry}</h3>
           <div className="flex flex-wrap justify-center gap-3">
-            <Link href="/try-on" className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-bold text-slate-400 hover:text-indigo-400 hover:border-indigo-500/30 transition-colors">
-              {t.alsoTryClothes}
-            </Link>
-            <Link href="/realistic-swimwear-try-on" className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-bold text-slate-400 hover:text-indigo-400 hover:border-indigo-500/30 transition-colors">
-              {t.alsoTrySwimwear}
-            </Link>
-            <Link href="/try-on?category=glasses" className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-bold text-slate-400 hover:text-indigo-400 hover:border-indigo-500/30 transition-colors">
-              {t.alsoTryGlasses}
-            </Link>
+            <Link href="/try-on" className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-bold text-slate-400 hover:text-indigo-400 hover:border-indigo-500/30 transition-colors">{t.alsoTryClothes}</Link>
+            <Link href="/realistic-swimwear-try-on" className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-bold text-slate-400 hover:text-indigo-400 hover:border-indigo-500/30 transition-colors">{t.alsoTrySwimwear}</Link>
+            <Link href="/try-on?category=glasses" className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-xs font-bold text-slate-400 hover:text-indigo-400 hover:border-indigo-500/30 transition-colors">{t.alsoTryGlasses}</Link>
           </div>
         </div>
       </section>
@@ -441,7 +577,7 @@ export default function VirtualTattooSimulatorPage() {
           onClick={(e) => { if (e.target === e.currentTarget) setShowLoginModal(false); }}>
           <div className="bg-slate-900 border border-white/10 rounded-2xl p-8 max-w-sm w-full shadow-2xl text-center space-y-5">
             <div className="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center mx-auto">
-              <Sparkles size={24} className="text-indigo-400" />
+              <Lock size={24} className="text-indigo-400" />
             </div>
             <h3 className="text-xl font-black text-white">{t.loginTitle}</h3>
             <p className="text-sm text-slate-400">{t.loginSubtitle}</p>
@@ -460,8 +596,7 @@ export default function VirtualTattooSimulatorPage() {
             </div>
 
             <p className="text-[11px] text-slate-500">{t.free}</p>
-            <button onClick={() => setShowLoginModal(false)}
-              className="text-xs text-slate-600 hover:text-slate-400">
+            <button onClick={() => setShowLoginModal(false)} className="text-xs text-slate-600 hover:text-slate-400">
               <X size={14} className="inline mr-1" />Cancel
             </button>
           </div>
