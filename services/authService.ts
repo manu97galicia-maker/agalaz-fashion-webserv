@@ -28,6 +28,15 @@ export const signInWithApple = async () => {
   if (error) throw error;
 };
 
+export const signInWithOtp = async (email: string) => {
+  const supabase = getSupabase();
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: { emailRedirectTo: `${window.location.origin}/try-on` },
+  });
+  if (error) throw error;
+};
+
 export const signOut = async () => {
   const supabase = getSupabase();
   const { error } = await supabase.auth.signOut();
