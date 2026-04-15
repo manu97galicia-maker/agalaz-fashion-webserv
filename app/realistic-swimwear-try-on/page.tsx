@@ -272,13 +272,15 @@ export default function RealisticSwimwearTryOnPage() {
     setError(null);
   }
 
+  const loginRedirect = '/paywall?from=swimwear';
+
   async function handleLoginGoogle() {
-    try { await signInWithGoogle(); } catch {}
+    try { await signInWithGoogle(loginRedirect); } catch {}
   }
 
   async function handleLoginOtp() {
     if (!otpEmail || !otpEmail.includes('@')) return;
-    try { await signInWithOtp(otpEmail); setOtpSent(true); } catch {}
+    try { await signInWithOtp(otpEmail, loginRedirect); setOtpSent(true); } catch {}
   }
 
   const faqs = [

@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/onboarding', '/paywall'],
+        disallow: ['/api/', '/onboarding'],
       },
     ],
     sitemap: 'https://agalaz.com/sitemap.xml',

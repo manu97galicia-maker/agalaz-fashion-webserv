@@ -10,29 +10,29 @@ function getSupabase() {
   );
 }
 
-export const signInWithGoogle = async () => {
+export const signInWithGoogle = async (redirectPath = '/try-on') => {
   const supabase = getSupabase();
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: `${window.location.origin}/try-on` },
+    options: { redirectTo: `${window.location.origin}${redirectPath}` },
   });
   if (error) throw error;
 };
 
-export const signInWithApple = async () => {
+export const signInWithApple = async (redirectPath = '/try-on') => {
   const supabase = getSupabase();
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'apple',
-    options: { redirectTo: `${window.location.origin}/try-on` },
+    options: { redirectTo: `${window.location.origin}${redirectPath}` },
   });
   if (error) throw error;
 };
 
-export const signInWithOtp = async (email: string) => {
+export const signInWithOtp = async (email: string, redirectPath = '/try-on') => {
   const supabase = getSupabase();
   const { error } = await supabase.auth.signInWithOtp({
     email,
-    options: { emailRedirectTo: `${window.location.origin}/try-on` },
+    options: { emailRedirectTo: `${window.location.origin}${redirectPath}` },
   });
   if (error) throw error;
 };

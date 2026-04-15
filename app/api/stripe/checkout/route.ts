@@ -18,7 +18,15 @@ function getPrices(): Record<string, string> {
 
 export async function POST(req: NextRequest) {
   try {
-    const { plan, email, userId, skipTrial, quantity } = await req.json();
+    const { plan, email, userId, skipTrial, quantity, fromCategory } = await req.json();
+
+    // Map landing page category to try-on category param
+    const categoryMap: Record<string, string> = {
+      tattoo: 'tattoo',
+      swimwear: 'clothing',
+      earring: 'jewelry',
+    };
+    const tryOnCategory = fromCategory && categoryMap[fromCategory] ? `&category=${categoryMap[fromCategory]}` : '';
 
     const PRICES = getPrices();
     if (!plan || !PRICES[plan]) {
@@ -69,7 +77,7 @@ export async function POST(req: NextRequest) {
           quantity: 1,
         },
       ],
-      success_url: `${origin}/try-on?subscribed=true`,
+      success_url: `${origin}/try-on?subscribed=true${tryOnCategory}`,
       cancel_url: `${origin}/paywall`,
       allow_promotion_codes: true,
       billing_address_collection: 'auto',

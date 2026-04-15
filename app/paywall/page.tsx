@@ -21,6 +21,7 @@ export default function PaywallPage() {
   const [showLogin, setShowLogin] = useState(false);
   const [hasUsedTrial, setHasUsedTrial] = useState(false);
   const [checkingTrial, setCheckingTrial] = useState(true);
+  const [fromCategory, setFromCategory] = useState<string | null>(null);
 
   useEffect(() => {
     const supabase = createBrowserClient(
@@ -41,6 +42,10 @@ export default function PaywallPage() {
       }
     });
     (window as any).datafast?.('paywall_view');
+    // Read category from landing page redirect
+    const params = new URLSearchParams(window.location.search);
+    const from = params.get('from');
+    if (from) setFromCategory(from);
   }, []);
 
   const features = en
@@ -75,7 +80,7 @@ export default function PaywallPage() {
       const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan: selected, email: userEmail, userId, skipTrial: hasUsedTrial }),
+        body: JSON.stringify({ plan: selected, email: userEmail, userId, skipTrial: hasUsedTrial, fromCategory }),
       });
       const data = await res.json();
       if (data.url) {

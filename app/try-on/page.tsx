@@ -98,6 +98,11 @@ export default function TryOnPage() {
     if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('credits_purchased')) {
       (window as any).datafast?.('credits_purchased', { amount: 20 });
     }
+    // Pre-select category from URL param (e.g. from landing pages)
+    if (typeof window !== 'undefined') {
+      const cat = new URLSearchParams(window.location.search).get('category');
+      if (cat) setTryOnCategory(cat);
+    }
   }, []);
 
   useEffect(() => {

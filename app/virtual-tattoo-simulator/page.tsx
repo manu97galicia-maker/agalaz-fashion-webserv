@@ -297,14 +297,16 @@ export default function VirtualTattooSimulatorPage() {
     setError(null);
   }
 
+  const loginRedirect = '/paywall?from=tattoo';
+
   async function handleLoginGoogle() {
-    try { await signInWithGoogle(); } catch {}
+    try { await signInWithGoogle(loginRedirect); } catch {}
   }
 
   async function handleLoginOtp() {
     if (!otpEmail || !otpEmail.includes('@')) return;
     try {
-      await signInWithOtp(otpEmail);
+      await signInWithOtp(otpEmail, loginRedirect);
       setOtpSent(true);
     } catch {}
   }
