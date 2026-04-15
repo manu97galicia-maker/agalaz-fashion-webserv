@@ -9,8 +9,6 @@ import {
   RefreshCcw,
   Shirt,
   AlertCircle,
-  Target,
-  ShieldCheck,
   X,
   Loader2,
   ArrowLeft,
@@ -594,22 +592,36 @@ export default function TryOnPage() {
                 </div>
               )}
 
-              <button
-                onClick={handleStartAnalysis}
-                disabled={!canRender}
-                className={`w-full py-4 min-h-[56px] flex items-center justify-center gap-3 transition-all font-black uppercase tracking-[0.2em] text-xs md:text-sm ${
-                  canRender
-                    ? 'bg-slate-900 text-white hover:bg-indigo-600 active:bg-indigo-700 shadow-lg'
-                    : 'bg-slate-100 text-slate-300 border border-slate-200'
-                }`}
-              >
-                {isLoading ? (
-                  <Loader2 size={18} className="animate-spin" />
-                ) : (
+              {isLoading ? (
+                <div className="flex flex-col items-center justify-center py-16">
+                  <div className="relative mb-6">
+                    <div className="w-20 h-20 rounded-full border-4 border-slate-100 border-t-indigo-600 animate-spin" />
+                    <Sparkles size={24} className="text-indigo-600 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                  </div>
+                  <p className="text-sm font-black text-slate-700 tracking-tight">
+                    {lang === 'es' ? 'Generando tu prueba virtual...' : 'Generating your virtual try-on...'}
+                  </p>
+                  <p className="text-xs text-slate-400 mt-1">
+                    {lang === 'es' ? 'Puede tardar hasta 1 minuto' : 'This may take up to 1 minute'}
+                  </p>
+                  <p className="text-[10px] text-slate-300 mt-4">
+                    Powered by <span className="font-bold text-indigo-500">agalaz.com</span>
+                  </p>
+                </div>
+              ) : (
+                <button
+                  onClick={handleStartAnalysis}
+                  disabled={!canRender}
+                  className={`w-full py-4 min-h-[56px] flex items-center justify-center gap-3 transition-all font-black uppercase tracking-[0.2em] text-xs md:text-sm rounded-xl ${
+                    canRender
+                      ? 'bg-slate-900 text-white hover:bg-indigo-600 active:bg-indigo-700 shadow-lg'
+                      : 'bg-slate-100 text-slate-300 border border-slate-200'
+                  }`}
+                >
                   <Sparkles size={18} />
-                )}
-                {t.renderBtn}
-              </button>
+                  {t.renderBtn}
+                </button>
+              )}
             </div>
           ) : (
             <div className="max-w-lg mx-auto space-y-6">
@@ -629,56 +641,39 @@ export default function TryOnPage() {
                       </div>
                     </div>
                   ) : msg.image ? (
-                    <div className="w-full space-y-3" style={{ maxWidth: '95%' }}>
+                    <div className="w-full space-y-3">
                       <button
                         onClick={() => setFullscreenImage(msg.image!)}
-                        className="block rounded-2xl overflow-hidden border-2 border-slate-100 w-full hover:border-indigo-200 transition-colors"
+                        className="block rounded-2xl overflow-hidden w-full hover:ring-2 hover:ring-indigo-200 transition-all"
+                        style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.08)' }}
                       >
-                        <div className="relative">
-                          <img
-                            src={msg.image}
-                            alt="Try-on result"
-                            className="w-full"
-                            style={{ aspectRatio: '9 / 16', objectFit: 'cover' }}
-                          />
-                          <div className="absolute top-3 left-3 space-y-1.5">
-                            <div className="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center gap-2 shadow-sm">
-                              <Target size={10} className="text-indigo-600" />
-                              <span className="text-[8px] font-black uppercase tracking-widest text-slate-700">
-                                {t.outfitPreserved}
-                              </span>
-                            </div>
-                            <div className="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full flex items-center gap-2 shadow-sm">
-                              <ShieldCheck size={10} className="text-emerald-600" />
-                              <span className="text-[8px] font-black uppercase tracking-widest text-slate-700">
-                                {t.seamlessId}
-                              </span>
-                            </div>
-                          </div>
-                          <div className="absolute bottom-3 right-3 flex gap-2">
-                            <button
-                              onClick={(e) => { e.stopPropagation(); handleDownloadImage(msg.image!); }}
-                              className="bg-white/90 backdrop-blur-sm rounded-full p-2.5 shadow-sm hover:bg-white transition-colors"
-                            >
-                              <Download size={14} className="text-slate-700" />
-                            </button>
-                            <button
-                              onClick={(e) => { e.stopPropagation(); handleShareImage(msg.image!); }}
-                              className="bg-white/90 backdrop-blur-sm rounded-full p-2.5 shadow-sm hover:bg-white transition-colors"
-                            >
-                              <Share2 size={14} className="text-slate-700" />
-                            </button>
-                          </div>
-                        </div>
+                        <img
+                          src={msg.image}
+                          alt="Try-on result"
+                          className="w-full"
+                          style={{ aspectRatio: '3 / 4', objectFit: 'cover' }}
+                        />
                       </button>
-                      {msg.text && (
-                        <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 ml-3">
-                          <p className="text-[11px] font-bold text-slate-500 leading-tight italic">
-                            &ldquo;{msg.text}&rdquo;
-                          </p>
-                        </div>
-                      )}
-                    </div>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleDownloadImage(msg.image!)}
+                          className="flex-1 py-2.5 flex items-center justify-center gap-2 border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors"
+                        >
+                          <Download size={14} className="text-slate-500" />
+                          <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                            {lang === 'es' ? 'Guardar' : 'Save'}
+                          </span>
+                        </button>
+                        <button
+                          onClick={() => handleShareImage(msg.image!)}
+                          className="flex-1 py-2.5 flex items-center justify-center gap-2 bg-slate-900 text-white rounded-xl hover:bg-indigo-600 transition-colors"
+                        >
+                          <Share2 size={14} />
+                          <span className="text-[10px] font-black uppercase tracking-widest">
+                            {lang === 'es' ? 'Compartir' : 'Share'}
+                          </span>
+                        </button>
+                      </div>
                   ) : (
                     <div
                       className={`max-w-[85%] p-4 ${
@@ -698,15 +693,19 @@ export default function TryOnPage() {
               ))}
 
               {isLoading && (
-                <div className="flex flex-col items-start gap-2 animate-fade-in">
-                  <div className="bg-slate-50 border border-slate-100 px-5 py-3 rounded-full flex items-center gap-3">
-                    <Loader2 size={14} className="text-indigo-600 animate-spin" />
-                    <span className="text-[9px] text-slate-400 font-black uppercase tracking-widest">
-                      {t.protectingOutfit}
-                    </span>
+                <div className="flex flex-col items-center justify-center py-16 animate-fade-in">
+                  <div className="relative mb-6">
+                    <div className="w-20 h-20 rounded-full border-4 border-slate-100 border-t-indigo-600 animate-spin" />
+                    <Sparkles size={24} className="text-indigo-600 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                   </div>
-                  <p className="text-[10px] text-slate-300 font-bold ml-2">
-                    {lang === 'es' ? 'Puede tardar 30s - 1 min' : 'This may take 30s - 1 min'}
+                  <p className="text-sm font-black text-slate-700 tracking-tight">
+                    {lang === 'es' ? 'Generando tu prueba virtual...' : 'Generating your virtual try-on...'}
+                  </p>
+                  <p className="text-xs text-slate-400 mt-1">
+                    {lang === 'es' ? 'Puede tardar hasta 1 minuto' : 'This may take up to 1 minute'}
+                  </p>
+                  <p className="text-[10px] text-slate-300 mt-4">
+                    Powered by <span className="font-bold text-indigo-500">agalaz.com</span>
                   </p>
                 </div>
               )}
