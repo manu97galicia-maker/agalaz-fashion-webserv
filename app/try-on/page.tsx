@@ -674,6 +674,7 @@ export default function TryOnPage() {
                           </span>
                         </button>
                       </div>
+                    </div>
                   ) : (
                     <div
                       className={`max-w-[85%] p-4 ${
