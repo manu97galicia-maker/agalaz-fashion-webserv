@@ -506,6 +506,26 @@ export default function VirtualEarringTryOnPage() {
         </div>
       </section>
 
+      {/* Semantic SEO text block */}
+      <section className="py-16 bg-slate-50 border-y border-slate-100">
+        <div className="max-w-3xl mx-auto px-6 md:px-12">
+          <h2 className="font-serif text-2xl md:text-3xl font-black text-slate-900 tracking-tight mb-6">
+            AI Virtual Earring and Piercing Visualizer
+          </h2>
+          <div className="text-slate-500 text-sm md:text-base font-light leading-relaxed space-y-4">
+            <p>
+              Deciding on a new <strong className="text-slate-700">ear piercing</strong> or the right pair of <strong className="text-slate-700">earrings</strong> shouldn&apos;t require guesswork. Our <strong className="text-slate-700">AI earring try-on</strong> tool lets you upload a selfie and instantly see how <strong className="text-slate-700">studs</strong>, <strong className="text-slate-700">hoops</strong>, <strong className="text-slate-700">dangles</strong>, and <strong className="text-slate-700">cartilage piercings</strong> look on your actual ears.
+            </p>
+            <p>
+              Agalaz&apos;s <strong className="text-slate-700">generative AI</strong> detects your ear shape, skin tone, and hair position to place jewelry with <strong className="text-slate-700">photorealistic accuracy</strong>. Whether you&apos;re previewing a <strong className="text-slate-700">tragus piercing</strong>, a <strong className="text-slate-700">helix stack</strong>, or a pair of <strong className="text-slate-700">statement earrings</strong>, the result looks like a real photo — not a sticker overlay.
+            </p>
+            <p>
+              For <strong className="text-slate-700">jewelry stores</strong> and <strong className="text-slate-700">piercing studios</strong>, our <strong className="text-slate-700">virtual try-on widget</strong> lets customers see your catalog on their own face before purchasing, reducing returns and increasing buyer confidence.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Internal links */}
       <section className="py-12 border-t border-slate-200">
         <div className="max-w-3xl mx-auto px-4">

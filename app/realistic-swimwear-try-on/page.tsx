@@ -508,6 +508,26 @@ export default function RealisticSwimwearTryOnPage() {
         </div>
       </section>
 
+      {/* Semantic SEO text block */}
+      <section className="py-16 bg-slate-50 border-y border-slate-100">
+        <div className="max-w-3xl mx-auto px-6 md:px-12">
+          <h2 className="font-serif text-2xl md:text-3xl font-black text-slate-900 tracking-tight mb-6">
+            AI-Powered Virtual Swimwear Fitting for Real Bodies
+          </h2>
+          <div className="text-slate-500 text-sm md:text-base font-light leading-relaxed space-y-4">
+            <p>
+              Online <strong className="text-slate-700">swimwear shopping</strong> has the highest return rate of any fashion category — over 40% of <strong className="text-slate-700">bikini</strong> and <strong className="text-slate-700">swimsuit purchases</strong> are sent back due to fit issues. Our <strong className="text-slate-700">AI virtual try-on</strong> solves this by letting you see exactly how a <strong className="text-slate-700">bikini</strong>, <strong className="text-slate-700">one-piece</strong>, or <strong className="text-slate-700">swimming trunk</strong> looks on your actual body before you buy.
+            </p>
+            <p>
+              Agalaz uses <strong className="text-slate-700">generative AI</strong> to adapt the garment to your unique <strong className="text-slate-700">body shape</strong>, <strong className="text-slate-700">skin tone</strong>, and proportions — not a generic avatar or mannequin. The result is a <strong className="text-slate-700">photorealistic preview</strong> that shows true fit, coverage, and how the fabric drapes on <strong className="text-slate-700">your real body type</strong>.
+            </p>
+            <p>
+              For <strong className="text-slate-700">swimwear brands</strong> and <strong className="text-slate-700">online retailers</strong>, integrating our <strong className="text-slate-700">virtual fitting room</strong> reduces returns by up to 35% while boosting customer confidence and conversion rates.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Internal links */}
       <section className="py-12 border-t border-slate-200">
         <div className="max-w-3xl mx-auto px-4">

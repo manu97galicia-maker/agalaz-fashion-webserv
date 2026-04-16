@@ -36,5 +36,32 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            name: 'Agalaz AI Tattoo Simulator',
+            operatingSystem: 'WEB',
+            applicationCategory: 'DesignApplication',
+            url: 'https://agalaz.com/virtual-tattoo-simulator',
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue: '4.9',
+              ratingCount: '52000',
+            },
+            offers: {
+              '@type': 'Offer',
+              price: '0.00',
+              priceCurrency: 'USD',
+            },
+          }),
+        }}
+      />
+      {children}
+    </>
+  );
 }

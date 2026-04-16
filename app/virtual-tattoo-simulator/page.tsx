@@ -567,6 +567,26 @@ export default function VirtualTattooSimulatorPage() {
         </div>
       </section>
 
+      {/* Semantic SEO text block */}
+      <section className="py-16 bg-slate-50 border-y border-slate-100">
+        <div className="max-w-3xl mx-auto px-6 md:px-12">
+          <h2 className="font-serif text-2xl md:text-3xl font-black text-slate-900 tracking-tight mb-6">
+            Professional AI Tattoo Visualizer for Skin and Body Art
+          </h2>
+          <div className="text-slate-500 text-sm md:text-base font-light leading-relaxed space-y-4">
+            <p>
+              Choosing the right <strong className="text-slate-700">tattoo placement</strong> is a permanent decision. Our <strong className="text-slate-700">AI tattoo simulator</strong> uses advanced neural networks to act as a digital <strong className="text-slate-700">tattoo stencil</strong>, allowing you to preview how <strong className="text-slate-700">ink</strong> will adapt to your unique <strong className="text-slate-700">body contours</strong> and <strong className="text-slate-700">skin tone</strong>.
+            </p>
+            <p>
+              Unlike traditional photo editors, Agalaz&apos;s <strong className="text-slate-700">generative AI</strong> respects the natural highlights and shadows of your muscles, ensuring the <strong className="text-slate-700">tattoo design</strong> looks healed and realistic. Whether you are testing a <strong className="text-slate-700">fine-line wrist tattoo</strong>, a <strong className="text-slate-700">geometric forearm sleeve</strong>, or a <strong className="text-slate-700">back piece</strong>, our tool provides the high-fidelity rendering required by professional <strong className="text-slate-700">tattoo artists and studios</strong>.
+            </p>
+            <p>
+              Avoid regret and visualize your <strong className="text-slate-700">body art</strong> with the most accurate <strong className="text-slate-700">virtual try-on</strong> technology available on the web.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Internal links */}
       <section className="py-12 border-t border-slate-200">
         <div className="max-w-3xl mx-auto px-4">

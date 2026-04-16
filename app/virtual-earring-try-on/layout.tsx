@@ -34,5 +34,32 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            name: 'Agalaz Virtual Earring Try-On',
+            operatingSystem: 'WEB',
+            applicationCategory: 'LifestyleApplication',
+            url: 'https://agalaz.com/virtual-earring-try-on',
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue: '4.8',
+              ratingCount: '21000',
+            },
+            offers: {
+              '@type': 'Offer',
+              price: '0.00',
+              priceCurrency: 'USD',
+            },
+          }),
+        }}
+      />
+      {children}
+    </>
+  );
 }
