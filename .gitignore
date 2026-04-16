@@ -23,3 +23,5 @@ Descargas/
 .expo/
 
 .vercel
+gen-lang-client-*.json
+*.service-account.json
