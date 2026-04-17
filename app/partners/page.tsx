@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { Sparkles, Copy, Check, ArrowRight, ChevronRight, Shield, Zap, Globe, Code2, ChevronDown, ShoppingBag, TrendingDown, BarChart3 } from 'lucide-react';
 import { useLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
+import { ChatBot } from '@/components/ChatBot';
 
 const PLANS = [
   {
@@ -1110,6 +1111,7 @@ function PartnersContent() {
           </div>
         )}
       </div>
+      <ChatBot />
     </div>
   );
 }
