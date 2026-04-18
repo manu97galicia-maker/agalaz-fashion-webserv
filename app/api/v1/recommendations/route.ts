@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { validateApiKey } from '@/lib/partners';
+import { createAdminClient } from '@/lib/supabaseAdmin';
 import { fetchRecommendations, getCompliment, getCrossSellMessage } from '@/services/crossSell';
+import { getRecommendations } from '@/services/recommendationEngine';
+import { extractShopOrigin } from '@/services/publicCatalogSync';
 
 export const maxDuration = 15;
 
@@ -18,18 +21,11 @@ export async function OPTIONS(request: NextRequest) {
   return new NextResponse(null, { status: 204, headers: corsHeaders(origin) });
 }
 
-function extractShopDomain(storeUrl: string): string | null {
-  try {
-    const u = new URL(storeUrl.startsWith('http') ? storeUrl : `https://${storeUrl}`);
-    if (u.protocol !== 'https:' && u.protocol !== 'http:') return null;
-    const host = u.hostname.toLowerCase();
-    if (!host || host === 'localhost' || host.endsWith('.localhost')) return null;
-    if (/^(127\.|10\.|192\.168\.|169\.254\.|0\.)/.test(host)) return null;
-    if (/^172\.(1[6-9]|2[0-9]|3[01])\./.test(host)) return null;
-    return host;
-  } catch {
-    return null;
-  }
+function shopDomainFromUrl(storeUrl: string | null | undefined): string | null {
+  if (!storeUrl) return null;
+  const origin = extractShopOrigin(storeUrl);
+  if (!origin) return null;
+  try { return new URL(origin).hostname; } catch { return null; }
 }
 
 export async function POST(request: NextRequest) {
@@ -54,26 +50,78 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json().catch(() => ({}));
+    const productId = typeof body.productId === 'string' || typeof body.productId === 'number'
+      ? String(body.productId).replace(/[^0-9]/g, '')
+      : '';
     const productType = typeof body.productType === 'string' ? body.productType.substring(0, 80) : '';
     const lang = body.lang === 'es' ? 'es' : 'en';
     const limit = Math.min(Math.max(Number(body.limit) || 3, 1), 6);
 
-    const shopDomain = extractShopDomain(partner.store_url);
+    const shopDomain = shopDomainFromUrl(partner.store_url);
+
+    // Path 1 — DB-backed, AI-ranked (requires productId + synced catalog)
+    if (productId) {
+      try {
+        const dbResult = await getRecommendations(partner.id, productId);
+        if (dbResult.recommendations.length > 0) {
+          const normalized = dbResult.recommendations.map((r) => ({
+            id: Number(r.productId) || 0,
+            title: r.title,
+            image: r.image || '',
+            url: shopDomain ? `https://${shopDomain}/products/${r.handle}` : '',
+            price: (r.priceCents / 100).toFixed(2),
+            productType: r.category,
+          }));
+          const note = lang === 'es'
+            ? (dbResult.styleNoteEs || dbResult.styleNote)
+            : (dbResult.styleNote || dbResult.styleNoteEs);
+          return NextResponse.json(
+            {
+              recommendations: normalized,
+              compliment: note || getCompliment(productType, lang),
+              message: getCrossSellMessage(productType, dbResult.recommendations[0]?.category || '', lang),
+              source: 'db',
+            },
+            { status: 200, headers }
+          );
+        }
+      } catch (err: any) {
+        console.warn('[recommendations] DB path error:', err?.message?.substring(0, 200));
+      }
+    }
+
+    // Path 2 — live fetch from public /products.json (fallback / no productId / no synced catalog)
     if (!shopDomain) {
       return NextResponse.json(
-        { recommendations: [], compliment: getCompliment(productType, lang), message: null },
+        {
+          recommendations: [],
+          compliment: getCompliment(productType, lang),
+          message: null,
+          source: 'none',
+        },
         { status: 200, headers }
       );
     }
 
-    const recommendations = await fetchRecommendations(shopDomain, productType, limit);
+    // Check if any products are synced for this partner before paying for a live fetch
+    const admin = createAdminClient();
+    const { count } = await admin
+      .from('products')
+      .select('id', { count: 'exact', head: true })
+      .eq('partner_id', partner.id);
+
+    const hasCatalog = (count || 0) > 0;
+    const recommendations = hasCatalog && productId
+      ? []
+      : await fetchRecommendations(shopDomain, productType, limit);
+
     const compliment = getCompliment(productType, lang);
     const message = recommendations.length > 0
       ? getCrossSellMessage(productType, recommendations[0]?.productType || '', lang)
       : null;
 
     return NextResponse.json(
-      { recommendations, compliment, message },
+      { recommendations, compliment, message, source: hasCatalog ? 'db-empty' : 'live' },
       { status: 200, headers }
     );
   } catch {

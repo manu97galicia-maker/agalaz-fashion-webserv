@@ -74,6 +74,9 @@ function PartnersContent() {
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
+  const [catalogStats, setCatalogStats] = useState<{ total: number; classified: number; last_synced: string | null } | null>(null);
+  const [syncLoading, setSyncLoading] = useState(false);
+  const [syncMessage, setSyncMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   function getSupabase() {
     return createBrowserClient(
@@ -121,6 +124,7 @@ function PartnersContent() {
           // Has partner record but no key yet — generate it
           setStep('has_key');
         }
+        if (data.partner?.id) loadCatalogStats(data.partner.id);
       } else {
         // No partner record — show login step
         const savedUrl = localStorage.getItem('agalaz_partner_url');
@@ -130,6 +134,47 @@ function PartnersContent() {
     } catch {
       setStep('landing');
     }
+  }
+
+  async function loadCatalogStats(partnerId: string) {
+    try {
+      const res = await fetch(`/api/partners/sync-catalog?partner_id=${encodeURIComponent(partnerId)}`);
+      if (res.ok) {
+        const data = await res.json();
+        setCatalogStats({ total: data.total || 0, classified: data.classified || 0, last_synced: data.last_synced || null });
+      }
+    } catch { /* ignore */ }
+  }
+
+  async function handleSyncCatalog() {
+    if (!partnerProfile?.id) return;
+    setSyncLoading(true);
+    setSyncMessage(null);
+    try {
+      const res = await fetch('/api/partners/sync-catalog', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ partner_id: partnerProfile.id }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setSyncMessage({ type: 'error', text: data.error || 'Sync failed' });
+      } else {
+        setSyncMessage({
+          type: 'success',
+          text: lang === 'es'
+            ? 'Sincronización iniciada. Los productos aparecerán en 1–3 min.'
+            : 'Sync started. Products will appear in 1–3 min.',
+        });
+        // Poll stats a few times
+        for (const delay of [8000, 20000, 45000]) {
+          setTimeout(() => loadCatalogStats(partnerProfile.id), delay);
+        }
+      }
+    } catch {
+      setSyncMessage({ type: 'error', text: 'Network error' });
+    }
+    setSyncLoading(false);
   }
 
   // Google login
@@ -767,6 +812,85 @@ function PartnersContent() {
               </div>
               <p className="text-[10px] text-indigo-400">
                 Each time a customer generates a virtual try-on, 1 render credit is consumed. When your 5 free renders are used, you can subscribe to a plan to continue.
+              </p>
+            </div>
+
+            {/* Catalog sync panel — enables AI cross-sell */}
+            <div className="p-6 bg-gradient-to-br from-violet-50 via-indigo-50 to-white border border-violet-200 rounded-2xl space-y-4">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <span className="text-[10px] font-black text-violet-600 uppercase tracking-widest">
+                    {lang === 'es' ? 'Cross-Sell con IA' : 'AI Cross-Sell'}
+                  </span>
+                  <p className="text-sm font-bold text-slate-900 mt-1">
+                    {lang === 'es' ? 'Sincroniza tu catálogo' : 'Sync your catalog'}
+                  </p>
+                  <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
+                    {lang === 'es'
+                      ? 'Sincronizamos tus productos desde tu tienda Shopify y los clasificamos con IA para recomendar prendas combinables tras cada prueba virtual.'
+                      : 'We sync products from your Shopify store and classify them with AI to recommend matching items after each try-on.'}
+                  </p>
+                </div>
+                <ShoppingBag size={22} className="text-violet-500 shrink-0" />
+              </div>
+
+              {catalogStats && (
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  <div className="p-3 bg-white rounded-lg border border-violet-100">
+                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                      {lang === 'es' ? 'Productos' : 'Products'}
+                    </p>
+                    <p className="text-lg font-black text-slate-900 mt-0.5">{catalogStats.total}</p>
+                  </div>
+                  <div className="p-3 bg-white rounded-lg border border-violet-100">
+                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                      {lang === 'es' ? 'Clasificados' : 'Classified'}
+                    </p>
+                    <p className="text-lg font-black text-slate-900 mt-0.5">{catalogStats.classified}</p>
+                  </div>
+                  <div className="p-3 bg-white rounded-lg border border-violet-100">
+                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                      {lang === 'es' ? 'Último sync' : 'Last sync'}
+                    </p>
+                    <p className="text-[10px] font-bold text-slate-600 mt-1">
+                      {catalogStats.last_synced
+                        ? new Date(catalogStats.last_synced).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })
+                        : (lang === 'es' ? 'Nunca' : 'Never')}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {syncMessage && (
+                <div className={`p-3 rounded-lg text-[11px] font-bold ${
+                  syncMessage.type === 'success'
+                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                    : 'bg-red-50 text-red-700 border border-red-200'
+                }`}>
+                  {syncMessage.text}
+                </div>
+              )}
+
+              <button
+                onClick={handleSyncCatalog}
+                disabled={syncLoading}
+                className={`w-full py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all ${
+                  syncLoading
+                    ? 'bg-violet-200 text-violet-400 cursor-not-allowed'
+                    : 'bg-violet-600 text-white hover:bg-violet-700 shadow-sm'
+                }`}
+              >
+                {syncLoading
+                  ? (lang === 'es' ? 'Sincronizando…' : 'Syncing…')
+                  : (catalogStats && catalogStats.total > 0
+                      ? (lang === 'es' ? 'Re-sincronizar catálogo' : 'Re-sync catalog')
+                      : (lang === 'es' ? 'Sincronizar mi catálogo' : 'Sync my catalog'))}
+              </button>
+
+              <p className="text-[10px] text-slate-400 leading-relaxed">
+                {lang === 'es'
+                  ? 'Solo funciona con tiendas Shopify (dominio público *.myshopify.com o custom). Cooldown de 1 hora entre sincronizaciones.'
+                  : 'Works only with Shopify stores (*.myshopify.com or custom domain). 1-hour cooldown between syncs.'}
               </p>
             </div>
 
