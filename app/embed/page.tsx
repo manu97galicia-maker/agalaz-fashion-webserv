@@ -1,7 +1,16 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Sparkles, X, Camera, ImagePlus, Check, Download } from 'lucide-react';
+import { Sparkles, X, Camera, ImagePlus, Check, Download, ShoppingBag } from 'lucide-react';
+
+interface Recommendation {
+  id: number;
+  title: string;
+  image: string;
+  url: string;
+  price: string;
+  productType: string;
+}
 
 // Standalone embed page for B2B widget — no Supabase auth required
 // URL: /embed?key=API_KEY&garment=GARMENT_URL&lang=es
@@ -9,7 +18,12 @@ import { Sparkles, X, Camera, ImagePlus, Check, Download } from 'lucide-react';
 export default function EmbedPage() {
   const [apiKey, setApiKey] = useState('');
   const [garmentUrl, setGarmentUrl] = useState<string | null>(null);
+  const [productType, setProductType] = useState<string>('');
   const [lang, setLang] = useState<'en' | 'es'>('en');
+  const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
+  const [compliment, setCompliment] = useState<string | null>(null);
+  const [crossSellMessage, setCrossSellMessage] = useState<string | null>(null);
+  const [recsLoading, setRecsLoading] = useState(false);
 
   const [userImage, setUserImage] = useState<string | null>(null);
   const [garmentImage, setGarmentImage] = useState<string | null>(null);
@@ -40,6 +54,9 @@ export default function EmbedPage() {
     trySize: 'Probar otra talla',
     trySizeHint: 'Mira cómo te queda en otra talla',
     yourSize: 'Tu talla',
+    completeLook: 'Completa el look',
+    findingMatches: 'Buscando combinaciones...',
+    viewProduct: 'Ver producto',
   } : {
     title: 'Virtual Try-On',
     subtitle: 'Upload your photo and try on this garment',
@@ -57,6 +74,9 @@ export default function EmbedPage() {
     trySize: 'Try another size',
     trySizeHint: 'See how it looks in a different size',
     yourSize: 'Your size',
+    completeLook: 'Complete the look',
+    findingMatches: 'Finding matches...',
+    viewProduct: 'View product',
   };
 
   // Parse URL params on mount
@@ -64,6 +84,7 @@ export default function EmbedPage() {
     const params = new URLSearchParams(window.location.search);
     setApiKey(params.get('key') || '');
     setGarmentUrl(params.get('garment') || null);
+    setProductType(params.get('type') || params.get('productType') || '');
     if (params.get('lang') === 'es') setLang('es');
   }, []);
 
@@ -289,6 +310,7 @@ export default function EmbedPage() {
         setStep('result');
         // Notify parent window
         window.parent.postMessage({ type: 'agalaz:result', image: data.image }, '*');
+        loadRecommendations();
       } else {
         setError(t.errorGeneric);
       }
@@ -297,6 +319,28 @@ export default function EmbedPage() {
     }
 
     setIsLoading(false);
+  }
+
+  async function loadRecommendations() {
+    if (!apiKey) return;
+    setRecsLoading(true);
+    try {
+      const res = await fetch('/api/v1/recommendations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({ productType, lang, limit: 3 }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setRecommendations(Array.isArray(data.recommendations) ? data.recommendations : []);
+        setCompliment(data.compliment || null);
+        setCrossSellMessage(data.message || null);
+      }
+    } catch { /* ignore — recs are non-critical */ }
+    setRecsLoading(false);
   }
 
   function handleDownload() {
@@ -375,6 +419,9 @@ export default function EmbedPage() {
     setPreviewSize(null);
     setError(null);
     setStep('upload');
+    setRecommendations([]);
+    setCompliment(null);
+    setCrossSellMessage(null);
   }
 
   function ImageSlot({
@@ -701,6 +748,59 @@ export default function EmbedPage() {
                         </button>
                       ))}
                     </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {compliment && (
+              <div className="p-3 bg-indigo-50 rounded-xl border border-indigo-100 text-xs font-medium text-indigo-700 leading-relaxed">
+                {compliment}
+              </div>
+            )}
+
+            {(recsLoading || recommendations.length > 0) && (
+              <div className="space-y-2">
+                <div className="flex items-center gap-1.5">
+                  <ShoppingBag size={12} className="text-slate-400" />
+                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                    {t.completeLook}
+                  </span>
+                </div>
+                {crossSellMessage && (
+                  <p className="text-[10px] text-slate-400">{crossSellMessage}</p>
+                )}
+                {recsLoading ? (
+                  <div className="grid grid-cols-3 gap-2">
+                    {[0, 1, 2].map((i) => (
+                      <div key={i} className="aspect-[3/4] rounded-lg bg-slate-100 animate-pulse" />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-3 gap-2">
+                    {recommendations.map((r) => (
+                      <a
+                        key={r.id}
+                        href={r.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={r.title}
+                        className="group block rounded-lg overflow-hidden border border-slate-200 hover:border-indigo-300 transition-all"
+                      >
+                        <div className="aspect-[3/4] bg-slate-50 overflow-hidden">
+                          <img
+                            src={r.image}
+                            alt={r.title}
+                            loading="lazy"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                          />
+                        </div>
+                        <div className="p-1.5">
+                          <p className="text-[9px] font-bold text-slate-700 truncate">{r.title}</p>
+                          <p className="text-[9px] text-indigo-500 font-black mt-0.5">{r.price}</p>
+                        </div>
+                      </a>
+                    ))}
                   </div>
                 )}
               </div>
