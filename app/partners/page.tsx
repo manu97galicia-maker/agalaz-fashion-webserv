@@ -525,6 +525,60 @@ function PartnersContent() {
               </div>
             </div>
 
+            {/* ── CROSS-SELL — NEW FEATURE ── */}
+            <div className="mb-20">
+              <div className="bg-gradient-to-br from-violet-50 via-indigo-50 to-white border-2 border-violet-200 rounded-2xl p-8 md:p-10">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="px-2.5 py-1 bg-violet-600 text-white text-[9px] font-black uppercase tracking-wider rounded-full">
+                    {lang === 'es' ? 'NUEVO' : 'NEW'}
+                  </span>
+                  <ShoppingBag size={18} className="text-violet-600" />
+                </div>
+                <h2 className="font-serif text-3xl font-black text-slate-900 mb-3">
+                  {lang === 'es' ? 'Cross-Sell Inteligente con IA' : 'AI-Powered Smart Cross-Sell'}
+                </h2>
+                <p className="text-slate-500 text-sm font-light leading-relaxed mb-6 max-w-xl">
+                  {lang === 'es'
+                    ? 'Cuando un cliente se prueba una prenda, nuestra IA le recomienda productos complementarios de tu catálogo. ¿Se probó una camiseta? Le sugerimos pantalones que combinan. ¿Un anillo? Le mostramos pendientes a juego. Todo automático, basado en estilo, color y categoría.'
+                    : 'When a customer tries on an item, our AI recommends complementary products from your catalog. Tried a shirt? We suggest matching pants. A ring? We show matching earrings. Fully automatic, based on style, color harmony, and category.'}
+                </p>
+
+                <div className="grid sm:grid-cols-3 gap-4 mb-6">
+                  {(lang === 'es' ? [
+                    { icon: '👕→👖', title: 'Por categoría', desc: 'Camiseta → pantalón, vestido → zapatos, anillo → pendientes' },
+                    { icon: '🎨', title: 'Por color', desc: 'Recomienda colores que armonizan con lo que ya se probó' },
+                    { icon: '✨', title: 'Nota de estilo IA', desc: '"¡Este azul realza tu tez!" — mensaje personalizado con cada render' },
+                  ] : [
+                    { icon: '👕→👖', title: 'By category', desc: 'Shirt → pants, dress → shoes, ring → earrings' },
+                    { icon: '🎨', title: 'By color', desc: 'Recommends colors that harmonize with what they just tried' },
+                    { icon: '✨', title: 'AI style note', desc: '"This blue tone enhances your complexion!" — personalized message with each render' },
+                  ]).map((item, i) => (
+                    <div key={i} className="bg-white border border-slate-100 rounded-xl p-4">
+                      <span className="text-2xl">{item.icon}</span>
+                      <h4 className="font-bold text-sm text-slate-900 mt-2">{item.title}</h4>
+                      <p className="text-xs text-slate-400 mt-1 leading-relaxed">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="bg-white border border-violet-100 rounded-xl p-4 flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center shrink-0">
+                    <Zap size={14} className="text-violet-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-slate-900">
+                      {lang === 'es' ? 'Activación en 1 clic' : 'One-click activation'}
+                    </p>
+                    <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">
+                      {lang === 'es'
+                        ? 'Desde tu dashboard de Agalaz, haz clic en "Sync My Catalog" y el cross-sell se activa automáticamente. Sin código, sin configuración.'
+                        : 'From your Agalaz dashboard, click "Sync My Catalog" and cross-sell activates automatically. No code, no configuration.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* ── PRICING ── */}
             <div className="mb-20">
               <div className="text-center space-y-3 mb-10">
