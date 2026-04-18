@@ -283,7 +283,12 @@ export default function TattooSimulator({ lang }: Props) {
                   <p className="text-sm font-black text-slate-900">{t.generating}</p>
                   <p className="text-xs text-slate-400">{t.loadingHint}</p>
                 </div>
-                <span className="text-[10px] text-slate-400">{t.poweredBy} <span className="text-indigo-600 font-bold">agalaz.com</span></span>
+                <a href="https://agalaz.com" target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-slate-100 border border-slate-200 rounded-full hover:border-indigo-300 transition-colors">
+                  <Sparkles size={12} className="text-indigo-600" />
+                  <span className="text-xs font-bold text-slate-400">{t.poweredBy}</span>
+                  <span className="text-xs font-black text-indigo-600">agalaz.com</span>
+                </a>
               </div>
             ) : (
               <button onClick={handleGenerate} disabled={!userImage}

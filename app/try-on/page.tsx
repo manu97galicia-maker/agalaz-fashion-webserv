@@ -609,9 +609,12 @@ export default function TryOnPage() {
                   <p className="text-xs text-slate-400 mt-1">
                     {lang === 'es' ? 'Puede tardar hasta 1 minuto' : 'This may take up to 1 minute'}
                   </p>
-                  <p className="text-[10px] text-slate-300 mt-4">
-                    Powered by <span className="font-bold text-indigo-500">agalaz.com</span>
-                  </p>
+                  <a href="https://agalaz.com" target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 mt-6 px-4 py-2 bg-slate-50 border border-slate-200 rounded-full hover:border-indigo-300 transition-colors">
+                    <Sparkles size={12} className="text-indigo-600" />
+                    <span className="text-xs font-bold text-slate-400">Powered by</span>
+                    <span className="text-xs font-black text-indigo-600">agalaz.com</span>
+                  </a>
                 </div>
               ) : (
                 <button
@@ -710,9 +713,12 @@ export default function TryOnPage() {
                   <p className="text-xs text-slate-400 mt-1">
                     {lang === 'es' ? 'Puede tardar hasta 1 minuto' : 'This may take up to 1 minute'}
                   </p>
-                  <p className="text-[10px] text-slate-300 mt-4">
-                    Powered by <span className="font-bold text-indigo-500">agalaz.com</span>
-                  </p>
+                  <a href="https://agalaz.com" target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 mt-6 px-4 py-2 bg-slate-50 border border-slate-200 rounded-full hover:border-indigo-300 transition-colors">
+                    <Sparkles size={12} className="text-indigo-600" />
+                    <span className="text-xs font-bold text-slate-400">Powered by</span>
+                    <span className="text-xs font-black text-indigo-600">agalaz.com</span>
+                  </a>
                 </div>
               )}
             </div>
