@@ -155,9 +155,9 @@ export async function POST(req: NextRequest) {
   for (const prep of prepared) {
     const rowId = idByShopifyId.get(String(prep.p.id));
     if (!rowId) continue;
-    const variants = prep.p.variants && prep.p.variants.length
+    const variants: NonNullable<InputProduct['variants']> = prep.p.variants && prep.p.variants.length
       ? prep.p.variants
-      : [{ id: `${prep.p.id}-default`, title: 'Default', price: prep.p.price, priceCents: prep.p.priceCents }];
+      : [{ id: `${prep.p.id}-default`, title: 'Default', price: prep.p.price ?? undefined, priceCents: prep.p.priceCents ?? undefined }];
     for (const v of variants) {
       variantRows.push({
         product_id: rowId,
