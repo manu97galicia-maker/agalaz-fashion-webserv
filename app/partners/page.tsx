@@ -100,11 +100,19 @@ function PartnersContent() {
     });
   }, []);
 
-  // Post-payment redirect
+  // Post-payment redirect (covers both trial start and paid subscription activation)
   useEffect(() => {
     const subscribed = searchParams.get('subscribed');
     if (subscribed === 'true' && userId) {
-      if (userId) loadPartnerProfile(userId);
+      // If we stashed the raw API key before the Stripe redirect, surface it now
+      try {
+        const stashed = sessionStorage.getItem('agalaz_partner_api_key');
+        if (stashed) {
+          setApiKey(stashed);
+          sessionStorage.removeItem('agalaz_partner_api_key');
+        }
+      } catch {}
+      loadPartnerProfile(userId);
     }
   }, [searchParams, userId]);
 
@@ -190,7 +198,8 @@ function PartnersContent() {
     });
   }
 
-  // Register partner + generate API key immediately (free trial)
+  // Register partner → generate API key → redirect to Stripe 7-day free trial checkout.
+  // Webhook activates partner (+ 50 credits) when checkout completes.
   async function handleRegisterAndGetKey() {
     if (!userEmail) return;
     const url = storeUrl || localStorage.getItem('agalaz_partner_url') || '';
@@ -228,32 +237,36 @@ function PartnersContent() {
         return;
       }
 
-      // 2. Generate API key immediately with 5 free credits
+      const partnerId = registerData.partner.id;
+
+      // 2. Generate API key (no credits granted here anymore — webhook grants 50 on trial start)
       const keyRes = await fetch('/api/partners/generate-key', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ partner_id: registerData.partner.id }),
+        body: JSON.stringify({ partner_id: partnerId }),
       });
       const keyData = await keyRes.json();
 
-      if (keyRes.ok) {
-        setApiKey(keyData.api_key);
-        setPartnerProfile({
-          id: registerData.partner.id,
-          store_name: registerData.partner.store_name,
-          store_url: url,
-          plan: 'trial',
-          is_active: true,
-          credits_remaining: 5,
-          api_key_prefix: keyData.api_key.substring(0, 14),
-          has_api_key: true,
-          has_subscription: false,
-        });
-        setStep('has_key');
-        localStorage.removeItem('agalaz_partner_url');
-      } else {
-        setError(keyData.error || 'Failed to generate API key');
+      if (keyRes.ok && keyData.api_key) {
+        // Stash the raw key in sessionStorage so we can display it once on return from Stripe.
+        try { sessionStorage.setItem('agalaz_partner_api_key', keyData.api_key); } catch {}
       }
+
+      // 3. Kick off Stripe checkout with 7-day trial (starter price, $0 today, auto-bills day 7)
+      const checkoutRes = await fetch('/api/partners/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan: 'trial', partnerId, email: userEmail }),
+      });
+      const checkoutData = await checkoutRes.json();
+
+      if (checkoutRes.ok && checkoutData.url) {
+        localStorage.removeItem('agalaz_partner_url');
+        window.location.href = checkoutData.url;
+        return;
+      }
+
+      setError(checkoutData.error || 'Failed to start free trial');
     } catch {
       setError('Something went wrong. Please try again.');
     }
@@ -428,7 +441,7 @@ function PartnersContent() {
                   </div>
                   <h2 className="font-serif text-3xl font-black text-slate-900">{lang === 'es' ? 'Empieza gratis' : 'Start for free'}</h2>
                   <p className="text-indigo-600 text-sm font-black uppercase tracking-widest">
-                    {lang === 'es' ? '5 renders gratis' : '5 free renders'}
+                    {lang === 'es' ? '7 días gratis · 50 renders' : '7-day free trial · 50 renders'}
                   </p>
                   <p className="text-slate-400 text-xs font-light">
                     {lang === 'es' ? 'Sin tarjeta de crédito. Sin registro. Recibe tu API key al instante.' : 'No credit card. No signup. Get your API key instantly.'}
@@ -547,11 +560,11 @@ function PartnersContent() {
               <div className="space-y-0 max-w-lg mx-auto">
                 {(lang === 'es' ? [
                   { step: '1', title: 'Introduce la URL de tu tienda', desc: 'Dinos dónde está tu tienda. Autorizaremos el dominio automáticamente.' },
-                  { step: '2', title: 'Obtén tu API key + 5 renders gratis', desc: 'Recibe al instante tu clave API segura y 5 renders para probar en tu tienda real. Sin tarjeta de crédito.' },
+                  { step: '2', title: 'Empieza 7 días gratis · 50 renders', desc: 'Recibe al instante tu API key y activa el trial de 7 días con 50 renders. Introduces tarjeta pero no se cobra hasta el día 7. Cancela antes y no pagas nada.' },
                   { step: '3', title: 'Instala el widget (2 líneas de código)', desc: 'Copia el <script> en el <head> de tu tienda y coloca un <div> en tus páginas de producto. Detecta imágenes automáticamente en Shopify y WooCommerce.' },
                 ] : [
                   { step: '1', title: 'Enter your store URL', desc: 'Tell us where your store lives. We\'ll allowlist the domain automatically.' },
-                  { step: '2', title: 'Get your API key + 5 free renders', desc: 'Instantly receive your secure API key and 5 renders to test on your real store. No credit card needed.' },
+                  { step: '2', title: 'Start 7-day free trial · 50 renders', desc: 'Instantly receive your secure API key and activate a 7-day free trial with 50 renders. Card required but nothing is charged until day 7 — cancel anytime before and pay nothing.' },
                   { step: '3', title: 'Install the widget (2 lines of code)', desc: 'Copy the <script> tag into your store\'s <head>, and place a <div> on your product pages. Auto-detects images on Shopify & WooCommerce.' },
                 ]).map((item, i) => (
                   <div key={i} className="flex gap-5 pb-8 last:pb-0">
@@ -628,7 +641,7 @@ function PartnersContent() {
             <div className="mb-20">
               <div className="text-center space-y-3 mb-10">
                 <h2 className="font-serif text-3xl font-black text-slate-900">{lang === 'es' ? 'Precios' : 'Pricing'}</h2>
-                <p className="text-slate-400 text-sm font-light">{lang === 'es' ? 'Sin coste de alta. Empieza con 5 renders gratis. Amplía cuando quieras.' : 'No setup fees. Start with 5 free renders. Upgrade when ready.'}</p>
+                <p className="text-slate-400 text-sm font-light">{lang === 'es' ? 'Sin coste de alta. Empieza con 7 días gratis y 50 renders. Cancela antes del día 7 y no pagas nada.' : 'No setup fees. Start with a 7-day free trial and 50 renders. Cancel before day 7 and pay nothing.'}</p>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
@@ -720,8 +733,8 @@ function PartnersContent() {
 
               <div className="max-w-2xl mx-auto space-y-3">
                 {(lang === 'es' ? [
-                  { q: '¿Cómo funciona la prueba gratis?', a: 'Introduce la URL de tu tienda, inicia sesión con Google y recibirás al instante una API key con 5 renders gratis. Sin tarjeta de crédito. Sin coste de alta. Prueba el widget en tu tienda real antes de contratar un plan.' },
-                  { q: '¿Qué pasa cuando se acaban mis 5 renders gratis?', a: 'El widget deja de funcionar hasta que te suscribas a un plan. Elige Starter (150€/mes, 200 renders) o Growth (499€/mes, 1.000 renders). Sin presión — tu API key sigue siendo válida.' },
+                  { q: '¿Cómo funciona la prueba gratis?', a: 'Introduce la URL de tu tienda, inicia sesión con Google, introduces tu tarjeta y activas 7 días gratis con 50 renders. No se te cobra nada durante los primeros 7 días. Si no cancelas antes del séptimo día, se activa automáticamente el plan Starter (150€/mes, 200 renders). Cancela cuando quieras.' },
+                  { q: '¿Qué pasa cuando se acaban los 7 días o los 50 renders?', a: 'El día 7 se activa automáticamente el plan Starter (150€/mes, 200 renders) salvo que canceles antes. Puedes cambiar a Growth (499€/mes, 1.000 renders) desde el dashboard. Sin coste de alta.' },
                   { q: '¿Hay coste de alta?', a: 'No. Hemos eliminado los costes de alta. Solo pagas la suscripción mensual cuando estés listo para lanzar.' },
                   { q: '¿Qué pasa si no cancelo la suscripción?', a: 'La suscripción se renueva automáticamente cada mes. Si no cancelas antes del siguiente ciclo de facturación, se te cobrará el siguiente mes. Puedes cancelar en cualquier momento desde tu portal de cliente en Stripe.' },
                   { q: '¿Qué plataformas son compatibles?', a: 'El widget funciona en cualquier web: Shopify, WooCommerce, PrestaShop, Magento, Wix, Squarespace y cualquier tienda personalizada. Detecta automáticamente las imágenes de producto en Shopify y WooCommerce. Para otras plataformas, pasa la URL de la imagen en el atributo data-garment.' },
@@ -730,8 +743,8 @@ function PartnersContent() {
                   { q: '¿Almacenáis las fotos de los clientes?', a: 'No. Las imágenes de los clientes se procesan en tiempo real y nunca se almacenan en nuestros servidores. Política de retención de datos cero.' },
                   { q: '¿Puedo cancelar en cualquier momento?', a: 'Sí. Las suscripciones mensuales se pueden cancelar en cualquier momento. Mantienes el acceso hasta el final de tu período de facturación.' },
                 ] : [
-                  { q: 'How does the free trial work?', a: 'Enter your store URL, sign in with Google, and you instantly receive an API key with 5 free renders. No credit card required. No setup fee. Test the widget on your real store before committing to a plan.' },
-                  { q: 'What happens when my 5 free renders run out?', a: 'The widget stops working until you subscribe to a plan. Choose Starter (€150/mo, 200 renders) or Growth (€499/mo, 1,000 renders). No pressure — your API key stays valid.' },
+                  { q: 'How does the free trial work?', a: 'Enter your store URL, sign in with Google, add your card and start a 7-day free trial with 50 renders. Nothing is charged during the trial. If you don\'t cancel before day 7, the Starter plan (€150/mo, 200 renders) activates automatically. Cancel anytime.' },
+                  { q: 'What happens after the 7 days (or the 50 renders)?', a: 'On day 7 the Starter plan (€150/mo, 200 renders) activates automatically unless you cancel before. You can upgrade to Growth (€499/mo, 1,000 renders) from the dashboard. No setup fee.' },
                   { q: 'Is there a setup fee?', a: 'No. We eliminated setup fees. You only pay the monthly subscription when you\'re ready to go live.' },
                   { q: 'What happens if I don\'t cancel the subscription?', a: 'The subscription renews automatically each month. If you don\'t cancel before the next billing cycle, you will be charged for the next month. You can cancel anytime from your Stripe customer portal. Annual plans are also available — if you switch to annual and don\'t cancel, the full year is charged at renewal.' },
                   { q: 'What platforms are supported?', a: 'The widget works on any website: Shopify, WooCommerce, PrestaShop, Magento, Wix, Squarespace, and any custom-built store. It auto-detects product images on Shopify and WooCommerce. For other platforms, just pass the image URL in the data-garment attribute.' },
@@ -761,7 +774,7 @@ function PartnersContent() {
             {/* ── BOTTOM CTA ── */}
             <div id="contact" className="text-center space-y-4 scroll-mt-20">
               <h2 className="font-serif text-2xl font-black text-slate-900">{lang === 'es' ? '¿Listo para empezar?' : 'Ready to get started?'}</h2>
-              <p className="text-slate-400 text-sm font-light">{lang === 'es' ? '5 renders gratis. Sin tarjeta. Sin coste de alta.' : '5 free renders. No credit card. No setup fee.'}</p>
+              <p className="text-slate-400 text-sm font-light">{lang === 'es' ? '7 días gratis · 50 renders · 0€ hoy · cancela antes del día 7 y no pagas nada.' : '7-day free trial · 50 renders · $0 today · cancel before day 7 and pay nothing.'}</p>
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className="px-8 py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-[0.15em] text-xs hover:bg-indigo-600 transition-colors inline-flex items-center gap-3"
@@ -802,16 +815,16 @@ function PartnersContent() {
                 <div>
                   <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">Free Trial</span>
                   <p className="text-sm font-bold text-indigo-900 mt-1">
-                    {partnerProfile?.credits_remaining || 0} / 5 renders remaining
+                    {partnerProfile?.credits_remaining || 0} / 50 renders remaining
                   </p>
                 </div>
                 <Zap size={24} className="text-indigo-300" />
               </div>
               <div className="h-2 bg-indigo-200 rounded-full overflow-hidden">
-                <div className="h-full bg-indigo-600 rounded-full transition-all" style={{ width: `${((partnerProfile?.credits_remaining || 0) / 5) * 100}%` }} />
+                <div className="h-full bg-indigo-600 rounded-full transition-all" style={{ width: `${((partnerProfile?.credits_remaining || 0) / 50) * 100}%` }} />
               </div>
               <p className="text-[10px] text-indigo-400">
-                Each time a customer generates a virtual try-on, 1 render credit is consumed. When your 5 free renders are used, you can subscribe to a plan to continue.
+                Each time a customer generates a virtual try-on, 1 render credit is consumed. On day 7 the Starter plan activates automatically — cancel anytime before to pay nothing.
               </p>
             </div>
 
@@ -1126,9 +1139,9 @@ function PartnersContent() {
               <h3 className="font-black text-slate-900 text-sm">What happens next?</h3>
               <div className="space-y-3">
                 {[
-                  { status: 'now', label: 'Free trial active', desc: `You have ${partnerProfile?.credits_remaining || 5} renders to test the widget on your real store with real customers.` },
-                  { status: 'soon', label: 'Trial ends', desc: 'When your 5 renders are used, the widget pauses and you\'ll see the option to subscribe.' },
-                  { status: 'later', label: 'Choose a plan', desc: 'Starter (€150/mo, 200 renders) or Growth (€499/mo, 1,000 renders). No setup fee. Cancel anytime.' },
+                  { status: 'now', label: '7-day free trial active', desc: `You have ${partnerProfile?.credits_remaining || 50} renders to test the widget on your real store with real customers. $0 today.` },
+                  { status: 'soon', label: 'Day 7 — Starter activates', desc: 'On day 7 the Starter plan (€150/mo, 200 renders) activates automatically unless you cancel before. You can cancel anytime from the dashboard.' },
+                  { status: 'later', label: 'Upgrade when you grow', desc: 'Switch to Growth (€499/mo, 1,000 renders) from the dashboard whenever you need more capacity. No setup fee.' },
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <div className={`w-2 h-2 rounded-full mt-1.5 shrink-0 ${
@@ -1165,7 +1178,7 @@ function PartnersContent() {
               </div>
               <h1 className="font-serif text-3xl font-black text-slate-900">Trial ended</h1>
               <p className="text-slate-400 text-sm font-light">
-                Your 5 free renders have been used. Choose a plan to continue.
+                Your trial ended. Choose a plan to continue.
               </p>
             </div>
 

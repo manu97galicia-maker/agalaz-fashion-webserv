@@ -51,7 +51,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create partner — for trial: active immediately, no setup fee
+    // Create partner — all plans require Stripe checkout (card on file) before activation.
+    // 'trial' → 7-day free trial, auto-converts to starter (150€/mo, 200 renders/mo) on day 7.
     const selectedPlan = plan === 'growth' ? 'growth' : plan === 'starter' ? 'starter' : 'trial';
     const { data: partner, error } = await admin
       .from('partners')
@@ -64,12 +65,12 @@ export async function POST(request: NextRequest) {
         api_key_prefix: 'pending',
         allowed_domains: domains,
         plan: selectedPlan,
-        price_eur: selectedPlan === 'growth' ? 499 : selectedPlan === 'starter' ? 150 : 0,
-        setup_fee_eur: 0,  // No setup fee
+        price_eur: selectedPlan === 'growth' ? 499 : 150,  // trial converts to starter pricing
+        setup_fee_eur: 0,  // setup fees removed platform-wide
         credits_remaining: 0,
-        credits_monthly_limit: selectedPlan === 'growth' ? 1000 : selectedPlan === 'starter' ? 200 : 5,
-        is_active: selectedPlan === 'trial',  // Trial is active immediately
-        setup_paid: true,  // No setup fee needed
+        credits_monthly_limit: selectedPlan === 'growth' ? 1000 : 200,  // trial/starter both 200 post-conversion
+        is_active: false,  // activated only after Stripe checkout completes (webhook)
+        setup_paid: true,  // legacy column kept true for backwards compat
       })
       .select('id, store_name, plan')
       .single();
@@ -79,7 +80,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to create partner' }, { status: 500 });
     }
 
-    // Return partner ID — no API key yet (generated after setup payment)
     return NextResponse.json({
       success: true,
       partner: {
@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
         store_name: partner.store_name,
         plan: partner.plan,
       },
-      next_step: 'setup_payment',
+      next_step: 'stripe_checkout',
     });
   } catch (error: any) {
     console.error('Partner registration error:', error);

@@ -27,16 +27,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'API key already generated' }, { status: 409 });
     }
 
-    // Generate new API key
+    // Generate new API key. Credits are granted by Stripe webhook on trial start or
+    // subscription activation — no free credits at key-generation time.
     const { raw, hash, prefix } = generateApiKey();
 
-    // Activate partner + set 5 free trial credits
     await admin.from('partners').update({
       api_key_hash: hash,
       api_key_prefix: prefix,
-      is_active: true,
-      credits_remaining: 5,
-      setup_paid: true,
       updated_at: new Date().toISOString(),
     }).eq('id', partner_id);
 

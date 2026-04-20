@@ -24,39 +24,36 @@ export async function POST(req: NextRequest) {
     case 'checkout.session.completed': {
       const session = event.data.object as Stripe.Checkout.Session;
 
-      // ── Partner SETUP fee paid → mark setup_paid (API key generated separately) ──
-      if (session.metadata?.type === 'partner_setup') {
-        const partnerId = session.metadata.partner_id;
-
-        if (partnerId) {
-          await admin.from('partners').update({
-            setup_paid: true,
-            stripe_customer_id: session.customer as string,
-            updated_at: new Date().toISOString(),
-          }).eq('id', partnerId);
-
-          console.log(`Partner setup paid: ${partnerId} (ready to generate API key)`);
-        }
-        break;
-      }
-
-      // ── Partner MONTHLY subscription activated ──
+      // ── Partner subscription activated (trial / starter / growth) ──
       if (session.metadata?.type === 'partner_subscription') {
         const partnerId = session.metadata.partner_id;
-        const partnerPlan = session.metadata.partner_plan;
+        const partnerPlan = session.metadata.partner_plan;  // 'trial' | 'starter' | 'growth'
         const subscriptionId = session.subscription as string;
 
         if (partnerId && subscriptionId) {
-          const credits = partnerPlan === 'growth' ? 1000 : 200;
+          // Inspect Stripe subscription to distinguish trial vs immediate-paid.
+          const stripeSub = await stripe.subscriptions.retrieve(subscriptionId) as unknown as Stripe.Subscription;
+          const isTrialing = stripeSub.status === 'trialing';
+
+          // Credit allocation:
+          // - trial (7-day free): 50 credits; auto-flips to starter on first paid invoice
+          // - starter: 200 credits/mo
+          // - growth:  1000 credits/mo
+          const monthlyLimit = partnerPlan === 'growth' ? 1000 : 200;
+          const credits = partnerPlan === 'trial' && isTrialing ? 50 : monthlyLimit;
+
           await admin.from('partners').update({
+            plan: partnerPlan,
             credits_remaining: credits,
-            credits_monthly_limit: credits,
+            credits_monthly_limit: monthlyLimit,
             stripe_subscription_id: subscriptionId,
             stripe_customer_id: session.customer as string,
+            is_active: true,
+            setup_paid: true,
             updated_at: new Date().toISOString(),
           }).eq('id', partnerId);
 
-          console.log(`Partner subscription activated: ${partnerId} (${partnerPlan}, ${credits} credits/month)`);
+          console.log(`Partner subscription activated: ${partnerId} (${partnerPlan}, ${credits} credits, trialing=${isTrialing})`);
         }
         break;
       }
@@ -152,18 +149,25 @@ export async function POST(req: NextRequest) {
         .single();
 
       if (partner) {
-        // Skip first invoice (already handled in checkout.session.completed)
-        if (invoice.billing_reason === 'subscription_create') break;
+        // Skip first invoice for direct starter/growth (already handled at checkout).
+        // For trial partners, the first paid invoice arrives at day 7 with billing_reason='subscription_cycle'
+        // — that's when we flip plan to starter + grant full 200 credits.
+        if (invoice.billing_reason === 'subscription_create' && partner.plan !== 'trial') break;
 
-        // Monthly renewal — recharge credits
-        const credits = partner.plan === 'growth' ? 1000 : 200;
+        const isGrowth = partner.plan === 'growth';
+        const credits = isGrowth ? 1000 : 200;
+        const newPlan = partner.plan === 'trial' ? 'starter' : partner.plan;
+
         await admin.from('partners').update({
+          plan: newPlan,
           credits_remaining: credits,
+          credits_monthly_limit: credits,
           is_active: true,
           updated_at: new Date().toISOString(),
         }).eq('id', partner.id);
 
-        console.log(`Partner credits recharged: ${partner.id} (${partner.plan}, ${credits} credits)`);
+        const convertedFromTrial = partner.plan === 'trial';
+        console.log(`Partner ${convertedFromTrial ? 'trial→starter converted' : 'credits recharged'}: ${partner.id} (${newPlan}, ${credits} credits)`);
         break;
       }
 
