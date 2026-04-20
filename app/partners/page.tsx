@@ -402,10 +402,10 @@ function PartnersContent() {
               <ChevronRight size={22} className="text-indigo-400 shrink-0 mt-6" />
 
               {/* 2. Product page with Try On button */}
-              <button onClick={() => setExpandedImage('/images/agalaz check.jpg')} className="cursor-zoom-in group text-center space-y-2">
+              <button onClick={() => setExpandedImage('/images/Agalaz try on button.png')} className="cursor-zoom-in group text-center space-y-2">
                 <span className="text-[9px] font-black uppercase tracking-widest text-indigo-600">{lang === 'es' ? 'Se lo prueba' : 'Tries it on'}</span>
                 <div className="rounded-2xl overflow-hidden border-2 border-indigo-300 shadow-lg group-hover:border-indigo-500 group-hover:shadow-xl transition-all">
-                  <img src="/images/agalaz check.jpg" alt="Product page with Try On button" className="w-32 md:w-44 h-auto" />
+                  <img src="/images/Agalaz try on button.png" alt="Product page with Try On button" className="w-32 md:w-44 h-auto" />
                 </div>
               </button>
 
@@ -639,10 +639,42 @@ function PartnersContent() {
 
             {/* ── PRICING ── */}
             <div className="mb-20">
-              <div className="text-center space-y-3 mb-10">
+              <div className="text-center space-y-3 mb-8">
                 <h2 className="font-serif text-3xl font-black text-slate-900">{lang === 'es' ? 'Precios' : 'Pricing'}</h2>
-                <p className="text-slate-400 text-sm font-light">{lang === 'es' ? 'Sin coste de alta. Empieza con 7 días gratis y 50 renders. Cancela antes del día 7 y no pagas nada.' : 'No setup fees. Start with a 7-day free trial and 50 renders. Cancel before day 7 and pay nothing.'}</p>
+                <p className="text-slate-400 text-sm font-light">{lang === 'es' ? 'Sin coste de alta. Cancela cuando quieras.' : 'No setup fees. Cancel anytime.'}</p>
               </div>
+
+              {/* ── FEATURED: 7-day Free Trial (primary CTA) ── */}
+              <div
+                onClick={() => document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' })}
+                className="relative max-w-2xl mx-auto mb-6 p-6 md:p-8 rounded-2xl border-2 border-emerald-400 bg-gradient-to-br from-emerald-50 via-white to-indigo-50 shadow-xl shadow-emerald-100/60 cursor-pointer hover:shadow-2xl hover:border-emerald-500 transition-all"
+              >
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-emerald-500 text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg">
+                  {lang === 'es' ? '🎁 Empieza aquí' : '🎁 Start here'}
+                </div>
+                <div className="flex flex-col md:flex-row items-center justify-between gap-5">
+                  <div className="text-center md:text-left space-y-2">
+                    <h3 className="font-black text-slate-900 text-xl md:text-2xl">
+                      {lang === 'es' ? 'Prueba gratis 7 días' : '7-day free trial'}
+                    </h3>
+                    <p className="text-emerald-700 font-black text-base md:text-lg">
+                      {lang === 'es' ? '50 renders · 0€ hoy' : '50 renders · $0 today'}
+                    </p>
+                    <p className="text-slate-500 text-xs font-light max-w-md">
+                      {lang === 'es'
+                        ? 'Introduces tu tarjeta pero no se cobra durante 7 días. Si no cancelas antes del día 7, se activa Starter (150€/mes) automáticamente.'
+                        : 'Card required but not charged for 7 days. If you don\'t cancel before day 7, Starter (€150/mo) activates automatically.'}
+                    </p>
+                  </div>
+                  <button className="shrink-0 px-6 py-3 bg-slate-900 hover:bg-indigo-600 text-white text-xs font-black uppercase tracking-widest rounded-xl transition-colors shadow-lg">
+                    {lang === 'es' ? 'Empezar gratis →' : 'Start free →'}
+                  </button>
+                </div>
+              </div>
+
+              <p className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-5">
+                {lang === 'es' ? 'El día 7 se activa uno de estos planes' : 'On day 7 one of these activates'}
+              </p>
 
               <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
                 {PLANS.map((plan) => (

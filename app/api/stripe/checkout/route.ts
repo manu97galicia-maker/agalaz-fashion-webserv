@@ -8,8 +8,21 @@ function getStripe() {
   return new Stripe(key);
 }
 
+// B2C credit-pack plans. Both are one-time payments; credits accumulate in render_counts.
+// - test:    $0.99 for  2 renders (intro)
+// - popular: $4.99 for 12 renders (featured)
+// Legacy keys (weekly/yearly/credits20) kept so existing subscribers and old checkout links
+// keep working; new funnel uses test/popular exclusively.
+const PACK_CREDITS: Record<string, number> = {
+  test: 2,
+  popular: 12,
+  credits20: 20,  // legacy, still usable via ?plan=credits20
+};
+
 function getPrices(): Record<string, string> {
   return {
+    test: (process.env.STRIPE_PRICE_TEST || 'price_1TODF4DaiRATnL32LzqWxgInw').trim(),
+    popular: (process.env.STRIPE_PRICE_POPULAR || 'price_1TODK9DaiRATnL32LPDQOzTi').trim(),
     weekly: (process.env.STRIPE_PRICE_WEEKLY || '').trim(),
     yearly: (process.env.STRIPE_PRICE_YEARLY || '').trim(),
     credits20: (process.env.STRIPE_PRICE_CREDITS_20 || '').trim(),
@@ -45,21 +58,24 @@ export async function POST(req: NextRequest) {
 
     const stripe = getStripe();
 
-    // Credit pack — one-time payment
-    if (plan === 'credits20') {
-      const qty = Math.max(1, Math.min(10, parseInt(quantity) || 1));
-      const totalCredits = qty * 20;
+    // Credit packs — one-time payments (test / popular / legacy credits20)
+    if (PACK_CREDITS[plan] !== undefined) {
+      const qty = plan === 'credits20'
+        ? Math.max(1, Math.min(10, parseInt(quantity) || 1))
+        : 1;
+      const totalCredits = PACK_CREDITS[plan] * qty;
       const session = await stripe.checkout.sessions.create({
         mode: 'payment',
         payment_method_types: ['card'],
-        line_items: [{ price: PRICES.credits20, quantity: qty }],
-        success_url: `${origin}/try-on?credits_purchased=${totalCredits}`,
-        cancel_url: `${origin}/try-on`,
+        line_items: [{ price: PRICES[plan], quantity: qty }],
+        success_url: `${origin}/try-on?credits_purchased=${totalCredits}${tryOnCategory}`,
+        cancel_url: `${origin}/paywall`,
         customer_email: email,
         client_reference_id: userId,
         metadata: {
           type: 'credit_pack',
           credits: String(totalCredits),
+          plan,
           datafast_visitor_id: datafastVisitorId || '',
           datafast_session_id: datafastSessionId || '',
         },
@@ -67,7 +83,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ url: session.url });
     }
 
-    // Subscription plans
+    // Legacy subscription plans (weekly/yearly) — kept for existing subscribers, not featured.
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
       payment_method_types: ['card'],
