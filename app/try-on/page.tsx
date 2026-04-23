@@ -19,7 +19,7 @@ import {
   Camera,
 } from 'lucide-react';
 import { ImageUploader } from '@/components/ImageUploader';
-import { onAuthStateChange, signInWithGoogle, type AppUser } from '@/services/authService';
+import { onAuthStateChange, signInWithGoogle, signInWithOtp, type AppUser } from '@/services/authService';
 import { Role, type ChatMessage } from '@/types';
 import { useLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
@@ -42,7 +42,18 @@ export default function TryOnPage() {
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
   const [chatAttachment, setChatAttachment] = useState<string | null>(null);
   const [showLogin, setShowLogin] = useState(false);
+  const [otpEmail, setOtpEmail] = useState('');
+  const [otpSent, setOtpSent] = useState(false);
   const [gateReady, setGateReady] = useState(false);
+
+  async function handleLoginOtp() {
+    if (!otpEmail || !otpEmail.includes('@')) return;
+    try {
+      (window as any).datafast?.('signup_click', { provider: 'email', source: 'try-on' });
+      await signInWithOtp(otpEmail, '/try-on');
+      setOtpSent(true);
+    } catch {}
+  }
   const [showCreditShop, setShowCreditShop] = useState(false);
   const [creditQty, setCreditQty] = useState(1);
   const chatFileRef = useRef<HTMLInputElement>(null);
@@ -921,8 +932,43 @@ export default function TryOnPage() {
               </svg>
               {lang === 'es' ? 'Continuar con Google' : 'Continue with Google'}
             </button>
+
+            <div className="flex items-center gap-3">
+              <div className="flex-1 h-px bg-slate-200" />
+              <span className="text-[10px] font-bold text-slate-400 uppercase">{lang === 'es' ? 'o' : 'or'}</span>
+              <div className="flex-1 h-px bg-slate-200" />
+            </div>
+
+            {otpSent ? (
+              <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+                <p className="text-sm font-bold text-emerald-600">
+                  {lang === 'es' ? 'Revisa tu correo' : 'Check your inbox'}
+                </p>
+                <p className="text-xs text-slate-500 mt-1">
+                  {lang === 'es' ? 'Te enviamos un enlace mágico. Haz clic para entrar.' : 'We sent you a magic link. Click it to sign in.'}
+                </p>
+              </div>
+            ) : (
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  value={otpEmail}
+                  onChange={(e) => setOtpEmail(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === 'Enter') handleLoginOtp(); }}
+                  placeholder={lang === 'es' ? 'tu@email.com' : 'your@email.com'}
+                  className="flex-1 px-3 py-3 bg-white border border-slate-200 rounded-lg text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-indigo-500"
+                />
+                <button
+                  onClick={handleLoginOtp}
+                  className="px-4 py-3 bg-indigo-600 text-white text-sm font-bold rounded-lg hover:bg-indigo-500 transition-colors shrink-0"
+                >
+                  {lang === 'es' ? 'Enviar' : 'Send'}
+                </button>
+              </div>
+            )}
+
             <button
-              onClick={() => setShowLogin(false)}
+              onClick={() => { setShowLogin(false); setOtpSent(false); setOtpEmail(''); }}
               className="text-slate-300 text-xs font-bold hover:text-slate-500 transition-colors"
             >
               {lang === 'es' ? 'Cancelar' : 'Cancel'}

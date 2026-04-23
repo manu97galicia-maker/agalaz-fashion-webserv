@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { X, Check, Shield, Sparkles, ArrowRight, Gift } from 'lucide-react';
 import { createBrowserClient } from '@supabase/ssr';
-import { signInWithGoogle } from '@/services/authService';
+import { signInWithGoogle, signInWithOtp } from '@/services/authService';
 import { useLang } from '@/components/LanguageProvider';
 
 type Plan = 'test' | 'popular';
@@ -19,7 +19,18 @@ export default function PaywallPage() {
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [showLogin, setShowLogin] = useState(false);
+  const [otpEmail, setOtpEmail] = useState('');
+  const [otpSent, setOtpSent] = useState(false);
   const [fromCategory, setFromCategory] = useState<string | null>(null);
+
+  async function handleLoginOtp() {
+    if (!otpEmail || !otpEmail.includes('@')) return;
+    try {
+      (window as any).datafast?.('signup_click', { provider: 'email', source: 'paywall' });
+      await signInWithOtp(otpEmail, '/paywall');
+      setOtpSent(true);
+    } catch {}
+  }
 
   useEffect(() => {
     const supabase = createBrowserClient(
@@ -283,8 +294,43 @@ export default function PaywallPage() {
               </svg>
               {en ? 'Continue with Google' : 'Continuar con Google'}
             </button>
+
+            <div className="flex items-center gap-3">
+              <div className="flex-1 h-px bg-slate-200" />
+              <span className="text-[10px] font-bold text-slate-400 uppercase">{en ? 'or' : 'o'}</span>
+              <div className="flex-1 h-px bg-slate-200" />
+            </div>
+
+            {otpSent ? (
+              <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+                <p className="text-sm font-bold text-emerald-600">
+                  {en ? 'Check your inbox' : 'Revisa tu correo'}
+                </p>
+                <p className="text-xs text-slate-500 mt-1">
+                  {en ? 'We sent you a magic link. Click it to sign in.' : 'Te enviamos un enlace mágico. Haz clic para entrar.'}
+                </p>
+              </div>
+            ) : (
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  value={otpEmail}
+                  onChange={(e) => setOtpEmail(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === 'Enter') handleLoginOtp(); }}
+                  placeholder={en ? 'your@email.com' : 'tu@email.com'}
+                  className="flex-1 px-3 py-3 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-indigo-500"
+                />
+                <button
+                  onClick={handleLoginOtp}
+                  className="px-4 py-3 bg-indigo-600 text-white text-sm font-bold rounded-xl hover:bg-indigo-500 transition-colors shrink-0"
+                >
+                  {en ? 'Send' : 'Enviar'}
+                </button>
+              </div>
+            )}
+
             <button
-              onClick={() => setShowLogin(false)}
+              onClick={() => { setShowLogin(false); setOtpSent(false); setOtpEmail(''); }}
               className="text-slate-300 text-xs font-bold hover:text-slate-500 transition-colors"
             >
               {en ? 'Cancel' : 'Cancelar'}
