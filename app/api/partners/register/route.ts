@@ -1,14 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { randomUUID } from 'crypto';
 import { createAdminClient } from '@/lib/supabaseAdmin';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { user_id, email, store_name, store_url, allowed_domains, plan } = body;
+    const { email, store_name, store_url, allowed_domains, plan } = body;
+    // user_id is optional — the partners page allows registering without Google login.
+    // When absent, mint a fresh UUID so the partners.user_id column stays unique.
+    const user_id: string = body.user_id || randomUUID();
 
-    if (!user_id || !email || !store_name || !store_url) {
+    if (!email || !store_name || !store_url) {
       return NextResponse.json(
-        { error: 'user_id, email, store_name, and store_url are required' },
+        { error: 'email, store_name, and store_url are required' },
         { status: 400 }
       );
     }

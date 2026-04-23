@@ -444,7 +444,7 @@ function PartnersContent() {
                     {lang === 'es' ? '7 días gratis · 50 renders' : '7-day free trial · 50 renders'}
                   </p>
                   <p className="text-slate-400 text-xs font-light">
-                    {lang === 'es' ? 'Sin tarjeta de crédito. Sin registro. Recibe tu API key al instante.' : 'No credit card. No signup. Get your API key instantly.'}
+                    {lang === 'es' ? 'Introduces tu tarjeta pero no se cobra durante 7 días. Si no cancelas antes del día 7, se activa Starter (150€/mes) automáticamente.' : 'Card required but not charged for 7 days. If you don\'t cancel before day 7, Starter ($150/mo) activates automatically.'}
                   </p>
                 </div>
 
@@ -499,13 +499,13 @@ function PartnersContent() {
                 >
                   <Sparkles size={16} />
                   {isSubmitting
-                    ? (lang === 'es' ? 'Generando tu API key...' : 'Generating your API key...')
-                    : (lang === 'es' ? 'Obtener API key gratis' : 'Get free API key')}
+                    ? (lang === 'es' ? 'Redirigiendo a Stripe...' : 'Redirecting to Stripe...')
+                    : (lang === 'es' ? 'Empezar prueba gratis' : 'Start free trial')}
                   <ArrowRight size={16} />
                 </button>
 
-                <p className="text-center text-[10px] text-slate-300 font-bold">
-                  {lang === 'es' ? 'Sin tarjeta de crédito' : 'No credit card required'}
+                <p className="text-center text-[10px] text-slate-400 font-bold">
+                  {lang === 'es' ? '0€ hoy · Cancela antes del día 7 y no pagas nada' : '$0 today · Cancel before day 7 and pay nothing'}
                 </p>
               </div>
             </div>
