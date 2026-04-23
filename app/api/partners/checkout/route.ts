@@ -7,10 +7,12 @@ function getStripe() {
   return new Stripe(key);
 }
 
-// Monthly subscription Price IDs
+// Monthly subscription Price IDs (current active Stripe prices for partner plans)
+// Starter: 150€/mo · 200 renders · lookup "shopify_starter_monthly"
+// Growth:  499€/mo · 1000 renders · lookup "shopify_growth_monthly"
 const MONTHLY_PRICES: Record<string, string> = {
-  starter: process.env.STRIPE_PARTNER_STARTER_MONTHLY || 'price_1TC3tYDkbUkdbQ5UgsAJHl60',
-  growth: process.env.STRIPE_PARTNER_GROWTH_MONTHLY || 'price_1TC3w0DkbUkdbQ5UgBabrJ6F',
+  starter: process.env.STRIPE_PARTNER_STARTER_MONTHLY || 'price_1TFWY0DaiRATnL32LEF2vxUU',
+  growth: process.env.STRIPE_PARTNER_GROWTH_MONTHLY || 'price_1TFWY8DaiRATnL321HiUlRxd',
 };
 
 const TRIAL_DAYS = 7;
