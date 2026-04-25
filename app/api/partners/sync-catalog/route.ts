@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     const publicOrigin = partner.store_url ? extractShopOrigin(partner.store_url) : null;
     if (!hasShopifyAuth && !publicOrigin) {
       return NextResponse.json({
-        error: 'Catalog sync requires a Shopify store. Other platforms are not yet supported.',
+        error: 'Catalog sync requires a Shopify store or a valid public store URL. For other platforms (WooCommerce, PrestaShop, etc.) use POST /api/partners/upload-catalog.',
       }, { status: 400 });
     }
 
@@ -41,6 +41,32 @@ export async function POST(req: NextRequest) {
           error: `Sync cooldown — try again in ${waitMins} minute${waitMins > 1 ? 's' : ''}`,
           retry_in_seconds: Math.ceil((COOLDOWN_MS - elapsed) / 1000),
         }, { status: 429 });
+      }
+    }
+
+    // Probe /products.json synchronously for public storefronts (non-OAuth partners).
+    // Dev Shopify stores, non-Shopify sites, and password-protected storefronts all redirect to
+    // HTML — which used to succeed the sync silently and leave the partner confused. Fail fast
+    // with an actionable message instead.
+    if (!hasShopifyAuth && publicOrigin) {
+      let probeStatus = 'unknown';
+      try {
+        const probe = await fetch(`${publicOrigin}/products.json?limit=1`, {
+          headers: { Accept: 'application/json' },
+          redirect: 'follow',
+          signal: AbortSignal.timeout(10000),
+        });
+        const contentType = probe.headers.get('content-type') || '';
+        probeStatus = `${probe.status} ${contentType}`;
+        if (!probe.ok || !contentType.includes('json')) {
+          return NextResponse.json({
+            error: `Could not reach ${publicOrigin}/products.json as JSON (got: ${probeStatus}). If this is a Shopify dev store, remove the storefront password under Online Store → Preferences. For non-Shopify platforms, use POST /api/partners/upload-catalog with your product list.`,
+          }, { status: 400 });
+        }
+      } catch (err: any) {
+        return NextResponse.json({
+          error: `Could not reach ${publicOrigin}/products.json: ${err?.message || 'network error'}. For non-Shopify platforms, use POST /api/partners/upload-catalog.`,
+        }, { status: 400 });
       }
     }
 
