@@ -1,252 +1,198 @@
-'use client';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { articles, type Article } from '../articles';
+import ArticleView from './ArticleView';
 
-import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import { Clock, Sparkles, ArrowRight } from 'lucide-react';
-import { useLang } from '@/components/LanguageProvider';
-import { LanguageToggle } from '@/components/LanguageToggle';
-import { articles } from '../articles';
+const BASE_URL = 'https://agalaz.com';
 
-export default function ArticlePage() {
-  const params = useParams();
-  const { lang } = useLang();
-  const en = lang === 'en';
+export function generateStaticParams() {
+  return articles.map((a) => ({ slug: a.slug }));
+}
 
-  const article = articles.find((a) => a.slug === params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const article = articles.find((a) => a.slug === slug);
+  if (!article) return { title: 'Article not found' };
 
-  if (!article) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-slate-400 font-bold mb-4">Article not found</p>
-          <Link href="/blog" className="text-indigo-600 font-bold text-sm">
-            &larr; Back to Blog
-          </Link>
-        </div>
-      </div>
-    );
+  const url = `${BASE_URL}/blog/${article.slug}`;
+
+  return {
+    title: article.title,
+    description: article.description,
+    keywords: [article.keyword],
+    authors: [{ name: 'Agalaz Fashion', url: BASE_URL }],
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: article.title,
+      description: article.description,
+      type: 'article',
+      url,
+      siteName: 'Agalaz Fashion',
+      locale: 'en_US',
+      alternateLocale: 'es_ES',
+      publishedTime: article.date,
+      modifiedTime: article.date,
+      authors: ['Agalaz Fashion'],
+      tags: [article.keyword, article.category, 'virtual try-on', 'AI fashion'].filter(Boolean) as string[],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: article.description,
+      creator: '@agalaz',
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    category: article.category ?? 'fashion',
+  };
+}
+
+// --- Topic similarity (keyword + category + title-word overlap) ---
+const STOPWORDS = new Set([
+  'the','a','an','and','or','but','of','to','in','for','on','with','at','by','from',
+  'is','are','was','were','be','been','being','have','has','had','do','does','did',
+  'will','would','can','could','should','may','might','must','shall',
+  'i','you','he','she','it','we','they','this','that','these','those',
+  'how','why','what','when','where','which','who','whom',
+  'your','my','our','their','his','her','its',
+  'not','no','if','then','than','so','as','too','very',
+  'best','vs','via','use','using','one','get','make','tips','guide',
+]);
+
+function tokenize(s: string): Set<string> {
+  return new Set(
+    s
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, ' ')
+      .split(/\s+/)
+      .filter((w) => w.length > 2 && !STOPWORDS.has(w)),
+  );
+}
+
+function similarity(a: Article, b: Article): number {
+  const aTok = tokenize(`${a.title} ${a.keyword} ${a.category ?? ''}`);
+  const bTok = tokenize(`${b.title} ${b.keyword} ${b.category ?? ''}`);
+  let overlap = 0;
+  for (const t of aTok) if (bTok.has(t)) overlap++;
+  const union = new Set([...aTok, ...bTok]).size;
+  const jaccard = union ? overlap / union : 0;
+  const categoryBoost = a.category && b.category && a.category === b.category ? 0.2 : 0;
+  return jaccard + categoryBoost;
+}
+
+function pickRelated(article: Article, all: Article[], n = 3): Article[] {
+  return all
+    .filter((a) => a.slug !== article.slug)
+    .map((a) => ({ a, score: similarity(article, a) }))
+    .sort((x, y) => y.score - x.score)
+    .slice(0, n)
+    .map((x) => x.a);
+}
+
+// --- FAQ extraction from question-style H2/H3 ---
+const QUESTION_STARTERS = /^(how|why|what|when|where|which|who|can|do|does|is|are|should|will|would)\b/i;
+
+function extractFaq(content: string): { question: string; answer: string }[] {
+  const blocks = content.split('\n\n');
+  const faqs: { question: string; answer: string }[] = [];
+  for (let i = 0; i < blocks.length; i++) {
+    const b = blocks[i].trim();
+    const m = b.match(/^##+ +(.+)$/);
+    if (!m) continue;
+    const heading = m[1].replace(/^\d+\.\s*/, '').trim();
+    const isQuestion = QUESTION_STARTERS.test(heading) || heading.endsWith('?');
+    if (!isQuestion) continue;
+    // collect first non-heading paragraph as answer
+    let answer = '';
+    for (let j = i + 1; j < blocks.length && j < i + 4; j++) {
+      const next = blocks[j].trim();
+      if (!next || next.startsWith('#') || next.startsWith('---')) continue;
+      answer = next.replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1').replace(/\[(.+?)\]\(.+?\)/g, '$1');
+      break;
+    }
+    if (!answer) continue;
+    faqs.push({
+      question: heading.endsWith('?') ? heading : `${heading}?`,
+      answer: answer.length > 320 ? answer.slice(0, 317).trim() + '...' : answer,
+    });
+    if (faqs.length >= 6) break;
   }
+  return faqs;
+}
 
-  const content = en ? article.content : article.contentEs;
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = articles.find((a) => a.slug === slug);
+  if (!article) notFound();
 
-  const jsonLd = {
+  const related = pickRelated(article, articles, 3);
+  const wordCount = article.content.split(/\s+/).length;
+  const url = `${BASE_URL}/blog/${article.slug}`;
+  const ogImage = `${BASE_URL}/blog/${article.slug}/opengraph-image`;
+
+  const articleLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
-    headline: en ? article.title : article.titleEs,
-    description: en ? article.description : article.descriptionEs,
+    headline: article.title,
+    description: article.description,
     datePublished: article.date,
     dateModified: article.date,
-    author: { '@type': 'Organization', name: 'Agalaz Fashion', url: 'https://agalaz.com' },
-    publisher: { '@type': 'Organization', name: 'Agalaz Fashion', url: 'https://agalaz.com' },
-    mainEntityOfPage: { '@type': 'WebPage', '@id': `https://agalaz.com/blog/${article.slug}` },
-    inLanguage: en ? 'en-US' : 'es-ES',
+    author: { '@type': 'Organization', name: 'Agalaz Fashion', url: BASE_URL },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Agalaz Fashion',
+      url: BASE_URL,
+      logo: { '@type': 'ImageObject', url: `${BASE_URL}/icon-512.png` },
+    },
+    image: ogImage,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    inLanguage: 'en-US',
     keywords: article.keyword,
-    wordCount: content.split(/\s+/).length,
+    articleSection: article.category,
+    wordCount,
+    url,
   };
 
   const breadcrumbLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://agalaz.com' },
-      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://agalaz.com/blog' },
-      { '@type': 'ListItem', position: 3, name: en ? article.title : article.titleEs, item: `https://agalaz.com/blog/${article.slug}` },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE_URL}/blog` },
+      { '@type': 'ListItem', position: 3, name: article.title, item: url },
     ],
   };
 
+  const faqs = extractFaq(article.content);
+  const faqLd =
+    faqs.length >= 2
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faqs.map((f) => ({
+            '@type': 'Question',
+            name: f.question,
+            acceptedAnswer: { '@type': 'Answer', text: f.answer },
+          })),
+        }
+      : null;
+
   return (
-    <main className="min-h-screen bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
-      {/* Nav */}
-      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
-          <Link href="/" className="font-serif text-2xl tracking-[0.15em] text-slate-900 font-black">
-            AGALAZ
-          </Link>
-          <div className="flex items-center gap-5">
-            <LanguageToggle />
-            <Link
-              href="/try-on"
-              className="px-6 py-2.5 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full hover:bg-slate-800 transition-colors"
-            >
-              {en ? 'Try Now' : 'Probar'}
-            </Link>
-          </div>
-        </div>
-      </nav>
-
-      {/* Article */}
-      <article className="max-w-3xl mx-auto px-6 md:px-12 py-12 md:py-20 animate-fade-in">
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 mb-8">
-          <Link href="/blog" className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.15em] hover:text-indigo-700 transition-colors">
-            Blog
-          </Link>
-          <span className="text-slate-200">/</span>
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest truncate">
-            {en ? article.title : article.titleEs}
-          </span>
-        </div>
-
-        {/* Meta */}
-        <div className="flex items-center gap-3 mb-6">
-          <Clock size={14} className="text-slate-300" />
-          <span className="text-xs font-bold text-slate-400">
-            {article.readTime} min read
-          </span>
-          <span className="text-slate-200">·</span>
-          <span className="text-xs font-bold text-slate-400">
-            {new Date(article.date).toLocaleDateString(en ? 'en-US' : 'es-ES', { month: 'long', day: 'numeric', year: 'numeric' })}
-          </span>
-        </div>
-
-        {/* Title */}
-        <h1 className="font-serif text-3xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.1] mb-8">
-          {en ? article.title : article.titleEs}
-        </h1>
-
-        {/* Content */}
-        <div className="space-y-5">
-          {content.split('\n\n').map((block, i) => {
-            if (block.startsWith('### ')) {
-              return (
-                <h3 key={i} className="font-serif text-xl font-bold text-slate-900 tracking-tight mt-8 mb-3">
-                  {block.replace('### ', '')}
-                </h3>
-              );
-            }
-            if (block.startsWith('## ')) {
-              return (
-                <h2 key={i} className="font-serif text-2xl font-bold text-slate-900 tracking-tight mt-12 mb-4">
-                  {block.replace('## ', '')}
-                </h2>
-              );
-            }
-            if (block.startsWith('---')) {
-              return <hr key={i} className="border-slate-200 my-8" />;
-            }
-            if (block.includes('|') && block.includes('---')) {
-              const rows = block.split('\n').filter(r => r.trim() && !r.includes('---'));
-              const headers = rows[0]?.split('|').map(c => c.trim()).filter(Boolean) || [];
-              const dataRows = rows.slice(1);
-              return (
-                <div key={i} className="overflow-x-auto my-6">
-                  <table className="w-full text-sm border border-slate-200">
-                    <thead>
-                      <tr className="bg-slate-50">
-                        {headers.map((h, j) => (
-                          <th key={j} className="px-3 py-2 text-left font-bold text-slate-700 border-b border-slate-200">{h}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {dataRows.map((row, j) => {
-                        const cells = row.split('|').map(c => c.trim()).filter(Boolean);
-                        return (
-                          <tr key={j} className={j % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
-                            {cells.map((cell, k) => (
-                              <td key={k} className="px-3 py-2 text-slate-500 font-light border-b border-slate-100"
-                                dangerouslySetInnerHTML={{ __html: cell.replace(/\*\*(.+?)\*\*/g, '<strong class="text-slate-900 font-bold">$1</strong>') }} />
-                            ))}
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              );
-            }
-            const formatted = block
-              .replace(/\*\*(.+?)\*\*/g, '<strong class="text-slate-900 font-bold">$1</strong>')
-              .replace(/\*(.+?)\*/g, '<em>$1</em>')
-              .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="text-indigo-600 font-bold hover:text-indigo-700 underline underline-offset-2 transition-colors">$1</a>')
-              .replace(/^- /gm, '&bull; ')
-              .replace(/^\d+\. /gm, (match) => `<span class="text-indigo-600 font-bold">${match}</span>`);
-
-            return (
-              <p
-                key={i}
-                className="text-base text-slate-500 font-light leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: formatted }}
-              />
-            );
-          })}
-        </div>
-
-        {/* CTA */}
-        <div className="mt-16 bg-slate-50 border border-slate-100 p-8 md:p-10 text-center">
-          <Sparkles size={28} className="text-indigo-600 mx-auto mb-4" />
-          <h3 className="font-serif text-2xl font-black text-slate-900 tracking-tight mb-2">
-            {en ? 'Try It On Yourself' : 'Pruébalo En Ti'}
-          </h3>
-          <p className="text-slate-500 text-sm font-light mb-6 max-w-sm mx-auto">
-            {en
-              ? 'See how any garment looks on your real body with AI.'
-              : 'Ve cómo te queda cualquier prenda en tu cuerpo real con IA.'}
-          </p>
-          <Link
-            href="/try-on"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-600 transition-colors"
-          >
-            <Sparkles size={16} />
-            {en ? 'Try Free' : 'Probar Gratis'}
-            <ArrowRight size={14} />
-          </Link>
-        </div>
-
-        {/* More articles */}
-        <div className="mt-16">
-          <h3 className="font-serif text-xl font-bold text-slate-900 tracking-tight mb-6">
-            {en ? 'More Articles' : 'Más Artículos'}
-          </h3>
-          <div className="grid md:grid-cols-3 gap-4">
-            {articles
-              .filter((a) => a.slug !== article.slug)
-              .slice(0, 3)
-              .map((a) => (
-                <Link
-                  key={a.slug}
-                  href={`/blog/${a.slug}`}
-                  className="group p-5 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all"
-                >
-                  <h4 className="text-sm font-bold text-slate-900 leading-snug group-hover:text-indigo-600 transition-colors">
-                    {en ? a.title : a.titleEs}
-                  </h4>
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-2 inline-block">
-                    {a.readTime} min
-                  </span>
-                </Link>
-              ))}
-          </div>
-        </div>
-      </article>
-
-      {/* Footer */}
-      <footer className="border-t border-slate-100 py-10 px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <Link href="/" className="font-serif text-sm tracking-[0.15em] text-slate-400 font-black">
-            AGALAZ
-          </Link>
-          <div className="flex items-center gap-6">
-            <Link href="/virtual-try-on" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
-              Virtual Try On
-            </Link>
-            <Link href="/blog" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
-              Blog
-            </Link>
-            <Link href="/try-on" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
-              {en ? 'Try Now' : 'Probar'}
-            </Link>
-            <Link href="/privacy" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
-              {en ? 'Privacy' : 'Privacidad'}
-            </Link>
-            <Link href="/terms" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
-              {en ? 'Terms' : 'Términos'}
-            </Link>
-          </div>
-        </div>
-      </footer>
-    </main>
+      {faqLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />}
+      <ArticleView article={article} related={related} />
+    </>
   );
 }

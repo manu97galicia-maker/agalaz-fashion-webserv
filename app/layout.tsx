@@ -97,8 +97,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
     languages: {
-      'en-US': '/',
-      'es-ES': '/',
+      'en': '/',
+      'es': '/',
+      'x-default': '/',
     },
   },
   verification: {
