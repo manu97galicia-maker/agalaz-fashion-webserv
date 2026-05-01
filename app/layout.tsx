@@ -104,6 +104,7 @@ export const metadata: Metadata = {
   },
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION,
+    yandex: 'a048b7a9e969765f',
   },
   category: 'fashion',
 };
