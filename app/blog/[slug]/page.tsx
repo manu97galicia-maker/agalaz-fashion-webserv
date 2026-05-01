@@ -1,9 +1,20 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import fs from 'fs';
+import path from 'path';
 import { articles, type Article } from '../articles';
 import ArticleView from './ArticleView';
 
 const BASE_URL = 'https://agalaz.com';
+
+// Resolves the per-article hero image path if generate-blog-images.mjs has
+// produced one — checked once at build time, statically baked into the page.
+function heroImageFor(slug: string): string | null {
+  const explicit = articles.find((a) => a.slug === slug)?.image;
+  if (explicit) return explicit;
+  const filePath = path.join(process.cwd(), 'public', 'blog-images', `${slug}.png`);
+  return fs.existsSync(filePath) ? `/blog-images/${slug}.png` : null;
+}
 
 // Spanish-primary slugs (Spanish-keyword targeting). Other slugs default to English.
 function isSpanishPrimary(slug: string): boolean {
@@ -153,6 +164,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const wordCount = ldContent.split(/\s+/).length;
   const url = `${BASE_URL}/blog/${article.slug}`;
   const ogImage = `${BASE_URL}/blog/${article.slug}/opengraph-image`;
+  const heroImage = heroImageFor(article.slug);
+  const heroImageAlt = isEs ? (article.imageAltEs ?? article.imageAlt ?? ldTitle) : (article.imageAlt ?? ldTitle);
 
   const articleLd = {
     '@type': 'BlogPosting',
@@ -167,7 +180,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       url: BASE_URL,
       logo: { '@type': 'ImageObject', url: `${BASE_URL}/icon-512.png` },
     },
-    image: ogImage,
+    image: heroImage ? [`${BASE_URL}${heroImage}`, ogImage] : ogImage,
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
     inLanguage: isEs ? 'es-ES' : 'en-US',
     keywords: article.keyword,
@@ -207,7 +220,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
-      <ArticleView article={article} related={related} lang={isEs ? 'es' : 'en'} />
+      <ArticleView article={article} related={related} lang={isEs ? 'es' : 'en'} heroImage={heroImage} heroImageAlt={heroImageAlt} />
     </>
   );
 }

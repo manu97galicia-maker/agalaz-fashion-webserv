@@ -8,11 +8,13 @@ interface Props {
   article: Article;
   related: Article[];
   lang: 'en' | 'es';
+  heroImage?: string | null;
+  heroImageAlt?: string;
 }
 
 // Article body locks to the slug-derived language so SSR matches metadata for
 // crawlers; the global LanguageToggle is intentionally hidden on this route.
-export default function ArticleView({ article, related, lang }: Props) {
+export default function ArticleView({ article, related, lang, heroImage, heroImageAlt }: Props) {
   const en = lang === 'en';
 
   const content = en ? article.content : article.contentEs;
@@ -65,6 +67,20 @@ export default function ArticleView({ article, related, lang }: Props) {
         <h1 className="font-serif text-3xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.1] mb-8">
           {en ? article.title : article.titleEs}
         </h1>
+
+        {/* Hero image (only when generate-blog-images.mjs has produced one) */}
+        {heroImage && (
+          <figure className="mb-10 -mx-6 md:mx-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={heroImage}
+              alt={heroImageAlt ?? (en ? article.title : article.titleEs)}
+              loading="eager"
+              decoding="async"
+              className="w-full h-auto md:rounded-md"
+            />
+          </figure>
+        )}
 
         {/* Content */}
         <div className="space-y-5">
