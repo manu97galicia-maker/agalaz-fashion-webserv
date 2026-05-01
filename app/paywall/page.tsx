@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { X, Check, Shield, Sparkles, ArrowRight, Gift } from 'lucide-react';
+import { X, Check, Shield, Sparkles, ArrowRight } from 'lucide-react';
 import { createBrowserClient } from '@supabase/ssr';
 import { signInWithGoogle, signInWithOtp } from '@/services/authService';
 import { useLang } from '@/components/LanguageProvider';
@@ -14,10 +14,11 @@ export default function PaywallPage() {
   const router = useRouter();
   const { t, lang } = useLang();
   const en = lang === 'en';
-  const [selected, setSelected] = useState<Plan>('popular');
+  const [selected, setSelected] = useState<Plan>('test');
   const [loading, setLoading] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
+  const [authChecked, setAuthChecked] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [otpEmail, setOtpEmail] = useState('');
   const [otpSent, setOtpSent] = useState(false);
@@ -37,17 +38,32 @@ export default function PaywallPage() {
       process.env.NEXT_PUBLIC_SUPABASE_URL || '',
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
     );
+    // Initial hydration
     supabase.auth.getUser().then(({ data: { user } }) => {
       if (user) {
         setUserEmail(user.email || null);
         setUserId(user.id);
       }
+      setAuthChecked(true);
+    });
+    // Keep state in sync (handles login completing while paywall is open)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      if (session?.user) {
+        setUserEmail(session.user.email || null);
+        setUserId(session.user.id);
+        setShowLogin(false);
+      } else {
+        setUserEmail(null);
+        setUserId(null);
+      }
+      setAuthChecked(true);
     });
     (window as any).datafast?.('paywall_view');
     // Read category from landing page redirect
     const params = new URLSearchParams(window.location.search);
     const from = params.get('from');
     if (from) setFromCategory(from);
+    return () => subscription.unsubscribe();
   }, []);
 
   const features = en
@@ -58,20 +74,21 @@ export default function PaywallPage() {
     test: {
       price: '0,99',
       currency: '$',
-      label: en ? 'Test' : 'Test',
-      renders: en ? '2 renders' : '2 renders',
-      sub: en ? 'Try it once' : 'Pruébalo una vez',
+      label: en ? 'Starter' : 'Starter',
+      renders: en ? '1 render + 1 FREE 🎁' : '1 render + 1 GRATIS 🎁',
+      sub: en ? 'Start for less than $1' : 'Empieza por menos de $1',
     },
     popular: {
       price: '4,99',
       currency: '$',
-      label: en ? 'Popular' : 'Popular',
+      label: en ? 'Pack 12' : 'Pack 12',
       renders: en ? '12 renders' : '12 renders',
-      sub: en ? 'Best value — 58% off per render' : 'Mejor precio — 58% menos por render',
+      sub: en ? 'Cheaper per render — save 58%' : 'Más barato por render — ahorra 58%',
     },
   };
 
   const handleSubscribe = async () => {
+    if (!authChecked) return;
     if (!userId || !userEmail) {
       setShowLogin(true);
       return;
@@ -151,13 +168,13 @@ export default function PaywallPage() {
           ))}
         </div>
 
-        {/* Plan selector — Popular featured */}
+        {/* Plan selector — Test featured (low-friction entry) */}
         <div className="space-y-3 mb-8">
-          {/* Popular (featured) */}
+          {/* Test (featured) */}
           <button
-            onClick={() => { setSelected('popular'); (window as any).datafast?.('plan_select', { plan: 'popular' }); }}
+            onClick={() => { setSelected('test'); (window as any).datafast?.('plan_select', { plan: 'test' }); }}
             className={`relative w-full p-5 rounded-xl flex items-center justify-between transition-all ${
-              selected === 'popular'
+              selected === 'test'
                 ? 'bg-slate-900 text-white shadow-lg ring-2 ring-indigo-400'
                 : 'bg-gradient-to-br from-indigo-50 to-white border-2 border-indigo-400 hover:border-indigo-500 shadow-md'
             }`}
@@ -165,47 +182,12 @@ export default function PaywallPage() {
             <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-indigo-600 text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow">
               {en ? 'Most Popular' : 'Más Popular'}
             </div>
+            <div className="absolute -top-2 -right-2 px-2.5 py-1 bg-emerald-500 text-white text-[10px] font-black uppercase tracking-wider rounded-full shadow-md rotate-3">
+              {en ? '🎁 +1 FREE' : '🎁 +1 GRATIS'}
+            </div>
             <div className="flex items-center gap-3">
               <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                selected === 'popular' ? 'border-indigo-400 bg-indigo-500' : 'border-indigo-400'
-              }`}>
-                {selected === 'popular' && <div className="w-2 h-2 bg-white rounded-full" />}
-              </div>
-              <div className="text-left">
-                <span className={`font-black text-[15px] ${selected === 'popular' ? 'text-white' : 'text-slate-900'}`}>
-                  {plans.popular.label}
-                </span>
-                <br />
-                <span className={`text-[11px] font-bold ${selected === 'popular' ? 'text-white/60' : 'text-indigo-600'}`}>
-                  {plans.popular.renders}
-                </span>
-                <span className={`text-[10px] block mt-0.5 ${selected === 'popular' ? 'text-white/40' : 'text-slate-400'}`}>
-                  {plans.popular.sub}
-                </span>
-              </div>
-            </div>
-            <div className="text-right">
-              <span className={`font-black text-xl ${selected === 'popular' ? 'text-white' : 'text-slate-900'}`}>
-                {plans.popular.currency}{plans.popular.price}
-              </span>
-              <span className={`block text-[10px] font-bold ${selected === 'popular' ? 'text-white/40' : 'text-slate-400'}`}>
-                {en ? 'one-time' : 'pago único'}
-              </span>
-            </div>
-          </button>
-
-          {/* Test */}
-          <button
-            onClick={() => { setSelected('test'); (window as any).datafast?.('plan_select', { plan: 'test' }); }}
-            className={`w-full p-5 rounded-xl flex items-center justify-between transition-all ${
-              selected === 'test'
-                ? 'bg-slate-900 text-white shadow-lg'
-                : 'bg-slate-50 border-2 border-slate-200 hover:border-slate-300'
-            }`}
-          >
-            <div className="flex items-center gap-3">
-              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                selected === 'test' ? 'border-indigo-400 bg-indigo-500' : 'border-slate-300'
+                selected === 'test' ? 'border-indigo-400 bg-indigo-500' : 'border-indigo-400'
               }`}>
                 {selected === 'test' && <div className="w-2 h-2 bg-white rounded-full" />}
               </div>
@@ -214,8 +196,11 @@ export default function PaywallPage() {
                   {plans.test.label}
                 </span>
                 <br />
-                <span className={`text-[11px] font-bold ${selected === 'test' ? 'text-white/40' : 'text-slate-400'}`}>
-                  {plans.test.renders} &middot; {plans.test.sub}
+                <span className={`text-[11px] font-bold ${selected === 'test' ? 'text-white/60' : 'text-indigo-600'}`}>
+                  {plans.test.renders}
+                </span>
+                <span className={`text-[10px] block mt-0.5 ${selected === 'test' ? 'text-white/40' : 'text-slate-400'}`}>
+                  {plans.test.sub}
                 </span>
               </div>
             </div>
@@ -228,15 +213,50 @@ export default function PaywallPage() {
               </span>
             </div>
           </button>
+
+          {/* Popular (secondary — better per-render value) */}
+          <button
+            onClick={() => { setSelected('popular'); (window as any).datafast?.('plan_select', { plan: 'popular' }); }}
+            className={`w-full p-5 rounded-xl flex items-center justify-between transition-all ${
+              selected === 'popular'
+                ? 'bg-slate-900 text-white shadow-lg'
+                : 'bg-slate-50 border-2 border-slate-200 hover:border-slate-300'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                selected === 'popular' ? 'border-indigo-400 bg-indigo-500' : 'border-slate-300'
+              }`}>
+                {selected === 'popular' && <div className="w-2 h-2 bg-white rounded-full" />}
+              </div>
+              <div className="text-left">
+                <span className={`font-black text-[15px] ${selected === 'popular' ? 'text-white' : 'text-slate-900'}`}>
+                  {plans.popular.label}
+                </span>
+                <br />
+                <span className={`text-[11px] font-bold ${selected === 'popular' ? 'text-white/40' : 'text-slate-400'}`}>
+                  {plans.popular.renders} &middot; {plans.popular.sub}
+                </span>
+              </div>
+            </div>
+            <div className="text-right">
+              <span className={`font-black text-xl ${selected === 'popular' ? 'text-white' : 'text-slate-900'}`}>
+                {plans.popular.currency}{plans.popular.price}
+              </span>
+              <span className={`block text-[10px] font-bold ${selected === 'popular' ? 'text-white/40' : 'text-slate-400'}`}>
+                {en ? 'one-time' : 'pago único'}
+              </span>
+            </div>
+          </button>
         </div>
 
         {/* CTA */}
         <button
           onClick={handleSubscribe}
-          disabled={loading}
+          disabled={loading || !authChecked}
           className="w-full py-4 min-h-[56px] bg-slate-900 text-white flex items-center justify-center gap-3 hover:bg-indigo-600 active:bg-indigo-700 transition-all font-black uppercase tracking-[0.2em] text-xs md:text-sm disabled:opacity-50"
         >
-          {loading ? (
+          {loading || !authChecked ? (
             <span>{en ? 'Loading...' : 'Cargando...'}</span>
           ) : (
             <>
@@ -281,7 +301,7 @@ export default function PaywallPage() {
               onClick={async () => {
                 try {
                   (window as any).datafast?.('signup_click', { provider: 'google', source: 'paywall' });
-                  await signInWithGoogle();
+                  await signInWithGoogle('/paywall');
                 } catch {}
               }}
               className="w-full py-4 bg-slate-900 text-white flex items-center justify-center gap-3 hover:bg-indigo-600 transition-colors font-black uppercase tracking-[0.15em] text-xs"
