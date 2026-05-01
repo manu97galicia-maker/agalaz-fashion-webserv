@@ -1,14 +1,10 @@
 import { ImageResponse } from 'next/og';
 import { articles } from '../articles';
 
+export const runtime = 'edge';
 export const alt = 'Agalaz Fashion blog article';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
-
-// Pre-render every article's OG image at build — no runtime generation, no cold starts.
-export function generateStaticParams() {
-  return articles.map((a) => ({ slug: a.slug }));
-}
 
 export default async function OgImage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
