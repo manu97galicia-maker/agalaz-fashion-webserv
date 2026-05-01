@@ -12,7 +12,7 @@ const ARTICLES_PATH = path.join(ROOT, 'app/blog/articles.ts');
 const OUTPUT_DIR = path.join(ROOT, 'public/blog-images');
 
 const API_KEY = process.env.GEMINI_API_KEY;
-const MODEL = process.env.IMAGEN_MODEL || 'imagen-3.0-generate-002';
+const MODEL = process.env.IMAGEN_MODEL || 'imagen-4.0-fast-generate-001';
 const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:predict?key=${API_KEY}`;
 
 if (!API_KEY) {
@@ -45,20 +45,39 @@ function parseArticles() {
   return articles;
 }
 
-// Build a Vogue-editorial prompt that nudges Imagen toward the brand aesthetic
-// (minimalist, magazine cover, neutral with one accent) and away from generic
-// stock-photo collages.
-function buildPrompt({ title, keyword, category }) {
+// Build a clean editorial prompt. Earlier versions referenced "Vogue / Elle"
+// style — Imagen interpreted that as licence to embed actual magazine
+// branding (VOGUE wordmarks, fake mastheads), which is a trademark issue.
+// The current prompt avoids any real publication name and adds an explicit
+// negative-constraint sentence the model usually respects.
+// Some slugs need an explicit framing because the keyword alone is too
+// abstract for Imagen (e.g. "spring nails" without "hands" yields empty
+// rooms). The map below converts that abstract topic into a concrete,
+// photographable subject sentence.
+function subjectOverride(slug) {
+  if (/nail/.test(slug)) return 'A tight close-up of one woman\'s beautifully manicured hands resting elegantly on a neutral surface. The nail design is the clear visual focus.';
+  if (/glasses|earring|piercing|ear/.test(slug)) return 'A clean studio portrait of a woman from the shoulders up, three-quarter angle. The accessory on her face / ears is the clear visual focus.';
+  if (/diamond|carat|jewelry/.test(slug)) return 'A close-up of a woman\'s hand, slightly raised, with the ring or jewellery as the clear visual focus.';
+  if (/swimwear|bikini/.test(slug)) return 'An outdoor lifestyle photograph of a woman in swimwear by a pool or beach. Tasteful, magazine-style, full-body framing.';
+  if (/tattoo/.test(slug)) return 'A close-up of inked skin (forearm, shoulder, or back) showing a tattoo design clearly. Studio lighting, neutral background.';
+  if (/wedding|gown|bridal/.test(slug)) return 'A full-length editorial portrait of a woman in a wedding gown, soft natural daylight, minimalist architectural background.';
+  if (/face-shape|interview|office|corporate|job/.test(slug)) return 'A clean studio portrait of a woman in tailored, modern outfit, three-quarter angle, professional yet approachable.';
+  return null;
+}
+
+function buildPrompt({ slug, title, keyword, category }) {
   const base = [
-    'Editorial fashion magazine hero photograph, 16:9 widescreen.',
-    'Minimalist, high-end aesthetic — Vogue / Elle / Harper\'s Bazaar style.',
-    'Soft natural light, neutral palette (cream, beige, off-white, muted slate) with one quiet accent color.',
-    'Premium camera depth-of-field, slight film grain, subtle shadows.',
-    'Composition leaves room for a headline (clean negative space, no text in the image itself).',
-    'Subject feels modern, aspirational, NOT stock-photo or AI-obvious.',
+    'High-end editorial fashion photograph, 16:9 widescreen format.',
+    'Minimalist, modern, aspirational composition.',
+    'Soft natural daylight, neutral palette (cream, beige, off-white, warm taupe, muted slate) with at most one quiet accent color.',
+    'Shallow depth of field, gentle film grain, subtle shadows on a clean studio or architectural backdrop.',
+    'Photographic realism — looks captured by a professional photographer, not AI-generated.',
+    'STRICT: no text, no letters, no words, no captions, no watermarks, no logos, no brand names, no magazine cover elements, no mastheads, no typography of any kind anywhere in the frame.',
   ].join(' ');
 
-  return `${base}\n\nArticle topic: "${title}"\nVisual focus: ${keyword}.\nCategory: ${category || 'fashion'}.`;
+  const subject = subjectOverride(slug) || `Visual focus: ${keyword}.`;
+
+  return `${base}\n\n${subject}\n\nMood / theme to evoke: "${title}". Category: ${category || 'fashion'}.`;
 }
 
 async function generateOne({ slug, title, keyword, category }) {
@@ -68,7 +87,7 @@ async function generateOne({ slug, title, keyword, category }) {
     return { slug, status: 'skipped' };
   }
 
-  const prompt = buildPrompt({ title, keyword, category });
+  const prompt = buildPrompt({ slug, title, keyword, category });
 
   const res = await fetch(ENDPOINT, {
     method: 'POST',
