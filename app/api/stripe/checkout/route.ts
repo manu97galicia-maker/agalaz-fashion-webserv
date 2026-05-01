@@ -21,7 +21,7 @@ const PACK_CREDITS: Record<string, number> = {
 
 function getPrices(): Record<string, string> {
   return {
-    test: (process.env.STRIPE_PRICE_TEST || 'price_1TODF4DaiRATnL32LzqWxgInw').trim(),
+    test: (process.env.STRIPE_PRICE_TEST || 'price_1TODF4DaiRATnL32zqWxgInw').trim(),
     popular: (process.env.STRIPE_PRICE_POPULAR || 'price_1TODK9DaiRATnL32LPDQOzTi').trim(),
     weekly: (process.env.STRIPE_PRICE_WEEKLY || '').trim(),
     yearly: (process.env.STRIPE_PRICE_YEARLY || '').trim(),
