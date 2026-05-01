@@ -81,9 +81,10 @@ export default function PaywallPage() {
     popular: {
       price: '4,99',
       currency: '$',
-      label: en ? 'Pack 12' : 'Pack 12',
+      label: en ? 'Style Pro' : 'Style Pro',
       renders: en ? '12 renders' : '12 renders',
-      sub: en ? 'Cheaper per render — save 58%' : 'Más barato por render — ahorra 58%',
+      sub: en ? '$0.42 per render' : '$0,42 por render',
+      savings: en ? 'SAVE 58%' : 'AHORRA 58%',
     },
   };
 
@@ -234,8 +235,11 @@ export default function PaywallPage() {
                   {plans.popular.label}
                 </span>
                 <br />
-                <span className={`text-[11px] font-bold ${selected === 'popular' ? 'text-white/40' : 'text-slate-400'}`}>
+                <span className={`text-[11px] font-bold ${selected === 'popular' ? 'text-white/50' : 'text-slate-500'}`}>
                   {plans.popular.renders} &middot; {plans.popular.sub}
+                </span>
+                <span className={`ml-1.5 inline-block px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider ${selected === 'popular' ? 'bg-emerald-400/20 text-emerald-300' : 'bg-emerald-100 text-emerald-700'}`}>
+                  {plans.popular.savings}
                 </span>
               </div>
             </div>
