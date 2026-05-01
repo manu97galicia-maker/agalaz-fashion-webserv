@@ -15,6 +15,8 @@ const urls = [
   'https://agalaz.com/virtual-tattoo-simulator',
   'https://agalaz.com/realistic-swimwear-try-on',
   'https://agalaz.com/virtual-earring-try-on',
+  'https://agalaz.com/virtual-wedding-dress-try-on',
+  'https://agalaz.com/virtual-nail-try-on',
   'https://agalaz.com/blog',
   'https://agalaz.com/partners',
   'https://agalaz.com/privacy',

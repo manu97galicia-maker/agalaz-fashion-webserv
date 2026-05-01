@@ -2897,6 +2897,8 @@ Coquette aesthetic nails are the defining beauty trend of Spring 2026, but the d
 
 Don't gamble with a $80 salon appointment. **[Try coquette designs on your hands for free with Agalaz AI →](https://agalaz.com/try-on)**
 
+For the full nail catalogue beyond coquette — French, chrome, almond, coffin, gel — head to our [virtual nail try-on](/virtual-nail-try-on) page.
+
 Your perfect spring mani is one upload away.`,
     contentEs: `La **estética coquette** ha conquistado oficialmente el nail art en Primavera 2026. Piensa en rosas suaves, lazos delicados, acentos de perlas y esa energía femenina sin esfuerzo que grita *"soy adorable y lo sé."*
 
@@ -2977,7 +2979,9 @@ No todos los rosas funcionan para todos:
 
 Las uñas coquette son la tendencia beauty de Primavera 2026. No apuestes con una cita de 60€.
 
-**[Prueba diseños coquette en tus manos gratis con Agalaz IA →](https://agalaz.com/try-on)**`,
+**[Prueba diseños coquette en tus manos gratis con Agalaz IA →](https://agalaz.com/try-on)**
+
+Si quieres explorar más estilos de uñas (francesas, almendra, coffin, chrome, gel), ve a nuestro [probador virtual de uñas](/virtual-nail-try-on).`,
   },
   {
     slug: 'short-almond-spring-nails-clean-girl-look',
@@ -3553,7 +3557,9 @@ Our article on [how to know if clothes will fit without trying them on](/blog/ho
 
 Spring weddings are about joy, celebration, and looking incredible while feeling comfortable. The right dress exists for you — you just need to see it on YOUR body first.
 
-**[Try any spring wedding dress on yourself free with AI →](https://agalaz.com/try-on)**`,
+**[Try any spring wedding dress on yourself free with AI →](https://agalaz.com/try-on)**
+
+If you're the bride (not a guest), our [virtual wedding dress try-on](/virtual-wedding-dress-try-on) is built specifically for trying gowns from any designer or boutique on your real body before fittings.`,
     contentEs: `La temporada de bodas de primavera 2026 está aquí — y si has estado buscando **"vestidos tea length para madre del novio en bodas al aire libre"** o **"mejores vestidos coloridos para invitadas de boda con lluvia"**, no estás sola. Estas son las búsquedas de moda nupcial más populares de la temporada, y con razón.
 
 Las bodas de primavera al aire libre son hermosas pero impredecibles. Las ceremonias en jardín exigen códigos de vestimenta específicos. ¿Y encontrar un vestido que salga bien en fotos, sea cómodo sobre el césped y combine con el ambiente? Es un verdadero desafío.
@@ -3742,7 +3748,9 @@ Nuestro artículo sobre [cómo saber si la ropa te quedará sin probártela](/bl
 
 Las bodas de primavera son sobre alegría, celebración y verse increíble mientras te sientes cómoda. El vestido perfecto existe para ti — solo necesitas verlo en TU cuerpo primero.
 
-**[Prueba cualquier vestido de boda de primavera en ti misma gratis con IA →](https://agalaz.com/try-on)**`,
+**[Prueba cualquier vestido de boda de primavera en ti misma gratis con IA →](https://agalaz.com/try-on)**
+
+Si eres la novia (no invitada), nuestro [probador virtual de vestido de novia](/virtual-wedding-dress-try-on) está hecho específicamente para probar gowns de cualquier diseñador o boutique en tu cuerpo real antes de las pruebas presenciales.`,
   },
   {
     slug: 'ai-clothes-changer-online-free-trial',

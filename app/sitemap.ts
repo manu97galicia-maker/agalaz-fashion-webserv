@@ -56,6 +56,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/virtual-wedding-dress-try-on`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/virtual-nail-try-on`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
     // Localized landing pages (FR, PT, DE, IT)
     ...(['fr', 'pt', 'de', 'it'] as const).flatMap((lang) =>
       ['virtual-tattoo-simulator', 'realistic-swimwear-try-on', 'virtual-earring-try-on'].map((slug) => ({
