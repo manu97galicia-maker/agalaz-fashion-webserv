@@ -496,7 +496,7 @@ This means:
 
 ## Step 4: Build Around What Works
 
-Once you find silhouettes that work, build your wardrobe around them. You don't need 50 different styles — you need 5-6 shapes that consistently flatter your body, in different colors and fabrics. To perfect your wardrobe, also explore how [different colors work for your skin tone](/blog/best-colors-to-wear-for-your-skin-tone).
+Once you find silhouettes that work, build your wardrobe around them. You don't need 50 different styles — you need 5-6 shapes that consistently flatter your body, in different colors and fabrics. For a structured way to do this, see our [capsule wardrobe guide](/blog/capsule-wardrobe-guide-30-outfits-15-pieces) — 30 outfits from 15 versatile pieces. To perfect your wardrobe, also explore how [different colors work for your skin tone](/blog/best-colors-to-wear-for-your-skin-tone).
 
 ## The New Rule
 
@@ -535,7 +535,7 @@ Herramientas como Agalaz te muestran exactamente cómo cae una prenda en TU cuer
 
 ## Paso 4: Construye Alrededor de Lo Que Funciona
 
-Una vez encuentres siluetas que te favorecen, construye tu armario alrededor de ellas. No necesitas 50 estilos diferentes — necesitas 5-6 formas que consistentemente te favorezcan.
+Una vez encuentres siluetas que te favorecen, construye tu armario alrededor de ellas. No necesitas 50 estilos diferentes — necesitas 5-6 formas que consistentemente te favorezcan. Para hacerlo de forma estructurada, lee nuestra [guía de armario cápsula](/blog/capsule-wardrobe-guide-30-outfits-15-pieces) — 30 looks con sólo 15 piezas versátiles.
 
 ## La Nueva Regla
 
