@@ -2,17 +2,17 @@
 
 import Link from 'next/link';
 import { Clock, Sparkles, ArrowRight } from 'lucide-react';
-import { useLang } from '@/components/LanguageProvider';
-import { LanguageToggle } from '@/components/LanguageToggle';
 import type { Article } from '../articles';
 
 interface Props {
   article: Article;
   related: Article[];
+  lang: 'en' | 'es';
 }
 
-export default function ArticleView({ article, related }: Props) {
-  const { lang } = useLang();
+// Article body locks to the slug-derived language so SSR matches metadata for
+// crawlers; the global LanguageToggle is intentionally hidden on this route.
+export default function ArticleView({ article, related, lang }: Props) {
   const en = lang === 'en';
 
   const content = en ? article.content : article.contentEs;
@@ -26,7 +26,6 @@ export default function ArticleView({ article, related }: Props) {
             AGALAZ
           </Link>
           <div className="flex items-center gap-5">
-            <LanguageToggle />
             <Link
               href="/try-on"
               className="px-6 py-2.5 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full hover:bg-slate-800 transition-colors"

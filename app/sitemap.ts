@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(article.date),
     changeFrequency: 'monthly',
     priority: 0.7,
+    images: [`${baseUrl}/blog/${article.slug}/opengraph-image`],
   }));
 
   return [

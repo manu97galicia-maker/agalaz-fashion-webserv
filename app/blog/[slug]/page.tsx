@@ -5,6 +5,11 @@ import ArticleView from './ArticleView';
 
 const BASE_URL = 'https://agalaz.com';
 
+// Spanish-primary slugs (Spanish-keyword targeting). Other slugs default to English.
+function isSpanishPrimary(slug: string): boolean {
+  return /^(como-|por-que-|probador-|que-)/.test(slug);
+}
+
 export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
 }
@@ -15,32 +20,36 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!article) return { title: 'Article not found' };
 
   const url = `${BASE_URL}/blog/${article.slug}`;
+  const isEs = isSpanishPrimary(article.slug);
+  const title = isEs ? article.titleEs : article.title;
+  const description = isEs ? article.descriptionEs : article.description;
+  const category = isEs ? (article.categoryEs ?? article.category) : article.category;
 
   return {
-    title: article.title,
-    description: article.description,
+    title,
+    description,
     keywords: [article.keyword],
     authors: [{ name: 'Agalaz Fashion', url: BASE_URL }],
     alternates: {
       canonical: url,
     },
     openGraph: {
-      title: article.title,
-      description: article.description,
+      title,
+      description,
       type: 'article',
       url,
       siteName: 'Agalaz Fashion',
-      locale: 'en_US',
-      alternateLocale: 'es_ES',
+      locale: isEs ? 'es_ES' : 'en_US',
+      alternateLocale: isEs ? 'en_US' : 'es_ES',
       publishedTime: article.date,
       modifiedTime: article.date,
       authors: ['Agalaz Fashion'],
-      tags: [article.keyword, article.category, 'virtual try-on', 'AI fashion'].filter(Boolean) as string[],
+      tags: [article.keyword, category, 'virtual try-on', 'AI fashion'].filter(Boolean) as string[],
     },
     twitter: {
       card: 'summary_large_image',
-      title: article.title,
-      description: article.description,
+      title,
+      description,
       creator: '@agalaz',
     },
     robots: {
@@ -53,7 +62,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         'max-snippet': -1,
       },
     },
-    category: article.category ?? 'fashion',
+    category: category ?? 'fashion',
   };
 }
 
@@ -136,15 +145,19 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   if (!article) notFound();
 
   const related = pickRelated(article, articles, 3);
-  const wordCount = article.content.split(/\s+/).length;
+  const isEs = isSpanishPrimary(article.slug);
+  const ldTitle = isEs ? article.titleEs : article.title;
+  const ldDescription = isEs ? article.descriptionEs : article.description;
+  const ldCategory = isEs ? (article.categoryEs ?? article.category) : article.category;
+  const ldContent = isEs ? article.contentEs : article.content;
+  const wordCount = ldContent.split(/\s+/).length;
   const url = `${BASE_URL}/blog/${article.slug}`;
   const ogImage = `${BASE_URL}/blog/${article.slug}/opengraph-image`;
 
   const articleLd = {
-    '@context': 'https://schema.org',
     '@type': 'BlogPosting',
-    headline: article.title,
-    description: article.description,
+    headline: ldTitle,
+    description: ldDescription,
     datePublished: article.date,
     dateModified: article.date,
     author: { '@type': 'Organization', name: 'Agalaz Fashion', url: BASE_URL },
@@ -156,28 +169,26 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     },
     image: ogImage,
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
-    inLanguage: 'en-US',
+    inLanguage: isEs ? 'es-ES' : 'en-US',
     keywords: article.keyword,
-    articleSection: article.category,
+    articleSection: ldCategory,
     wordCount,
     url,
   };
 
   const breadcrumbLd = {
-    '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
+      { '@type': 'ListItem', position: 1, name: isEs ? 'Inicio' : 'Home', item: BASE_URL },
       { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE_URL}/blog` },
-      { '@type': 'ListItem', position: 3, name: article.title, item: url },
+      { '@type': 'ListItem', position: 3, name: ldTitle, item: url },
     ],
   };
 
-  const faqs = extractFaq(article.content);
+  const faqs = extractFaq(ldContent);
   const faqLd =
     faqs.length >= 2
       ? {
-          '@context': 'https://schema.org',
           '@type': 'FAQPage',
           mainEntity: faqs.map((f) => ({
             '@type': 'Question',
@@ -187,12 +198,16 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         }
       : null;
 
+  // Single @graph block — fewer <script> tags, valid Schema.org grouping.
+  const ld = {
+    '@context': 'https://schema.org',
+    '@graph': faqLd ? [articleLd, breadcrumbLd, faqLd] : [articleLd, breadcrumbLd],
+  };
+
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
-      {faqLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />}
-      <ArticleView article={article} related={related} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <ArticleView article={article} related={related} lang={isEs ? 'es' : 'en'} />
     </>
   );
 }
