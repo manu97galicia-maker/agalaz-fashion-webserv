@@ -115,11 +115,12 @@ IDENTITY PRESERVATION (critical):
 - Background, lighting, camera angle = IDENTICAL to IMG1
 - Only modify the specific body area where the product belongs
 
-PRODUCT DETECTION & APPLICATION${category && category !== 'auto' ? ` (user confirmed: ${category.toUpperCase()})` : '' } — detect what IMG2 shows and apply accordingly:
-- TOPS (shirt, t-shirt, blouse, sweater, hoodie, polo) → replace upper body clothing only, keep pants/skirt/jacket if visible
+PRODUCT DETECTION & APPLICATION${category && category !== 'auto' ? ` (user confirmed: ${category.toUpperCase()})` : '' } — detect what IMG2 shows and apply accordingly. CHECK THIS ORDER FIRST and pick the most-specific match:
+- SUIT / 2-PIECE MATCHING SET (formal suit jacket + matching trousers, blazer + matching pants, tracksuit set, co-ord set, twin-set, two-piece outfit where the same fabric/color is visible on both top and bottom of a model) → replace BOTH upper and lower clothing with the full set. Do NOT keep the user's existing pants or shorts. The matching fabric on the model is the strongest signal — if you see a jacket and pants of the same color/fabric on the same person in IMG2, treat it as a SUIT and replace head-to-toe (minus shoes).
+- FULL BODY single garment (dress, jumpsuit, romper, overalls) → replace both top and bottom clothing
+- TOPS (shirt, t-shirt, blouse, sweater, hoodie, polo, isolated piece, no matching pants visible) → replace upper body clothing only, keep pants/skirt/jacket if visible
 - BOTTOMS (pants, jeans, trousers, skirt, shorts, leggings) → replace lower body clothing only, keep top unchanged
-- FULL BODY (dress, jumpsuit, romper, overalls) → replace both top and bottom clothing
-- OUTERWEAR (jacket, coat, blazer, cardigan, vest) → layer OVER existing top, do not remove the shirt underneath
+- OUTERWEAR (standalone jacket, coat, cardigan, vest with NO matching pants visible in IMG2) → layer OVER existing top, do not remove the shirt underneath
 - GLASSES (sunglasses, prescription frames, goggles, reading glasses) → place on face bridge naturally, adjust to face width, add realistic reflections/shadows
 - JEWELRY:
   • Necklace/pendant/choker → drape around neck naturally, show chain following collarbone
