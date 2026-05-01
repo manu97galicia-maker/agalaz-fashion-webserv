@@ -11,6 +11,9 @@ export interface Article {
   contentEs: string;
   category?: string;
   categoryEs?: string;
+  image?: string;
+  imageAlt?: string;
+  imageAltEs?: string;
 }
 
 export const articles: Article[] = [
