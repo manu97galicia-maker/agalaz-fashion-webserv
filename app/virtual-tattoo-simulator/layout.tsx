@@ -1,9 +1,18 @@
 import type { Metadata } from 'next';
 
+const FAQ = [
+  { q: 'How does the virtual tattoo placement work?', a: 'Upload a photo of the body part where you want the tattoo (arm, leg, chest, back, ribs, neck) and a photo of the design. The AI maps the design onto your skin in 30 seconds — respecting curvature, lighting, skin tone, and existing markings. You see exactly how the tattoo will sit before booking the appointment.' },
+  { q: 'Can I try any tattoo design?', a: 'Yes. Custom designs from your artist, Pinterest finds, traditional flash sheets, fine line art, blackwork, watercolor, geometric, lettering, full-colour pieces. If you have an image of the design, you can render it.' },
+  { q: 'Can I see how the tattoo will look in different sizes or placements?', a: 'Yes. After the first render, ask the AI chat: "make it 30% smaller", "move it 2 inches lower", "rotate slightly". Re-renders without losing the design or your skin tone.' },
+  { q: 'Will it look like my real skin?', a: 'Yes. Skin tone, body curvature, existing tattoos, scars, hair direction — everything is preserved. The AI is not a flat overlay; it is a realistic render of how that ink will sit on your body.' },
+  { q: 'Is it useful for tattoo artists and shops?', a: 'Hugely. Show clients exactly what they will get before the gun touches skin. Cuts indecision, reduces walk-aways, and works as portfolio content. Partner pricing available for shops doing 50+ pieces a month.' },
+  { q: 'Do I need to download an app?', a: 'No. Works in any browser on phone or desktop. First render is free, no account required.' },
+];
+
 export const metadata: Metadata = {
   title: 'Free Virtual Tattoo Placement Simulator | Try Tattoos on Your Photo with AI',
   description:
-    'Try tattoos on your photo with our free AI simulator. Realistic placement on arms, legs, or chest. High-fidelity rendering for tattoo artists and shops. Try it now!',
+    'Try tattoos on your photo with our free AI simulator. Realistic placement on arms, legs, chest, ribs. High-fidelity rendering for tattoo artists and shops. Try it now!',
   keywords: [
     'tattoo visualizer online free',
     'test tattoo on skin photo',
@@ -45,31 +54,34 @@ export const metadata: Metadata = {
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const ld = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'SoftwareApplication',
+        name: 'Agalaz AI Tattoo Simulator',
+        operatingSystem: 'WEB',
+        applicationCategory: 'DesignApplication',
+        url: 'https://agalaz.com/virtual-tattoo-simulator',
+        offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' },
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://agalaz.com' },
+          { '@type': 'ListItem', position: 2, name: 'Virtual Tattoo Simulator', item: 'https://agalaz.com/virtual-tattoo-simulator' },
+        ],
+      },
+    ],
+  };
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'SoftwareApplication',
-            name: 'Agalaz AI Tattoo Simulator',
-            operatingSystem: 'WEB',
-            applicationCategory: 'DesignApplication',
-            url: 'https://agalaz.com/virtual-tattoo-simulator',
-            aggregateRating: {
-              '@type': 'AggregateRating',
-              ratingValue: '4.9',
-              ratingCount: '52000',
-            },
-            offers: {
-              '@type': 'Offer',
-              price: '0.00',
-              priceCurrency: 'USD',
-            },
-          }),
-        }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       {children}
     </>
   );
