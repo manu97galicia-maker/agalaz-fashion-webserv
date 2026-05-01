@@ -20,6 +20,7 @@ const urls = [
   'https://agalaz.com/virtual-glasses-try-on',
   'https://agalaz.com/virtual-jewelry-try-on',
   'https://agalaz.com/virtual-mens-suit-try-on',
+  'https://agalaz.com/virtual-pet-clothing-try-on',
   'https://agalaz.com/blog',
   'https://agalaz.com/partners',
   'https://agalaz.com/privacy',
