@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { LanguageProvider } from '@/components/LanguageProvider';
 import './globals.css';
 
@@ -28,11 +30,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: 'Agalaz — AI Virtual Try-On | Try Clothes On Your Body Free',
+    default: 'Try On Any Clothing Before Buying — Free AI Virtual Try-On',
     template: '%s | Agalaz Fashion',
   },
   description:
-    'Upload your photo and try on any clothing instantly with AI. See how clothes fit your real body before buying — reduce returns by 80%. Free to try, no credit card needed.',
+    'Upload your photo and see any clothing on your real body with AI. Reduce returns 80%. 2 free renders, no credit card — try free now.',
   keywords: [
     'virtual try-on',
     'AI fashion',
@@ -213,6 +215,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <LanguageProvider>
           {children}
         </LanguageProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
