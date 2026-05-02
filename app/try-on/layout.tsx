@@ -3,7 +3,9 @@ import type { Metadata } from 'next';
 const BASE_URL = 'https://agalaz.com';
 
 export const metadata: Metadata = {
-  title: 'Virtual Try On — See Clothes On Your Body With AI | Agalaz',
+  title: {
+    absolute: 'Virtual Try On — Free AI Clothing Fitting Room | Agalaz',
+  },
   description:
     'Free AI virtual try-on tool. Upload your photo and see how any clothing looks on your real body instantly. No downloads, no sign-up hassle. Try clothes online before buying — reduce returns by 80%.',
   keywords: [
@@ -52,5 +54,10 @@ export const metadata: Metadata = {
 };
 
 export default function TryOnLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return (
+    <>
+      <h1 className="sr-only">Virtual Try-On — See Clothes On Your Real Body With AI</h1>
+      {children}
+    </>
+  );
 }

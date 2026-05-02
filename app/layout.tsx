@@ -28,7 +28,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: 'Agalaz — AI Virtual Try-On | See Clothes On Your Real Body Before You Buy',
+    default: 'Agalaz — AI Virtual Try-On | Try Clothes On Your Body Free',
     template: '%s | Agalaz Fashion',
   },
   description:

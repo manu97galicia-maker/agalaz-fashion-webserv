@@ -3,7 +3,9 @@ import type { Metadata } from 'next';
 const BASE_URL = 'https://agalaz.com';
 
 export const metadata: Metadata = {
-  title: 'Virtual Try On — AI Clothing Try-On Tool | See Clothes On Your Body',
+  title: {
+    absolute: 'Virtual Try On Online — Free AI Try-On Tool | Agalaz',
+  },
   description:
     'Try on clothes virtually with AI. Upload your photo and see how any garment looks on your real body before buying. Free virtual try-on tool — no app download needed. Reduce online shopping returns by 80%.',
   keywords: [
