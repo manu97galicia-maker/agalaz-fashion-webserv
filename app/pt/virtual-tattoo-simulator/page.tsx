@@ -1,3 +1,11 @@
 'use client';
 import TattooSimulator from '@/components/landing/TattooSimulator';
-export default function Page() { return <TattooSimulator lang="pt" />; }
+import TriptychDemo, { TRIPTYCH_LABELS } from '@/components/TriptychDemo';
+export default function Page() {
+  return (
+    <>
+      <TriptychDemo slug="virtual-tattoo-simulator" labels={TRIPTYCH_LABELS.pt} />
+      <TattooSimulator lang="pt" />
+    </>
+  );
+}

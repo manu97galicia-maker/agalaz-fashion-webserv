@@ -1,5 +1,8 @@
 import Link from 'next/link';
-import { ArrowRight, Sparkles, Check, Zap, Shield, Star } from 'lucide-react';
+import { ArrowRight, Sparkles, Zap, Shield, Star } from 'lucide-react';
+import TriptychDemo, { TRIPTYCH_LABELS } from '@/components/TriptychDemo';
+
+type Lang = 'fr' | 'pt' | 'de' | 'it';
 
 export interface LocalizedContent {
   badge: string;
@@ -38,11 +41,15 @@ export interface LocalizedContent {
 
 interface Props {
   c: LocalizedContent;
-  /** path to the EN canonical of the same landing for the language switcher (e.g. /virtual-wedding-dress-try-on) */
+  /** path to the EN canonical of the same landing for the language switcher */
   enHref: string;
+  /** slug for the triptych demo image lookup (matches public/images/landings/{slug}-*.png) */
+  slug: string;
+  /** language for the triptych demo labels */
+  lang: Lang;
 }
 
-export default function LocalizedLanding({ c, enHref }: Props) {
+export default function LocalizedLanding({ c, enHref, slug, lang }: Props) {
   return (
     <main className="min-h-screen bg-white text-slate-900">
       {/* Top bar */}
@@ -96,6 +103,9 @@ export default function LocalizedLanding({ c, enHref }: Props) {
           <p className="text-[11px] text-slate-400 mt-6 font-light">{c.freeNote}</p>
         </div>
       </section>
+
+      {/* Triptych demo */}
+      <TriptychDemo slug={slug} labels={TRIPTYCH_LABELS[lang]} />
 
       {/* Why */}
       <section className="max-w-5xl mx-auto px-6 py-20 md:py-28">

@@ -1,3 +1,11 @@
 'use client';
 import EarringTryOn from '@/components/landing/EarringTryOn';
-export default function Page() { return <EarringTryOn lang="fr" />; }
+import TriptychDemo, { TRIPTYCH_LABELS } from '@/components/TriptychDemo';
+export default function Page() {
+  return (
+    <>
+      <TriptychDemo slug="virtual-earring-try-on" labels={TRIPTYCH_LABELS.fr} />
+      <EarringTryOn lang="fr" />
+    </>
+  );
+}
