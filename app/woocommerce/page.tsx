@@ -325,6 +325,7 @@ export default function WooCommercePage() {
             <Link href="/" className="hover:text-slate-700 transition-colors">Home</Link>
             <Link href="/try-on" className="hover:text-slate-700 transition-colors">Try-on demo</Link>
             <Link href="/shopify" className="hover:text-slate-700 transition-colors">Shopify</Link>
+            <Link href="/developers" className="hover:text-slate-700 transition-colors">Developers</Link>
             <Link href="/partners" className="hover:text-slate-700 transition-colors">Partners</Link>
             <Link href="/blog" className="hover:text-slate-700 transition-colors">Blog</Link>
             <Link href="/privacy" className="hover:text-slate-700 transition-colors">Privacy</Link>

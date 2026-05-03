@@ -55,6 +55,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.85,
     },
+    {
+      url: `${baseUrl}/developers`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
     ...blogEntries,
     {
       url: `${baseUrl}/virtual-tattoo-simulator`,

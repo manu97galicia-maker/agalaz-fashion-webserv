@@ -324,6 +324,7 @@ export default function ShopifyPage() {
             <Link href="/" className="hover:text-slate-700 transition-colors">Home</Link>
             <Link href="/try-on" className="hover:text-slate-700 transition-colors">Try-on demo</Link>
             <Link href="/woocommerce" className="hover:text-slate-700 transition-colors">WooCommerce</Link>
+            <Link href="/developers" className="hover:text-slate-700 transition-colors">Developers</Link>
             <Link href="/partners" className="hover:text-slate-700 transition-colors">Partners</Link>
             <Link href="/blog" className="hover:text-slate-700 transition-colors">Blog</Link>
             <Link href="/privacy" className="hover:text-slate-700 transition-colors">Privacy</Link>
