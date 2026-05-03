@@ -61,7 +61,10 @@ export default function PartnersPage() {
 function PartnersContent() {
   const searchParams = useSearchParams();
   const { lang } = useLang();
-  const [step, setStep] = useState<FlowStep>('loading');
+  // SSR-visible landing: render the marketing content immediately so crawlers
+  // (and unauthenticated visitors) see it without waiting for the auth check.
+  // Authenticated users transition to has_key/subscribed in the mount effect below.
+  const [step, setStep] = useState<FlowStep>('landing');
   const [storeUrl, setStoreUrl] = useState('');
   const [selectedPlan, setSelectedPlan] = useState('growth');
   const [isSubmitting, setIsSubmitting] = useState(false);
