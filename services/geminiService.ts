@@ -69,16 +69,25 @@ export async function generateTryOnImage(
     const cleanUser = trimBase64(cleanBase64(userImage));
     const userMime = detectMime(cleanUser);
 
-    const parts: any[] = [
-      { inlineData: { mimeType: userMime, data: cleanUser } },
-    ];
+    // Iterative try-on with a NEW garment (e.g. user already rendered a t-shirt and now
+    // attaches pants in chat). Without this, the modification branch below sends a weak
+    // "modify the previous render" prompt and Gemini ignores the new garment.
+    // Fix: treat the previous render as the new "person base" (IMG1) so the strong
+    // virtual-try-on prompt fires with the new garment as IMG2.
+    const isIterativeWithNewGarment = !!lastRenderedImage && !!clothingImage;
 
-    if (clothingImage) {
-      parts.push({ inlineData: { mimeType: clothingMimeType || 'image/jpeg', data: trimBase64(cleanBase64(clothingImage)) } });
-    }
-
-    if (lastRenderedImage) {
-      parts.push({ inlineData: { mimeType: 'image/png', data: cleanBase64(lastRenderedImage) } });
+    const parts: any[] = [];
+    if (isIterativeWithNewGarment) {
+      parts.push({ inlineData: { mimeType: 'image/png', data: cleanBase64(lastRenderedImage!) } });
+      parts.push({ inlineData: { mimeType: clothingMimeType || 'image/jpeg', data: trimBase64(cleanBase64(clothingImage!)) } });
+    } else {
+      parts.push({ inlineData: { mimeType: userMime, data: cleanUser } });
+      if (clothingImage) {
+        parts.push({ inlineData: { mimeType: clothingMimeType || 'image/jpeg', data: trimBase64(cleanBase64(clothingImage)) } });
+      }
+      if (lastRenderedImage) {
+        parts.push({ inlineData: { mimeType: 'image/png', data: cleanBase64(lastRenderedImage) } });
+      }
     }
 
     const hasGarment = !!clothingImage;
@@ -103,7 +112,7 @@ export async function generateTryOnImage(
 
     let promptText: string;
 
-    if (modificationPrompt && lastRenderedImage) {
+    if (modificationPrompt && lastRenderedImage && !isIterativeWithNewGarment) {
       promptText = `Modify the previous render (IMG ${hasGarment ? '3' : '2'}): "${modificationPrompt}". Keep the same person, change ONLY what was requested. Output one photorealistic image.`;
     } else if (hasGarment) {
       promptText = `VIRTUAL TRY-ON ENGINE. IMG1=person photo. IMG2=product to apply.${sizeNote}${categoryHint}
