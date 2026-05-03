@@ -817,82 +817,90 @@ export default function TryOnPage() {
       {/* Credit Shop Modal */}
       {showCreditShop && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center animate-fade-in" onClick={() => setShowCreditShop(false)}>
-          <div className="bg-white mx-4 md:mx-6 p-5 md:p-8 rounded-2xl max-w-sm w-full text-center space-y-5 md:space-y-6 shadow-2xl animate-fade-in-up" onClick={(e) => e.stopPropagation()}>
+          <div className="bg-white mx-4 md:mx-6 p-5 md:p-7 rounded-2xl max-w-md w-full text-center space-y-5 shadow-2xl animate-fade-in-up" onClick={(e) => e.stopPropagation()}>
             <div className="w-14 h-14 bg-amber-500 rounded-xl flex items-center justify-center mx-auto">
               <Zap size={24} className="text-white" />
             </div>
             <div>
               <h3 className="font-serif text-2xl font-black text-slate-900 tracking-tight">
-                {lang === 'es' ? 'Comprar Créditos' : 'Buy Credits'}
+                {lang === 'es' ? 'Comprar Ahora' : 'Buy Now'}
               </h3>
               <p className="text-slate-400 text-sm mt-2 font-light">
-                {lang === 'es' ? '20 renders por pack · sin suscripción' : '20 renders per pack · no subscription'}
+                {lang === 'es' ? 'Pago único · sin suscripción · sin caducidad' : 'One-time payment · no subscription · no expiry'}
               </p>
             </div>
 
-            {/* Quantity selector */}
-            <div className="flex items-center justify-center gap-4">
-              <button
-                onClick={() => setCreditQty(Math.max(1, creditQty - 1))}
-                className="w-10 h-10 rounded-full border-2 border-slate-200 flex items-center justify-center text-slate-400 hover:border-slate-300 hover:text-slate-600 transition-colors text-lg font-bold"
-              >
-                −
-              </button>
-              <div className="text-center min-w-[80px]">
-                <span className="text-3xl font-black text-slate-900">{creditQty}</span>
-                <p className="text-[10px] text-slate-400 font-bold">{creditQty === 1 ? 'pack' : 'packs'}</p>
-              </div>
-              <button
-                onClick={() => setCreditQty(creditQty + 1)}
-                className="w-10 h-10 rounded-full border-2 border-slate-200 flex items-center justify-center text-slate-400 hover:border-slate-300 hover:text-slate-600 transition-colors text-lg font-bold"
-              >
-                +
-              </button>
+            {/* Two-tier pack selection */}
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                {
+                  plan: 'test',
+                  name: 'Starter',
+                  price: '$0,99',
+                  description: lang === 'es' ? '1 render + 1 GRATIS 🎁' : '1 render + 1 FREE 🎁',
+                  hint: lang === 'es' ? 'Empieza por menos de $1' : 'Start for under $1',
+                  credits: 2,
+                  bg: 'bg-white',
+                  border: 'border-slate-200',
+                  badge: null as string | null,
+                },
+                {
+                  plan: 'popular',
+                  name: 'Style Pro',
+                  price: '$4,99',
+                  description: lang === 'es' ? '12 renders · $0,42 cada uno' : '12 renders · $0.42 each',
+                  hint: lang === 'es' ? 'AHORRA 58%' : 'SAVE 58%',
+                  credits: 12,
+                  bg: 'bg-indigo-50',
+                  border: 'border-indigo-300',
+                  badge: lang === 'es' ? 'POPULAR' : 'POPULAR',
+                },
+              ].map((tier) => (
+                <button
+                  key={tier.plan}
+                  onClick={async () => {
+                    if (!user) { setShowLogin(true); return; }
+                    (window as any).datafast?.('credits_pack_purchase', { plan: tier.plan, credits: tier.credits });
+                    try {
+                      const { createBrowserClient } = await import('@supabase/ssr');
+                      const sb = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL || '', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '');
+                      const { data: { user: sbUser } } = await sb.auth.getUser();
+                      if (!sbUser) { alert(lang === 'es' ? 'Error de autenticación. Recarga la página.' : 'Auth error. Please reload.'); return; }
+                      const res = await fetch('/api/stripe/checkout', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ plan: tier.plan, email: user.email, userId: sbUser.id }),
+                      });
+                      const data = await res.json();
+                      if (data.url) {
+                        window.location.href = data.url;
+                      } else {
+                        console.error('Stripe checkout error:', data.error);
+                        alert(lang === 'es' ? 'Error al conectar con Stripe. Inténtalo de nuevo.' : 'Stripe connection error. Please try again.');
+                      }
+                    } catch (err) {
+                      console.error('Credit purchase error:', err);
+                      alert(lang === 'es' ? 'Error al procesar la compra. Inténtalo de nuevo.' : 'Purchase error. Please try again.');
+                    }
+                  }}
+                  className={`relative ${tier.bg} ${tier.border} border-2 rounded-2xl p-4 text-left hover:shadow-md transition-all`}
+                >
+                  {tier.badge && (
+                    <span className="absolute -top-2 right-3 bg-indigo-600 text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest">
+                      {tier.badge}
+                    </span>
+                  )}
+                  <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{tier.name}</div>
+                  <div className="text-2xl font-black text-slate-900 mb-1">{tier.price}</div>
+                  <div className="text-[11px] text-slate-500 font-light leading-tight mb-2">{tier.description}</div>
+                  <div className="text-[10px] text-indigo-600 font-bold">{tier.hint}</div>
+                  <div className="mt-3 text-[11px] font-black text-slate-900 uppercase tracking-widest">
+                    {lang === 'es' ? 'Comprar Ahora →' : 'Buy Now →'}
+                  </div>
+                </button>
+              ))}
             </div>
 
-            {/* Summary */}
-            <div className="bg-slate-50 rounded-xl p-4 space-y-1">
-              <div className="flex justify-between text-sm">
-                <span className="text-slate-500">{creditQty}x 20 {lang === 'es' ? 'créditos' : 'credits'}</span>
-                <span className="font-black text-slate-900">{(creditQty * 20)} renders</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-slate-500">{lang === 'es' ? 'Total' : 'Total'}</span>
-                <span className="font-black text-slate-900">{(creditQty * 9.99).toFixed(2).replace('.', ',')}€</span>
-              </div>
-            </div>
-
-            <button
-              onClick={async () => {
-                if (!user) { setShowLogin(true); return; }
-                (window as any).datafast?.('credits_pack_purchase', { qty: creditQty, credits: creditQty * 20 });
-                try {
-                  const { createBrowserClient } = await import('@supabase/ssr');
-                  const sb = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL || '', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '');
-                  const { data: { user: sbUser } } = await sb.auth.getUser();
-                  if (!sbUser) { alert(lang === 'es' ? 'Error de autenticación. Recarga la página.' : 'Auth error. Please reload.'); return; }
-                  const res = await fetch('/api/stripe/checkout', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ plan: 'credits20', quantity: creditQty, email: user.email, userId: sbUser.id }),
-                  });
-                  const data = await res.json();
-                  if (data.url) {
-                    window.location.href = data.url;
-                  } else {
-                    console.error('Stripe checkout error:', data.error);
-                    alert(lang === 'es' ? 'Error al conectar con Stripe. Inténtalo de nuevo.' : 'Stripe connection error. Please try again.');
-                  }
-                } catch (err) {
-                  console.error('Credit purchase error:', err);
-                  alert(lang === 'es' ? 'Error al procesar la compra. Inténtalo de nuevo.' : 'Purchase error. Please try again.');
-                }
-              }}
-              className="w-full py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-[0.15em] text-xs hover:bg-amber-600 transition-colors flex items-center justify-center gap-3"
-            >
-              <Zap size={16} />
-              {lang === 'es' ? `Comprar ${creditQty * 20} créditos` : `Buy ${creditQty * 20} credits`}
-            </button>
             <button
               onClick={() => setShowCreditShop(false)}
               className="text-slate-300 text-xs font-bold hover:text-slate-500 transition-colors"

@@ -22,17 +22,17 @@ function getBotReply(userMsg: string, lang: string): string {
   }
 
   // Pricing / plans
-  if (/precio|plan|cost|cuánto|cuanto|pricing|suscri|subscri|pagar|pay/.test(msg)) {
+  if (/precio|plan|cost|cuánto|cuanto|pricing|suscri|subscri|pagar|pay|pack|comprar|buy/.test(msg)) {
     return es
-      ? '💰 Plan Semanal: 4,99€/semana (14 renders). Plan Anual: 59,99€/año (14 renders/semana + 1 día de prueba gratis con 2 renders, introduces tarjeta pero no se cobra hasta pasadas 24h). Cancela cuando quieras.'
-      : '💰 Weekly: $4.99/week (14 renders). Yearly: $59.99/year (14 renders/week + 1 day free trial with 2 renders, card required but not charged for 24h). Cancel anytime.';
+      ? '💰 Dos packs de pago único:\n\n• **Starter $0,99** — 1 render + 1 GRATIS 🎁 (empieza por menos de $1)\n• **Style Pro $4,99** — 12 renders, $0,42 por render (AHORRA 58%)\n\nSin suscripción, sin renovación automática. Comprar Ahora en /try-on.'
+      : '💰 Two one-time packs:\n\n• **Starter $0.99** — 1 render + 1 FREE 🎁 (start for under $1)\n• **Style Pro $4.99** — 12 renders, $0.42 per render (SAVE 58%)\n\nNo subscription, no auto-renewal. Buy Now at /try-on.';
   }
 
   // Free trial
   if (/gratis|free|trial|prueba/.test(msg)) {
     return es
-      ? '🎁 Con el plan anual tienes 1 día de prueba gratis con 2 renders. Introduces tu tarjeta pero NO se te cobra nada el primer día. Si no cancelas en 24h, se activa el plan anual (59,99€/año) automáticamente.'
-      : '🎁 The yearly plan includes a 1-day free trial with 2 renders. You enter your card but are NOT charged on day one. If you don\'t cancel within 24h, the yearly plan ($59.99/year) activates automatically.';
+      ? '🎁 Tienes 2 renders 100% gratis sin tarjeta — pruébalo en /try-on. Si te gusta, el pack Starter es solo $0,99 (1 render + 1 gratis) o Style Pro $4,99 por 12 renders (AHORRA 58%). Pago único, sin suscripción. Comprar Ahora en /try-on.'
+      : '🎁 You get 2 renders 100% free, no card needed — try it at /try-on. If you like it, the Starter pack is just $0.99 (1 render + 1 free) or Style Pro $4.99 for 12 renders (SAVE 58%). One-time payment, no subscription. Buy Now at /try-on.';
   }
 
   // Partners / ecommerce

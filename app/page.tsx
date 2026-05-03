@@ -637,19 +637,19 @@ export default function HomePage() {
           </h2>
           <div className="space-y-6">
             {(lang === 'es' ? [
-              { q: 'Es gratis?', a: 'Tienes 2 renders gratis para probar. Después puedes elegir un plan semanal ($4.99) o anual ($59.99).' },
-              { q: 'Cómo funciona el plan anual?', a: 'Al suscribirte al plan anual tienes un día de prueba gratuita. Si no cancelas antes, se cobra $59.99/año. Recibes 14 renders por semana.' },
-              { q: 'Cómo cancelo mi suscripción?', a: 'Desde tu perfil (icono de tu foto arriba a la izquierda) verás el botón "Gestionar suscripción". Ahí puedes cancelar al instante. No hay permanencia ni penalización. Tu acceso continúa hasta el final del periodo ya pagado.' },
-              { q: 'Si cancelo, pierdo mis datos?', a: 'No. Tu cuenta, tu historial de renders y tu galería se mantienen intactos. Si vuelves a suscribirte, todo sigue donde lo dejaste.' },
-              { q: 'Qué pasa con mis fotos?', a: 'Tus fotos se procesan en tiempo real y no se almacenan en nuestros servidores. Tu privacidad es nuestra prioridad.' },
-              { q: 'Cuántos renders tengo por semana?', a: 'Los suscriptores tienen 14 renders por semana que se renuevan automáticamente.' },
+              { q: '¿Es gratis para probar?', a: 'Sí. Tienes 2 renders gratis sin tarjeta. Después: pack Starter $0,99 (1 render + 1 GRATIS 🎁, empieza por menos de $1) o pack Style Pro $4,99 (12 renders, $0,42 por render — AHORRA 58%). Pago único.' },
+              { q: '¿Cuál pack me conviene?', a: 'Para probar a fondo: Starter $0,99 (2 renders en total, 1 + 1 gratis). Para uso regular: Style Pro $4,99 (12 renders por solo $0,42 cada uno, ahorras un 58% frente al Starter).' },
+              { q: '¿Es una suscripción?', a: 'No. Ambos packs son pago único. Sin renovación automática, sin permanencia, sin nada que cancelar. Pagas el pack y los renders están en tu cuenta.' },
+              { q: '¿Mis renders caducan?', a: 'No. Una vez compras un pack, los renders se quedan en tu cuenta hasta que los uses. Cómpralos cuando los necesites.' },
+              { q: '¿Qué pasa con mis fotos?', a: 'Se procesan en tiempo real y no se almacenan en nuestros servidores. Privacidad total — tus fotos nunca se guardan ni se usan para entrenar IA.' },
+              { q: '¿Cómo compro un pack?', a: 'Pulsa "Comprar Ahora" en cualquier landing o ve a /try-on. Eliges el pack y completas el pago en 30 segundos con Stripe (tarjeta, Apple Pay o Google Pay).' },
             ] : [
-              { q: 'Is it free?', a: 'You get 2 free renders to try. After that you can choose a weekly ($4.99) or yearly ($59.99) plan.' },
-              { q: 'How does the yearly plan work?', a: 'The yearly plan includes a 1-day free trial. If you don\'t cancel, you\'re charged $59.99/year. You get 14 renders per week.' },
-              { q: 'How do I cancel my subscription?', a: 'Go to your profile (tap your photo icon in the top left) and click "Manage Subscription". You can cancel instantly. No lock-in, no penalties. Your access continues until the end of your current paid period.' },
-              { q: 'If I cancel, do I lose my data?', a: 'No. Your account, render history, and gallery remain intact. If you resubscribe later, everything is right where you left it.' },
-              { q: 'What happens with my photos?', a: 'Your photos are processed in real time and are not stored on our servers. Your privacy is our priority.' },
-              { q: 'How many renders do I get per week?', a: 'Subscribers get 14 renders per week that renew automatically.' },
+              { q: 'Is it free to try?', a: 'Yes. You get 2 free renders, no card required. After that: Starter pack $0.99 (1 render + 1 FREE 🎁, start for under $1) or Style Pro pack $4.99 (12 renders, $0.42 per render — SAVE 58%). One-time payment.' },
+              { q: 'Which pack should I pick?', a: 'To try it thoroughly: Starter $0.99 (2 renders total, 1 + 1 free). For regular use: Style Pro $4.99 (12 renders at just $0.42 each — 58% cheaper per render than Starter).' },
+              { q: 'Is this a subscription?', a: 'No. Both packs are one-time payments. No auto-renewal, no lock-in, nothing to cancel. You buy the pack and the renders sit in your account.' },
+              { q: 'Do my renders expire?', a: 'No. Once you buy a pack, the renders stay in your account until you use them. Buy when you need them, no rush.' },
+              { q: 'What happens to my photos?', a: 'Processed in real time, never stored on our servers. Full privacy — your photos are never saved nor used to train AI.' },
+              { q: 'How do I buy a pack?', a: 'Tap "Buy Now" on any landing or go to /try-on. Pick the pack and complete payment in 30 seconds with Stripe (card, Apple Pay, or Google Pay).' },
             ]).map((faq, i) => (
               <details key={i} className="group bg-white border border-slate-200 rounded-xl overflow-hidden">
                 <summary className="flex items-center justify-between p-5 cursor-pointer hover:bg-slate-50 transition-colors">
@@ -661,6 +661,45 @@ export default function HomePage() {
                 </div>
               </details>
             ))}
+          </div>
+
+          {/* Pricing tiers + Buy Now CTAs */}
+          <div className="mt-12 grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
+              <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Starter</div>
+              <div className="text-3xl font-black text-slate-900 mb-1">$0,99</div>
+              <div className="text-xs text-slate-500 font-light mb-4">
+                {lang === 'es' ? '1 render + 1 GRATIS 🎁 · pago único' : '1 render + 1 FREE 🎁 · one-time'}
+              </div>
+              <p className="text-[11px] text-slate-400 font-light mb-5">
+                {lang === 'es' ? 'Empieza por menos de $1' : 'Start for under $1'}
+              </p>
+              <Link
+                href="/try-on?plan=test"
+                className="block w-full py-3 bg-slate-900 text-white text-xs font-black uppercase tracking-[0.15em] hover:bg-indigo-600 transition-colors"
+              >
+                {lang === 'es' ? 'Comprar Ahora' : 'Buy Now'}
+              </Link>
+            </div>
+            <div className="bg-indigo-50 border-2 border-indigo-300 rounded-2xl p-6 text-center relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full">
+                {lang === 'es' ? 'AHORRA 58%' : 'SAVE 58%'}
+              </div>
+              <div className="text-[10px] font-black text-indigo-600 uppercase tracking-widest mb-2">Style Pro</div>
+              <div className="text-3xl font-black text-slate-900 mb-1">$4,99</div>
+              <div className="text-xs text-slate-500 font-light mb-4">
+                {lang === 'es' ? '12 renders · $0,42 por render · pago único' : '12 renders · $0.42 per render · one-time'}
+              </div>
+              <p className="text-[11px] text-slate-400 font-light mb-5">
+                {lang === 'es' ? 'El más popular' : 'Most popular'}
+              </p>
+              <Link
+                href="/try-on?plan=popular"
+                className="block w-full py-3 bg-indigo-600 text-white text-xs font-black uppercase tracking-[0.15em] hover:bg-indigo-700 transition-colors"
+              >
+                {lang === 'es' ? 'Comprar Ahora' : 'Buy Now'}
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -890,19 +929,19 @@ export default function HomePage() {
             "@context": "https://schema.org",
             "@type": "FAQPage",
             "mainEntity": (lang === 'es' ? [
-              { q: '¿Es gratis?', a: 'Tienes 2 renders gratis para probar. Después puedes elegir un plan semanal ($4.99) o anual ($59.99).' },
-              { q: '¿Cómo funciona el plan anual?', a: 'Al suscribirte al plan anual tienes un día de prueba gratuita. Si no cancelas antes, se cobra $59.99/año. Recibes 14 renders por semana.' },
-              { q: '¿Cómo cancelo mi suscripción?', a: 'Desde tu perfil verás el botón "Gestionar suscripción". Ahí puedes cancelar al instante. No hay permanencia ni penalización. Tu acceso continúa hasta el final del periodo ya pagado.' },
-              { q: '¿Si cancelo, pierdo mis datos?', a: 'No. Tu cuenta, tu historial de renders y tu galería se mantienen intactos. Si vuelves a suscribirte, todo sigue donde lo dejaste.' },
-              { q: '¿Qué pasa con mis fotos?', a: 'Tus fotos se procesan en tiempo real y no se almacenan en nuestros servidores. Tu privacidad es nuestra prioridad.' },
-              { q: '¿Cuántos renders tengo por semana?', a: 'Los suscriptores tienen 14 renders por semana que se renuevan automáticamente.' },
+              { q: '¿Es gratis para probar?', a: 'Sí. Tienes 2 renders gratis sin tarjeta. Después: pack Starter $0,99 (1 render + 1 GRATIS, empieza por menos de $1) o pack Style Pro $4,99 (12 renders, $0,42 por render — AHORRA 58%). Pago único.' },
+              { q: '¿Cuál pack me conviene?', a: 'Para probar a fondo: Starter $0,99 (2 renders en total, 1 + 1 gratis). Para uso regular: Style Pro $4,99 (12 renders por solo $0,42 cada uno, ahorras un 58%).' },
+              { q: '¿Es una suscripción?', a: 'No. Ambos packs son pago único. Sin renovación automática, sin permanencia, sin nada que cancelar.' },
+              { q: '¿Mis renders caducan?', a: 'No. Una vez compras un pack, los renders se quedan en tu cuenta hasta que los uses.' },
+              { q: '¿Qué pasa con mis fotos?', a: 'Se procesan en tiempo real y no se almacenan en nuestros servidores. Privacidad total.' },
+              { q: '¿Cómo compro un pack?', a: 'Pulsa Comprar Ahora en cualquier landing o ve a /try-on. Eliges el pack y completas el pago en 30 segundos con Stripe (tarjeta, Apple Pay, Google Pay).' },
             ] : [
-              { q: 'Is it free?', a: 'You get 2 free renders to try. After that you can choose a weekly ($4.99) or yearly ($59.99) plan.' },
-              { q: 'How does the yearly plan work?', a: 'The yearly plan includes a 1-day free trial. If you don\'t cancel, you\'re charged $59.99/year. You get 14 renders per week.' },
-              { q: 'How do I cancel my subscription?', a: 'Go to your profile and click "Manage Subscription". You can cancel instantly. No lock-in, no penalties. Your access continues until the end of your current paid period.' },
-              { q: 'If I cancel, do I lose my data?', a: 'No. Your account, render history, and gallery remain intact. If you resubscribe later, everything is right where you left it.' },
-              { q: 'What happens with my photos?', a: 'Your photos are processed in real time and are not stored on our servers. Your privacy is our priority.' },
-              { q: 'How many renders do I get per week?', a: 'Subscribers get 14 renders per week that renew automatically.' },
+              { q: 'Is it free to try?', a: 'Yes. You get 2 free renders, no card required. After that: Starter pack $0.99 (1 render + 1 FREE, start for under $1) or Style Pro pack $4.99 (12 renders, $0.42 per render — SAVE 58%). One-time payment.' },
+              { q: 'Which pack should I pick?', a: 'To try it thoroughly: Starter $0.99 (2 renders total, 1 + 1 free). For regular use: Style Pro $4.99 (12 renders at just $0.42 each — 58% cheaper per render).' },
+              { q: 'Is this a subscription?', a: 'No. Both packs are one-time payments. No auto-renewal, no lock-in, nothing to cancel.' },
+              { q: 'Do my renders expire?', a: 'No. Once you buy a pack, the renders stay in your account until you use them.' },
+              { q: 'What happens to my photos?', a: 'Processed in real time, never stored on our servers. Full privacy.' },
+              { q: 'How do I buy a pack?', a: 'Tap Buy Now on any landing or go to /try-on. Pick the pack and complete payment in 30 seconds with Stripe (card, Apple Pay, Google Pay).' },
             ]).map(faq => ({
               "@type": "Question",
               "name": faq.q,
