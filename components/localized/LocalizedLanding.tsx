@@ -115,11 +115,11 @@ export default function LocalizedLanding({ c, enHref, slug, lang }: Props) {
         </div>
       </section>
 
+      {/* Interactive try-on with watermarked free render — placed first so visitors hit the upload UI before scrolling. */}
+      <TryOnDemoBlock category={SLUG_TO_CATEGORY[slug] || 'clothing'} lang={lang} />
+
       {/* Triptych demo */}
       <TriptychDemo slug={slug} labels={TRIPTYCH_LABELS[lang]} />
-
-      {/* Interactive try-on with watermarked free render */}
-      <TryOnDemoBlock category={SLUG_TO_CATEGORY[slug] || 'clothing'} lang={lang} />
 
       {/* Why */}
       <section className="max-w-5xl mx-auto px-6 py-20 md:py-28">

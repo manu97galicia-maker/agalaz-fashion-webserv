@@ -95,6 +95,9 @@ export default function WeddingDressTryOn() {
           </div>
         </div>
       </section>
+      {/* Interactive try-on demo with watermarked free render */}
+      <TryOnDemoBlock category="clothing" lang="en" productLabel="Wedding dress" />
+
 
       {/* Why brides use it */}
       <section className="bg-slate-50 py-20">
@@ -238,7 +241,6 @@ export default function WeddingDressTryOn() {
           </div>
         </div>
       </footer>
-          <TryOnDemoBlock category="clothing" lang="en" productLabel="Wedding dress" />
     </main>
   );
 }

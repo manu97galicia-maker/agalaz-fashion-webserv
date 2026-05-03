@@ -68,6 +68,9 @@ export default function PetClothingTryOn() {
           <div className="flex items-center gap-2"><Clock size={14} /><span className="text-xs font-bold">30-second render</span></div>
         </div>
       </section>
+      {/* Interactive try-on demo with watermarked free render */}
+      <TryOnDemoBlock category="pet-clothing" lang="en" productLabel="Pet outfit" />
+
 
       <section className="bg-slate-50 py-20">
         <div className="max-w-6xl mx-auto px-6 md:px-12">
@@ -173,7 +176,6 @@ export default function PetClothingTryOn() {
           </div>
         </div>
       </footer>
-          <TryOnDemoBlock category="pet-clothing" lang="en" productLabel="Pet outfit" />
     </main>
   );
 }

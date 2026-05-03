@@ -95,6 +95,9 @@ export default function NailTryOn() {
           </div>
         </div>
       </section>
+      {/* Interactive try-on demo with watermarked free render */}
+      <TryOnDemoBlock category="nail" lang="en" productLabel="Nail design" />
+
 
       {/* Why use it */}
       <section className="bg-slate-50 py-20">
@@ -248,7 +251,6 @@ export default function NailTryOn() {
           </div>
         </div>
       </footer>
-          <TryOnDemoBlock category="nail" lang="en" productLabel="Nail design" />
     </main>
   );
 }
