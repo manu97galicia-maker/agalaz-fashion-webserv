@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -47,19 +46,10 @@ interface PartnerProfile {
 type FlowStep = 'loading' | 'landing' | 'login' | 'has_key' | 'paywall' | 'subscribed';
 
 export default function PartnersPage() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="animate-pulse text-slate-400 text-sm font-bold">Cargando...</div>
-      </div>
-    }>
-      <PartnersContent />
-    </Suspense>
-  );
+  return <PartnersContent />;
 }
 
 function PartnersContent() {
-  const searchParams = useSearchParams();
   const { lang } = useLang();
   // SSR-visible landing: render the marketing content immediately so crawlers
   // (and unauthenticated visitors) see it without waiting for the auth check.
@@ -103,9 +93,13 @@ function PartnersContent() {
     });
   }, []);
 
-  // Post-payment redirect (covers both trial start and paid subscription activation)
+  // Post-payment redirect (covers both trial start and paid subscription activation).
+  // Reads the query string from window.location instead of useSearchParams so this
+  // page does NOT trigger a full-page Suspense boundary that would block SSR of the
+  // marketing landing for crawlers.
   useEffect(() => {
-    const subscribed = searchParams.get('subscribed');
+    if (typeof window === 'undefined') return;
+    const subscribed = new URLSearchParams(window.location.search).get('subscribed');
     if (subscribed === 'true' && userId) {
       // If we stashed the raw API key before the Stripe redirect, surface it now
       try {
@@ -117,7 +111,7 @@ function PartnersContent() {
       } catch {}
       loadPartnerProfile(userId);
     }
-  }, [searchParams, userId]);
+  }, [userId]);
 
   async function loadPartnerProfile(uid: string) {
     try {
