@@ -40,8 +40,10 @@ export default function PartnersDocsPage() {
       divCode: `<div id="agalaz-tryon"
   data-garment="{{ product.featured_image | img_url: 'large' }}"
   data-product-id="{{ product.id }}"
-  data-product-type="{{ product.type }}"></div>`,
-      note: 'Shopify automatically fills these from the product. data-product-id + data-product-type unlock AI-ranked cross-sell from your synced catalog (recommended). Works without them too — just less personalized.',
+  data-product-type="{{ product.type }}"
+  data-customer-id="{% if customer %}{{ customer.id }}{% endif %}"
+  data-login-url="/account/login"></div>`,
+      note: 'data-customer-id is REQUIRED — only logged-in customers can try on (3 free try-ons/day per customer, resets daily). When the customer is logged out, Liquid renders an empty value and the widget shows a "sign in to try on" prompt. data-product-id + data-product-type unlock AI-ranked cross-sell.',
     },
     'WooCommerce': {
       step1: `1. Go to Appearance → Theme File Editor
@@ -53,8 +55,10 @@ export default function PartnersDocsPage() {
       divCode: `<div id="agalaz-tryon"
   data-garment="<?php echo wp_get_attachment_url(get_post_thumbnail_id()); ?>"
   data-product-id="<?php echo get_the_ID(); ?>"
-  data-product-type="<?php $cats = get_the_terms(get_the_ID(), 'product_cat'); echo $cats && !is_wp_error($cats) ? esc_attr($cats[0]->name) : ''; ?>"></div>`,
-      note: 'PHP fills the image, post ID, and primary category automatically. data-product-id + data-product-type unlock AI-ranked cross-sell from your synced catalog.',
+  data-product-type="<?php $cats = get_the_terms(get_the_ID(), 'product_cat'); echo $cats && !is_wp_error($cats) ? esc_attr($cats[0]->name) : ''; ?>"
+  data-customer-id="<?php echo is_user_logged_in() ? esc_attr(get_current_user_id()) : ''; ?>"
+  data-login-url="<?php echo esc_url(wp_login_url(get_permalink())); ?>"></div>`,
+      note: 'data-customer-id is REQUIRED — only logged-in users can try on (3 free try-ons/day per customer, resets daily). is_user_logged_in() returns false for guests so the widget shows a "sign in to try on" prompt. data-product-id + data-product-type unlock AI-ranked cross-sell.',
     },
     'Custom HTML': {
       step1: `1. Open your HTML template or layout file
@@ -65,8 +69,10 @@ export default function PartnersDocsPage() {
       divCode: `<div id="agalaz-tryon"
   data-garment="https://yourstore.com/images/product.jpg"
   data-product-id="SKU-OR-ID-FROM-YOUR-CMS"
-  data-product-type="shirt"></div>`,
-      note: 'Replace the data-garment URL with your actual product image. data-product-id + data-product-type are optional but unlock AI-ranked cross-sell from your synced catalog.',
+  data-product-type="shirt"
+  data-customer-id="LOGGED_IN_CUSTOMER_ID_OR_EMPTY"
+  data-login-url="/login"></div>`,
+      note: 'data-customer-id is REQUIRED — render it from your CMS only when the visitor is logged in (leave empty for guests). The widget refuses to open without it and prompts them to sign in. Each logged-in customer gets 3 free try-ons per day, resetting at midnight UTC.',
     },
   };
 

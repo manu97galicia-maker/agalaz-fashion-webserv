@@ -1,11 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { randomUUID } from 'crypto';
 import { createAdminClient } from '@/lib/supabaseAdmin';
+import { verifyTurnstileToken } from '@/lib/turnstile';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { email, store_name, store_url, allowed_domains, plan } = body;
+    const turnstileToken = typeof body.turnstileToken === 'string' ? body.turnstileToken
+      : typeof body.captchaToken === 'string' ? body.captchaToken
+      : '';
+
+    const remoteIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+      || request.headers.get('x-real-ip')
+      || null;
+    const captcha = await verifyTurnstileToken(turnstileToken, remoteIp);
+    if (!captcha.ok) {
+      return NextResponse.json(
+        { error: 'Captcha verification failed', code: 'CAPTCHA_FAILED', reason: captcha.reason },
+        { status: 403 }
+      );
+    }
     // user_id is optional — the partners page allows registering without Google login.
     // When absent, mint a fresh UUID so the partners.user_id column stays unique.
     const user_id: string = body.user_id || randomUUID();

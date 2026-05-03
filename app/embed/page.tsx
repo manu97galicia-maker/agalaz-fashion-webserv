@@ -20,7 +20,12 @@ export default function EmbedPage() {
   const [garmentUrl, setGarmentUrl] = useState<string | null>(null);
   const [productType, setProductType] = useState<string>('');
   const [productId, setProductId] = useState<string>('');
+  const [customerId, setCustomerId] = useState<string>('');
   const [lang, setLang] = useState<'en' | 'es'>('en');
+  const [showCaptcha, setShowCaptcha] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string>('');
+  const [dailyExhausted, setDailyExhausted] = useState(false);
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '';
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [compliment, setCompliment] = useState<string | null>(null);
   const [crossSellMessage, setCrossSellMessage] = useState<string | null>(null);
@@ -58,6 +63,12 @@ export default function EmbedPage() {
     completeLook: 'Completa el look',
     findingMatches: 'Buscando combinaciones...',
     viewProduct: 'Ver producto',
+    captchaTitle: 'Confirma que no eres un robot',
+    captchaWaiting: 'Verificando...',
+    dailyExhaustedTitle: '¡Gracias por probar!',
+    dailyExhaustedBody: 'Has agotado tus 3 pruebas de hoy. Vuelve mañana — los créditos se renuevan cada 24h.',
+    customerRequiredTitle: 'Inicia sesión',
+    customerRequiredBody: 'Necesitas estar logueado en la tienda para probarte esta prenda.',
   } : {
     title: 'Virtual Try-On',
     subtitle: 'Upload your photo and try on this garment',
@@ -78,7 +89,54 @@ export default function EmbedPage() {
     completeLook: 'Complete the look',
     findingMatches: 'Finding matches...',
     viewProduct: 'View product',
+    captchaTitle: 'Confirm you are human',
+    captchaWaiting: 'Verifying...',
+    dailyExhaustedTitle: 'Thanks for trying!',
+    dailyExhaustedBody: 'You have used your 3 try-ons for today. Come back tomorrow — credits renew every 24h.',
+    customerRequiredTitle: 'Sign in',
+    customerRequiredBody: 'You need to be signed in at the store to try this on.',
   };
+
+  // Lazy-load Cloudflare Turnstile script (no-op if site key not configured)
+  useEffect(() => {
+    if (!turnstileSiteKey) return;
+    if (document.getElementById('cf-turnstile-script')) return;
+    const s = document.createElement('script');
+    s.id = 'cf-turnstile-script';
+    s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileReady';
+    s.async = true;
+    s.defer = true;
+    document.head.appendChild(s);
+  }, [turnstileSiteKey]);
+
+  // Render Turnstile widget when modal opens. Token comes back via callback.
+  useEffect(() => {
+    if (!showCaptcha || !turnstileSiteKey) return;
+    const ts = (window as any).turnstile;
+    if (!ts) {
+      const interval = setInterval(() => {
+        const ts2 = (window as any).turnstile;
+        if (ts2) { clearInterval(interval); renderWidget(ts2); }
+      }, 100);
+      return () => clearInterval(interval);
+    }
+    renderWidget(ts);
+    function renderWidget(ts: any) {
+      const el = document.getElementById('agalaz-turnstile-widget');
+      if (!el) return;
+      el.innerHTML = '';
+      ts.render('#agalaz-turnstile-widget', {
+        sitekey: turnstileSiteKey,
+        callback: (token: string) => {
+          setCaptchaToken(token);
+          setShowCaptcha(false);
+          setTimeout(() => runRender(token), 50);
+        },
+        'error-callback': () => setError(t.errorGeneric),
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showCaptcha]);
 
   // Parse URL params on mount
   useEffect(() => {
@@ -87,6 +145,7 @@ export default function EmbedPage() {
     setGarmentUrl(params.get('garment') || null);
     setProductType(params.get('type') || params.get('productType') || '');
     setProductId(params.get('productId') || params.get('product_id') || '');
+    setCustomerId(params.get('customerId') || params.get('customer_id') || '');
     if (params.get('lang') === 'es') setLang('es');
   }, []);
 
@@ -269,7 +328,22 @@ export default function EmbedPage() {
     };
   }
 
-  async function handleGenerate() {
+  // Entry from the "Try it on" button. Validates inputs, then either runs
+  // the render directly (no captcha configured) or opens the captcha modal.
+  function handleGenerate() {
+    if (!userImage) {
+      setError(t.errorNoPhoto);
+      return;
+    }
+    setError(null);
+    if (turnstileSiteKey) {
+      setShowCaptcha(true);  // Turnstile callback will invoke runRender(token)
+    } else {
+      runRender('');  // dev / unconfigured → skip captcha
+    }
+  }
+
+  async function runRender(token: string) {
     if (!userImage) {
       setError(t.errorNoPhoto);
       return;
@@ -279,11 +353,12 @@ export default function EmbedPage() {
     setError(null);
 
     // Build payload — always include garmentUrl as fallback for server-side fetch
-    const payload: Record<string, any> = { userImage };
+    const payload: Record<string, any> = { userImage, customerId };
     if (garmentImage) payload.clothingImage = garmentImage;
     if (garmentUrl) payload.garmentUrl = garmentUrl;  // ALWAYS send URL as backup
     if (currentSize) payload.currentSize = currentSize;
     if (previewSize) payload.previewSize = previewSize;
+    if (token) payload.turnstileToken = token;
 
     console.log('[Agalaz] Generate payload:', { hasUser: !!userImage, hasGarmentBase64: !!garmentImage, garmentUrl: garmentUrl || 'none' });
 
@@ -301,9 +376,21 @@ export default function EmbedPage() {
 
       if (!res.ok) {
         console.error('Embed generation failed:', JSON.stringify(data));
+        if (data.code === 'DAILY_LIMIT_EXCEEDED') {
+          setDailyExhausted(true);
+          setIsLoading(false);
+          return;
+        }
+        if (data.code === 'CUSTOMER_LOGIN_REQUIRED') {
+          setError(t.customerRequiredBody);
+          setIsLoading(false);
+          return;
+        }
         const debugStr = data.debug ? ` [${Object.entries(data.debug).map(([k, v]) => `${k}:${v}`).join(', ')}]` : '';
         setError((data.error || t.errorGeneric) + debugStr);
         setIsLoading(false);
+        // Reset captcha so user can retry
+        setCaptchaToken('');
         return;
       }
 
@@ -848,6 +935,43 @@ export default function EmbedPage() {
       {/* Hidden file inputs */}
       <input ref={userRef} type="file" accept="image/*" onChange={handleFile(setUserImage)} className="hidden" />
       <input ref={garmentRef} type="file" accept="image/*" onChange={handleFile(setGarmentImage)} className="hidden" />
+
+      {/* Captcha modal — appears after click on "Try it on" */}
+      {showCaptcha && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl p-6 max-w-xs w-full shadow-2xl space-y-4">
+            <p className="text-center text-sm font-black text-slate-900 tracking-tight">{t.captchaTitle}</p>
+            <div id="agalaz-turnstile-widget" className="flex justify-center min-h-[65px] items-center">
+              <span className="text-[10px] text-slate-400">{t.captchaWaiting}</span>
+            </div>
+            <button
+              onClick={() => setShowCaptcha(false)}
+              className="w-full text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-600"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Daily limit reached — friendly "come back tomorrow" overlay */}
+      {dailyExhausted && (
+        <div className="fixed inset-0 bg-white/95 backdrop-blur-sm z-50 flex items-center justify-center p-6">
+          <div className="max-w-xs text-center space-y-4">
+            <div className="w-14 h-14 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto">
+              <Sparkles size={24} className="text-indigo-600" />
+            </div>
+            <h2 className="font-serif text-xl font-black text-slate-900">{t.dailyExhaustedTitle}</h2>
+            <p className="text-sm text-slate-500 font-light leading-relaxed">{t.dailyExhaustedBody}</p>
+            <button
+              onClick={() => window.parent.postMessage({ type: 'agalaz:close' }, '*')}
+              className="w-full py-3 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-indigo-600 transition-colors"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

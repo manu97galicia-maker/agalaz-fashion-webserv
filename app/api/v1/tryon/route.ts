@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateTryOnImage } from '@/services/geminiService';
 import { validateApiKey, deductPartnerCredit } from '@/lib/partners';
+import { verifyTurnstileToken } from '@/lib/turnstile';
+import {
+  checkCustomerDailyCap,
+  commitCustomerRender,
+  DAILY_CAP_PER_CUSTOMER,
+} from '@/lib/customerLimits';
 
 export const maxDuration = 120;
 
@@ -63,6 +69,53 @@ export async function POST(request: NextRequest) {
     // Single photo flow: userImage (or legacy faceImage)
     let userImage = body.userImage || body.faceImage;
     let { clothingImage, garmentUrl, currentSize, previewSize } = body;
+    const customerId = typeof body.customerId === 'string' ? body.customerId.trim()
+      : typeof body.customer_id === 'string' ? body.customer_id.trim()
+      : '';
+    const turnstileToken = typeof body.turnstileToken === 'string' ? body.turnstileToken
+      : typeof body.captchaToken === 'string' ? body.captchaToken
+      : '';
+
+    // Require a partner-issued customer_id. Anonymous renders are not allowed —
+    // the partner's customer must be logged in at their store. This protects
+    // partner credits from abuse and gates the per-customer daily cap.
+    if (!customerId) {
+      return NextResponse.json(
+        {
+          error: 'Customer login required at store. Pass customerId from your CMS.',
+          code: 'CUSTOMER_LOGIN_REQUIRED',
+        },
+        { status: 401, headers }
+      );
+    }
+
+    // Per-customer daily cap (3/day). Hashed pseudonym only — no PII stored.
+    const cap = await checkCustomerDailyCap(partner.id, customerId);
+    if (!cap.allowed) {
+      return NextResponse.json(
+        {
+          error: 'Daily limit reached. Come back tomorrow!',
+          code: 'DAILY_LIMIT_EXCEEDED',
+          limit: DAILY_CAP_PER_CUSTOMER,
+          used: cap.used,
+          remaining: 0,
+        },
+        { status: 429, headers }
+      );
+    }
+
+    // Captcha verification (after the user clicks "Try on").
+    // verifyTurnstileToken returns ok:true when secret is unset (dev convenience).
+    const remoteIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+      || request.headers.get('x-real-ip')
+      || null;
+    const captcha = await verifyTurnstileToken(turnstileToken, remoteIp);
+    if (!captcha.ok) {
+      return NextResponse.json(
+        { error: 'Captcha verification failed', reason: captcha.reason, code: 'CAPTCHA_FAILED' },
+        { status: 403, headers }
+      );
+    }
 
     if (!userImage) {
       return NextResponse.json(
@@ -209,8 +262,14 @@ export async function POST(request: NextRequest) {
 
     if (image) {
       await deductPartnerCredit(partner.id, partner.credits_remaining, partner.total_renders);
+      await commitCustomerRender(partner.id, customerId);
       return NextResponse.json(
-        { success: true, image, credits_remaining: partner.credits_remaining - 1 },
+        {
+          success: true,
+          image,
+          credits_remaining: partner.credits_remaining - 1,
+          daily_remaining: Math.max(0, DAILY_CAP_PER_CUSTOMER - cap.used - 1),
+        },
         { headers }
       );
     }

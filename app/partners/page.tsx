@@ -70,6 +70,46 @@ function PartnersContent() {
   const [catalogStats, setCatalogStats] = useState<{ total: number; classified: number; last_synced: string | null } | null>(null);
   const [syncLoading, setSyncLoading] = useState(false);
   const [syncMessage, setSyncMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  // Captcha gate for register + sync. Token comes from Cloudflare Turnstile.
+  const [captchaPurpose, setCaptchaPurpose] = useState<null | 'register' | 'sync'>(null);
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '';
+
+  // Lazy-load Turnstile script once
+  useEffect(() => {
+    if (!turnstileSiteKey) return;
+    if (document.getElementById('cf-turnstile-script')) return;
+    const s = document.createElement('script');
+    s.id = 'cf-turnstile-script';
+    s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+    s.async = true;
+    s.defer = true;
+    document.head.appendChild(s);
+  }, [turnstileSiteKey]);
+
+  // Render the widget when the modal opens
+  useEffect(() => {
+    if (!captchaPurpose || !turnstileSiteKey) return;
+    let cancelled = false;
+    function tryRender() {
+      const ts = (window as any).turnstile;
+      if (!ts) { setTimeout(() => { if (!cancelled) tryRender(); }, 100); return; }
+      const el = document.getElementById('agalaz-partners-turnstile');
+      if (!el) return;
+      el.innerHTML = '';
+      ts.render('#agalaz-partners-turnstile', {
+        sitekey: turnstileSiteKey,
+        callback: (token: string) => {
+          const purpose = captchaPurpose;
+          setCaptchaPurpose(null);
+          if (purpose === 'register') runRegister(token);
+          else if (purpose === 'sync') runSync(token);
+        },
+      });
+    }
+    tryRender();
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [captchaPurpose]);
 
   function getSupabase() {
     return createBrowserClient(
@@ -156,7 +196,16 @@ function PartnersContent() {
     } catch { /* ignore */ }
   }
 
-  async function handleSyncCatalog() {
+  function handleSyncCatalog() {
+    if (!partnerProfile?.id) return;
+    if (turnstileSiteKey) {
+      setCaptchaPurpose('sync');
+    } else {
+      runSync('');
+    }
+  }
+
+  async function runSync(turnstileToken: string) {
     if (!partnerProfile?.id) return;
     setSyncLoading(true);
     setSyncMessage(null);
@@ -164,7 +213,7 @@ function PartnersContent() {
       const res = await fetch('/api/partners/sync-catalog', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ partner_id: partnerProfile.id }),
+        body: JSON.stringify({ partner_id: partnerProfile.id, turnstileToken }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -202,7 +251,23 @@ function PartnersContent() {
 
   // Register partner → generate API key → redirect to Stripe 7-day free trial checkout.
   // Webhook activates partner (+ 50 credits) when checkout completes.
-  async function handleRegisterAndGetKey() {
+  // Captcha gate: open modal first, then runRegister(token) after success.
+  function handleRegisterAndGetKey() {
+    if (!userEmail) return;
+    const url = storeUrl || localStorage.getItem('agalaz_partner_url') || '';
+    if (!url) {
+      setError('Introduce la URL de tu tienda');
+      return;
+    }
+    setError(null);
+    if (turnstileSiteKey) {
+      setCaptchaPurpose('register');
+    } else {
+      runRegister('');
+    }
+  }
+
+  async function runRegister(turnstileToken: string) {
     if (!userEmail) return;
     const url = storeUrl || localStorage.getItem('agalaz_partner_url') || '';
     if (!url) {
@@ -223,6 +288,7 @@ function PartnersContent() {
           store_name: new URL(url.startsWith('http') ? url : `https://${url}`).hostname,
           store_url: url,
           plan: 'trial',
+          turnstileToken,
         }),
       });
       const registerData = await registerRes.json();
@@ -1337,6 +1403,26 @@ function PartnersContent() {
         )}
       </div>
       <ChatBot />
+
+      {/* Captcha modal — guards register + sync-catalog */}
+      {captchaPurpose && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl space-y-4">
+            <p className="text-center text-sm font-black text-slate-900 tracking-tight">
+              {lang === 'es' ? 'Confirma que no eres un robot' : 'Confirm you are human'}
+            </p>
+            <div id="agalaz-partners-turnstile" className="flex justify-center min-h-[65px] items-center">
+              <span className="text-[10px] text-slate-400">{lang === 'es' ? 'Verificando...' : 'Verifying...'}</span>
+            </div>
+            <button
+              onClick={() => setCaptchaPurpose(null)}
+              className="w-full text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-600"
+            >
+              {lang === 'es' ? 'Cancelar' : 'Cancel'}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

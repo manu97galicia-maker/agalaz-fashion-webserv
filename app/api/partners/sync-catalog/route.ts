@@ -2,14 +2,38 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabaseAdmin';
 import { triggerCatalogSync } from '@/lib/triggerCatalogSync';
 import { extractShopOrigin } from '@/services/publicCatalogSync';
+import { verifyTurnstileToken } from '@/lib/turnstile';
+import { authorizePartner } from '@/lib/partnerAuth';
 
 const COOLDOWN_MS = 60 * 60 * 1000; // 1 hour between syncs
 
 export async function POST(req: NextRequest) {
   try {
-    const { partner_id } = await req.json();
+    const body = await req.json();
+    const { partner_id } = body;
+    const turnstileToken = typeof body.turnstileToken === 'string' ? body.turnstileToken
+      : typeof body.captchaToken === 'string' ? body.captchaToken
+      : '';
     if (!partner_id) {
       return NextResponse.json({ error: 'partner_id is required' }, { status: 400 });
+    }
+
+    // Auth: only the partner owner (Supabase session) or their API key may trigger.
+    // Without this, anyone could trigger expensive Gemini classification for any partner.
+    const auth = await authorizePartner(req, partner_id);
+    if (!auth.ok) {
+      return NextResponse.json({ error: auth.reason || 'Unauthorized' }, { status: 401 });
+    }
+
+    const remoteIp = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
+      || req.headers.get('x-real-ip')
+      || null;
+    const captcha = await verifyTurnstileToken(turnstileToken, remoteIp);
+    if (!captcha.ok) {
+      return NextResponse.json(
+        { error: 'Captcha verification failed', code: 'CAPTCHA_FAILED', reason: captcha.reason },
+        { status: 403 }
+      );
     }
 
     const admin = createAdminClient();

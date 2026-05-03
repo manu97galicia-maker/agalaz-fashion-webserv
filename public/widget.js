@@ -150,13 +150,14 @@
     }
   }
 
-  function openModal(garmentUrl, productId, productType) {
+  function openModal(garmentUrl, productId, productType, customerId) {
     if (document.getElementById(MODAL_ID)) return;
 
     var params = 'key=' + encodeURIComponent(apiKey) + '&lang=' + lang;
     if (garmentUrl) params += '&garment=' + encodeURIComponent(garmentUrl);
     if (productId) params += '&productId=' + encodeURIComponent(productId);
     if (productType) params += '&type=' + encodeURIComponent(productType);
+    if (customerId) params += '&customerId=' + encodeURIComponent(customerId);
 
     var overlay = document.createElement('div');
     overlay.id = MODAL_ID;
@@ -203,6 +204,22 @@
       btn.className = 'agalaz-btn';
       btn.innerHTML = sparklesSvg + ' ' + BUTTON_TEXT;
       btn.addEventListener('click', function () {
+        // Customer must be logged in at the partner's store. The partner's
+        // template fills data-customer-id with their CMS user id when logged in
+        // (e.g. {% if customer %}{{ customer.id }}{% endif %} on Shopify).
+        // No customer id → show "sign in to try" instead of opening the modal.
+        var customerId = container.getAttribute('data-customer-id') || '';
+        if (!customerId) {
+          var loginUrl = container.getAttribute('data-login-url') || '/account/login';
+          var loginMsg = lang === 'es'
+            ? 'Inicia sesión en la tienda para probarte esta prenda. Tendrás 3 pruebas gratis al día.'
+            : 'Sign in to try this on. You get 3 free try-ons per day.';
+          if (window.confirm(loginMsg)) {
+            window.location.href = loginUrl;
+          }
+          return;
+        }
+
         // Resolve garment URL at click time (not init time) to catch variant changes
         var rawGarment = container.getAttribute('data-garment') || '';
         var garmentUrl = resolveUrl(rawGarment);
@@ -222,7 +239,7 @@
           || container.getAttribute('data-product-category')
           || '';
 
-        openModal(garmentUrl, productId, productType);
+        openModal(garmentUrl, productId, productType, customerId);
       });
 
       container.appendChild(btn);
