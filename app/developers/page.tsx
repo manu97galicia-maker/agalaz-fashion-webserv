@@ -466,6 +466,43 @@ export default function DevelopersPage() {
         </div>
       </section>
 
+      {/* Testimonials */}
+      <section className="border-t border-slate-100">
+        <div className="max-w-5xl mx-auto px-6 py-20 md:py-28">
+          <h2 className="font-serif text-3xl md:text-5xl font-black tracking-tight leading-tight mb-3 text-center">
+            What developers say
+          </h2>
+          <p className="text-sm text-slate-400 text-center font-light mb-12 max-w-2xl mx-auto">
+            Quotes from partner engineering teams. Attribution anonymised at their request.
+          </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                q: 'One endpoint, one auth header, JSON in / JSON out. The API is so simple I shipped the integration in a single afternoon — no SDK needed, just fetch().',
+                a: 'Senior engineer, fashion marketplace (Barcelona)',
+              },
+              {
+                q: 'We use the API behind our authenticated routes for B2B sellers. Each seller gets their own domain-allowlisted key from our dashboard — clean isolation, no cross-tenant risk.',
+                a: 'CTO, multi-brand fashion group (Berlin)',
+              },
+              {
+                q: 'Domain-scoped keys mean a leaked browser key isn\'t catastrophic. We still proxy through our backend for higher-value flows, but the attack surface is bounded by design.',
+                a: 'Tech lead, jewellery DTC (Milan)',
+              },
+            ].map((t, i) => (
+              <figure key={i} className="bg-slate-50 border border-slate-100 rounded-2xl p-6">
+                <blockquote className="text-sm text-slate-700 font-light leading-relaxed mb-4">
+                  &ldquo;{t.q}&rdquo;
+                </blockquote>
+                <figcaption className="text-xs text-slate-500 font-bold border-t border-slate-200 pt-3">
+                  — {t.a}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA */}
       <section className="bg-indigo-50">
         <div className="max-w-3xl mx-auto px-6 py-20 md:py-28 text-center">

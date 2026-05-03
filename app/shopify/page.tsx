@@ -295,6 +295,43 @@ export default function ShopifyPage() {
         </div>
       </section>
 
+      {/* Testimonials */}
+      <section className="border-t border-slate-100">
+        <div className="max-w-5xl mx-auto px-6 py-20 md:py-28">
+          <h2 className="font-serif text-3xl md:text-5xl font-black tracking-tight leading-tight mb-3 text-center">
+            What Shopify merchants say
+          </h2>
+          <p className="text-sm text-slate-400 text-center font-light mb-12 max-w-2xl mx-auto">
+            Quotes from early-program merchants. Attribution anonymised at their request.
+          </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                q: 'Setup was actually 2 lines of code. I was sceptical — every vendor says "easy install" — but with Agalaz the script tag IS the install. Lighthouse score didn\'t change.',
+                a: 'Founder, sustainable fashion DTC (Madrid)',
+              },
+              {
+                q: 'We replaced a Shopify App that was eating into our app fees with Agalaz\'s script. Same try-on quality, no marketplace fee on top of the subscription, and one less app permission flow to maintain.',
+                a: 'E-commerce manager, mid-market womenswear (Lisbon)',
+              },
+              {
+                q: 'Returns on our top 20 dresses dropped from 38% to 27% in two months. The size chart was already solid; the try-on closed the remaining doubt at the buy button.',
+                a: 'Head of growth, occasionwear brand (Barcelona)',
+              },
+            ].map((t, i) => (
+              <figure key={i} className="bg-slate-50 border border-slate-100 rounded-2xl p-6">
+                <blockquote className="text-sm text-slate-700 font-light leading-relaxed mb-4">
+                  &ldquo;{t.q}&rdquo;
+                </blockquote>
+                <figcaption className="text-xs text-slate-500 font-bold border-t border-slate-200 pt-3">
+                  — {t.a}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA */}
       <section className="bg-indigo-50">
         <div className="max-w-3xl mx-auto px-6 py-20 md:py-28 text-center">

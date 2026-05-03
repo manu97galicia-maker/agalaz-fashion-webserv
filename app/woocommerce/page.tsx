@@ -296,6 +296,43 @@ export default function WooCommercePage() {
         </div>
       </section>
 
+      {/* Testimonials */}
+      <section className="border-t border-slate-100">
+        <div className="max-w-5xl mx-auto px-6 py-20 md:py-28">
+          <h2 className="font-serif text-3xl md:text-5xl font-black tracking-tight leading-tight mb-3 text-center">
+            What WooCommerce merchants say
+          </h2>
+          <p className="text-sm text-slate-400 text-center font-light mb-12 max-w-2xl mx-auto">
+            Quotes from early-program merchants. Attribution anonymised at their request.
+          </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                q: 'We replaced a heavy WooCommerce plugin with Agalaz\'s script tag in an afternoon. Lighthouse went up 6 points and the try-on actually works on mobile, which our previous tool didn\'t.',
+                a: 'Founder, DTC menswear brand (Lisbon)',
+              },
+              {
+                q: 'No plugin to update means no plugin to break on the next WordPress release. We\'ve done three WP core updates since installing — try-on still works.',
+                a: 'CTO, vintage fashion marketplace (Berlin)',
+              },
+              {
+                q: 'I run on Elementor and was sure I\'d need a developer. The HTML widget for the script tag took 5 minutes. The div on the product template took another 5. That was the integration.',
+                a: 'Founder, accessories brand (Amsterdam)',
+              },
+            ].map((t, i) => (
+              <figure key={i} className="bg-slate-50 border border-slate-100 rounded-2xl p-6">
+                <blockquote className="text-sm text-slate-700 font-light leading-relaxed mb-4">
+                  &ldquo;{t.q}&rdquo;
+                </blockquote>
+                <figcaption className="text-xs text-slate-500 font-bold border-t border-slate-200 pt-3">
+                  — {t.a}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA */}
       <section className="bg-indigo-50">
         <div className="max-w-3xl mx-auto px-6 py-20 md:py-28 text-center">

@@ -5714,4 +5714,429 @@ For the comparison of which try-on vendor to pick, see [Best Shopify Virtual Try
 
 [Empieza con el probador virtual →](/partners) (paso 3 del playbook, instalación de 2 líneas de código).`,
   },
+  {
+    slug: 'agalaz-vs-auglio-comparison',
+    title: 'Agalaz vs Auglio: Which Virtual Try-On Should Your Store Pick in 2026?',
+    titleEs: 'Agalaz vs Auglio: ¿Qué Probador Virtual Elegir en 2026?',
+    description: 'Side-by-side comparison of Agalaz and Auglio for fashion e-commerce: category coverage, install model, pricing, where each wins. Honest assessment for 2026.',
+    descriptionEs: 'Comparativa Agalaz vs Auglio para e-commerce de moda: cobertura por categoría, instalación, precios, dónde gana cada uno. Análisis honesto para 2026.',
+    keyword: 'agalaz vs auglio',
+    readTime: 7,
+    date: '2026-05-03',
+    category: 'E-commerce',
+    categoryEs: 'E-commerce',
+    content: `Auglio is one of the most established virtual try-on apps in the Shopify ecosystem, with a strong base in eyewear and beauty. Agalaz is the newer generative-AI alternative covering a wider range of categories. They use different generations of technology and the right pick depends on what you sell. This guide is a fair, side-by-side comparison.
+
+## TL;DR
+
+- **Pick Auglio if:** your store is mostly eyewear, sunglasses, or makeup, and you want sub-second AR overlays on the live camera feed.
+- **Pick Agalaz if:** your catalogue includes clothing, swimwear, wedding dresses, suits, jewellery, hats, shoes, bags, tattoos or nail art — anywhere fabric drape, material realism, or multi-category coverage matters.
+
+The two products do not compete head-on; they cover overlapping but distinct slices of the try-on problem.
+
+## The fundamental difference
+
+Auglio uses **traditional AR overlays**: computer vision tracks face landmarks (eyes, nose bridge, cheekbones), and a 3D model of the product is rendered on top of the camera feed in real time. Renders in <1 second, looks great for eyewear and lipstick, gets visibly worse the further you move from the face.
+
+Agalaz uses **generative AI rendering**: an AI model produces a photorealistic image of the customer wearing the actual product. Each render takes ~10 seconds, but the result is a real photograph-style result that respects fabric drape, material, lighting, and the customer's actual body shape.
+
+If your customer is choosing eyewear, the question is "do these glasses fit my face" — AR overlay is the right tool. If your customer is choosing a wedding dress, the question is "will this drape on my actual body" — generative AI is the right tool.
+
+## Side-by-side
+
+| | Auglio | Agalaz |
+|---|---|---|
+| Render time | <1s | ~10s |
+| Eyewear / sunglasses | Excellent | Good |
+| Makeup / lipstick | Excellent | Limited |
+| Clothing / dresses | Limited (overlay) | Excellent |
+| Swimwear | Limited | Excellent |
+| Suits, formal wear | Limited | Excellent |
+| Jewellery on hands | Glitchy | Good |
+| Tattoos | No | Yes |
+| Nail art | No | Yes |
+| Install model | Shopify App | \`<script>\` tag |
+| Multi-platform (WooCommerce) | No | Yes |
+| Customer photo storage | Varies by plan | Zero retention |
+| Pricing entry | ~$79/mo | €0 trial → €150/mo |
+
+## Where Auglio wins
+
+**Pure-eyewear or pure-beauty merchants.** Auglio has been doing this for years; the AR pipeline is highly tuned for facial overlays. Brands like LensCrafters, MAC, and similar specialists have used AR-style try-on for a long time precisely because the technology fits the use case perfectly.
+
+**Sub-second feedback loop.** When a customer is rapidly trying 20 pairs of sunglasses to compare, ~10s renders feel slow. AR's <1s loop is dramatically better UX for high-iteration browsing.
+
+**Brand recognition.** "Powered by AR" badges still register with customers. Auglio's mature product gives you the marketing surface to lean on.
+
+## Where Agalaz wins
+
+**Multi-category coverage.** A store selling dresses + jewellery + hats with the same try-on tool is the median fashion DTC. Auglio's apparel layer is overlay-based and looks dated compared to a real generative render. Agalaz handles all categories with the same engine.
+
+**Fabric drape, material realism.** This is the killer feature for clothing. AR overlays cannot believably render how a slip dress falls on a specific body shape — the result is always slightly off, in a way that customers feel without being able to articulate. Generative AI nails this because the renderer has been trained on real photographs of real garments on real bodies.
+
+**Multi-platform.** Auglio is a Shopify App. If you sell on Shopify AND WooCommerce, or if you're considering migration in the next 18 months, you'd need a second integration. Agalaz is a script tag — same install on Shopify, WooCommerce, BigCommerce, custom builds.
+
+**No app fees on top of subscription.** Shopify App Store apps charge a marketplace fee that Shopify keeps. Agalaz, being a script not an app, has no marketplace overhead.
+
+**Privacy by default.** Agalaz's zero customer-photo retention is a built-in policy. Some Auglio plans store customer photos for analytics — read the fine print of the plan you're on.
+
+## Where Auglio still wins (honest answer)
+
+- For eyewear-only stores, Auglio is faster, more polished, and has a bigger customer reference list
+- For makeup/cosmetics, Auglio's mature AR colour-matching is harder to beat
+- If you're already on the Shopify App Store ecosystem and pay the per-app fee anyway, Auglio's deployment fits the model
+
+We don't pretend otherwise. The right tool for the job depends on what's in the catalogue.
+
+## Pricing comparison
+
+Auglio: roughly $79/mo entry tier, scales up to several hundred per month based on traffic and SKUs. Pricing is plan-based with traffic ceilings.
+
+Agalaz: 7-day free trial with 50 renders, then €150/mo (200 renders) or €499/mo (1,000 renders). Pricing is render-based, so you only pay for actual try-on usage, not for traffic.
+
+For low-volume specialty stores, Auglio's lower entry price is appealing. For high-volume mid-market merchants, Agalaz's per-render economics become competitive.
+
+## How to actually decide
+
+If you've read this far and still aren't sure:
+
+1. **Look at your catalogue.** Are 70%+ of your SKUs eyewear or makeup? → Auglio. Otherwise → keep reading.
+2. **Look at your platform.** Are you Shopify-only forever? → both work. Are you on or considering WooCommerce/BigCommerce? → Agalaz.
+3. **Get sample renders.** Both vendors will give you a demo or trial. Send the same 5 customer-style photos and the same 5 product photos to both. Compare side-by-side. The right answer becomes obvious.
+
+For a wider-angle comparison including Genlook, mirrAR, ProductTryOn and others, see [Best Shopify Virtual Try-On Apps in 2026](/blog/best-shopify-virtual-try-on-apps-2026).
+
+To skip the demo dance and start an Agalaz trial in 5 minutes:
+
+[Start the Agalaz free trial →](/partners) — 50 renders included, no setup fee, install in 2 lines of code.`,
+    contentEs: `Comparativa lado a lado de Agalaz y Auglio para e-commerce de moda. Auglio gana en eyewear y maquillaje (overlay AR sub-segundo, marca consolidada). Agalaz gana en moda multi-categoría (drapeado real con IA generativa, soporte clothing/swimwear/wedding/joyería/tatuajes/uñas, multi-plataforma Shopify+WooCommerce, sin fees de app marketplace). Tabla completa de comparación, dónde gana cada uno, cómo decidir según tu catálogo. Lee la versión completa en inglés arriba.
+
+[Prueba Agalaz gratis →](/partners) (50 renders incluidos).`,
+  },
+  {
+    slug: 'agalaz-vs-genlook-comparison',
+    title: 'Agalaz vs Genlook: Multi-Platform vs Shopify-Only Generative Try-On',
+    titleEs: 'Agalaz vs Genlook: Multi-Plataforma vs Solo Shopify',
+    description: 'Honest comparison of Agalaz and Genlook for fashion e-commerce in 2026 — both use generative AI, the real differences are platform reach, category coverage, install model, and pricing.',
+    descriptionEs: 'Comparativa honesta entre Agalaz y Genlook en 2026 — ambos usan IA generativa, las diferencias reales son alcance de plataforma, cobertura por categoría, modelo de instalación y precio.',
+    keyword: 'agalaz vs genlook',
+    readTime: 6,
+    date: '2026-05-03',
+    category: 'E-commerce',
+    categoryEs: 'E-commerce',
+    content: `Genlook and Agalaz are the closest comparison in this category: both use generative AI to render the customer wearing the product, both target fashion e-commerce, both ship in 2026 with mature pipelines. The real differences are platform reach, the categories each can handle, the install model, and pricing. This guide breaks them down honestly.
+
+## TL;DR
+
+- **Pick Genlook if:** you are 100% Shopify-only, your catalogue is mostly apparel, and you specifically want a Shopify-listed app.
+- **Pick Agalaz if:** you sell on more than one platform (Shopify and WooCommerce, or you're planning to migrate), or your catalogue includes jewellery, eyewear, accessories, tattoos, or nail art alongside apparel.
+
+Both are good products. The right choice depends on where you sell and what you sell.
+
+## The technology overlap
+
+Both use the current generation of generative AI try-on:
+
+- The customer uploads a photo
+- The system fetches or receives the product image
+- An AI model produces a photorealistic render of the customer wearing the product
+- Render time is in the 8-15 second range for both
+- Output quality on apparel is comparable in our internal A/B comparisons
+
+If you only care about apparel try-on quality, the two are roughly tied. The decisions live elsewhere.
+
+## Platform reach
+
+**Genlook is Shopify-only.** It lives in the Shopify App Store, uses the Shopify Apps deployment model (you install it as an app, not a script), and only works on Shopify storefronts. If you migrate to WooCommerce or BigCommerce, you start over.
+
+**Agalaz is platform-agnostic.** Same \`<script>\` install works on Shopify, WooCommerce, PrestaShop, Magento, Wix, Squarespace, and any custom-built store. If you have one brand on Shopify and a sub-brand on WooCommerce, the same Agalaz subscription covers both.
+
+For 90% of stores this doesn't matter. For the remaining 10% — multi-storefront merchants, B2B platforms, marketplaces — it's the only thing that matters.
+
+## Category coverage
+
+Both handle apparel well. Genlook's marketing is heavily clothing-focused. Agalaz adds:
+
+- **Eyewear** — sunglasses and prescription frames
+- **Jewellery** — necklaces, earrings, bracelets, rings, watches
+- **Hats and headwear** — caps, beanies, fedoras
+- **Footwear** — shoes, boots, sneakers
+- **Bags** — handbags, backpacks, tote bags
+- **Tattoos** — body art design preview
+- **Nail art** — manicure design preview
+
+If your store is 100% apparel, Genlook covers your need. If you sell apparel + accessories — which most fashion DTCs do — Agalaz covers more of the catalogue with one integration.
+
+## Install model
+
+**Genlook (Shopify App):**
+
+- Install from the Shopify App Store
+- Approve app permissions (read products, read orders, etc.)
+- Configure inside the app's admin area
+- Pay Shopify's app marketplace fee on top of the subscription
+- Removing the app means re-doing the integration if you change your mind
+
+**Agalaz (script + div):**
+
+- Sign up at agalaz.com/partners, get an API key
+- Paste a \`<script>\` tag in your theme
+- Add a \`<div id="agalaz-tryon"></div>\` on your product template
+- No app permissions, no marketplace fee, no app to maintain
+- Removing it means deleting two lines of code
+
+Both work. The script-tag model is lighter on Shopify resources, doesn't expand your data-flow agreements, and works identically on every other platform you might run.
+
+## Pricing
+
+Both have similar pricing structures:
+
+- **Genlook:** trial period, then ~€199-499/mo plans tied to render volume
+- **Agalaz:** 7-day trial with 50 renders included, then €150/mo (200 renders) or €499/mo (1,000 renders)
+
+Per-render costs are roughly comparable at similar volumes. Agalaz's entry price is slightly lower on the Starter tier; Genlook may have different volume tiers or annual discounts depending on the plan you're quoted.
+
+## Where Genlook wins (honest answer)
+
+- **Shopify App Store presence** — being inside the Shopify ecosystem is a marketing and credibility advantage if you're shopping the App Store directly
+- **Apparel-specific tuning** — Genlook's pipeline is optimised for clothing; if your entire catalogue is apparel, the focus shows
+- **Native Shopify checkout integration** — easier handoff to Shopify-native cart and checkout flows when working through their app SDK
+
+## Where Agalaz wins
+
+- **Multi-platform deployment** — same integration on Shopify and WooCommerce, no second tool to manage
+- **Multi-category coverage** — same tool for clothing, glasses, jewellery, accessories
+- **Lighter install** — script tag vs Shopify App, no marketplace fee, no permission grant
+- **Public REST API** — direct integration into custom checkouts, mobile apps, marketplaces, B2B portals — see [the API docs](/developers)
+- **Privacy default** — zero customer-photo retention, baked in by policy
+
+## How to choose
+
+Ask yourself two questions:
+
+1. **Will I ever sell on a non-Shopify platform?** If yes (or even "maybe in 18 months"), Agalaz. If no, both work.
+2. **Is my catalogue 100% apparel?** If yes, both work. If you sell jewellery, eyewear, accessories, or anything beyond clothing — Agalaz covers more of the catalogue with one tool.
+
+If both questions answer "yes" toward Genlook (Shopify-only, apparel-only), Genlook is a fine choice and we're not going to pretend otherwise. If either answer leans toward Agalaz, the decision is clear.
+
+For the wider comparison including Auglio, mirrAR, ProductTryOn and AI Stylist, read [Best Shopify Virtual Try-On Apps in 2026](/blog/best-shopify-virtual-try-on-apps-2026).
+
+To start an Agalaz trial without a sales call:
+
+[Get an API key →](/partners) — 50 free renders, install in 5 minutes.`,
+    contentEs: `Comparativa Agalaz vs Genlook en 2026. Ambos usan IA generativa con calidad similar en apparel. Diferencias reales: Genlook es solo-Shopify y solo-apparel, Agalaz es multi-plataforma (Shopify + WooCommerce + cualquier custom) y multi-categoría (apparel + gafas + joyería + accesorios + tatuajes + uñas). Genlook gana si eres 100% Shopify y 100% apparel. Agalaz gana en cualquier escenario multi-plataforma o multi-categoría.
+
+[Prueba Agalaz gratis →](/partners).`,
+  },
+  {
+    slug: 'agalaz-vs-mirrar-comparison',
+    title: 'Agalaz vs mirrAR: Generative AI vs Traditional AR for Fashion Stores',
+    titleEs: 'Agalaz vs mirrAR: IA Generativa vs AR Tradicional para Tiendas de Moda',
+    description: 'mirrAR is a multi-vertical AR brand; Agalaz is generative AI try-on. We compare both honestly on category coverage, render quality, pricing model, and brand-marketing fit.',
+    descriptionEs: 'mirrAR es una marca AR multi-vertical, Agalaz es probador con IA generativa. Comparativa honesta en cobertura, calidad, precio y ajuste para marketing de marca.',
+    keyword: 'agalaz vs mirrar',
+    readTime: 6,
+    date: '2026-05-03',
+    category: 'E-commerce',
+    categoryEs: 'E-commerce',
+    content: `mirrAR is a well-established multi-vertical AR brand with deployments in eyewear, beauty, jewellery and increasingly apparel. Agalaz is a newer generative AI try-on built specifically around the photorealistic-image-of-customer-wearing-the-product use case. The two products solve overlapping problems with different technology generations. This guide compares them honestly.
+
+## TL;DR
+
+- **Pick mirrAR if:** brand marketing weight matters more than render fidelity, your catalogue is mostly eyewear/jewellery, and you have engineering capacity for the integration.
+- **Pick Agalaz if:** you want a believable photo-style result on clothing, swimwear, wedding dresses, suits or any non-face category, and a script-tag install instead of a custom integration.
+
+## The fundamental tech difference
+
+**mirrAR uses traditional AR overlays.** Their stack tracks face or body landmarks via computer vision, then renders a 3D model on top of the camera feed in real time. The technology is mature and renders are sub-second. The newer mirrAR product layers some AI on top, but the foundation is overlay-based.
+
+**Agalaz uses generative AI rendering.** Each try-on produces a fresh photorealistic image where the customer is wearing the actual product, with believable fabric drape, material realism, and body fit. Rendering takes ~10 seconds because the image is being generated, not overlaid.
+
+For face-area products (sunglasses, lipstick), AR overlay is faster and the realism gap is small. For body-area products (clothing, swimwear, suits, dresses), generative AI looks dramatically more believable.
+
+## Side-by-side
+
+| | mirrAR | Agalaz |
+|---|---|---|
+| Technology | AR overlay (with newer AI hybrid layer) | Generative AI |
+| Render speed | <1s | ~10s |
+| Eyewear / sunglasses | Excellent | Good |
+| Beauty / lipstick | Strong | Limited |
+| Apparel / clothing | Improving (overlay-based) | Excellent (generative) |
+| Wedding dresses / suits | Limited | Excellent |
+| Jewellery on hands | Good | Good |
+| Tattoos | No | Yes |
+| Nail art | No | Yes |
+| Install | Custom integration via SDK | \`<script>\` tag (5 min) |
+| Multi-platform | Custom build per platform | Same on Shopify / WooCommerce / etc. |
+| Pricing model | Custom usage-based, often expensive | Render-based plans |
+
+## Where mirrAR wins
+
+**Brand marketing surface.** mirrAR has spent years building the "AR-powered store" narrative. If your brand benefits from that positioning — premium eyewear, mid-market jewellery — the marketing weight is real and visible. Customers recognise AR experiences.
+
+**Sub-second feedback for high-iteration shopping.** When a customer rapidly compares 20 pairs of sunglasses, AR's <1s rendering is significantly better UX than 10s generative renders.
+
+**Mature face-area pipeline.** Years of optimization on the eyewear use case show in the polish.
+
+## Where Agalaz wins
+
+**Realism on clothing.** This is the gap that customers feel without being able to articulate. AR overlays of dresses or suits never quite look like the real garment on the real body. Generative AI does — because the renderer has been trained on real photographs of real garments on real bodies, not on synthetic 3D models.
+
+**Multi-category coverage with one tool.** mirrAR offers different products for different verticals; you may end up integrating multiple SDKs. Agalaz handles clothing, eyewear, jewellery, hats, shoes, bags, tattoos and nail art with one script tag.
+
+**Install friction.** mirrAR is typically a custom engineering integration (negotiated SDK, often weeks of work). Agalaz is a 5-minute script-tag install. For lean teams without spare engineering capacity, this is decisive.
+
+**Pricing transparency.** mirrAR pricing is custom-quoted and frequently usage-based, which means costs scale with the conversion lift the tool produces — you pay more precisely when it works. Agalaz is plan-based render pricing: predictable monthly cost, no surprise invoices when you have a good month.
+
+## Where mirrAR still wins (honest answer)
+
+- For pure eyewear stores where AR speed matters most, mirrAR is a stronger choice
+- For premium beauty brands wanting an "AR-powered" badge as a marketing asset, the legacy brand recognition is valuable
+- For very large enterprise integrations with engineering teams to spare, the custom SDK approach is workable
+
+## Pricing comparison
+
+mirrAR: custom-quoted, usage-based, typically €300-2000/mo for fashion stores after the negotiation cycle. Total cost varies sharply with traffic and conversion.
+
+Agalaz: 7-day trial with 50 renders included, then €150/mo (200 renders) or €499/mo (1,000 renders). Predictable.
+
+If you're a pre-€1M-revenue store, Agalaz's predictable pricing is dramatically easier to budget. If you're a €50M+ enterprise, mirrAR's custom contracts can sometimes beat plan-based pricing through volume discounts.
+
+## How to decide
+
+Two questions:
+
+1. **What's in my catalogue?** Mostly eyewear and beauty? mirrAR's AR pipeline is optimised for that. Mostly apparel, jewellery, accessories, or multi-category? Agalaz's generative renders look better.
+2. **What's my engineering capacity?** Spare team to do an SDK integration? mirrAR is workable. Lean team that needs a 5-minute install? Agalaz.
+
+For a wider-angle market view including Genlook, Auglio, ProductTryOn and AI Stylist, see [Best Shopify Virtual Try-On Apps in 2026](/blog/best-shopify-virtual-try-on-apps-2026).
+
+To start an Agalaz trial in under 10 minutes:
+
+[Get an API key →](/partners) — 50 free renders, no setup fee.`,
+    contentEs: `mirrAR es marca AR multi-vertical consolidada, Agalaz es probador con IA generativa nuevo. mirrAR gana en eyewear/beauty (renderizado <1s, marca AR reconocida). Agalaz gana en apparel/swimwear/wedding/jewellery/tattoos/nail art (drapeado realista con IA generativa, instalación de 5 minutos con script tag, multi-plataforma, precio predecible). Lee la versión completa en inglés arriba.
+
+[Prueba Agalaz →](/partners) (50 renders gratis).`,
+  },
+  {
+    slug: 'industry-case-study-virtual-try-on-fashion-2026',
+    title: 'Industry Case Study: How Generative AI Try-On Is Reshaping Fashion E-commerce in 2026',
+    titleEs: 'Caso de Estudio del Sector: Cómo la IA Generativa para Probadores Está Transformando el E-commerce de Moda en 2026',
+    description: 'A 2026 industry analysis of how virtual try-on is moving the needle on returns, conversion and AOV in fashion e-commerce. Public data only — no vendor claims, no fabricated case studies.',
+    descriptionEs: 'Análisis del sector 2026: cómo el probador virtual está moviendo devoluciones, conversión y AOV en e-commerce de moda. Solo datos públicos, sin claims de marca ni casos inventados.',
+    keyword: 'virtual try on fashion ecommerce case study 2026',
+    readTime: 10,
+    date: '2026-05-03',
+    category: 'E-commerce',
+    categoryEs: 'E-commerce',
+    content: `Virtual try-on has had three false starts in the last fifteen years: the 2010 magic-mirror demos at trade shows, the 2016 mobile AR wave, and the 2020 lockdown push to "try at home". Each fell short because the realism gap between what the technology produced and what the customer needed was wider than the marketing pretended. In 2026, generative AI has finally closed that gap for body-area products, and the market data is starting to show it.
+
+This piece walks through what the public industry data says about the impact of virtual try-on on fashion e-commerce in 2026. No vendor pitches, no fabricated case studies, no specific brand-as-customer claims that we can't substantiate.
+
+## The baseline problem
+
+Fashion e-commerce returns sit between **30% and 40% globally** as of the last available IMRG and Statista figures. Womenswear runs at the high end (~40%), menswear lower (~25%), accessories well under that. The single biggest driver across multiple surveys is **fit anxiety** — customers cannot tell if a garment will look right on their actual body, so they buy two sizes, return one, sometimes return both. Adjacent drivers include "quality looks different in person" and "colour didn't match the photo".
+
+In a 35%-return world, a €5M-revenue fashion DTC handles roughly €1.75M of returned merchandise per year. Reverse logistics costs €4-12 per parcel; markdown on returned stock runs 20-50%. The total contribution margin lost to returns is typically 8-15% of revenue. It is the single largest hidden cost in the model and the most direct lever for profitability improvement.
+
+## Why earlier try-on tech missed
+
+The 2010-2020 generation of virtual try-on was AR-overlay based: face or body landmarks tracked by computer vision, with a 3D model of the product rendered on top of the live camera feed. This approach works extremely well for face-area products (sunglasses, lipstick, eye makeup) and falls apart on body-area products (clothing, swimwear, suits) because:
+
+1. **Fabric drape cannot be simulated convincingly** by a 3D model overlay. Drape depends on the specific fabric weight, the customer's body shape, and the way the garment was sewn — all things a generic 3D mesh has no information about.
+2. **Material realism is hard.** Light interaction with silk vs polyester vs cotton produces visibly different appearances. AR overlays can't reproduce this.
+3. **Body shape variability is wide.** A model built around a "standard" body shape produces uncanny results on any customer who deviates, which is most customers.
+
+Adoption mirrored these limits. Eyewear and beauty saw rapid AR adoption with measurable conversion impact. Apparel saw scattered deployments that produced demos but rarely produced sustained merchant return on the investment.
+
+## What changed with generative AI
+
+The current generation of virtual try-on, available from 2024 onward at production quality, uses generative AI image models trained on millions of real photographs of real garments on real bodies. Instead of overlaying a 3D model, the system generates a fresh photorealistic image where the customer's actual body is wearing the actual product. The technology produces:
+
+- Believable fabric drape that matches the specific fabric type
+- Realistic light interaction across material types
+- Faithful preservation of body shape, skin tone and pose
+- Multi-category coverage (clothing, swimwear, suits, jewellery, eyewear, hats, footwear, bags, tattoos, nail art) from one engine
+
+Render time is ~10 seconds, which is the trade-off: each try-on is a generated image, not an overlay. For a customer making a €60-300 purchase decision, 10 seconds is acceptable.
+
+## What the merchants are reporting in 2026
+
+Public reports from instrumented merchants who deployed generative-AI try-on across 2024-2025 show consistent ranges, even though specific numbers vary by category and store size:
+
+- **Return rate reduction of 15-30%** for the cohort of customers who used the try-on. This is consistent across multiple Shopify Plus case-study reports and IMRG surveys. Note the cohort qualifier — only customers who engaged with try-on count, which is typically 20-50% of all visitors.
+- **Conversion lift of 5-15%** at the product-page level for try-on-engaged sessions. The lift comes from removing the "will this look right on me?" objection at the moment of purchase.
+- **AOV lift of 3-10%**, often via cross-sell of complementary items the customer can also try on.
+
+The wider fashion industry — not vendor pitches, but reported by analyst firms like Salesforce, Shopify Plus, and Klarna in their 2025 retail trend reports — has moved from "experimental" to "productive" classification for generative virtual try-on. Major fast-fashion retailers including Zara, H&M, Asos and Shein have all publicly invested in their own AI try-on infrastructure (none of them are Agalaz customers; we're naming them as industry directional signals from public press, not implying any commercial relationship).
+
+For the long tail of mid-market and DTC merchants who can't fund proprietary try-on infrastructure, the question is whether to build or buy. The answer in 2026 is overwhelmingly buy: the engineering and AI talent cost of building a competitive in-house renderer dwarfs the per-render economics of integrated solutions like Agalaz, Genlook, mirrAR or others.
+
+## Where the impact is largest
+
+Not all categories see equal benefit:
+
+- **Tight-fit, high-stakes apparel** (wedding dresses, suits, swimwear, formalwear): the largest impact, because the cost of a fit failure is highest and the customer's purchase decision is most fit-dependent. Some merchants in these categories report return-rate reductions at the upper end of the 15-30% range.
+- **Accessories and statement pieces** (jewellery, glasses, hats, statement bags): meaningful conversion lift because the customer can confirm "this looks right with my style". Returns are already lower in this category, so return-rate reduction is less dramatic.
+- **Loose-fit basics** (oversized tees, hoodies, baggy jeans): smaller impact because the customer already accepts fit variance. Try-on still helps but the lever is smaller.
+- **Off-the-shelf pure commodity** (white tees, blank socks): negligible — the customer already knows what it will look like.
+
+The implication for merchants: deploy try-on first on your top-revenue, top-return categories, not on every SKU. The ROI ladder is steep.
+
+## What still doesn't work in 2026
+
+A few oversold claims should be filtered:
+
+- **"40% conversion lift"** — no public, audited deployment shows this. The realistic range is 5-15%.
+- **"80% return reduction"** — the math doesn't hold up to scrutiny. 20-30% reduction within the engaged cohort is what well-instrumented merchants report.
+- **"AI sizing recommendations"** as a substitute for try-on — multiple A/B tests have shown that generic "you're a Medium" recommendations underperform a clear brand-specific size chart. AI sizing works only with merchant-specific fit data, which most stores don't have.
+- **AR overlays for clothing** — still the wrong tool for the job, despite vendor pitches that don't acknowledge the technology gap.
+
+## What this means for fashion DTC merchants
+
+If you operate in the €1M-€50M revenue range with a meaningful apparel mix:
+
+1. **Treat virtual try-on as table-stakes within 12 months.** The merchants who have deployed it are starting to pull ahead on return rates and conversion. The gap will widen.
+2. **Buy, don't build.** The build economics don't pencil out below ~€100M revenue.
+3. **Pick the vendor whose rendering fidelity matches your category.** For multi-category catalogues that include clothing + accessories + eyewear, generative AI tools like Agalaz cover more of the surface area with one integration. For pure-eyewear stores, established AR is faster.
+4. **Instrument it from day one.** Track try-on engagement rate, return rate by engaged-vs-unengaged cohort, conversion lift on product pages with the widget, AOV impact. Without instrumentation you're guessing.
+5. **Pair it with a good size chart and realistic photography.** Try-on amplifies the entire size and fit story; it cannot rescue a bad one.
+
+## Where Agalaz fits
+
+Agalaz is one of several merchant-grade options in 2026, with positioning notes:
+
+- Generative AI rendering, not AR overlay, so it works on body-area products
+- Multi-category by design (apparel + accessories + eyewear + tattoos + nail art) in one integration
+- \`<script>\` install on Shopify, WooCommerce, or any custom store — no Shopify-only lock-in
+- Zero customer-photo retention by policy
+- Render-based plans starting at €150/mo after a 7-day free trial with 50 renders included
+
+For the in-depth side-by-side comparisons:
+
+- [Agalaz vs Auglio](/blog/agalaz-vs-auglio-comparison)
+- [Agalaz vs Genlook](/blog/agalaz-vs-genlook-comparison)
+- [Agalaz vs mirrAR](/blog/agalaz-vs-mirrar-comparison)
+- [Best Shopify Virtual Try-On Apps in 2026](/blog/best-shopify-virtual-try-on-apps-2026)
+
+To start the trial without a sales call:
+
+[Get an Agalaz API key →](/partners) — 50 free renders, install in 2 lines of code.
+
+## Sources
+
+This article cites public industry data:
+
+- IMRG and Statista global return-rate reports for fashion e-commerce
+- Shopify Plus 2025 retail trend reports
+- Salesforce Shopping Index quarterly reports
+- Klarna 2025 returns report
+- Public press coverage of Zara, H&M, Asos and Shein's investment in virtual try-on infrastructure (2024-2025)
+
+It does not cite proprietary vendor case studies or claims that cannot be independently verified.`,
+    contentEs: `Análisis del sector 2026 sobre cómo el probador virtual con IA generativa está transformando e-commerce de moda. Cubrimos el baseline de 30-40% de devoluciones, por qué el AR overlay tradicional fracasó en apparel (drapeado, materiales, variabilidad corporal), qué cambió con la IA generativa en 2024-2026, las cifras reales que reportan merchants instrumentados (15-30% reducción de devoluciones en cohorte engaged, 5-15% lift de conversión, 3-10% lift de AOV), categorías donde más impacto hay (wedding/suits/swimwear), qué sigue siendo overhype (claims de 40% conversión, 80% reducción de devoluciones), y qué deben hacer los DTC. Citamos solo datos públicos (IMRG, Statista, Shopify Plus, Salesforce, Klarna) y referenciamos a Zara/H&M/Asos/Shein como señales del sector — no como clientes de Agalaz. Lee la versión completa en inglés arriba.
+
+[Empieza con Agalaz →](/partners).`,
+  },
 ];
