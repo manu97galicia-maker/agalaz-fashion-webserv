@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Sparkles, Check, ArrowRight, Eye, Shield, Clock, Star, ChevronDown, Glasses, Palette } from 'lucide-react';
+import TryOnDemoBlock from '@/components/landing/TryOnDemoBlock';
 
 const FAQ_ITEMS = [
   {
@@ -215,6 +216,7 @@ export default function GlassesTryOn() {
           </div>
         </div>
       </footer>
+          <TryOnDemoBlock category="glasses" lang="en" productLabel="Glasses" />
     </main>
   );
 }

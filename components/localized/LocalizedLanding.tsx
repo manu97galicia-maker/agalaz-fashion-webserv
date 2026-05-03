@@ -1,8 +1,19 @@
 import Link from 'next/link';
 import { ArrowRight, Sparkles, Zap, Shield, Star } from 'lucide-react';
 import TriptychDemo, { TRIPTYCH_LABELS } from '@/components/TriptychDemo';
+import TryOnDemoBlock, { type DemoCategory } from '@/components/landing/TryOnDemoBlock';
 
 type Lang = 'fr' | 'pt' | 'de' | 'it';
+
+// Map of localized landing slugs → demo category for TryOnDemoBlock.
+const SLUG_TO_CATEGORY: Record<string, DemoCategory> = {
+  'virtual-wedding-dress-try-on': 'clothing',
+  'virtual-nail-try-on': 'nail',
+  'virtual-glasses-try-on': 'glasses',
+  'virtual-jewelry-try-on': 'jewelry',
+  'virtual-mens-suit-try-on': 'clothing',
+  'virtual-pet-clothing-try-on': 'pet-clothing',
+};
 
 export interface LocalizedContent {
   badge: string;
@@ -106,6 +117,9 @@ export default function LocalizedLanding({ c, enHref, slug, lang }: Props) {
 
       {/* Triptych demo */}
       <TriptychDemo slug={slug} labels={TRIPTYCH_LABELS[lang]} />
+
+      {/* Interactive try-on with watermarked free render */}
+      <TryOnDemoBlock category={SLUG_TO_CATEGORY[slug] || 'clothing'} lang={lang} />
 
       {/* Why */}
       <section className="max-w-5xl mx-auto px-6 py-20 md:py-28">

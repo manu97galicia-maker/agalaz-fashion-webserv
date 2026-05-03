@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Sparkles, Check, ArrowRight, Camera, Shield, Clock, Star, ChevronDown, Palette, Hand } from 'lucide-react';
+import TryOnDemoBlock from '@/components/landing/TryOnDemoBlock';
 
 const FAQ_ITEMS = [
   {
@@ -247,6 +248,7 @@ export default function NailTryOn() {
           </div>
         </div>
       </footer>
+          <TryOnDemoBlock category="nail" lang="en" productLabel="Nail design" />
     </main>
   );
 }

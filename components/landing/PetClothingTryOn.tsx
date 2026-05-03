@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Sparkles, Check, ArrowRight, Heart, Camera, Shield, Clock, Star, ChevronDown, Dog } from 'lucide-react';
+import TryOnDemoBlock from '@/components/landing/TryOnDemoBlock';
 
 const FAQ_ITEMS = [
   {
@@ -172,6 +173,7 @@ export default function PetClothingTryOn() {
           </div>
         </div>
       </footer>
+          <TryOnDemoBlock category="pet-clothing" lang="en" productLabel="Pet outfit" />
     </main>
   );
 }

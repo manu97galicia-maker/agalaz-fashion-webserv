@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Sparkles, Check, ArrowRight, Shirt, Shield, Clock, Star, ChevronDown, Briefcase, Crown } from 'lucide-react';
+import TryOnDemoBlock from '@/components/landing/TryOnDemoBlock';
 
 const FAQ_ITEMS = [
   {
@@ -171,6 +172,7 @@ export default function MensSuitTryOn() {
           </div>
         </div>
       </footer>
+          <TryOnDemoBlock category="clothing" lang="en" productLabel="Suit" />
     </main>
   );
 }
