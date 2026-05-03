@@ -6,7 +6,6 @@ export const metadata: Metadata = {
     canonical: 'https://agalaz.com/pt/virtual-earring-try-on',
     languages: {
       'en': 'https://agalaz.com/virtual-earring-try-on',
-      'es': 'https://agalaz.com/virtual-earring-try-on',
       'fr': 'https://agalaz.com/fr/virtual-earring-try-on',
       'pt': 'https://agalaz.com/pt/virtual-earring-try-on',
       'de': 'https://agalaz.com/de/virtual-earring-try-on',

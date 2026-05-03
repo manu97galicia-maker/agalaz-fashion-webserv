@@ -98,11 +98,6 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: '/',
-    languages: {
-      'en': '/',
-      'es': '/',
-      'x-default': '/',
-    },
   },
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION,

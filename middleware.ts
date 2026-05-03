@@ -26,7 +26,27 @@ function detectLocaleFromCountry(country: string): 'en' | 'es' | 'fr' | 'pt' | '
 }
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const { pathname, search } = request.nextUrl;
+  const host = request.headers.get('host') || '';
+
+  // Canonical host: in production, redirect any non-agalaz.com host (the
+  // agalaz-fashion-webserv.vercel.app production alias, www.agalaz.com, etc.)
+  // to the canonical domain so duplicate-content versions don't get indexed.
+  // Scoped to VERCEL_ENV=production so PR preview deploys remain accessible.
+  if (process.env.VERCEL_ENV === 'production' && host !== 'agalaz.com') {
+    return NextResponse.redirect(`https://agalaz.com${pathname}${search}`, 308);
+  }
+
+  // Lowercase canonical: Next.js routes are all lowercase, so /Try-On is a 404
+  // today. 308 to the lowercased pathname so external links with casual capital
+  // letters still land on the right page.
+  const hasExtension = /\.[a-zA-Z0-9]+$/.test(pathname);
+  if (!hasExtension && pathname !== pathname.toLowerCase()) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.toLowerCase();
+    return NextResponse.redirect(url, 308);
+  }
+
   const country = request.headers.get('x-vercel-ip-country') || '';
   const locale = detectLocaleFromCountry(country);
 
