@@ -37,8 +37,11 @@ export default function PartnersDocsPage() {
       step2: `1. Open sections/main-product.liquid (or your product template)
 2. Find where you want the "Try it on" button
 3. Paste this where you want the button:`,
-      divCode: `<div id="agalaz-tryon" data-garment="{{ product.featured_image | img_url: 'large' }}"></div>`,
-      note: 'Shopify automatically fills {{ product.featured_image }} with the product image URL. No manual work needed per product.',
+      divCode: `<div id="agalaz-tryon"
+  data-garment="{{ product.featured_image | img_url: 'large' }}"
+  data-product-id="{{ product.id }}"
+  data-product-type="{{ product.type }}"></div>`,
+      note: 'Shopify automatically fills these from the product. data-product-id + data-product-type unlock AI-ranked cross-sell from your synced catalog (recommended). Works without them too — just less personalized.',
     },
     'WooCommerce': {
       step1: `1. Go to Appearance → Theme File Editor
@@ -47,8 +50,11 @@ export default function PartnersDocsPage() {
 4. Paste the script BEFORE </head>:`,
       step2: `1. Open your theme's single-product template (usually content-single-product.php)
 2. Add this where you want the button (usually after the Add to Cart button):`,
-      divCode: `<div id="agalaz-tryon" data-garment="<?php echo wp_get_attachment_url(get_post_thumbnail_id()); ?>"></div>`,
-      note: 'WooCommerce\'s PHP function automatically pulls the product\'s featured image. Works on all products.',
+      divCode: `<div id="agalaz-tryon"
+  data-garment="<?php echo wp_get_attachment_url(get_post_thumbnail_id()); ?>"
+  data-product-id="<?php echo get_the_ID(); ?>"
+  data-product-type="<?php $cats = get_the_terms(get_the_ID(), 'product_cat'); echo $cats && !is_wp_error($cats) ? esc_attr($cats[0]->name) : ''; ?>"></div>`,
+      note: 'PHP fills the image, post ID, and primary category automatically. data-product-id + data-product-type unlock AI-ranked cross-sell from your synced catalog.',
     },
     'Custom HTML': {
       step1: `1. Open your HTML template or layout file
@@ -56,8 +62,11 @@ export default function PartnersDocsPage() {
 3. Paste the script BEFORE </head>:`,
       step2: `1. Go to your product page template
 2. Add this where you want the "Try it on" button:`,
-      divCode: '<div id="agalaz-tryon" data-garment="https://yourstore.com/images/product.jpg"></div>',
-      note: 'Replace the data-garment URL with your actual product image URL. Use your CMS template variables if available.',
+      divCode: `<div id="agalaz-tryon"
+  data-garment="https://yourstore.com/images/product.jpg"
+  data-product-id="SKU-OR-ID-FROM-YOUR-CMS"
+  data-product-type="shirt"></div>`,
+      note: 'Replace the data-garment URL with your actual product image. data-product-id + data-product-type are optional but unlock AI-ranked cross-sell from your synced catalog.',
     },
   };
 

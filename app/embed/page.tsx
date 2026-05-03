@@ -19,6 +19,7 @@ export default function EmbedPage() {
   const [apiKey, setApiKey] = useState('');
   const [garmentUrl, setGarmentUrl] = useState<string | null>(null);
   const [productType, setProductType] = useState<string>('');
+  const [productId, setProductId] = useState<string>('');
   const [lang, setLang] = useState<'en' | 'es'>('en');
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [compliment, setCompliment] = useState<string | null>(null);
@@ -85,6 +86,7 @@ export default function EmbedPage() {
     setApiKey(params.get('key') || '');
     setGarmentUrl(params.get('garment') || null);
     setProductType(params.get('type') || params.get('productType') || '');
+    setProductId(params.get('productId') || params.get('product_id') || '');
     if (params.get('lang') === 'es') setLang('es');
   }, []);
 
@@ -331,7 +333,7 @@ export default function EmbedPage() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${apiKey}`,
         },
-        body: JSON.stringify({ productType, lang, limit: 3 }),
+        body: JSON.stringify({ productId: productId || undefined, productType, lang, limit: 3 }),
       });
       if (res.ok) {
         const data = await res.json();

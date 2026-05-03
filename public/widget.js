@@ -150,11 +150,13 @@
     }
   }
 
-  function openModal(garmentUrl) {
+  function openModal(garmentUrl, productId, productType) {
     if (document.getElementById(MODAL_ID)) return;
 
     var params = 'key=' + encodeURIComponent(apiKey) + '&lang=' + lang;
     if (garmentUrl) params += '&garment=' + encodeURIComponent(garmentUrl);
+    if (productId) params += '&productId=' + encodeURIComponent(productId);
+    if (productType) params += '&type=' + encodeURIComponent(productType);
 
     var overlay = document.createElement('div');
     overlay.id = MODAL_ID;
@@ -214,7 +216,13 @@
           console.warn('[Agalaz] No garment image found. Opening widget without garment.');
         }
 
-        openModal(garmentUrl);
+        // Optional product hints — enable AI-ranked cross-sell from the synced catalog
+        var productId = container.getAttribute('data-product-id') || '';
+        var productType = container.getAttribute('data-product-type')
+          || container.getAttribute('data-product-category')
+          || '';
+
+        openModal(garmentUrl, productId, productType);
       });
 
       container.appendChild(btn);
