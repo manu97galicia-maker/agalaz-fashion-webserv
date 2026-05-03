@@ -60,7 +60,10 @@ export const metadata: Metadata = {
     canonical: 'https://agalaz.com/virtual-nail-try-on',
     languages: {
       en: 'https://agalaz.com/virtual-nail-try-on',
-      es: 'https://agalaz.com/virtual-nail-try-on',
+      fr: 'https://agalaz.com/fr/virtual-nail-try-on',
+      pt: 'https://agalaz.com/pt/virtual-nail-try-on',
+      de: 'https://agalaz.com/de/virtual-nail-try-on',
+      it: 'https://agalaz.com/it/virtual-nail-try-on',
       'x-default': 'https://agalaz.com/virtual-nail-try-on',
     },
   },

@@ -35,7 +35,14 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image', title: 'Virtual Jewelry Try-On', description: 'Necklaces, rings, earrings, bracelets — render in 30 seconds.' },
   alternates: {
     canonical: 'https://agalaz.com/virtual-jewelry-try-on',
-    languages: { en: 'https://agalaz.com/virtual-jewelry-try-on', es: 'https://agalaz.com/virtual-jewelry-try-on', 'x-default': 'https://agalaz.com/virtual-jewelry-try-on' },
+    languages: {
+      en: 'https://agalaz.com/virtual-jewelry-try-on',
+      fr: 'https://agalaz.com/fr/virtual-jewelry-try-on',
+      pt: 'https://agalaz.com/pt/virtual-jewelry-try-on',
+      de: 'https://agalaz.com/de/virtual-jewelry-try-on',
+      it: 'https://agalaz.com/it/virtual-jewelry-try-on',
+      'x-default': 'https://agalaz.com/virtual-jewelry-try-on',
+    },
   },
 };
 

@@ -35,7 +35,14 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image', title: 'Virtual Pet Clothing Try-On', description: 'Upload a pet photo, drop any outfit, render in 30 seconds.' },
   alternates: {
     canonical: 'https://agalaz.com/virtual-pet-clothing-try-on',
-    languages: { en: 'https://agalaz.com/virtual-pet-clothing-try-on', es: 'https://agalaz.com/virtual-pet-clothing-try-on', 'x-default': 'https://agalaz.com/virtual-pet-clothing-try-on' },
+    languages: {
+      en: 'https://agalaz.com/virtual-pet-clothing-try-on',
+      fr: 'https://agalaz.com/fr/virtual-pet-clothing-try-on',
+      pt: 'https://agalaz.com/pt/virtual-pet-clothing-try-on',
+      de: 'https://agalaz.com/de/virtual-pet-clothing-try-on',
+      it: 'https://agalaz.com/it/virtual-pet-clothing-try-on',
+      'x-default': 'https://agalaz.com/virtual-pet-clothing-try-on',
+    },
   },
 };
 

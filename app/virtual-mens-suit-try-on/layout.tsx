@@ -35,7 +35,14 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image', title: 'Virtual Men\'s Suit Try-On', description: 'Upload a photo, drop any suit, render in 30 seconds.' },
   alternates: {
     canonical: 'https://agalaz.com/virtual-mens-suit-try-on',
-    languages: { en: 'https://agalaz.com/virtual-mens-suit-try-on', es: 'https://agalaz.com/virtual-mens-suit-try-on', 'x-default': 'https://agalaz.com/virtual-mens-suit-try-on' },
+    languages: {
+      en: 'https://agalaz.com/virtual-mens-suit-try-on',
+      fr: 'https://agalaz.com/fr/virtual-mens-suit-try-on',
+      pt: 'https://agalaz.com/pt/virtual-mens-suit-try-on',
+      de: 'https://agalaz.com/de/virtual-mens-suit-try-on',
+      it: 'https://agalaz.com/it/virtual-mens-suit-try-on',
+      'x-default': 'https://agalaz.com/virtual-mens-suit-try-on',
+    },
   },
 };
 

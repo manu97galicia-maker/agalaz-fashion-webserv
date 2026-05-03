@@ -35,7 +35,14 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image', title: 'Virtual Glasses Try-On — See Any Frames On You', description: 'Upload a photo, drop any frames, render in 30 seconds.' },
   alternates: {
     canonical: 'https://agalaz.com/virtual-glasses-try-on',
-    languages: { en: 'https://agalaz.com/virtual-glasses-try-on', es: 'https://agalaz.com/virtual-glasses-try-on', 'x-default': 'https://agalaz.com/virtual-glasses-try-on' },
+    languages: {
+      en: 'https://agalaz.com/virtual-glasses-try-on',
+      fr: 'https://agalaz.com/fr/virtual-glasses-try-on',
+      pt: 'https://agalaz.com/pt/virtual-glasses-try-on',
+      de: 'https://agalaz.com/de/virtual-glasses-try-on',
+      it: 'https://agalaz.com/it/virtual-glasses-try-on',
+      'x-default': 'https://agalaz.com/virtual-glasses-try-on',
+    },
   },
 };
 
