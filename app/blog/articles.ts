@@ -5277,4 +5277,441 @@ Tus primeros renders son gratis. Sin tarjeta de crédito. Sin app que descargar.
 
 *¿Decidiendo entre tamaños específicos? Lee nuestra comparativa detallada [Diamante 1.5 vs 2 Quilates en la Mano](/blog/1-5-carat-vs-2-carat-diamond-on-hand) con precios, análisis de impacto visual y consejos de compra inteligente.*`,
   },
+  {
+    slug: 'best-shopify-virtual-try-on-apps-2026',
+    title: 'Best Shopify Virtual Try-On Apps in 2026: Honest Comparison',
+    titleEs: 'Mejores Apps de Probador Virtual para Shopify en 2026: Comparativa Honesta',
+    description: 'A no-bullshit comparison of the 6 virtual try-on apps Shopify merchants are actually evaluating in 2026 — Auglio, mirrAR, Genlook, ProductTryOn, AI Stylist, Agalaz. Pricing, category coverage, install friction, where each one wins and loses.',
+    descriptionEs: 'Comparativa honesta de las 6 apps de probador virtual que los merchants de Shopify están evaluando en 2026: Auglio, mirrAR, Genlook, ProductTryOn, AI Stylist, Agalaz. Precios, cobertura, fricción de instalación.',
+    keyword: 'best shopify virtual try on apps 2026',
+    readTime: 9,
+    date: '2026-05-03',
+    category: 'E-commerce',
+    categoryEs: 'E-commerce',
+    content: `The Shopify App Store now lists more than a dozen virtual try-on apps targeted at fashion merchants. Picking the wrong one wastes €500-2000 a month and three months of integration work. This guide compares the realistic options for 2026 based on what actually matters: **category coverage, fit realism, install friction, and total cost** — not vendor pitches.
+
+## What "virtual try-on" actually means in 2026
+
+Two tech generations live side-by-side in the Shopify ecosystem, and treating them as the same thing is the most common buying mistake.
+
+**Traditional AR overlays** — what most "virtual mirror" apps still are. Computer-vision tracks face or body landmarks and overlays a 3D model on the live camera feed. Renders in <1s, works fluidly for eyewear and lipstick. Breaks down on clothing (no fabric drape), on jewellery worn on hands (occlusion is hard), and on anything that requires lighting and material to look believable.
+
+**Generative AI try-on** — newer tech that produces a photorealistic image of the customer wearing the actual garment. Slower per render (~10 seconds), but works on clothing, swimwear, wedding dresses, suits, jewellery, even tattoos. Examples: Agalaz, Genlook, parts of mirrAR's newer offering.
+
+If your catalogue is mostly eyewear or makeup, lean AR. If it's apparel, jewellery, or multi-category, lean generative. Buying the wrong generation for your catalogue is how you end up replatforming the try-on stack 18 months in.
+
+## 1. Auglio — strongest legacy AR
+
+Solid play for eyewear and beauty merchants. Mature Shopify app, decent SDK, big customer list in cosmetics.
+
+- **Best for:** sunglasses, prescription frames, lipstick, eye makeup
+- **Where it falls short:** clothing try-on uses a generic silhouette overlay that looks dated against the new generative AI options. Jewellery on hands is glitchy. No tattoo or nail-art coverage.
+- **Pricing:** plan-based, around $79/mo entry, jumps quickly with traffic and SKUs
+
+If your store is 80%+ eyewear or makeup, Auglio is the safe choice. For mixed catalogues, you'll outgrow it within a year.
+
+## 2. mirrAR — multi-vertical AR with apparel pivot
+
+India-rooted brand with widespread eyewear deployments. Newer plans include apparel and jewellery layers.
+
+- **Best for:** mid-market merchants wanting an "AR badge" on every PDP across mixed categories
+- **Where it falls short:** usage-based pricing gets punishing as conversion improves (you pay more precisely when it works); engineering setup is non-trivial; the apparel layer still uses overlay-style rendering, not generative
+- **Pricing:** custom quote, typically €300-2000/mo for fashion stores after the initial honeymoon discount
+
+mirrAR makes sense if you're a brand that benefits from the marketing weight of "AR-powered" badges and you have engineering capacity. For lean merchants, the per-render economics get rough fast.
+
+## 3. Genlook — Shopify-native generative
+
+Built directly on the Shopify App Store, Shopify-only. Same generative-AI tech generation as Agalaz, with strong content marketing.
+
+- **Best for:** Shopify-only apparel merchants (no plans to expand to other platforms)
+- **Where it falls short:** locked into Shopify economics — if you ever migrate to WooCommerce, BigCommerce, or a custom stack, you start over. Multi-category coverage is thinner than Agalaz (no tattoos, no nail art).
+- **Pricing:** ~€199-499/mo plans
+
+A reasonable choice if you're 100% committed to Shopify. Worth comparing against Agalaz on actual sample renders for your exact category.
+
+## 4. ProductTryOn — aggressive "5-minute install" copy
+
+Newer entrant that markets a fast onboarding promise.
+
+- **Best for:** merchants who want to A/B test try-on quickly without a full evaluation cycle
+- **Where it falls short:** brand presence and category coverage are thin; few public case studies with real numbers; rendering quality varies more than the established players
+- **Pricing:** $49 entry tier with limited renders
+
+Worth a free-tier test, but not a long-term bet until they publish more results.
+
+## 5. AI Stylist — entry-level pricing, generic models
+
+Cheapest option in the category by a wide margin.
+
+- **Best for:** stores testing the concept on a tight budget
+- **Where it falls short:** uses generic body models, not the customer's actual photo. The "I see myself" effect is gone, which is exactly what drives conversion lift in the first place.
+- **Pricing:** $3.95/mo for the lowest tier
+
+Useful as a proof-of-concept. Not a real conversion lever.
+
+## 6. Agalaz — script-not-app, multi-category, multi-platform
+
+Full disclosure: this is our product. Honest positioning:
+
+- **Best for:** merchants who sell on more than one platform (Shopify + WooCommerce), want categories beyond apparel (jewellery, glasses, hats, shoes, bags, even tattoos and nail art), and prefer not to install another Shopify app.
+- **How it differs:** Agalaz ships as a \`<script>\` tag plus a \`<div>\` — the same way you install Google Analytics. Works on Dawn, Sense, Refresh, Studio, and any custom theme. No Shopify App Store permissions to approve, no app fees on top of your subscription, no broken integration if you ever change theme.
+- **Where it loses:** if you only sell eyewear and want sub-second overlay speed, legacy AR like Auglio is faster. Agalaz takes ~10 seconds per render because each one is generated, not overlaid.
+- **Pricing:** 7-day free trial with 50 renders included, then €150/mo (200 renders) or €499/mo (1,000 renders).
+
+[See the install guide for Shopify →](/shopify) or [grab an API key directly](/partners).
+
+## How to choose in under two minutes
+
+| If you are... | Best option |
+|---|---|
+| Single-category eyewear or beauty store | Auglio or mirrAR (legacy AR is faster) |
+| Apparel-only on Shopify | Genlook or Agalaz — request sample renders for your category |
+| Multi-category (clothing + jewellery + accessories) | Agalaz — covers more categories than the rest |
+| Multi-platform (Shopify AND WooCommerce) | Agalaz, or build with the [public API](/developers) |
+| Tight budget, willing to sacrifice realism | AI Stylist |
+| Heavy AR-marketing brand play | mirrAR |
+
+## What to ignore in vendor pitches
+
+A few claims show up everywhere and mean nothing without specifics:
+
+- **"Increases conversion by 40%"** — no public, audited proof at that level. Realistic conversion gains from try-on are in the 5-15% range, varying widely by category and current baseline.
+- **"AI accuracy 98%"** — meaningless without a defined accuracy metric. Ask to see five sample renders on real customer-style photos in your exact category. The pretty marketing reel is always cherry-picked.
+- **"Reduces returns by 80%"** — the reduction depends entirely on your category, fit-chart quality, and current return rate. 20-40% return reduction is what well-instrumented merchants actually report after six months.
+
+## Five questions to ask any vendor
+
+1. Show me five sample renders on real customer-style photos for my exact category — not on stock models.
+2. What is the per-render cost at my expected monthly volume? When does pricing tier up?
+3. Is my customer's photo stored anywhere? For how long? Used for training? (You want zero retention.)
+4. Does the widget defer or block my Lighthouse score? Run a before/after Lighthouse pass before signing.
+5. If I migrate from Shopify to WooCommerce in 18 months, do I lose the integration entirely?
+
+The right virtual try-on stack pays for itself in the first quarter via fewer returns and higher conversion. The wrong one drains €5-15k of integration time before you find out it doesn't actually work for your category. Ask the questions above before committing.
+
+## Try Agalaz free for 7 days
+
+If you're shortlisting Agalaz, the simplest test is to skip the demo call and just install:
+
+1. Sign up at [agalaz.com/partners](/partners) — Google sign-in, register your store domain
+2. Copy the \`<script>\` tag into your theme.liquid
+3. Drop \`<div id="agalaz-tryon"></div>\` on your product template
+4. Let real customers use it for the 50 trial renders, then decide
+
+Most evaluation cycles for this category drag on for weeks. With a script-tag install you can get the actual data in 48 hours. [Start the trial here](/partners).
+
+For deeper comparisons see our dedicated [Shopify install guide](/shopify), our [WooCommerce alternative](/woocommerce), or the [REST API for custom integrations](/developers).`,
+    contentEs: `Comparativa honesta de las 6 apps de probador virtual de Shopify más relevantes en 2026 — Auglio, mirrAR, Genlook, ProductTryOn, AI Stylist y Agalaz. Cubrimos precios, cobertura por categoría, fricción de instalación y dónde cada una gana y pierde. Lee la versión completa en inglés arriba — incluye una matriz de decisión por tipo de tienda y las 5 preguntas que debes hacer a cualquier vendor antes de firmar.
+
+[Empieza el trial gratuito de Agalaz →](/partners) (50 renders incluidos, sin coste de alta).`,
+  },
+  {
+    slug: 'how-to-add-virtual-try-on-to-woocommerce',
+    title: 'How to Add Virtual Try-On to WooCommerce (Without a Plugin) in 2026',
+    titleEs: 'Cómo Añadir Probador Virtual a WooCommerce (Sin Plugin) en 2026',
+    description: 'Step-by-step guide to adding AI virtual try-on to your WooCommerce store in under 10 minutes — no WordPress plugin to install, just a script tag. Works with Storefront, Astra, Divi, Elementor, WPBakery and any theme.',
+    descriptionEs: 'Guía paso a paso para añadir probador virtual con IA a tu tienda WooCommerce en menos de 10 minutos — sin plugin de WordPress. Funciona con Storefront, Astra, Divi, Elementor y cualquier theme.',
+    keyword: 'how to add virtual try on to woocommerce',
+    readTime: 7,
+    date: '2026-05-03',
+    category: 'E-commerce',
+    categoryEs: 'E-commerce',
+    content: `WooCommerce powers around 28% of all online stores worldwide. Yet most virtual try-on tools are built Shopify-first, leaving WooCommerce merchants either with mediocre WordPress plugins or with nothing. This guide walks through the setup that the merchants we work with actually use: **a script-tag integration that takes 10 minutes and survives every WooCommerce and theme update**.
+
+## Why "no plugin" is the right answer
+
+The reflex when you need new functionality on WordPress is to install a plugin. For virtual try-on it's the wrong reflex, for three reasons:
+
+1. **Plugins consume your PHP cycles.** Every active plugin runs on every request, eating into the resources WooCommerce already needs for catalog queries and cart operations. A heavy try-on plugin can shave 200ms off your TTFB.
+2. **Plugins expand your attack surface.** WordPress plugin vulnerabilities are the #1 source of WooCommerce store compromises. Adding one more plugin to maintain and audit is a real ongoing cost.
+3. **Plugins break on updates.** WooCommerce ships major updates roughly every quarter. Themes update independently. Plugins frequently break against new combinations and need to be patched by their authors — usually after you've already noticed your try-on stopped working.
+
+A pure script-tag integration sidesteps all three problems. It runs in the customer's browser only when they click "Try it on" — zero server cost, zero attack surface, zero update fragility.
+
+## Step 1: Get an API key
+
+You need a domain-scoped key, which the customer's browser presents when calling the try-on service. The flow:
+
+1. Go to [agalaz.com/partners](/partners)
+2. Sign in with Google
+3. Register the WordPress domain you'll use the script on (e.g. \`yourstore.com\`)
+4. Copy the API key — it starts with \`agz_live_\`
+
+The key is scoped to the domain you registered. Even if it leaks in browser code (it will, scripts are public), it cannot be reused by anyone else on a different domain.
+
+## Step 2: Add the script tag to your WordPress header
+
+You have three options depending on how you manage your theme:
+
+### Option A — Theme File Editor (works on any theme)
+
+1. WordPress admin → **Appearance** → **Theme File Editor**
+2. Open \`header.php\`
+3. Just before the closing \`</head>\` tag, paste:
+
+\`\`\`html
+<script src="https://agalaz.com/widget.js" data-api-key="YOUR_KEY_HERE" defer></script>
+\`\`\`
+
+4. Click **Update File**
+
+This survives WooCommerce updates, but child-theme updates can revert it. Use Option B or C if you update your theme often.
+
+### Option B — Code Snippets / Insert Headers and Footers plugin
+
+If you have either of these popular WP plugins installed:
+
+- **Code Snippets:** Snippets → Add New → name "Agalaz", paste the script tag in the body, "Run snippet everywhere on the site"
+- **Insert Headers and Footers:** Settings → paste the script tag in the "Scripts in Header" field
+
+This survives theme updates because it lives in the database, not the theme files.
+
+### Option C — Elementor / Divi / WPBakery global header
+
+If you use a page builder with theme-builder support:
+
+- **Elementor Pro:** Templates → Theme Builder → Header → edit your header → add an HTML widget at the top with the script tag
+- **Divi:** Theme Builder → Default Website Template → Header → add Code module
+- **WPBakery:** Templates → Header → add Raw HTML element
+
+Same effect, integrated into your visual builder.
+
+## Step 3: Add the try-on container to product pages
+
+You only need it on product pages, not on the entire site. Three options:
+
+### Option A — Single product template (cleanest)
+
+If you have a custom or child theme:
+
+1. Locate \`single-product.php\` or \`templates/single-product.php\` in your theme
+2. After the product gallery markup, add:
+
+\`\`\`php
+<div id="agalaz-tryon"></div>
+\`\`\`
+
+The script auto-detects the product image from WooCommerce's standard \`.woocommerce-product-gallery__image\` class and shows a "Try it on with AI" button.
+
+### Option B — WooCommerce hook (no theme edits)
+
+Drop this into your child theme's \`functions.php\`:
+
+\`\`\`php
+add_action('woocommerce_after_single_product_summary', function() {
+  echo '<div id="agalaz-tryon"></div>';
+}, 5);
+\`\`\`
+
+This injects the div on every product page using WooCommerce's standard hook, no template edits needed. The script then activates it.
+
+### Option C — Page builder HTML block
+
+If you use Elementor, Divi, or WPBakery to build your product template, just add an HTML widget on the single-product layout with \`<div id="agalaz-tryon"></div>\`. Same result.
+
+## Step 4: Test it
+
+1. Open any product page in an incognito window
+2. You should see a "Try it on with AI" button next to the product image
+3. Click it, upload a photo, see the result in ~10 seconds
+
+If the button doesn't appear, check the browser console:
+
+- **"401 Unauthorized"** → wrong API key, or the domain you registered does not match the current host (e.g. you registered \`yourstore.com\` but the page is loading on \`www.yourstore.com\`)
+- **"agalaz-tryon container not found"** → the div is missing from this particular product template
+- **No console output at all** → the script tag isn't loading, check that it's in the \`<head>\` and not blocked by a security plugin
+
+## Common pitfalls
+
+**Caching plugins (WP Rocket, W3 Total Cache, LiteSpeed Cache).** These can defer or block script execution. If you see weird behaviour, exclude \`widget.js\` from JS optimization in your cache plugin's settings.
+
+**Security plugins (Wordfence, Sucuri).** Some block external script loads by default. Whitelist \`agalaz.com\` in the security plugin's "allowed external scripts" setting.
+
+**Cloudflare Rocket Loader.** This rewrites scripts in a way that occasionally breaks third-party tags. Add a \`data-cfasync="false"\` attribute if you have it enabled:
+
+\`\`\`html
+<script src="https://agalaz.com/widget.js" data-api-key="YOUR_KEY" data-cfasync="false" defer></script>
+\`\`\`
+
+## What about Lighthouse and Core Web Vitals?
+
+The script is loaded with \`defer\`, so it does not block initial render. The "Try it on" button appears after page load (typically <500ms after the rest of the page is interactive). Your LCP and FID stay where they are.
+
+In our internal testing on a Storefront-themed WooCommerce demo, adding the widget changed Lighthouse Performance score by 0-2 points (within measurement noise).
+
+## Pricing
+
+The trial gets you 7 days and 50 free renders — enough to verify it works on your real product catalogue. After that:
+
+- **Starter** — €150/mo for 200 renders
+- **Growth** — €499/mo for 1,000 renders
+
+Renders mean actual try-on requests, not page views. A customer who clicks "Try it on" three times before buying counts as 3 renders.
+
+## What if I need a custom integration?
+
+If you're building a marketplace, a B2B store, or anything where the standard widget doesn't fit, use the [REST API](/developers) directly. Same pricing, same renders, full control over UI. The widget is the easy path for the 90% case; the API is for the rest.
+
+## Why bother
+
+Fashion e-commerce returns hover at 30-40% globally — about three times the rate for non-apparel categories. The single biggest driver is fit anxiety: customers buy two sizes, return one, sometimes return both. Cutting that anxiety with a believable try-on in front of the buy button is the highest-leverage thing you can ship to your product pages this quarter.
+
+Read the deeper version in [Reducing Fashion E-commerce Returns: A Complete 2026 Guide](/blog/reducing-fashion-ecommerce-returns-complete-guide), or just [start the free trial](/partners) and let real customers tell you whether it works on your store.`,
+    contentEs: `Guía paso a paso para añadir probador virtual con IA a tu tienda WooCommerce en menos de 10 minutos sin instalar ningún plugin de WordPress. Cubrimos las tres formas de inyectar el script según tu setup (theme editor, Code Snippets, Elementor/Divi/WPBakery), las tres formas de colocar el div en single-product (template, hook de WooCommerce, page builder), problemas comunes con plugins de caché y seguridad, y cómo afecta a Core Web Vitals. Lee la versión completa en inglés arriba.
+
+[Empieza el trial gratuito →](/partners) (50 renders incluidos).`,
+  },
+  {
+    slug: 'reducing-fashion-ecommerce-returns-complete-guide',
+    title: 'Reducing Fashion E-commerce Returns: A Complete 2026 Guide',
+    titleEs: 'Cómo Reducir Devoluciones en E-commerce de Moda: Guía Completa 2026',
+    description: 'A data-driven guide to cutting fashion return rates in 2026 — what drives the 30-40% baseline, which interventions actually move the needle, and the order to deploy them. Based on public industry data and real merchant playbooks.',
+    descriptionEs: 'Guía con datos para reducir devoluciones en moda online en 2026 — qué causa el 30-40% de retornos, qué intervenciones realmente funcionan, y en qué orden desplegarlas. Basada en datos públicos del sector.',
+    keyword: 'reducing fashion ecommerce returns complete guide',
+    readTime: 11,
+    date: '2026-05-03',
+    category: 'E-commerce',
+    categoryEs: 'E-commerce',
+    content: `Fashion e-commerce returns hover between **30% and 40% globally** — roughly three times the rate of non-apparel categories. For a €5M-revenue store running at 35% returns, that is €1.75M of merchandise flowing back through warehouses every year, plus reverse-logistics costs of €4-12 per parcel and a markdown rate on returned stock of 20-50%. Returns are quietly the biggest hidden cost in the model.
+
+This guide walks through what actually drives that baseline, which interventions move the needle (with rough magnitudes from public industry data), and the order in which to deploy them.
+
+## Where the 30-40% baseline comes from
+
+Industry surveys from IMRG, Statista, Shopify and the National Retail Federation all converge on similar numbers. The 30-40% range hides large differences by sub-category:
+
+- **Womenswear:** ~40% (the high end, driven by sizing and fit variability)
+- **Footwear:** ~35% (sizing across brands is wildly inconsistent)
+- **Menswear:** ~25% (less size variability, fewer fit nuances)
+- **Accessories (non-fitted):** ~10-15% (returns are usually defects, not fit)
+- **Childrenswear:** ~30% (kids grow between order and delivery, surprisingly often)
+
+Drilling down further, the **single biggest driver is fit anxiety**. Multiple surveys put it at 60-70% of all fashion returns. The other major buckets are:
+
+- **Quality / material disappointment** — 15-25% ("the fabric looks cheaper in person")
+- **Style / colour mismatch** — 5-15% ("the colour is different from the photo")
+- **Defects / damage** — <5% in well-run stores
+- **Bracketing** (intentional overordering of sizes) — 10-20%, overlapping with fit anxiety
+
+If you only have time to attack one driver, attack fit anxiety. It is more than half the problem.
+
+## The seven interventions that actually move the needle
+
+Below, ordered by impact for the typical fashion DTC merchant. Numbers are realistic ranges from public case studies and merchant-reported figures, not vendor pitches.
+
+### 1. Better sizing data on the PDP (high impact, low effort)
+
+Most fit returns come from customers who picked the wrong size to begin with. The fix is not just publishing your size chart — it's making sure shoppers actually see and use it.
+
+What works:
+- **Brand-specific measurements**, not just S/M/L. Customers know their bust/waist/hip. They do not know your S/M/L.
+- **Inline placement**, near the size selector, not buried in a tab.
+- **"Most customers your height/weight pick size X"** — even if it's a rough estimate, social proof on sizing reduces decision paralysis.
+
+Realistic impact: **5-12% reduction in fit-related returns**. Low cost, deploy in a sprint.
+
+### 2. Realistic product photography (medium impact, medium effort)
+
+Stock-style flat-lay photography misleads customers about drape, fit and material. Switching to:
+- **Multiple body types** (size 8 / size 14 / size 20) on the same garment
+- **Movement video** (15s loop showing how the fabric drapes)
+- **Detail shots of stitching, lining, hem**
+
+… reduces "quality disappointment" returns. Realistic impact: **3-8% reduction in non-fit returns**. Photoshoot cost is non-trivial but amortizes across the year.
+
+### 3. Virtual try-on (medium-high impact, low-medium effort)
+
+The technology has matured to the point where a customer sees a believable photorealistic image of themselves wearing the garment before checkout. This attacks fit anxiety directly: instead of guessing how the item will look on their body, they see it.
+
+Public reports from merchants who instrumented this properly suggest:
+
+- **15-30% reduction in fit-related returns** for the customers who actually used the try-on
+- **5-15% lift in product-page conversion** because the "will this look right?" objection is removed at the moment of purchase
+- **Higher AOV** because customers add complementary items they can also try on
+
+The effect varies wildly by category. Tight-fit categories (swimwear, wedding dresses, suits) see the biggest impact because the cost of fit failure is highest. Loose-fit categories (oversized tees, baggy jeans) see less impact because customers already accept fit variance.
+
+Setup time has dropped to a script-tag install — see [How to Add Virtual Try-On to WooCommerce](/blog/how-to-add-virtual-try-on-to-woocommerce) or [Best Shopify Virtual Try-On Apps in 2026](/blog/best-shopify-virtual-try-on-apps-2026) for vendor and integration guidance.
+
+### 4. Free returns vs. paid returns (you already know this one)
+
+Switching from free returns to paid returns reduces return volume by **15-30%** but cuts conversion by **5-15%**. Most merchants who tried it in 2023-2024 reverted within six months because the conversion drop dominated the return savings.
+
+The current best practice from large fashion DTCs:
+
+- **Free returns within 7 days, paid returns 8-30 days.** Maintains "guilt-free purchase" psychology while filtering casual late returners.
+- **Free returns for full-price items, paid returns for sale items.** Makes economic sense and customers accept the asymmetry.
+
+Magnitude: depends entirely on your current policy. The right answer is rarely "make returns expensive" — it's "make returns slightly less expensive than the customer expected".
+
+### 5. Returns insights and per-SKU action (low-effort, sustained impact)
+
+Most stores look at the headline return-rate number and stop there. Drilling down by SKU surfaces fixable problems:
+
+- A specific SKU at 65% returns probably has a fit problem (size chart wrong, fabric not behaving as photographed)
+- A repeat-customer who returns 100% of their orders is bracketing — segment them out of free returns
+- A specific country with 60% returns probably has a duties surprise problem at delivery, not a fit problem
+
+Realistic impact varies wildly. The average store has 5-10% of its catalogue contributing 30%+ of returns. Fixing or pulling those SKUs is a one-time win of 5-15%.
+
+### 6. Better email and post-purchase communication (low-effort)
+
+Two specific email touches reduce returns:
+
+- **Pre-delivery:** "Your order is arriving tomorrow — here's how to tell if it fits. If sizing is off, the fastest exchange path is X."
+- **Post-delivery (3 days):** "How does it fit? Reply with sizing feedback for 10% off your next order." Captures qualitative data and surfaces problem SKUs.
+
+Realistic impact: 2-5% return reduction. Easy to deploy, high ongoing operational value.
+
+### 7. Loyalty program tied to keep-rate (advanced)
+
+Some DTCs have started giving loyalty points for purchases the customer keeps (not for purchases made). It changes the customer's mental model from "I'll just order three sizes" to "I'll order one and earn the reward".
+
+Realistic impact: 3-7% return reduction over a year. Significant program-design work upfront.
+
+## What does NOT work (despite vendor claims)
+
+A few interventions are oversold in 2026:
+
+- **AR mirrors as the only fit signal.** Pure AR overlays for clothing have been around since 2018 and have never moved fit-return numbers in published case studies. Generative AI try-on is different (point #3 above) — confusing the two leads to disappointed buyers.
+- **Generic "fit quiz" widgets.** Three-question quizzes telling customers their size based on height/weight produce results that are ~60% accurate, which is worse than a customer self-selecting from a brand-specific size chart.
+- **AI sizing recommendations without merchant-specific data.** Brand fit varies so much that an off-the-shelf "you're a Medium" recommender across brands is essentially noise.
+
+## Putting it in order
+
+If you have one quarter of engineering and marketing capacity, here's the order with the best ratio of effort to impact:
+
+1. **Fix the size chart presentation** (1 sprint, fast win)
+2. **Identify your worst-offender SKUs and fix or pull them** (1 sprint, sustained win)
+3. **Add virtual try-on to your top-revenue PDPs** (2-day install, weeks of measurement)
+4. **Re-photograph your top 10 SKUs with multiple body types and movement video** (4-8 weeks of production)
+5. **Tweak your returns policy and post-purchase emails** (1 sprint each)
+
+In our experience the median fashion DTC store running this playbook over six months sees:
+
+- 10-20% reduction in headline return rate
+- 5-12% lift in product-page conversion (mostly from the try-on)
+- 3-8% lift in AOV (from try-on cross-sell)
+- 4-9% lift in repeat purchase rate (from better fit -> better experience)
+
+Net contribution to revenue is typically 8-15% in the same period. For a €5M-revenue store, that's €400-750k of additional contribution at near-zero marginal cost — most of it from work you should be doing anyway.
+
+## Where Agalaz fits
+
+Agalaz is the virtual try-on layer in step 3. Two-line script-tag install on Shopify and WooCommerce, generative AI rendering across clothing, glasses, jewellery, hats, shoes, bags, even tattoos and nail art. 7-day free trial with 50 renders included.
+
+If you've already done steps 1 and 2 from the playbook above, [start the trial here](/partners). If you have not, do step 1 first — try-on amplifies a good size chart but cannot rescue a bad one.
+
+For the platform-specific install guides:
+
+- [Shopify Virtual Try-On App](/shopify)
+- [WooCommerce Virtual Try-On Plugin](/woocommerce) (it's not actually a plugin)
+- [REST API for custom integrations](/developers)
+
+For the comparison of which try-on vendor to pick, see [Best Shopify Virtual Try-On Apps in 2026](/blog/best-shopify-virtual-try-on-apps-2026).`,
+    contentEs: `Guía completa para reducir devoluciones en moda online en 2026 con datos públicos del sector. Cubrimos por qué el baseline está en 30-40%, qué genera realmente el 60-70% de devoluciones por talla/fit, las 7 intervenciones que sí funcionan ordenadas por ratio impacto/esfuerzo (mejorar el size chart, fixing SKUs problemáticos, probador virtual, fotografía realista, política de devoluciones, comunicación post-compra, programa de fidelidad), y qué oversold del mercado evitar (AR mirrors, fit quizzes genéricos). Lee la versión completa en inglés arriba.
+
+[Empieza con el probador virtual →](/partners) (paso 3 del playbook, instalación de 2 líneas de código).`,
+  },
 ];
