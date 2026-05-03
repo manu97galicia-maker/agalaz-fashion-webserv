@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Partner not found' }, { status: 404 });
     }
 
-    if (partner.is_active && partner.api_key_hash !== 'pending') {
+    if (partner.is_active && !partner.api_key_hash.startsWith('pending')) {
       return NextResponse.json({ error: 'API key already generated' }, { status: 409 });
     }
 

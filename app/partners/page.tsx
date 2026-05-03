@@ -99,23 +99,28 @@ function PartnersContent() {
   // marketing landing for crawlers.
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const subscribed = new URLSearchParams(window.location.search).get('subscribed');
-    if (subscribed === 'true' && userId) {
-      // If we stashed the raw API key before the Stripe redirect, surface it now
-      try {
-        const stashed = sessionStorage.getItem('agalaz_partner_api_key');
-        if (stashed) {
-          setApiKey(stashed);
-          sessionStorage.removeItem('agalaz_partner_api_key');
-        }
-      } catch {}
+    const params = new URLSearchParams(window.location.search);
+    const subscribed = params.get('subscribed');
+    const partnerIdFromUrl = params.get('partner_id');
+    if (subscribed !== 'true') return;
+    // Surface the API key stashed pre-Stripe (works for both authed and anonymous flows)
+    try {
+      const stashed = sessionStorage.getItem('agalaz_partner_api_key');
+      if (stashed) {
+        setApiKey(stashed);
+        sessionStorage.removeItem('agalaz_partner_api_key');
+      }
+    } catch {}
+    if (userId) {
       loadPartnerProfile(userId);
+    } else if (partnerIdFromUrl) {
+      loadPartnerProfile(partnerIdFromUrl, 'partner_id');
     }
   }, [userId]);
 
-  async function loadPartnerProfile(uid: string) {
+  async function loadPartnerProfile(id: string, mode: 'user_id' | 'partner_id' = 'user_id') {
     try {
-      const res = await fetch(`/api/partners/profile?user_id=${uid}`);
+      const res = await fetch(`/api/partners/profile?${mode}=${encodeURIComponent(id)}`);
       if (res.ok) {
         const data = await res.json();
         setPartnerProfile(data.partner);

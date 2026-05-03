@@ -3,16 +3,18 @@ import { createAdminClient } from '@/lib/supabaseAdmin';
 
 export async function GET(req: NextRequest) {
   const userId = req.nextUrl.searchParams.get('user_id');
-  if (!userId) {
-    return NextResponse.json({ error: 'user_id is required' }, { status: 400 });
+  const partnerId = req.nextUrl.searchParams.get('partner_id');
+  if (!userId && !partnerId) {
+    return NextResponse.json({ error: 'user_id or partner_id is required' }, { status: 400 });
   }
 
   const admin = createAdminClient();
-  const { data: partner, error } = await admin
+  const query = admin
     .from('partners')
-    .select('id, store_name, plan, setup_paid, is_active, credits_remaining, api_key_prefix, stripe_subscription_id, credits_monthly_limit')
-    .eq('user_id', userId)
-    .single();
+    .select('id, store_name, plan, setup_paid, is_active, credits_remaining, api_key_prefix, stripe_subscription_id, credits_monthly_limit');
+  const { data: partner, error } = await (partnerId
+    ? query.eq('id', partnerId).single()
+    : query.eq('user_id', userId!).single());
 
   if (error || !partner) {
     return NextResponse.json({ error: 'Partner not found' }, { status: 404 });

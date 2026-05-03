@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
         email,
         store_name,
         store_url: store_url.startsWith('http') ? store_url : `https://${store_url}`,
-        api_key_hash: 'pending',
+        api_key_hash: `pending-${user_id}`,
         api_key_prefix: 'pending',
         allowed_domains: domains,
         plan: selectedPlan,
