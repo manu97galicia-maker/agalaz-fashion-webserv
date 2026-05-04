@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Sparkles, Copy, Check, ArrowRight, ChevronRight, Shield, Zap, Globe, Code2, ChevronDown, ShoppingBag, TrendingDown, BarChart3 } from 'lucide-react';
+import { Sparkles, Copy, Check, ArrowRight, ChevronRight, Shield, Zap, Globe, Code2, ChevronDown, ShoppingBag, TrendingDown, BarChart3, RefreshCw } from 'lucide-react';
 import { useLang, pickLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { ChatBot } from '@/components/ChatBot';
@@ -1516,6 +1516,81 @@ function PartnersContent() {
                   {`<script src="https://agalaz.com/widget.js" data-api-key="${apiKey || (partnerProfile?.api_key_prefix ? partnerProfile.api_key_prefix + '...' : 'agz_live_...')}"></script>`}
                 </code>
               </div>
+            </div>
+
+            {/* Sync Shopify catalog */}
+            <div className="p-4 bg-violet-50 border border-violet-200 rounded-xl space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="font-black text-slate-900 text-sm flex items-center gap-2">
+                    <RefreshCw size={14} className="text-violet-600" />
+                    {lang === 'es' ? 'Sincronizar catálogo Shopify' : 'Sync Shopify catalog'}
+                  </h3>
+                  <p className="text-[11px] text-slate-500 font-light leading-relaxed mt-1">
+                    {lang === 'es'
+                      ? 'Importa todos los productos de tu tienda para que el botón Try-On los reconozca al instante.'
+                      : 'Import every product from your store so the Try-On button recognises them instantly.'}
+                  </p>
+                </div>
+              </div>
+
+              {catalogStats && catalogStats.total > 0 && (
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  <div className="p-2 bg-white rounded-lg border border-violet-100">
+                    <p className="text-lg font-black text-slate-900">{catalogStats.total}</p>
+                    <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                      {lang === 'es' ? 'Productos' : 'Products'}
+                    </p>
+                  </div>
+                  <div className="p-2 bg-white rounded-lg border border-violet-100">
+                    <p className="text-lg font-black text-emerald-600">{catalogStats.classified}</p>
+                    <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                      {lang === 'es' ? 'Categorizados' : 'Categorised'}
+                    </p>
+                  </div>
+                  <div className="p-2 bg-white rounded-lg border border-violet-100">
+                    <p className="text-[10px] font-bold text-slate-600">
+                      {catalogStats.last_synced
+                        ? new Date(catalogStats.last_synced).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { day: '2-digit', month: 'short' })
+                        : (lang === 'es' ? 'Nunca' : 'Never')}
+                    </p>
+                    <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                      {lang === 'es' ? 'Último sync' : 'Last sync'}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {syncMessage && (
+                <div className={`p-3 rounded-lg text-[11px] font-bold ${
+                  syncMessage.type === 'success'
+                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                    : 'bg-red-50 text-red-700 border border-red-200'
+                }`}>
+                  {syncMessage.text}
+                </div>
+              )}
+
+              <button
+                onClick={handleSyncCatalog}
+                disabled={syncLoading}
+                className={`w-full py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all ${
+                  syncLoading
+                    ? 'bg-violet-200 text-violet-400 cursor-not-allowed'
+                    : 'bg-violet-600 text-white hover:bg-violet-700 shadow-sm'
+                }`}
+              >
+                {syncLoading
+                  ? (lang === 'es' ? 'Sincronizando…' : 'Syncing…')
+                  : (catalogStats && catalogStats.total > 0
+                      ? (lang === 'es' ? 'Re-sincronizar catálogo' : 'Re-sync catalog')
+                      : (lang === 'es' ? 'Sincronizar mi catálogo' : 'Sync my catalog'))}
+              </button>
+              <p className="text-[10px] text-slate-400 leading-relaxed">
+                {lang === 'es'
+                  ? 'Solo Shopify (*.myshopify.com o dominio custom). Cooldown 1 h entre sincronizaciones.'
+                  : 'Shopify only (*.myshopify.com or custom domain). 1-hour cooldown between syncs.'}
+              </p>
             </div>
 
             {/* Lost the key? Rotate to a new one */}
