@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 const FAQ = [
+  { q: 'Try bikini AI outfit changer — what are the free version limitations?', a: 'The free version of Agalaz lets you generate 2 bikini try-ons per browser session — no signup, no credit card, no app to install. Renders include a small AGALAZ DEMO watermark on the output image. There is no time limit, no expiry, and no obligation to upgrade. If you want unlimited renders, watermark-free downloads and chat-based re-styling (different colour, more coverage, different cut) you can upgrade for $9.99/month and cancel anytime.' },
   { q: 'How does the virtual swimwear try-on work?', a: 'Upload a full-body photo of yourself and a photo of any bikini or one-piece. The AI maps the swimwear onto your real body in 30 seconds — preserving your skin tone, body shape, and proportions — so you see exactly how the cut, coverage, and silhouette look on you before buying.' },
   { q: 'Does it work for every body type?', a: 'Yes. The AI does not assume a "model body" — it respects YOUR shoulders, bust, waist, hips, height, and skin tone. Whether you have a curvy, athletic, petite, plus-size, or hourglass build, the render reflects what the swimwear will actually look like on you.' },
   { q: 'Can I try swimwear from any brand?', a: 'Yes. From Triangl, Solid & Striped, Agent Provocateur, Aerie, Hunza G, Frankie\'s Bikinis, ASOS, Shein, Amazon, vintage finds — any swimwear photo works. As long as the suit is visible, the AI can render it on your body.' },
@@ -10,10 +11,14 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Realistic Virtual Swimwear Try-On | See Bikinis on Your Real Body Type',
+  title: 'Try Bikini AI Outfit Changer — Free Virtual Swimwear Try-On',
   description:
-    'The first AI swimwear visualizer for real bodies. Upload your photo and try on bikinis instantly. Reduce returns and find your perfect fit with Agalaz AI.',
+    'Free bikini AI outfit changer — virtual swimwear try-on for real bodies. Upload your photo and try on any bikini in seconds. 2 free renders, no signup. See free version limitations and upgrade options inside.',
   keywords: [
+    'try bikini ai outfit changer free version limitations',
+    'try bikini ai outfit changer',
+    'bikini ai outfit changer free',
+    'bikini try on free version',
     'virtual bikini try on real person',
     'swimsuit simulator for curvy bodies',
     'AI swimwear fit visualizer',

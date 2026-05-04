@@ -4,11 +4,17 @@ const BASE_URL = 'https://agalaz.com';
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'Virtual Try On Online — Free AI Try-On Tool | Agalaz',
+    absolute: 'AI Photo Editor to Change Clothes — Virtual Try On Free Online',
   },
   description:
-    'Try on clothes virtually with AI. Upload your photo and see how any garment looks on your real body before buying. Free virtual try-on tool — no app download needed. Reduce online shopping returns by 80%.',
+    'Free AI photo editor that changes clothes online. Virtual try-on: upload your photo, pick any garment, and see it on your real body in seconds. No app, no signup. Best free AI clothes changer 2026.',
   keywords: [
+    'AI photo editor change clothes virtual try on free online',
+    'AI photo editor change clothes',
+    'change clothes on photo AI',
+    'AI clothes changer free online',
+    'best free AI clothes changer 2026',
+    'best free online AI clothes changer virtual try on 2026',
     'virtual try on',
     'virtual try-on',
     'try on clothes virtually',
@@ -31,9 +37,9 @@ export const metadata: Metadata = {
     'probador virtual IA gratis',
   ],
   openGraph: {
-    title: 'Virtual Try On — See Any Clothing On Your Real Body With AI',
+    title: 'AI Photo Editor to Change Clothes — Free Virtual Try On Online',
     description:
-      'Free AI virtual try-on: upload your photo, pick any clothing, and see how it looks on your real body in seconds. No downloads needed.',
+      'Free AI photo editor that changes clothes on your picture. Virtual try-on: upload your photo, pick any garment, and see it on your real body in seconds.',
     type: 'website',
     url: `${BASE_URL}/virtual-try-on`,
     siteName: 'Agalaz Fashion',
@@ -42,8 +48,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Virtual Try On — Free AI Clothing Try-On Tool',
-    description: 'See how any clothing looks on your real body. Free AI virtual try-on by Agalaz.',
+    title: 'AI Photo Editor: Change Clothes — Free Virtual Try On Online',
+    description: 'Best free AI clothes changer 2026. Upload your photo and see any garment on your real body. No app, no signup.',
   },
   alternates: {
     canonical: `${BASE_URL}/virtual-try-on`,

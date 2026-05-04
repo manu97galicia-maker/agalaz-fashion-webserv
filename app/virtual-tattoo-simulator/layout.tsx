@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 const FAQ = [
+  { q: 'Is this a free tattoo simulator?', a: 'Yes — Agalaz is a free tattoo simulator and virtual tattoo viewer. Your first render is free with no signup, no app download and no credit card. Upload a photo of the body part and the design, and the AI places the tattoo on your skin in seconds.' },
   { q: 'How does the virtual tattoo placement work?', a: 'Upload a photo of the body part where you want the tattoo (arm, leg, chest, back, ribs, neck) and a photo of the design. The AI maps the design onto your skin in 30 seconds — respecting curvature, lighting, skin tone, and existing markings. You see exactly how the tattoo will sit before booking the appointment.' },
   { q: 'Can I try any tattoo design?', a: 'Yes. Custom designs from your artist, Pinterest finds, traditional flash sheets, fine line art, blackwork, watercolor, geometric, lettering, full-colour pieces. If you have an image of the design, you can render it.' },
   { q: 'Can I see how the tattoo will look in different sizes or placements?', a: 'Yes. After the first render, ask the AI chat: "make it 30% smaller", "move it 2 inches lower", "rotate slightly". Re-renders without losing the design or your skin tone.' },
@@ -10,14 +11,19 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Free Virtual Tattoo Placement Simulator | Try Tattoos on Your Photo with AI',
+  title: 'Tattoo Simulator: Free Virtual Tattoo Viewer on Your Photo',
   description:
-    'Try tattoos on your photo with our free AI simulator. Realistic placement on arms, legs, chest, ribs. High-fidelity rendering for tattoo artists and shops. Try it now!',
+    'Free tattoo simulator and virtual tattoo viewer. Upload your photo, choose any tattoo design, and see realistic AI placement on arms, legs, chest, ribs in seconds. No download, no signup.',
   keywords: [
+    'tattoo simulator',
+    'virtual tattoo viewer',
+    'tattoo simulator free',
+    'tattoo simulator online',
+    'virtual tattoo simulator',
+    'free tattoo simulator on your photo',
     'tattoo visualizer online free',
     'test tattoo on skin photo',
     'realistic tattoo placement tool',
-    'virtual tattoo simulator',
     'tattoo try on app',
     'AI tattoo placement',
     'tattoo preview on body',
@@ -26,18 +32,18 @@ export const metadata: Metadata = {
     'tattoo placement app',
   ],
   openGraph: {
-    title: 'Free Virtual Tattoo Placement Simulator | Agalaz AI',
+    title: 'Tattoo Simulator — Free Virtual Tattoo Viewer | Agalaz AI',
     description:
-      'The most realistic AI-powered tool to visualize your next tattoo. Upload a photo and see exactly how it fits your body.',
+      'The most realistic free tattoo simulator and virtual tattoo viewer. Upload a photo and see exactly how any tattoo design will fit your body.',
     url: 'https://agalaz.com/virtual-tattoo-simulator',
     siteName: 'Agalaz',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free Virtual Tattoo Simulator — Try Tattoos on Your Photo',
+    title: 'Free Tattoo Simulator — Virtual Tattoo Viewer on Your Photo',
     description:
-      'Upload your photo, choose a tattoo design, and see realistic AI placement on your skin. Free, instant, and private.',
+      'Upload your photo, choose a tattoo design, and see realistic AI placement on your skin. Free tattoo simulator, instant and private.',
   },
   alternates: {
     canonical: 'https://agalaz.com/virtual-tattoo-simulator',
