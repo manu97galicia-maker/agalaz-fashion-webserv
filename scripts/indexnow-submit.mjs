@@ -1,59 +1,29 @@
-// Bulk-submits URLs to IndexNow (Bing, Yandex, Seznam, Naver, Yep).
-// One POST per run, no auth — ownership is proven by the key file at
-// /<key>.txt in public/. Run after major content updates:
+// Bulk-submits every URL in /sitemap.xml to IndexNow (Bing, Yandex, Seznam,
+// Naver, Yep). One POST per run, no auth — ownership is proven by the key
+// file at /<key>.txt in public/. Run after major content updates:
 //   node scripts/indexnow-submit.mjs
+//
+// Pulls URLs straight from the live sitemap so we don't have to maintain a
+// hand-curated list (it always drifts). If you need a different host, set
+// INDEXNOW_HOST=staging.agalaz.com node scripts/indexnow-submit.mjs.
 
 const KEY = '69c8e23c9eca4a93b234fcbc19f11ed1';
-const HOST = 'agalaz.com';
+const HOST = process.env.INDEXNOW_HOST || 'agalaz.com';
 const KEY_LOCATION = `https://${HOST}/${KEY}.txt`;
 const ENDPOINT = 'https://api.indexnow.org/IndexNow';
+const SITEMAP_URL = `https://${HOST}/sitemap.xml`;
 
-const urls = [
-  'https://agalaz.com/',
-  'https://agalaz.com/try-on',
-  'https://agalaz.com/virtual-try-on',
-  'https://agalaz.com/virtual-tattoo-simulator',
-  'https://agalaz.com/realistic-swimwear-try-on',
-  'https://agalaz.com/virtual-earring-try-on',
-  'https://agalaz.com/virtual-wedding-dress-try-on',
-  'https://agalaz.com/virtual-nail-try-on',
-  'https://agalaz.com/virtual-glasses-try-on',
-  'https://agalaz.com/virtual-jewelry-try-on',
-  'https://agalaz.com/virtual-mens-suit-try-on',
-  'https://agalaz.com/virtual-pet-clothing-try-on',
-  'https://agalaz.com/blog',
-  'https://agalaz.com/partners',
-  'https://agalaz.com/privacy',
-  'https://agalaz.com/terms',
-  'https://agalaz.com/blog/how-to-know-if-clothes-will-fit-without-trying-them-on',
-  'https://agalaz.com/blog/why-clothes-look-different-online-vs-in-person',
-  'https://agalaz.com/blog/how-to-reduce-online-shopping-returns',
-  'https://agalaz.com/blog/best-way-to-try-on-clothes-online-with-ai',
-  'https://agalaz.com/blog/how-to-dress-for-your-body-type-without-a-stylist',
-  'https://agalaz.com/blog/online-shopping-mistakes-that-lead-to-returns',
-  'https://agalaz.com/blog/what-to-wear-to-a-job-interview-2026',
-  'https://agalaz.com/blog/best-colors-to-wear-for-your-skin-tone',
-  'https://agalaz.com/blog/how-to-style-oversized-clothes-without-looking-sloppy',
-  'https://agalaz.com/blog/capsule-wardrobe-guide-30-outfits-15-pieces',
-  'https://agalaz.com/blog/barrel-leg-jeans-styling-guide',
-  'https://agalaz.com/blog/digital-nomad-corporate-crease-free-office-wear',
-  'https://agalaz.com/blog/jellyfish-silhouette-styling-guide',
-  'https://agalaz.com/blog/how-to-get-accurate-body-measurements-for-virtual-try-on',
-  'https://agalaz.com/blog/best-free-virtual-dressing-room-apps-android-ios-2026',
-  'https://agalaz.com/blog/virtual-try-on-office-siren-aesthetic-glasses',
-  'https://agalaz.com/blog/best-glasses-colors-deep-autumn-skin-tone',
-  'https://agalaz.com/blog/free-ai-glasses-stylist-diamond-face-shape',
-  'https://agalaz.com/blog/virtual-try-on-glasses-hide-dark-circles',
-  'https://agalaz.com/blog/coquette-aesthetic-spring-nails-virtual-try-on',
-  'https://agalaz.com/blog/short-almond-spring-nails-clean-girl-look',
-  'https://agalaz.com/blog/pastel-chrome-nails-2026-futuristic-spring-trend',
-  'https://agalaz.com/blog/spring-wedding-guest-mother-of-groom-dresses-2026',
-  'https://agalaz.com/blog/ai-clothes-changer-online-free-trial',
-  'https://agalaz.com/blog/como-reducir-devoluciones-tienda-ropa-online',
-  'https://agalaz.com/blog/virtual-dressing-room-online-free',
-  'https://agalaz.com/blog/1-5-carat-vs-2-carat-diamond-on-hand',
-  'https://agalaz.com/blog/diamond-carat-size-on-hand-simulator',
-];
+async function fetchSitemapUrls() {
+  const res = await fetch(SITEMAP_URL);
+  if (!res.ok) {
+    throw new Error(`Sitemap fetch failed: HTTP ${res.status} from ${SITEMAP_URL}`);
+  }
+  const xml = await res.text();
+  const matches = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)];
+  const urls = matches.map((m) => m[1].trim()).filter(Boolean);
+  // Strip duplicates (sitemap.xml itself shouldn't but defensive)
+  return [...new Set(urls)];
+}
 
 async function main() {
   // Sanity check — confirm the key file is reachable before submitting.
@@ -65,24 +35,39 @@ async function main() {
   }
   console.log(`✓ Key file verified at ${KEY_LOCATION}`);
 
-  const res = await fetch(ENDPOINT, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json; charset=utf-8' },
-    body: JSON.stringify({
-      host: HOST,
-      key: KEY,
-      keyLocation: KEY_LOCATION,
-      urlList: urls,
-    }),
-  });
-
-  const body = await res.text();
-  if (res.status === 200 || res.status === 202) {
-    console.log(`✓ Submitted ${urls.length} URLs to IndexNow (HTTP ${res.status})`);
-  } else {
-    console.error(`✗ HTTP ${res.status}: ${body || '(empty body)'}`);
+  const urls = await fetchSitemapUrls();
+  if (urls.length === 0) {
+    console.error(`✗ Sitemap returned zero URLs — aborting.`);
     process.exit(1);
   }
+  console.log(`✓ Loaded ${urls.length} URLs from ${SITEMAP_URL}`);
+
+  // IndexNow accepts up to 10000 URLs per call but recommends batches; we send
+  // in chunks of 10000 to be safe (well under the limit even with growth).
+  const BATCH = 10000;
+  let totalOk = 0;
+  for (let i = 0; i < urls.length; i += BATCH) {
+    const batch = urls.slice(i, i + BATCH);
+    const res = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify({
+        host: HOST,
+        key: KEY,
+        keyLocation: KEY_LOCATION,
+        urlList: batch,
+      }),
+    });
+    const body = await res.text();
+    if (res.status === 200 || res.status === 202) {
+      console.log(`✓ Submitted batch ${i / BATCH + 1} (${batch.length} URLs) — HTTP ${res.status}`);
+      totalOk += batch.length;
+    } else {
+      console.error(`✗ Batch ${i / BATCH + 1} HTTP ${res.status}: ${body || '(empty body)'}`);
+      process.exit(1);
+    }
+  }
+  console.log(`\n✓ Done — submitted ${totalOk} URLs to IndexNow.`);
 }
 
 main().catch((e) => {
