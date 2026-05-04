@@ -3,12 +3,13 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { createAdminClient } from '@/lib/supabaseAdmin';
 
-const SELECT = 'id, store_name, plan, setup_paid, is_active, credits_remaining, api_key_prefix, stripe_subscription_id, credits_monthly_limit, user_id, email';
+const SELECT = 'id, store_name, store_url, plan, setup_paid, is_active, credits_remaining, api_key_prefix, stripe_subscription_id, credits_monthly_limit, user_id, email, shopify_storefront_token';
 
 function shape(partner: any) {
   return {
     id: partner.id,
     store_name: partner.store_name,
+    store_url: partner.store_url,
     plan: partner.plan,
     setup_paid: partner.setup_paid || false,
     is_active: partner.is_active,
@@ -16,6 +17,7 @@ function shape(partner: any) {
     api_key_prefix: partner.api_key_prefix,
     has_api_key: partner.is_active && partner.credits_remaining > 0,
     has_subscription: !!partner.stripe_subscription_id,
+    has_storefront_token: !!partner.shopify_storefront_token,
   };
 }
 

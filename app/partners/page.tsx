@@ -40,6 +40,7 @@ interface PartnerProfile {
   api_key_prefix: string | null;
   has_api_key: boolean;
   has_subscription: boolean;
+  has_storefront_token?: boolean;
 }
 
 // New flow: url → login → free trial (5 credits) → paywall → choose plan → subscribe
@@ -160,13 +161,14 @@ function PartnersContent() {
     const subscribed = params.get('subscribed');
     const partnerIdFromUrl = params.get('partner_id');
     if (subscribed !== 'true') return;
-    // Surface the API key stashed pre-Stripe (works for both authed and anonymous flows)
+    // Surface the API key stashed pre-Stripe (works for both authed and anonymous flows).
+    // We intentionally do NOT remove it from sessionStorage so that page refreshes
+    // during the same tab session still show the full key — it clears naturally when
+    // the tab closes. The auto-reveal fallback below covers the case where the key was
+    // never stashed (Apple Pay / Google Pay redirects landing in a different context).
     try {
       const stashed = sessionStorage.getItem('agalaz_partner_api_key');
-      if (stashed) {
-        setApiKey(stashed);
-        sessionStorage.removeItem('agalaz_partner_api_key');
-      }
+      if (stashed) setApiKey(stashed);
     } catch {}
     if (userId) {
       loadPartnerProfile(userId);
@@ -174,6 +176,40 @@ function PartnersContent() {
       loadPartnerProfile(partnerIdFromUrl, 'partner_id');
     }
   }, [userId]);
+
+  // Auto-reveal: when the partner returns from Stripe but sessionStorage was lost
+  // (common with Apple Pay / Google Pay / cross-browser checkout), rotate the API key
+  // automatically the first time we render the subscribed step so they ALWAYS see a
+  // full, copyable key. We gate on `subscribed=true` in the URL so we never silently
+  // invalidate the key for partners just visiting the dashboard normally later.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (step !== 'subscribed') return;
+    if (apiKey) return;
+    if (!partnerProfile?.id) return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('subscribed') !== 'true') return;
+    const flagKey = `agalaz_partner_auto_revealed_${partnerProfile.id}`;
+    try { if (sessionStorage.getItem(flagKey)) return; } catch {}
+    (async () => {
+      try {
+        const res = await fetch('/api/partners/rotate-key', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ partner_id: partnerProfile.id }),
+        });
+        const data = await res.json();
+        if (res.ok && data.api_key) {
+          setApiKey(data.api_key);
+          try {
+            sessionStorage.setItem('agalaz_partner_api_key', data.api_key);
+            sessionStorage.setItem(flagKey, '1');
+          } catch {}
+          setPartnerProfile((prev) => prev ? { ...prev, api_key_prefix: data.api_key_prefix } : prev);
+        }
+      } catch { /* silent — manual Rotate API Key button is still available */ }
+    })();
+  }, [step, apiKey, partnerProfile?.id]);
 
   async function loadPartnerProfile(id: string, mode: 'user_id' | 'partner_id' = 'user_id') {
     try {
@@ -1269,6 +1305,17 @@ function PartnersContent() {
                 <ShoppingBag size={22} className="text-violet-500 shrink-0" />
               </div>
 
+              {/* Cross-sell readiness status */}
+              <div className={`p-3 rounded-lg text-[11px] font-bold border ${
+                partnerProfile?.has_storefront_token
+                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                  : 'bg-amber-50 text-amber-800 border-amber-200'
+              }`}>
+                {partnerProfile?.has_storefront_token
+                  ? pickLang(lang, '✓ Token saved — cross-sell can read your store live.', '✓ Token guardado — el cross-sell puede leer tu tienda en vivo.', '✓ Token enregistré — le cross-sell peut lire votre boutique en direct.', '✓ Token guardado — o cross-sell pode ler a sua loja ao vivo.', '✓ Token gespeichert — Cross-Sell kann Ihren Shop live lesen.', '✓ Token salvato — il cross-sell può leggere il vostro negozio in tempo reale.')
+                  : pickLang(lang, 'No token saved. If your store is public (no password), cross-sell already works — leave this blank. Otherwise paste a Storefront token below.', 'Sin token guardado. Si tu tienda es pública (sin contraseña), el cross-sell ya funciona — déjalo vacío. Si no, pega un token Storefront abajo.', 'Aucun token enregistré. Si votre boutique est publique (sans mot de passe), le cross-sell fonctionne déjà — laissez vide. Sinon, collez un token Storefront ci-dessous.', 'Sem token guardado. Se a sua loja é pública (sem palavra-passe), o cross-sell já funciona — deixe vazio. Caso contrário, cole um token Storefront abaixo.', 'Kein Token gespeichert. Wenn Ihr Shop öffentlich ist (ohne Passwort), funktioniert Cross-Sell bereits — lassen Sie das Feld leer. Andernfalls fügen Sie unten einen Storefront-Token ein.', 'Nessun token salvato. Se il vostro negozio è pubblico (senza password), il cross-sell già funziona — lasciate vuoto. Altrimenti incollate un token Storefront qui sotto.')}
+              </div>
+
               <input
                 type="text"
                 value={storefrontToken}
@@ -1306,6 +1353,7 @@ function PartnersContent() {
                           ? pickLang(lang, 'Token saved.', 'Token guardado.', 'Token enregistré.', 'Token guardado.', 'Token gespeichert.', 'Token salvato.')
                           : pickLang(lang, 'Token cleared.', 'Token eliminado.', 'Token supprimé.', 'Token removido.', 'Token entfernt.', 'Token rimosso.'),
                       });
+                      setPartnerProfile((prev) => prev ? { ...prev, has_storefront_token: !!data.has_token } : prev);
                     } else {
                       setStorefrontTokenStatus({ type: 'error', text: data.error || 'Save failed' });
                     }
@@ -1756,6 +1804,17 @@ function PartnersContent() {
                 </p>
               </div>
 
+              {/* Cross-sell readiness status */}
+              <div className={`p-3 rounded-lg text-[11px] font-bold border ${
+                partnerProfile?.has_storefront_token
+                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                  : 'bg-amber-50 text-amber-800 border-amber-200'
+              }`}>
+                {partnerProfile?.has_storefront_token
+                  ? pickLang(lang, '✓ Token saved — cross-sell can read your store live.', '✓ Token guardado — el cross-sell puede leer tu tienda en vivo.', '✓ Token enregistré — le cross-sell peut lire votre boutique en direct.', '✓ Token guardado — o cross-sell pode ler a sua loja ao vivo.', '✓ Token gespeichert — Cross-Sell kann Ihren Shop live lesen.', '✓ Token salvato — il cross-sell può leggere il vostro negozio in tempo reale.')
+                  : pickLang(lang, 'No token saved. If your store is public (no password), cross-sell already works — leave this blank. Otherwise paste a Storefront token below.', 'Sin token guardado. Si tu tienda es pública (sin contraseña), el cross-sell ya funciona — déjalo vacío. Si no, pega un token Storefront abajo.', 'Aucun token enregistré. Si votre boutique est publique (sans mot de passe), le cross-sell fonctionne déjà — laissez vide. Sinon, collez un token Storefront ci-dessous.', 'Sem token guardado. Se a sua loja é pública (sem palavra-passe), o cross-sell já funciona — deixe vazio. Caso contrário, cole um token Storefront abaixo.', 'Kein Token gespeichert. Wenn Ihr Shop öffentlich ist (ohne Passwort), funktioniert Cross-Sell bereits — lassen Sie das Feld leer. Andernfalls fügen Sie unten einen Storefront-Token ein.', 'Nessun token salvato. Se il vostro negozio è pubblico (senza password), il cross-sell già funziona — lasciate vuoto. Altrimenti incollate un token Storefront qui sotto.')}
+              </div>
+
               <input
                 type="text"
                 value={storefrontToken}
@@ -1793,6 +1852,7 @@ function PartnersContent() {
                           ? pickLang(lang, 'Token saved.', 'Token guardado.', 'Token enregistré.', 'Token guardado.', 'Token gespeichert.', 'Token salvato.')
                           : pickLang(lang, 'Token cleared.', 'Token eliminado.', 'Token supprimé.', 'Token removido.', 'Token entfernt.', 'Token rimosso.'),
                       });
+                      setPartnerProfile((prev) => prev ? { ...prev, has_storefront_token: !!data.has_token } : prev);
                     } else {
                       setStorefrontTokenStatus({ type: 'error', text: data.error || 'Save failed' });
                     }
