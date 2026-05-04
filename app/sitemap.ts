@@ -12,6 +12,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     images: [`${baseUrl}/blog/${article.slug}/opengraph-image`],
   }));
 
+  // Localized variants of the 4 main pages (home, try-on, virtual-try-on, partners) in es/fr/pt/de/it
+  const mainLocalized: MetadataRoute.Sitemap = (['es', 'fr', 'pt', 'de', 'it'] as const).flatMap((lang) =>
+    ['', '/try-on', '/virtual-try-on', '/partners'].map((p) => ({
+      url: `${baseUrl}/${lang}${p}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: p === '' ? 0.95 : 0.85,
+    })),
+  );
+
   return [
     {
       url: baseUrl,
@@ -31,6 +41,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
+    ...mainLocalized,
     {
       url: `${baseUrl}/blog`,
       lastModified: new Date(),

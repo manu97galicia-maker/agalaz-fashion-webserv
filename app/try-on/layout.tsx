@@ -46,6 +46,15 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: `${BASE_URL}/try-on`,
+    languages: {
+      en: `${BASE_URL}/try-on`,
+      es: `${BASE_URL}/es/try-on`,
+      fr: `${BASE_URL}/fr/try-on`,
+      pt: `${BASE_URL}/pt/try-on`,
+      de: `${BASE_URL}/de/try-on`,
+      it: `${BASE_URL}/it/try-on`,
+      'x-default': `${BASE_URL}/try-on`,
+    },
   },
 };
 

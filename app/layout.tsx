@@ -97,7 +97,16 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: '/',
+    canonical: BASE_URL,
+    languages: {
+      en: BASE_URL,
+      es: `${BASE_URL}/es`,
+      fr: `${BASE_URL}/fr`,
+      pt: `${BASE_URL}/pt`,
+      de: `${BASE_URL}/de`,
+      it: `${BASE_URL}/it`,
+      'x-default': BASE_URL,
+    },
   },
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION,

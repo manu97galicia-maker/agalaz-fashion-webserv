@@ -40,6 +40,15 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: `${BASE_URL}/partners`,
+    languages: {
+      en: `${BASE_URL}/partners`,
+      es: `${BASE_URL}/es/partners`,
+      fr: `${BASE_URL}/fr/partners`,
+      pt: `${BASE_URL}/pt/partners`,
+      de: `${BASE_URL}/de/partners`,
+      it: `${BASE_URL}/it/partners`,
+      'x-default': `${BASE_URL}/partners`,
+    },
   },
 };
 

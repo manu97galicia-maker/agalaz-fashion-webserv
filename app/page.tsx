@@ -198,7 +198,9 @@ const HERO_CATEGORIES = {
 
 export default function HomePage() {
   const { lang, t } = useLang();
-  const lt = landingText[lang];
+  // landingText only has 'en' / 'es' entries. Other langs (fr/pt/de/it) fall back to en
+  // until the inline copy is fully translated. Centralized strings via t.* are 6-lang.
+  const lt = landingText[lang as 'en' | 'es'] || landingText.en;
   const [menuOpen, setMenuOpen] = useState(false);
   const [heroWordIdx, setHeroWordIdx] = useState(0);
 
@@ -308,7 +310,7 @@ export default function HomePage() {
               <span className="font-black">{lang === 'es' ? 'PRUEBA' : 'TRY'}</span>
               {' '}
               <span key={heroWordIdx} className="italic font-normal text-indigo-500 inline-block transition-all duration-500 animate-fade-in">
-                {HERO_CATEGORIES[lang][heroWordIdx]}
+                {(HERO_CATEGORIES[lang as 'en' | 'es'] || HERO_CATEGORIES.en)[heroWordIdx]}
               </span>
               <br />
               <span className="font-black">{lang === 'es' ? 'ANTES DE COMPRAR.' : 'BEFORE YOU BUY.'}</span>

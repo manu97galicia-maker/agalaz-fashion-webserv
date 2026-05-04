@@ -47,6 +47,15 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: `${BASE_URL}/virtual-try-on`,
+    languages: {
+      en: `${BASE_URL}/virtual-try-on`,
+      es: `${BASE_URL}/es/virtual-try-on`,
+      fr: `${BASE_URL}/fr/virtual-try-on`,
+      pt: `${BASE_URL}/pt/virtual-try-on`,
+      de: `${BASE_URL}/de/virtual-try-on`,
+      it: `${BASE_URL}/it/virtual-try-on`,
+      'x-default': `${BASE_URL}/virtual-try-on`,
+    },
   },
 };
 
