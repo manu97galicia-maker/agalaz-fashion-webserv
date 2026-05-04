@@ -715,48 +715,48 @@ export default function HomePage() {
             {pickLang(
               lang,
               [
-                { q: 'Is it free to try?', a: 'Yes. You get 2 free renders, no card required. After that: Starter pack $0.99 (1 render + 1 FREE 🎁, start for under $1) or Style Pro pack $4.99 (12 renders, $0.42 per render — SAVE 58%). One-time payment.' },
-                { q: 'Which pack should I pick?', a: 'To try it thoroughly: Starter $0.99 (2 renders total, 1 + 1 free). For regular use: Style Pro $4.99 (12 renders at just $0.42 each — 58% cheaper per render than Starter).' },
+                { q: 'Is it free to try?', a: 'Yes. You get 2 free renders, no card required. After that: Starter pack $4.99 (10 renders, $0.50 per render) or Style Pro pack $9.99 (25 renders, $0.40 per render — SAVE 20%). One-time payment.' },
+                { q: 'Which pack should I pick?', a: 'To try the platform: Starter $4.99 (10 renders at $0.50 each). For regular use: Style Pro $9.99 (25 renders at just $0.40 each — 20% cheaper per render than Starter).' },
                 { q: 'Is this a subscription?', a: 'No. Both packs are one-time payments. No auto-renewal, no lock-in, nothing to cancel. You buy the pack and the renders sit in your account.' },
                 { q: 'Do my renders expire?', a: 'No. Once you buy a pack, the renders stay in your account until you use them. Buy when you need them, no rush.' },
                 { q: 'What happens to my photos?', a: 'Processed in real time, never stored on our servers. Full privacy — your photos are never saved nor used to train AI.' },
                 { q: 'How do I buy a pack?', a: 'Tap "Buy Now" on any landing or go to /try-on. Pick the pack and complete payment in 30 seconds with Stripe (card, Apple Pay, or Google Pay).' },
               ],
               [
-                { q: '¿Es gratis para probar?', a: 'Sí. Tienes 2 renders gratis sin tarjeta. Después: pack Starter $0,99 (1 render + 1 GRATIS 🎁, empieza por menos de $1) o pack Style Pro $4,99 (12 renders, $0,42 por render — AHORRA 58%). Pago único.' },
-                { q: '¿Cuál pack me conviene?', a: 'Para probar a fondo: Starter $0,99 (2 renders en total, 1 + 1 gratis). Para uso regular: Style Pro $4,99 (12 renders por solo $0,42 cada uno, ahorras un 58% frente al Starter).' },
+                { q: '¿Es gratis para probar?', a: 'Sí. Tienes 2 renders gratis sin tarjeta. Después: pack Starter $4,99 (10 renders, $0,50 por render) o pack Style Pro $9,99 (25 renders, $0,40 por render — AHORRA 20%). Pago único.' },
+                { q: '¿Cuál pack me conviene?', a: 'Para probar la plataforma: Starter $4,99 (10 renders a $0,50 cada uno). Para uso regular: Style Pro $9,99 (25 renders por solo $0,40 cada uno, ahorras un 20% frente al Starter).' },
                 { q: '¿Es una suscripción?', a: 'No. Ambos packs son pago único. Sin renovación automática, sin permanencia, sin nada que cancelar. Pagas el pack y los renders están en tu cuenta.' },
                 { q: '¿Mis renders caducan?', a: 'No. Una vez compras un pack, los renders se quedan en tu cuenta hasta que los uses. Cómpralos cuando los necesites.' },
                 { q: '¿Qué pasa con mis fotos?', a: 'Se procesan en tiempo real y no se almacenan en nuestros servidores. Privacidad total — tus fotos nunca se guardan ni se usan para entrenar IA.' },
                 { q: '¿Cómo compro un pack?', a: 'Pulsa "Comprar Ahora" en cualquier landing o ve a /try-on. Eliges el pack y completas el pago en 30 segundos con Stripe (tarjeta, Apple Pay o Google Pay).' },
               ],
               [
-                { q: 'Est-ce gratuit à essayer ?', a: 'Oui. Vous avez 2 rendus gratuits, sans carte. Ensuite : pack Starter 0,99 $ (1 rendu + 1 GRATUIT 🎁, démarrez pour moins d’1 $) ou pack Style Pro 4,99 $ (12 rendus, 0,42 $ par rendu — ÉCONOMISEZ 58 %). Paiement unique.' },
-                { q: 'Quel pack choisir ?', a: 'Pour bien tester : Starter 0,99 $ (2 rendus au total, 1 + 1 gratuit). Pour un usage régulier : Style Pro 4,99 $ (12 rendus à seulement 0,42 $ chacun, soit 58 % de moins par rendu que Starter).' },
+                { q: 'Est-ce gratuit à essayer ?', a: 'Oui. Vous avez 2 rendus gratuits, sans carte. Ensuite : pack Starter 4,99 $ (10 rendus, 0,50 $ par rendu) ou pack Style Pro 9,99 $ (25 rendus, 0,40 $ par rendu — ÉCONOMISEZ 20 %). Paiement unique.' },
+                { q: 'Quel pack choisir ?', a: 'Pour tester la plateforme : Starter 4,99 $ (10 rendus à 0,50 $ chacun). Pour un usage régulier : Style Pro 9,99 $ (25 rendus à seulement 0,40 $ chacun, soit 20 % de moins par rendu que Starter).' },
                 { q: 'Est-ce un abonnement ?', a: 'Non. Les deux packs sont des paiements uniques. Pas de renouvellement automatique, pas d’engagement, rien à annuler. Vous achetez le pack et les rendus restent sur votre compte.' },
                 { q: 'Mes rendus expirent-ils ?', a: 'Non. Une fois le pack acheté, les rendus restent sur votre compte jusqu’à utilisation. Achetez-les quand vous en avez besoin.' },
                 { q: 'Que deviennent mes photos ?', a: 'Traitées en temps réel, jamais stockées sur nos serveurs. Confidentialité totale — vos photos ne sont jamais sauvegardées ni utilisées pour entraîner l’IA.' },
                 { q: 'Comment acheter un pack ?', a: 'Cliquez sur "Acheter maintenant" sur n’importe quelle page ou allez sur /try-on. Choisissez le pack et payez en 30 secondes avec Stripe (carte, Apple Pay ou Google Pay).' },
               ],
               [
-                { q: 'É grátis para experimentar?', a: 'Sim. Tem 2 renders gratuitos, sem cartão. Depois: pack Starter 0,99 $ (1 render + 1 GRÁTIS 🎁, comece por menos de 1 $) ou pack Style Pro 4,99 $ (12 renders, 0,42 $ por render — POUPE 58%). Pagamento único.' },
-                { q: 'Qual pack devo escolher?', a: 'Para testar a fundo: Starter 0,99 $ (2 renders no total, 1 + 1 grátis). Para uso regular: Style Pro 4,99 $ (12 renders por apenas 0,42 $ cada — 58% mais barato por render do que o Starter).' },
+                { q: 'É grátis para experimentar?', a: 'Sim. Tem 2 renders gratuitos, sem cartão. Depois: pack Starter 4,99 $ (10 renders, 0,50 $ por render) ou pack Style Pro 9,99 $ (25 renders, 0,40 $ por render — POUPE 20%). Pagamento único.' },
+                { q: 'Qual pack devo escolher?', a: 'Para experimentar a plataforma: Starter 4,99 $ (10 renders a 0,50 $ cada). Para uso regular: Style Pro 9,99 $ (25 renders por apenas 0,40 $ cada — 20% mais barato por render do que o Starter).' },
                 { q: 'É uma subscrição?', a: 'Não. Ambos os packs são pagamento único. Sem renovação automática, sem permanência, nada para cancelar. Compra o pack e os renders ficam na sua conta.' },
                 { q: 'Os meus renders caducam?', a: 'Não. Depois de comprar um pack, os renders ficam na sua conta até serem usados. Compre quando precisar, sem pressa.' },
                 { q: 'O que acontece às minhas fotos?', a: 'Processadas em tempo real, nunca armazenadas nos nossos servidores. Privacidade total — as suas fotos nunca são guardadas nem utilizadas para treinar IA.' },
                 { q: 'Como compro um pack?', a: 'Toque em "Comprar agora" em qualquer página ou vá a /try-on. Escolha o pack e complete o pagamento em 30 segundos com Stripe (cartão, Apple Pay ou Google Pay).' },
               ],
               [
-                { q: 'Ist das Testen kostenlos?', a: 'Ja. Sie erhalten 2 kostenlose Renders, keine Karte erforderlich. Danach: Starter-Pack 0,99 $ (1 Render + 1 GRATIS 🎁, Einstieg für unter 1 $) oder Style-Pro-Pack 4,99 $ (12 Renders, 0,42 $ pro Render — 58% SPAREN). Einmalige Zahlung.' },
-                { q: 'Welches Pack soll ich wählen?', a: 'Zum gründlichen Ausprobieren: Starter 0,99 $ (insgesamt 2 Renders, 1 + 1 gratis). Für regelmäßige Nutzung: Style Pro 4,99 $ (12 Renders zu je nur 0,42 $ — 58% günstiger pro Render als Starter).' },
+                { q: 'Ist das Testen kostenlos?', a: 'Ja. Sie erhalten 2 kostenlose Renders, keine Karte erforderlich. Danach: Starter-Pack 4,99 $ (10 Renders, 0,50 $ pro Render) oder Style-Pro-Pack 9,99 $ (25 Renders, 0,40 $ pro Render — 20% SPAREN). Einmalige Zahlung.' },
+                { q: 'Welches Pack soll ich wählen?', a: 'Zum Testen der Plattform: Starter 4,99 $ (10 Renders zu je 0,50 $). Für regelmäßige Nutzung: Style Pro 9,99 $ (25 Renders zu je nur 0,40 $ — 20% günstiger pro Render als Starter).' },
                 { q: 'Ist das ein Abo?', a: 'Nein. Beide Packs sind Einmalzahlungen. Keine automatische Verlängerung, keine Bindung, nichts zu kündigen. Sie kaufen das Pack und die Renders bleiben auf Ihrem Konto.' },
                 { q: 'Verfallen meine Renders?', a: 'Nein. Sobald Sie ein Pack kaufen, bleiben die Renders auf Ihrem Konto, bis Sie sie verwenden. Kaufen Sie sie, wenn Sie sie brauchen.' },
                 { q: 'Was passiert mit meinen Fotos?', a: 'In Echtzeit verarbeitet, nie auf unseren Servern gespeichert. Volle Privatsphäre — Ihre Fotos werden weder gespeichert noch zum KI-Training verwendet.' },
                 { q: 'Wie kaufe ich ein Pack?', a: 'Tippen Sie auf einer beliebigen Seite auf "Jetzt kaufen" oder gehen Sie zu /try-on. Wählen Sie das Pack und schließen Sie die Zahlung in 30 Sekunden mit Stripe ab (Karte, Apple Pay oder Google Pay).' },
               ],
               [
-                { q: 'È gratis da provare?', a: 'Sì. Hai 2 render gratuiti, senza carta. Poi: pack Starter 0,99 $ (1 render + 1 GRATIS 🎁, inizia per meno di 1 $) o pack Style Pro 4,99 $ (12 render, 0,42 $ per render — RISPARMI 58%). Pagamento unico.' },
-                { q: 'Quale pack mi conviene?', a: 'Per provarlo a fondo: Starter 0,99 $ (2 render in totale, 1 + 1 gratuito). Per uso regolare: Style Pro 4,99 $ (12 render a soli 0,42 $ ciascuno — 58% più economico per render rispetto a Starter).' },
+                { q: 'È gratis da provare?', a: 'Sì. Hai 2 render gratuiti, senza carta. Poi: pack Starter 4,99 $ (10 render, 0,50 $ per render) o pack Style Pro 9,99 $ (25 render, 0,40 $ per render — RISPARMI 20%). Pagamento unico.' },
+                { q: 'Quale pack mi conviene?', a: 'Per provare la piattaforma: Starter 4,99 $ (10 render a 0,50 $ ciascuno). Per uso regolare: Style Pro 9,99 $ (25 render a soli 0,40 $ ciascuno — 20% più economico per render rispetto a Starter).' },
                 { q: 'È un abbonamento?', a: 'No. Entrambi i pack sono pagamenti unici. Nessun rinnovo automatico, nessun vincolo, niente da disdire. Compri il pack e i render restano sul tuo account.' },
                 { q: 'I miei render scadono?', a: 'No. Una volta acquistato un pack, i render restano sul tuo account finché non li usi. Comprali quando ti servono, senza fretta.' },
                 { q: 'Cosa succede alle mie foto?', a: 'Elaborate in tempo reale, mai salvate sui nostri server. Privacy totale — le tue foto non vengono mai memorizzate né usate per addestrare l’IA.' },
@@ -779,27 +779,27 @@ export default function HomePage() {
           <div className="mt-12 grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
             <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center">
               <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Starter</div>
-              <div className="text-3xl font-black text-slate-900 mb-1">$0,99</div>
+              <div className="text-3xl font-black text-slate-900 mb-1">$4,99</div>
               <div className="text-xs text-slate-500 font-light mb-4">
                 {pickLang(
                   lang,
-                  '1 render + 1 FREE 🎁 · one-time',
-                  '1 render + 1 GRATIS 🎁 · pago único',
-                  '1 rendu + 1 GRATUIT 🎁 · paiement unique',
-                  '1 render + 1 GRÁTIS 🎁 · pagamento único',
-                  '1 Render + 1 GRATIS 🎁 · einmalig',
-                  '1 render + 1 GRATIS 🎁 · pagamento unico',
+                  '10 renders · $0.50 per render · one-time',
+                  '10 renders · $0,50 por render · pago único',
+                  '10 rendus · 0,50 $ par rendu · paiement unique',
+                  '10 renders · 0,50 $ por render · pagamento único',
+                  '10 Renders · 0,50 $ pro Render · einmalig',
+                  '10 render · 0,50 $ per render · pagamento unico',
                 )}
               </div>
               <p className="text-[11px] text-slate-400 font-light mb-5">
                 {pickLang(
                   lang,
-                  'Start for under $1',
-                  'Empieza por menos de $1',
-                  'Démarrez pour moins d’1 $',
-                  'Comece por menos de 1 $',
-                  'Einstieg für unter 1 $',
-                  'Inizia per meno di 1 $',
+                  'Try the platform',
+                  'Prueba la plataforma',
+                  'Testez la plateforme',
+                  'Experimente a plataforma',
+                  'Plattform testen',
+                  'Prova la piattaforma',
                 )}
               </p>
               <Link
@@ -811,19 +811,19 @@ export default function HomePage() {
             </div>
             <div className="bg-indigo-50 border-2 border-indigo-300 rounded-2xl p-6 text-center relative">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full">
-                {pickLang(lang, 'SAVE 58%', 'AHORRA 58%', 'ÉCONOMISEZ 58 %', 'POUPE 58%', '58% SPAREN', 'RISPARMI 58%')}
+                {pickLang(lang, 'SAVE 20%', 'AHORRA 20%', 'ÉCONOMISEZ 20 %', 'POUPE 20%', '20% SPAREN', 'RISPARMI 20%')}
               </div>
               <div className="text-[10px] font-black text-indigo-600 uppercase tracking-widest mb-2">Style Pro</div>
-              <div className="text-3xl font-black text-slate-900 mb-1">$4,99</div>
+              <div className="text-3xl font-black text-slate-900 mb-1">$9,99</div>
               <div className="text-xs text-slate-500 font-light mb-4">
                 {pickLang(
                   lang,
-                  '12 renders · $0.42 per render · one-time',
-                  '12 renders · $0,42 por render · pago único',
-                  '12 rendus · 0,42 $ par rendu · paiement unique',
-                  '12 renders · 0,42 $ por render · pagamento único',
-                  '12 Renders · 0,42 $ pro Render · einmalig',
-                  '12 render · 0,42 $ per render · pagamento unico',
+                  '25 renders · $0.40 per render · one-time',
+                  '25 renders · $0,40 por render · pago único',
+                  '25 rendus · 0,40 $ par rendu · paiement unique',
+                  '25 renders · 0,40 $ por render · pagamento único',
+                  '25 Renders · 0,40 $ pro Render · einmalig',
+                  '25 render · 0,40 $ per render · pagamento unico',
                 )}
               </div>
               <p className="text-[11px] text-slate-400 font-light mb-5">
@@ -1089,15 +1089,15 @@ export default function HomePage() {
             "@context": "https://schema.org",
             "@type": "FAQPage",
             "mainEntity": (lang === 'es' ? [
-              { q: '¿Es gratis para probar?', a: 'Sí. Tienes 2 renders gratis sin tarjeta. Después: pack Starter $0,99 (1 render + 1 GRATIS, empieza por menos de $1) o pack Style Pro $4,99 (12 renders, $0,42 por render — AHORRA 58%). Pago único.' },
-              { q: '¿Cuál pack me conviene?', a: 'Para probar a fondo: Starter $0,99 (2 renders en total, 1 + 1 gratis). Para uso regular: Style Pro $4,99 (12 renders por solo $0,42 cada uno, ahorras un 58%).' },
+              { q: '¿Es gratis para probar?', a: 'Sí. Tienes 2 renders gratis sin tarjeta. Después: pack Starter $4,99 (10 renders, $0,50 por render) o pack Style Pro $9,99 (25 renders, $0,40 por render — AHORRA 20%). Pago único.' },
+              { q: '¿Cuál pack me conviene?', a: 'Para probar la plataforma: Starter $4,99 (10 renders a $0,50 cada uno). Para uso regular: Style Pro $9,99 (25 renders por solo $0,40 cada uno, ahorras un 20%).' },
               { q: '¿Es una suscripción?', a: 'No. Ambos packs son pago único. Sin renovación automática, sin permanencia, sin nada que cancelar.' },
               { q: '¿Mis renders caducan?', a: 'No. Una vez compras un pack, los renders se quedan en tu cuenta hasta que los uses.' },
               { q: '¿Qué pasa con mis fotos?', a: 'Se procesan en tiempo real y no se almacenan en nuestros servidores. Privacidad total.' },
               { q: '¿Cómo compro un pack?', a: 'Pulsa Comprar Ahora en cualquier landing o ve a /try-on. Eliges el pack y completas el pago en 30 segundos con Stripe (tarjeta, Apple Pay, Google Pay).' },
             ] : [
-              { q: 'Is it free to try?', a: 'Yes. You get 2 free renders, no card required. After that: Starter pack $0.99 (1 render + 1 FREE, start for under $1) or Style Pro pack $4.99 (12 renders, $0.42 per render — SAVE 58%). One-time payment.' },
-              { q: 'Which pack should I pick?', a: 'To try it thoroughly: Starter $0.99 (2 renders total, 1 + 1 free). For regular use: Style Pro $4.99 (12 renders at just $0.42 each — 58% cheaper per render).' },
+              { q: 'Is it free to try?', a: 'Yes. You get 2 free renders, no card required. After that: Starter pack $4.99 (10 renders, $0.50 per render) or Style Pro pack $9.99 (25 renders, $0.40 per render — SAVE 20%). One-time payment.' },
+              { q: 'Which pack should I pick?', a: 'To try the platform: Starter $4.99 (10 renders at $0.50 each). For regular use: Style Pro $9.99 (25 renders at just $0.40 each — 20% cheaper per render).' },
               { q: 'Is this a subscription?', a: 'No. Both packs are one-time payments. No auto-renewal, no lock-in, nothing to cancel.' },
               { q: 'Do my renders expire?', a: 'No. Once you buy a pack, the renders stay in your account until you use them.' },
               { q: 'What happens to my photos?', a: 'Processed in real time, never stored on our servers. Full privacy.' },
