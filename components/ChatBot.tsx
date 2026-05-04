@@ -24,15 +24,15 @@ function getBotReply(userMsg: string, lang: string): string {
   // Pricing / plans
   if (/precio|plan|cost|cuánto|cuanto|pricing|suscri|subscri|pagar|pay|pack|comprar|buy/.test(msg)) {
     return es
-      ? '💰 Dos packs de pago único:\n\n• **Starter $0,99** — 1 render + 1 GRATIS 🎁 (empieza por menos de $1)\n• **Style Pro $4,99** — 12 renders, $0,42 por render (AHORRA 58%)\n\nSin suscripción, sin renovación automática. Comprar Ahora en /try-on.'
-      : '💰 Two one-time packs:\n\n• **Starter $0.99** — 1 render + 1 FREE 🎁 (start for under $1)\n• **Style Pro $4.99** — 12 renders, $0.42 per render (SAVE 58%)\n\nNo subscription, no auto-renewal. Buy Now at /try-on.';
+      ? '💰 Dos packs de pago único:\n\n• **Starter $4,99** — 10 renders ($0,50 por render)\n• **Style Pro $9,99** — 25 renders ($0,40 por render, AHORRA 20%)\n\nSin suscripción, sin renovación automática. Comprar Ahora en /try-on.'
+      : '💰 Two one-time packs:\n\n• **Starter $4.99** — 10 renders ($0.50 per render)\n• **Style Pro $9.99** — 25 renders ($0.40 per render, SAVE 20%)\n\nNo subscription, no auto-renewal. Buy Now at /try-on.';
   }
 
   // Free trial
   if (/gratis|free|trial|prueba/.test(msg)) {
     return es
-      ? '🎁 Tienes 2 renders 100% gratis sin tarjeta — pruébalo en /try-on. Si te gusta, el pack Starter es solo $0,99 (1 render + 1 gratis) o Style Pro $4,99 por 12 renders (AHORRA 58%). Pago único, sin suscripción. Comprar Ahora en /try-on.'
-      : '🎁 You get 2 renders 100% free, no card needed — try it at /try-on. If you like it, the Starter pack is just $0.99 (1 render + 1 free) or Style Pro $4.99 for 12 renders (SAVE 58%). One-time payment, no subscription. Buy Now at /try-on.';
+      ? '🎁 Tienes 2 renders 100% gratis sin tarjeta — pruébalo en /try-on. Si te gusta, el pack Starter es $4,99 (10 renders) o Style Pro $9,99 por 25 renders (AHORRA 20%). Pago único, sin suscripción. Comprar Ahora en /try-on.'
+      : '🎁 You get 2 renders 100% free, no card needed — try it at /try-on. If you like it, the Starter pack is $4.99 (10 renders) or Style Pro $9.99 for 25 renders (SAVE 20%). One-time payment, no subscription. Buy Now at /try-on.';
   }
 
   // Partners / ecommerce
