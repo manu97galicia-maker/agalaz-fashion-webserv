@@ -47,10 +47,23 @@ export async function authorizePartner(
     if (user) {
       const { data: p } = await admin
         .from('partners')
-        .select('user_id')
+        .select('user_id, email')
         .eq('id', partnerId)
         .maybeSingle();
       if (p?.user_id === user.id) return { ok: true };
+
+      // Legacy fallback: partner registered before email verification was enforced
+      // and never got a user_id linked. If the session-verified email matches the
+      // partner.email, claim the partner row by writing user_id once. Subsequent
+      // calls then take the fast user_id === user_id path above.
+      if (p && !p.user_id && p.email && user.email && p.email.toLowerCase() === user.email.toLowerCase()) {
+        await admin
+          .from('partners')
+          .update({ user_id: user.id, updated_at: new Date().toISOString() })
+          .eq('id', partnerId);
+        return { ok: true };
+      }
+
       return { ok: false, reason: 'Session user does not own this partner' };
     }
   } catch (err: any) {
