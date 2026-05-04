@@ -5,7 +5,7 @@ import { createBrowserClient } from '@supabase/ssr';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Sparkles, Copy, Check, ArrowRight, ChevronRight, Shield, Zap, Globe, Code2, ChevronDown, ShoppingBag, TrendingDown, BarChart3 } from 'lucide-react';
-import { useLang } from '@/components/LanguageProvider';
+import { useLang, pickLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { ChatBot } from '@/components/ChatBot';
 
@@ -221,9 +221,15 @@ function PartnersContent() {
       } else {
         setSyncMessage({
           type: 'success',
-          text: lang === 'es'
-            ? 'Sincronización iniciada. Los productos aparecerán en 1–3 min.'
-            : 'Sync started. Products will appear in 1–3 min.',
+          text: pickLang(
+            lang,
+            'Sync started. Products will appear in 1–3 min.',
+            'Sincronización iniciada. Los productos aparecerán en 1–3 min.',
+            'Synchronisation lancée. Les produits apparaîtront dans 1 à 3 min.',
+            'Sincronização iniciada. Os produtos aparecerão em 1–3 min.',
+            'Synchronisierung gestartet. Die Produkte erscheinen in 1–3 Min.',
+            'Sincronizzazione avviata. I prodotti appariranno in 1–3 min.'
+          ),
         });
         // Poll stats a few times
         for (const delay of [8000, 20000, 45000]) {
@@ -415,45 +421,61 @@ function PartnersContent() {
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 border border-indigo-200 rounded-full">
                 <Sparkles size={14} className="text-indigo-600" />
                 <span className="text-[10px] font-black text-indigo-700 uppercase tracking-widest">
-                  {lang === 'es' ? 'Hazte Partner' : 'Become a Partner'}
+                  {pickLang(lang, 'Become a Partner', 'Hazte Partner', 'Devenez Partenaire', 'Torne-se Parceiro', 'Partner werden', 'Diventa Partner')}
                 </span>
               </div>
               <h1 className="font-serif text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight">
-                {lang === 'es' ? (
-                  <>Tus clientes se prueban<br /><span className="italic text-indigo-600">antes de comprar.</span></>
-                ) : (
-                  <>Your customers try on<br /><span className="italic text-indigo-600">before they buy.</span></>
+                {pickLang(
+                  lang,
+                  <>Your customers try on<br /><span className="italic text-indigo-600">before they buy.</span></>,
+                  <>Tus clientes se prueban<br /><span className="italic text-indigo-600">antes de comprar.</span></>,
+                  <>Vos clients essaient<br /><span className="italic text-indigo-600">avant d&apos;acheter.</span></>,
+                  <>Os seus clientes experimentam<br /><span className="italic text-indigo-600">antes de comprar.</span></>,
+                  <>Ihre Kunden probieren an<br /><span className="italic text-indigo-600">bevor sie kaufen.</span></>,
+                  <>I vostri clienti provano<br /><span className="italic text-indigo-600">prima di comprare.</span></>
                 )}
               </h1>
               <p className="text-slate-500 text-lg font-light max-w-2xl mx-auto leading-relaxed">
-                {lang === 'es'
-                  ? 'Añadiendo el botón de probarse la ropa antes de comprar, permite a tus clientes previsualizar ropa, gafas, joyería y accesorios sobre ellos mismos con IA. Aumenta conversiones, maximiza el tiempo en tu web y reduce devoluciones.'
-                  : 'By adding a try-on button before buying, let your customers preview clothing, glasses, jewelry and accessories on themselves with AI. Boost conversions, maximize time on site and reduce returns.'}
+                {pickLang(
+                  lang,
+                  'By adding a try-on button before buying, let your customers preview clothing, glasses, jewelry and accessories on themselves with AI. Boost conversions, maximize time on site and reduce returns.',
+                  'Añadiendo el botón de probarse la ropa antes de comprar, permite a tus clientes previsualizar ropa, gafas, joyería y accesorios sobre ellos mismos con IA. Aumenta conversiones, maximiza el tiempo en tu web y reduce devoluciones.',
+                  'En ajoutant un bouton d\'essayage avant l\'achat, vos clients peuvent prévisualiser vêtements, lunettes, bijoux et accessoires sur eux-mêmes grâce à l\'IA. Augmentez les conversions, maximisez le temps passé sur votre site et réduisez les retours.',
+                  'Ao adicionar um botão de prova antes da compra, permita que os seus clientes pré-visualizem roupa, óculos, joias e acessórios em si mesmos com IA. Aumente conversões, maximize o tempo no site e reduza devoluções.',
+                  'Mit einem Anprobe-Button vor dem Kauf können Ihre Kunden Kleidung, Brillen, Schmuck und Accessoires per AI an sich selbst vorschauen. Steigern Sie die Conversion, maximieren Sie die Verweildauer und reduzieren Sie Retouren.',
+                  'Aggiungendo un pulsante di prova prima dell\'acquisto, permettete ai vostri clienti di visualizzare in anteprima abbigliamento, occhiali, gioielli e accessori su sé stessi con AI. Aumentate le conversioni, massimizzate il tempo sul sito e riducete i resi.'
+                )}
               </p>
               <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-slate-600 font-semibold pt-4">
                 <div className="flex flex-col items-center gap-1.5">
                   <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center">
                     <TrendingDown size={20} className="text-emerald-500" />
                   </div>
-                  <span>{lang === 'es' ? 'Menos devoluciones' : 'Fewer returns'}</span>
+                  <span>{pickLang(lang, 'Fewer returns', 'Menos devoluciones', 'Moins de retours', 'Menos devoluções', 'Weniger Retouren', 'Meno resi')}</span>
                 </div>
                 <div className="flex flex-col items-center gap-1.5">
                   <div className="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center">
                     <BarChart3 size={20} className="text-indigo-500" />
                   </div>
-                  <span>{lang === 'es' ? 'Más conversiones' : 'More conversions'}</span>
+                  <span>{pickLang(lang, 'More conversions', 'Más conversiones', 'Plus de conversions', 'Mais conversões', 'Mehr Conversions', 'Più conversioni')}</span>
                 </div>
                 <div className="flex flex-col items-center gap-1.5">
                   <div className="w-12 h-12 rounded-2xl bg-amber-50 flex items-center justify-center">
                     <Zap size={20} className="text-amber-500" />
                   </div>
-                  <span>{lang === 'es' ? 'Mayor retención' : 'Higher retention'}</span>
+                  <span>{pickLang(lang, 'Higher retention', 'Mayor retención', 'Meilleure rétention', 'Maior retenção', 'Höhere Bindung', 'Maggiore retention')}</span>
                 </div>
               </div>
               <p className="text-slate-400 text-xs font-medium pt-2">
-                {lang === 'es'
-                  ? 'Funciona en Shopify, WooCommerce o cualquier plataforma. 2 líneas de código.'
-                  : 'Works on Shopify, WooCommerce, or any platform. 2 lines of code.'}
+                {pickLang(
+                  lang,
+                  'Works on Shopify, WooCommerce, or any platform. 2 lines of code.',
+                  'Funciona en Shopify, WooCommerce o cualquier plataforma. 2 líneas de código.',
+                  'Fonctionne sur Shopify, WooCommerce ou n\'importe quelle plateforme. 2 lignes de code.',
+                  'Funciona em Shopify, WooCommerce ou qualquer plataforma. 2 linhas de código.',
+                  'Funktioniert mit Shopify, WooCommerce oder jeder Plattform. 2 Zeilen Code.',
+                  'Funziona su Shopify, WooCommerce o qualsiasi piattaforma. 2 righe di codice.'
+                )}
               </p>
             </div>
 
@@ -461,7 +483,7 @@ function PartnersContent() {
             <div className="flex items-center justify-center gap-3 md:gap-6 mb-16">
               {/* 1. Before */}
               <button onClick={() => setExpandedImage('/images/before.png')} className="cursor-zoom-in group text-center space-y-2">
-                <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">{lang === 'es' ? 'Tu cliente' : 'Your customer'}</span>
+                <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">{pickLang(lang, 'Your customer', 'Tu cliente', 'Votre client', 'O seu cliente', 'Ihr Kunde', 'Il vostro cliente')}</span>
                 <div className="rounded-2xl overflow-hidden border-2 border-slate-200 shadow-md group-hover:border-indigo-300 group-hover:shadow-lg transition-all">
                   <img src="/images/before.png" alt="Before try-on" className="w-32 md:w-44 h-auto" />
                 </div>
@@ -471,7 +493,7 @@ function PartnersContent() {
 
               {/* 2. Product page with Try On button */}
               <button onClick={() => setExpandedImage('/images/Agalaz try on button.png')} className="cursor-zoom-in group text-center space-y-2">
-                <span className="text-[9px] font-black uppercase tracking-widest text-indigo-600">{lang === 'es' ? 'Se lo prueba' : 'Tries it on'}</span>
+                <span className="text-[9px] font-black uppercase tracking-widest text-indigo-600">{pickLang(lang, 'Tries it on', 'Se lo prueba', 'L\'essaie', 'Experimenta', 'Probiert es an', 'Lo prova')}</span>
                 <div className="rounded-2xl overflow-hidden border-2 border-indigo-300 shadow-lg group-hover:border-indigo-500 group-hover:shadow-xl transition-all">
                   <img src="/images/Agalaz try on button.png" alt="Product page with Try On button" className="w-32 md:w-44 h-auto" />
                 </div>
@@ -481,7 +503,7 @@ function PartnersContent() {
 
               {/* 3. After - result */}
               <button onClick={() => setExpandedImage('/images/after.png')} className="cursor-zoom-in group text-center space-y-2">
-                <span className="text-[9px] font-black uppercase tracking-widest text-emerald-600">{lang === 'es' ? 'Resultado' : 'Result'}</span>
+                <span className="text-[9px] font-black uppercase tracking-widest text-emerald-600">{pickLang(lang, 'Result', 'Resultado', 'Résultat', 'Resultado', 'Ergebnis', 'Risultato')}</span>
                 <div className="rounded-2xl overflow-hidden border-2 border-emerald-300 shadow-md group-hover:border-emerald-500 group-hover:shadow-lg transition-all">
                   <img src="/images/after.png" alt="Try-on result" className="w-32 md:w-44 h-auto" />
                 </div>
@@ -507,19 +529,27 @@ function PartnersContent() {
                   <div className="w-14 h-14 bg-indigo-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg shadow-indigo-200">
                     <Sparkles size={24} className="text-white" />
                   </div>
-                  <h2 className="font-serif text-3xl font-black text-slate-900">{lang === 'es' ? 'Empieza gratis' : 'Start for free'}</h2>
+                  <h2 className="font-serif text-3xl font-black text-slate-900">{pickLang(lang, 'Start for free', 'Empieza gratis', 'Commencez gratuitement', 'Comece grátis', 'Kostenlos starten', 'Inizia gratis')}</h2>
                   <p className="text-indigo-600 text-sm font-black uppercase tracking-widest">
-                    {lang === 'es' ? '7 días gratis · 50 renders' : '7-day free trial · 50 renders'}
+                    {pickLang(lang, '7-day free trial · 50 renders', '7 días gratis · 50 renders', 'Essai gratuit 7 jours · 50 renders', 'Teste grátis 7 dias · 50 renders', '7 Tage gratis · 50 Renders', 'Prova gratuita 7 giorni · 50 render')}
                   </p>
                   <p className="text-slate-400 text-xs font-light">
-                    {lang === 'es' ? 'Introduces tu tarjeta pero no se cobra durante 7 días. Si no cancelas antes del día 7, se activa Starter (150€/mes) automáticamente.' : 'Card required but not charged for 7 days. If you don\'t cancel before day 7, Starter ($150/mo) activates automatically.'}
+                    {pickLang(
+                      lang,
+                      'Card required but not charged for 7 days. If you don\'t cancel before day 7, Starter ($150/mo) activates automatically.',
+                      'Introduces tu tarjeta pero no se cobra durante 7 días. Si no cancelas antes del día 7, se activa Starter (150€/mes) automáticamente.',
+                      'Carte requise mais non débitée pendant 7 jours. Si vous n\'annulez pas avant le 7e jour, Starter (150 €/mois) s\'active automatiquement.',
+                      'Cartão obrigatório mas não cobrado durante 7 dias. Se não cancelar antes do dia 7, o Starter (150 €/mês) é ativado automaticamente.',
+                      'Karte erforderlich, wird aber 7 Tage lang nicht belastet. Wenn Sie vor Tag 7 nicht kündigen, wird Starter (150 €/Mon.) automatisch aktiviert.',
+                      'Carta richiesta ma non addebitata per 7 giorni. Se non disdici prima del giorno 7, lo Starter (150 €/mese) si attiva automaticamente.'
+                    )}
                   </p>
                 </div>
 
                 {/* Store URL */}
                 <div>
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                    {lang === 'es' ? 'URL de tu tienda' : 'Your store URL'}
+                    {pickLang(lang, 'Your store URL', 'URL de tu tienda', 'URL de votre boutique', 'URL da sua loja', 'URL Ihres Shops', 'URL del vostro negozio')}
                   </label>
                   <input
                     type="text"
@@ -552,11 +582,11 @@ function PartnersContent() {
                 <button
                   onClick={() => {
                     if (!storeUrl) {
-                      setError(lang === 'es' ? 'Introduce la URL de tu tienda' : 'Enter your store URL');
+                      setError(pickLang(lang, 'Enter your store URL', 'Introduce la URL de tu tienda', 'Saisissez l\'URL de votre boutique', 'Introduza o URL da sua loja', 'Geben Sie die URL Ihres Shops ein', 'Inserisci l\'URL del tuo negozio'));
                       return;
                     }
                     if (!userEmail) {
-                      setError(lang === 'es' ? 'Introduce tu email' : 'Enter your email');
+                      setError(pickLang(lang, 'Enter your email', 'Introduce tu email', 'Saisissez votre email', 'Introduza o seu email', 'Geben Sie Ihre E-Mail ein', 'Inserisci la tua email'));
                       return;
                     }
                     setError(null);
@@ -567,13 +597,13 @@ function PartnersContent() {
                 >
                   <Sparkles size={16} />
                   {isSubmitting
-                    ? (lang === 'es' ? 'Redirigiendo a Stripe...' : 'Redirecting to Stripe...')
-                    : (lang === 'es' ? 'Empezar prueba gratis' : 'Start free trial')}
+                    ? pickLang(lang, 'Redirecting to Stripe...', 'Redirigiendo a Stripe...', 'Redirection vers Stripe...', 'A redirecionar para Stripe...', 'Weiterleitung zu Stripe...', 'Reindirizzamento a Stripe...')
+                    : pickLang(lang, 'Start free trial', 'Empezar prueba gratis', 'Démarrer l\'essai gratuit', 'Começar teste grátis', 'Gratis-Testphase starten', 'Inizia prova gratuita')}
                   <ArrowRight size={16} />
                 </button>
 
                 <p className="text-center text-[10px] text-slate-400 font-bold">
-                  {lang === 'es' ? '0€ hoy · Cancela antes del día 7 y no pagas nada' : '$0 today · Cancel before day 7 and pay nothing'}
+                  {pickLang(lang, '$0 today · Cancel before day 7 and pay nothing', '0€ hoy · Cancela antes del día 7 y no pagas nada', '0 € aujourd\'hui · Annulez avant le 7e jour et ne payez rien', '0 € hoje · Cancele antes do dia 7 e não paga nada', '0 € heute · Vor Tag 7 kündigen und nichts zahlen', '0 € oggi · Disdici prima del giorno 7 e non paghi nulla')}
                 </p>
               </div>
             </div>
@@ -581,8 +611,8 @@ function PartnersContent() {
             {/* ── DEMO VIDEO ── */}
             <div className="mb-20">
               <div className="text-center space-y-3 mb-8">
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600">{lang === 'es' ? 'Míralo en acción' : 'See it in action'}</span>
-                <h2 className="font-serif text-3xl font-black text-slate-900">{lang === 'es' ? 'Probador Virtual para Tu Tienda' : 'Virtual Try-On for Your Store'}</h2>
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600">{pickLang(lang, 'See it in action', 'Míralo en acción', 'Voyez-le en action', 'Veja em ação', 'In Aktion sehen', 'Guardalo in azione')}</span>
+                <h2 className="font-serif text-3xl font-black text-slate-900">{pickLang(lang, 'Virtual Try-On for Your Store', 'Probador Virtual para Tu Tienda', 'Essayage virtuel pour votre boutique', 'Provador Virtual para a Sua Loja', 'Virtuelle Anprobe für Ihren Shop', 'Camerino Virtuale per il Vostro Negozio')}</h2>
               </div>
               <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden border-2 border-slate-200 shadow-lg">
                 <video
@@ -595,21 +625,53 @@ function PartnersContent() {
                 />
               </div>
               <p className="text-center text-[10px] text-slate-300 mt-4">
-                {lang === 'es' ? 'Demo real — probador virtual con IA en una página de producto ecommerce' : 'Real demo — AI virtual try-on running on an ecommerce product page'}
+                {pickLang(
+                  lang,
+                  'Real demo — AI virtual try-on running on an ecommerce product page',
+                  'Demo real — probador virtual con IA en una página de producto ecommerce',
+                  'Démo réelle — essayage virtuel AI sur une page produit ecommerce',
+                  'Demo real — provador virtual com AI numa página de produto ecommerce',
+                  'Echte Demo — virtuelle AI-Anprobe auf einer E-Commerce-Produktseite',
+                  'Demo reale — camerino virtuale AI su una pagina prodotto ecommerce'
+                )}
               </p>
             </div>
 
             {/* ── FEATURES ── */}
             <div className="grid md:grid-cols-3 gap-6 mb-20">
-              {(lang === 'es' ? [
-                { icon: <Code2 size={20} />, title: '2 Líneas de Código', desc: 'Pega nuestro script + un div en tu página de producto. Listo. Sin servidor, sin integración compleja.' },
-                { icon: <Shield size={20} />, title: 'Seguro por Defecto', desc: 'Allowlisting de dominios, claves API con SHA-256, límites de peticiones. Nunca almacenamos las fotos de tus clientes.' },
-                { icon: <Sparkles size={20} />, title: 'Resultados con IA', desc: 'Probador fotorrealista para ropa, gafas, joyería, sombreros, zapatos, bolsos — incluso tatuajes y nail art.' },
-              ] : [
-                { icon: <Code2 size={20} />, title: '2 Lines of Code', desc: 'Paste our script tag + a div on your product page. That\'s it. No server setup, no complex integration.' },
-                { icon: <Shield size={20} />, title: 'Secure by Default', desc: 'Domain allowlisting, SHA-256 hashed API keys, rate limits. We never store your customers\' photos.' },
-                { icon: <Sparkles size={20} />, title: 'AI-Powered Results', desc: 'Photorealistic try-on for clothing, glasses, jewelry, hats, shoes, bags — even tattoos and nail art.' },
-              ]).map((f, i) => (
+              {pickLang(
+                lang,
+                [
+                  { icon: <Code2 size={20} />, title: '2 Lines of Code', desc: 'Paste our script tag + a div on your product page. That\'s it. No server setup, no complex integration.' },
+                  { icon: <Shield size={20} />, title: 'Secure by Default', desc: 'Domain allowlisting, SHA-256 hashed API keys, rate limits. We never store your customers\' photos.' },
+                  { icon: <Sparkles size={20} />, title: 'AI-Powered Results', desc: 'Photorealistic try-on for clothing, glasses, jewelry, hats, shoes, bags — even tattoos and nail art.' },
+                ],
+                [
+                  { icon: <Code2 size={20} />, title: '2 Líneas de Código', desc: 'Pega nuestro script + un div en tu página de producto. Listo. Sin servidor, sin integración compleja.' },
+                  { icon: <Shield size={20} />, title: 'Seguro por Defecto', desc: 'Allowlisting de dominios, claves API con SHA-256, límites de peticiones. Nunca almacenamos las fotos de tus clientes.' },
+                  { icon: <Sparkles size={20} />, title: 'Resultados con IA', desc: 'Probador fotorrealista para ropa, gafas, joyería, sombreros, zapatos, bolsos — incluso tatuajes y nail art.' },
+                ],
+                [
+                  { icon: <Code2 size={20} />, title: '2 lignes de code', desc: 'Collez notre script + un div sur votre page produit. C\'est tout. Pas de serveur, pas d\'intégration complexe.' },
+                  { icon: <Shield size={20} />, title: 'Sécurisé par défaut', desc: 'Allowlisting de domaines, clés API hashées SHA-256, limites de requêtes. Nous ne stockons jamais les photos de vos clients.' },
+                  { icon: <Sparkles size={20} />, title: 'Résultats par AI', desc: 'Essayage photoréaliste pour vêtements, lunettes, bijoux, chapeaux, chaussures, sacs — et même tatouages et nail art.' },
+                ],
+                [
+                  { icon: <Code2 size={20} />, title: '2 linhas de código', desc: 'Cole o nosso script + um div na sua página de produto. Pronto. Sem servidor, sem integração complexa.' },
+                  { icon: <Shield size={20} />, title: 'Seguro por defeito', desc: 'Allowlisting de domínios, chaves API com SHA-256, limites de pedidos. Nunca armazenamos as fotos dos seus clientes.' },
+                  { icon: <Sparkles size={20} />, title: 'Resultados com AI', desc: 'Provador fotorrealista para roupa, óculos, joias, chapéus, sapatos, malas — incluindo tatuagens e nail art.' },
+                ],
+                [
+                  { icon: <Code2 size={20} />, title: '2 Zeilen Code', desc: 'Fügen Sie unser Script + ein Div auf Ihrer Produktseite ein. Fertig. Kein Server, keine komplexe Integration.' },
+                  { icon: <Shield size={20} />, title: 'Standardmäßig sicher', desc: 'Domain-Allowlisting, SHA-256-gehashte API-Schlüssel, Rate-Limits. Wir speichern niemals Kundenfotos.' },
+                  { icon: <Sparkles size={20} />, title: 'AI-gestützte Ergebnisse', desc: 'Fotorealistische Anprobe für Kleidung, Brillen, Schmuck, Hüte, Schuhe, Taschen — sogar Tattoos und Nail Art.' },
+                ],
+                [
+                  { icon: <Code2 size={20} />, title: '2 righe di codice', desc: 'Incollate il nostro script + un div sulla pagina prodotto. Fatto. Niente server, nessuna integrazione complessa.' },
+                  { icon: <Shield size={20} />, title: 'Sicuro di default', desc: 'Allowlisting dei domini, chiavi API con hash SHA-256, rate limit. Non memorizziamo mai le foto dei vostri clienti.' },
+                  { icon: <Sparkles size={20} />, title: 'Risultati con AI', desc: 'Prova fotorealistica per abbigliamento, occhiali, gioielli, cappelli, scarpe, borse — anche tatuaggi e nail art.' },
+                ]
+              ).map((f, i) => (
                 <div key={i} className="p-6 border border-slate-100 rounded-2xl space-y-3">
                   <div className="text-indigo-600">{f.icon}</div>
                   <h3 className="font-black text-slate-900 text-sm">{f.title}</h3>
@@ -621,20 +683,44 @@ function PartnersContent() {
             {/* ── HOW IT WORKS ── */}
             <div className="mb-20">
               <div className="text-center space-y-3 mb-10">
-                <h2 className="font-serif text-3xl font-black text-slate-900">{lang === 'es' ? 'Cómo Empezar' : 'How to Get Started'}</h2>
-                <p className="text-slate-400 text-sm font-light">{lang === 'es' ? 'Del registro al widget en menos de 5 minutos.' : 'From sign-up to live widget in under 5 minutes.'}</p>
+                <h2 className="font-serif text-3xl font-black text-slate-900">{pickLang(lang, 'How to Get Started', 'Cómo Empezar', 'Comment démarrer', 'Como Começar', 'So fangen Sie an', 'Come iniziare')}</h2>
+                <p className="text-slate-400 text-sm font-light">{pickLang(lang, 'From sign-up to live widget in under 5 minutes.', 'Del registro al widget en menos de 5 minutos.', 'De l\'inscription au widget en moins de 5 minutes.', 'Do registo ao widget em menos de 5 minutos.', 'Von der Anmeldung zum Live-Widget in unter 5 Minuten.', 'Dalla registrazione al widget live in meno di 5 minuti.')}</p>
               </div>
 
               <div className="space-y-0 max-w-lg mx-auto">
-                {(lang === 'es' ? [
-                  { step: '1', title: 'Introduce la URL de tu tienda', desc: 'Dinos dónde está tu tienda. Autorizaremos el dominio automáticamente.' },
-                  { step: '2', title: 'Empieza 7 días gratis · 50 renders', desc: 'Recibe al instante tu API key y activa el trial de 7 días con 50 renders. Introduces tarjeta pero no se cobra hasta el día 7. Cancela antes y no pagas nada.' },
-                  { step: '3', title: 'Instala el widget (2 líneas de código)', desc: 'Copia el <script> en el <head> de tu tienda y coloca un <div> en tus páginas de producto. Detecta imágenes automáticamente en Shopify y WooCommerce.' },
-                ] : [
-                  { step: '1', title: 'Enter your store URL', desc: 'Tell us where your store lives. We\'ll allowlist the domain automatically.' },
-                  { step: '2', title: 'Start 7-day free trial · 50 renders', desc: 'Instantly receive your secure API key and activate a 7-day free trial with 50 renders. Card required but nothing is charged until day 7 — cancel anytime before and pay nothing.' },
-                  { step: '3', title: 'Install the widget (2 lines of code)', desc: 'Copy the <script> tag into your store\'s <head>, and place a <div> on your product pages. Auto-detects images on Shopify & WooCommerce.' },
-                ]).map((item, i) => (
+                {pickLang(
+                  lang,
+                  [
+                    { step: '1', title: 'Enter your store URL', desc: 'Tell us where your store lives. We\'ll allowlist the domain automatically.' },
+                    { step: '2', title: 'Start 7-day free trial · 50 renders', desc: 'Instantly receive your secure API key and activate a 7-day free trial with 50 renders. Card required but nothing is charged until day 7 — cancel anytime before and pay nothing.' },
+                    { step: '3', title: 'Install the widget (2 lines of code)', desc: 'Copy the <script> tag into your store\'s <head>, and place a <div> on your product pages. Auto-detects images on Shopify & WooCommerce.' },
+                  ],
+                  [
+                    { step: '1', title: 'Introduce la URL de tu tienda', desc: 'Dinos dónde está tu tienda. Autorizaremos el dominio automáticamente.' },
+                    { step: '2', title: 'Empieza 7 días gratis · 50 renders', desc: 'Recibe al instante tu API key y activa el trial de 7 días con 50 renders. Introduces tarjeta pero no se cobra hasta el día 7. Cancela antes y no pagas nada.' },
+                    { step: '3', title: 'Instala el widget (2 líneas de código)', desc: 'Copia el <script> en el <head> de tu tienda y coloca un <div> en tus páginas de producto. Detecta imágenes automáticamente en Shopify y WooCommerce.' },
+                  ],
+                  [
+                    { step: '1', title: 'Saisissez l\'URL de votre boutique', desc: 'Indiquez-nous où se trouve votre boutique. Nous autoriserons le domaine automatiquement.' },
+                    { step: '2', title: 'Démarrez l\'essai gratuit de 7 jours · 50 renders', desc: 'Recevez instantanément votre API key et activez l\'essai de 7 jours avec 50 renders. Carte requise mais aucun débit avant le 7e jour — annulez avant et ne payez rien.' },
+                    { step: '3', title: 'Installez le widget (2 lignes de code)', desc: 'Copiez la balise <script> dans le <head> de votre boutique et placez un <div> sur vos pages produit. Détection automatique des images sur Shopify et WooCommerce.' },
+                  ],
+                  [
+                    { step: '1', title: 'Introduza o URL da sua loja', desc: 'Diga-nos onde está a sua loja. Autorizaremos o domínio automaticamente.' },
+                    { step: '2', title: 'Comece o teste grátis de 7 dias · 50 renders', desc: 'Receba instantaneamente a sua API key e ative o teste de 7 dias com 50 renders. Cartão obrigatório mas nada é cobrado até ao dia 7 — cancele antes e não paga nada.' },
+                    { step: '3', title: 'Instale o widget (2 linhas de código)', desc: 'Copie a tag <script> para o <head> da sua loja e coloque um <div> nas páginas de produto. Deteta imagens automaticamente em Shopify e WooCommerce.' },
+                  ],
+                  [
+                    { step: '1', title: 'Geben Sie die URL Ihres Shops ein', desc: 'Sagen Sie uns, wo Ihr Shop liegt. Wir nehmen die Domain automatisch in die Allowlist auf.' },
+                    { step: '2', title: 'Starten Sie 7 Tage gratis · 50 Renders', desc: 'Erhalten Sie sofort Ihren API-Schlüssel und aktivieren Sie die 7-tägige Testphase mit 50 Renders. Karte erforderlich, aber bis Tag 7 wird nichts belastet — vorher kündigen, nichts zahlen.' },
+                    { step: '3', title: 'Installieren Sie das Widget (2 Zeilen Code)', desc: 'Kopieren Sie das <script>-Tag in den <head> Ihres Shops und platzieren Sie ein <div> auf Ihren Produktseiten. Automatische Bilderkennung in Shopify und WooCommerce.' },
+                  ],
+                  [
+                    { step: '1', title: 'Inserisci l\'URL del tuo negozio', desc: 'Diteci dov\'è il vostro negozio. Autorizzeremo il dominio automaticamente.' },
+                    { step: '2', title: 'Inizia la prova gratuita di 7 giorni · 50 render', desc: 'Ricevete subito la vostra API key e attivate la prova di 7 giorni con 50 render. Carta richiesta ma nessun addebito fino al giorno 7 — disdici prima e non paghi nulla.' },
+                    { step: '3', title: 'Installa il widget (2 righe di codice)', desc: 'Copiate il tag <script> nel <head> del vostro negozio e inserite un <div> nelle pagine prodotto. Rileva automaticamente le immagini su Shopify e WooCommerce.' },
+                  ]
+                ).map((item, i) => (
                   <div key={i} className="flex gap-5 pb-8 last:pb-0">
                     <div className="flex flex-col items-center">
                       <div className="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-black text-sm shrink-0">
@@ -656,29 +742,59 @@ function PartnersContent() {
               <div className="bg-gradient-to-br from-violet-50 via-indigo-50 to-white border-2 border-violet-200 rounded-2xl p-8 md:p-10">
                 <div className="flex items-center gap-2 mb-4">
                   <span className="px-2.5 py-1 bg-violet-600 text-white text-[9px] font-black uppercase tracking-wider rounded-full">
-                    {lang === 'es' ? 'NUEVO' : 'NEW'}
+                    {pickLang(lang, 'NEW', 'NUEVO', 'NOUVEAU', 'NOVO', 'NEU', 'NUOVO')}
                   </span>
                   <ShoppingBag size={18} className="text-violet-600" />
                 </div>
                 <h2 className="font-serif text-3xl font-black text-slate-900 mb-3">
-                  {lang === 'es' ? 'Cross-Sell Inteligente con IA' : 'AI-Powered Smart Cross-Sell'}
+                  {pickLang(lang, 'AI-Powered Smart Cross-Sell', 'Cross-Sell Inteligente con IA', 'Cross-Sell intelligent par AI', 'Cross-Sell Inteligente com AI', 'Smartes Cross-Selling mit AI', 'Cross-Sell Intelligente con AI')}
                 </h2>
                 <p className="text-slate-500 text-sm font-light leading-relaxed mb-6 max-w-xl">
-                  {lang === 'es'
-                    ? 'Cuando un cliente se prueba una prenda, nuestra IA le recomienda productos complementarios de tu catálogo. ¿Se probó una camiseta? Le sugerimos pantalones que combinan. ¿Un anillo? Le mostramos pendientes a juego. Todo automático, basado en estilo, color y categoría.'
-                    : 'When a customer tries on an item, our AI recommends complementary products from your catalog. Tried a shirt? We suggest matching pants. A ring? We show matching earrings. Fully automatic, based on style, color harmony, and category.'}
+                  {pickLang(
+                    lang,
+                    'When a customer tries on an item, our AI recommends complementary products from your catalog. Tried a shirt? We suggest matching pants. A ring? We show matching earrings. Fully automatic, based on style, color harmony, and category.',
+                    'Cuando un cliente se prueba una prenda, nuestra IA le recomienda productos complementarios de tu catálogo. ¿Se probó una camiseta? Le sugerimos pantalones que combinan. ¿Un anillo? Le mostramos pendientes a juego. Todo automático, basado en estilo, color y categoría.',
+                    'Lorsqu\'un client essaie un article, notre AI recommande des produits complémentaires de votre catalogue. Un t-shirt essayé ? Nous suggérons un pantalon assorti. Une bague ? Nous montrons des boucles d\'oreilles assorties. Entièrement automatique, basé sur le style, l\'harmonie des couleurs et la catégorie.',
+                    'Quando um cliente experimenta um artigo, a nossa AI recomenda produtos complementares do seu catálogo. Experimentou uma camisa? Sugerimos calças a condizer. Um anel? Mostramos brincos a combinar. Totalmente automático, baseado em estilo, harmonia de cor e categoria.',
+                    'Wenn ein Kunde einen Artikel anprobiert, empfiehlt unsere AI passende Produkte aus Ihrem Katalog. Hemd anprobiert? Wir schlagen passende Hosen vor. Ein Ring? Wir zeigen passende Ohrringe. Vollautomatisch, basierend auf Stil, Farbharmonie und Kategorie.',
+                    'Quando un cliente prova un articolo, la nostra AI raccomanda prodotti complementari dal vostro catalogo. Provata una maglietta? Suggeriamo pantaloni abbinati. Un anello? Mostriamo orecchini coordinati. Completamente automatico, basato su stile, armonia dei colori e categoria.'
+                  )}
                 </p>
 
                 <div className="grid sm:grid-cols-3 gap-4 mb-6">
-                  {(lang === 'es' ? [
-                    { icon: '👕→👖', title: 'Por categoría', desc: 'Camiseta → pantalón, vestido → zapatos, anillo → pendientes' },
-                    { icon: '🎨', title: 'Por color', desc: 'Recomienda colores que armonizan con lo que ya se probó' },
-                    { icon: '✨', title: 'Nota de estilo IA', desc: '"¡Este azul realza tu tez!" — mensaje personalizado con cada render' },
-                  ] : [
-                    { icon: '👕→👖', title: 'By category', desc: 'Shirt → pants, dress → shoes, ring → earrings' },
-                    { icon: '🎨', title: 'By color', desc: 'Recommends colors that harmonize with what they just tried' },
-                    { icon: '✨', title: 'AI style note', desc: '"This blue tone enhances your complexion!" — personalized message with each render' },
-                  ]).map((item, i) => (
+                  {pickLang(
+                    lang,
+                    [
+                      { icon: '👕→👖', title: 'By category', desc: 'Shirt → pants, dress → shoes, ring → earrings' },
+                      { icon: '🎨', title: 'By color', desc: 'Recommends colors that harmonize with what they just tried' },
+                      { icon: '✨', title: 'AI style note', desc: '"This blue tone enhances your complexion!" — personalized message with each render' },
+                    ],
+                    [
+                      { icon: '👕→👖', title: 'Por categoría', desc: 'Camiseta → pantalón, vestido → zapatos, anillo → pendientes' },
+                      { icon: '🎨', title: 'Por color', desc: 'Recomienda colores que armonizan con lo que ya se probó' },
+                      { icon: '✨', title: 'Nota de estilo IA', desc: '"¡Este azul realza tu tez!" — mensaje personalizado con cada render' },
+                    ],
+                    [
+                      { icon: '👕→👖', title: 'Par catégorie', desc: 'T-shirt → pantalon, robe → chaussures, bague → boucles d\'oreilles' },
+                      { icon: '🎨', title: 'Par couleur', desc: 'Recommande des couleurs qui s\'harmonisent avec ce qui vient d\'être essayé' },
+                      { icon: '✨', title: 'Note de style AI', desc: '« Ce bleu rehausse votre teint ! » — message personnalisé à chaque render' },
+                    ],
+                    [
+                      { icon: '👕→👖', title: 'Por categoria', desc: 'Camisa → calças, vestido → sapatos, anel → brincos' },
+                      { icon: '🎨', title: 'Por cor', desc: 'Recomenda cores que harmonizam com o que acabaram de experimentar' },
+                      { icon: '✨', title: 'Nota de estilo AI', desc: '"Este azul realça a sua tez!" — mensagem personalizada com cada render' },
+                    ],
+                    [
+                      { icon: '👕→👖', title: 'Nach Kategorie', desc: 'Hemd → Hose, Kleid → Schuhe, Ring → Ohrringe' },
+                      { icon: '🎨', title: 'Nach Farbe', desc: 'Empfiehlt Farben, die zu dem gerade Anprobierten harmonieren' },
+                      { icon: '✨', title: 'AI-Stilhinweis', desc: '„Dieses Blau betont Ihren Teint!" — persönliche Nachricht bei jedem Render' },
+                    ],
+                    [
+                      { icon: '👕→👖', title: 'Per categoria', desc: 'Maglietta → pantaloni, abito → scarpe, anello → orecchini' },
+                      { icon: '🎨', title: 'Per colore', desc: 'Raccomanda colori che si armonizzano con ciò che è stato appena provato' },
+                      { icon: '✨', title: 'Nota di stile AI', desc: '"Questo blu valorizza la vostra carnagione!" — messaggio personalizzato a ogni render' },
+                    ]
+                  ).map((item, i) => (
                     <div key={i} className="bg-white border border-slate-100 rounded-xl p-4">
                       <span className="text-2xl">{item.icon}</span>
                       <h4 className="font-bold text-sm text-slate-900 mt-2">{item.title}</h4>
@@ -1363,6 +1479,29 @@ function PartnersContent() {
               </p>
             </div>
 
+            {/* API Key reveal — full key if we have it from sessionStorage, else prefix only */}
+            {apiKey && (
+              <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-black text-amber-700 uppercase tracking-widest">
+                    Your API key (save it now)
+                  </span>
+                  <button
+                    onClick={() => copyToClipboard(apiKey, 'apiKey')}
+                    className="text-[10px] font-black text-amber-700 hover:text-amber-900 uppercase tracking-widest"
+                  >
+                    {copied === 'apiKey' ? 'Copied!' : 'Copy'}
+                  </button>
+                </div>
+                <code className="block text-xs font-mono text-slate-900 bg-white p-3 rounded-lg border border-amber-200 break-all">
+                  {apiKey}
+                </code>
+                <p className="text-[10px] text-amber-700 font-light leading-relaxed">
+                  This is shown once. After leaving this page you cannot recover it — only rotate to a new one.
+                </p>
+              </div>
+            )}
+
             {/* Integration instructions */}
             <div className="space-y-4">
               <h2 className="font-black text-slate-900 text-sm flex items-center gap-2">
@@ -1374,9 +1513,47 @@ function PartnersContent() {
                   Widget script
                 </span>
                 <code className="block text-xs font-mono text-slate-700 bg-white p-3 rounded-lg border border-slate-200 break-all">
-                  {`<script src="https://agalaz.com/widget.js" data-api-key="${partnerProfile?.api_key_prefix || 'agz_live_'}..."></script>`}
+                  {`<script src="https://agalaz.com/widget.js" data-api-key="${apiKey || (partnerProfile?.api_key_prefix ? partnerProfile.api_key_prefix + '...' : 'agz_live_...')}"></script>`}
                 </code>
               </div>
+            </div>
+
+            {/* Lost the key? Rotate to a new one */}
+            <div className="p-4 border border-slate-200 rounded-xl space-y-3">
+              <div>
+                <h3 className="font-black text-slate-900 text-sm">Lost your API key?</h3>
+                <p className="text-xs text-slate-500 font-light leading-relaxed mt-1">
+                  Generate a new one. The old key stops working immediately — update it everywhere you use it.
+                </p>
+              </div>
+              <button
+                onClick={async () => {
+                  if (!partnerProfile?.id) return;
+                  if (!confirm('Rotate your API key? The old key will stop working immediately.')) return;
+                  setIsSubmitting(true);
+                  try {
+                    const res = await fetch('/api/partners/rotate-key', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ partner_id: partnerProfile.id }),
+                    });
+                    const data = await res.json();
+                    if (res.ok && data.api_key) {
+                      setApiKey(data.api_key);
+                      setPartnerProfile({ ...partnerProfile, api_key_prefix: data.api_key_prefix });
+                    } else {
+                      alert(data.error || 'Rotation failed');
+                    }
+                  } catch {
+                    alert('Network error');
+                  }
+                  setIsSubmitting(false);
+                }}
+                disabled={isSubmitting}
+                className="w-full py-3 bg-slate-900 text-white text-[11px] font-black uppercase tracking-[0.15em] hover:bg-indigo-600 disabled:opacity-50 transition-colors"
+              >
+                {isSubmitting ? 'Rotating…' : 'Rotate API Key'}
+              </button>
             </div>
 
             {/* Usage */}
