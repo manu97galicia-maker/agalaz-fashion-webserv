@@ -21,7 +21,7 @@ import {
 import { ImageUploader } from '@/components/ImageUploader';
 import { onAuthStateChange, signInWithGoogle, signInWithOtp, type AppUser } from '@/services/authService';
 import { Role, type ChatMessage } from '@/types';
-import { useLang } from '@/components/LanguageProvider';
+import { useLang, pickLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
 
 export default function TryOnPage() {
@@ -152,7 +152,7 @@ export default function TryOnPage() {
 
   const handleStartAnalysis = async () => {
     if (!userImage) {
-      setError(lang === 'es' ? 'Sube una foto tuya para empezar' : 'Upload a photo of yourself to start');
+      setError(pickLang(lang, 'Upload a photo of yourself to start', 'Sube una foto tuya para empezar', 'Téléchargez une photo de vous pour commencer', 'Carregue uma foto sua para começar', 'Lade ein Foto von dir hoch, um zu starten', 'Carica una tua foto per iniziare'));
       return;
     }
     if (!user) {
@@ -433,11 +433,11 @@ export default function TryOnPage() {
                 <button
                   onClick={() => { setCreditQty(1); setShowCreditShop(true); }}
                   className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 border border-amber-200 rounded-full hover:bg-amber-100 transition-colors"
-                  title={lang === 'es' ? 'Comprar créditos' : 'Buy credits'}
+                  title={pickLang(lang, 'Buy credits', 'Comprar créditos', 'Acheter des crédits', 'Comprar créditos', 'Credits kaufen', 'Acquista crediti')}
                 >
                   <Zap size={12} className="text-amber-600" />
                   <span className="text-[9px] font-black text-amber-700 uppercase tracking-wide">
-                    +{lang === 'es' ? 'Créditos' : 'Credits'}
+                    +{pickLang(lang, 'Credits', 'Créditos', 'Crédits', 'Créditos', 'Credits', 'Crediti')}
                   </span>
                 </button>
               )}
@@ -495,7 +495,7 @@ export default function TryOnPage() {
             <div className="max-w-lg mx-auto space-y-8 animate-fade-in">
               <div className="text-center space-y-3 px-4 pt-6">
                 <span className="inline-block px-4 py-1.5 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-[0.2em] rounded-full">
-                  {lang === 'es' ? 'Probador Virtual IA' : 'AI Virtual Try-On'}
+                  {pickLang(lang, 'AI Virtual Try-On', 'Probador Virtual IA', 'Essayage Virtuel AI', 'Provador Virtual AI', 'AI Virtuelle Anprobe', 'Camerino Virtuale AI')}
                 </span>
                 <h1 className="font-serif text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-[0.9]">
                   {t.preserveTitle}
@@ -503,9 +503,13 @@ export default function TryOnPage() {
                   <span className="italic text-slate-400">{t.preserveHighlight}</span>
                 </h1>
                 <p className="text-slate-500 text-sm font-light max-w-sm mx-auto">
-                  {lang === 'es'
-                    ? 'Sube una foto tuya y la prenda que quieras probarte'
-                    : 'Upload a photo of yourself and the garment you want to try on'}
+                  {pickLang(lang,
+                    'Upload a photo of yourself and the garment you want to try on',
+                    'Sube una foto tuya y la prenda que quieras probarte',
+                    'Téléchargez une photo de vous et le vêtement que vous voulez essayer',
+                    'Carregue uma foto sua e a peça que quer experimentar',
+                    'Lade ein Foto von dir und das Kleidungsstück hoch, das du anprobieren möchtest',
+                    'Carica una tua foto e il capo che vuoi provare')}
                 </p>
               </div>
 
@@ -515,21 +519,21 @@ export default function TryOnPage() {
                   <div className="flex items-center gap-1.5 mb-2">
                     <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">1</span>
                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                      {lang === 'es' ? 'Qué quieres probar' : 'What to try on'}
+                      {pickLang(lang, 'What to try on', 'Qué quieres probar', 'Que voulez-vous essayer', 'O que quer experimentar', 'Was möchtest du anprobieren', 'Cosa vuoi provare')}
                     </span>
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {[
-                      { value: 'auto', es: 'Auto-detectar', en: 'Auto-detect', icon: '✨' },
-                      { value: 'clothing', es: 'Ropa', en: 'Clothing', icon: '👕' },
-                      { value: 'glasses', es: 'Gafas', en: 'Glasses', icon: '👓' },
-                      { value: 'jewelry', es: 'Joyería', en: 'Jewelry', icon: '💎' },
-                      { value: 'headwear', es: 'Sombreros', en: 'Headwear', icon: '🎩' },
-                      { value: 'shoes', es: 'Zapatos', en: 'Shoes', icon: '👟' },
-                      { value: 'bags', es: 'Bolsos', en: 'Bags', icon: '👜' },
-                      { value: 'tattoo', es: 'Tatuajes', en: 'Tattoos', icon: '🪡' },
-                      { value: 'nails', es: 'Uñas / Nail Art', en: 'Nails / Nail Art', icon: '💅' },
-                      { value: 'ring-sizer', es: 'Talla de anillo', en: 'Ring Sizer', icon: '💍' },
+                      { value: 'auto', es: 'Auto-detectar', en: 'Auto-detect', fr: 'Détection auto', pt: 'Detecção automática', de: 'Auto-Erkennung', it: 'Rilevamento automatico', icon: '✨' },
+                      { value: 'clothing', es: 'Ropa', en: 'Clothing', fr: 'Vêtements', pt: 'Roupa', de: 'Kleidung', it: 'Abbigliamento', icon: '👕' },
+                      { value: 'glasses', es: 'Gafas', en: 'Glasses', fr: 'Lunettes', pt: 'Óculos', de: 'Brille', it: 'Occhiali', icon: '👓' },
+                      { value: 'jewelry', es: 'Joyería', en: 'Jewelry', fr: 'Bijoux', pt: 'Joias', de: 'Schmuck', it: 'Gioielli', icon: '💎' },
+                      { value: 'headwear', es: 'Sombreros', en: 'Headwear', fr: 'Chapeaux', pt: 'Chapéus', de: 'Kopfbedeckung', it: 'Cappelli', icon: '🎩' },
+                      { value: 'shoes', es: 'Zapatos', en: 'Shoes', fr: 'Chaussures', pt: 'Sapatos', de: 'Schuhe', it: 'Scarpe', icon: '👟' },
+                      { value: 'bags', es: 'Bolsos', en: 'Bags', fr: 'Sacs', pt: 'Bolsas', de: 'Taschen', it: 'Borse', icon: '👜' },
+                      { value: 'tattoo', es: 'Tatuajes', en: 'Tattoos', fr: 'Tatouages', pt: 'Tatuagens', de: 'Tattoos', it: 'Tatuaggi', icon: '🪡' },
+                      { value: 'nails', es: 'Uñas / Nail Art', en: 'Nails / Nail Art', fr: 'Ongles / Nail Art', pt: 'Unhas / Nail Art', de: 'Nägel / Nail Art', it: 'Unghie / Nail Art', icon: '💅' },
+                      { value: 'ring-sizer', es: 'Talla de anillo', en: 'Ring Sizer', fr: 'Taille de bague', pt: 'Tamanho do anel', de: 'Ringgröße', it: 'Misura anello', icon: '💍' },
                     ].map((cat) => (
                       <button
                         key={cat.value}
@@ -541,7 +545,7 @@ export default function TryOnPage() {
                         }`}
                       >
                         <span>{cat.icon}</span>
-                        {lang === 'es' ? cat.es : cat.en}
+                        {pickLang(lang, cat.en, cat.es, cat.fr, cat.pt, cat.de, cat.it)}
                       </button>
                     ))}
                   </div>
@@ -553,14 +557,14 @@ export default function TryOnPage() {
                     <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">2</span>
                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
                       {tryOnCategory === 'ring-sizer'
-                        ? (lang === 'es' ? 'Foto de tu mano' : 'Photo of your hand')
-                        : (lang === 'es' ? 'Tu foto' : 'Your photo')}
+                        ? pickLang(lang, 'Photo of your hand', 'Foto de tu mano', 'Photo de votre main', 'Foto da sua mão', 'Foto deiner Hand', 'Foto della tua mano')
+                        : pickLang(lang, 'Your photo', 'Tu foto', 'Votre photo', 'A sua foto', 'Dein Foto', 'La tua foto')}
                     </span>
                   </div>
                   <ImageUploader
                     label={tryOnCategory === 'ring-sizer'
-                      ? (lang === 'es' ? 'Foto de tu mano' : 'Photo of your hand')
-                      : (lang === 'es' ? 'Tu foto' : 'Your photo')}
+                      ? pickLang(lang, 'Photo of your hand', 'Foto de tu mano', 'Photo de votre main', 'Foto da sua mão', 'Foto deiner Hand', 'Foto della tua mano')
+                      : pickLang(lang, 'Your photo', 'Tu foto', 'Votre photo', 'A sua foto', 'Dein Foto', 'La tua foto')}
                     type="user"
                     image={userImage}
                     onImageSelect={trackAndSetUser}
@@ -568,8 +572,8 @@ export default function TryOnPage() {
                   />
                   <p className="text-[9px] font-bold text-slate-300 text-center mt-1.5">
                     {tryOnCategory === 'ring-sizer'
-                      ? (lang === 'es' ? 'Foto clara de tu mano con los dedos extendidos' : 'Clear photo of your hand with fingers extended')
-                      : (lang === 'es' ? 'Selfie, medio cuerpo o cuerpo entero' : 'Selfie, half body, or full body')}
+                      ? pickLang(lang, 'Clear photo of your hand with fingers extended', 'Foto clara de tu mano con los dedos extendidos', 'Photo claire de votre main avec les doigts tendus', 'Foto nítida da sua mão com os dedos esticados', 'Klares Foto deiner Hand mit ausgestreckten Fingern', 'Foto chiara della tua mano con le dita distese')
+                      : pickLang(lang, 'Selfie, half body, or full body', 'Selfie, medio cuerpo o cuerpo entero', 'Selfie, demi-corps ou corps entier', 'Selfie, meio corpo ou corpo inteiro', 'Selfie, halbkörper oder ganzkörper', 'Selfie, mezzo busto o corpo intero')}
                   </p>
                 </div>
 
@@ -578,11 +582,11 @@ export default function TryOnPage() {
                   <div className="flex items-center gap-1.5 mb-2">
                     <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">3</span>
                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                      {lang === 'es' ? 'Prenda, accesorio o tatuaje' : 'Garment, accessory or tattoo'} ({t.optional})
+                      {pickLang(lang, 'Garment, accessory or tattoo', 'Prenda, accesorio o tatuaje', 'Vêtement, accessoire ou tatouage', 'Peça, acessório ou tatuagem', 'Kleidungsstück, Accessoire oder Tattoo', 'Capo, accessorio o tatuaggio')} ({t.optional})
                     </span>
                   </div>
                   <ImageUploader
-                    label={lang === 'es' ? `Prenda, accesorio o tatuaje (${t.optional})` : `Garment, accessory or tattoo (${t.optional})`}
+                    label={pickLang(lang, `Garment, accessory or tattoo (${t.optional})`, `Prenda, accesorio o tatuaje (${t.optional})`, `Vêtement, accessoire ou tatouage (${t.optional})`, `Peça, acessório ou tatuagem (${t.optional})`, `Kleidungsstück, Accessoire oder Tattoo (${t.optional})`, `Capo, accessorio o tatuaggio (${t.optional})`)}
                     type="clothing"
                     image={clothingImage}
                     onImageSelect={trackAndSetClothing}
@@ -594,9 +598,13 @@ export default function TryOnPage() {
                 <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-3 flex items-start gap-2.5">
                   <Send size={14} className="text-indigo-500 shrink-0 mt-0.5" />
                   <p className="text-[11px] font-bold text-indigo-600/70 leading-relaxed">
-                    {lang === 'es'
-                      ? 'Usa el chat para describir lo que quieres antes o después del render: talla, color, manga, tatuaje, uñas...'
-                      : 'Use the chat to describe what you want before or after the render: size, color, sleeves, tattoo, nails...'}
+                    {pickLang(lang,
+                      'Use the chat to describe what you want before or after the render: size, color, sleeves, tattoo, nails...',
+                      'Usa el chat para describir lo que quieres antes o después del render: talla, color, manga, tatuaje, uñas...',
+                      'Utilisez le chat pour décrire ce que vous voulez avant ou après le render : taille, couleur, manches, tatouage, ongles...',
+                      'Use o chat para descrever o que quer antes ou depois do render: tamanho, cor, mangas, tatuagem, unhas...',
+                      'Nutze den Chat, um zu beschreiben, was du vor oder nach dem Render möchtest: Größe, Farbe, Ärmel, Tattoo, Nägel...',
+                      'Usa la chat per descrivere ciò che vuoi prima o dopo il render: taglia, colore, maniche, tatuaggio, unghie...')}
                   </p>
                 </div>
               </div>
@@ -615,10 +623,10 @@ export default function TryOnPage() {
                     <Sparkles size={24} className="text-indigo-600 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                   </div>
                   <p className="text-sm font-black text-slate-700 tracking-tight">
-                    {lang === 'es' ? 'Generando tu prueba virtual...' : 'Generating your virtual try-on...'}
+                    {pickLang(lang, 'Generating your virtual try-on...', 'Generando tu prueba virtual...', 'Génération de votre essayage virtuel...', 'A gerar o seu provador virtual...', 'Erstelle deine virtuelle Anprobe...', 'Generazione del tuo camerino virtuale...')}
                   </p>
                   <p className="text-xs text-slate-400 mt-1">
-                    {lang === 'es' ? 'Puede tardar hasta 1 minuto' : 'This may take up to 1 minute'}
+                    {pickLang(lang, 'This may take up to 1 minute', 'Puede tardar hasta 1 minuto', 'Cela peut prendre jusqu\'à 1 minute', 'Pode demorar até 1 minuto', 'Dies kann bis zu 1 Minute dauern', 'Può richiedere fino a 1 minuto')}
                   </p>
                   <a href="https://agalaz.com" target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 mt-6 px-4 py-2 bg-slate-50 border border-slate-200 rounded-full hover:border-indigo-300 transition-colors">
@@ -680,7 +688,7 @@ export default function TryOnPage() {
                         >
                           <Download size={14} className="text-slate-500" />
                           <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
-                            {lang === 'es' ? 'Guardar' : 'Save'}
+                            {pickLang(lang, 'Save', 'Guardar', 'Enregistrer', 'Guardar', 'Speichern', 'Salva')}
                           </span>
                         </button>
                         <button
@@ -689,7 +697,7 @@ export default function TryOnPage() {
                         >
                           <Share2 size={14} />
                           <span className="text-[10px] font-black uppercase tracking-widest">
-                            {lang === 'es' ? 'Compartir' : 'Share'}
+                            {pickLang(lang, 'Share', 'Compartir', 'Partager', 'Partilhar', 'Teilen', 'Condividi')}
                           </span>
                         </button>
                       </div>
@@ -719,10 +727,10 @@ export default function TryOnPage() {
                     <Sparkles size={24} className="text-indigo-600 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                   </div>
                   <p className="text-sm font-black text-slate-700 tracking-tight">
-                    {lang === 'es' ? 'Generando tu prueba virtual...' : 'Generating your virtual try-on...'}
+                    {pickLang(lang, 'Generating your virtual try-on...', 'Generando tu prueba virtual...', 'Génération de votre essayage virtuel...', 'A gerar o seu provador virtual...', 'Erstelle deine virtuelle Anprobe...', 'Generazione del tuo camerino virtuale...')}
                   </p>
                   <p className="text-xs text-slate-400 mt-1">
-                    {lang === 'es' ? 'Puede tardar hasta 1 minuto' : 'This may take up to 1 minute'}
+                    {pickLang(lang, 'This may take up to 1 minute', 'Puede tardar hasta 1 minuto', 'Cela peut prendre jusqu\'à 1 minute', 'Pode demorar até 1 minuto', 'Dies kann bis zu 1 Minute dauern', 'Può richiedere fino a 1 minuto')}
                   </p>
                   <a href="https://agalaz.com" target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 mt-6 px-4 py-2 bg-slate-50 border border-slate-200 rounded-full hover:border-indigo-300 transition-colors">
@@ -741,9 +749,13 @@ export default function TryOnPage() {
           <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-slate-100 z-20" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
             {!isLoading && messages.some(m => m.image) && (
               <div className="flex gap-2 px-4 pt-3 pb-1 overflow-x-auto hide-scrollbar">
-                {(lang === 'es'
-                  ? ['Talla más grande', 'Talla más pequeña', 'Manga larga', 'Cambiar color', 'Más ajustado']
-                  : ['Bigger size', 'Smaller size', 'Long sleeves', 'Change color', 'Tighter fit']
+                {pickLang(lang,
+                  ['Bigger size', 'Smaller size', 'Long sleeves', 'Change color', 'Tighter fit'],
+                  ['Talla más grande', 'Talla más pequeña', 'Manga larga', 'Cambiar color', 'Más ajustado'],
+                  ['Plus grand', 'Plus petit', 'Manches longues', 'Changer de couleur', 'Plus ajusté'],
+                  ['Tamanho maior', 'Tamanho menor', 'Manga comprida', 'Mudar cor', 'Mais justo'],
+                  ['Größere Größe', 'Kleinere Größe', 'Lange Ärmel', 'Farbe ändern', 'Engerer Sitz'],
+                  ['Taglia più grande', 'Taglia più piccola', 'Maniche lunghe', 'Cambia colore', 'Più aderente']
                 ).map((chip) => (
                   <button
                     key={chip}
@@ -767,7 +779,7 @@ export default function TryOnPage() {
                   </button>
                 </div>
                 <span className="text-[9px] font-bold text-indigo-600 uppercase tracking-widest">
-                  {lang === 'es' ? 'Referencia adjunta' : 'Reference attached'}
+                  {pickLang(lang, 'Reference attached', 'Referencia adjunta', 'Référence jointe', 'Referência anexada', 'Referenz angehängt', 'Riferimento allegato')}
                 </span>
               </div>
             )}
@@ -823,10 +835,10 @@ export default function TryOnPage() {
             </div>
             <div>
               <h3 className="font-serif text-2xl font-black text-slate-900 tracking-tight">
-                {lang === 'es' ? 'Comprar Ahora' : 'Buy Now'}
+                {pickLang(lang, 'Buy Now', 'Comprar Ahora', 'Acheter Maintenant', 'Comprar Agora', 'Jetzt Kaufen', 'Acquista Ora')}
               </h3>
               <p className="text-slate-400 text-sm mt-2 font-light">
-                {lang === 'es' ? 'Pago único · sin suscripción · sin caducidad' : 'One-time payment · no subscription · no expiry'}
+                {pickLang(lang, 'One-time payment · no subscription · no expiry', 'Pago único · sin suscripción · sin caducidad', 'Paiement unique · sans abonnement · sans expiration', 'Pagamento único · sem subscrição · sem expiração', 'Einmalzahlung · kein Abo · keine Ablauf', 'Pagamento unico · senza abbonamento · senza scadenza')}
               </p>
             </div>
 
@@ -837,8 +849,8 @@ export default function TryOnPage() {
                   plan: 'test',
                   name: 'Starter',
                   price: '$0,99',
-                  description: lang === 'es' ? '1 render + 1 GRATIS 🎁' : '1 render + 1 FREE 🎁',
-                  hint: lang === 'es' ? 'Empieza por menos de $1' : 'Start for under $1',
+                  description: pickLang(lang, '1 render + 1 FREE 🎁', '1 render + 1 GRATIS 🎁', '1 render + 1 GRATUIT 🎁', '1 render + 1 GRÁTIS 🎁', '1 Render + 1 GRATIS 🎁', '1 render + 1 GRATIS 🎁'),
+                  hint: pickLang(lang, 'Start for under $1', 'Empieza por menos de $1', 'Commencez pour moins de 1 $', 'Comece por menos de $1', 'Starte für unter $1', 'Inizia con meno di $1'),
                   credits: 2,
                   bg: 'bg-white',
                   border: 'border-slate-200',
@@ -848,12 +860,12 @@ export default function TryOnPage() {
                   plan: 'popular',
                   name: 'Style Pro',
                   price: '$4,99',
-                  description: lang === 'es' ? '12 renders · $0,42 cada uno' : '12 renders · $0.42 each',
-                  hint: lang === 'es' ? 'AHORRA 58%' : 'SAVE 58%',
+                  description: pickLang(lang, '12 renders · $0.42 each', '12 renders · $0,42 cada uno', '12 renders · 0,42 $ chacun', '12 renders · $0,42 cada um', '12 Renders · $0,42 pro Stück', '12 render · $0,42 ciascuno'),
+                  hint: pickLang(lang, 'SAVE 58%', 'AHORRA 58%', 'ÉCONOMISEZ 58%', 'POUPE 58%', 'SPARE 58%', 'RISPARMIA 58%'),
                   credits: 12,
                   bg: 'bg-indigo-50',
                   border: 'border-indigo-300',
-                  badge: lang === 'es' ? 'POPULAR' : 'POPULAR',
+                  badge: pickLang(lang, 'POPULAR', 'POPULAR', 'POPULAIRE', 'POPULAR', 'BELIEBT', 'POPOLARE'),
                 },
               ].map((tier) => (
                 <button
@@ -865,7 +877,7 @@ export default function TryOnPage() {
                       const { createBrowserClient } = await import('@supabase/ssr');
                       const sb = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL || '', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '');
                       const { data: { user: sbUser } } = await sb.auth.getUser();
-                      if (!sbUser) { alert(lang === 'es' ? 'Error de autenticación. Recarga la página.' : 'Auth error. Please reload.'); return; }
+                      if (!sbUser) { alert(pickLang(lang, 'Auth error. Please reload.', 'Error de autenticación. Recarga la página.', 'Erreur d\'authentification. Veuillez recharger.', 'Erro de autenticação. Recarregue a página.', 'Authentifizierungsfehler. Bitte neu laden.', 'Errore di autenticazione. Ricarica la pagina.')); return; }
                       const res = await fetch('/api/stripe/checkout', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -876,11 +888,11 @@ export default function TryOnPage() {
                         window.location.href = data.url;
                       } else {
                         console.error('Stripe checkout error:', data.error);
-                        alert(lang === 'es' ? 'Error al conectar con Stripe. Inténtalo de nuevo.' : 'Stripe connection error. Please try again.');
+                        alert(pickLang(lang, 'Stripe connection error. Please try again.', 'Error al conectar con Stripe. Inténtalo de nuevo.', 'Erreur de connexion à Stripe. Veuillez réessayer.', 'Erro de ligação ao Stripe. Tente novamente.', 'Stripe-Verbindungsfehler. Bitte versuche es erneut.', 'Errore di connessione a Stripe. Riprova.'));
                       }
                     } catch (err) {
                       console.error('Credit purchase error:', err);
-                      alert(lang === 'es' ? 'Error al procesar la compra. Inténtalo de nuevo.' : 'Purchase error. Please try again.');
+                      alert(pickLang(lang, 'Purchase error. Please try again.', 'Error al procesar la compra. Inténtalo de nuevo.', 'Erreur de paiement. Veuillez réessayer.', 'Erro na compra. Tente novamente.', 'Kauffehler. Bitte versuche es erneut.', 'Errore nell\'acquisto. Riprova.'));
                     }
                   }}
                   className={`relative ${tier.bg} ${tier.border} border-2 rounded-2xl p-4 text-left hover:shadow-md transition-all`}
@@ -895,7 +907,7 @@ export default function TryOnPage() {
                   <div className="text-[11px] text-slate-500 font-light leading-tight mb-2">{tier.description}</div>
                   <div className="text-[10px] text-indigo-600 font-bold">{tier.hint}</div>
                   <div className="mt-3 text-[11px] font-black text-slate-900 uppercase tracking-widest">
-                    {lang === 'es' ? 'Comprar Ahora →' : 'Buy Now →'}
+                    {pickLang(lang, 'Buy Now →', 'Comprar Ahora →', 'Acheter Maintenant →', 'Comprar Agora →', 'Jetzt Kaufen →', 'Acquista Ora →')}
                   </div>
                 </button>
               ))}
@@ -905,7 +917,7 @@ export default function TryOnPage() {
               onClick={() => setShowCreditShop(false)}
               className="text-slate-300 text-xs font-bold hover:text-slate-500 transition-colors"
             >
-              {lang === 'es' ? 'Cancelar' : 'Cancel'}
+              {pickLang(lang, 'Cancel', 'Cancelar', 'Annuler', 'Cancelar', 'Abbrechen', 'Annulla')}
             </button>
           </div>
         </div>
@@ -920,10 +932,10 @@ export default function TryOnPage() {
             </div>
             <div>
               <h3 className="font-serif text-2xl font-black text-slate-900 tracking-tight">
-                {lang === 'es' ? 'Inicia sesión' : 'Sign in'}
+                {pickLang(lang, 'Sign in', 'Inicia sesión', 'Connectez-vous', 'Iniciar sessão', 'Anmelden', 'Accedi')}
               </h3>
               <p className="text-slate-400 text-sm mt-2 font-light">
-                {lang === 'es' ? 'Necesitas una cuenta para usar el probador virtual' : 'You need an account to use the virtual try-on'}
+                {pickLang(lang, 'You need an account to use the virtual try-on', 'Necesitas una cuenta para usar el probador virtual', 'Vous avez besoin d\'un compte pour utiliser l\'essayage virtuel', 'Precisa de uma conta para usar o provador virtual', 'Du brauchst ein Konto, um die virtuelle Anprobe zu nutzen', 'Hai bisogno di un account per usare il camerino virtuale')}
               </p>
             </div>
             <button
@@ -938,22 +950,22 @@ export default function TryOnPage() {
                 <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
               </svg>
-              {lang === 'es' ? 'Continuar con Google' : 'Continue with Google'}
+              {pickLang(lang, 'Continue with Google', 'Continuar con Google', 'Continuer avec Google', 'Continuar com Google', 'Mit Google fortfahren', 'Continua con Google')}
             </button>
 
             <div className="flex items-center gap-3">
               <div className="flex-1 h-px bg-slate-200" />
-              <span className="text-[10px] font-bold text-slate-400 uppercase">{lang === 'es' ? 'o' : 'or'}</span>
+              <span className="text-[10px] font-bold text-slate-400 uppercase">{pickLang(lang, 'or', 'o', 'ou', 'ou', 'oder', 'o')}</span>
               <div className="flex-1 h-px bg-slate-200" />
             </div>
 
             {otpSent ? (
               <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
                 <p className="text-sm font-bold text-emerald-600">
-                  {lang === 'es' ? 'Revisa tu correo' : 'Check your inbox'}
+                  {pickLang(lang, 'Check your inbox', 'Revisa tu correo', 'Vérifiez votre boîte de réception', 'Verifique a sua caixa de entrada', 'Prüfe dein Postfach', 'Controlla la tua casella di posta')}
                 </p>
                 <p className="text-xs text-slate-500 mt-1">
-                  {lang === 'es' ? 'Te enviamos un enlace mágico. Haz clic para entrar.' : 'We sent you a magic link. Click it to sign in.'}
+                  {pickLang(lang, 'We sent you a magic link. Click it to sign in.', 'Te enviamos un enlace mágico. Haz clic para entrar.', 'Nous vous avons envoyé un lien magique. Cliquez pour vous connecter.', 'Enviámos-lhe um link mágico. Clique para entrar.', 'Wir haben dir einen Magic Link geschickt. Klicke ihn an, um dich anzumelden.', 'Ti abbiamo inviato un magic link. Cliccalo per accedere.')}
                 </p>
               </div>
             ) : (
@@ -963,14 +975,14 @@ export default function TryOnPage() {
                   value={otpEmail}
                   onChange={(e) => setOtpEmail(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter') handleLoginOtp(); }}
-                  placeholder={lang === 'es' ? 'tu@email.com' : 'your@email.com'}
+                  placeholder={pickLang(lang, 'your@email.com', 'tu@email.com', 'votre@email.com', 'seu@email.com', 'deine@email.com', 'tua@email.com')}
                   className="flex-1 px-3 py-3 bg-white border border-slate-200 rounded-lg text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-indigo-500"
                 />
                 <button
                   onClick={handleLoginOtp}
                   className="px-4 py-3 bg-indigo-600 text-white text-sm font-bold rounded-lg hover:bg-indigo-500 transition-colors shrink-0"
                 >
-                  {lang === 'es' ? 'Enviar' : 'Send'}
+                  {pickLang(lang, 'Send', 'Enviar', 'Envoyer', 'Enviar', 'Senden', 'Invia')}
                 </button>
               </div>
             )}
@@ -979,7 +991,7 @@ export default function TryOnPage() {
               onClick={() => { setShowLogin(false); setOtpSent(false); setOtpEmail(''); }}
               className="text-slate-300 text-xs font-bold hover:text-slate-500 transition-colors"
             >
-              {lang === 'es' ? 'Cancelar' : 'Cancel'}
+              {pickLang(lang, 'Cancel', 'Cancelar', 'Annuler', 'Cancelar', 'Abbrechen', 'Annulla')}
             </button>
           </div>
         </div>

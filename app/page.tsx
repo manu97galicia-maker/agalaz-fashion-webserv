@@ -23,7 +23,7 @@ import {
   Menu,
   X,
 } from 'lucide-react';
-import { useLang } from '@/components/LanguageProvider';
+import { useLang, pickLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { ChatBot } from '@/components/ChatBot';
 
@@ -223,9 +223,15 @@ export default function HomePage() {
         <div className="bg-indigo-600 text-center py-2">
           <Link href="/partners" className="text-[11px] md:text-xs text-white font-bold hover:text-white/90 transition-colors">
             <Store size={12} className="inline mr-1.5 -mt-0.5" />
-            {lang === 'es'
-              ? '¿Tienes un ecommerce? Hazte Partner → Prueba gratis'
-              : 'Have an ecommerce? Become a Partner → Free trial'}
+            {pickLang(
+              lang,
+              'Have an ecommerce? Become a Partner → Free trial',
+              '¿Tienes un ecommerce? Hazte Partner → Prueba gratis',
+              'Vous avez un e-commerce ? Devenez Partenaire → Essai gratuit',
+              'Tem um e-commerce? Torne-se Parceiro → Teste grátis',
+              'Sie haben einen Onlineshop? Werden Sie Partner → Kostenlos testen',
+              'Hai un e-commerce? Diventa Partner → Prova gratuita',
+            )}
             <ArrowRight size={12} className="inline ml-1 -mt-0.5" />
           </Link>
         </div>
@@ -239,7 +245,7 @@ export default function HomePage() {
               href="/partners"
               className="px-4 py-1.5 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-[0.12em] rounded-full hover:bg-indigo-100 transition-colors hidden md:block"
             >
-              {lang === 'es' ? 'Hazte Partner' : 'Become a Partner'}
+              {pickLang(lang, 'Become a Partner', 'Hazte Partner', 'Devenir Partenaire', 'Torne-se Parceiro', 'Partner werden', 'Diventa Partner')}
             </Link>
             <LanguageToggle />
             <Link
@@ -268,7 +274,15 @@ export default function HomePage() {
             >
               <span className="text-xs font-black text-slate-900 uppercase tracking-widest">Partners</span>
               <p className="text-[10px] text-slate-400 mt-0.5">
-                {lang === 'es' ? 'Para tiendas online — reduce devoluciones, aumenta ventas' : 'For online stores — reduce returns, boost sales'}
+                {pickLang(
+                  lang,
+                  'For online stores — reduce returns, boost sales',
+                  'Para tiendas online — reduce devoluciones, aumenta ventas',
+                  'Pour les boutiques en ligne — réduisez les retours, augmentez les ventes',
+                  'Para lojas online — reduza devoluções, aumente vendas',
+                  'Für Onlineshops — weniger Retouren, mehr Umsatz',
+                  'Per negozi online — meno resi, più vendite',
+                )}
               </p>
             </Link>
             <Link
@@ -278,7 +292,15 @@ export default function HomePage() {
             >
               <span className="text-xs font-black text-slate-900 uppercase tracking-widest">FAQ</span>
               <p className="text-[10px] text-slate-400 mt-0.5">
-                {lang === 'es' ? 'Preguntas frecuentes' : 'Frequently asked questions'}
+                {pickLang(
+                  lang,
+                  'Frequently asked questions',
+                  'Preguntas frecuentes',
+                  'Questions fréquentes',
+                  'Perguntas frequentes',
+                  'Häufig gestellte Fragen',
+                  'Domande frequenti',
+                )}
               </p>
             </Link>
             <Link
@@ -287,7 +309,7 @@ export default function HomePage() {
               className="block px-4 py-3 rounded-xl hover:bg-indigo-50 transition-colors"
             >
               <span className="text-xs font-black text-slate-900 uppercase tracking-widest">
-                {lang === 'es' ? 'Contacto' : 'Contact'}
+                {pickLang(lang, 'Contact', 'Contacto', 'Contact', 'Contacto', 'Kontakt', 'Contatto')}
               </span>
               <p className="text-[10px] text-slate-400 mt-0.5">infoagalaz@gmail.com</p>
             </Link>
@@ -307,19 +329,25 @@ export default function HomePage() {
             </span>
 
             <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-slate-900 leading-[0.9] tracking-tight animate-fade-in">
-              <span className="font-black">{lang === 'es' ? 'PRUEBA' : 'TRY'}</span>
+              <span className="font-black">{pickLang(lang, 'TRY', 'PRUEBA', 'ESSAYEZ', 'EXPERIMENTE', 'PROBIEREN', 'PROVA')}</span>
               {' '}
               <span key={heroWordIdx} className="italic font-normal text-indigo-500 inline-block transition-all duration-500 animate-fade-in">
                 {(HERO_CATEGORIES[lang as 'en' | 'es'] || HERO_CATEGORIES.en)[heroWordIdx]}
               </span>
               <br />
-              <span className="font-black">{lang === 'es' ? 'ANTES DE COMPRAR.' : 'BEFORE YOU BUY.'}</span>
+              <span className="font-black">{pickLang(lang, 'BEFORE YOU BUY.', 'ANTES DE COMPRAR.', 'AVANT D’ACHETER.', 'ANTES DE COMPRAR.', 'BEVOR SIE KAUFEN.', 'PRIMA DI COMPRARE.')}</span>
             </h1>
 
             <p className="text-slate-500 text-base md:text-lg mt-8 max-w-2xl mx-auto font-light leading-relaxed animate-fade-in-delay">
-              {lang === 'es'
-                ? 'Sube tu foto y pruébate cualquier prenda, gafa, joya o accesorio con IA. Ve cómo te queda en tu cuerpo real antes de comprar.'
-                : 'Upload your photo and try on any garment, glasses, jewelry or accessory with AI. See how it looks on your real body before you buy.'}
+              {pickLang(
+                lang,
+                'Upload your photo and try on any garment, glasses, jewelry or accessory with AI. See how it looks on your real body before you buy.',
+                'Sube tu foto y pruébate cualquier prenda, gafa, joya o accesorio con IA. Ve cómo te queda en tu cuerpo real antes de comprar.',
+                'Téléversez votre photo et essayez n’importe quel vêtement, lunettes, bijou ou accessoire avec l’IA. Voyez le rendu sur votre corps réel avant d’acheter.',
+                'Carregue a sua foto e experimente qualquer peça de roupa, óculos, joia ou acessório com IA. Veja como fica no seu corpo real antes de comprar.',
+                'Laden Sie Ihr Foto hoch und probieren Sie mit KI jedes Kleidungsstück, jede Brille, jeden Schmuck oder jedes Accessoire an. Sehen Sie, wie es an Ihrem echten Körper aussieht, bevor Sie kaufen.',
+                'Carica la tua foto e prova qualsiasi capo, occhiali, gioiello o accessorio con l’IA. Vedi come ti sta sul tuo corpo reale prima di comprare.',
+              )}
             </p>
 
             <div className="mt-10 animate-fade-in-delay">
@@ -375,10 +403,10 @@ export default function HomePage() {
               {/* Before */}
               <div className="group text-center">
                 <div className="aspect-[3/4] rounded-2xl overflow-hidden border-2 border-slate-200 relative shadow-sm group-hover:shadow-lg transition-all bg-slate-100">
-                  <img src="/images/before.png" alt={lang === 'es' ? 'Foto original' : 'Original photo'} className="w-full h-full object-cover" />
+                  <img src="/images/before.png" alt={pickLang(lang, 'Original photo', 'Foto original', 'Photo originale', 'Foto original', 'Originalfoto', 'Foto originale')} className="w-full h-full object-cover" />
                   <div className="absolute top-3 left-3 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full">
                     <span className="text-[9px] font-black uppercase tracking-widest text-slate-500">
-                      {lang === 'es' ? 'Tu foto' : 'Your photo'}
+                      {pickLang(lang, 'Your photo', 'Tu foto', 'Votre photo', 'A sua foto', 'Ihr Foto', 'La tua foto')}
                     </span>
                   </div>
                 </div>
@@ -392,10 +420,10 @@ export default function HomePage() {
                   <div className="w-12 h-[2px] bg-slate-200" />
                 </div>
                 <div className="aspect-square w-40 md:w-48 rounded-2xl overflow-hidden border-2 border-indigo-200 bg-white shadow-md relative">
-                  <img src="/images/garment.jpg" alt={lang === 'es' ? 'Prenda' : 'Garment'} className="w-full h-full object-cover" />
+                  <img src="/images/garment.jpg" alt={pickLang(lang, 'Garment', 'Prenda', 'Vêtement', 'Peça de roupa', 'Kleidungsstück', 'Capo')} className="w-full h-full object-cover" />
                   <div className="absolute top-2 left-2 px-2 py-0.5 bg-indigo-600/90 backdrop-blur-sm rounded-full">
                     <span className="text-[8px] font-black uppercase tracking-widest text-white">
-                      {lang === 'es' ? 'Prenda' : 'Garment'}
+                      {pickLang(lang, 'Garment', 'Prenda', 'Vêtement', 'Peça de roupa', 'Kleidungsstück', 'Capo')}
                     </span>
                   </div>
                 </div>
@@ -582,17 +610,47 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
           <span className="inline-block px-4 py-1.5 bg-indigo-600 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-8">
             <Store size={12} className="inline mr-2 -mt-0.5" />
-            {lang === 'es' ? '¿Tienes un ecommerce?' : 'Have an ecommerce?'}
+            {pickLang(
+              lang,
+              'Have an ecommerce?',
+              '¿Tienes un ecommerce?',
+              'Vous avez un e-commerce ?',
+              'Tem um e-commerce?',
+              'Sie haben einen Onlineshop?',
+              'Hai un e-commerce?',
+            )}
           </span>
           <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white tracking-tight leading-[0.9] mb-6">
-            {lang === 'es' ? 'Dispara tus ventas.' : 'Skyrocket your sales.'}{' '}
+            {pickLang(
+              lang,
+              'Skyrocket your sales.',
+              'Dispara tus ventas.',
+              'Faites décoller vos ventes.',
+              'Faça as suas vendas decolar.',
+              'Bringen Sie Ihren Umsatz zum Steigen.',
+              'Fai decollare le tue vendite.',
+            )}{' '}
             <br className="hidden md:block" />
-            <span className="italic text-indigo-400">{lang === 'es' ? 'Reduce devoluciones.' : 'Reduce returns.'}</span>
+            <span className="italic text-indigo-400">{pickLang(
+              lang,
+              'Reduce returns.',
+              'Reduce devoluciones.',
+              'Réduisez les retours.',
+              'Reduza as devoluções.',
+              'Reduzieren Sie Retouren.',
+              'Riduci i resi.',
+            )}</span>
           </h2>
           <p className="text-white/50 text-base md:text-lg font-light max-w-2xl mx-auto mb-10 leading-relaxed">
-            {lang === 'es'
-              ? 'Añade el probador virtual de Agalaz a tu tienda online en 2 líneas de código. Tus clientes se prueban la ropa antes de comprar — menos devoluciones, más conversión. Empieza con prueba gratis.'
-              : 'Add Agalaz virtual try-on to your store in 2 lines of code. Your customers try before they buy — fewer returns, higher conversion. Start with a free trial.'}
+            {pickLang(
+              lang,
+              'Add Agalaz virtual try-on to your store in 2 lines of code. Your customers try before they buy — fewer returns, higher conversion. Start with a free trial.',
+              'Añade el probador virtual de Agalaz a tu tienda online en 2 líneas de código. Tus clientes se prueban la ropa antes de comprar — menos devoluciones, más conversión. Empieza con prueba gratis.',
+              'Ajoutez l’essayage virtuel Agalaz à votre boutique en 2 lignes de code. Vos clients essaient avant d’acheter — moins de retours, plus de conversion. Commencez par un essai gratuit.',
+              'Adicione o provador virtual Agalaz à sua loja em 2 linhas de código. Os seus clientes experimentam antes de comprar — menos devoluções, mais conversão. Comece com um teste grátis.',
+              'Fügen Sie Agalaz Virtual Try-On in 2 Codezeilen zu Ihrem Shop hinzu. Ihre Kunden probieren, bevor sie kaufen — weniger Retouren, höhere Conversion. Starten Sie mit einer kostenlosen Testphase.',
+              'Aggiungi il camerino virtuale Agalaz al tuo negozio in 2 righe di codice. I tuoi clienti provano prima di comprare — meno resi, più conversioni. Inizia con una prova gratuita.',
+            )}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
@@ -600,11 +658,27 @@ export default function HomePage() {
               className="group inline-flex items-center gap-3 px-10 py-4 bg-white text-slate-900 font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-600 hover:text-white transition-all"
             >
               <Store size={16} className="group-hover:scale-110 transition-transform" />
-              {lang === 'es' ? 'Aplica ahora — prueba gratis' : 'Apply now — free trial'}
+              {pickLang(
+                lang,
+                'Apply now — free trial',
+                'Aplica ahora — prueba gratis',
+                'Postulez maintenant — essai gratuit',
+                'Candidate-se agora — teste grátis',
+                'Jetzt bewerben — kostenlos testen',
+                'Candidati ora — prova gratuita',
+              )}
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </Link>
             <span className="text-white/30 text-xs font-bold">
-              {lang === 'es' ? '5 renders gratis · Sin coste de instalación' : '5 free renders · No setup fee'}
+              {pickLang(
+                lang,
+                '5 free renders · No setup fee',
+                '5 renders gratis · Sin coste de instalación',
+                '5 rendus gratuits · Aucuns frais d’installation',
+                '5 renders grátis · Sem custos de instalação',
+                '5 kostenlose Renders · Keine Einrichtungsgebühr',
+                '5 render gratuiti · Nessun costo di installazione',
+              )}
             </span>
           </div>
         </div>
@@ -635,24 +709,60 @@ export default function HomePage() {
       <section className="py-20 md:py-28 bg-slate-50 border-y border-slate-100">
         <div className="max-w-3xl mx-auto px-6 md:px-12">
           <h2 className="font-serif text-3xl md:text-5xl text-slate-900 tracking-tight leading-[0.9] mb-12 text-center">
-            {lang === 'es' ? 'Preguntas Frecuentes' : 'FAQ'}
+            {pickLang(lang, 'FAQ', 'Preguntas Frecuentes', 'Questions Fréquentes', 'Perguntas Frequentes', 'Häufige Fragen', 'Domande Frequenti')}
           </h2>
           <div className="space-y-6">
-            {(lang === 'es' ? [
-              { q: '¿Es gratis para probar?', a: 'Sí. Tienes 2 renders gratis sin tarjeta. Después: pack Starter $0,99 (1 render + 1 GRATIS 🎁, empieza por menos de $1) o pack Style Pro $4,99 (12 renders, $0,42 por render — AHORRA 58%). Pago único.' },
-              { q: '¿Cuál pack me conviene?', a: 'Para probar a fondo: Starter $0,99 (2 renders en total, 1 + 1 gratis). Para uso regular: Style Pro $4,99 (12 renders por solo $0,42 cada uno, ahorras un 58% frente al Starter).' },
-              { q: '¿Es una suscripción?', a: 'No. Ambos packs son pago único. Sin renovación automática, sin permanencia, sin nada que cancelar. Pagas el pack y los renders están en tu cuenta.' },
-              { q: '¿Mis renders caducan?', a: 'No. Una vez compras un pack, los renders se quedan en tu cuenta hasta que los uses. Cómpralos cuando los necesites.' },
-              { q: '¿Qué pasa con mis fotos?', a: 'Se procesan en tiempo real y no se almacenan en nuestros servidores. Privacidad total — tus fotos nunca se guardan ni se usan para entrenar IA.' },
-              { q: '¿Cómo compro un pack?', a: 'Pulsa "Comprar Ahora" en cualquier landing o ve a /try-on. Eliges el pack y completas el pago en 30 segundos con Stripe (tarjeta, Apple Pay o Google Pay).' },
-            ] : [
-              { q: 'Is it free to try?', a: 'Yes. You get 2 free renders, no card required. After that: Starter pack $0.99 (1 render + 1 FREE 🎁, start for under $1) or Style Pro pack $4.99 (12 renders, $0.42 per render — SAVE 58%). One-time payment.' },
-              { q: 'Which pack should I pick?', a: 'To try it thoroughly: Starter $0.99 (2 renders total, 1 + 1 free). For regular use: Style Pro $4.99 (12 renders at just $0.42 each — 58% cheaper per render than Starter).' },
-              { q: 'Is this a subscription?', a: 'No. Both packs are one-time payments. No auto-renewal, no lock-in, nothing to cancel. You buy the pack and the renders sit in your account.' },
-              { q: 'Do my renders expire?', a: 'No. Once you buy a pack, the renders stay in your account until you use them. Buy when you need them, no rush.' },
-              { q: 'What happens to my photos?', a: 'Processed in real time, never stored on our servers. Full privacy — your photos are never saved nor used to train AI.' },
-              { q: 'How do I buy a pack?', a: 'Tap "Buy Now" on any landing or go to /try-on. Pick the pack and complete payment in 30 seconds with Stripe (card, Apple Pay, or Google Pay).' },
-            ]).map((faq, i) => (
+            {pickLang(
+              lang,
+              [
+                { q: 'Is it free to try?', a: 'Yes. You get 2 free renders, no card required. After that: Starter pack $0.99 (1 render + 1 FREE 🎁, start for under $1) or Style Pro pack $4.99 (12 renders, $0.42 per render — SAVE 58%). One-time payment.' },
+                { q: 'Which pack should I pick?', a: 'To try it thoroughly: Starter $0.99 (2 renders total, 1 + 1 free). For regular use: Style Pro $4.99 (12 renders at just $0.42 each — 58% cheaper per render than Starter).' },
+                { q: 'Is this a subscription?', a: 'No. Both packs are one-time payments. No auto-renewal, no lock-in, nothing to cancel. You buy the pack and the renders sit in your account.' },
+                { q: 'Do my renders expire?', a: 'No. Once you buy a pack, the renders stay in your account until you use them. Buy when you need them, no rush.' },
+                { q: 'What happens to my photos?', a: 'Processed in real time, never stored on our servers. Full privacy — your photos are never saved nor used to train AI.' },
+                { q: 'How do I buy a pack?', a: 'Tap "Buy Now" on any landing or go to /try-on. Pick the pack and complete payment in 30 seconds with Stripe (card, Apple Pay, or Google Pay).' },
+              ],
+              [
+                { q: '¿Es gratis para probar?', a: 'Sí. Tienes 2 renders gratis sin tarjeta. Después: pack Starter $0,99 (1 render + 1 GRATIS 🎁, empieza por menos de $1) o pack Style Pro $4,99 (12 renders, $0,42 por render — AHORRA 58%). Pago único.' },
+                { q: '¿Cuál pack me conviene?', a: 'Para probar a fondo: Starter $0,99 (2 renders en total, 1 + 1 gratis). Para uso regular: Style Pro $4,99 (12 renders por solo $0,42 cada uno, ahorras un 58% frente al Starter).' },
+                { q: '¿Es una suscripción?', a: 'No. Ambos packs son pago único. Sin renovación automática, sin permanencia, sin nada que cancelar. Pagas el pack y los renders están en tu cuenta.' },
+                { q: '¿Mis renders caducan?', a: 'No. Una vez compras un pack, los renders se quedan en tu cuenta hasta que los uses. Cómpralos cuando los necesites.' },
+                { q: '¿Qué pasa con mis fotos?', a: 'Se procesan en tiempo real y no se almacenan en nuestros servidores. Privacidad total — tus fotos nunca se guardan ni se usan para entrenar IA.' },
+                { q: '¿Cómo compro un pack?', a: 'Pulsa "Comprar Ahora" en cualquier landing o ve a /try-on. Eliges el pack y completas el pago en 30 segundos con Stripe (tarjeta, Apple Pay o Google Pay).' },
+              ],
+              [
+                { q: 'Est-ce gratuit à essayer ?', a: 'Oui. Vous avez 2 rendus gratuits, sans carte. Ensuite : pack Starter 0,99 $ (1 rendu + 1 GRATUIT 🎁, démarrez pour moins d’1 $) ou pack Style Pro 4,99 $ (12 rendus, 0,42 $ par rendu — ÉCONOMISEZ 58 %). Paiement unique.' },
+                { q: 'Quel pack choisir ?', a: 'Pour bien tester : Starter 0,99 $ (2 rendus au total, 1 + 1 gratuit). Pour un usage régulier : Style Pro 4,99 $ (12 rendus à seulement 0,42 $ chacun, soit 58 % de moins par rendu que Starter).' },
+                { q: 'Est-ce un abonnement ?', a: 'Non. Les deux packs sont des paiements uniques. Pas de renouvellement automatique, pas d’engagement, rien à annuler. Vous achetez le pack et les rendus restent sur votre compte.' },
+                { q: 'Mes rendus expirent-ils ?', a: 'Non. Une fois le pack acheté, les rendus restent sur votre compte jusqu’à utilisation. Achetez-les quand vous en avez besoin.' },
+                { q: 'Que deviennent mes photos ?', a: 'Traitées en temps réel, jamais stockées sur nos serveurs. Confidentialité totale — vos photos ne sont jamais sauvegardées ni utilisées pour entraîner l’IA.' },
+                { q: 'Comment acheter un pack ?', a: 'Cliquez sur "Acheter maintenant" sur n’importe quelle page ou allez sur /try-on. Choisissez le pack et payez en 30 secondes avec Stripe (carte, Apple Pay ou Google Pay).' },
+              ],
+              [
+                { q: 'É grátis para experimentar?', a: 'Sim. Tem 2 renders gratuitos, sem cartão. Depois: pack Starter 0,99 $ (1 render + 1 GRÁTIS 🎁, comece por menos de 1 $) ou pack Style Pro 4,99 $ (12 renders, 0,42 $ por render — POUPE 58%). Pagamento único.' },
+                { q: 'Qual pack devo escolher?', a: 'Para testar a fundo: Starter 0,99 $ (2 renders no total, 1 + 1 grátis). Para uso regular: Style Pro 4,99 $ (12 renders por apenas 0,42 $ cada — 58% mais barato por render do que o Starter).' },
+                { q: 'É uma subscrição?', a: 'Não. Ambos os packs são pagamento único. Sem renovação automática, sem permanência, nada para cancelar. Compra o pack e os renders ficam na sua conta.' },
+                { q: 'Os meus renders caducam?', a: 'Não. Depois de comprar um pack, os renders ficam na sua conta até serem usados. Compre quando precisar, sem pressa.' },
+                { q: 'O que acontece às minhas fotos?', a: 'Processadas em tempo real, nunca armazenadas nos nossos servidores. Privacidade total — as suas fotos nunca são guardadas nem utilizadas para treinar IA.' },
+                { q: 'Como compro um pack?', a: 'Toque em "Comprar agora" em qualquer página ou vá a /try-on. Escolha o pack e complete o pagamento em 30 segundos com Stripe (cartão, Apple Pay ou Google Pay).' },
+              ],
+              [
+                { q: 'Ist das Testen kostenlos?', a: 'Ja. Sie erhalten 2 kostenlose Renders, keine Karte erforderlich. Danach: Starter-Pack 0,99 $ (1 Render + 1 GRATIS 🎁, Einstieg für unter 1 $) oder Style-Pro-Pack 4,99 $ (12 Renders, 0,42 $ pro Render — 58% SPAREN). Einmalige Zahlung.' },
+                { q: 'Welches Pack soll ich wählen?', a: 'Zum gründlichen Ausprobieren: Starter 0,99 $ (insgesamt 2 Renders, 1 + 1 gratis). Für regelmäßige Nutzung: Style Pro 4,99 $ (12 Renders zu je nur 0,42 $ — 58% günstiger pro Render als Starter).' },
+                { q: 'Ist das ein Abo?', a: 'Nein. Beide Packs sind Einmalzahlungen. Keine automatische Verlängerung, keine Bindung, nichts zu kündigen. Sie kaufen das Pack und die Renders bleiben auf Ihrem Konto.' },
+                { q: 'Verfallen meine Renders?', a: 'Nein. Sobald Sie ein Pack kaufen, bleiben die Renders auf Ihrem Konto, bis Sie sie verwenden. Kaufen Sie sie, wenn Sie sie brauchen.' },
+                { q: 'Was passiert mit meinen Fotos?', a: 'In Echtzeit verarbeitet, nie auf unseren Servern gespeichert. Volle Privatsphäre — Ihre Fotos werden weder gespeichert noch zum KI-Training verwendet.' },
+                { q: 'Wie kaufe ich ein Pack?', a: 'Tippen Sie auf einer beliebigen Seite auf "Jetzt kaufen" oder gehen Sie zu /try-on. Wählen Sie das Pack und schließen Sie die Zahlung in 30 Sekunden mit Stripe ab (Karte, Apple Pay oder Google Pay).' },
+              ],
+              [
+                { q: 'È gratis da provare?', a: 'Sì. Hai 2 render gratuiti, senza carta. Poi: pack Starter 0,99 $ (1 render + 1 GRATIS 🎁, inizia per meno di 1 $) o pack Style Pro 4,99 $ (12 render, 0,42 $ per render — RISPARMI 58%). Pagamento unico.' },
+                { q: 'Quale pack mi conviene?', a: 'Per provarlo a fondo: Starter 0,99 $ (2 render in totale, 1 + 1 gratuito). Per uso regolare: Style Pro 4,99 $ (12 render a soli 0,42 $ ciascuno — 58% più economico per render rispetto a Starter).' },
+                { q: 'È un abbonamento?', a: 'No. Entrambi i pack sono pagamenti unici. Nessun rinnovo automatico, nessun vincolo, niente da disdire. Compri il pack e i render restano sul tuo account.' },
+                { q: 'I miei render scadono?', a: 'No. Una volta acquistato un pack, i render restano sul tuo account finché non li usi. Comprali quando ti servono, senza fretta.' },
+                { q: 'Cosa succede alle mie foto?', a: 'Elaborate in tempo reale, mai salvate sui nostri server. Privacy totale — le tue foto non vengono mai memorizzate né usate per addestrare l’IA.' },
+                { q: 'Come compro un pack?', a: 'Tocca "Compra ora" su qualsiasi pagina o vai su /try-on. Scegli il pack e completa il pagamento in 30 secondi con Stripe (carta, Apple Pay o Google Pay).' },
+              ],
+            ).map((faq, i) => (
               <details key={i} className="group bg-white border border-slate-200 rounded-xl overflow-hidden">
                 <summary className="flex items-center justify-between p-5 cursor-pointer hover:bg-slate-50 transition-colors">
                   <span className="text-sm font-bold text-slate-900">{faq.q}</span>
@@ -671,35 +781,59 @@ export default function HomePage() {
               <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Starter</div>
               <div className="text-3xl font-black text-slate-900 mb-1">$0,99</div>
               <div className="text-xs text-slate-500 font-light mb-4">
-                {lang === 'es' ? '1 render + 1 GRATIS 🎁 · pago único' : '1 render + 1 FREE 🎁 · one-time'}
+                {pickLang(
+                  lang,
+                  '1 render + 1 FREE 🎁 · one-time',
+                  '1 render + 1 GRATIS 🎁 · pago único',
+                  '1 rendu + 1 GRATUIT 🎁 · paiement unique',
+                  '1 render + 1 GRÁTIS 🎁 · pagamento único',
+                  '1 Render + 1 GRATIS 🎁 · einmalig',
+                  '1 render + 1 GRATIS 🎁 · pagamento unico',
+                )}
               </div>
               <p className="text-[11px] text-slate-400 font-light mb-5">
-                {lang === 'es' ? 'Empieza por menos de $1' : 'Start for under $1'}
+                {pickLang(
+                  lang,
+                  'Start for under $1',
+                  'Empieza por menos de $1',
+                  'Démarrez pour moins d’1 $',
+                  'Comece por menos de 1 $',
+                  'Einstieg für unter 1 $',
+                  'Inizia per meno di 1 $',
+                )}
               </p>
               <Link
                 href="/try-on?plan=test"
                 className="block w-full py-3 bg-slate-900 text-white text-xs font-black uppercase tracking-[0.15em] hover:bg-indigo-600 transition-colors"
               >
-                {lang === 'es' ? 'Comprar Ahora' : 'Buy Now'}
+                {pickLang(lang, 'Buy Now', 'Comprar Ahora', 'Acheter maintenant', 'Comprar agora', 'Jetzt kaufen', 'Compra ora')}
               </Link>
             </div>
             <div className="bg-indigo-50 border-2 border-indigo-300 rounded-2xl p-6 text-center relative">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full">
-                {lang === 'es' ? 'AHORRA 58%' : 'SAVE 58%'}
+                {pickLang(lang, 'SAVE 58%', 'AHORRA 58%', 'ÉCONOMISEZ 58 %', 'POUPE 58%', '58% SPAREN', 'RISPARMI 58%')}
               </div>
               <div className="text-[10px] font-black text-indigo-600 uppercase tracking-widest mb-2">Style Pro</div>
               <div className="text-3xl font-black text-slate-900 mb-1">$4,99</div>
               <div className="text-xs text-slate-500 font-light mb-4">
-                {lang === 'es' ? '12 renders · $0,42 por render · pago único' : '12 renders · $0.42 per render · one-time'}
+                {pickLang(
+                  lang,
+                  '12 renders · $0.42 per render · one-time',
+                  '12 renders · $0,42 por render · pago único',
+                  '12 rendus · 0,42 $ par rendu · paiement unique',
+                  '12 renders · 0,42 $ por render · pagamento único',
+                  '12 Renders · 0,42 $ pro Render · einmalig',
+                  '12 render · 0,42 $ per render · pagamento unico',
+                )}
               </div>
               <p className="text-[11px] text-slate-400 font-light mb-5">
-                {lang === 'es' ? 'El más popular' : 'Most popular'}
+                {pickLang(lang, 'Most popular', 'El más popular', 'Le plus populaire', 'O mais popular', 'Am beliebtesten', 'Il più popolare')}
               </p>
               <Link
                 href="/try-on?plan=popular"
                 className="block w-full py-3 bg-indigo-600 text-white text-xs font-black uppercase tracking-[0.15em] hover:bg-indigo-700 transition-colors"
               >
-                {lang === 'es' ? 'Comprar Ahora' : 'Buy Now'}
+                {pickLang(lang, 'Buy Now', 'Comprar Ahora', 'Acheter maintenant', 'Comprar agora', 'Jetzt kaufen', 'Compra ora')}
               </Link>
             </div>
           </div>
@@ -710,182 +844,206 @@ export default function HomePage() {
       <section className="py-16 md:py-20 bg-white border-t border-slate-100">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <h2 className="font-serif text-2xl font-bold text-slate-900 tracking-tight mb-8">
-            {lang === 'es' ? 'Recursos de Moda con IA' : 'AI Fashion Resources'}
+            {pickLang(
+              lang,
+              'AI Fashion Resources',
+              'Recursos de Moda con IA',
+              'Ressources Mode IA',
+              'Recursos de Moda com IA',
+              'KI-Mode-Ressourcen',
+              'Risorse di Moda con IA',
+            )}
           </h2>
           <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
             <Link href="/virtual-try-on" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Probador Virtual con IA' : 'AI Virtual Try On'}
+                {pickLang(
+                  lang,
+                  'AI Virtual Try On',
+                  'Probador Virtual con IA',
+                  'Essayage Virtuel IA',
+                  'Provador Virtual com IA',
+                  'KI Virtual Try-On',
+                  'Camerino Virtuale con IA',
+                )}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Ve como te queda la ropa' : 'See how clothes look on you'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(
+                lang,
+                'See how clothes look on you',
+                'Ve como te queda la ropa',
+                'Voyez le rendu des vêtements sur vous',
+                'Veja como a roupa fica em si',
+                'Sehen Sie, wie Kleidung an Ihnen aussieht',
+                'Vedi come ti sta la roba',
+              )}</p>
             </Link>
             <Link href="/blog/best-way-to-try-on-clothes-online-with-ai" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Probar Ropa Online con IA' : 'Try On Clothes Online With AI'}
+                {pickLang(lang, 'Try On Clothes Online With AI', 'Probar Ropa Online con IA', 'Essayer des Vêtements en Ligne avec l\'IA', 'Experimentar Roupa Online com IA', 'Kleidung online mit KI anprobieren', 'Provare Vestiti Online con l\'IA')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Guia completa' : 'Complete guide'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Complete guide', 'Guia completa', 'Guide complet', 'Guia completo', 'Vollständige Anleitung', 'Guida completa')}</p>
             </Link>
             <Link href="/blog/how-to-reduce-online-shopping-returns" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Reducir Devoluciones' : 'Reduce Shopping Returns'}
+                {pickLang(lang, 'Reduce Shopping Returns', 'Reducir Devoluciones', 'Réduire les Retours d\'Achat', 'Reduzir Devoluções de Compras', 'Rücksendungen reduzieren', 'Ridurre i Resi degli Acquisti')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Ahorra dinero y tiempo' : 'Save money and time'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Save money and time', 'Ahorra dinero y tiempo', 'Économisez temps et argent', 'Poupe dinheiro e tempo', 'Sparen Sie Geld und Zeit', 'Risparmia tempo e denaro')}</p>
             </Link>
             <Link href="/blog/how-to-know-if-clothes-will-fit-without-trying-them-on" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Saber Si la Ropa Te Queda' : 'Know If Clothes Will Fit'}
+                {pickLang(lang, 'Know If Clothes Will Fit', 'Saber Si la Ropa Te Queda', 'Savoir si les Vêtements Vous Iront', 'Saber Se a Roupa Lhe Serve', 'Wissen, ob Kleidung passt', 'Sapere Se i Vestiti Vi Stanno')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? '7 metodos probados' : '7 proven methods'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, '7 proven methods', '7 metodos probados', '7 méthodes éprouvées', '7 métodos comprovados', '7 bewährte Methoden', '7 metodi collaudati')}</p>
             </Link>
             <Link href="/blog/how-to-get-accurate-body-measurements-for-virtual-try-on" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Medidas para Probador Virtual' : 'Body Measurements for Try-On'}
+                {pickLang(lang, 'Body Measurements for Try-On', 'Medidas para Probador Virtual', 'Mensurations pour l\'Essayage', 'Medidas para o Provador Virtual', 'Körpermaße für die Anprobe', 'Misure per il Camerino Virtuale')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Guía profesional' : 'Pro guide'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Pro guide', 'Guía profesional', 'Guide professionnel', 'Guia profissional', 'Profi-Anleitung', 'Guida professionale')}</p>
             </Link>
             <Link href="/blog/best-free-virtual-dressing-room-apps-android-ios-2026" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Mejores Apps Probador Virtual 2026' : 'Best Virtual Dressing Room Apps 2026'}
+                {pickLang(lang, 'Best Virtual Dressing Room Apps 2026', 'Mejores Apps Probador Virtual 2026', 'Meilleures Apps de Cabine d\'Essayage 2026', 'Melhores Apps de Provador Virtual 2026', 'Beste Virtual-Umkleide-Apps 2026', 'Migliori App Camerino Virtuale 2026')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Android vs iOS' : 'Android vs iOS'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Android vs iOS', 'Android vs iOS', 'Android vs iOS', 'Android vs iOS', 'Android vs iOS', 'Android vs iOS')}</p>
             </Link>
             <Link href="/blog/virtual-try-on-office-siren-aesthetic-glasses" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Gafas Office Siren — Prueba Virtual' : 'Office Siren Glasses — Virtual Try-On'}
+                {pickLang(lang, 'Office Siren Glasses — Virtual Try-On', 'Gafas Office Siren — Prueba Virtual', 'Lunettes Office Siren — Essayage Virtuel', 'Óculos Office Siren — Prova Virtual', 'Office-Siren-Brillen — Virtuelle Anprobe', 'Occhiali Office Siren — Prova Virtuale')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Encuentra tu montura perfecta' : 'Find your perfect frame'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Find your perfect frame', 'Encuentra tu montura perfecta', 'Trouvez votre monture idéale', 'Encontre a sua armação perfeita', 'Finden Sie Ihre perfekte Fassung', 'Trovate la vostra montatura perfetta')}</p>
             </Link>
             <Link href="/blog/best-glasses-colors-deep-autumn-skin-tone" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Colores de Gafas para Otoño Profundo' : 'Glasses Colors for Deep Autumn'}
+                {pickLang(lang, 'Glasses Colors for Deep Autumn', 'Colores de Gafas para Otoño Profundo', 'Couleurs de Lunettes pour Automne Profond', 'Cores de Óculos para Outono Profundo', 'Brillenfarben für Deep Autumn', 'Colori degli Occhiali per Autunno Profondo')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Análisis de color + IA' : 'Color analysis + AI'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Color analysis + AI', 'Análisis de color + IA', 'Analyse colorimétrique + IA', 'Análise de cor + IA', 'Farbanalyse + KI', 'Analisi colore + AI')}</p>
             </Link>
             <Link href="/blog/free-ai-glasses-stylist-diamond-face-shape" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Estilista IA para Cara Diamante' : 'AI Glasses Stylist — Diamond Face'}
+                {pickLang(lang, 'AI Glasses Stylist — Diamond Face', 'Estilista IA para Cara Diamante', 'Styliste IA Lunettes — Visage Diamant', 'Estilista IA de Óculos — Rosto Diamante', 'KI-Brillenstylist — Diamantgesicht', 'Stilista IA Occhiali — Viso a Diamante')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Monturas que te favorecen' : 'Frames that flatter you'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Frames that flatter you', 'Monturas que te favorecen', 'Des montures qui vous mettent en valeur', 'Armações que o favorecem', 'Fassungen, die Ihnen schmeicheln', 'Montature che vi valorizzano')}</p>
             </Link>
             <Link href="/blog/virtual-try-on-glasses-hide-dark-circles" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Gafas para Ocultar Ojeras' : 'Glasses That Hide Dark Circles'}
+                {pickLang(lang, 'Glasses That Hide Dark Circles', 'Gafas para Ocultar Ojeras', 'Lunettes qui Cachent les Cernes', 'Óculos que Disfarçam Olheiras', 'Brillen, die Augenringe kaschieren', 'Occhiali che Nascondono le Occhiaie')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Prueba virtual + guía' : 'Virtual try-on + guide'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Virtual try-on + guide', 'Prueba virtual + guía', 'Essayage virtuel + guide', 'Prova virtual + guia', 'Virtuelle Anprobe + Anleitung', 'Prova virtuale + guida')}</p>
             </Link>
             <Link href="/blog/coquette-aesthetic-spring-nails-virtual-try-on" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Uñas Coquette Primavera' : 'Coquette Spring Nails Try-On'}
+                {pickLang(lang, 'Coquette Spring Nails Try-On', 'Uñas Coquette Primavera', 'Essayage Ongles Coquette Printemps', 'Prova Unhas Coquette Primavera', 'Coquette-Frühlingsnägel — Anprobe', 'Prova Unghie Coquette Primavera')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Lazos, perlas y rosa suave' : 'Bows, pearls & soft pink'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Bows, pearls & soft pink', 'Lazos, perlas y rosa suave', 'Nœuds, perles et rose doux', 'Laços, pérolas e rosa suave', 'Schleifen, Perlen und zartes Rosa', 'Fiocchi, perle e rosa tenue')}</p>
             </Link>
             <Link href="/blog/short-almond-spring-nails-clean-girl-look" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Uñas Almendra Clean Girl' : 'Clean Girl Almond Nails'}
+                {pickLang(lang, 'Clean Girl Almond Nails', 'Uñas Almendra Clean Girl', 'Ongles Amande Clean Girl', 'Unhas Amêndoa Clean Girl', 'Clean-Girl-Mandelnägel', 'Unghie a Mandorla Clean Girl')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Guía minimal + prueba virtual' : 'Minimal guide + virtual try-on'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Minimal guide + virtual try-on', 'Guía minimal + prueba virtual', 'Guide minimaliste + essayage virtuel', 'Guia minimal + prova virtual', 'Minimal-Anleitung + virtuelle Anprobe', 'Guida minimal + prova virtuale')}</p>
             </Link>
             <Link href="/blog/pastel-chrome-nails-2026-futuristic-spring-trend" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Uñas Chrome Pastel 2026' : 'Pastel Chrome Nails 2026'}
+                {pickLang(lang, 'Pastel Chrome Nails 2026', 'Uñas Chrome Pastel 2026', 'Ongles Chromés Pastel 2026', 'Unhas Chrome Pastel 2026', 'Pastell-Chrome-Nägel 2026', 'Unghie Chrome Pastello 2026')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Tendencia futurista' : 'Futuristic spring trend'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Futuristic spring trend', 'Tendencia futurista', 'Tendance printanière futuriste', 'Tendência futurista de primavera', 'Futuristischer Frühlingstrend', 'Tendenza primaverile futuristica')}</p>
             </Link>
             <Link href="/blog/why-clothes-look-different-online-vs-in-person" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Por Qué la Ropa Se Ve Diferente Online' : 'Why Clothes Look Different Online'}
+                {pickLang(lang, 'Why Clothes Look Different Online', 'Por Qué la Ropa Se Ve Diferente Online', 'Pourquoi les Vêtements Paraissent Différents en Ligne', 'Porque a Roupa Parece Diferente Online', 'Warum Kleidung online anders aussieht', 'Perché i Vestiti Sembrano Diversi Online')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Colores, ajuste y telas' : 'Colors, fit & fabric'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Colors, fit & fabric', 'Colores, ajuste y telas', 'Couleurs, coupe et tissus', 'Cores, caimento e tecidos', 'Farben, Passform und Stoffe', 'Colori, vestibilità e tessuti')}</p>
             </Link>
             <Link href="/blog/how-to-dress-for-your-body-type-without-a-stylist" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Vestir para Tu Tipo de Cuerpo' : 'Dress for Your Body Type'}
+                {pickLang(lang, 'Dress for Your Body Type', 'Vestir para Tu Tipo de Cuerpo', 'S\'Habiller Selon Sa Morphologie', 'Vestir-se de Acordo com o Seu Tipo de Corpo', 'Kleiden Sie sich nach Ihrer Figur', 'Vestire in Base alla Vostra Silhouette')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Sin estilista' : 'Without a stylist'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Without a stylist', 'Sin estilista', 'Sans styliste', 'Sem estilista', 'Ohne Stylisten', 'Senza stilista')}</p>
             </Link>
             <Link href="/blog/online-shopping-mistakes-that-lead-to-returns" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Errores al Comprar Online' : 'Online Shopping Mistakes'}
+                {pickLang(lang, 'Online Shopping Mistakes', 'Errores al Comprar Online', 'Erreurs d\'Achat en Ligne', 'Erros nas Compras Online', 'Fehler beim Online-Shopping', 'Errori negli Acquisti Online')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Evita devoluciones' : 'Avoid returns'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Avoid returns', 'Evita devoluciones', 'Évitez les retours', 'Evite devoluções', 'Vermeiden Sie Rücksendungen', 'Evitate i resi')}</p>
             </Link>
             <Link href="/blog/what-to-wear-to-a-job-interview-2026" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Qué Ponerte en una Entrevista 2026' : 'What to Wear to a Job Interview'}
+                {pickLang(lang, 'What to Wear to a Job Interview', 'Qué Ponerte en una Entrevista 2026', 'Que Porter à un Entretien d\'Embauche', 'O Que Vestir numa Entrevista de Emprego', 'Was zum Vorstellungsgespräch tragen', 'Cosa Indossare a un Colloquio di Lavoro')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Guía por sector' : 'By industry guide'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'By industry guide', 'Guía por sector', 'Guide par secteur', 'Guia por setor', 'Anleitung nach Branche', 'Guida per settore')}</p>
             </Link>
             <Link href="/blog/best-colors-to-wear-for-your-skin-tone" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Mejores Colores para Tu Tono de Piel' : 'Best Colors for Your Skin Tone'}
+                {pickLang(lang, 'Best Colors for Your Skin Tone', 'Mejores Colores para Tu Tono de Piel', 'Meilleures Couleurs pour Votre Carnation', 'Melhores Cores para o Seu Tom de Pele', 'Beste Farben für Ihren Hautton', 'Migliori Colori per il Vostro Incarnato')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Análisis de color' : 'Color analysis'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Color analysis', 'Análisis de color', 'Analyse colorimétrique', 'Análise de cor', 'Farbanalyse', 'Analisi del colore')}</p>
             </Link>
             <Link href="/blog/how-to-style-oversized-clothes-without-looking-sloppy" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Estilizar Ropa Oversized' : 'Style Oversized Clothes'}
+                {pickLang(lang, 'Style Oversized Clothes', 'Estilizar Ropa Oversized', 'Styliser des Vêtements Oversize', 'Estilizar Roupa Oversized', 'Oversized-Kleidung stylen', 'Abbinare Capi Oversize')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Sin verte descuidado' : 'Without looking sloppy'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Without looking sloppy', 'Sin verte descuidado', 'Sans avoir l\'air négligé', 'Sem parecer descuidado', 'Ohne nachlässig auszusehen', 'Senza apparire trasandati')}</p>
             </Link>
             <Link href="/blog/capsule-wardrobe-guide-30-outfits-15-pieces" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Armario Cápsula: 30 Outfits, 15 Prendas' : 'Capsule Wardrobe: 30 Outfits, 15 Pieces'}
+                {pickLang(lang, 'Capsule Wardrobe: 30 Outfits, 15 Pieces', 'Armario Cápsula: 30 Outfits, 15 Prendas', 'Garde-Robe Capsule : 30 Tenues, 15 Pièces', 'Guarda-Roupa Cápsula: 30 Looks, 15 Peças', 'Capsule-Wardrobe: 30 Outfits, 15 Teile', 'Guardaroba Capsula: 30 Outfit, 15 Capi')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Guía completa' : 'Complete guide'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Complete guide', 'Guía completa', 'Guide complet', 'Guia completo', 'Vollständige Anleitung', 'Guida completa')}</p>
             </Link>
             <Link href="/blog/barrel-leg-jeans-styling-guide" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Guía de Estilo: Barrel Leg Jeans' : 'Barrel Leg Jeans Styling Guide'}
+                {pickLang(lang, 'Barrel Leg Jeans Styling Guide', 'Guía de Estilo: Barrel Leg Jeans', 'Guide de Style : Jeans Barrel Leg', 'Guia de Estilo: Jeans Barrel Leg', 'Style-Guide: Barrel-Leg-Jeans', 'Guida allo Stile: Jeans Barrel Leg')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Tendencia denim 2026' : 'Denim trend 2026'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Denim trend 2026', 'Tendencia denim 2026', 'Tendance denim 2026', 'Tendência denim 2026', 'Denim-Trend 2026', 'Tendenza denim 2026')}</p>
             </Link>
             <Link href="/blog/digital-nomad-corporate-crease-free-office-wear" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Ropa de Oficina para Nómadas Digitales' : 'Digital Nomad Office Wear'}
+                {pickLang(lang, 'Digital Nomad Office Wear', 'Ropa de Oficina para Nómadas Digitales', 'Tenue de Bureau pour Nomades Numériques', 'Roupa de Escritório para Nómadas Digitais', 'Bürokleidung für digitale Nomaden', 'Abbigliamento da Ufficio per Nomadi Digitali')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Sin arrugas, con estilo' : 'Crease-free & stylish'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Crease-free & stylish', 'Sin arrugas, con estilo', 'Sans plis et avec style', 'Sem rugas e com estilo', 'Knitterfrei und stilvoll', 'Senza pieghe e con stile')}</p>
             </Link>
             <Link href="/blog/jellyfish-silhouette-styling-guide" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Guía Silueta Jellyfish' : 'Jellyfish Silhouette Guide'}
+                {pickLang(lang, 'Jellyfish Silhouette Guide', 'Guía Silueta Jellyfish', 'Guide Silhouette Jellyfish', 'Guia da Silhueta Jellyfish', 'Jellyfish-Silhouette: Anleitung', 'Guida alla Silhouette Jellyfish')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Tendencia viral' : 'Viral trend'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Viral trend', 'Tendencia viral', 'Tendance virale', 'Tendência viral', 'Viraler Trend', 'Tendenza virale')}</p>
             </Link>
             <Link href="/blog/spring-wedding-guest-mother-of-groom-dresses-2026" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Vestidos Boda Primavera 2026' : 'Spring Wedding Guest Dresses 2026'}
+                {pickLang(lang, 'Spring Wedding Guest Dresses 2026', 'Vestidos Boda Primavera 2026', 'Robes d\'Invitée Mariage Printemps 2026', 'Vestidos de Convidada Casamento Primavera 2026', 'Hochzeitsgast-Kleider Frühling 2026', 'Abiti da Invitata Matrimonio Primavera 2026')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Invitada y madrina' : 'Guest & mother of groom'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Guest & mother of groom', 'Invitada y madrina', 'Invitée et mère du marié', 'Convidada e mãe do noivo', 'Gast und Bräutigammutter', 'Invitata e madre dello sposo')}</p>
             </Link>
             <Link href="/blog/ai-clothes-changer-online-free-trial" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Cambiador de Ropa con IA' : 'AI Clothes Changer Online'}
+                {pickLang(lang, 'AI Clothes Changer Online', 'Cambiador de Ropa con IA', 'Changeur de Vêtements IA en Ligne', 'Trocador de Roupa com IA Online', 'KI-Kleiderwechsler Online', 'Cambia Vestiti IA Online')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Prueba gratis' : 'Free trial'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Free trial', 'Prueba gratis', 'Essai gratuit', 'Teste grátis', 'Kostenlos testen', 'Prova gratuita')}</p>
             </Link>
             <Link href="/blog/como-reducir-devoluciones-tienda-ropa-online" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Reducir Devoluciones en Tu Tienda' : 'Reduce Returns in Your Store'}
+                {pickLang(lang, 'Reduce Returns in Your Store', 'Reducir Devoluciones en Tu Tienda', 'Réduire les Retours dans Votre Boutique', 'Reduzir Devoluções na Sua Loja', 'Rücksendungen in Ihrem Shop reduzieren', 'Ridurre i Resi nel Vostro Negozio')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Guía para e-commerce' : 'E-commerce guide'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'E-commerce guide', 'Guía para e-commerce', 'Guide e-commerce', 'Guia para e-commerce', 'E-Commerce-Anleitung', 'Guida e-commerce')}</p>
             </Link>
             <Link href="/blog/virtual-dressing-room-online-free" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Probador Virtual Online Gratis' : 'Virtual Dressing Room Free'}
+                {pickLang(lang, 'Virtual Dressing Room Free', 'Probador Virtual Online Gratis', 'Cabine d\'Essayage Virtuelle Gratuite', 'Provador Virtual Online Grátis', 'Virtuelle Umkleide kostenlos', 'Camerino Virtuale Online Gratis')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Sin descargar app' : 'No app download'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'No app download', 'Sin descargar app', 'Sans téléchargement d\'app', 'Sem instalar app', 'Ohne App-Download', 'Senza scaricare app')}</p>
             </Link>
             <Link href="/blog/1-5-carat-vs-2-carat-diamond-on-hand" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? '1.5 vs 2 Quilates en la Mano' : '1.5 vs 2 Carat Diamond on Hand'}
+                {pickLang(lang, '1.5 vs 2 Carat Diamond on Hand', '1.5 vs 2 Quilates en la Mano', 'Diamant 1,5 vs 2 Carats sur la Main', 'Diamante 1,5 vs 2 Quilates na Mão', '1,5 vs 2 Karat Diamant an der Hand', 'Diamante 1,5 vs 2 Carati sulla Mano')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Comparativa real' : 'Real size comparison'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'Real size comparison', 'Comparativa real', 'Comparaison de taille réelle', 'Comparação real de tamanho', 'Realer Größenvergleich', 'Confronto di taglia reale')}</p>
             </Link>
             <Link href="/blog/diamond-carat-size-on-hand-simulator" className="group p-4 border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all">
               <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                {lang === 'es' ? 'Simulador de Diamantes en la Mano' : 'Diamond Size on Hand Simulator'}
+                {pickLang(lang, 'Diamond Size on Hand Simulator', 'Simulador de Diamantes en la Mano', 'Simulateur de Diamants sur la Main', 'Simulador de Diamantes na Mão', 'Diamantgrößen-Simulator an der Hand', 'Simulatore di Diamanti sulla Mano')}
               </h3>
-              <p className="text-xs text-slate-400 font-light mt-1">{lang === 'es' ? 'Prueba con IA' : 'AI-powered simulator'}</p>
+              <p className="text-xs text-slate-400 font-light mt-1">{pickLang(lang, 'AI-powered simulator', 'Prueba con IA', 'Simulateur propulsé par IA', 'Simulador com IA', 'KI-gestützter Simulator', 'Simulatore basato sull\'IA')}</p>
             </Link>
           </div>
         </div>

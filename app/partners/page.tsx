@@ -865,12 +865,18 @@ function PartnersContent() {
                   </div>
                   <div>
                     <p className="text-sm font-bold text-slate-900">
-                      {lang === 'es' ? 'Activación en 1 clic' : 'One-click activation'}
+                      {pickLang(lang, 'One-click activation', 'Activación en 1 clic', 'Activation en un clic', 'Ativação num clique', 'Aktivierung mit einem Klick', 'Attivazione con un clic')}
                     </p>
                     <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">
-                      {lang === 'es'
-                        ? 'Desde tu dashboard de Agalaz, haz clic en "Sync My Catalog" y el cross-sell se activa automáticamente. Sin código, sin configuración.'
-                        : 'From your Agalaz dashboard, click "Sync My Catalog" and cross-sell activates automatically. No code, no configuration.'}
+                      {pickLang(
+                        lang,
+                        'From your Agalaz dashboard, click "Sync My Catalog" and cross-sell activates automatically. No code, no configuration.',
+                        'Desde tu dashboard de Agalaz, haz clic en "Sync My Catalog" y el cross-sell se activa automáticamente. Sin código, sin configuración.',
+                        'Depuis votre tableau de bord Agalaz, cliquez sur "Sync My Catalog" et le cross-sell s\'active automatiquement. Sans code, sans configuration.',
+                        'A partir do seu painel Agalaz, clique em "Sync My Catalog" e o cross-sell ativa-se automaticamente. Sem código, sem configuração.',
+                        'Klicken Sie in Ihrem Agalaz-Dashboard auf "Sync My Catalog" und das Cross-Sell aktiviert sich automatisch. Kein Code, keine Konfiguration.',
+                        'Dalla vostra dashboard Agalaz, cliccate su "Sync My Catalog" e il cross-sell si attiva automaticamente. Niente codice, nessuna configurazione.'
+                      )}
                     </p>
                   </div>
                 </div>
@@ -880,8 +886,8 @@ function PartnersContent() {
             {/* ── PRICING ── */}
             <div className="mb-20">
               <div className="text-center space-y-3 mb-8">
-                <h2 className="font-serif text-3xl font-black text-slate-900">{lang === 'es' ? 'Precios' : 'Pricing'}</h2>
-                <p className="text-slate-400 text-sm font-light">{lang === 'es' ? 'Sin coste de alta. Cancela cuando quieras.' : 'No setup fees. Cancel anytime.'}</p>
+                <h2 className="font-serif text-3xl font-black text-slate-900">{pickLang(lang, 'Pricing', 'Precios', 'Tarifs', 'Preços', 'Preise', 'Prezzi')}</h2>
+                <p className="text-slate-400 text-sm font-light">{pickLang(lang, 'No setup fees. Cancel anytime.', 'Sin coste de alta. Cancela cuando quieras.', 'Aucuns frais d\'installation. Annulez quand vous voulez.', 'Sem custos de ativação. Cancele quando quiser.', 'Keine Einrichtungsgebühren. Jederzeit kündbar.', 'Nessun costo di attivazione. Disdici quando vuoi.')}</p>
               </div>
 
               {/* ── FEATURED: 7-day Free Trial (primary CTA) ── */}
@@ -890,30 +896,36 @@ function PartnersContent() {
                 className="relative max-w-2xl mx-auto mb-6 p-6 md:p-8 rounded-2xl border-2 border-emerald-400 bg-gradient-to-br from-emerald-50 via-white to-indigo-50 shadow-xl shadow-emerald-100/60 cursor-pointer hover:shadow-2xl hover:border-emerald-500 transition-all"
               >
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-emerald-500 text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg">
-                  {lang === 'es' ? '🎁 Empieza aquí' : '🎁 Start here'}
+                  {pickLang(lang, '🎁 Start here', '🎁 Empieza aquí', '🎁 Commencez ici', '🎁 Comece aqui', '🎁 Hier starten', '🎁 Inizia qui')}
                 </div>
                 <div className="flex flex-col md:flex-row items-center justify-between gap-5">
                   <div className="text-center md:text-left space-y-2">
                     <h3 className="font-black text-slate-900 text-xl md:text-2xl">
-                      {lang === 'es' ? 'Prueba gratis 7 días' : '7-day free trial'}
+                      {pickLang(lang, '7-day free trial', 'Prueba gratis 7 días', 'Essai gratuit de 7 jours', 'Teste grátis de 7 dias', '7 Tage kostenlos testen', 'Prova gratuita di 7 giorni')}
                     </h3>
                     <p className="text-emerald-700 font-black text-base md:text-lg">
-                      {lang === 'es' ? '50 renders · 0€ hoy' : '50 renders · $0 today'}
+                      {pickLang(lang, '50 renders · $0 today', '50 renders · 0€ hoy', '50 renders · 0 € aujourd\'hui', '50 renders · 0€ hoje', '50 Renders · 0 € heute', '50 render · 0 € oggi')}
                     </p>
                     <p className="text-slate-500 text-xs font-light max-w-md">
-                      {lang === 'es'
-                        ? 'Introduces tu tarjeta pero no se cobra durante 7 días. Si no cancelas antes del día 7, se activa Starter (150€/mes) automáticamente.'
-                        : 'Card required but not charged for 7 days. If you don\'t cancel before day 7, Starter (€150/mo) activates automatically.'}
+                      {pickLang(
+                        lang,
+                        'Card required but not charged for 7 days. If you don\'t cancel before day 7, Starter (€150/mo) activates automatically.',
+                        'Introduces tu tarjeta pero no se cobra durante 7 días. Si no cancelas antes del día 7, se activa Starter (150€/mes) automáticamente.',
+                        'Carte requise, mais aucun débit pendant 7 jours. Si vous n\'annulez pas avant le 7e jour, Starter (150 €/mois) s\'active automatiquement.',
+                        'Cartão obrigatório, mas sem cobrança durante 7 dias. Se não cancelar antes do dia 7, o Starter (150 €/mês) ativa-se automaticamente.',
+                        'Karte erforderlich, aber 7 Tage lang keine Abbuchung. Wenn Sie nicht vor dem 7. Tag kündigen, wird Starter (150 €/Monat) automatisch aktiviert.',
+                        'Carta richiesta ma nessun addebito per 7 giorni. Se non disdici prima del giorno 7, Starter (150 €/mese) si attiva automaticamente.'
+                      )}
                     </p>
                   </div>
                   <button className="shrink-0 px-6 py-3 bg-slate-900 hover:bg-indigo-600 text-white text-xs font-black uppercase tracking-widest rounded-xl transition-colors shadow-lg">
-                    {lang === 'es' ? 'Empezar gratis →' : 'Start free →'}
+                    {pickLang(lang, 'Start free →', 'Empezar gratis →', 'Commencer gratuitement →', 'Começar grátis →', 'Kostenlos starten →', 'Inizia gratis →')}
                   </button>
                 </div>
               </div>
 
               <p className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-5">
-                {lang === 'es' ? 'El día 7 se activa uno de estos planes' : 'On day 7 one of these activates'}
+                {pickLang(lang, 'On day 7 one of these activates', 'El día 7 se activa uno de estos planes', 'Le 7e jour, l\'un de ces plans s\'active', 'No dia 7 ativa-se um destes planos', 'Am 7. Tag wird einer dieser Pläne aktiviert', 'Al settimo giorno si attiva uno di questi piani')}
               </p>
 
               <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
@@ -929,7 +941,7 @@ function PartnersContent() {
                   >
                     {plan.popular && (
                       <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-indigo-600 text-white text-[9px] font-black uppercase tracking-widest rounded-full">
-                        {lang === 'es' ? 'Más Popular' : 'Most Popular'}
+                        {pickLang(lang, 'Most Popular', 'Más Popular', 'Plus populaire', 'Mais Popular', 'Am beliebtesten', 'Più popolare')}
                       </div>
                     )}
                     <div className="space-y-5">
@@ -937,10 +949,10 @@ function PartnersContent() {
                         <h3 className="font-black text-slate-900 text-lg">{plan.name}</h3>
                         <div className="flex items-baseline gap-1 mt-2">
                           <span className="font-serif text-4xl font-black text-slate-900">{plan.price}</span>
-                          <span className="text-slate-400 text-sm font-bold">&euro;/{lang === 'es' ? 'mes' : 'month'}</span>
+                          <span className="text-slate-400 text-sm font-bold">&euro;/{pickLang(lang, 'month', 'mes', 'mois', 'mês', 'Monat', 'mese')}</span>
                         </div>
                         <p className="text-xs text-emerald-600 font-bold mt-1">
-                          {lang === 'es' ? 'Sin coste de alta' : 'No setup fee'}
+                          {pickLang(lang, 'No setup fee', 'Sin coste de alta', 'Aucuns frais d\'installation', 'Sem custo de ativação', 'Keine Einrichtungsgebühr', 'Nessun costo di attivazione')}
                         </p>
                       </div>
                       <ul className="space-y-2.5">
@@ -960,31 +972,55 @@ function PartnersContent() {
             {/* ── ROI CALCULATOR ── */}
             <div className="mb-20">
               <div className="text-center space-y-3 mb-10">
-                <h2 className="font-serif text-3xl font-black text-slate-900">{lang === 'es' ? 'Retorno de Inversión' : 'Return on Investment'}</h2>
-                <p className="text-slate-400 text-sm font-light">{lang === 'es' ? '¿Cuánto puede ahorrar el probador virtual a tu negocio?' : 'How much can virtual try-on save your business?'}</p>
+                <h2 className="font-serif text-3xl font-black text-slate-900">{pickLang(lang, 'Return on Investment', 'Retorno de Inversión', 'Retour sur investissement', 'Retorno do Investimento', 'Return on Investment', 'Ritorno sull\'investimento')}</h2>
+                <p className="text-slate-400 text-sm font-light">{pickLang(lang, 'How much can virtual try-on save your business?', '¿Cuánto puede ahorrar el probador virtual a tu negocio?', 'Combien le try-on virtuel peut-il faire économiser à votre entreprise ?', 'Quanto pode o provador virtual poupar ao seu negócio?', 'Wie viel kann virtuelle Anprobe Ihrem Unternehmen sparen?', 'Quanto può far risparmiare il try-on virtuale alla vostra attività?')}</p>
               </div>
 
               <div className="grid md:grid-cols-3 gap-6">
-                {(lang === 'es' ? [
-                  { type: 'Boutique', orders: '500 pedidos/mes', returns: '25% → 15%', saved: '50 devoluciones menos/mes', value: '~1.500€/mes ahorrados', cost: 'Starter: 150€/mes', roi: '10x ROI', roiColor: 'text-emerald-600' },
-                  { type: 'Tienda Mediana', orders: '2.000 pedidos/mes', returns: '30% → 18%', saved: '240 devoluciones menos/mes', value: '~7.200€/mes ahorrados', cost: 'Growth: 499€/mes', roi: '14x ROI', roiColor: 'text-indigo-600' },
-                  { type: 'Gran Retailer', orders: '10.000 pedidos/mes', returns: '35% → 20%', saved: '1.500 devoluciones menos/mes', value: '~45.000€/mes ahorrados', cost: 'Plan personalizado', roi: '50x+ ROI', roiColor: 'text-amber-600' },
-                ] : [
-                  { type: 'Boutique', orders: '500 orders/mo', returns: '25% → 15%', saved: '50 fewer returns/mo', value: '~€1,500/mo saved', cost: 'Starter: €150/mo', roi: '10x ROI', roiColor: 'text-emerald-600' },
-                  { type: 'Mid-size Store', orders: '2,000 orders/mo', returns: '30% → 18%', saved: '240 fewer returns/mo', value: '~€7,200/mo saved', cost: 'Growth: €499/mo', roi: '14x ROI', roiColor: 'text-indigo-600' },
-                  { type: 'Large Retailer', orders: '10,000 orders/mo', returns: '35% → 20%', saved: '1,500 fewer returns/mo', value: '~€45,000/mo saved', cost: 'Custom plan', roi: '50x+ ROI', roiColor: 'text-amber-600' },
-                ]).map((tier, i) => (
+                {pickLang(
+                  lang,
+                  [
+                    { type: 'Boutique', orders: '500 orders/mo', returns: '25% → 15%', saved: '50 fewer returns/mo', value: '~€1,500/mo saved', cost: 'Starter: €150/mo', roi: '10x ROI', roiColor: 'text-emerald-600' },
+                    { type: 'Mid-size Store', orders: '2,000 orders/mo', returns: '30% → 18%', saved: '240 fewer returns/mo', value: '~€7,200/mo saved', cost: 'Growth: €499/mo', roi: '14x ROI', roiColor: 'text-indigo-600' },
+                    { type: 'Large Retailer', orders: '10,000 orders/mo', returns: '35% → 20%', saved: '1,500 fewer returns/mo', value: '~€45,000/mo saved', cost: 'Custom plan', roi: '50x+ ROI', roiColor: 'text-amber-600' },
+                  ],
+                  [
+                    { type: 'Boutique', orders: '500 pedidos/mes', returns: '25% → 15%', saved: '50 devoluciones menos/mes', value: '~1.500€/mes ahorrados', cost: 'Starter: 150€/mes', roi: '10x ROI', roiColor: 'text-emerald-600' },
+                    { type: 'Tienda Mediana', orders: '2.000 pedidos/mes', returns: '30% → 18%', saved: '240 devoluciones menos/mes', value: '~7.200€/mes ahorrados', cost: 'Growth: 499€/mes', roi: '14x ROI', roiColor: 'text-indigo-600' },
+                    { type: 'Gran Retailer', orders: '10.000 pedidos/mes', returns: '35% → 20%', saved: '1.500 devoluciones menos/mes', value: '~45.000€/mes ahorrados', cost: 'Plan personalizado', roi: '50x+ ROI', roiColor: 'text-amber-600' },
+                  ],
+                  [
+                    { type: 'Boutique', orders: '500 commandes/mois', returns: '25 % → 15 %', saved: '50 retours en moins/mois', value: '~1 500 €/mois économisés', cost: 'Starter : 150 €/mois', roi: 'ROI 10x', roiColor: 'text-emerald-600' },
+                    { type: 'Boutique moyenne', orders: '2 000 commandes/mois', returns: '30 % → 18 %', saved: '240 retours en moins/mois', value: '~7 200 €/mois économisés', cost: 'Growth : 499 €/mois', roi: 'ROI 14x', roiColor: 'text-indigo-600' },
+                    { type: 'Grand distributeur', orders: '10 000 commandes/mois', returns: '35 % → 20 %', saved: '1 500 retours en moins/mois', value: '~45 000 €/mois économisés', cost: 'Plan sur mesure', roi: 'ROI 50x+', roiColor: 'text-amber-600' },
+                  ],
+                  [
+                    { type: 'Boutique', orders: '500 encomendas/mês', returns: '25% → 15%', saved: 'Menos 50 devoluções/mês', value: '~1.500 €/mês poupados', cost: 'Starter: 150 €/mês', roi: 'ROI 10x', roiColor: 'text-emerald-600' },
+                    { type: 'Loja média', orders: '2.000 encomendas/mês', returns: '30% → 18%', saved: 'Menos 240 devoluções/mês', value: '~7.200 €/mês poupados', cost: 'Growth: 499 €/mês', roi: 'ROI 14x', roiColor: 'text-indigo-600' },
+                    { type: 'Grande retalhista', orders: '10.000 encomendas/mês', returns: '35% → 20%', saved: 'Menos 1.500 devoluções/mês', value: '~45.000 €/mês poupados', cost: 'Plano personalizado', roi: 'ROI 50x+', roiColor: 'text-amber-600' },
+                  ],
+                  [
+                    { type: 'Boutique', orders: '500 Bestellungen/Monat', returns: '25 % → 15 %', saved: '50 Retouren weniger/Monat', value: '~1.500 €/Monat gespart', cost: 'Starter: 150 €/Monat', roi: '10x ROI', roiColor: 'text-emerald-600' },
+                    { type: 'Mittelgroßer Shop', orders: '2.000 Bestellungen/Monat', returns: '30 % → 18 %', saved: '240 Retouren weniger/Monat', value: '~7.200 €/Monat gespart', cost: 'Growth: 499 €/Monat', roi: '14x ROI', roiColor: 'text-indigo-600' },
+                    { type: 'Großer Händler', orders: '10.000 Bestellungen/Monat', returns: '35 % → 20 %', saved: '1.500 Retouren weniger/Monat', value: '~45.000 €/Monat gespart', cost: 'Individueller Plan', roi: '50x+ ROI', roiColor: 'text-amber-600' },
+                  ],
+                  [
+                    { type: 'Boutique', orders: '500 ordini/mese', returns: '25% → 15%', saved: '50 resi in meno/mese', value: '~1.500 €/mese risparmiati', cost: 'Starter: 150 €/mese', roi: 'ROI 10x', roiColor: 'text-emerald-600' },
+                    { type: 'Negozio medio', orders: '2.000 ordini/mese', returns: '30% → 18%', saved: '240 resi in meno/mese', value: '~7.200 €/mese risparmiati', cost: 'Growth: 499 €/mese', roi: 'ROI 14x', roiColor: 'text-indigo-600' },
+                    { type: 'Grande retailer', orders: '10.000 ordini/mese', returns: '35% → 20%', saved: '1.500 resi in meno/mese', value: '~45.000 €/mese risparmiati', cost: 'Piano personalizzato', roi: 'ROI 50x+', roiColor: 'text-amber-600' },
+                  ]
+                ).map((tier, i) => (
                   <div key={i} className="p-6 border border-slate-100 rounded-2xl space-y-4">
                     <div>
                       <h3 className="font-black text-slate-900 text-sm">{tier.type}</h3>
                       <p className="text-[10px] text-slate-400 mt-0.5">{tier.orders}</p>
                     </div>
                     <div className="space-y-2 text-xs text-slate-600">
-                      <div className="flex justify-between"><span>{lang === 'es' ? 'Reducción devoluciones' : 'Returns reduction'}</span><span className="font-bold text-emerald-600">{tier.returns}</span></div>
-                      <div className="flex justify-between"><span>{lang === 'es' ? 'Devoluciones evitadas' : 'Returns avoided'}</span><span className="font-bold">{tier.saved}</span></div>
-                      <div className="flex justify-between"><span>{lang === 'es' ? 'Ahorro estimado' : 'Estimated savings'}</span><span className="font-bold text-slate-900">{tier.value}</span></div>
+                      <div className="flex justify-between"><span>{pickLang(lang, 'Returns reduction', 'Reducción devoluciones', 'Réduction des retours', 'Redução de devoluções', 'Retourenreduktion', 'Riduzione resi')}</span><span className="font-bold text-emerald-600">{tier.returns}</span></div>
+                      <div className="flex justify-between"><span>{pickLang(lang, 'Returns avoided', 'Devoluciones evitadas', 'Retours évités', 'Devoluções evitadas', 'Vermiedene Retouren', 'Resi evitati')}</span><span className="font-bold">{tier.saved}</span></div>
+                      <div className="flex justify-between"><span>{pickLang(lang, 'Estimated savings', 'Ahorro estimado', 'Économies estimées', 'Poupança estimada', 'Geschätzte Einsparungen', 'Risparmio stimato')}</span><span className="font-bold text-slate-900">{tier.value}</span></div>
                       <div className="h-px bg-slate-100" />
-                      <div className="flex justify-between"><span>{lang === 'es' ? 'Coste Agalaz' : 'Agalaz cost'}</span><span className="font-bold">{tier.cost}</span></div>
+                      <div className="flex justify-between"><span>{pickLang(lang, 'Agalaz cost', 'Coste Agalaz', 'Coût Agalaz', 'Custo Agalaz', 'Agalaz-Kosten', 'Costo Agalaz')}</span><span className="font-bold">{tier.cost}</span></div>
                     </div>
                     <div className={`text-center py-3 bg-slate-50 rounded-xl font-black text-lg ${tier.roiColor}`}>
                       {tier.roi}
@@ -993,38 +1029,94 @@ function PartnersContent() {
                 ))}
               </div>
               <p className="text-center text-[10px] text-slate-300 mt-4">
-                {lang === 'es' ? '* Basado en un coste medio de 30€ por devolución procesada. Sin costes de alta.' : '* Based on average €30 return processing cost. ROI improved vs old plans — no setup fees.'}
+                {pickLang(
+                  lang,
+                  '* Based on average €30 return processing cost. ROI improved vs old plans — no setup fees.',
+                  '* Basado en un coste medio de 30€ por devolución procesada. Sin costes de alta.',
+                  '* Calculé sur un coût moyen de 30 € par retour traité. ROI amélioré par rapport aux anciens plans — aucuns frais d\'installation.',
+                  '* Baseado num custo médio de 30 € por devolução processada. ROI melhorado face aos planos antigos — sem custos de ativação.',
+                  '* Basierend auf durchschnittlich 30 € Bearbeitungskosten pro Retoure. ROI verbessert gegenüber alten Plänen — keine Einrichtungsgebühren.',
+                  '* Basato su un costo medio di 30 € per reso processato. ROI migliorato rispetto ai vecchi piani — nessun costo di attivazione.'
+                )}
               </p>
             </div>
 
             {/* ── FAQ ── */}
             <div id="faq" className="mb-20 scroll-mt-20">
               <div className="text-center space-y-3 mb-10">
-                <h2 className="font-serif text-3xl font-black text-slate-900">{lang === 'es' ? 'Preguntas Frecuentes' : 'Frequently Asked Questions'}</h2>
+                <h2 className="font-serif text-3xl font-black text-slate-900">{pickLang(lang, 'Frequently Asked Questions', 'Preguntas Frecuentes', 'Foire aux questions', 'Perguntas Frequentes', 'Häufig gestellte Fragen', 'Domande frequenti')}</h2>
               </div>
 
               <div className="max-w-2xl mx-auto space-y-3">
-                {(lang === 'es' ? [
-                  { q: '¿Cómo funciona la prueba gratis?', a: 'Introduce la URL de tu tienda, inicia sesión con Google, introduces tu tarjeta y activas 7 días gratis con 50 renders. No se te cobra nada durante los primeros 7 días. Si no cancelas antes del séptimo día, se activa automáticamente el plan Starter (150€/mes, 200 renders). Cancela cuando quieras.' },
-                  { q: '¿Qué pasa cuando se acaban los 7 días o los 50 renders?', a: 'El día 7 se activa automáticamente el plan Starter (150€/mes, 200 renders) salvo que canceles antes. Puedes cambiar a Growth (499€/mes, 1.000 renders) desde el dashboard. Sin coste de alta.' },
-                  { q: '¿Hay coste de alta?', a: 'No. Hemos eliminado los costes de alta. Solo pagas la suscripción mensual cuando estés listo para lanzar.' },
-                  { q: '¿Qué pasa si no cancelo la suscripción?', a: 'La suscripción se renueva automáticamente cada mes. Si no cancelas antes del siguiente ciclo de facturación, se te cobrará el siguiente mes. Puedes cancelar en cualquier momento desde tu portal de cliente en Stripe.' },
-                  { q: '¿Qué plataformas son compatibles?', a: 'El widget funciona en cualquier web: Shopify, WooCommerce, PrestaShop, Magento, Wix, Squarespace y cualquier tienda personalizada. Detecta automáticamente las imágenes de producto en Shopify y WooCommerce. Para otras plataformas, pasa la URL de la imagen en el atributo data-garment.' },
-                  { q: '¿Qué artículos pueden probarse los clientes?', a: 'Ropa (camisetas, vestidos, pantalones, chaquetas), gafas y gafas de sol, joyería (collares, pendientes, pulseras, anillos, relojes), sombreros, zapatos, bolsos, e incluso tatuajes o nail art. La IA detecta el tipo de artículo automáticamente.' },
-                  { q: '¿Qué velocidad tiene el renderizado?', a: 'El tiempo medio de render es ~10 segundos dependiendo de la calidad de la imagen. La IA genera una imagen fotorrealista del cliente con el artículo puesto.' },
-                  { q: '¿Almacenáis las fotos de los clientes?', a: 'No. Las imágenes de los clientes se procesan en tiempo real y nunca se almacenan en nuestros servidores. Política de retención de datos cero.' },
-                  { q: '¿Puedo cancelar en cualquier momento?', a: 'Sí. Las suscripciones mensuales se pueden cancelar en cualquier momento. Mantienes el acceso hasta el final de tu período de facturación.' },
-                ] : [
-                  { q: 'How does the free trial work?', a: 'Enter your store URL, sign in with Google, add your card and start a 7-day free trial with 50 renders. Nothing is charged during the trial. If you don\'t cancel before day 7, the Starter plan (€150/mo, 200 renders) activates automatically. Cancel anytime.' },
-                  { q: 'What happens after the 7 days (or the 50 renders)?', a: 'On day 7 the Starter plan (€150/mo, 200 renders) activates automatically unless you cancel before. You can upgrade to Growth (€499/mo, 1,000 renders) from the dashboard. No setup fee.' },
-                  { q: 'Is there a setup fee?', a: 'No. We eliminated setup fees. You only pay the monthly subscription when you\'re ready to go live.' },
-                  { q: 'What happens if I don\'t cancel the subscription?', a: 'The subscription renews automatically each month. If you don\'t cancel before the next billing cycle, you will be charged for the next month. You can cancel anytime from your Stripe customer portal. Annual plans are also available — if you switch to annual and don\'t cancel, the full year is charged at renewal.' },
-                  { q: 'What platforms are supported?', a: 'The widget works on any website: Shopify, WooCommerce, PrestaShop, Magento, Wix, Squarespace, and any custom-built store. It auto-detects product images on Shopify and WooCommerce. For other platforms, just pass the image URL in the data-garment attribute.' },
-                  { q: 'What items can customers try on?', a: 'Clothing (shirts, dresses, pants, jackets), glasses & sunglasses, jewelry (necklaces, earrings, bracelets, rings, watches), hats, shoes, bags, and even tattoos or nail art. The AI detects the item type automatically.' },
-                  { q: 'How fast is the rendering?', a: 'Average render time is ~10 seconds depending on image quality. The AI generates a photorealistic image of the customer wearing the item.' },
-                  { q: 'Do you store customer photos?', a: 'No. Customer images are processed in real-time and never stored on our servers. Zero data retention policy.' },
-                  { q: 'Can I cancel anytime?', a: 'Yes. Monthly subscriptions can be cancelled anytime. You keep access until the end of your billing period.' },
-                ]).map((faq, i) => (
+                {pickLang(
+                  lang,
+                  [
+                    { q: 'How does the free trial work?', a: 'Enter your store URL, sign in with Google, add your card and start a 7-day free trial with 50 renders. Nothing is charged during the trial. If you don\'t cancel before day 7, the Starter plan (€150/mo, 200 renders) activates automatically. Cancel anytime.' },
+                    { q: 'What happens after the 7 days (or the 50 renders)?', a: 'On day 7 the Starter plan (€150/mo, 200 renders) activates automatically unless you cancel before. You can upgrade to Growth (€499/mo, 1,000 renders) from the dashboard. No setup fee.' },
+                    { q: 'Is there a setup fee?', a: 'No. We eliminated setup fees. You only pay the monthly subscription when you\'re ready to go live.' },
+                    { q: 'What happens if I don\'t cancel the subscription?', a: 'The subscription renews automatically each month. If you don\'t cancel before the next billing cycle, you will be charged for the next month. You can cancel anytime from your Stripe customer portal. Annual plans are also available — if you switch to annual and don\'t cancel, the full year is charged at renewal.' },
+                    { q: 'What platforms are supported?', a: 'The widget works on any website: Shopify, WooCommerce, PrestaShop, Magento, Wix, Squarespace, and any custom-built store. It auto-detects product images on Shopify and WooCommerce. For other platforms, just pass the image URL in the data-garment attribute.' },
+                    { q: 'What items can customers try on?', a: 'Clothing (shirts, dresses, pants, jackets), glasses & sunglasses, jewelry (necklaces, earrings, bracelets, rings, watches), hats, shoes, bags, and even tattoos or nail art. The AI detects the item type automatically.' },
+                    { q: 'How fast is the rendering?', a: 'Average render time is ~10 seconds depending on image quality. The AI generates a photorealistic image of the customer wearing the item.' },
+                    { q: 'Do you store customer photos?', a: 'No. Customer images are processed in real-time and never stored on our servers. Zero data retention policy.' },
+                    { q: 'Can I cancel anytime?', a: 'Yes. Monthly subscriptions can be cancelled anytime. You keep access until the end of your billing period.' },
+                  ],
+                  [
+                    { q: '¿Cómo funciona la prueba gratis?', a: 'Introduce la URL de tu tienda, inicia sesión con Google, introduces tu tarjeta y activas 7 días gratis con 50 renders. No se te cobra nada durante los primeros 7 días. Si no cancelas antes del séptimo día, se activa automáticamente el plan Starter (150€/mes, 200 renders). Cancela cuando quieras.' },
+                    { q: '¿Qué pasa cuando se acaban los 7 días o los 50 renders?', a: 'El día 7 se activa automáticamente el plan Starter (150€/mes, 200 renders) salvo que canceles antes. Puedes cambiar a Growth (499€/mes, 1.000 renders) desde el dashboard. Sin coste de alta.' },
+                    { q: '¿Hay coste de alta?', a: 'No. Hemos eliminado los costes de alta. Solo pagas la suscripción mensual cuando estés listo para lanzar.' },
+                    { q: '¿Qué pasa si no cancelo la suscripción?', a: 'La suscripción se renueva automáticamente cada mes. Si no cancelas antes del siguiente ciclo de facturación, se te cobrará el siguiente mes. Puedes cancelar en cualquier momento desde tu portal de cliente en Stripe.' },
+                    { q: '¿Qué plataformas son compatibles?', a: 'El widget funciona en cualquier web: Shopify, WooCommerce, PrestaShop, Magento, Wix, Squarespace y cualquier tienda personalizada. Detecta automáticamente las imágenes de producto en Shopify y WooCommerce. Para otras plataformas, pasa la URL de la imagen en el atributo data-garment.' },
+                    { q: '¿Qué artículos pueden probarse los clientes?', a: 'Ropa (camisetas, vestidos, pantalones, chaquetas), gafas y gafas de sol, joyería (collares, pendientes, pulseras, anillos, relojes), sombreros, zapatos, bolsos, e incluso tatuajes o nail art. La IA detecta el tipo de artículo automáticamente.' },
+                    { q: '¿Qué velocidad tiene el renderizado?', a: 'El tiempo medio de render es ~10 segundos dependiendo de la calidad de la imagen. La IA genera una imagen fotorrealista del cliente con el artículo puesto.' },
+                    { q: '¿Almacenáis las fotos de los clientes?', a: 'No. Las imágenes de los clientes se procesan en tiempo real y nunca se almacenan en nuestros servidores. Política de retención de datos cero.' },
+                    { q: '¿Puedo cancelar en cualquier momento?', a: 'Sí. Las suscripciones mensuales se pueden cancelar en cualquier momento. Mantienes el acceso hasta el final de tu período de facturación.' },
+                  ],
+                  [
+                    { q: 'Comment fonctionne l\'essai gratuit ?', a: 'Saisissez l\'URL de votre boutique, connectez-vous avec Google, ajoutez votre carte et démarrez un essai gratuit de 7 jours avec 50 renders. Aucun débit pendant l\'essai. Si vous n\'annulez pas avant le 7e jour, le plan Starter (150 €/mois, 200 renders) s\'active automatiquement. Annulez quand vous voulez.' },
+                    { q: 'Que se passe-t-il après les 7 jours (ou les 50 renders) ?', a: 'Le 7e jour, le plan Starter (150 €/mois, 200 renders) s\'active automatiquement sauf annulation préalable. Vous pouvez passer à Growth (499 €/mois, 1 000 renders) depuis le tableau de bord. Aucuns frais d\'installation.' },
+                    { q: 'Y a-t-il des frais d\'installation ?', a: 'Non. Nous avons supprimé les frais d\'installation. Vous ne payez que l\'abonnement mensuel lorsque vous êtes prêt à passer en ligne.' },
+                    { q: 'Que se passe-t-il si je n\'annule pas l\'abonnement ?', a: 'L\'abonnement se renouvelle automatiquement chaque mois. Si vous n\'annulez pas avant le prochain cycle de facturation, le mois suivant sera prélevé. Vous pouvez annuler à tout moment depuis votre portail client Stripe. Des plans annuels sont également disponibles — si vous passez à l\'annuel et n\'annulez pas, l\'année complète est facturée au renouvellement.' },
+                    { q: 'Quelles plateformes sont prises en charge ?', a: 'Le widget fonctionne sur n\'importe quel site : Shopify, WooCommerce, PrestaShop, Magento, Wix, Squarespace, et toute boutique personnalisée. Il détecte automatiquement les images produit sur Shopify et WooCommerce. Pour les autres plateformes, transmettez simplement l\'URL de l\'image dans l\'attribut data-garment.' },
+                    { q: 'Quels articles les clients peuvent-ils essayer ?', a: 'Vêtements (t-shirts, robes, pantalons, vestes), lunettes & lunettes de soleil, bijoux (colliers, boucles d\'oreilles, bracelets, bagues, montres), chapeaux, chaussures, sacs, et même tatouages ou nail art. L\'AI détecte automatiquement le type d\'article.' },
+                    { q: 'Quelle est la vitesse de render ?', a: 'Le temps moyen de render est d\'environ 10 secondes selon la qualité de l\'image. L\'AI génère une image photoréaliste du client portant l\'article.' },
+                    { q: 'Stockez-vous les photos des clients ?', a: 'Non. Les images des clients sont traitées en temps réel et ne sont jamais stockées sur nos serveurs. Politique de zéro rétention de données.' },
+                    { q: 'Puis-je annuler à tout moment ?', a: 'Oui. Les abonnements mensuels peuvent être annulés à tout moment. Vous conservez l\'accès jusqu\'à la fin de votre période de facturation.' },
+                  ],
+                  [
+                    { q: 'Como funciona o teste grátis?', a: 'Introduza o URL da sua loja, inicie sessão com Google, adicione o seu cartão e comece um teste grátis de 7 dias com 50 renders. Nada é cobrado durante o teste. Se não cancelar antes do dia 7, o plano Starter (150 €/mês, 200 renders) ativa-se automaticamente. Cancele quando quiser.' },
+                    { q: 'O que acontece depois dos 7 dias (ou dos 50 renders)?', a: 'No dia 7 o plano Starter (150 €/mês, 200 renders) ativa-se automaticamente, salvo cancelamento prévio. Pode mudar para Growth (499 €/mês, 1.000 renders) a partir do painel. Sem custo de ativação.' },
+                    { q: 'Existe custo de ativação?', a: 'Não. Eliminámos os custos de ativação. Só paga a subscrição mensal quando estiver pronto para entrar em produção.' },
+                    { q: 'O que acontece se não cancelar a subscrição?', a: 'A subscrição renova-se automaticamente todos os meses. Se não cancelar antes do próximo ciclo de faturação, será cobrado o mês seguinte. Pode cancelar em qualquer momento a partir do seu portal de cliente Stripe. Também estão disponíveis planos anuais — se mudar para anual e não cancelar, o ano completo é cobrado na renovação.' },
+                    { q: 'Que plataformas são suportadas?', a: 'O widget funciona em qualquer site: Shopify, WooCommerce, PrestaShop, Magento, Wix, Squarespace, e qualquer loja personalizada. Deteta automaticamente as imagens de produto em Shopify e WooCommerce. Noutras plataformas, basta passar o URL da imagem no atributo data-garment.' },
+                    { q: 'Que artigos os clientes podem experimentar?', a: 'Roupa (camisas, vestidos, calças, casacos), óculos e óculos de sol, joias (colares, brincos, pulseiras, anéis, relógios), chapéus, sapatos, malas, e até tatuagens ou nail art. A AI deteta automaticamente o tipo de artigo.' },
+                    { q: 'Que velocidade tem o render?', a: 'O tempo médio de render é ~10 segundos consoante a qualidade da imagem. A AI gera uma imagem fotorrealista do cliente a usar o artigo.' },
+                    { q: 'Armazenam as fotos dos clientes?', a: 'Não. As imagens dos clientes são processadas em tempo real e nunca são armazenadas nos nossos servidores. Política de retenção de dados zero.' },
+                    { q: 'Posso cancelar em qualquer momento?', a: 'Sim. As subscrições mensais podem ser canceladas em qualquer momento. Mantém o acesso até ao final do seu período de faturação.' },
+                  ],
+                  [
+                    { q: 'Wie funktioniert die kostenlose Testphase?', a: 'Geben Sie die URL Ihres Shops ein, melden Sie sich mit Google an, hinterlegen Sie Ihre Karte und starten Sie eine 7-tägige kostenlose Testphase mit 50 Renders. Während der Testphase wird nichts abgebucht. Wenn Sie nicht vor dem 7. Tag kündigen, wird der Starter-Plan (150 €/Monat, 200 Renders) automatisch aktiviert. Jederzeit kündbar.' },
+                    { q: 'Was passiert nach den 7 Tagen (oder den 50 Renders)?', a: 'Am 7. Tag wird der Starter-Plan (150 €/Monat, 200 Renders) automatisch aktiviert, sofern Sie nicht vorher kündigen. Sie können im Dashboard auf Growth (499 €/Monat, 1.000 Renders) wechseln. Keine Einrichtungsgebühr.' },
+                    { q: 'Gibt es eine Einrichtungsgebühr?', a: 'Nein. Wir haben die Einrichtungsgebühren abgeschafft. Sie zahlen nur das monatliche Abonnement, wenn Sie startklar sind.' },
+                    { q: 'Was passiert, wenn ich das Abonnement nicht kündige?', a: 'Das Abonnement verlängert sich jeden Monat automatisch. Wenn Sie nicht vor dem nächsten Abrechnungszeitraum kündigen, wird der nächste Monat berechnet. Sie können jederzeit über Ihr Stripe-Kundenportal kündigen. Jahrespläne sind ebenfalls verfügbar — wenn Sie auf jährlich wechseln und nicht kündigen, wird das ganze Jahr bei der Verlängerung in Rechnung gestellt.' },
+                    { q: 'Welche Plattformen werden unterstützt?', a: 'Das Widget funktioniert auf jeder Website: Shopify, WooCommerce, PrestaShop, Magento, Wix, Squarespace und jedem individuell erstellten Shop. Es erkennt Produktbilder auf Shopify und WooCommerce automatisch. Für andere Plattformen übergeben Sie einfach die Bild-URL im Attribut data-garment.' },
+                    { q: 'Welche Artikel können Kunden anprobieren?', a: 'Kleidung (Hemden, Kleider, Hosen, Jacken), Brillen & Sonnenbrillen, Schmuck (Halsketten, Ohrringe, Armbänder, Ringe, Uhren), Hüte, Schuhe, Taschen, sogar Tattoos oder Nail Art. Die AI erkennt den Artikeltyp automatisch.' },
+                    { q: 'Wie schnell ist der Render?', a: 'Die durchschnittliche Renderzeit liegt bei etwa 10 Sekunden, abhängig von der Bildqualität. Die AI erzeugt ein fotorealistisches Bild des Kunden, der den Artikel trägt.' },
+                    { q: 'Speichern Sie Kundenfotos?', a: 'Nein. Kundenbilder werden in Echtzeit verarbeitet und niemals auf unseren Servern gespeichert. Null-Datenspeicherrichtlinie.' },
+                    { q: 'Kann ich jederzeit kündigen?', a: 'Ja. Monatsabonnements können jederzeit gekündigt werden. Sie behalten den Zugriff bis zum Ende Ihres Abrechnungszeitraums.' },
+                  ],
+                  [
+                    { q: 'Come funziona la prova gratuita?', a: 'Inserite l\'URL del vostro negozio, accedete con Google, aggiungete la carta e avviate una prova gratuita di 7 giorni con 50 render. Durante la prova non viene addebitato nulla. Se non disdici prima del giorno 7, il piano Starter (150 €/mese, 200 render) si attiva automaticamente. Disdici quando vuoi.' },
+                    { q: 'Cosa succede dopo i 7 giorni (o i 50 render)?', a: 'Al giorno 7 il piano Starter (150 €/mese, 200 render) si attiva automaticamente salvo disdetta. Puoi passare a Growth (499 €/mese, 1.000 render) dalla dashboard. Nessun costo di attivazione.' },
+                    { q: 'C\'è un costo di attivazione?', a: 'No. Abbiamo eliminato i costi di attivazione. Pagate solo l\'abbonamento mensile quando siete pronti a partire.' },
+                    { q: 'Cosa succede se non disdico l\'abbonamento?', a: 'L\'abbonamento si rinnova automaticamente ogni mese. Se non disdici prima del successivo ciclo di fatturazione, ti verrà addebitato il mese successivo. Puoi disdire in qualsiasi momento dal portale clienti Stripe. Sono disponibili anche piani annuali — se passi all\'annuale e non disdici, l\'intero anno viene fatturato al rinnovo.' },
+                    { q: 'Quali piattaforme sono supportate?', a: 'Il widget funziona su qualunque sito: Shopify, WooCommerce, PrestaShop, Magento, Wix, Squarespace e qualunque negozio personalizzato. Rileva automaticamente le immagini prodotto su Shopify e WooCommerce. Per le altre piattaforme, basta passare l\'URL dell\'immagine nell\'attributo data-garment.' },
+                    { q: 'Quali articoli possono provare i clienti?', a: 'Abbigliamento (magliette, vestiti, pantaloni, giacche), occhiali e occhiali da sole, gioielli (collane, orecchini, bracciali, anelli, orologi), cappelli, scarpe, borse e perfino tatuaggi o nail art. L\'AI rileva automaticamente il tipo di articolo.' },
+                    { q: 'Quanto è veloce il render?', a: 'Il tempo medio di render è di circa 10 secondi a seconda della qualità dell\'immagine. L\'AI genera un\'immagine fotorealistica del cliente che indossa l\'articolo.' },
+                    { q: 'Conservate le foto dei clienti?', a: 'No. Le immagini dei clienti sono elaborate in tempo reale e non vengono mai archiviate sui nostri server. Politica di zero conservazione dei dati.' },
+                    { q: 'Posso disdire in qualsiasi momento?', a: 'Sì. Gli abbonamenti mensili possono essere disdetti in qualsiasi momento. Mantenete l\'accesso fino alla fine del vostro periodo di fatturazione.' },
+                  ]
+                ).map((faq, i) => (
                   <div key={i} className="border border-slate-200 rounded-xl overflow-hidden">
                     <button
                       onClick={() => setOpenFaq(openFaq === i ? null : i)}
@@ -1045,22 +1137,22 @@ function PartnersContent() {
 
             {/* ── BOTTOM CTA ── */}
             <div id="contact" className="text-center space-y-4 scroll-mt-20">
-              <h2 className="font-serif text-2xl font-black text-slate-900">{lang === 'es' ? '¿Listo para empezar?' : 'Ready to get started?'}</h2>
-              <p className="text-slate-400 text-sm font-light">{lang === 'es' ? '7 días gratis · 50 renders · 0€ hoy · cancela antes del día 7 y no pagas nada.' : '7-day free trial · 50 renders · $0 today · cancel before day 7 and pay nothing.'}</p>
+              <h2 className="font-serif text-2xl font-black text-slate-900">{pickLang(lang, 'Ready to get started?', '¿Listo para empezar?', 'Prêt à commencer ?', 'Pronto para começar?', 'Bereit loszulegen?', 'Pronto a iniziare?')}</h2>
+              <p className="text-slate-400 text-sm font-light">{pickLang(lang, '7-day free trial · 50 renders · $0 today · cancel before day 7 and pay nothing.', '7 días gratis · 50 renders · 0€ hoy · cancela antes del día 7 y no pagas nada.', 'Essai gratuit 7 jours · 50 renders · 0 € aujourd\'hui · annulez avant le 7e jour et ne payez rien.', 'Teste grátis 7 dias · 50 renders · 0 € hoje · cancele antes do dia 7 e não paga nada.', '7 Tage gratis · 50 Renders · 0 € heute · vor dem 7. Tag kündigen und nichts zahlen.', '7 giorni gratis · 50 render · 0 € oggi · disdici prima del giorno 7 e non paghi nulla.')}</p>
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className="px-8 py-4 bg-slate-900 text-white rounded-xl font-black uppercase tracking-[0.15em] text-xs hover:bg-indigo-600 transition-colors inline-flex items-center gap-3"
               >
                 <Sparkles size={16} />
-                {lang === 'es' ? 'Empezar Prueba Gratis' : 'Start Free Trial'}
+                {pickLang(lang, 'Start Free Trial', 'Empezar Prueba Gratis', 'Démarrer l\'essai gratuit', 'Começar Teste Grátis', 'Kostenlose Testphase starten', 'Inizia la prova gratuita')}
                 <ArrowRight size={14} />
               </button>
               <div className="pt-4 space-y-2">
                 <Link href="/blog/virtual-dressing-room-online-free" className="text-[10px] text-indigo-500 font-bold hover:text-indigo-700 transition-colors block">
-                  {lang === 'es' ? 'Más info: ¿Qué es un Probador Virtual? →' : 'Learn more: What is a Virtual Dressing Room? →'}
+                  {pickLang(lang, 'Learn more: What is a Virtual Dressing Room? →', 'Más info: ¿Qué es un Probador Virtual? →', 'En savoir plus : qu\'est-ce qu\'une cabine d\'essayage virtuelle ? →', 'Saiba mais: o que é um Provador Virtual? →', 'Mehr erfahren: Was ist eine virtuelle Umkleidekabine? →', 'Scopri di più: cos\'è un camerino virtuale? →')}
                 </Link>
                 <p className="text-xs text-slate-400">
-                  {lang === 'es' ? '¿Preguntas?' : 'Questions?'} <a href="mailto:infoagalaz@gmail.com" className="text-indigo-600 font-bold hover:text-indigo-800">infoagalaz@gmail.com</a>
+                  {pickLang(lang, 'Questions?', '¿Preguntas?', 'Des questions ?', 'Questões?', 'Fragen?', 'Domande?')} <a href="mailto:infoagalaz@gmail.com" className="text-indigo-600 font-bold hover:text-indigo-800">infoagalaz@gmail.com</a>
                 </p>
               </div>
             </div>
@@ -1157,15 +1249,21 @@ function PartnersContent() {
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <span className="text-[10px] font-black text-violet-600 uppercase tracking-widest">
-                    {lang === 'es' ? 'Cross-Sell con IA' : 'AI Cross-Sell'}
+                    {pickLang(lang, 'AI Cross-Sell', 'Cross-Sell con IA', 'Cross-Sell par AI', 'Cross-Sell com AI', 'AI Cross-Sell', 'Cross-Sell con AI')}
                   </span>
                   <p className="text-sm font-bold text-slate-900 mt-1">
-                    {lang === 'es' ? 'Token Storefront API (opcional)' : 'Storefront API token (optional)'}
+                    {pickLang(lang, 'Storefront API token (optional)', 'Token Storefront API (opcional)', 'Token Storefront API (optionnel)', 'Token Storefront API (opcional)', 'Storefront API-Token (optional)', 'Token Storefront API (opzionale)')}
                   </p>
                   <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
-                    {lang === 'es'
-                      ? 'Si tu tienda tiene contraseña activa (dev/pre-launch/B2B privado), pega un token Storefront para que el cross-sell pueda leer productos en vivo. Generación: Shopify Admin → Apps → Develop apps → tu app → API credentials → Storefront API access tokens.'
-                      : 'If your store has password protection (dev/pre-launch/private B2B), paste a Storefront token so cross-sell can read products live. Generate: Shopify Admin → Apps → Develop apps → your app → API credentials → Storefront API access tokens.'}
+                    {pickLang(
+                      lang,
+                      'If your store has password protection (dev/pre-launch/private B2B), paste a Storefront token so cross-sell can read products live. Generate: Shopify Admin → Apps → Develop apps → your app → API credentials → Storefront API access tokens.',
+                      'Si tu tienda tiene contraseña activa (dev/pre-launch/B2B privado), pega un token Storefront para que el cross-sell pueda leer productos en vivo. Generación: Shopify Admin → Apps → Develop apps → tu app → API credentials → Storefront API access tokens.',
+                      'Si votre boutique est protégée par mot de passe (dev/pre-launch/B2B privé), collez un token Storefront pour que le cross-sell puisse lire les produits en direct. Génération : Shopify Admin → Apps → Develop apps → votre app → API credentials → Storefront API access tokens.',
+                      'Se a sua loja tem proteção por palavra-passe (dev/pre-launch/B2B privado), cole um token Storefront para que o cross-sell possa ler os produtos ao vivo. Geração: Shopify Admin → Apps → Develop apps → a sua app → API credentials → Storefront API access tokens.',
+                      'Wenn Ihr Shop passwortgeschützt ist (Dev/Pre-Launch/privates B2B), fügen Sie einen Storefront-Token ein, damit Cross-Sell Produkte live lesen kann. Erzeugen: Shopify Admin → Apps → Develop apps → Ihre App → API credentials → Storefront API access tokens.',
+                      'Se il vostro negozio ha la protezione con password (dev/pre-launch/B2B privato), incollate un token Storefront affinché il cross-sell possa leggere i prodotti in tempo reale. Generazione: Shopify Admin → Apps → Develop apps → la vostra app → API credentials → Storefront API access tokens.'
+                    )}
                   </p>
                 </div>
                 <ShoppingBag size={22} className="text-violet-500 shrink-0" />
@@ -1205,8 +1303,8 @@ function PartnersContent() {
                       setStorefrontTokenStatus({
                         type: 'success',
                         text: data.has_token
-                          ? (lang === 'es' ? 'Token guardado.' : 'Token saved.')
-                          : (lang === 'es' ? 'Token eliminado.' : 'Token cleared.'),
+                          ? pickLang(lang, 'Token saved.', 'Token guardado.', 'Token enregistré.', 'Token guardado.', 'Token gespeichert.', 'Token salvato.')
+                          : pickLang(lang, 'Token cleared.', 'Token eliminado.', 'Token supprimé.', 'Token removido.', 'Token entfernt.', 'Token rimosso.'),
                       });
                     } else {
                       setStorefrontTokenStatus({ type: 'error', text: data.error || 'Save failed' });
@@ -1224,16 +1322,22 @@ function PartnersContent() {
                 }`}
               >
                 {storefrontTokenSaving
-                  ? (lang === 'es' ? 'Guardando…' : 'Saving…')
+                  ? pickLang(lang, 'Saving…', 'Guardando…', 'Enregistrement…', 'A guardar…', 'Wird gespeichert…', 'Salvataggio…')
                   : (storefrontToken
-                      ? (lang === 'es' ? 'Guardar token' : 'Save token')
-                      : (lang === 'es' ? 'Eliminar token guardado' : 'Clear saved token'))}
+                      ? pickLang(lang, 'Save token', 'Guardar token', 'Enregistrer le token', 'Guardar token', 'Token speichern', 'Salva token')
+                      : pickLang(lang, 'Clear saved token', 'Eliminar token guardado', 'Supprimer le token enregistré', 'Remover token guardado', 'Gespeicherten Token entfernen', 'Rimuovi token salvato'))}
               </button>
 
               <p className="text-[10px] text-slate-400 leading-relaxed">
-                {lang === 'es'
-                  ? 'No almacenamos productos de tu tienda. El token solo se usa para leer productos en vivo durante el cross-sell.'
-                  : "We don't store your store's products. The token is only used to read products live during cross-sell."}
+                {pickLang(
+                  lang,
+                  "We don't store your store's products. The token is only used to read products live during cross-sell.",
+                  'No almacenamos productos de tu tienda. El token solo se usa para leer productos en vivo durante el cross-sell.',
+                  'Nous ne stockons pas les produits de votre boutique. Le token sert uniquement à lire les produits en direct pendant le cross-sell.',
+                  'Não armazenamos os produtos da sua loja. O token serve apenas para ler os produtos ao vivo durante o cross-sell.',
+                  'Wir speichern Ihre Shop-Produkte nicht. Der Token wird nur dazu verwendet, Produkte während des Cross-Sells live zu lesen.',
+                  'Non memorizziamo i prodotti del vostro negozio. Il token serve solo a leggere i prodotti in tempo reale durante il cross-sell.'
+                )}
               </p>
             </div>
 
@@ -1637,12 +1741,18 @@ function PartnersContent() {
               <div>
                 <h3 className="font-black text-slate-900 text-sm flex items-center gap-2">
                   <Globe size={14} className="text-violet-600" />
-                  {lang === 'es' ? 'Token Storefront API (opcional)' : 'Storefront API token (optional)'}
+                  {pickLang(lang, 'Storefront API token (optional)', 'Token Storefront API (opcional)', 'Token Storefront API (optionnel)', 'Token Storefront API (opcional)', 'Storefront API-Token (optional)', 'Token Storefront API (opzionale)')}
                 </h3>
                 <p className="text-[11px] text-slate-500 font-light leading-relaxed mt-1">
-                  {lang === 'es'
-                    ? 'Si tu tienda tiene contraseña activa (dev store, "Coming soon", B2B privado), pega un token Storefront para que el cross-sell pueda leer tus productos. Generación: Shopify Admin → Apps → Develop apps → tu app → API credentials → Storefront API access tokens.'
-                    : "If your store has password protection (dev store, Coming soon, private B2B), paste a Storefront token so cross-sell can read your products. Generate: Shopify Admin → Apps → Develop apps → your app → API credentials → Storefront API access tokens."}
+                  {pickLang(
+                    lang,
+                    "If your store has password protection (dev store, Coming soon, private B2B), paste a Storefront token so cross-sell can read your products. Generate: Shopify Admin → Apps → Develop apps → your app → API credentials → Storefront API access tokens.",
+                    'Si tu tienda tiene contraseña activa (dev store, "Coming soon", B2B privado), pega un token Storefront para que el cross-sell pueda leer tus productos. Generación: Shopify Admin → Apps → Develop apps → tu app → API credentials → Storefront API access tokens.',
+                    'Si votre boutique est protégée par mot de passe (dev store, « Coming soon », B2B privé), collez un token Storefront pour que le cross-sell puisse lire vos produits. Génération : Shopify Admin → Apps → Develop apps → votre app → API credentials → Storefront API access tokens.',
+                    'Se a sua loja tem proteção por palavra-passe (dev store, "Coming soon", B2B privado), cole um token Storefront para que o cross-sell possa ler os seus produtos. Geração: Shopify Admin → Apps → Develop apps → a sua app → API credentials → Storefront API access tokens.',
+                    'Wenn Ihr Shop passwortgeschützt ist (Dev-Store, „Coming soon", privates B2B), fügen Sie einen Storefront-Token ein, damit Cross-Sell Ihre Produkte lesen kann. Erzeugen: Shopify Admin → Apps → Develop apps → Ihre App → API credentials → Storefront API access tokens.',
+                    'Se il vostro negozio ha la protezione con password (dev store, "Coming soon", B2B privato), incollate un token Storefront affinché il cross-sell possa leggere i vostri prodotti. Generazione: Shopify Admin → Apps → Develop apps → la vostra app → API credentials → Storefront API access tokens.'
+                  )}
                 </p>
               </div>
 
@@ -1680,8 +1790,8 @@ function PartnersContent() {
                       setStorefrontTokenStatus({
                         type: 'success',
                         text: data.has_token
-                          ? (lang === 'es' ? 'Token guardado.' : 'Token saved.')
-                          : (lang === 'es' ? 'Token eliminado.' : 'Token cleared.'),
+                          ? pickLang(lang, 'Token saved.', 'Token guardado.', 'Token enregistré.', 'Token guardado.', 'Token gespeichert.', 'Token salvato.')
+                          : pickLang(lang, 'Token cleared.', 'Token eliminado.', 'Token supprimé.', 'Token removido.', 'Token entfernt.', 'Token rimosso.'),
                       });
                     } else {
                       setStorefrontTokenStatus({ type: 'error', text: data.error || 'Save failed' });
@@ -1699,16 +1809,22 @@ function PartnersContent() {
                 }`}
               >
                 {storefrontTokenSaving
-                  ? (lang === 'es' ? 'Guardando…' : 'Saving…')
+                  ? pickLang(lang, 'Saving…', 'Guardando…', 'Enregistrement…', 'A guardar…', 'Wird gespeichert…', 'Salvataggio…')
                   : (storefrontToken
-                      ? (lang === 'es' ? 'Guardar token' : 'Save token')
-                      : (lang === 'es' ? 'Eliminar token guardado' : 'Clear saved token'))}
+                      ? pickLang(lang, 'Save token', 'Guardar token', 'Enregistrer le token', 'Guardar token', 'Token speichern', 'Salva token')
+                      : pickLang(lang, 'Clear saved token', 'Eliminar token guardado', 'Supprimer le token enregistré', 'Remover token guardado', 'Gespeicherten Token entfernen', 'Rimuovi token salvato'))}
               </button>
 
               <p className="text-[10px] text-slate-400 leading-relaxed">
-                {lang === 'es'
-                  ? 'No almacenamos productos de tu tienda. El token sirve para leer en vivo los productos al hacer cross-sell, sin persistirlos.'
-                  : 'We do not store your store\'s products. The token is used to read products live during cross-sell, without persisting them.'}
+                {pickLang(
+                  lang,
+                  'We do not store your store\'s products. The token is used to read products live during cross-sell, without persisting them.',
+                  'No almacenamos productos de tu tienda. El token sirve para leer en vivo los productos al hacer cross-sell, sin persistirlos.',
+                  'Nous ne stockons pas les produits de votre boutique. Le token sert à lire les produits en direct lors du cross-sell, sans les persister.',
+                  'Não armazenamos os produtos da sua loja. O token serve para ler os produtos ao vivo durante o cross-sell, sem os persistir.',
+                  'Wir speichern Ihre Shop-Produkte nicht. Der Token wird verwendet, um Produkte beim Cross-Sell live zu lesen, ohne sie zu speichern.',
+                  'Non memorizziamo i prodotti del vostro negozio. Il token serve a leggere i prodotti in tempo reale durante il cross-sell, senza persisterli.'
+                )}
               </p>
             </div>
 
@@ -1780,16 +1896,16 @@ function PartnersContent() {
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl space-y-4">
             <p className="text-center text-sm font-black text-slate-900 tracking-tight">
-              {lang === 'es' ? 'Confirma que no eres un robot' : 'Confirm you are human'}
+              {pickLang(lang, 'Confirm you are human', 'Confirma que no eres un robot', 'Confirmez que vous n\'êtes pas un robot', 'Confirme que não é um robô', 'Bestätigen Sie, dass Sie kein Roboter sind', 'Conferma di non essere un robot')}
             </p>
             <div id="agalaz-partners-turnstile" className="flex justify-center min-h-[65px] items-center">
-              <span className="text-[10px] text-slate-400">{lang === 'es' ? 'Verificando...' : 'Verifying...'}</span>
+              <span className="text-[10px] text-slate-400">{pickLang(lang, 'Verifying...', 'Verificando...', 'Vérification...', 'A verificar...', 'Wird überprüft...', 'Verifica in corso...')}</span>
             </div>
             <button
               onClick={() => setCaptchaPurpose(null)}
               className="w-full text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-600"
             >
-              {lang === 'es' ? 'Cancelar' : 'Cancel'}
+              {pickLang(lang, 'Cancel', 'Cancelar', 'Annuler', 'Cancelar', 'Abbrechen', 'Annulla')}
             </button>
           </div>
         </div>
