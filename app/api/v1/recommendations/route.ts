@@ -66,6 +66,7 @@ export async function POST(request: NextRequest) {
         if (dbResult.recommendations.length > 0) {
           const normalized = dbResult.recommendations.map((r) => ({
             id: Number(r.productId) || 0,
+            variantId: r.variantId || undefined,
             title: r.title,
             image: r.image || '',
             url: shopDomain ? `https://${shopDomain}/products/${r.handle}` : '',
@@ -113,7 +114,7 @@ export async function POST(request: NextRequest) {
     const hasCatalog = (count || 0) > 0;
     const recommendations = hasCatalog && productId
       ? []
-      : await fetchRecommendations(shopDomain, productType, limit);
+      : await fetchRecommendations(shopDomain, productType, limit, partner.shopify_storefront_token);
 
     const compliment = getCompliment(productType, lang);
     const message = recommendations.length > 0

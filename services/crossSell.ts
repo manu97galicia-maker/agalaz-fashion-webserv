@@ -4,6 +4,7 @@
 
 export interface RecommendedProduct {
   id: number;
+  variantId?: string;
   title: string;
   image: string;
   url: string;
@@ -72,20 +73,41 @@ export async function fetchRecommendations(
   shopDomain: string,
   currentProductType: string,
   limit: number = 3,
+  storefrontToken?: string | null,
 ): Promise<RecommendedProduct[]> {
   if (!shopDomain) return [];
 
+  // Path A — Storefront API (works even on password-gated dev/pre-launch stores).
+  // Used when the merchant has pasted a Storefront access token in /partners.
+  let products: any[] = [];
+  if (storefrontToken) {
+    try {
+      const { fetchProductsViaStorefront } = await import('./shopifyStorefront');
+      const sf = await fetchProductsViaStorefront(shopDomain, storefrontToken, 50);
+      if (sf.ok && sf.products.length > 0) {
+        products = sf.products;
+      }
+    } catch { /* fall through to public */ }
+  }
+
+  // Path B — public /products.json (works only on stores without password protection).
+  if (products.length === 0) {
+    try {
+      const url = `https://${shopDomain}/products.json?limit=50`;
+      const res = await fetch(url, {
+        headers: { Accept: 'application/json' },
+        signal: AbortSignal.timeout(5000),
+      });
+      if (!res.ok) return [];
+      const data = await res.json();
+      products = data.products || [];
+    } catch {
+      return [];
+    }
+  }
+
+  // Wrap the rest of the original scoring loop so the existing closure stays valid.
   try {
-    const url = `https://${shopDomain}/products.json?limit=50`;
-    const res = await fetch(url, {
-      headers: { Accept: 'application/json' },
-      signal: AbortSignal.timeout(5000),
-    });
-
-    if (!res.ok) return [];
-
-    const data = await res.json();
-    const products = data.products || [];
 
     const complementaryTypes = getComplementaryTypes(currentProductType);
 
@@ -109,6 +131,7 @@ export async function fetchRecommendations(
 
         return {
           id: p.id,
+          variantId: p.variants?.[0]?.id ? String(p.variants[0].id) : undefined,
           title: p.title,
           image: p.images[0]?.src || '',
           url: `https://${shopDomain}/products/${p.handle}`,
@@ -133,6 +156,7 @@ export async function fetchRecommendations(
         .slice(0, limit)
         .map((p: any) => ({
           id: p.id,
+          variantId: p.variants?.[0]?.id ? String(p.variants[0].id) : undefined,
           title: p.title,
           image: p.images[0]?.src || '',
           url: `https://${shopDomain}/products/${p.handle}`,

@@ -67,9 +67,15 @@ function PartnersContent() {
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
+  // Catalog stats / sync are deprecated — we no longer persist merchant product
+  // data on our side (privacy / DPA simplification). Live cross-sell still works
+  // via Storefront API or public /products.json on a per-request basis.
   const [catalogStats, setCatalogStats] = useState<{ total: number; classified: number; last_synced: string | null } | null>(null);
   const [syncLoading, setSyncLoading] = useState(false);
   const [syncMessage, setSyncMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [storefrontToken, setStorefrontToken] = useState('');
+  const [storefrontTokenSaving, setStorefrontTokenSaving] = useState(false);
+  const [storefrontTokenStatus, setStorefrontTokenStatus] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   // Captcha gate for register + sync. Token comes from Cloudflare Turnstile.
   const [captchaPurpose, setCaptchaPurpose] = useState<null | 'register' | 'sync'>(null);
   const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '';
@@ -1145,7 +1151,8 @@ function PartnersContent() {
               </p>
             </div>
 
-            {/* Catalog sync panel — enables AI cross-sell */}
+            {/* Storefront API token — same UI as in subscribed step. We don't sync/store
+                merchant catalogs (DPA simplification); cross-sell fetches live per-request. */}
             <div className="p-6 bg-gradient-to-br from-violet-50 via-indigo-50 to-white border border-violet-200 rounded-2xl space-y-4">
               <div className="flex items-start justify-between gap-3">
                 <div>
@@ -1153,74 +1160,80 @@ function PartnersContent() {
                     {lang === 'es' ? 'Cross-Sell con IA' : 'AI Cross-Sell'}
                   </span>
                   <p className="text-sm font-bold text-slate-900 mt-1">
-                    {lang === 'es' ? 'Sincroniza tu catálogo' : 'Sync your catalog'}
+                    {lang === 'es' ? 'Token Storefront API (opcional)' : 'Storefront API token (optional)'}
                   </p>
                   <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
                     {lang === 'es'
-                      ? 'Sincronizamos tus productos desde tu tienda Shopify y los clasificamos con IA para recomendar prendas combinables tras cada prueba virtual.'
-                      : 'We sync products from your Shopify store and classify them with AI to recommend matching items after each try-on.'}
+                      ? 'Si tu tienda tiene contraseña activa (dev/pre-launch/B2B privado), pega un token Storefront para que el cross-sell pueda leer productos en vivo. Generación: Shopify Admin → Apps → Develop apps → tu app → API credentials → Storefront API access tokens.'
+                      : 'If your store has password protection (dev/pre-launch/private B2B), paste a Storefront token so cross-sell can read products live. Generate: Shopify Admin → Apps → Develop apps → your app → API credentials → Storefront API access tokens.'}
                   </p>
                 </div>
                 <ShoppingBag size={22} className="text-violet-500 shrink-0" />
               </div>
 
-              {catalogStats && (
-                <div className="grid grid-cols-3 gap-2 text-center">
-                  <div className="p-3 bg-white rounded-lg border border-violet-100">
-                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
-                      {lang === 'es' ? 'Productos' : 'Products'}
-                    </p>
-                    <p className="text-lg font-black text-slate-900 mt-0.5">{catalogStats.total}</p>
-                  </div>
-                  <div className="p-3 bg-white rounded-lg border border-violet-100">
-                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
-                      {lang === 'es' ? 'Clasificados' : 'Classified'}
-                    </p>
-                    <p className="text-lg font-black text-slate-900 mt-0.5">{catalogStats.classified}</p>
-                  </div>
-                  <div className="p-3 bg-white rounded-lg border border-violet-100">
-                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
-                      {lang === 'es' ? 'Último sync' : 'Last sync'}
-                    </p>
-                    <p className="text-[10px] font-bold text-slate-600 mt-1">
-                      {catalogStats.last_synced
-                        ? new Date(catalogStats.last_synced).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })
-                        : (lang === 'es' ? 'Nunca' : 'Never')}
-                    </p>
-                  </div>
-                </div>
-              )}
+              <input
+                type="text"
+                value={storefrontToken}
+                onChange={(e) => setStorefrontToken(e.target.value)}
+                placeholder="shpat_... or 32-char hex"
+                className="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs font-mono text-slate-900 placeholder:text-slate-300 outline-none focus:ring-2 focus:ring-violet-200 focus:border-violet-300 bg-white"
+              />
 
-              {syncMessage && (
+              {storefrontTokenStatus && (
                 <div className={`p-3 rounded-lg text-[11px] font-bold ${
-                  syncMessage.type === 'success'
+                  storefrontTokenStatus.type === 'success'
                     ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                     : 'bg-red-50 text-red-700 border border-red-200'
                 }`}>
-                  {syncMessage.text}
+                  {storefrontTokenStatus.text}
                 </div>
               )}
 
               <button
-                onClick={handleSyncCatalog}
-                disabled={syncLoading}
+                onClick={async () => {
+                  if (!partnerProfile?.id) return;
+                  setStorefrontTokenSaving(true);
+                  setStorefrontTokenStatus(null);
+                  try {
+                    const res = await fetch('/api/partners/save-storefront-token', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ partner_id: partnerProfile.id, token: storefrontToken }),
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                      setStorefrontTokenStatus({
+                        type: 'success',
+                        text: data.has_token
+                          ? (lang === 'es' ? 'Token guardado.' : 'Token saved.')
+                          : (lang === 'es' ? 'Token eliminado.' : 'Token cleared.'),
+                      });
+                    } else {
+                      setStorefrontTokenStatus({ type: 'error', text: data.error || 'Save failed' });
+                    }
+                  } catch {
+                    setStorefrontTokenStatus({ type: 'error', text: 'Network error' });
+                  }
+                  setStorefrontTokenSaving(false);
+                }}
+                disabled={storefrontTokenSaving}
                 className={`w-full py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all ${
-                  syncLoading
+                  storefrontTokenSaving
                     ? 'bg-violet-200 text-violet-400 cursor-not-allowed'
                     : 'bg-violet-600 text-white hover:bg-violet-700 shadow-sm'
                 }`}
               >
-                {syncLoading
-                  ? (lang === 'es' ? 'Sincronizando…' : 'Syncing…')
-                  : (catalogStats && catalogStats.total > 0
-                      ? (lang === 'es' ? 'Re-sincronizar catálogo' : 'Re-sync catalog')
-                      : (lang === 'es' ? 'Sincronizar mi catálogo' : 'Sync my catalog'))}
+                {storefrontTokenSaving
+                  ? (lang === 'es' ? 'Guardando…' : 'Saving…')
+                  : (storefrontToken
+                      ? (lang === 'es' ? 'Guardar token' : 'Save token')
+                      : (lang === 'es' ? 'Eliminar token guardado' : 'Clear saved token'))}
               </button>
 
               <p className="text-[10px] text-slate-400 leading-relaxed">
                 {lang === 'es'
-                  ? 'Solo funciona con tiendas Shopify (dominio público *.myshopify.com o custom). Cooldown de 1 hora entre sincronizaciones.'
-                  : 'Works only with Shopify stores (*.myshopify.com or custom domain). 1-hour cooldown between syncs.'}
+                  ? 'No almacenamos productos de tu tienda. El token solo se usa para leer productos en vivo durante el cross-sell.'
+                  : "We don't store your store's products. The token is only used to read products live during cross-sell."}
               </p>
             </div>
 
@@ -1619,78 +1632,83 @@ function PartnersContent() {
               </div>
             </div>
 
-            {/* Sync Shopify catalog */}
+            {/* Shopify Storefront API token (optional) — for stores with password protection */}
             <div className="p-4 bg-violet-50 border border-violet-200 rounded-xl space-y-3">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-black text-slate-900 text-sm flex items-center gap-2">
-                    <RefreshCw size={14} className="text-violet-600" />
-                    {lang === 'es' ? 'Sincronizar catálogo Shopify' : 'Sync Shopify catalog'}
-                  </h3>
-                  <p className="text-[11px] text-slate-500 font-light leading-relaxed mt-1">
-                    {lang === 'es'
-                      ? 'Importa todos los productos de tu tienda para que el botón Try-On los reconozca al instante.'
-                      : 'Import every product from your store so the Try-On button recognises them instantly.'}
-                  </p>
-                </div>
+              <div>
+                <h3 className="font-black text-slate-900 text-sm flex items-center gap-2">
+                  <Globe size={14} className="text-violet-600" />
+                  {lang === 'es' ? 'Token Storefront API (opcional)' : 'Storefront API token (optional)'}
+                </h3>
+                <p className="text-[11px] text-slate-500 font-light leading-relaxed mt-1">
+                  {lang === 'es'
+                    ? 'Si tu tienda tiene contraseña activa (dev store, "Coming soon", B2B privado), pega un token Storefront para que el cross-sell pueda leer tus productos. Generación: Shopify Admin → Apps → Develop apps → tu app → API credentials → Storefront API access tokens.'
+                    : "If your store has password protection (dev store, Coming soon, private B2B), paste a Storefront token so cross-sell can read your products. Generate: Shopify Admin → Apps → Develop apps → your app → API credentials → Storefront API access tokens."}
+                </p>
               </div>
 
-              {catalogStats && catalogStats.total > 0 && (
-                <div className="grid grid-cols-3 gap-2 text-center">
-                  <div className="p-2 bg-white rounded-lg border border-violet-100">
-                    <p className="text-lg font-black text-slate-900">{catalogStats.total}</p>
-                    <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
-                      {lang === 'es' ? 'Productos' : 'Products'}
-                    </p>
-                  </div>
-                  <div className="p-2 bg-white rounded-lg border border-violet-100">
-                    <p className="text-lg font-black text-emerald-600">{catalogStats.classified}</p>
-                    <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
-                      {lang === 'es' ? 'Categorizados' : 'Categorised'}
-                    </p>
-                  </div>
-                  <div className="p-2 bg-white rounded-lg border border-violet-100">
-                    <p className="text-[10px] font-bold text-slate-600">
-                      {catalogStats.last_synced
-                        ? new Date(catalogStats.last_synced).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { day: '2-digit', month: 'short' })
-                        : (lang === 'es' ? 'Nunca' : 'Never')}
-                    </p>
-                    <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">
-                      {lang === 'es' ? 'Último sync' : 'Last sync'}
-                    </p>
-                  </div>
-                </div>
-              )}
+              <input
+                type="text"
+                value={storefrontToken}
+                onChange={(e) => setStorefrontToken(e.target.value)}
+                placeholder="shpat_... or 32-char hex"
+                className="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs font-mono text-slate-900 placeholder:text-slate-300 outline-none focus:ring-2 focus:ring-violet-200 focus:border-violet-300 bg-white"
+              />
 
-              {syncMessage && (
+              {storefrontTokenStatus && (
                 <div className={`p-3 rounded-lg text-[11px] font-bold ${
-                  syncMessage.type === 'success'
+                  storefrontTokenStatus.type === 'success'
                     ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                     : 'bg-red-50 text-red-700 border border-red-200'
                 }`}>
-                  {syncMessage.text}
+                  {storefrontTokenStatus.text}
                 </div>
               )}
 
               <button
-                onClick={handleSyncCatalog}
-                disabled={syncLoading}
+                onClick={async () => {
+                  if (!partnerProfile?.id) return;
+                  setStorefrontTokenSaving(true);
+                  setStorefrontTokenStatus(null);
+                  try {
+                    const res = await fetch('/api/partners/save-storefront-token', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ partner_id: partnerProfile.id, token: storefrontToken }),
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                      setStorefrontTokenStatus({
+                        type: 'success',
+                        text: data.has_token
+                          ? (lang === 'es' ? 'Token guardado.' : 'Token saved.')
+                          : (lang === 'es' ? 'Token eliminado.' : 'Token cleared.'),
+                      });
+                    } else {
+                      setStorefrontTokenStatus({ type: 'error', text: data.error || 'Save failed' });
+                    }
+                  } catch {
+                    setStorefrontTokenStatus({ type: 'error', text: 'Network error' });
+                  }
+                  setStorefrontTokenSaving(false);
+                }}
+                disabled={storefrontTokenSaving}
                 className={`w-full py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all ${
-                  syncLoading
+                  storefrontTokenSaving
                     ? 'bg-violet-200 text-violet-400 cursor-not-allowed'
                     : 'bg-violet-600 text-white hover:bg-violet-700 shadow-sm'
                 }`}
               >
-                {syncLoading
-                  ? (lang === 'es' ? 'Sincronizando…' : 'Syncing…')
-                  : (catalogStats && catalogStats.total > 0
-                      ? (lang === 'es' ? 'Re-sincronizar catálogo' : 'Re-sync catalog')
-                      : (lang === 'es' ? 'Sincronizar mi catálogo' : 'Sync my catalog'))}
+                {storefrontTokenSaving
+                  ? (lang === 'es' ? 'Guardando…' : 'Saving…')
+                  : (storefrontToken
+                      ? (lang === 'es' ? 'Guardar token' : 'Save token')
+                      : (lang === 'es' ? 'Eliminar token guardado' : 'Clear saved token'))}
               </button>
+
               <p className="text-[10px] text-slate-400 leading-relaxed">
                 {lang === 'es'
-                  ? 'Solo Shopify (*.myshopify.com o dominio custom). Cooldown 1 h entre sincronizaciones.'
-                  : 'Shopify only (*.myshopify.com or custom domain). 1-hour cooldown between syncs.'}
+                  ? 'No almacenamos productos de tu tienda. El token sirve para leer en vivo los productos al hacer cross-sell, sin persistirlos.'
+                  : 'We do not store your store\'s products. The token is used to read products live during cross-sell, without persisting them.'}
               </p>
             </div>
 

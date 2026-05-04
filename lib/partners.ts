@@ -27,6 +27,8 @@ export interface Partner {
   credits_monthly_limit: number;
   total_renders: number;
   is_active: boolean;
+  /** Optional Shopify Storefront API token. Used as fallback when /products.json is gated. */
+  shopify_storefront_token?: string | null;
 }
 
 /**
