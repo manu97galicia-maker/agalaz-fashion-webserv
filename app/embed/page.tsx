@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Sparkles, X, Camera, ImagePlus, Check, Download, ShoppingBag } from 'lucide-react';
+import { Sparkles, X, Camera, ImagePlus, Check, Download, ShoppingBag, ShoppingCart } from 'lucide-react';
 
 interface Recommendation {
   id: number;
+  variantId?: string | number;
   title: string;
   image: string;
   url: string;
@@ -20,7 +21,9 @@ export default function EmbedPage() {
   const [garmentUrl, setGarmentUrl] = useState<string | null>(null);
   const [productType, setProductType] = useState<string>('');
   const [productId, setProductId] = useState<string>('');
+  const [variantId, setVariantId] = useState<string>('');
   const [customerId, setCustomerId] = useState<string>('');
+  const [cartFeedback, setCartFeedback] = useState<{ type: 'success' | 'error'; key: string } | null>(null);
   const [lang, setLang] = useState<'en' | 'es'>('en');
   const [showCaptcha, setShowCaptcha] = useState(false);
   const [captchaToken, setCaptchaToken] = useState<string>('');
@@ -69,6 +72,10 @@ export default function EmbedPage() {
     dailyExhaustedBody: 'Has agotado tus 3 pruebas de hoy. Vuelve mañana — los créditos se renuevan cada 24h.',
     customerRequiredTitle: 'Inicia sesión',
     customerRequiredBody: 'Necesitas estar logueado en la tienda para probarte esta prenda.',
+    addToCart: 'Añadir al carrito',
+    addToCartShort: 'Añadir',
+    cartAdded: '¡Añadido al carrito!',
+    cartFailed: 'No se pudo añadir. Abre el producto.',
   } : {
     title: 'Virtual Try-On',
     subtitle: 'Upload your photo and try on this garment',
@@ -95,6 +102,10 @@ export default function EmbedPage() {
     dailyExhaustedBody: 'You have used your 3 try-ons for today. Come back tomorrow — credits renew every 24h.',
     customerRequiredTitle: 'Sign in',
     customerRequiredBody: 'You need to be signed in at the store to try this on.',
+    addToCart: 'Add to cart',
+    addToCartShort: 'Add',
+    cartAdded: 'Added to cart!',
+    cartFailed: 'Could not add. Opening product page.',
   };
 
   // Lazy-load Cloudflare Turnstile script (no-op if site key not configured)
@@ -145,6 +156,7 @@ export default function EmbedPage() {
     setGarmentUrl(params.get('garment') || null);
     setProductType(params.get('type') || params.get('productType') || '');
     setProductId(params.get('productId') || params.get('product_id') || '');
+    setVariantId(params.get('variantId') || params.get('variant_id') || '');
     setCustomerId(params.get('customerId') || params.get('customer_id') || '');
     if (params.get('lang') === 'es') setLang('es');
   }, []);
@@ -326,6 +338,64 @@ export default function EmbedPage() {
       }
       e.target.value = '';
     };
+  }
+
+  // Listen for cart-result postMessage from the parent widget.js bridge
+  useEffect(() => {
+    function onMsg(e: MessageEvent) {
+      if (!e.data || e.data.type !== 'agalaz:cart_result') return;
+      setCartFeedback({
+        type: e.data.ok ? 'success' : 'error',
+        key: String(Date.now()),
+      });
+      setTimeout(() => setCartFeedback(null), 2200);
+    }
+    window.addEventListener('message', onMsg);
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  // Append agalaz UTM params so the partner can attribute traffic in their analytics
+  function addUtm(url: string, source: 'cross_sell' | 'try_on'): string {
+    if (!url || !url.startsWith('http')) return url;
+    try {
+      const u = new URL(url);
+      if (!u.searchParams.has('utm_source')) u.searchParams.set('utm_source', 'agalaz');
+      if (!u.searchParams.has('utm_medium')) u.searchParams.set('utm_medium', source);
+      if (!u.searchParams.has('utm_campaign')) u.searchParams.set('utm_campaign', 'virtual_tryon');
+      return u.toString();
+    } catch { return url; }
+  }
+
+  // Fire-and-forget event log to /api/v1/track. Failures are swallowed.
+  function trackEvent(event: string, extra: Record<string, any> = {}) {
+    if (!apiKey || !customerId) return;
+    fetch('/api/v1/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+      body: JSON.stringify({ event, customerId, ...extra }),
+      keepalive: true,
+    }).catch(() => {});
+  }
+
+  // Ask the parent widget.js to add a variant to the host store cart.
+  function addToCart(opts: { productId?: string; variantId?: string; productUrl?: string; isCrossSell?: boolean; valueCents?: number }) {
+    const { productId: pid, variantId: vid, productUrl, isCrossSell, valueCents } = opts;
+    if (!vid && !pid) {
+      setCartFeedback({ type: 'error', key: String(Date.now()) });
+      return;
+    }
+    window.parent.postMessage({
+      type: 'agalaz:add_to_cart',
+      productId: pid || '',
+      variantId: vid || pid || '',
+      productUrl: productUrl || '',
+      quantity: 1,
+    }, '*');
+    trackEvent(isCrossSell ? 'cross_sell_add_to_cart' : 'add_to_cart', {
+      productId: pid,
+      variantId: vid,
+      valueCents,
+    });
   }
 
   // Entry from the "Try it on" button. Validates inputs, then either runs
@@ -787,7 +857,7 @@ export default function EmbedPage() {
                 src={resultImage!}
                 alt="Try-on result"
                 className="w-full"
-                style={{ aspectRatio: '9 / 16', objectFit: 'cover' }}
+                style={{ aspectRatio: '3 / 4', objectFit: 'cover' }}
               />
             </div>
 
@@ -868,27 +938,47 @@ export default function EmbedPage() {
                 ) : (
                   <div className="grid grid-cols-3 gap-2">
                     {recommendations.map((r) => (
-                      <a
-                        key={r.id}
-                        href={r.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title={r.title}
-                        className="group block rounded-lg overflow-hidden border border-slate-200 hover:border-indigo-300 transition-all"
-                      >
-                        <div className="aspect-[3/4] bg-slate-50 overflow-hidden">
-                          <img
-                            src={r.image}
-                            alt={r.title}
-                            loading="lazy"
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                          />
-                        </div>
-                        <div className="p-1.5">
-                          <p className="text-[9px] font-bold text-slate-700 truncate">{r.title}</p>
-                          <p className="text-[9px] text-indigo-500 font-black mt-0.5">{r.price}</p>
-                        </div>
-                      </a>
+                      <div key={r.id} className="relative group rounded-lg overflow-hidden border border-slate-200 hover:border-indigo-300 transition-all">
+                        <a
+                          href={addUtm(r.url, 'cross_sell')}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title={r.title}
+                          onClick={() => trackEvent('cross_sell_click', { productId: String(r.id), variantId: r.variantId ? String(r.variantId) : undefined })}
+                          className="block"
+                        >
+                          <div className="aspect-[3/4] bg-slate-50 overflow-hidden">
+                            <img
+                              src={r.image}
+                              alt={r.title}
+                              loading="lazy"
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                            />
+                          </div>
+                          <div className="p-1.5">
+                            <p className="text-[9px] font-bold text-slate-700 truncate">{r.title}</p>
+                            <p className="text-[9px] text-indigo-500 font-black mt-0.5">{r.price}</p>
+                          </div>
+                        </a>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            const cents = Math.round(parseFloat(r.price) * 100) || undefined;
+                            addToCart({
+                              productId: String(r.id),
+                              variantId: r.variantId ? String(r.variantId) : undefined,
+                              productUrl: r.url,
+                              isCrossSell: true,
+                              valueCents: cents,
+                            });
+                          }}
+                          title={t.addToCart}
+                          className="absolute bottom-1 right-1 p-1.5 bg-slate-900 text-white rounded-full opacity-0 group-hover:opacity-100 hover:bg-indigo-600 shadow-md transition-all"
+                        >
+                          <ShoppingCart size={11} />
+                        </button>
+                      </div>
                     ))}
                   </div>
                 )}
@@ -899,6 +989,21 @@ export default function EmbedPage() {
               <div className="p-3 bg-red-50 rounded-xl border border-red-100 text-xs font-bold text-red-600">
                 {error}
               </div>
+            )}
+
+            {/* Add the tried-on product to the host store cart */}
+            {(productId || variantId) && (
+              <button
+                onClick={() => addToCart({
+                  productId: productId || undefined,
+                  variantId: variantId || undefined,
+                  productUrl: garmentUrl ? new URL(garmentUrl).origin : undefined,
+                })}
+                className="w-full py-3 bg-indigo-600 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
+              >
+                <ShoppingCart size={14} />
+                {t.addToCart}
+              </button>
             )}
 
             <div className="flex gap-3">
@@ -935,6 +1040,21 @@ export default function EmbedPage() {
       {/* Hidden file inputs */}
       <input ref={userRef} type="file" accept="image/*" onChange={handleFile(setUserImage)} className="hidden" />
       <input ref={garmentRef} type="file" accept="image/*" onChange={handleFile(setGarmentImage)} className="hidden" />
+
+      {/* Cart-action toast — feedback after add-to-cart attempt */}
+      {cartFeedback && (
+        <div
+          key={cartFeedback.key}
+          className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] px-4 py-2.5 rounded-full shadow-lg text-xs font-black tracking-widest uppercase animate-fade-in flex items-center gap-2 ${
+            cartFeedback.type === 'success'
+              ? 'bg-emerald-600 text-white'
+              : 'bg-amber-500 text-white'
+          }`}
+        >
+          {cartFeedback.type === 'success' ? <Check size={14} /> : <ShoppingCart size={14} />}
+          {cartFeedback.type === 'success' ? t.cartAdded : t.cartFailed}
+        </div>
+      )}
 
       {/* Captcha modal — appears after click on "Try it on" */}
       {showCaptcha && (
