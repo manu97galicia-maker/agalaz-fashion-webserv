@@ -127,7 +127,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
-    // Localized landing pages (ES, FR, PT, DE, IT) — 9 categories × 5 languages = 45 URLs
+    {
+      url: `${baseUrl}/virtual-baby-clothing-try-on`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    // Localized landing pages (ES, FR, PT, DE, IT) — 10 categories × 5 languages = 50 URLs
     ...(['es', 'fr', 'pt', 'de', 'it'] as const).flatMap((lang) =>
       [
         'virtual-tattoo-simulator',
@@ -139,6 +145,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'virtual-jewelry-try-on',
         'virtual-mens-suit-try-on',
         'virtual-pet-clothing-try-on',
+        'virtual-baby-clothing-try-on',
       ].map((slug) => ({
         url: `${baseUrl}/${lang}/${slug}`,
         lastModified: new Date(),

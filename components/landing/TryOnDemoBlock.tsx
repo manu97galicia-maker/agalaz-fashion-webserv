@@ -15,7 +15,8 @@ export type DemoCategory =
   | 'shoes'
   | 'bag'
   | 'nail'
-  | 'pet-clothing';
+  | 'pet-clothing'
+  | 'baby-clothing';
 
 interface Props {
   category: DemoCategory;

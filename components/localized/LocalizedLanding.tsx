@@ -14,6 +14,7 @@ const SLUG_TO_CATEGORY: Record<string, DemoCategory> = {
   'virtual-jewelry-try-on': 'jewelry',
   'virtual-mens-suit-try-on': 'clothing',
   'virtual-pet-clothing-try-on': 'pet-clothing',
+  'virtual-baby-clothing-try-on': 'baby-clothing',
 };
 
 export interface LocalizedContent {

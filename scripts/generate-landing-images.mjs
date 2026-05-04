@@ -96,6 +96,12 @@ const LANDINGS = [
     item: `A single small knitted pet sweater in mustard yellow with a tiny cable-knit pattern, displayed flat on a clean off-white background, premium pet apparel product photography. Square 1:1. ${STYLE_BASE}`,
     edit: 'Dress the dog in the first image with the mustard-yellow knitted pet sweater from the second image. Fit the sweater naturally to the dog\'s body, follow body contours, leave legs and tail uncovered. Keep the dog, its pose, the cream surface and the lighting identical. Output one photorealistic image.',
   },
+  {
+    slug: 'virtual-baby-clothing-try-on',
+    before: `Full-body editorial photograph of a smiling toddler (about 12 months old) sitting on a soft cream blanket, wearing only a plain white short-sleeve onesie with no prints, neutral nursery backdrop, soft window daylight, square 1:1 framing. Tasteful, professional baby photography. ${STYLE_BASE}`,
+    item: `A single small pastel-pink ruffled baby dress with tiny bow detail, displayed flat on a clean off-white background, premium baby apparel product photography. Square 1:1. ${STYLE_BASE}`,
+    edit: 'Replace the plain white onesie on the toddler in the first image with the pastel-pink ruffled baby dress from the second image. Fit the dress naturally on the baby. Keep the baby, the smile, hair, the cream blanket, the nursery backdrop and the lighting identical. Tasteful baby photography, no text. Output one photorealistic image.',
+  },
 ];
 
 async function imagenGenerate(prompt) {
