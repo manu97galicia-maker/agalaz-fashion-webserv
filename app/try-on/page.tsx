@@ -400,9 +400,10 @@ export default function TryOnPage() {
             <div className="flex items-center gap-4">
               <button
                 onClick={() => router.push('/')}
-                className="p-1.5 hover:bg-slate-100 rounded-full transition-colors"
+                aria-label={pickLang(lang, 'Back to home', 'Volver al inicio', 'Retour à l’accueil', 'Voltar ao início', 'Zurück zur Startseite', 'Torna alla home')}
+                className="p-2.5 -ml-1.5 hover:bg-slate-100 rounded-full transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
               >
-                <ArrowLeft size={18} className="text-slate-400" />
+                <ArrowLeft size={20} className="text-slate-500" />
               </button>
               {user ? (
                 <button
@@ -432,11 +433,11 @@ export default function TryOnPage() {
               {user && (
                 <button
                   onClick={() => { setCreditQty(1); setShowCreditShop(true); }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 border border-amber-200 rounded-full hover:bg-amber-100 transition-colors"
-                  title={pickLang(lang, 'Buy credits', 'Comprar créditos', 'Acheter des crédits', 'Comprar créditos', 'Credits kaufen', 'Acquista crediti')}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 min-h-[40px] bg-amber-50 border border-amber-200 rounded-full hover:bg-amber-100 transition-colors"
+                  aria-label={pickLang(lang, 'Buy credits', 'Comprar créditos', 'Acheter des crédits', 'Comprar créditos', 'Credits kaufen', 'Acquista crediti')}
                 >
-                  <Zap size={12} className="text-amber-600" />
-                  <span className="text-[9px] font-black text-amber-700 uppercase tracking-wide">
+                  <Zap size={14} className="text-amber-600" />
+                  <span className="text-[10px] font-black text-amber-700 uppercase tracking-wide">
                     +{pickLang(lang, 'Credits', 'Créditos', 'Crédits', 'Créditos', 'Credits', 'Crediti')}
                   </span>
                 </button>
@@ -798,7 +799,7 @@ export default function TryOnPage() {
                     if (e.key === 'Enter') handleSendMessage(inputValue);
                   }}
                   placeholder={t.chatPlaceholder}
-                  className="flex-1 px-2 py-2.5 text-[13px] font-bold text-slate-900 placeholder:text-slate-300 bg-transparent outline-none"
+                  className="flex-1 px-2 py-2.5 text-base sm:text-[13px] font-bold text-slate-900 placeholder:text-slate-300 bg-transparent outline-none"
                   enterKeyHint="send"
                   autoComplete="off"
                 />

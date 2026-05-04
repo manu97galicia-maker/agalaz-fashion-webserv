@@ -59,7 +59,7 @@ export default function NailTryOn() {
           <span className="inline-block px-4 py-1.5 bg-fuchsia-50 text-fuchsia-600 text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-6">
             Nails AI
           </span>
-          <h1 className="font-serif text-5xl md:text-7xl text-slate-900 tracking-tight leading-[0.95] mb-6">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-7xl text-slate-900 tracking-tight leading-[0.95] mb-6">
             Virtual Nail
             <br />
             <span className="italic text-slate-400">Try-On.</span>
@@ -218,7 +218,7 @@ export default function NailTryOn() {
       {/* Final CTA */}
       <section className="bg-gradient-to-br from-fuchsia-50 via-white to-fuchsia-50 py-24">
         <div className="max-w-2xl mx-auto px-6 md:px-12 text-center">
-          <h2 className="font-serif text-4xl md:text-6xl text-slate-900 tracking-tight leading-[0.95] mb-6">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-6xl text-slate-900 tracking-tight leading-[0.95] mb-6">
             Stop guessing.
             <br />
             <span className="italic text-fuchsia-400">Just see them.</span>

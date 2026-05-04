@@ -150,7 +150,7 @@ export default function SwimwearTryOn({ lang }: Props) {
             <Sparkles size={14} className="text-indigo-600" />
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600">{t.badge}</span>
           </div>
-          <h1 className="font-serif text-5xl md:text-7xl text-slate-900 tracking-tight leading-[0.9]">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-7xl text-slate-900 tracking-tight leading-[0.9]">
             {t.h1}<br /><span className="italic text-slate-400">{t.h1highlight}</span>
           </h1>
           <p className="text-slate-500 text-base md:text-lg font-light leading-relaxed mt-6 max-w-2xl mx-auto">{t.subtitle}</p>
@@ -254,7 +254,7 @@ export default function SwimwearTryOn({ lang }: Props) {
       <section className="py-20 border-t border-slate-200">
         <div className="max-w-4xl mx-auto px-4">
           <p className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 text-center mb-4">{ui.process}</p>
-          <h2 className="font-serif text-5xl md:text-7xl text-slate-900 tracking-tight leading-[0.9] text-center mb-16">{t.howTitle}</h2>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-7xl text-slate-900 tracking-tight leading-[0.9] text-center mb-16">{t.howTitle}</h2>
           <div className="grid md:grid-cols-3 gap-10">
             {[{ step: '01', title: t.step1, desc: t.step1d }, { step: '02', title: t.step2, desc: t.step2d }, { step: '03', title: t.step3, desc: t.step3d }].map((s) => (
               <div key={s.step} className="text-center">
@@ -270,7 +270,7 @@ export default function SwimwearTryOn({ lang }: Props) {
       <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4">
           <p className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 text-center mb-4">{ui.benefits}</p>
-          <h2 className="font-serif text-5xl md:text-7xl text-slate-900 tracking-tight leading-[0.9] text-center mb-16">{t.whyTitle}</h2>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-7xl text-slate-900 tracking-tight leading-[0.9] text-center mb-16">{t.whyTitle}</h2>
           <div className="grid md:grid-cols-2 gap-5">
             {[{ icon: Heart, title: t.why1t, desc: t.why1d }, { icon: RotateCcw, title: t.why2t, desc: t.why2d }, { icon: Ruler, title: t.why3t, desc: t.why3d }, { icon: ShieldCheck, title: t.why4t, desc: t.why4d }].map((item, i) => (
               <div key={i} className="group border border-slate-200 hover:border-indigo-300 bg-white hover:shadow-lg p-6 transition-all">

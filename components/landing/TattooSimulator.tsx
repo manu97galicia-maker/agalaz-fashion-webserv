@@ -208,7 +208,7 @@ export default function TattooSimulator({ lang }: Props) {
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600">{t.badge}</span>
           </div>
 
-          <h1 className="font-serif text-5xl md:text-7xl text-slate-900 tracking-tight leading-[0.9]">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-7xl text-slate-900 tracking-tight leading-[0.9]">
             {t.h1}<br />
             <span className="italic text-slate-400">{t.h1highlight}</span>
           </h1>
@@ -333,7 +333,7 @@ export default function TattooSimulator({ lang }: Props) {
       <section className="py-20 border-t border-slate-200">
         <div className="max-w-4xl mx-auto px-4">
           <p className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 text-center mb-4">{ui.process}</p>
-          <h2 className="font-serif text-5xl md:text-7xl text-slate-900 tracking-tight leading-[0.9] text-center mb-16">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-7xl text-slate-900 tracking-tight leading-[0.9] text-center mb-16">
             {t.howTitle.split(' ').slice(0, -1).join(' ')} <span className="italic text-slate-400">{t.howTitle.split(' ').slice(-1)}</span>
           </h2>
           <div className="grid md:grid-cols-3 gap-10">
@@ -356,7 +356,7 @@ export default function TattooSimulator({ lang }: Props) {
       <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4">
           <p className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 text-center mb-4">{ui.benefits}</p>
-          <h2 className="font-serif text-5xl md:text-7xl text-slate-900 tracking-tight leading-[0.9] text-center mb-16">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-7xl text-slate-900 tracking-tight leading-[0.9] text-center mb-16">
             {t.whyTitle}
           </h2>
           <div className="grid md:grid-cols-2 gap-5">

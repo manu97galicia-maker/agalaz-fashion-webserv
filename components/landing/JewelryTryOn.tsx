@@ -48,7 +48,7 @@ export default function JewelryTryOn() {
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">
         <div className="text-center">
           <span className="inline-block px-4 py-1.5 bg-rose-50 text-rose-600 text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-6">Fine Jewelry AI</span>
-          <h1 className="font-serif text-5xl md:text-7xl text-slate-900 tracking-tight leading-[0.95] mb-6">Virtual Jewelry<br /><span className="italic text-slate-400">Try-On.</span></h1>
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-7xl text-slate-900 tracking-tight leading-[0.95] mb-6">Virtual Jewelry<br /><span className="italic text-slate-400">Try-On.</span></h1>
           <p className="text-slate-500 text-base md:text-lg font-light max-w-2xl mx-auto leading-relaxed mb-10">
             Necklaces, earrings, rings, bracelets — see how any piece looks on <strong className="text-slate-900 font-semibold">your real body</strong> before paying for fine jewellery you can\'t return.
           </p>
@@ -158,7 +158,7 @@ export default function JewelryTryOn() {
 
       <section className="bg-gradient-to-br from-rose-50 via-white to-rose-50 py-24">
         <div className="max-w-2xl mx-auto px-6 md:px-12 text-center">
-          <h2 className="font-serif text-4xl md:text-6xl text-slate-900 tracking-tight leading-[0.95] mb-6">It\'s on you.<br /><span className="italic text-rose-400">Before it\'s on you.</span></h2>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-6xl text-slate-900 tracking-tight leading-[0.95] mb-6">It\'s on you.<br /><span className="italic text-rose-400">Before it\'s on you.</span></h2>
           <p className="text-slate-500 text-base font-light mb-10 max-w-md mx-auto">One photo. Any piece. 30 seconds. Skip the buyer\'s remorse.</p>
           <Link href="/try-on?category=jewelry" className="inline-flex items-center gap-3 px-10 py-5 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs hover:bg-rose-600 transition-colors">
             <Sparkles size={16} />Try Your First Piece Free<ArrowRight size={14} />

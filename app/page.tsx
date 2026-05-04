@@ -322,13 +322,13 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-indigo-50/30" />
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
 
-        <div className="relative max-w-7xl mx-auto px-6 md:px-12 pt-20 pb-16 md:pt-32 md:pb-24">
+        <div className="relative max-w-7xl mx-auto px-5 md:px-12 pt-12 pb-10 md:pt-32 md:pb-24">
           <div className="text-center max-w-4xl mx-auto">
-            <span className="inline-block px-4 py-1.5 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-8 animate-fade-in">
+            <span className="inline-block px-4 py-1.5 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-6 md:mb-8 animate-fade-in">
               {lt.badge}
             </span>
 
-            <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-slate-900 leading-[0.9] tracking-tight animate-fade-in">
+            <h1 className="font-serif text-[2.5rem] leading-[0.95] sm:text-5xl sm:leading-[0.9] md:text-7xl lg:text-8xl text-slate-900 tracking-tight animate-fade-in">
               <span className="font-black">{pickLang(lang, 'TRY', 'PRUEBA', 'ESSAYEZ', 'EXPERIMENTE', 'PROBIEREN', 'PROVA')}</span>
               {' '}
               <span key={heroWordIdx} className="italic font-normal text-indigo-500 inline-block transition-all duration-500 animate-fade-in">
@@ -388,7 +388,7 @@ export default function HomePage() {
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 mb-6 block">
               {lt.colorExplorer.label}
             </span>
-            <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-slate-900 tracking-tight leading-[0.9]">
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-7xl lg:text-8xl text-slate-900 tracking-tight leading-[1.05] md:leading-[0.9]">
               {lt.colorExplorer.title}{' '}
               <span className="italic text-slate-400">{lt.colorExplorer.titleHighlight}</span>
             </h2>
@@ -472,7 +472,7 @@ export default function HomePage() {
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-6 block">
               {lt.capabilities.label}
             </span>
-            <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-slate-900 tracking-tight leading-[0.9]">
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-7xl lg:text-8xl text-slate-900 tracking-tight leading-[1.05] md:leading-[0.9]">
               {lt.capabilities.title}{' '}
               <span className="italic text-slate-400">{lt.capabilities.titleHighlight}</span>
             </h2>
@@ -506,7 +506,7 @@ export default function HomePage() {
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 mb-6 block">
               {lt.tryBefore.label}
             </span>
-            <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-slate-900 tracking-tight leading-[0.9]">
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-7xl lg:text-8xl text-slate-900 tracking-tight leading-[1.05] md:leading-[0.9]">
               {lt.tryBefore.title}{' '}
               <span className="italic text-slate-400">{lt.tryBefore.titleHighlight}</span>
             </h2>
@@ -577,7 +577,7 @@ export default function HomePage() {
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-6 block">
               {lt.features.label}
             </span>
-            <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-slate-900 tracking-tight leading-[0.9]">
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-6xl lg:text-7xl text-slate-900 tracking-tight leading-[1.05] md:leading-[0.9]">
               {lt.features.title}{' '}
               <span className="italic text-slate-400">{lt.features.titleHighlight}</span>
             </h2>
@@ -620,7 +620,7 @@ export default function HomePage() {
               'Hai un e-commerce?',
             )}
           </span>
-          <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white tracking-tight leading-[0.9] mb-6">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-6xl lg:text-7xl text-white tracking-tight leading-[1.05] md:leading-[0.9] mb-6">
             {pickLang(
               lang,
               'Skyrocket your sales.',
@@ -687,7 +687,7 @@ export default function HomePage() {
       {/* Final CTA */}
       <section className="py-24 md:py-32 bg-slate-900">
         <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
-          <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white tracking-tight leading-[0.9] mb-6">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-6xl lg:text-7xl text-white tracking-tight leading-[1.05] md:leading-[0.9] mb-6">
             {lt.cta.title}
           </h2>
           <p className="text-white/40 text-sm mb-12 max-w-md mx-auto font-light">

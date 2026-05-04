@@ -57,7 +57,7 @@ export default function GlassesTryOn() {
           <span className="inline-block px-4 py-1.5 bg-amber-50 text-amber-700 text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-6">
             Eyewear AI
           </span>
-          <h1 className="font-serif text-5xl md:text-7xl text-slate-900 tracking-tight leading-[0.95] mb-6">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-7xl text-slate-900 tracking-tight leading-[0.95] mb-6">
             Virtual Glasses
             <br />
             <span className="italic text-slate-400">Try-On.</span>
@@ -196,7 +196,7 @@ export default function GlassesTryOn() {
 
       <section className="bg-gradient-to-br from-amber-50 via-white to-amber-50 py-24">
         <div className="max-w-2xl mx-auto px-6 md:px-12 text-center">
-          <h2 className="font-serif text-4xl md:text-6xl text-slate-900 tracking-tight leading-[0.95] mb-6">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-6xl text-slate-900 tracking-tight leading-[0.95] mb-6">
             Stop guessing.
             <br />
             <span className="italic text-amber-500">See the frames.</span>

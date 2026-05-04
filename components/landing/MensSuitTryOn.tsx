@@ -48,7 +48,7 @@ export default function MensSuitTryOn() {
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">
         <div className="text-center">
           <span className="inline-block px-4 py-1.5 bg-blue-50 text-blue-700 text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-6">Menswear AI</span>
-          <h1 className="font-serif text-5xl md:text-7xl text-slate-900 tracking-tight leading-[0.95] mb-6">Virtual Men\'s Suit<br /><span className="italic text-slate-400">Try-On.</span></h1>
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-7xl text-slate-900 tracking-tight leading-[0.95] mb-6">Virtual Men\'s Suit<br /><span className="italic text-slate-400">Try-On.</span></h1>
           <p className="text-slate-500 text-base md:text-lg font-light max-w-2xl mx-auto leading-relaxed mb-10">
             See exactly how any suit, tuxedo, or blazer looks on <strong className="text-slate-900 font-semibold">your real body</strong> — before booking a fitting, before buying off the rack, before paying for tailoring.
           </p>
@@ -157,7 +157,7 @@ export default function MensSuitTryOn() {
 
       <section className="bg-gradient-to-br from-blue-50 via-white to-blue-50 py-24">
         <div className="max-w-2xl mx-auto px-6 md:px-12 text-center">
-          <h2 className="font-serif text-4xl md:text-6xl text-slate-900 tracking-tight leading-[0.95] mb-6">Try the suit.<br /><span className="italic text-blue-500">Skip the fitting.</span></h2>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-6xl text-slate-900 tracking-tight leading-[0.95] mb-6">Try the suit.<br /><span className="italic text-blue-500">Skip the fitting.</span></h2>
           <p className="text-slate-500 text-base font-light mb-10 max-w-md mx-auto">One photo. Any suit. 30 seconds. The cut you\'d actually buy.</p>
           <Link href="/try-on?category=clothing" className="inline-flex items-center gap-3 px-10 py-5 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs hover:bg-blue-600 transition-colors">
             <Sparkles size={16} />Try Your First Suit Free<ArrowRight size={14} />

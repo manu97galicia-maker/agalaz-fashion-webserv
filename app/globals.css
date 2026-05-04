@@ -207,3 +207,23 @@ body {
   background: rgba(99, 102, 241, 0.3);
   color: white;
 }
+
+/* Mobile: force 16px+ on form inputs to disable iOS Safari's auto-zoom-on-focus.
+   Tailwind text-xs/text-sm/text-[13px] etc. on inputs trigger zoom on iPhone, which
+   breaks layout. Visual size on mobile is normalized; sm+ keeps the original sizes. */
+@media (max-width: 639.98px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]),
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* Mobile: ensure all interactive elements have a comfortable minimum tap area.
+   This is a safety net — components should still aim for 44x44 explicitly where
+   it matters, but this catches small icon-only buttons that slipped through. */
+@media (hover: none) and (pointer: coarse) {
+  button, a[role="button"], [role="button"] {
+    touch-action: manipulation;
+  }
+}
