@@ -104,7 +104,7 @@ const LANDINGS = [
   },
 ];
 
-async function imagenGenerate(prompt) {
+async function imagenGenerate(prompt, personGeneration = 'allow_adult') {
   const res = await fetch(IMAGEN_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -113,7 +113,7 @@ async function imagenGenerate(prompt) {
       parameters: {
         sampleCount: 1,
         aspectRatio: '1:1',
-        personGeneration: 'allow_adult',
+        personGeneration,
         safetyFilterLevel: 'block_only_high',
       },
     }),
@@ -124,8 +124,37 @@ async function imagenGenerate(prompt) {
   }
   const data = await res.json();
   const b64 = data?.predictions?.[0]?.bytesBase64Encoded;
-  if (!b64) throw new Error(`Imagen: no image returned: ${JSON.stringify(data).slice(0, 200)}`);
+  if (!b64) throw new Error(`Imagen: no image returned (likely safety-blocked): ${JSON.stringify(data).slice(0, 200)}`);
   return Buffer.from(b64, 'base64');
+}
+
+// Fallback when Imagen safety-blocks a prompt (e.g. baby imagery): generate a
+// fresh PNG with Gemini 3.1 Flash Image text-to-image. Has more permissive
+// filters than Imagen for legitimate non-adult subjects.
+async function geminiTextToImage(prompt) {
+  const ai = new GoogleGenAI({ apiKey: API_KEY });
+  const response = await ai.models.generateContent({
+    model: EDIT_MODEL,
+    contents: [{ role: 'user', parts: [{ text: prompt }] }],
+    config: { responseModalities: ['TEXT', 'IMAGE'] },
+  });
+  const parts = response.candidates?.[0]?.content?.parts || [];
+  for (const p of parts) {
+    if (p.inlineData?.data) return Buffer.from(p.inlineData.data, 'base64');
+  }
+  throw new Error(`Gemini text-to-image: no image returned (finishReason=${response.candidates?.[0]?.finishReason})`);
+}
+
+// Tries Imagen first; if it returns no image (safety filter), falls back to
+// Gemini Flash Image which is more permissive for kids/baby subjects.
+async function generatePanel(prompt) {
+  try {
+    return await imagenGenerate(prompt, 'allow_all');
+  } catch (e) {
+    if (!String(e.message).includes('Imagen')) throw e;
+    console.log(`     ↳ Imagen blocked, retrying via Gemini Flash Image…`);
+    return await geminiTextToImage(prompt);
+  }
 }
 
 async function geminiEdit(beforeBuf, itemBuf, instruction) {
@@ -193,7 +222,7 @@ async function processOne(landing) {
       beforeBuf = fs.readFileSync(beforePath);
     } else {
       console.log(`   gen    ${slug} before  (Imagen)`);
-      beforeBuf = await imagenGenerate(landing.before);
+      beforeBuf = await generatePanel(landing.before);
       fs.writeFileSync(beforePath, beforeBuf);
       await new Promise((r) => setTimeout(r, 1500));
     }
@@ -203,7 +232,7 @@ async function processOne(landing) {
       itemBuf = fs.readFileSync(itemPath);
     } else {
       console.log(`   gen    ${slug} item    (Imagen)`);
-      itemBuf = await imagenGenerate(landing.item);
+      itemBuf = await generatePanel(landing.item);
       fs.writeFileSync(itemPath, itemBuf);
       await new Promise((r) => setTimeout(r, 1500));
     }
