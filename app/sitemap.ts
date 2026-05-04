@@ -12,9 +12,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     images: [`${baseUrl}/blog/${article.slug}/opengraph-image`],
   }));
 
-  // Localized variants of the 4 main pages (home, try-on, virtual-try-on, partners) in es/fr/pt/de/it
+  // Localized variants of the 7 main pages (home, try-on, virtual-try-on, partners, shopify, woocommerce, developers) in es/fr/pt/de/it
   const mainLocalized: MetadataRoute.Sitemap = (['es', 'fr', 'pt', 'de', 'it'] as const).flatMap((lang) =>
-    ['', '/try-on', '/virtual-try-on', '/partners'].map((p) => ({
+    ['', '/try-on', '/virtual-try-on', '/partners', '/shopify', '/woocommerce', '/developers'].map((p) => ({
       url: `${baseUrl}/${lang}${p}`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,

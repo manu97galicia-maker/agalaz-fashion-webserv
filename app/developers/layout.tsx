@@ -39,6 +39,15 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      es: `${BASE_URL}/es/developers`,
+      fr: `${BASE_URL}/fr/developers`,
+      pt: `${BASE_URL}/pt/developers`,
+      de: `${BASE_URL}/de/developers`,
+      it: `${BASE_URL}/it/developers`,
+      'x-default': PAGE_URL,
+    },
   },
 };
 

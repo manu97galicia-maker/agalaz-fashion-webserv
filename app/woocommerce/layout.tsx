@@ -39,6 +39,15 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      es: `${BASE_URL}/es/woocommerce`,
+      fr: `${BASE_URL}/fr/woocommerce`,
+      pt: `${BASE_URL}/pt/woocommerce`,
+      de: `${BASE_URL}/de/woocommerce`,
+      it: `${BASE_URL}/it/woocommerce`,
+      'x-default': PAGE_URL,
+    },
   },
 };
 

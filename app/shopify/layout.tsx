@@ -39,6 +39,15 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: PAGE_URL,
+    languages: {
+      en: PAGE_URL,
+      es: `${BASE_URL}/es/shopify`,
+      fr: `${BASE_URL}/fr/shopify`,
+      pt: `${BASE_URL}/pt/shopify`,
+      de: `${BASE_URL}/de/shopify`,
+      it: `${BASE_URL}/it/shopify`,
+      'x-default': PAGE_URL,
+    },
   },
 };
 
