@@ -72,19 +72,19 @@ export default function PaywallPage() {
 
   const plans = {
     test: {
-      price: '0,99',
-      currency: '$',
-      label: en ? 'Starter' : 'Starter',
-      renders: en ? '1 render + 1 FREE 🎁' : '1 render + 1 GRATIS 🎁',
-      sub: en ? 'Start for less than $1' : 'Empieza por menos de $1',
-    },
-    popular: {
       price: '4,99',
       currency: '$',
+      label: en ? 'Starter' : 'Starter',
+      renders: en ? '10 renders' : '10 renders',
+      sub: en ? '$0.50 per render' : '$0,50 por render',
+    },
+    popular: {
+      price: '9,99',
+      currency: '$',
       label: en ? 'Style Pro' : 'Style Pro',
-      renders: en ? '12 renders' : '12 renders',
-      sub: en ? '$0.42 per render' : '$0,42 por render',
-      savings: en ? 'SAVE 58%' : 'AHORRA 58%',
+      renders: en ? '25 renders' : '25 renders',
+      sub: en ? '$0.40 per render' : '$0,40 por render',
+      savings: en ? 'SAVE 20%' : 'AHORRA 20%',
     },
   };
 
