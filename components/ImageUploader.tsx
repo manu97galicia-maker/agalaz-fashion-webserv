@@ -108,35 +108,35 @@ export function ImageUploader({ label, type, image, onImageSelect, icon }: Image
             </div>
             <button
               onClick={() => onImageSelect(null)}
-              className="absolute top-2 right-2 p-1.5 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition-colors shadow-sm"
+              aria-label="Remove image"
+              className="absolute top-1.5 right-1.5 p-2 min-w-[36px] min-h-[36px] bg-white/95 backdrop-blur-sm rounded-full hover:bg-white transition-colors shadow flex items-center justify-center"
             >
-              <X size={14} className="text-slate-500" />
+              <X size={16} className="text-slate-600" />
             </button>
+            {/* Change button — always visible on touch (no hover), hover-only on desktop. */}
             <button
               onClick={() => inputRef.current?.click()}
-              className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-all flex items-center justify-center opacity-0 hover:opacity-100"
+              className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-sm px-4 py-2 min-h-[36px] rounded-full shadow flex items-center justify-center md:opacity-0 md:group-hover:opacity-100 transition-opacity"
             >
-              <div className="bg-white/90 backdrop-blur-sm px-3 py-2 rounded-full shadow-sm">
-                <span className="text-[9px] font-black text-slate-700 uppercase tracking-widest">Change</span>
-              </div>
+              <span className="text-[10px] font-black text-slate-700 uppercase tracking-widest">Change</span>
             </button>
           </div>
         ) : (
           <button
             onClick={() => inputRef.current?.click()}
-            className="flex flex-col items-center justify-center w-full h-full p-4 hover:bg-indigo-50/50 transition-all"
+            className="flex flex-col items-center justify-center w-full h-full p-4 hover:bg-indigo-50/50 active:bg-indigo-100/50 transition-all"
           >
-            <div className="p-3 bg-white border border-slate-200 rounded-xl mb-3 shadow-sm">
+            <div className="p-3.5 bg-white border border-slate-200 rounded-xl mb-3 shadow-sm">
               {icon || (type === 'user' ? (
-                <Camera size={20} className="text-slate-300" />
+                <Camera size={24} className="text-slate-400" />
               ) : (
-                <Shirt size={20} className="text-slate-300" />
+                <Shirt size={24} className="text-slate-400" />
               ))}
             </div>
-            <span className="text-[9px] font-black uppercase tracking-widest text-slate-300">
+            <span className="text-[11px] font-black uppercase tracking-widest text-slate-500">
               Upload
             </span>
-            <ImagePlus size={12} className="text-slate-200 mt-2" />
+            <ImagePlus size={14} className="text-slate-300 mt-2" />
           </button>
         )}
       </div>

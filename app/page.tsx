@@ -403,7 +403,7 @@ export default function HomePage() {
               {/* Before */}
               <div className="group text-center">
                 <div className="aspect-[3/4] rounded-2xl overflow-hidden border-2 border-slate-200 relative shadow-sm group-hover:shadow-lg transition-all bg-slate-100">
-                  <img src="/images/before.png" alt={pickLang(lang, 'Original photo', 'Foto original', 'Photo originale', 'Foto original', 'Originalfoto', 'Foto originale')} className="w-full h-full object-cover" />
+                  <img src="/images/before.png" alt={pickLang(lang, 'Original photo', 'Foto original', 'Photo originale', 'Foto original', 'Originalfoto', 'Foto originale')} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                   <div className="absolute top-3 left-3 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full">
                     <span className="text-[9px] font-black uppercase tracking-widest text-slate-500">
                       {pickLang(lang, 'Your photo', 'Tu foto', 'Votre photo', 'A sua foto', 'Ihr Foto', 'La tua foto')}
@@ -420,7 +420,7 @@ export default function HomePage() {
                   <div className="w-12 h-[2px] bg-slate-200" />
                 </div>
                 <div className="aspect-square w-40 md:w-48 rounded-2xl overflow-hidden border-2 border-indigo-200 bg-white shadow-md relative">
-                  <img src="/images/garment.jpg" alt={pickLang(lang, 'Garment', 'Prenda', 'Vêtement', 'Peça de roupa', 'Kleidungsstück', 'Capo')} className="w-full h-full object-cover" />
+                  <img src="/images/garment.jpg" alt={pickLang(lang, 'Garment', 'Prenda', 'Vêtement', 'Peça de roupa', 'Kleidungsstück', 'Capo')} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                   <div className="absolute top-2 left-2 px-2 py-0.5 bg-indigo-600/90 backdrop-blur-sm rounded-full">
                     <span className="text-[8px] font-black uppercase tracking-widest text-white">
                       {pickLang(lang, 'Garment', 'Prenda', 'Vêtement', 'Peça de roupa', 'Kleidungsstück', 'Capo')}
@@ -440,7 +440,7 @@ export default function HomePage() {
               {/* After */}
               <div className="group text-center">
                 <div className="aspect-[3/4] rounded-2xl overflow-hidden border-2 border-indigo-300 relative shadow-lg group-hover:shadow-xl transition-all ring-4 ring-indigo-100 bg-indigo-50">
-                  <img src="/images/after.png" alt="AI try-on result" className="w-full h-full object-cover" />
+                  <img src="/images/after.png" alt="AI try-on result" className="w-full h-full object-cover" loading="lazy" decoding="async" />
                   <div className="absolute top-3 left-3 px-3 py-1 bg-indigo-600/90 backdrop-blur-sm rounded-full">
                     <span className="text-[9px] font-black uppercase tracking-widest text-white">
                       AI Result

@@ -132,14 +132,14 @@ export default function PaywallPage() {
         </div>
       </nav>
 
-      <div className="max-w-xl mx-auto px-6 py-12 md:py-20">
+      <div className="max-w-xl mx-auto px-5 md:px-6 py-8 md:py-20">
         <>
         {/* Header */}
-        <div className="text-center mb-10">
-          <span className="inline-block px-4 py-1.5 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-6">
+        <div className="text-center mb-8 md:mb-10">
+          <span className="inline-block px-4 py-1.5 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-5 md:mb-6">
             Agalaz
           </span>
-          <h1 className="font-serif text-5xl md:text-7xl text-slate-900 tracking-tight leading-[0.9]">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-7xl text-slate-900 tracking-tight leading-[1.05] md:leading-[0.9]">
             {en ? 'Try It' : 'Pruébatelo'}
             {' '}
             <span className="italic text-slate-400">
