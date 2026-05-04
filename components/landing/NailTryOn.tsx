@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { Sparkles, Check, ArrowRight, Camera, Shield, Clock, Star, ChevronDown, Palette, Hand } from 'lucide-react';
 import TryOnDemoBlock from '@/components/landing/TryOnDemoBlock';
+import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
 
 const FAQ_ITEMS = [
   {
@@ -251,6 +252,9 @@ export default function NailTryOn() {
           </div>
         </div>
       </footer>
+    
+      {/* B2B partners upsell */}
+      <PartnersUpsellBlock lang="en" />
     </main>
   );
 }

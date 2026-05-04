@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback } from 'react';
 import { Sparkles, Upload, Camera, X, Check, ChevronDown, ChevronUp, ArrowRight, Palette, Target, Shield, Zap, Star, Users, Clock, Lock } from 'lucide-react';
+import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
 import Link from 'next/link';
 import { signInWithGoogle, signInWithOtp } from '@/services/authService';
 import { tattooTranslations, type LandingLang } from '@/lib/i18n/landingTranslations';
@@ -456,6 +457,9 @@ export default function TattooSimulator({ lang }: Props) {
           </div>
         </div>
       </section>
+
+            {/* B2B partners upsell — works in EN, ES, FR, PT, DE, IT */}
+      <PartnersUpsellBlock lang={lang} />
 
       {/* Footer */}
       <footer className="border-t border-slate-200 py-6">

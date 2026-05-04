@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ArrowRight, Sparkles, Zap, Shield, Star } from 'lucide-react';
 import TriptychDemo, { TRIPTYCH_LABELS } from '@/components/TriptychDemo';
 import TryOnDemoBlock, { type DemoCategory } from '@/components/landing/TryOnDemoBlock';
+import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
 
 type Lang = 'fr' | 'pt' | 'de' | 'it';
 
@@ -188,6 +189,9 @@ export default function LocalizedLanding({ c, enHref, slug, lang }: Props) {
           ))}
         </div>
       </section>
+
+      {/* B2B partners upsell */}
+      <PartnersUpsellBlock lang={lang} />
 
       {/* Final CTA */}
       <section className="bg-indigo-50">

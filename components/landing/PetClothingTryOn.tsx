@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { Sparkles, Check, ArrowRight, Heart, Camera, Shield, Clock, Star, ChevronDown, Dog } from 'lucide-react';
 import TryOnDemoBlock from '@/components/landing/TryOnDemoBlock';
+import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
 
 const FAQ_ITEMS = [
   {
@@ -176,6 +177,9 @@ export default function PetClothingTryOn() {
           </div>
         </div>
       </footer>
+    
+      {/* B2B partners upsell */}
+      <PartnersUpsellBlock lang="en" />
     </main>
   );
 }
