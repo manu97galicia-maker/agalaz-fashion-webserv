@@ -60,6 +60,7 @@ export const metadata: Metadata = {
     canonical: 'https://agalaz.com/virtual-wedding-dress-try-on',
     languages: {
       en: 'https://agalaz.com/virtual-wedding-dress-try-on',
+      es: 'https://agalaz.com/es/virtual-wedding-dress-try-on',
       fr: 'https://agalaz.com/fr/virtual-wedding-dress-try-on',
       pt: 'https://agalaz.com/pt/virtual-wedding-dress-try-on',
       de: 'https://agalaz.com/de/virtual-wedding-dress-try-on',

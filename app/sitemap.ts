@@ -116,8 +116,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
-    // Localized landing pages (FR, PT, DE, IT) — 9 categories × 4 languages = 36 URLs
-    ...(['fr', 'pt', 'de', 'it'] as const).flatMap((lang) =>
+    // Localized landing pages (ES, FR, PT, DE, IT) — 9 categories × 5 languages = 45 URLs
+    ...(['es', 'fr', 'pt', 'de', 'it'] as const).flatMap((lang) =>
       [
         'virtual-tattoo-simulator',
         'realistic-swimwear-try-on',

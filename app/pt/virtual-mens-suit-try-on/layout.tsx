@@ -15,6 +15,7 @@ export const metadata: Metadata = {
     canonical: pageUrl,
     languages: {
       'en': enUrl,
+      'es': `${baseUrl}/es/virtual-mens-suit-try-on`,
       'fr': `${baseUrl}/fr/virtual-mens-suit-try-on`,
       'pt': `${baseUrl}/pt/virtual-mens-suit-try-on`,
       'de': `${baseUrl}/de/virtual-mens-suit-try-on`,

@@ -37,6 +37,7 @@ export const metadata: Metadata = {
     canonical: 'https://agalaz.com/virtual-mens-suit-try-on',
     languages: {
       en: 'https://agalaz.com/virtual-mens-suit-try-on',
+      es: 'https://agalaz.com/es/virtual-mens-suit-try-on',
       fr: 'https://agalaz.com/fr/virtual-mens-suit-try-on',
       pt: 'https://agalaz.com/pt/virtual-mens-suit-try-on',
       de: 'https://agalaz.com/de/virtual-mens-suit-try-on',

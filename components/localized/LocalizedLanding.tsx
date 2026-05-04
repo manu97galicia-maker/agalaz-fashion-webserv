@@ -4,7 +4,7 @@ import TriptychDemo, { TRIPTYCH_LABELS } from '@/components/TriptychDemo';
 import TryOnDemoBlock, { type DemoCategory } from '@/components/landing/TryOnDemoBlock';
 import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
 
-type Lang = 'fr' | 'pt' | 'de' | 'it';
+type Lang = 'es' | 'fr' | 'pt' | 'de' | 'it';
 
 // Map of localized landing slugs → demo category for TryOnDemoBlock.
 const SLUG_TO_CATEGORY: Record<string, DemoCategory> = {

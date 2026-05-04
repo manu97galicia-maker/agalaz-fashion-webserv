@@ -12,7 +12,7 @@
 
 import type { LocalizedContent } from '@/components/localized/LocalizedLanding';
 
-export type Lang = 'fr' | 'pt' | 'de' | 'it';
+export type Lang = 'es' | 'fr' | 'pt' | 'de' | 'it';
 
 export type LocalizedSlug =
   | 'virtual-wedding-dress-try-on'
@@ -34,6 +34,7 @@ export interface LocalizedPageData {
 }
 
 const FOOTER_LABELS = {
+  es: { home: 'Inicio', tryOn: 'Probador', partners: 'Partners', blog: 'Blog', privacy: 'Privacidad', terms: 'Términos' },
   fr: { home: 'Accueil', tryOn: 'Essayage', partners: 'Partenaires', blog: 'Blog', privacy: 'Confidentialité', terms: 'Conditions' },
   pt: { home: 'Início', tryOn: 'Provador', partners: 'Parceiros', blog: 'Blog', privacy: 'Privacidade', terms: 'Termos' },
   de: { home: 'Startseite', tryOn: 'Anprobe', partners: 'Partner', blog: 'Blog', privacy: 'Datenschutz', terms: 'AGB' },
@@ -41,6 +42,7 @@ const FOOTER_LABELS = {
 } as const;
 
 const FREE_NOTE = {
+  es: '2 pruebas gratis · Sin tarjeta · Cancela cuando quieras',
   fr: '2 essais gratuits · Sans carte · Annulez quand vous voulez',
   pt: '2 testes grátis · Sem cartão · Cancele quando quiser',
   de: '2 kostenlose Tests · Keine Karte erforderlich · Jederzeit kündbar',
@@ -48,6 +50,7 @@ const FREE_NOTE = {
 } as const;
 
 const SECONDARY_CTA = {
+  es: 'Ver versión en inglés',
   fr: 'Voir la version anglaise',
   pt: 'Ver versão em inglês',
   de: 'Englische Version ansehen',
@@ -59,6 +62,50 @@ const SECONDARY_CTA = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const weddingDress: Record<Lang, LocalizedPageData> = {
+  es: {
+    meta: {
+      title: 'Probador Virtual de Vestido de Novia — IA Gratis | Agalaz',
+      description: 'Pruébate cualquier vestido de novia en tu foto con IA. Gratis, instantáneo y privado. Elige el corte perfecto antes de comprar.',
+      keywords: ['probador virtual vestido de novia', 'vestido novia ia', 'probarse vestido novia online', 'simulador vestido novia', 'vestido boda virtual'],
+    },
+    jsonLdName: 'Probador Virtual de Vestido de Novia',
+    breadcrumbName: 'Probador Vestido de Novia',
+    content: {
+      badge: 'Para futuras novias',
+      h1Top: 'Pruébate el vestido',
+      h1Highlight: 'antes de comprarlo.',
+      subtitle: 'Sube tu foto, elige cualquier vestido de novia y mira exactamente cómo te queda — silueta, largo, encaje, velo. La IA respeta tu cuerpo real.',
+      ctaPrimary: 'Probar ahora',
+      ctaSecondary: SECONDARY_CTA.es,
+      freeNote: FREE_NOTE.es,
+      whyTitle: '¿Por qué probarlo virtualmente?',
+      why1Title: 'Evita decepciones',
+      why1Desc: 'Un vestido puede ser precioso en el maniquí y caer totalmente diferente en ti. El probador virtual elimina la sorpresa.',
+      why2Title: 'Ahorra tiempo',
+      why2Desc: 'En lugar de visitar 5 tiendas para 30 vestidos, compara 30 vestidos en 30 minutos desde tu sofá.',
+      why3Title: 'Privado y seguro',
+      why3Desc: 'Tus fotos nunca se almacenan. Todo se procesa en tiempo real y se elimina al instante.',
+      howTitle: 'Cómo funciona',
+      step1Title: 'Sube tu foto',
+      step1Desc: 'Una foto de cuerpo entero, idealmente de pie con fondo neutro y luz natural.',
+      step2Title: 'Sube el vestido',
+      step2Desc: 'Foto de la diseñadora, captura de tienda online o imagen de Pinterest. La IA se adapta.',
+      step3Title: 'Recibe el resultado',
+      step3Desc: 'En ~10 segundos ves el vestido en tu cuerpo real. Pide ajustes por chat.',
+      faqTitle: 'Preguntas frecuentes',
+      faqs: [
+        { q: '¿La IA respeta mi cuerpo real?', a: 'Sí. La IA mantiene tu silueta, altura y proporciones exactas. No te embellece — muestra el vestido en tu cuerpo real para que decidas con información.' },
+        { q: '¿Puedo probarme un vestido que vi en Pinterest?', a: 'Sí. Cualquier imagen clara de un vestido funciona: foto del diseñador, captura de tienda online, imagen de Pinterest, foto en tienda. La IA detecta el vestido y lo aplica.' },
+        { q: '¿Puedo ver el vestido en distintos ángulos?', a: 'Sí. Tras el primer resultado pide por chat: "vista de espaldas", "de perfil", "con velo corto", "longitud al tobillo". La IA rehace manteniendo vestido y cuerpo.' },
+        { q: '¿Cuánto cuesta?', a: 'Las primeras 2 pruebas son gratis, sin tarjeta. Después: pack Starter $0,99 (1 render + 1 GRATIS) o Style Pro $4,99 (12 renders, AHORRA 58%). Pago único.' },
+        { q: '¿Mis fotos son privadas?', a: 'Sí. Política de cero retención: las fotos se procesan en memoria y se eliminan inmediatamente tras el resultado. Nada se guarda, nada se comparte.' },
+      ],
+      finalCtaTitle: '¿Lista para probarte tu vestido de novia?',
+      finalCtaSubtitle: '2 pruebas gratis para empezar. Sin tarjeta requerida.',
+      finalCtaButton: 'Probar ahora',
+      footerLabels: FOOTER_LABELS.es,
+    },
+  },
   fr: {
     meta: {
       title: 'Essayage Virtuel Robe de Mariée — IA Gratuite | Agalaz',
@@ -242,6 +289,50 @@ const weddingDress: Record<Lang, LocalizedPageData> = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const nail: Record<Lang, LocalizedPageData> = {
+  es: {
+    meta: {
+      title: 'Probador Virtual de Uñas — Manicura IA Gratis | Agalaz',
+      description: 'Pruébate cualquier diseño de uñas en tu mano con IA. Gratis, instantáneo. Mira el resultado antes de la cita en el salón.',
+      keywords: ['probador virtual uñas', 'manicura virtual', 'simulador uñas ia', 'probarse esmalte online', 'nail art virtual'],
+    },
+    jsonLdName: 'Probador Virtual de Uñas',
+    breadcrumbName: 'Probador Uñas',
+    content: {
+      badge: 'Para fans de la manicura',
+      h1Top: 'Pruébate las uñas',
+      h1Highlight: 'antes de la cita.',
+      subtitle: 'Sube una foto de tu mano, elige cualquier diseño de uñas y ve exactamente cómo te quedan. Esmalte, francesa, nail art, cromo — todo es posible.',
+      ctaPrimary: 'Probar ahora',
+      ctaSecondary: SECONDARY_CTA.es,
+      freeNote: FREE_NOTE.es,
+      whyTitle: '¿Por qué probarlo virtualmente?',
+      why1Title: 'Evita arrepentimientos',
+      why1Desc: 'Un diseño puede ser precioso en Instagram y verse raro en tus manos. Míralo antes de gastar 40 € en el salón.',
+      why2Title: 'Compara 10 diseños en 5 minutos',
+      why2Desc: 'En vez de hacer scroll 2 horas, ve cada diseño aplicado en tu mano real.',
+      why3Title: 'Lleva la foto a tu manicurista',
+      why3Desc: 'Muestra exactamente lo que quieres. Sin malentendidos, sin sorpresas.',
+      howTitle: 'Cómo funciona',
+      step1Title: 'Foto de tu mano',
+      step1Desc: 'Mano apoyada plana, dedos ligeramente separados, uñas bien visibles.',
+      step2Title: 'Elige el diseño',
+      step2Desc: 'Foto de referencia, captura de Pinterest o tendencia de Instagram. La IA se adapta.',
+      step3Title: 'Recibe el resultado',
+      step3Desc: 'En ~10 segundos ves el diseño en tus uñas reales. Pide cambios por chat.',
+      faqTitle: 'Preguntas frecuentes',
+      faqs: [
+        { q: '¿Qué estilos puedo probar?', a: 'Todos: esmalte clásico, francesa, francesa invertida, ombré, cromo, magnético, nail art, pegatinas, strass, almendra larga, cuadrada, stiletto. Si la imagen existe, la IA la aplica.' },
+        { q: '¿Puedo probar largos diferentes?', a: 'Sí. Pide por chat: "más largas", "más cortas", "almendra", "cuadradas". La IA rehace manteniendo el diseño y tu mano.' },
+        { q: '¿Funciona también para hombres?', a: 'Por supuesto. La manicura no tiene género — la IA aplica el diseño a la mano que subas, sea cual sea.' },
+        { q: '¿Cuánto cuesta?', a: 'Las primeras 2 pruebas son gratis, sin tarjeta. Después: pack Starter $0,99 o Style Pro $4,99 (12 renders, AHORRA 58%). Pago único.' },
+        { q: '¿Las fotos son privadas?', a: 'Sí. Cero retención: fotos procesadas en memoria y eliminadas al instante.' },
+      ],
+      finalCtaTitle: '¿Lista para probarte las uñas?',
+      finalCtaSubtitle: '2 pruebas gratis. Sin tarjeta. Sin compromiso.',
+      finalCtaButton: 'Probar ahora',
+      footerLabels: FOOTER_LABELS.es,
+    },
+  },
   fr: {
     meta: {
       title: 'Essayage Virtuel d\'Ongles — Manucure IA Gratuite | Agalaz',
@@ -425,6 +516,50 @@ const nail: Record<Lang, LocalizedPageData> = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const glasses: Record<Lang, LocalizedPageData> = {
+  es: {
+    meta: {
+      title: 'Probador Virtual de Gafas — Try-On IA Gratis | Agalaz',
+      description: 'Pruébate cualquier gafa en tu cara con IA. De sol, graduadas, de diseñador. Encuentra la montura perfecta antes de comprar.',
+      keywords: ['probador virtual gafas', 'probarse gafas online', 'gafas virtuales ia', 'simulador gafas', 'try on gafas sol'],
+    },
+    jsonLdName: 'Probador Virtual de Gafas',
+    breadcrumbName: 'Probador Gafas',
+    content: {
+      badge: 'Para elegir bien tus gafas',
+      h1Top: 'Pruébate las gafas',
+      h1Highlight: 'antes de pedirlas.',
+      subtitle: 'Sube tu foto, elige cualquier montura — de sol, graduadas, de diseñador — y mira exactamente cómo te quedan en la cara.',
+      ctaPrimary: 'Probar ahora',
+      ctaSecondary: SECONDARY_CTA.es,
+      freeNote: FREE_NOTE.es,
+      whyTitle: '¿Por qué probarlas virtualmente?',
+      why1Title: 'Evita devoluciones',
+      why1Desc: 'Comprar gafas online sin probarlas genera un 40% de devoluciones. El probador virtual elimina la duda.',
+      why2Title: 'Compara 20 modelos en 10 min',
+      why2Desc: 'Ray-Ban, Tom Ford, marca indie — compara en tu cara real, lado a lado.',
+      why3Title: 'Encuentra la forma ideal',
+      why3Desc: 'Cara redonda, cuadrada, ovalada, en corazón — mira qué monturas equilibran realmente tus rasgos.',
+      howTitle: 'Cómo funciona',
+      step1Title: 'Foto de tu cara',
+      step1Desc: 'Foto de frente, luz natural, cara entera visible.',
+      step2Title: 'Foto de las gafas',
+      step2Desc: 'Captura del fabricante, foto en tienda o Pinterest.',
+      step3Title: 'Recibe el resultado',
+      step3Desc: 'En ~10 segundos ves las gafas en tu cara. Pide cambios por chat.',
+      faqTitle: 'Preguntas frecuentes',
+      faqs: [
+        { q: '¿La IA respeta mi rostro?', a: 'Sí. La montura se adapta al ancho de tu cara, posición de los ojos y curvatura de las mejillas. No es un overlay plano — es un render realista.' },
+        { q: '¿Puedo ver cómo las de sol oscurecen mis ojos?', a: 'Sí. Las lentes tintadas (gris, verde, marrón, espejadas) se renderizan con la opacidad real — ves si los ojos quedan visibles o no.' },
+        { q: '¿Funciona con gafas graduadas?', a: 'Sí para la montura. Las lentes correctivas no distorsionan la cara en pantalla (no aplica graduación), pero ves la montura exactamente.' },
+        { q: '¿Cuánto cuesta?', a: 'Las primeras 2 pruebas son gratis, sin tarjeta. Después: pack Starter $0,99 o Style Pro $4,99 (AHORRA 58%). Pago único.' },
+        { q: '¿Las fotos son privadas?', a: 'Sí. Cero retención: fotos procesadas en memoria y eliminadas al instante.' },
+      ],
+      finalCtaTitle: '¿Listo para encontrar tus gafas?',
+      finalCtaSubtitle: '2 pruebas gratis. Sin tarjeta. Sin compromiso.',
+      finalCtaButton: 'Probar ahora',
+      footerLabels: FOOTER_LABELS.es,
+    },
+  },
   fr: {
     meta: {
       title: 'Essayage Virtuel de Lunettes — Try-On IA Gratuit | Agalaz',
@@ -608,6 +743,50 @@ const glasses: Record<Lang, LocalizedPageData> = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const jewelry: Record<Lang, LocalizedPageData> = {
+  es: {
+    meta: {
+      title: 'Probador Virtual de Joyas — Try-On IA Gratis | Agalaz',
+      description: 'Pruébate collares, anillos, pulseras y relojes en tu foto con IA. Mira la joya antes de comprarla — brillo, tamaño, armonía.',
+      keywords: ['probador virtual joyas', 'probarse collar online', 'anillo virtual ia', 'simulador joyas', 'try on joyas'],
+    },
+    jsonLdName: 'Probador Virtual de Joyas',
+    breadcrumbName: 'Probador Joyas',
+    content: {
+      badge: 'Para elegir bien tus joyas',
+      h1Top: 'Pruébate la joya',
+      h1Highlight: 'antes de regalarla.',
+      subtitle: 'Sube tu foto, elige collar, anillo o pulsera y ve exactamente cómo te queda. Oro, plata, perlas, diamantes — el brillo real se respeta.',
+      ctaPrimary: 'Probar ahora',
+      ctaSecondary: SECONDARY_CTA.es,
+      freeNote: FREE_NOTE.es,
+      whyTitle: '¿Por qué probarlo virtualmente?',
+      why1Title: 'Mira la escala real',
+      why1Desc: 'Un anillo de 8 mm en una foto de producto no dice cómo se verá en tu dedo. La IA respeta las proporciones exactas.',
+      why2Title: 'Compara oro, plata, rosa',
+      why2Desc: 'La misma joya en oro amarillo, blanco y rosa se compara en 30 segundos — elige el metal que realmente te queda.',
+      why3Title: 'Evita sorpresas en regalos',
+      why3Desc: 'Antes de comprar el collar de aniversario, míralo en su foto (con su consentimiento). Sin devoluciones incómodas.',
+      howTitle: 'Cómo funciona',
+      step1Title: 'Foto de la zona',
+      step1Desc: 'Cuello y clavículas para collar, mano para anillo, muñeca para pulsera — bien iluminada.',
+      step2Title: 'Foto de la joya',
+      step2Desc: 'Captura del joyero, foto de tienda o Pinterest.',
+      step3Title: 'Recibe el resultado',
+      step3Desc: 'En ~10 segundos ves la joya puesta. Pide cambios por chat.',
+      faqTitle: 'Preguntas frecuentes',
+      faqs: [
+        { q: '¿La IA respeta el tamaño real de la joya?', a: 'Sí. Si especificas la talla (US 6, cadena de 8 mm, etc.), la IA ajusta proporciones. Si no, las estima desde la foto de referencia.' },
+        { q: '¿Puedo verla en distintos metales?', a: 'Sí. Pide por chat: "en oro rosa", "en plata", "en oro blanco". La IA rehace con el metal pedido.' },
+        { q: '¿Funciona con diamantes y piedras?', a: 'Sí. La IA renderiza las piedras con brillo realista — talla brillante, esmeralda, princesa, ovalada. El color (D, H, fancy) se respeta si la imagen lo muestra.' },
+        { q: '¿Cuánto cuesta?', a: 'Las primeras 2 pruebas son gratis, sin tarjeta. Después: pack Starter $0,99 o Style Pro $4,99 (AHORRA 58%). Pago único.' },
+        { q: '¿Las fotos son privadas?', a: 'Sí. Cero retención: fotos procesadas en memoria y eliminadas al instante.' },
+      ],
+      finalCtaTitle: '¿Lista para probarte la joya?',
+      finalCtaSubtitle: '2 pruebas gratis. Sin tarjeta. Sin compromiso.',
+      finalCtaButton: 'Probar ahora',
+      footerLabels: FOOTER_LABELS.es,
+    },
+  },
   fr: {
     meta: {
       title: 'Essayage Virtuel de Bijoux — Try-On IA Gratuit | Agalaz',
@@ -791,6 +970,50 @@ const jewelry: Record<Lang, LocalizedPageData> = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const mensSuit: Record<Lang, LocalizedPageData> = {
+  es: {
+    meta: {
+      title: 'Probador Virtual de Trajes Hombre — IA Gratis | Agalaz',
+      description: 'Pruébate cualquier traje en tu foto con IA. Esmoquin, traje 2 o 3 piezas, blazer. Encuentra el corte perfecto antes de pedirlo.',
+      keywords: ['probador virtual traje hombre', 'traje hombre ia', 'probarse traje online', 'simulador esmoquin', 'traje boda virtual'],
+    },
+    jsonLdName: 'Probador Virtual de Trajes Hombre',
+    breadcrumbName: 'Probador Traje Hombre',
+    content: {
+      badge: 'Para encontrar el traje correcto',
+      h1Top: 'Pruébate el traje',
+      h1Highlight: 'antes de pedirlo.',
+      subtitle: 'Sube tu foto, elige el traje — esmoquin, 2 piezas, 3 piezas, blazer — y mira exactamente cómo te queda. Corte, largo de manga, solapas.',
+      ctaPrimary: 'Probar ahora',
+      ctaSecondary: SECONDARY_CTA.es,
+      freeNote: FREE_NOTE.es,
+      whyTitle: '¿Por qué probarlo virtualmente?',
+      why1Title: 'Evita arreglos caros',
+      why1Desc: 'Mira el corte real antes de pedir. Si el largo o los hombros no van, lo sabes antes de pagar 700 €.',
+      why2Title: 'Compara 5 cortes lado a lado',
+      why2Desc: 'Slim, clásico, oversize. Marino, antracita, azul noche. Compara en tu cuerpo real antes de decidir.',
+      why3Title: 'Imprescindible para bodas',
+      why3Desc: 'Novio, padrino o invitado — mira si el traje funciona con tu morfología sin ir a 5 tiendas.',
+      howTitle: 'Cómo funciona',
+      step1Title: 'Foto de cuerpo entero',
+      step1Desc: 'De pie, fondo neutro, luz natural.',
+      step2Title: 'Foto del traje',
+      step2Desc: 'Captura de la web, foto de catálogo o Pinterest. La IA se adapta.',
+      step3Title: 'Recibe el resultado',
+      step3Desc: 'En ~10 segundos ves el traje puesto. Pide cambios por chat.',
+      faqTitle: 'Preguntas frecuentes',
+      faqs: [
+        { q: '¿La IA respeta mi cuerpo?', a: 'Sí. El corte se adapta a tus hombros, cintura y largo de pierna. Ves la caída real de hombros, el largo exacto de chaqueta y pantalón.' },
+        { q: '¿Puedo probar cortes diferentes?', a: 'Sí. Pide por chat: "slim", "ajustado", "clásico", "oversize". La IA rehace manteniendo tela y color.' },
+        { q: '¿Funciona con trajes de 3 piezas?', a: 'Sí. Esmoquin con chaleco, 3 piezas clásico, frac. La IA detecta los elementos y los aplica correctamente.' },
+        { q: '¿Cuánto cuesta?', a: 'Las primeras 2 pruebas son gratis, sin tarjeta. Después: pack Starter $0,99 o Style Pro $4,99 (AHORRA 58%). Pago único.' },
+        { q: '¿Las fotos son privadas?', a: 'Sí. Cero retención: fotos procesadas en memoria y eliminadas al instante.' },
+      ],
+      finalCtaTitle: '¿Listo para probarte el traje?',
+      finalCtaSubtitle: '2 pruebas gratis. Sin tarjeta. Sin compromiso.',
+      finalCtaButton: 'Probar ahora',
+      footerLabels: FOOTER_LABELS.es,
+    },
+  },
   fr: {
     meta: {
       title: 'Essayage Virtuel Costume Homme — IA Gratuite | Agalaz',
@@ -974,6 +1197,50 @@ const mensSuit: Record<Lang, LocalizedPageData> = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const petClothing: Record<Lang, LocalizedPageData> = {
+  es: {
+    meta: {
+      title: 'Probador Virtual de Ropa para Mascotas — IA Gratis | Agalaz',
+      description: 'Pruébale cualquier ropa, abrigo o disfraz a tu perro o gato con IA. Encuentra la talla correcta antes de comprar.',
+      keywords: ['probador virtual ropa perro', 'abrigo perro ia', 'ropa gato virtual', 'disfraz mascota online', 'probador perro'],
+    },
+    jsonLdName: 'Probador Virtual de Ropa para Mascotas',
+    breadcrumbName: 'Probador Ropa Mascotas',
+    content: {
+      badge: 'Para tus compañeros peludos',
+      h1Top: 'Vístele a tu mascota',
+      h1Highlight: 'antes de comprar.',
+      subtitle: 'Sube una foto de tu perro o gato, elige la prenda — abrigo, jersey, impermeable, disfraz — y mira exactamente cómo le queda.',
+      ctaPrimary: 'Probar ahora',
+      ctaSecondary: SECONDARY_CTA.es,
+      freeNote: FREE_NOTE.es,
+      whyTitle: '¿Por qué probarlo virtualmente?',
+      why1Title: 'Encuentra la talla correcta',
+      why1Desc: 'Las tallas XS-XL de marcas de ropa para mascotas varían mucho. Mira en tu mascota real antes de arriesgar una devolución.',
+      why2Title: 'Evita el estrés de la prueba física',
+      why2Desc: 'A tu gato no le gusta llevar ropa. Mira el resultado sin estresarlo.',
+      why3Title: 'Perfecto para Halloween',
+      why3Desc: 'Disfraz de calabaza, dragón, perrito caliente — mira el resultado antes del pedido para asegurarte del look.',
+      howTitle: 'Cómo funciona',
+      step1Title: 'Foto de tu mascota',
+      step1Desc: 'Foto de perfil, de pie o tumbada, cuerpo entero visible.',
+      step2Title: 'Foto de la prenda',
+      step2Desc: 'Captura de la tienda, foto en local o Pinterest.',
+      step3Title: 'Recibe el resultado',
+      step3Desc: 'En ~10 segundos ves a tu mascota vestida. Pide cambios por chat.',
+      faqTitle: 'Preguntas frecuentes',
+      faqs: [
+        { q: '¿Funciona también con gatos?', a: 'Sí. Perros, gatos, conejos, hurones — cualquier mascota pequeña cuya silueta sea clara en la foto.' },
+        { q: '¿La IA respeta la raza y morfología?', a: 'Sí. Carlino, galgo, golden retriever, gato persa — la IA respeta las proporciones exactas para mostrar cómo cae realmente la prenda.' },
+        { q: '¿Puedo probar un disfraz de Halloween?', a: 'Sí. Disfraz de calabaza, dragón, superhéroe, perrito caliente — la IA aplica el disfraz como una prenda normal.' },
+        { q: '¿Cuánto cuesta?', a: 'Las primeras 2 pruebas son gratis, sin tarjeta. Después: pack Starter $0,99 o Style Pro $4,99 (AHORRA 58%). Pago único.' },
+        { q: '¿Las fotos de mi mascota son privadas?', a: 'Sí. Cero retención: fotos procesadas en memoria y eliminadas al instante.' },
+      ],
+      finalCtaTitle: '¿Listo para vestir a tu mascota?',
+      finalCtaSubtitle: '2 pruebas gratis. Sin tarjeta. Sin compromiso.',
+      finalCtaButton: 'Probar ahora',
+      footerLabels: FOOTER_LABELS.es,
+    },
+  },
   fr: {
     meta: {
       title: 'Essayage Virtuel Vêtements Animaux — IA Gratuite | Agalaz',

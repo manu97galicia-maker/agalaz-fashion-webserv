@@ -37,6 +37,7 @@ export const metadata: Metadata = {
     canonical: 'https://agalaz.com/virtual-jewelry-try-on',
     languages: {
       en: 'https://agalaz.com/virtual-jewelry-try-on',
+      es: 'https://agalaz.com/es/virtual-jewelry-try-on',
       fr: 'https://agalaz.com/fr/virtual-jewelry-try-on',
       pt: 'https://agalaz.com/pt/virtual-jewelry-try-on',
       de: 'https://agalaz.com/de/virtual-jewelry-try-on',

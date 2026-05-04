@@ -37,6 +37,7 @@ export const metadata: Metadata = {
     canonical: 'https://agalaz.com/virtual-pet-clothing-try-on',
     languages: {
       en: 'https://agalaz.com/virtual-pet-clothing-try-on',
+      es: 'https://agalaz.com/es/virtual-pet-clothing-try-on',
       fr: 'https://agalaz.com/fr/virtual-pet-clothing-try-on',
       pt: 'https://agalaz.com/pt/virtual-pet-clothing-try-on',
       de: 'https://agalaz.com/de/virtual-pet-clothing-try-on',

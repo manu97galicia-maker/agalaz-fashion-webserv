@@ -37,6 +37,7 @@ export const metadata: Metadata = {
     canonical: 'https://agalaz.com/virtual-glasses-try-on',
     languages: {
       en: 'https://agalaz.com/virtual-glasses-try-on',
+      es: 'https://agalaz.com/es/virtual-glasses-try-on',
       fr: 'https://agalaz.com/fr/virtual-glasses-try-on',
       pt: 'https://agalaz.com/pt/virtual-glasses-try-on',
       de: 'https://agalaz.com/de/virtual-glasses-try-on',
