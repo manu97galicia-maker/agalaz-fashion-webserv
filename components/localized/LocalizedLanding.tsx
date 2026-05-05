@@ -4,6 +4,7 @@ import TriptychDemo, { TRIPTYCH_LABELS } from '@/components/TriptychDemo';
 import TryOnDemoBlock, { type DemoCategory } from '@/components/landing/TryOnDemoBlock';
 import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
 import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
+import PartnerCtaBlock from '@/components/landing/PartnerCtaBlock';
 import type { CanonicalLandingSlug } from '@/lib/i18n/landingSlugs';
 
 type Lang = 'es' | 'fr' | 'pt' | 'de' | 'it';
@@ -70,6 +71,10 @@ export default function LocalizedLanding({ c, enHref, slug, lang }: Props) {
       {/* Triptych first — the before/item/after transformation is the most visual hook
           and answers "what does this product do?" in 1 second. */}
       <TriptychDemo slug={slug} labels={TRIPTYCH_LABELS[lang]} />
+
+      {/* Contextual B2B upsell — once visitors have seen the visual transformation,
+          this is the moment to convert the subset that runs an actual store. */}
+      <PartnerCtaBlock category={slug as CanonicalLandingSlug} lang={lang} />
 
       {/* Top bar */}
       <header className="border-b border-slate-100">
