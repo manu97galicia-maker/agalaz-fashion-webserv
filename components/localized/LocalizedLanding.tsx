@@ -67,6 +67,10 @@ interface Props {
 export default function LocalizedLanding({ c, enHref, slug, lang }: Props) {
   return (
     <main className="min-h-screen bg-white text-slate-900">
+      {/* Triptych first — the before/item/after transformation is the most visual hook
+          and answers "what does this product do?" in 1 second. */}
+      <TriptychDemo slug={slug} labels={TRIPTYCH_LABELS[lang]} />
+
       {/* Top bar */}
       <header className="border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
@@ -86,7 +90,7 @@ export default function LocalizedLanding({ c, enHref, slug, lang }: Props) {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-indigo-50/30" />
-        <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-32 md:pb-24 text-center">
+        <div className="relative max-w-5xl mx-auto px-6 pt-16 pb-12 md:pt-24 md:pb-20 text-center">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-50 text-indigo-700 text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-8">
             <Sparkles size={12} />
             {c.badge}
@@ -115,15 +119,11 @@ export default function LocalizedLanding({ c, enHref, slug, lang }: Props) {
               {c.ctaSecondary}
             </Link>
           </div>
-          <p className="text-[11px] text-slate-400 mt-6 font-light">{c.freeNote}</p>
         </div>
       </section>
 
-      {/* Interactive try-on with watermarked free render — placed first so visitors hit the upload UI before scrolling. */}
+      {/* Interactive try-on with watermarked free render */}
       <TryOnDemoBlock category={SLUG_TO_CATEGORY[slug] || 'clothing'} lang={lang} />
-
-      {/* Triptych demo */}
-      <TriptychDemo slug={slug} labels={TRIPTYCH_LABELS[lang]} />
 
       {/* Why */}
       <section className="max-w-5xl mx-auto px-6 py-20 md:py-28">
