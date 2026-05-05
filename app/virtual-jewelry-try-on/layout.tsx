@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
 
 const FAQ = [
   { q: 'How does the virtual jewelry try-on work?', a: 'Upload a photo (face for necklaces/earrings, hand for rings, wrist for bracelets) and a photo of the piece. The AI maps it onto you in 30 seconds, preserving skin tone and lighting.' },
@@ -34,16 +35,8 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image', title: 'Virtual Jewelry Try-On', description: 'Necklaces, rings, earrings, bracelets — render in 30 seconds.' },
   alternates: {
-    canonical: 'https://agalaz.com/virtual-jewelry-try-on',
-    languages: {
-      en: 'https://agalaz.com/virtual-jewelry-try-on',
-      es: 'https://agalaz.com/es/virtual-jewelry-try-on',
-      fr: 'https://agalaz.com/fr/virtual-jewelry-try-on',
-      pt: 'https://agalaz.com/pt/virtual-jewelry-try-on',
-      de: 'https://agalaz.com/de/virtual-jewelry-try-on',
-      it: 'https://agalaz.com/it/virtual-jewelry-try-on',
-      'x-default': 'https://agalaz.com/virtual-jewelry-try-on',
-    },
+    canonical: nativeLandingUrl('virtual-jewelry-try-on', 'en'),
+    languages: landingHreflangAlternates('virtual-jewelry-try-on'),
   },
 };
 

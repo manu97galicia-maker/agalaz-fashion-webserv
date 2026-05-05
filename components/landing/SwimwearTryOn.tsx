@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback } from 'react';
 import { Sparkles, Upload, Camera, X, Check, ChevronDown, ChevronUp, ArrowRight, Heart, Ruler, RotateCcw, ShieldCheck, Star, Users, Clock, Lock } from 'lucide-react';
 import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
+import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
 import Link from 'next/link';
 import { signInWithGoogle, signInWithOtp } from '@/services/authService';
 import { swimwearTranslations, type LandingLang } from '@/lib/i18n/landingTranslations';
@@ -362,6 +363,9 @@ export default function SwimwearTryOn({ lang }: Props) {
 
       {/* B2B partners upsell — works in all supported langs */}
       <PartnersUpsellBlock lang={lang} />
+
+      {/* Topical link block — links to all other product try-on landings */}
+      <InternalLandingLinks currentSlug="realistic-swimwear-try-on" lang="en" />
 
       <footer className="border-t border-slate-200 py-6">
         <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">

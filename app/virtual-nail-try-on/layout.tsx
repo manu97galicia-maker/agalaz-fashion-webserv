@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
 
 const FAQ = [
   {
@@ -57,16 +58,8 @@ export const metadata: Metadata = {
     description: 'Upload a hand photo, drop any nail design, render in 30 seconds.',
   },
   alternates: {
-    canonical: 'https://agalaz.com/virtual-nail-try-on',
-    languages: {
-      en: 'https://agalaz.com/virtual-nail-try-on',
-      es: 'https://agalaz.com/es/virtual-nail-try-on',
-      fr: 'https://agalaz.com/fr/virtual-nail-try-on',
-      pt: 'https://agalaz.com/pt/virtual-nail-try-on',
-      de: 'https://agalaz.com/de/virtual-nail-try-on',
-      it: 'https://agalaz.com/it/virtual-nail-try-on',
-      'x-default': 'https://agalaz.com/virtual-nail-try-on',
-    },
+    canonical: nativeLandingUrl('virtual-nail-try-on', 'en'),
+    languages: landingHreflangAlternates('virtual-nail-try-on'),
   },
 };
 

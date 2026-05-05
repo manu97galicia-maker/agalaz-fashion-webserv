@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
 
 const FAQ = [
   { q: 'Is this a free tattoo simulator?', a: 'Yes — Agalaz is a free tattoo simulator and virtual tattoo viewer. Your first render is free with no signup, no app download and no credit card. Upload a photo of the body part and the design, and the AI places the tattoo on your skin in seconds.' },
@@ -46,16 +47,8 @@ export const metadata: Metadata = {
       'Upload your photo, choose a tattoo design, and see realistic AI placement on your skin. Free tattoo simulator, instant and private.',
   },
   alternates: {
-    canonical: 'https://agalaz.com/virtual-tattoo-simulator',
-    languages: {
-      'en': 'https://agalaz.com/virtual-tattoo-simulator',
-      'es': 'https://agalaz.com/es/virtual-tattoo-simulator',
-      'fr': 'https://agalaz.com/fr/virtual-tattoo-simulator',
-      'pt': 'https://agalaz.com/pt/virtual-tattoo-simulator',
-      'de': 'https://agalaz.com/de/virtual-tattoo-simulator',
-      'it': 'https://agalaz.com/it/virtual-tattoo-simulator',
-      'x-default': 'https://agalaz.com/virtual-tattoo-simulator',
-    },
+    canonical: nativeLandingUrl('virtual-tattoo-simulator', 'en'),
+    languages: landingHreflangAlternates('virtual-tattoo-simulator'),
   },
 };
 

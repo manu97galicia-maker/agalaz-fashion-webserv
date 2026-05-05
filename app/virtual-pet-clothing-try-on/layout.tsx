@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
 
 const FAQ = [
   { q: 'How does the virtual pet clothing try-on work?', a: 'Upload a clear photo of your dog or cat and a photo of the outfit. The AI maps the garment onto your pet in 30 seconds, preserving fur color, body shape, and proportions.' },
@@ -34,16 +35,8 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image', title: 'Virtual Pet Clothing Try-On', description: 'Upload a pet photo, drop any outfit, render in 30 seconds.' },
   alternates: {
-    canonical: 'https://agalaz.com/virtual-pet-clothing-try-on',
-    languages: {
-      en: 'https://agalaz.com/virtual-pet-clothing-try-on',
-      es: 'https://agalaz.com/es/virtual-pet-clothing-try-on',
-      fr: 'https://agalaz.com/fr/virtual-pet-clothing-try-on',
-      pt: 'https://agalaz.com/pt/virtual-pet-clothing-try-on',
-      de: 'https://agalaz.com/de/virtual-pet-clothing-try-on',
-      it: 'https://agalaz.com/it/virtual-pet-clothing-try-on',
-      'x-default': 'https://agalaz.com/virtual-pet-clothing-try-on',
-    },
+    canonical: nativeLandingUrl('virtual-pet-clothing-try-on', 'en'),
+    languages: landingHreflangAlternates('virtual-pet-clothing-try-on'),
   },
 };
 

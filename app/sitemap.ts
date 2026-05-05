@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { articles } from './blog/articles';
+import { CANONICAL_LANDING_SLUGS, nativeLandingUrl, type LandingLang } from '@/lib/i18n/landingSlugs';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://agalaz.com';
@@ -19,6 +20,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: p === '' ? 0.95 : 0.85,
+    })),
+  );
+
+  // Product try-on landings — EN canonical + 5 native-language variants per slug.
+  // URLs come from `nativeLandingUrl` so that localized URLs use native slugs
+  // (e.g. /es/probador-bikini, NOT /es/realistic-swimwear-try-on).
+  const ALL_LANGS: LandingLang[] = ['en', 'es', 'fr', 'pt', 'de', 'it'];
+  const productLandings: MetadataRoute.Sitemap = CANONICAL_LANDING_SLUGS.flatMap((slug) =>
+    ALL_LANGS.map((lang) => ({
+      url: nativeLandingUrl(slug, lang),
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: lang === 'en' ? 0.9 : 0.85,
     })),
   );
 
@@ -73,86 +87,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     ...blogEntries,
-    {
-      url: `${baseUrl}/virtual-tattoo-simulator`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/realistic-swimwear-try-on`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/virtual-earring-try-on`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/virtual-wedding-dress-try-on`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/virtual-nail-try-on`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/virtual-glasses-try-on`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/virtual-jewelry-try-on`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/virtual-mens-suit-try-on`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/virtual-pet-clothing-try-on`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/virtual-baby-clothing-try-on`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    // Localized landing pages (ES, FR, PT, DE, IT) — 10 categories × 5 languages = 50 URLs
-    ...(['es', 'fr', 'pt', 'de', 'it'] as const).flatMap((lang) =>
-      [
-        'virtual-tattoo-simulator',
-        'realistic-swimwear-try-on',
-        'virtual-earring-try-on',
-        'virtual-wedding-dress-try-on',
-        'virtual-nail-try-on',
-        'virtual-glasses-try-on',
-        'virtual-jewelry-try-on',
-        'virtual-mens-suit-try-on',
-        'virtual-pet-clothing-try-on',
-        'virtual-baby-clothing-try-on',
-      ].map((slug) => ({
-        url: `${baseUrl}/${lang}/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.85,
-      })),
-    ),
+    // 10 product try-on landings × 6 languages — URLs come from the central slug
+    // map so localized URLs use native-language slugs (e.g. /es/probador-bikini).
+    ...productLandings,
     {
       url: `${baseUrl}/privacy`,
       lastModified: new Date(),

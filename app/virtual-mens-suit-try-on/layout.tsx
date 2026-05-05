@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
 
 const FAQ = [
   { q: 'How does the virtual men\'s suit try-on work?', a: 'Upload a full-body photo and a photo of any suit, tuxedo, or blazer. The AI maps the garment onto your real body in 30 seconds, preserving your face, skin tone, and proportions.' },
@@ -34,16 +35,8 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image', title: 'Virtual Men\'s Suit Try-On', description: 'Upload a photo, drop any suit, render in 30 seconds.' },
   alternates: {
-    canonical: 'https://agalaz.com/virtual-mens-suit-try-on',
-    languages: {
-      en: 'https://agalaz.com/virtual-mens-suit-try-on',
-      es: 'https://agalaz.com/es/virtual-mens-suit-try-on',
-      fr: 'https://agalaz.com/fr/virtual-mens-suit-try-on',
-      pt: 'https://agalaz.com/pt/virtual-mens-suit-try-on',
-      de: 'https://agalaz.com/de/virtual-mens-suit-try-on',
-      it: 'https://agalaz.com/it/virtual-mens-suit-try-on',
-      'x-default': 'https://agalaz.com/virtual-mens-suit-try-on',
-    },
+    canonical: nativeLandingUrl('virtual-mens-suit-try-on', 'en'),
+    languages: landingHreflangAlternates('virtual-mens-suit-try-on'),
   },
 };
 

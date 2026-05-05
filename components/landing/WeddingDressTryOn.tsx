@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Sparkles, Check, ArrowRight, Heart, Camera, Shield, Clock, Star, ChevronDown } from 'lucide-react';
 import TryOnDemoBlock from '@/components/landing/TryOnDemoBlock';
 import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
+import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
 
 const FAQ_ITEMS = [
   {
@@ -226,6 +227,9 @@ export default function WeddingDressTryOn() {
           </Link>
         </div>
       </section>
+
+      {/* Topical link block — links to all other product try-on landings */}
+      <InternalLandingLinks currentSlug="virtual-wedding-dress-try-on" lang="en" />
 
       {/* Footer */}
       <footer className="border-t border-slate-100 py-10 px-6 md:px-12 max-w-7xl mx-auto">

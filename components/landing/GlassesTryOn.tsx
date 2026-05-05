@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Sparkles, Check, ArrowRight, Eye, Shield, Clock, Star, ChevronDown, Glasses, Palette } from 'lucide-react';
 import TryOnDemoBlock from '@/components/landing/TryOnDemoBlock';
 import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
+import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
 
 const FAQ_ITEMS = [
   {
@@ -208,6 +209,9 @@ export default function GlassesTryOn() {
         </div>
       </section>
 
+      {/* Topical link block — links to all other product try-on landings */}
+      <InternalLandingLinks currentSlug="virtual-glasses-try-on" lang="en" />
+
       <footer className="border-t border-slate-100 py-10 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <Link href="/" className="font-serif text-sm tracking-[0.15em] text-slate-400 font-black">AGALAZ</Link>
@@ -220,7 +224,7 @@ export default function GlassesTryOn() {
           </div>
         </div>
       </footer>
-    
+
       {/* B2B partners upsell */}
       <PartnersUpsellBlock lang="en" />
     </main>

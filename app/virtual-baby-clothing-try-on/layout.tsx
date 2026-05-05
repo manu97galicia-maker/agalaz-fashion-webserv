@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
 
 const FAQ = [
   { q: 'How does the virtual baby clothing try-on work?', a: 'Upload a clear photo of your baby and a photo of the outfit. The AI maps the garment onto your real baby in 30 seconds, preserving face, skin tone, body shape, and proportions.' },
@@ -36,16 +37,8 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image', title: 'Virtual Baby Clothing Try-On', description: 'Upload a baby photo, drop any outfit, render in 30 seconds.' },
   alternates: {
-    canonical: 'https://agalaz.com/virtual-baby-clothing-try-on',
-    languages: {
-      en: 'https://agalaz.com/virtual-baby-clothing-try-on',
-      es: 'https://agalaz.com/es/virtual-baby-clothing-try-on',
-      fr: 'https://agalaz.com/fr/virtual-baby-clothing-try-on',
-      pt: 'https://agalaz.com/pt/virtual-baby-clothing-try-on',
-      de: 'https://agalaz.com/de/virtual-baby-clothing-try-on',
-      it: 'https://agalaz.com/it/virtual-baby-clothing-try-on',
-      'x-default': 'https://agalaz.com/virtual-baby-clothing-try-on',
-    },
+    canonical: nativeLandingUrl('virtual-baby-clothing-try-on', 'en'),
+    languages: landingHreflangAlternates('virtual-baby-clothing-try-on'),
   },
 };
 

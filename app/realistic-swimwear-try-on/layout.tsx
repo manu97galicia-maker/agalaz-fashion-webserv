@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
 
 const FAQ = [
   { q: 'Try bikini AI outfit changer — what are the free version limitations?', a: 'The free version of Agalaz lets you generate 2 bikini try-ons per browser session — no signup, no credit card, no app to install. Renders include a small AGALAZ DEMO watermark on the output image. There is no time limit, no expiry, and no obligation to upgrade. If you want unlimited renders, watermark-free downloads and chat-based re-styling (different colour, more coverage, different cut) you can upgrade for $9.99/month and cancel anytime.' },
@@ -45,16 +46,8 @@ export const metadata: Metadata = {
       'Upload your photo and try on swimwear instantly. AI-powered, realistic fitting for all body types. Free and private.',
   },
   alternates: {
-    canonical: 'https://agalaz.com/realistic-swimwear-try-on',
-    languages: {
-      'en': 'https://agalaz.com/realistic-swimwear-try-on',
-      'es': 'https://agalaz.com/es/realistic-swimwear-try-on',
-      'fr': 'https://agalaz.com/fr/realistic-swimwear-try-on',
-      'pt': 'https://agalaz.com/pt/realistic-swimwear-try-on',
-      'de': 'https://agalaz.com/de/realistic-swimwear-try-on',
-      'it': 'https://agalaz.com/it/realistic-swimwear-try-on',
-      'x-default': 'https://agalaz.com/realistic-swimwear-try-on',
-    },
+    canonical: nativeLandingUrl('realistic-swimwear-try-on', 'en'),
+    languages: landingHreflangAlternates('realistic-swimwear-try-on'),
   },
 };
 

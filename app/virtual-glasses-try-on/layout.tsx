@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
 
 const FAQ = [
   { q: 'How does the virtual glasses try-on work?', a: 'Upload a front-facing photo and a photo of the frames. The AI maps them onto your face in 30 seconds, preserving your face shape, skin tone, hair, and lighting.' },
@@ -34,16 +35,8 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image', title: 'Virtual Glasses Try-On — See Any Frames On You', description: 'Upload a photo, drop any frames, render in 30 seconds.' },
   alternates: {
-    canonical: 'https://agalaz.com/virtual-glasses-try-on',
-    languages: {
-      en: 'https://agalaz.com/virtual-glasses-try-on',
-      es: 'https://agalaz.com/es/virtual-glasses-try-on',
-      fr: 'https://agalaz.com/fr/virtual-glasses-try-on',
-      pt: 'https://agalaz.com/pt/virtual-glasses-try-on',
-      de: 'https://agalaz.com/de/virtual-glasses-try-on',
-      it: 'https://agalaz.com/it/virtual-glasses-try-on',
-      'x-default': 'https://agalaz.com/virtual-glasses-try-on',
-    },
+    canonical: nativeLandingUrl('virtual-glasses-try-on', 'en'),
+    languages: landingHreflangAlternates('virtual-glasses-try-on'),
   },
 };
 

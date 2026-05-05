@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
 
 const FAQ = [
   { q: 'How does the virtual earring try-on work?', a: 'Upload a selfie that shows your ears clearly and a photo of the earrings or piercing. The AI maps the jewellery onto your real ears in 30 seconds — preserving your skin tone, ear shape, hair, and lighting — so you see exactly how the piece looks before buying or booking the piercing appointment.' },
@@ -38,16 +39,8 @@ export const metadata: Metadata = {
     description: 'Upload your photo, pick earrings or piercings, and see a photorealistic preview. Free, instant, private.',
   },
   alternates: {
-    canonical: 'https://agalaz.com/virtual-earring-try-on',
-    languages: {
-      'en': 'https://agalaz.com/virtual-earring-try-on',
-      'es': 'https://agalaz.com/es/virtual-earring-try-on',
-      'fr': 'https://agalaz.com/fr/virtual-earring-try-on',
-      'pt': 'https://agalaz.com/pt/virtual-earring-try-on',
-      'de': 'https://agalaz.com/de/virtual-earring-try-on',
-      'it': 'https://agalaz.com/it/virtual-earring-try-on',
-      'x-default': 'https://agalaz.com/virtual-earring-try-on',
-    },
+    canonical: nativeLandingUrl('virtual-earring-try-on', 'en'),
+    languages: landingHreflangAlternates('virtual-earring-try-on'),
   },
 };
 

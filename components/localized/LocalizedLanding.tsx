@@ -3,6 +3,8 @@ import { ArrowRight, Sparkles, Zap, Shield, Star } from 'lucide-react';
 import TriptychDemo, { TRIPTYCH_LABELS } from '@/components/TriptychDemo';
 import TryOnDemoBlock, { type DemoCategory } from '@/components/landing/TryOnDemoBlock';
 import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
+import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
+import type { CanonicalLandingSlug } from '@/lib/i18n/landingSlugs';
 
 type Lang = 'es' | 'fr' | 'pt' | 'de' | 'it';
 
@@ -213,6 +215,9 @@ export default function LocalizedLanding({ c, enHref, slug, lang }: Props) {
           </Link>
         </div>
       </section>
+
+      {/* Topical link block — links to all other product try-on landings in same language */}
+      <InternalLandingLinks currentSlug={slug as CanonicalLandingSlug} lang={lang} />
 
       {/* Footer */}
       <footer className="border-t border-slate-100">
