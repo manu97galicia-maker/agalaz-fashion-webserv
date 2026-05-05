@@ -1229,17 +1229,45 @@ function PartnersContent() {
                 'Clicca sul link nell\'email per confermare il tuo indirizzo. Ti porteremo direttamente a Stripe per iniziare la prova gratuita di 7 giorni.'
               )}
             </div>
+
+            {/* Spam / Promotions warning — Supabase magic links sometimes land in
+                Gmail's "Promotions" tab or Outlook's "Other" inbox. Surfacing this up
+                front prevents the most common drop-off in the registration flow. */}
+            <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 font-light leading-relaxed">
+              <p className="font-black uppercase tracking-widest text-[10px] mb-2">
+                {pickLang(
+                  lang,
+                  '⚠ Don\'t see the email?',
+                  '⚠ ¿No ves el correo?',
+                  '⚠ Vous ne voyez pas l\'email ?',
+                  '⚠ Não vês o email?',
+                  '⚠ E-Mail nicht zu sehen?',
+                  '⚠ Non vedi l\'email?'
+                )}
+              </p>
+              <p className="leading-relaxed">
+                {pickLang(
+                  lang,
+                  'Check your Spam folder AND Gmail\'s "Promotions" tab (or "Other" in Outlook). Magic-link emails sometimes land there. Allow 1–2 minutes for delivery.',
+                  'Revisa tu carpeta de Spam Y la pestaña "Promociones" de Gmail (u "Otros" en Outlook). Los emails con enlaces de verificación a veces caen ahí. Pueden tardar 1–2 minutos en llegar.',
+                  'Vérifiez votre dossier Spam ET l\'onglet "Promotions" de Gmail (ou "Autres" sur Outlook). Les emails avec lien magique y atterrissent parfois. Comptez 1–2 minutes pour la livraison.',
+                  'Verifica a pasta de Spam E o separador "Promoções" do Gmail (ou "Outros" no Outlook). Os emails com link mágico por vezes caem aí. Pode demorar 1–2 minutos a chegar.',
+                  'Prüfen Sie Ihren Spam-Ordner UND den Gmail-Tab "Werbung" (oder "Sonstige" in Outlook). Magic-Link-E-Mails landen manchmal dort. Bis zu 1–2 Minuten Verzögerung möglich.',
+                  'Controlla la cartella Spam E la scheda "Promozioni" di Gmail (o "Altro" in Outlook). Le email con magic-link a volte finiscono lì. La consegna può richiedere 1–2 minuti.'
+                )}
+              </p>
+            </div>
+
             <div className="text-center space-y-2">
               <p className="text-[11px] text-slate-400 font-bold">
-                {pickLang(lang, "Didn't get the email?", '¿No has recibido el email?', "Vous n'avez pas reçu l'email ?", 'Não recebeste o email?', 'Keine E-Mail erhalten?', 'Non hai ricevuto l\'email?')}
+                {pickLang(lang, "Still nothing after 2 minutes?", '¿Aún nada tras 2 minutos?', "Toujours rien après 2 minutes ?", 'Continua sem nada após 2 minutos?', 'Nach 2 Minuten immer noch nichts?', 'Ancora niente dopo 2 minuti?')}
               </p>
               <p className="text-[11px] text-slate-400 font-light">
-                {pickLang(lang, 'Check spam, or', 'Revisa spam, o', 'Vérifiez les spams, ou', 'Verifica o spam, ou', 'Spam-Ordner prüfen, oder', 'Controlla lo spam, oppure')}{' '}
                 <button
                   onClick={() => setStep('landing')}
                   className="text-indigo-600 font-bold hover:underline"
                 >
-                  {pickLang(lang, 'use a different email', 'usa otro email', 'utilisez un autre email', 'usa outro email', 'eine andere E-Mail verwenden', 'usa un\'altra email')}
+                  {pickLang(lang, 'Use a different email', 'Usa otro email', 'Utiliser un autre email', 'Usa outro email', 'Eine andere E-Mail verwenden', 'Usa un\'altra email')}
                 </button>
               </p>
             </div>
