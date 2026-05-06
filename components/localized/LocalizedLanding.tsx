@@ -71,15 +71,8 @@ interface Props {
 export default function LocalizedLanding({ c, enHref, slug, lang }: Props) {
   return (
     <main className="min-h-screen bg-white text-slate-900">
-      {/* Triptych first — the before/item/after transformation is the most visual hook
-          and answers "what does this product do?" in 1 second. */}
-      <TriptychDemo slug={slug} labels={TRIPTYCH_LABELS[lang]} />
-
-      {/* Contextual B2B upsell — once visitors have seen the visual transformation,
-          this is the moment to convert the subset that runs an actual store. */}
-      <PartnerCtaBlock category={slug as CanonicalLandingSlug} lang={lang} />
-
-      {/* Top bar */}
+      {/* Top bar (logo + try-on CTA) — kept above the triptych so the brand
+          and primary CTA are the very first thing visitors see. */}
       <header className="border-b border-slate-100">
         <div className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
           <Link href="/" className="font-serif text-lg font-black tracking-[0.15em]">
@@ -94,6 +87,14 @@ export default function LocalizedLanding({ c, enHref, slug, lang }: Props) {
           </Link>
         </div>
       </header>
+
+      {/* Triptych transformation — the before/item/after image set explains
+          "what does this product do?" in 1 second, right after the brand bar. */}
+      <TriptychDemo slug={slug} labels={TRIPTYCH_LABELS[lang]} />
+
+      {/* Contextual B2B upsell — convert shop-owner traffic immediately after
+          the visual demo, before the marketing hero. */}
+      <PartnerCtaBlock category={slug as CanonicalLandingSlug} lang={lang} />
 
       {/* Hero */}
       <section className="relative overflow-hidden">

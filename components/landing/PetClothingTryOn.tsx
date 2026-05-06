@@ -6,6 +6,8 @@ import { Sparkles, Check, ArrowRight, Heart, Camera, Shield, Clock, Star, Chevro
 import TryOnDemoBlock from '@/components/landing/TryOnDemoBlock';
 import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
 import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
+import TriptychDemo, { TRIPTYCH_LABELS } from '@/components/TriptychDemo';
+import PartnerCtaBlock from '@/components/landing/PartnerCtaBlock';
 
 const FAQ_ITEMS = [
   {
@@ -49,6 +51,12 @@ export default function PetClothingTryOn() {
           <Link href="/try-on?category=pet-clothing" className="px-5 py-2.5 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full hover:bg-teal-600 transition-colors">Try Now Free</Link>
         </div>
       </nav>
+
+      {/* Triptych transformation — visible right after the nav so the visual hook lands above the fold. */}
+      <TriptychDemo slug="virtual-pet-clothing-try-on" labels={TRIPTYCH_LABELS.en} />
+
+      {/* Contextual B2B partner CTA — converts shop-owner traffic immediately after the visual demo. */}
+      <PartnerCtaBlock category="virtual-pet-clothing-try-on" lang="en" />
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">
         <div className="text-center">

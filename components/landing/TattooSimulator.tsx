@@ -4,6 +4,8 @@ import { useState, useRef, useCallback } from 'react';
 import { Sparkles, Upload, Camera, X, Check, ChevronDown, ChevronUp, ArrowRight, Palette, Target, Shield, Zap, Star, Users, Clock, Lock } from 'lucide-react';
 import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
 import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
+import TriptychDemo, { TRIPTYCH_LABELS } from '@/components/TriptychDemo';
+import PartnerCtaBlock from '@/components/landing/PartnerCtaBlock';
 import Link from 'next/link';
 import { signInWithGoogle, signInWithOtp } from '@/services/authService';
 import { tattooTranslations, type LandingLang } from '@/lib/i18n/landingTranslations';
@@ -200,6 +202,12 @@ export default function TattooSimulator({ lang }: Props) {
           </Link>
         </div>
       </nav>
+
+      {/* Triptych transformation — visible right after the nav so the visual hook lands above the fold. */}
+      <TriptychDemo slug="virtual-tattoo-simulator" labels={TRIPTYCH_LABELS[lang]} />
+
+      {/* Contextual B2B partner CTA — converts shop-owner traffic immediately after the visual demo. */}
+      <PartnerCtaBlock category="virtual-tattoo-simulator" lang={lang} />
 
       {/* Hero */}
       <section className="relative overflow-hidden">

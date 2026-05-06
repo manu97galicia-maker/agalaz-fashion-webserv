@@ -6,6 +6,8 @@ import { Sparkles, Check, ArrowRight, Eye, Shield, Clock, Star, ChevronDown, Gla
 import TryOnDemoBlock from '@/components/landing/TryOnDemoBlock';
 import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
 import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
+import TriptychDemo, { TRIPTYCH_LABELS } from '@/components/TriptychDemo';
+import PartnerCtaBlock from '@/components/landing/PartnerCtaBlock';
 
 const FAQ_ITEMS = [
   {
@@ -52,6 +54,12 @@ export default function GlassesTryOn() {
           </Link>
         </div>
       </nav>
+
+      {/* Triptych transformation — visible right after the nav so the visual hook lands above the fold. */}
+      <TriptychDemo slug="virtual-glasses-try-on" labels={TRIPTYCH_LABELS.en} />
+
+      {/* Contextual B2B partner CTA — converts shop-owner traffic immediately after the visual demo. */}
+      <PartnerCtaBlock category="virtual-glasses-try-on" lang="en" />
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">
         <div className="text-center">

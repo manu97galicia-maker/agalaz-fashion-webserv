@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Sparkles, Check, ArrowRight, Heart, Camera, Shield, Clock, Star, ChevronDown, Eye } from 'lucide-react';
 import TryOnDemoBlock from '@/components/landing/TryOnDemoBlock';
 import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
+import TriptychDemo, { TRIPTYCH_LABELS } from '@/components/TriptychDemo';
 
 const FAQ_ITEMS = [
   {
@@ -51,6 +52,9 @@ export default function VeilTryOn() {
           </div>
         </div>
       </nav>
+
+      {/* Triptych transformation — visible right after the nav so the visual hook lands above the fold. */}
+      <TriptychDemo slug="virtual-veil-try-on" labels={TRIPTYCH_LABELS.en} />
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">
         <div className="text-center">

@@ -4,6 +4,8 @@ import { useState, useRef, useCallback } from 'react';
 import { Sparkles, Upload, Camera, X, Check, ChevronDown, ChevronUp, ArrowRight, Gem, Eye, ShieldCheck, Zap, Star, Users, Clock, Lock } from 'lucide-react';
 import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
 import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
+import TriptychDemo, { TRIPTYCH_LABELS } from '@/components/TriptychDemo';
+import PartnerCtaBlock from '@/components/landing/PartnerCtaBlock';
 import Link from 'next/link';
 import { signInWithGoogle, signInWithOtp } from '@/services/authService';
 import { earringTranslations, type LandingLang } from '@/lib/i18n/landingTranslations';
@@ -144,6 +146,12 @@ export default function EarringTryOn({ lang }: Props) {
           <Link href="/try-on" className="px-5 py-2.5 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] hover:bg-indigo-600 transition-colors">{t.tryOn}</Link>
         </div>
       </nav>
+
+      {/* Triptych transformation — visible right after the nav so the visual hook lands above the fold. */}
+      <TriptychDemo slug="virtual-earring-try-on" labels={TRIPTYCH_LABELS[lang]} />
+
+      {/* Contextual B2B partner CTA — converts shop-owner traffic immediately after the visual demo. */}
+      <PartnerCtaBlock category="virtual-earring-try-on" lang={lang} />
 
       <section className="relative overflow-hidden">
         <div className="relative max-w-4xl mx-auto px-4 pt-20 pb-10 text-center">
