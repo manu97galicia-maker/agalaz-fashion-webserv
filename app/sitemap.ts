@@ -90,6 +90,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // 10 product try-on landings × 6 languages — URLs come from the central slug
     // map so localized URLs use native-language slugs (e.g. /es/probador-bikini).
     ...productLandings,
+    // Standalone veils & hijab landings — EN + AR only, kept outside the slug map
+    // since they target only those two languages (no ES/FR/PT/DE/IT variant exists).
+    {
+      url: `${baseUrl}/virtual-veil-try-on`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/ar/hijab`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
     {
       url: `${baseUrl}/privacy`,
       lastModified: new Date(),

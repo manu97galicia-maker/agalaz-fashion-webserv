@@ -1,0 +1,82 @@
+import type { Metadata } from 'next';
+import { Cairo } from 'next/font/google';
+
+// Cairo — modern, clean Arabic typeface. Used only on this Arabic-only landing
+// to keep the rest of the site on Inter. Loaded with Latin subset too so brand
+// "AGALAZ" / "agalaz.com" stays consistent.
+const cairo = Cairo({
+  subsets: ['arabic', 'latin'],
+  weight: ['400', '600', '700', '900'],
+  display: 'swap',
+  variable: '--font-cairo',
+});
+
+export const metadata: Metadata = {
+  title: 'تجربة افتراضية للحجاب والعباءة | أغالاز',
+  description:
+    'جرّبي الحجاب والعباءة والنقاب والبرقع على وجهك الحقيقي بالذكاء الاصطناعي قبل الشراء. اللون والقماش والتصميم — كلها على وجهك في 30 ثانية. مجانًا، بدون تطبيق.',
+  keywords: [
+    'تجربة حجاب افتراضية',
+    'حجاب اون لاين',
+    'تجربة عباءة',
+    'تجربة نقاب',
+    'برقع افتراضي',
+    'حجاب على وجهي',
+    'محاكي حجاب',
+    'تجربة ملابس محتشمة',
+    'virtual hijab try on arabic',
+    'hijab try on',
+  ],
+  openGraph: {
+    title: 'تجربة افتراضية للحجاب والعباءة | أغالاز',
+    description: 'جرّبي الحجاب على وجهك بالذكاء الاصطناعي قبل الشراء.',
+    url: 'https://agalaz.com/ar/hijab',
+    siteName: 'Agalaz',
+    type: 'website',
+    locale: 'ar',
+    alternateLocale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'تجربة افتراضية للحجاب',
+    description: 'جرّبي الحجاب على وجهك في 30 ثانية. مجانًا.',
+  },
+  alternates: {
+    canonical: 'https://agalaz.com/ar/hijab',
+    languages: {
+      en: 'https://agalaz.com/virtual-veil-try-on',
+      ar: 'https://agalaz.com/ar/hijab',
+      'x-default': 'https://agalaz.com/virtual-veil-try-on',
+    },
+  },
+};
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const ld = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'SoftwareApplication',
+        name: 'تجربة افتراضية للحجاب من أغالاز',
+        operatingSystem: 'WEB',
+        applicationCategory: 'LifestyleApplication',
+        url: 'https://agalaz.com/ar/hijab',
+        inLanguage: 'ar',
+        offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'الرئيسية', item: 'https://agalaz.com' },
+          { '@type': 'ListItem', position: 2, name: 'تجربة الحجاب', item: 'https://agalaz.com/ar/hijab' },
+        ],
+      },
+    ],
+  };
+  return (
+    <div lang="ar" dir="rtl" className={`${cairo.variable}`}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      {children}
+    </div>
+  );
+}

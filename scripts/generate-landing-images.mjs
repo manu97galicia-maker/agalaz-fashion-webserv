@@ -120,6 +120,12 @@ const LANDINGS = [
     item: `A single anime-inspired cosplay outfit on a plain mannequin — a stylised pleated school-uniform-style outfit in navy blue and white with a red bow at the chest, knee-high white socks, black mary-jane shoes, displayed against a clean off-white background, premium cosplay product photography. Square 1:1. ${STYLE_BASE}`,
     edit: 'Replace the casual hoodie and jeans on the woman in the first image with the anime-inspired school-uniform cosplay outfit from the second image — keep the navy-blue and white pleated dress, red bow, white knee-high socks and mary-jane shoes. Keep her face, hair, pose, the studio backdrop and the lighting identical. Output one photorealistic image.',
   },
+  {
+    slug: 'virtual-veil-try-on',
+    before: `Editorial studio portrait of a young woman from the shoulders up, three-quarter angle, hair tied back simply with no head covering, no makeup beyond natural skin, neutral cream backdrop, soft daylight, square 1:1 framing. Tasteful, respectful modest-fashion editorial photography. ${STYLE_BASE}`,
+    item: `A single elegant blush-pink chiffon hijab displayed flat on a clean off-white background, soft folds visible, premium modest-fashion product photography, no model. Square 1:1. ${STYLE_BASE}`,
+    edit: 'Drape the blush-pink chiffon hijab from the second image around the head and shoulders of the woman in the first image, covering her hair fully and falling softly over her shoulders in a tasteful, modest style. Keep her face, the cream backdrop and the soft daylight identical. Respectful, editorial modest-fashion photography. Output one photorealistic image.',
+  },
 ];
 
 async function imagenGenerate(prompt, personGeneration = 'allow_adult') {
