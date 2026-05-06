@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
+import { createAdminClient } from '@/lib/supabaseAdmin';
 
 function getStripe() {
   const key = process.env.STRIPE_SECRET_KEY?.trim();
@@ -38,6 +39,40 @@ export async function POST(req: NextRequest) {
       priceId = MONTHLY_PRICES[plan];
     } else {
       return NextResponse.json({ error: 'Invalid plan. Use "trial", "starter" or "growth"' }, { status: 400 });
+    }
+
+    // ── Anti-abuse: enforce one trial per store ──────────────────────────────
+    // If the caller asked for a trial, verify no OTHER partner sharing the same
+    // store domain has already started a Stripe subscription (= used the trial).
+    // This is a defence-in-depth check on top of the /register-time block.
+    if (trialDays > 0) {
+      const admin = createAdminClient();
+      const { data: thisPartner } = await admin
+        .from('partners')
+        .select('id, allowed_domains')
+        .eq('id', partnerId)
+        .maybeSingle();
+
+      const domains: string[] = thisPartner?.allowed_domains || [];
+      if (domains.length > 0) {
+        const { data: priorTrial } = await admin
+          .from('partners')
+          .select('id')
+          .neq('id', partnerId)
+          .overlaps('allowed_domains', domains)
+          .not('stripe_subscription_id', 'is', null)
+          .limit(1);
+
+        if (priorTrial && priorTrial.length > 0) {
+          return NextResponse.json(
+            {
+              error: 'This store has already used the free trial. Please choose a paid plan to continue.',
+              code: 'TRIAL_ALREADY_USED',
+            },
+            { status: 403 }
+          );
+        }
+      }
     }
 
     const origin = req.headers.get('origin') || 'https://agalaz.com';
