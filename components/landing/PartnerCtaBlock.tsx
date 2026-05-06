@@ -102,6 +102,30 @@ const HEADLINE: Record<CanonicalLandingSlug, Record<LandingLang, string>> = {
     de: 'Betreiben Sie einen Online-Shop für Babykleidung?',
     it: 'Gestisci un negozio online di abiti per neonati?',
   },
+  'virtual-costume-try-on': {
+    en: 'Running a costume or party shop?',
+    es: '¿Tienes una tienda de disfraces o artículos para fiestas?',
+    fr: 'Vous tenez une boutique de déguisements ou d’articles de fête ?',
+    pt: 'Tens uma loja de fatos de carnaval ou artigos de festa?',
+    de: 'Sie betreiben einen Kostüm- oder Partyshop?',
+    it: 'Gestisci un negozio di costumi o articoli per feste?',
+  },
+  'virtual-hairstyle-try-on': {
+    en: 'Running a salon or hair brand?',
+    es: '¿Tienes un salón de peluquería o marca de productos para el pelo?',
+    fr: 'Vous tenez un salon de coiffure ou une marque capillaire ?',
+    pt: 'Tens um salão de cabeleireiro ou marca capilar?',
+    de: 'Sie betreiben einen Friseursalon oder eine Haarpflegemarke?',
+    it: 'Gestisci un salone di parrucchiere o un brand per capelli?',
+  },
+  'virtual-cosplay-try-on': {
+    en: 'Running a cosplay shop or convention store?',
+    es: '¿Tienes una tienda de cosplay o de productos para eventos?',
+    fr: 'Vous tenez une boutique de cosplay ou pour conventions ?',
+    pt: 'Tens uma loja de cosplay ou de eventos?',
+    de: 'Sie betreiben einen Cosplay- oder Convention-Shop?',
+    it: 'Gestisci un negozio di cosplay o per fiere?',
+  },
 };
 
 // Body & CTA — the same value pitch in every language (varies copy lightly).

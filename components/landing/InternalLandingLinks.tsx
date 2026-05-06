@@ -103,6 +103,30 @@ const CARD_LABELS: Record<CanonicalLandingSlug, Record<LandingLang, { title: str
     de: { title: 'Babykleidung', subtitle: 'An Ihrem echten Baby' },
     it: { title: 'Abiti neonato', subtitle: 'Sul tuo vero neonato' },
   },
+  'virtual-costume-try-on': {
+    en: { title: 'Costumes', subtitle: 'Halloween, parties, cosplay' },
+    es: { title: 'Disfraces', subtitle: 'Halloween, fiestas, cosplay' },
+    fr: { title: 'Déguisements', subtitle: 'Halloween, fêtes, cosplay' },
+    pt: { title: 'Fatos de carnaval', subtitle: 'Halloween, festas, cosplay' },
+    de: { title: 'Kostüme', subtitle: 'Halloween, Partys, Cosplay' },
+    it: { title: 'Costumi', subtitle: 'Halloween, feste, cosplay' },
+  },
+  'virtual-hairstyle-try-on': {
+    en: { title: 'Hairstyles', subtitle: 'See it before the salon' },
+    es: { title: 'Peinados', subtitle: 'Míralo antes del salón' },
+    fr: { title: 'Coiffures', subtitle: 'Voyez avant le salon' },
+    pt: { title: 'Penteados', subtitle: 'Veja antes do salão' },
+    de: { title: 'Frisuren', subtitle: 'Vor dem Salon sehen' },
+    it: { title: 'Acconciature', subtitle: 'Vedi prima del salone' },
+  },
+  'virtual-cosplay-try-on': {
+    en: { title: 'Cosplay', subtitle: 'Anime, games, conventions' },
+    es: { title: 'Cosplay', subtitle: 'Anime, videojuegos, eventos' },
+    fr: { title: 'Cosplay', subtitle: 'Anime, jeux vidéo, conventions' },
+    pt: { title: 'Cosplay', subtitle: 'Anime, jogos, eventos' },
+    de: { title: 'Cosplay', subtitle: 'Anime, Games, Conventions' },
+    it: { title: 'Cosplay', subtitle: 'Anime, videogiochi, fiere' },
+  },
 };
 
 const SECTION_LABELS: Record<LandingLang, { eyebrow: string; title: string }> = {

@@ -102,6 +102,24 @@ const LANDINGS = [
     item: `A single small pastel-pink ruffled baby dress with tiny bow detail, displayed flat on a clean off-white background, premium baby apparel product photography. Square 1:1. ${STYLE_BASE}`,
     edit: 'Replace the plain white onesie on the toddler in the first image with the pastel-pink ruffled baby dress from the second image. Fit the dress naturally on the baby. Keep the baby, the smile, hair, the cream blanket, the nursery backdrop and the lighting identical. Tasteful baby photography, no text. Output one photorealistic image.',
   },
+  {
+    slug: 'virtual-costume-try-on',
+    before: `Full-body editorial photograph of a young woman in plain casual outfit — black turtleneck and dark jeans — standing relaxed against a clean studio backdrop with soft warm autumn lighting, square 1:1 framing. ${STYLE_BASE}`,
+    item: `A single classic vampire Halloween costume on a plain mannequin — long deep-red velvet cape with high collar over a black gothic dress, displayed against a clean off-white background, premium costume product photography. Square 1:1. ${STYLE_BASE}`,
+    edit: 'Replace the casual outfit on the woman in the first image with the vampire Halloween costume from the second image — keep the deep-red cape, high collar and black gothic dress as shown. Keep her face, hair, pose, the studio backdrop and the warm lighting identical. Output one photorealistic image.',
+  },
+  {
+    slug: 'virtual-hairstyle-try-on',
+    before: `Editorial studio portrait of a young woman from the shoulders up, three-quarter angle, hair pulled back into a simple plain low ponytail with no styling, no makeup beyond natural skin, neutral cream backdrop, soft daylight. Square 1:1 framing. ${STYLE_BASE}`,
+    item: `A single hairstyle reference photograph against a plain white background — a polished long blonde balayage hairstyle, smooth waves, hair-only cutout (no model face visible), styled and finished, premium hair-salon reference photography. Square 1:1. ${STYLE_BASE}`,
+    edit: 'Apply the long blonde balayage hairstyle from the second image to the woman in the first image, replacing her plain low ponytail. Match the cut, length and color exactly. Keep her face, skin tone, neckline, the cream backdrop and the lighting identical. Output one photorealistic image.',
+  },
+  {
+    slug: 'virtual-cosplay-try-on',
+    before: `Full-body editorial photograph of a young woman in plain casual clothes — light-grey hoodie and blue jeans — standing relaxed against a clean studio backdrop, soft daylight, square 1:1 framing. ${STYLE_BASE}`,
+    item: `A single anime-inspired cosplay outfit on a plain mannequin — a stylised pleated school-uniform-style outfit in navy blue and white with a red bow at the chest, knee-high white socks, black mary-jane shoes, displayed against a clean off-white background, premium cosplay product photography. Square 1:1. ${STYLE_BASE}`,
+    edit: 'Replace the casual hoodie and jeans on the woman in the first image with the anime-inspired school-uniform cosplay outfit from the second image — keep the navy-blue and white pleated dress, red bow, white knee-high socks and mary-jane shoes. Keep her face, hair, pose, the studio backdrop and the lighting identical. Output one photorealistic image.',
+  },
 ];
 
 async function imagenGenerate(prompt, personGeneration = 'allow_adult') {

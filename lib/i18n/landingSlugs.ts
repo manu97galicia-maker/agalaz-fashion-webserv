@@ -29,7 +29,10 @@ export type CanonicalLandingSlug =
   | 'virtual-jewelry-try-on'
   | 'virtual-mens-suit-try-on'
   | 'virtual-pet-clothing-try-on'
-  | 'virtual-baby-clothing-try-on';
+  | 'virtual-baby-clothing-try-on'
+  | 'virtual-costume-try-on'
+  | 'virtual-hairstyle-try-on'
+  | 'virtual-cosplay-try-on';
 
 export const CANONICAL_LANDING_SLUGS: readonly CanonicalLandingSlug[] = [
   'virtual-tattoo-simulator',
@@ -42,6 +45,9 @@ export const CANONICAL_LANDING_SLUGS: readonly CanonicalLandingSlug[] = [
   'virtual-mens-suit-try-on',
   'virtual-pet-clothing-try-on',
   'virtual-baby-clothing-try-on',
+  'virtual-costume-try-on',
+  'virtual-hairstyle-try-on',
+  'virtual-cosplay-try-on',
 ] as const;
 
 export const LANDING_SLUGS: Record<CanonicalLandingSlug, Record<LandingLang, string>> = {
@@ -124,6 +130,30 @@ export const LANDING_SLUGS: Record<CanonicalLandingSlug, Record<LandingLang, str
     pt: 'provador-roupa-bebe',
     de: 'babykleidung-anprobieren',
     it: 'prova-vestiti-neonato',
+  },
+  'virtual-costume-try-on': {
+    en: 'virtual-costume-try-on',
+    es: 'probador-disfraces',
+    fr: 'essayage-deguisements',
+    pt: 'provador-fatos-carnaval',
+    de: 'kostueme-anprobieren',
+    it: 'prova-costumi',
+  },
+  'virtual-hairstyle-try-on': {
+    en: 'virtual-hairstyle-try-on',
+    es: 'probador-peinados',
+    fr: 'essayage-coiffures',
+    pt: 'provador-penteados',
+    de: 'frisuren-anprobieren',
+    it: 'prova-acconciature',
+  },
+  'virtual-cosplay-try-on': {
+    en: 'virtual-cosplay-try-on',
+    es: 'probador-cosplay',
+    fr: 'essayage-cosplay',
+    pt: 'provador-cosplay',
+    de: 'cosplay-anprobieren',
+    it: 'prova-cosplay',
   },
 };
 

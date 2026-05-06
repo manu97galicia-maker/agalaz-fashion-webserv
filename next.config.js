@@ -72,6 +72,23 @@ const nextConfig = {
       { source: '/it/virtual-mens-suit-try-on', destination: '/it/prova-abito-uomo', permanent: true },
       { source: '/it/virtual-pet-clothing-try-on', destination: '/it/prova-vestiti-animali', permanent: true },
       { source: '/it/virtual-baby-clothing-try-on', destination: '/it/prova-vestiti-neonato', permanent: true },
+      // Costume + hairstyle (added later)
+      { source: '/es/virtual-costume-try-on', destination: '/es/probador-disfraces', permanent: true },
+      { source: '/fr/virtual-costume-try-on', destination: '/fr/essayage-deguisements', permanent: true },
+      { source: '/pt/virtual-costume-try-on', destination: '/pt/provador-fatos-carnaval', permanent: true },
+      { source: '/de/virtual-costume-try-on', destination: '/de/kostueme-anprobieren', permanent: true },
+      { source: '/it/virtual-costume-try-on', destination: '/it/prova-costumi', permanent: true },
+      { source: '/es/virtual-hairstyle-try-on', destination: '/es/probador-peinados', permanent: true },
+      { source: '/fr/virtual-hairstyle-try-on', destination: '/fr/essayage-coiffures', permanent: true },
+      { source: '/pt/virtual-hairstyle-try-on', destination: '/pt/provador-penteados', permanent: true },
+      { source: '/de/virtual-hairstyle-try-on', destination: '/de/frisuren-anprobieren', permanent: true },
+      { source: '/it/virtual-hairstyle-try-on', destination: '/it/prova-acconciature', permanent: true },
+      // Cosplay
+      { source: '/es/virtual-cosplay-try-on', destination: '/es/probador-cosplay', permanent: true },
+      { source: '/fr/virtual-cosplay-try-on', destination: '/fr/essayage-cosplay', permanent: true },
+      { source: '/pt/virtual-cosplay-try-on', destination: '/pt/provador-cosplay', permanent: true },
+      { source: '/de/virtual-cosplay-try-on', destination: '/de/cosplay-anprobieren', permanent: true },
+      { source: '/it/virtual-cosplay-try-on', destination: '/it/prova-cosplay', permanent: true },
 
       // www → non-www
       {
