@@ -72,6 +72,9 @@ export async function POST(req: NextRequest) {
         cancel_url: `${origin}/paywall`,
         customer_email: email,
         client_reference_id: userId,
+        // Show "Add promotion code" field so customers can apply Stripe coupons
+        // (one-time-payment promotion codes you create in the Stripe Dashboard).
+        allow_promotion_codes: true,
         metadata: {
           type: 'credit_pack',
           credits: String(totalCredits),
