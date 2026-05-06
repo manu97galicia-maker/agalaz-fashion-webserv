@@ -12,42 +12,94 @@ export interface RecommendedProduct {
   productType: string;
 }
 
-// Category mapping: what to recommend after trying on X
+// Category mapping: what complementary product types to recommend after a try-on.
+// Keys are the NORMALIZED form (lowercase, singular). Values are arrays of
+// complementary keys that should also be present in this map (or in a
+// product_type/title/tag of the partner's catalog).
+//
+// Coverage targets: classic clothing taxonomy (shirt, pants, dress, ...) +
+// streetwear taxonomy (BOTTOMS / TOPS / JACKETS / FOOTWEAR / ACCESSORIES) +
+// jewelry + accessories.
 const CROSS_SELL_MAP: Record<string, string[]> = {
-  // Clothing cross-sells
-  'shirt': ['pants', 'jeans', 'trousers', 'skirt', 'shorts'],
-  'top': ['pants', 'jeans', 'trousers', 'skirt', 'shorts'],
-  't-shirt': ['pants', 'jeans', 'trousers', 'shorts'],
-  'blouse': ['pants', 'skirt', 'trousers', 'jeans'],
-  'sweater': ['pants', 'jeans', 'trousers', 'skirt'],
-  'hoodie': ['pants', 'jeans', 'joggers', 'shorts'],
-  'jacket': ['pants', 'jeans', 'trousers', 'shirt'],
-  'coat': ['pants', 'boots', 'scarf', 'gloves'],
-  'dress': ['shoes', 'bag', 'jewelry', 'earrings', 'necklace'],
-  'pants': ['shirt', 'top', 'blouse', 't-shirt', 'sweater'],
-  'jeans': ['shirt', 'top', 'blouse', 't-shirt', 'jacket'],
-  'trousers': ['shirt', 'blouse', 'top', 'sweater'],
-  'skirt': ['top', 'blouse', 'shirt', 'sweater'],
-  'shorts': ['t-shirt', 'top', 'shirt', 'tank'],
-  // Jewelry cross-sells
-  'ring': ['earrings', 'necklace', 'bracelet'],
-  'earrings': ['necklace', 'ring', 'bracelet'],
-  'necklace': ['earrings', 'ring', 'bracelet'],
-  'bracelet': ['ring', 'necklace', 'earrings'],
+  // ── Tops & upper body ──
+  'top': ['pant', 'bottom', 'jean', 'short', 'skirt', 'shoe', 'boot'],
+  'tops': ['pant', 'bottom', 'jean', 'short', 'skirt', 'shoe', 'boot'],
+  'shirt': ['pant', 'bottom', 'jean', 'short', 'skirt', 'shoe', 'jacket'],
+  't-shirt': ['pant', 'bottom', 'jean', 'short', 'jacket', 'sneaker'],
+  'tee': ['pant', 'bottom', 'jean', 'short', 'jacket', 'sneaker'],
+  'blouse': ['pant', 'skirt', 'jean', 'shoe'],
+  'sweater': ['pant', 'jean', 'skirt', 'boot'],
+  'sweatshirt': ['pant', 'jean', 'short', 'sneaker'],
+  'hoodie': ['pant', 'jean', 'jogger', 'short', 'sneaker'],
+  'tank': ['pant', 'short', 'skirt', 'jean'],
+  // ── Outerwear ──
+  'jacket': ['pant', 'bottom', 'jean', 'shirt', 'top', 'tee'],
+  'jackets': ['pant', 'bottom', 'jean', 'shirt', 'top', 'tee'],
+  'outerwear': ['pant', 'bottom', 'jean', 'shirt', 'top', 'tee', 'boot'],
+  'coat': ['pant', 'jean', 'boot', 'scarf', 'glove'],
+  'parka': ['pant', 'jean', 'boot'],
+  'blazer': ['pant', 'shirt', 'tie', 'shoe'],
+  // ── Bottoms ──
+  'pant': ['shirt', 'top', 'tee', 'sweater', 'hoodie', 'jacket'],
+  'pants': ['shirt', 'top', 'tee', 'sweater', 'hoodie', 'jacket'],
+  'bottom': ['top', 'shirt', 'tee', 'sweater', 'hoodie', 'jacket'],
+  'bottoms': ['top', 'shirt', 'tee', 'sweater', 'hoodie', 'jacket'],
+  'jean': ['shirt', 'top', 'tee', 'jacket', 'sweater', 'sneaker'],
+  'jeans': ['shirt', 'top', 'tee', 'jacket', 'sweater', 'sneaker'],
+  'trouser': ['shirt', 'top', 'sweater', 'blazer'],
+  'trousers': ['shirt', 'top', 'sweater', 'blazer'],
+  'skirt': ['top', 'shirt', 'sweater', 'boot'],
+  'short': ['tee', 'top', 'shirt', 'tank', 'sneaker'],
+  'shorts': ['tee', 'top', 'shirt', 'tank', 'sneaker'],
+  'culotte': ['top', 'shirt', 'tee', 'boot'],
+  'jogger': ['tee', 'hoodie', 'sneaker', 'sweatshirt'],
+  // ── Dresses & one-pieces ──
+  'dress': ['shoe', 'boot', 'bag', 'jewelry', 'earring', 'necklace'],
+  'jumpsuit': ['shoe', 'boot', 'bag', 'earring'],
+  // ── Footwear ──
+  'shoe': ['bag', 'sock', 'belt', 'jean', 'pant'],
+  'shoes': ['bag', 'sock', 'belt', 'jean', 'pant'],
+  'footwear': ['bag', 'jean', 'pant', 'jacket'],
+  'boot': ['jacket', 'coat', 'jean', 'pant'],
+  'boots': ['jacket', 'coat', 'jean', 'pant'],
+  'sneaker': ['tee', 'hoodie', 'jean', 'short', 'jogger'],
+  'sneakers': ['tee', 'hoodie', 'jean', 'short', 'jogger'],
+  'mule': ['dress', 'skirt', 'pant'],
+  'derby': ['blazer', 'pant', 'shirt'],
+  // ── Jewelry — pieces also cross-sell to OTHER jewelry pieces (a customer
+  //    looking at a ring is more likely to add a matching necklace than a t-shirt). ──
+  'ring': ['earring', 'necklace', 'bracelet', 'pendant'],
+  'rings': ['earring', 'necklace', 'bracelet', 'pendant'],
+  'earring': ['necklace', 'ring', 'bracelet', 'pendant'],
+  'earrings': ['necklace', 'ring', 'bracelet', 'pendant'],
+  'necklace': ['earring', 'ring', 'bracelet', 'pendant'],
+  'pendant': ['necklace', 'earring', 'ring', 'bracelet'],
+  'pendants': ['necklace', 'earring', 'ring', 'bracelet'],
+  'bracelet': ['ring', 'necklace', 'earring', 'pendant'],
   'watch': ['bracelet', 'ring', 'necklace'],
-  // Accessories
+  'jewelry': ['ring', 'necklace', 'earring', 'pendant', 'bracelet'],
+  'jewellery': ['ring', 'necklace', 'earring', 'pendant', 'bracelet'],
+  // ── Accessories ──
+  'sunglass': ['hat', 'bag', 'watch'],
   'sunglasses': ['hat', 'bag', 'watch'],
-  'glasses': ['earrings', 'necklace'],
-  'hat': ['sunglasses', 'scarf', 'bag'],
-  'bag': ['shoes', 'sunglasses', 'watch'],
-  'shoes': ['bag', 'socks', 'belt'],
-  'boots': ['jacket', 'coat', 'jeans'],
-  'sneakers': ['t-shirt', 'hoodie', 'jeans', 'shorts'],
+  'glass': ['earring', 'necklace'],
+  'glasses': ['earring', 'necklace'],
+  'hat': ['sunglass', 'scarf', 'bag', 'jacket'],
+  'cap': ['tee', 'hoodie', 'sneaker'],
+  'beanie': ['jacket', 'coat', 'sweater'],
+  'scarf': ['coat', 'jacket', 'boot'],
+  'belt': ['jean', 'pant', 'shirt'],
+  'bag': ['shoe', 'sunglass', 'watch'],
+  'accessory': ['shirt', 'pant', 'shoe'],
+  'accessories': ['shirt', 'pant', 'shoe'],
 };
 
 function normalizeType(type: string): string {
+  // Lowercase + trim + map common Spanish nouns to canonical English keys.
+  // Note: we no longer strip a trailing 's' aggressively — many product types
+  // are inherently plural ("pants", "shoes", "earrings", "BOTTOMS") and the
+  // map now has both singular AND plural forms registered.
   return type.toLowerCase().trim()
-    .replace(/s$/, '') // remove trailing 's' (pants→pant, etc.)
     .replace(/^(camiseta|camisa|pantalón|pantalon|vestido|falda|chaqueta|abrigo|zapato|bota|bolso|gafa|sombrero|anillo|pendiente|collar|pulsera|reloj).*/, (m) => {
       const map: Record<string, string> = {
         camiseta: 't-shirt', camisa: 'shirt', pantalón: 'pants', pantalon: 'pants',
@@ -62,8 +114,12 @@ function normalizeType(type: string): string {
 
 function getComplementaryTypes(productType: string): string[] {
   const normalized = normalizeType(productType);
+  // Bidirectional substring match — the product_type might be more specific
+  // than our map key (e.g. "harem shorts" → matches "shorts") OR the map key
+  // might be more specific than the product_type (e.g. product "pants" with
+  // map key "pants"). Either direction counts as a hit.
   for (const [key, values] of Object.entries(CROSS_SELL_MAP)) {
-    if (normalized.includes(key)) return values;
+    if (normalized.includes(key) || key.includes(normalized)) return values;
   }
   // Default: recommend anything from a different type
   return [];
