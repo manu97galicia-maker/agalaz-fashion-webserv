@@ -1,0 +1,64 @@
+import type { Metadata } from 'next';
+
+const FAQ = [
+  { q: 'How does the virtual hanbok try-on work?', a: 'Upload a clear photo of yourself and a photo of the hanbok — jeogori, chima, dangui, jeonbok, hwarot. The AI dresses you in 30 seconds with the goreum tie and chima silhouette, preserving your real face and lighting.' },
+  { q: 'Which hanbok styles can I try?', a: 'Traditional women\'s and men\'s hanbok, modern fusion (Leesle, Tchai Kim, Danha, Hanbok Lynn), wedding hwarot and wonsam, kids dol hanbok with saekdong sleeves, court-style and palace-rental hanbok.' },
+  { q: 'Can I see different colour combinations?', a: 'Yes. Ask the AI: "navy chima with peach jeogori", "saekdong rainbow sleeves", "modern monochrome". The same hanbok recolours on you while keeping your face and pose.' },
+  { q: 'Will it respect my real features?', a: 'Yes. No skin smoothing, no eye-shape edits — only the garment is rendered. The hanbok on YOU.' },
+  { q: 'Is it ready for Chuseok, Seollal, dol, pyebaek?', a: 'Yes — built for it. Plan family Chuseok hanbok, Seollal sebae, your child\'s dol-jabi outfit, the bride\'s pyebaek hwarot, weeks before the rental shop fills up.' },
+  { q: 'Useful for hanbok rental shops?', a: 'Yes. Embed on rental pages — typical 3-5x lift in conversion on wedding and Chuseok hanbok, fewer no-shows. Partner pricing available.' },
+];
+
+export const metadata: Metadata = {
+  title: 'Virtual Hanbok Try-On — See Korean Hanbok On Your Face | Agalaz',
+  description:
+    'Try traditional, modern, wedding and kids hanbok on your real face with AI before booking a Bukchon rental or buying. Jeogori, chima, hwarot — see colour and silhouette on YOU in 30 seconds. Free.',
+  keywords: [
+    'virtual hanbok try on',
+    'hanbok try on online',
+    'korean hanbok visualizer',
+    'wedding hanbok try on',
+    'modern hanbok try on',
+    'hanbok rental visualizer',
+    'jeogori chima try on',
+    'see hanbok on my face',
+    'chuseok hanbok ai',
+    'seollal hanbok try on',
+    'dol hanbok try on',
+    'leesle danha hanbok try on',
+  ],
+  openGraph: {
+    title: 'Virtual Hanbok Try-On — See Korean Hanbok On Your Face',
+    description: 'Upload your photo, drop in any hanbok, see it on YOUR face in 30 seconds. Free.',
+    url: 'https://agalaz.com/virtual-hanbok-try-on',
+    siteName: 'Agalaz',
+    type: 'website',
+    locale: 'en_US',
+    alternateLocale: 'ko',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Virtual Hanbok Try-On',
+    description: 'Upload your photo, drop any hanbok, render in 30 seconds.',
+  },
+  alternates: {
+    canonical: 'https://agalaz.com/virtual-hanbok-try-on',
+    languages: {
+      en: 'https://agalaz.com/virtual-hanbok-try-on',
+      ko: 'https://agalaz.com/ko/hanbok',
+      'x-default': 'https://agalaz.com/virtual-hanbok-try-on',
+    },
+  },
+};
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const ld = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      { '@type': 'SoftwareApplication', name: 'Agalaz Virtual Hanbok Try-On', operatingSystem: 'WEB', applicationCategory: 'LifestyleApplication', url: 'https://agalaz.com/virtual-hanbok-try-on', offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' } },
+      { '@type': 'FAQPage', mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+      { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://agalaz.com' }, { '@type': 'ListItem', position: 2, name: 'Virtual Hanbok Try-On', item: 'https://agalaz.com/virtual-hanbok-try-on' }] },
+    ],
+  };
+  return (<><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />{children}</>);
+}

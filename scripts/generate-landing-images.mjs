@@ -126,6 +126,30 @@ const LANDINGS = [
     item: `A single elegant blush-pink chiffon hijab displayed flat on a clean off-white background, soft folds visible, premium modest-fashion product photography, no model. Square 1:1. ${STYLE_BASE}`,
     edit: 'Drape the blush-pink chiffon hijab from the second image around the head and shoulders of the woman in the first image, covering her hair fully and falling softly over her shoulders in a tasteful, modest style. Keep her face, the cream backdrop and the soft daylight identical. Respectful, editorial modest-fashion photography. Output one photorealistic image.',
   },
+  {
+    slug: 'virtual-saree-try-on',
+    before: `Full-body editorial photograph of a young woman in plain casual outfit — simple cotton kurti and slim trousers — standing relaxed against a clean studio backdrop, natural daylight, square 1:1 framing. Tasteful, respectful editorial photography. ${STYLE_BASE}`,
+    item: `A single elegant deep-red Banarasi silk saree with intricate gold zari border and traditional motifs, displayed flat on a clean off-white background, premium Indian-wear product photography, no model. Square 1:1. ${STYLE_BASE}`,
+    edit: 'Drape the deep-red Banarasi silk saree from the second image on the woman in the first image in a classic Nivi style — pleats neatly tucked at the waist, pallu draped elegantly over the left shoulder, gold zari border visible along the edge. Keep her face, hair, pose, the studio backdrop and the lighting identical. Tasteful editorial photography. Output one photorealistic image.',
+  },
+  {
+    slug: 'virtual-hanbok-try-on',
+    before: `Full-body editorial photograph of a young woman in plain casual outfit — simple beige sweater and slim trousers — standing relaxed against a clean studio backdrop, natural daylight, square 1:1 framing. Tasteful, respectful editorial photography. ${STYLE_BASE}`,
+    item: `A single traditional women's hanbok displayed flat on a clean off-white background — a soft pink jeogori top with white collar and goreum tie, paired with a long flowing navy-blue chima skirt, premium Korean traditional-wear product photography, no model. Square 1:1. ${STYLE_BASE}`,
+    edit: 'Dress the woman in the first image with the traditional pink jeogori and navy-blue chima hanbok from the second image. Tie the goreum properly at the right side of the chest, let the chima fall in soft pleats to the floor. Keep her face, hair, pose, the studio backdrop and the lighting identical. Tasteful editorial photography. Output one photorealistic image.',
+  },
+  {
+    slug: 'virtual-kimono-try-on',
+    before: `Full-body editorial photograph of a young woman in plain casual outfit — neutral knit sweater and slim trousers — standing relaxed against a clean studio backdrop, natural daylight, square 1:1 framing. Tasteful, respectful editorial photography. ${STYLE_BASE}`,
+    item: `A single elegant pastel-pink furisode kimono with delicate floral cherry-blossom print and long swinging sleeves, displayed flat on a clean off-white background, premium Japanese traditional-wear product photography, no model. Square 1:1. ${STYLE_BASE}`,
+    edit: 'Dress the woman in the first image with the pastel-pink furisode kimono from the second image. Wrap the kimono left-over-right, tie it with a proper obi sash at the waist, let the long sleeves hang gracefully. Keep her face, hair, pose, the studio backdrop and the lighting identical. Tasteful editorial photography. Output one photorealistic image.',
+  },
+  {
+    slug: 'virtual-qipao-try-on',
+    before: `Full-body editorial photograph of a young woman in plain casual outfit — simple white t-shirt and slim trousers — standing relaxed against a clean studio backdrop, natural daylight, square 1:1 framing. Tasteful, respectful editorial photography. ${STYLE_BASE}`,
+    item: `A single classic red embroidered qipao / cheongsam with mandarin collar, traditional pankou knot buttons, gold floral embroidery and a tasteful side slit, displayed flat on a clean off-white background, premium Chinese traditional-wear product photography, no model. Square 1:1. ${STYLE_BASE}`,
+    edit: 'Dress the woman in the first image with the red embroidered qipao from the second image. Fit the mandarin collar to her neck, fasten the pankou knot buttons along the right side, drape the silk so the embroidery and side slit are visible. Keep her face, hair, pose, the studio backdrop and the lighting identical. Tasteful editorial photography. Output one photorealistic image.',
+  },
 ];
 
 async function imagenGenerate(prompt, personGeneration = 'allow_adult') {
