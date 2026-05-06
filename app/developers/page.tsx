@@ -9,6 +9,7 @@ import {
   Check,
   Lock,
 } from 'lucide-react';
+import InternalLandingLinksAuto from '@/components/landing/InternalLandingLinksAuto';
 
 const FAQS = [
   {
@@ -522,6 +523,8 @@ export default function DevelopersPage() {
           </Link>
         </div>
       </section>
+
+      <InternalLandingLinksAuto />
 
       {/* Footer */}
       <footer className="border-t border-slate-100">

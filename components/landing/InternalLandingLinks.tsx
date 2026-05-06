@@ -8,8 +8,10 @@ import {
 } from '@/lib/i18n/landingSlugs';
 
 interface Props {
-  /** The canonical slug of the page this block is rendered on (so we exclude it from the list). */
-  currentSlug: CanonicalLandingSlug;
+  /** The canonical slug of the page this block is rendered on (so we exclude it from the list).
+   *  Omit to show ALL 10 product try-on landings — useful on main pages (/, /partners, /shopify, etc.)
+   *  that aren't themselves a product landing. */
+  currentSlug?: CanonicalLandingSlug;
   /** Language for both the URL slugs and the labels. */
   lang: LandingLang;
 }
@@ -120,7 +122,9 @@ const SECTION_LABELS: Record<LandingLang, { eyebrow: string; title: string }> = 
  * complete and Google sees the topical clustering.
  */
 export default function InternalLandingLinks({ currentSlug, lang }: Props) {
-  const others = CANONICAL_LANDING_SLUGS.filter((s) => s !== currentSlug);
+  const others = currentSlug
+    ? CANONICAL_LANDING_SLUGS.filter((s) => s !== currentSlug)
+    : [...CANONICAL_LANDING_SLUGS];
   const headings = SECTION_LABELS[lang];
 
   return (

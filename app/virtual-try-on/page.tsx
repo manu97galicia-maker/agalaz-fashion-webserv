@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Sparkles, ArrowRight, ShieldCheck, Zap, Camera, Shirt, Layers, Target, CheckCircle2 } from 'lucide-react';
 import { useLang, pickLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
+import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
 
 export default function VirtualTryOnPage() {
   const { lang } = useLang();
@@ -430,6 +431,8 @@ export default function VirtualTryOnPage() {
           </div>
         </div>
       </section>
+
+      <InternalLandingLinks lang={lang} />
 
       {/* Footer */}
       <footer className="border-t border-slate-100 py-10 px-6 md:px-12 max-w-7xl mx-auto">

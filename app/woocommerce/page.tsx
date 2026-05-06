@@ -9,6 +9,7 @@ import {
   Check,
   Layers,
 } from 'lucide-react';
+import InternalLandingLinksAuto from '@/components/landing/InternalLandingLinksAuto';
 
 const FAQS = [
   {
@@ -353,6 +354,8 @@ export default function WooCommercePage() {
           </Link>
         </div>
       </section>
+
+      <InternalLandingLinksAuto />
 
       {/* Footer */}
       <footer className="border-t border-slate-100">

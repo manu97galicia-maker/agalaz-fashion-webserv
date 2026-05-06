@@ -9,6 +9,7 @@ import {
   Check,
   ShoppingBag,
 } from 'lucide-react';
+import InternalLandingLinksAuto from '@/components/landing/InternalLandingLinksAuto';
 
 const FAQS = [
   {
@@ -352,6 +353,8 @@ export default function ShopifyPage() {
           </Link>
         </div>
       </section>
+
+      <InternalLandingLinksAuto />
 
       {/* Footer */}
       <footer className="border-t border-slate-100">

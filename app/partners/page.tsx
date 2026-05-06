@@ -8,6 +8,7 @@ import { Sparkles, Copy, Check, ArrowRight, ChevronRight, Shield, Zap, Globe, Co
 import { useLang, pickLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { ChatBot } from '@/components/ChatBot';
+import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
 
 const PLANS = [
   {
@@ -1192,6 +1193,7 @@ function PartnersContent() {
                 </p>
               </div>
             </div>
+            {step === 'landing' && <InternalLandingLinks lang={lang} />}
           </>
         )}
 
