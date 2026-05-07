@@ -9,11 +9,16 @@ const BASE_URL = 'https://agalaz.com';
 
 // Resolves the per-article hero image path if generate-blog-images.mjs has
 // produced one — checked once at build time, statically baked into the page.
+// Prefers WebP (≈97% smaller than the original PNG hero panels) and falls
+// back to PNG if a WebP wasn't generated yet for that slug.
 function heroImageFor(slug: string): string | null {
   const explicit = articles.find((a) => a.slug === slug)?.image;
   if (explicit) return explicit;
-  const filePath = path.join(process.cwd(), 'public', 'blog-images', `${slug}.png`);
-  return fs.existsSync(filePath) ? `/blog-images/${slug}.png` : null;
+  const dir = path.join(process.cwd(), 'public', 'blog-images');
+  const webp = path.join(dir, `${slug}.webp`);
+  if (fs.existsSync(webp)) return `/blog-images/${slug}.webp`;
+  const png = path.join(dir, `${slug}.png`);
+  return fs.existsSync(png) ? `/blog-images/${slug}.png` : null;
 }
 
 // Spanish-primary slugs (Spanish-keyword targeting). Other slugs default to English.
