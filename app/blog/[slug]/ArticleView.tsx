@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { Clock, Sparkles, ArrowRight } from 'lucide-react';
 import type { Article } from '../articles';
+import { blogCtaPath } from '@/lib/blogToLanding';
+import { track } from '@/lib/analytics';
 
 interface Props {
   article: Article;
@@ -18,6 +20,20 @@ export default function ArticleView({ article, related, lang, heroImage, heroIma
   const en = lang === 'en';
 
   const content = en ? article.content : article.contentEs;
+  const articleCategory = en ? article.category : article.categoryEs;
+  // Topic-aware CTA: a "Pastel Chrome Nails" article links to the nails
+  // landing, "Spring Wedding Guest" → wedding-dress, etc. Falls back to
+  // /try-on for general-style articles. See lib/blogToLanding.ts.
+  const ctaPath = blogCtaPath(article.slug, articleCategory, lang);
+
+  const handleCtaClick = (location: 'nav' | 'inline' | 'footer') => {
+    track('landing_view', {
+      source: 'blog_cta',
+      cta_location: location,
+      blog_slug: article.slug,
+      target_path: ctaPath,
+    });
+  };
 
   return (
     <main className="min-h-screen bg-white">
@@ -29,7 +45,8 @@ export default function ArticleView({ article, related, lang, heroImage, heroIma
           </Link>
           <div className="flex items-center gap-5">
             <Link
-              href="/try-on"
+              href={ctaPath}
+              onClick={() => handleCtaClick('nav')}
               className="px-6 py-2.5 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full hover:bg-slate-800 transition-colors"
             >
               {en ? 'Try Now' : 'Probar'}
@@ -162,7 +179,8 @@ export default function ArticleView({ article, related, lang, heroImage, heroIma
               : 'Ve cómo te queda cualquier prenda en tu cuerpo real con IA.'}
           </p>
           <Link
-            href="/try-on"
+            href={ctaPath}
+            onClick={() => handleCtaClick('inline')}
             className="inline-flex items-center gap-3 px-8 py-4 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs hover:bg-indigo-600 transition-colors"
           >
             <Sparkles size={16} />
@@ -210,7 +228,11 @@ export default function ArticleView({ article, related, lang, heroImage, heroIma
             <Link href="/blog" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
               Blog
             </Link>
-            <Link href="/try-on" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
+            <Link
+              href={ctaPath}
+              onClick={() => handleCtaClick('footer')}
+              className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors"
+            >
               {en ? 'Try Now' : 'Probar'}
             </Link>
             <Link href="/privacy" className="text-slate-400 text-xs font-light hover:text-slate-600 transition-colors">
