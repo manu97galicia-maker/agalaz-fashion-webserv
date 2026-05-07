@@ -24,4 +24,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default Page;
+export default function TryOnLocalizedPage() {
+  return (
+    <>
+      <h1 className="sr-only">{meta.title}</h1>
+      <Page />
+    </>
+  );
+}
