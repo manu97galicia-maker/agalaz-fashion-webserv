@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
 export const metadata: Metadata = {
-  title: 'Kostenloser Virtueller Tattoo-Simulator | Tattoos auf Foto mit KI',
+  title: 'Tattoo-Simulator Kostenlos — Tattoos auf Foto',
   description: 'Probiere Tattoos auf deinem Foto mit unserem kostenlosen KI-Simulator. Realistische Platzierung auf Armen, Beinen oder Brust. Für Tätowierer und Studios.',
   alternates: {
     canonical: nativeLandingUrl('virtual-tattoo-simulator', 'de'),

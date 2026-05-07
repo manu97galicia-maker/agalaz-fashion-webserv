@@ -29,7 +29,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Wedding Dress Try-On — See Any Gown On You with AI | Agalaz',
+  title: 'Virtual Wedding Dress Try-On — Any Gown with AI',
   description:
     'Try wedding dresses on your real body with AI before any boutique appointment. Upload a photo, drop in any gown (Pronovias, Vera Wang, Pinterest), see it on you in 30 seconds. Free.',
   keywords: [

@@ -10,7 +10,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Veil & Hijab Try-On — See Modest Fashion On Your Face | Agalaz',
+  title: 'Virtual Veil & Hijab Try-On — Modest Fashion AI',
   description:
     'Try hijabs, abayas, niqabs, burkas, and modest dresses on your real face with AI before buying. From any brand — see colour, drape, coverage on YOU in 30 seconds. Free, no app.',
   keywords: [

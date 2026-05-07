@@ -10,7 +10,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Saree Try-On — See Sarees, Lehengas & Sherwanis On Your Face | Agalaz',
+  title: 'Virtual Saree Try-On — Indian Wear on Your Face',
   description:
     'Try sarees, lehengas, sherwanis, salwar-kameez and kurtas on your real face with AI before buying or stitching. Banarasi, Kanjivaram, Sabyasachi-style — see weave, zari and drape on YOU in 30 seconds. Free.',
   keywords: [

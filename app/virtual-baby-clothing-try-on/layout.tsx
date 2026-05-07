@@ -11,7 +11,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Baby Clothing Try-On — See Outfits On Your Real Baby | Agalaz',
+  title: 'Virtual Baby Clothing Try-On — Outfits On Your Baby',
   description:
     'Try onesies, dresses, christening gowns, and costumes on your real baby with AI before buying. From newborn to toddler — see it on YOUR baby in 30 seconds. Free, no app.',
   keywords: [

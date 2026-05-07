@@ -6,7 +6,7 @@ const pageUrl = nativeLandingUrl('virtual-earring-try-on', 'es');
 const enUrl = nativeLandingUrl('virtual-earring-try-on', 'en');
 
 export const metadata: Metadata = {
-  title: 'Probador Virtual de Pendientes — IA Gratis | Agalaz',
+  title: 'Probador Virtual de Pendientes — IA Gratis',
   description: 'Pruébate cualquier par de pendientes en tu foto con IA. Encuentra el modelo perfecto antes de comprar.',
   alternates: {
     canonical: nativeLandingUrl('virtual-earring-try-on', 'es'),

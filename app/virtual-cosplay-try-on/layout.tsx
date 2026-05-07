@@ -12,7 +12,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Cosplay Try-On — See Anime & Game Cosplay On You | Agalaz',
+  title: 'Virtual Cosplay Try-On — Anime & Game Cosplay AI',
   description:
     'Try anime, game, Marvel, Star Wars and original-character cosplays on your real body with AI before spending $200 on a wig. Comic-Con, MCM, Japan Expo, Lucca Comics ready in 30 seconds. Free, no app.',
   keywords: [

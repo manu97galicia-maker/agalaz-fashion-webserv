@@ -11,7 +11,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Jewelry Try-On — Necklaces, Rings, Earrings on You with AI | Agalaz',
+  title: 'Virtual Jewelry Try-On — Necklaces & Rings AI',
   description:
     'Try any jewellery on your real body before buying. Engagement rings, necklaces, earrings, bracelets — see them on you in 30 seconds. Free, no app.',
   keywords: [

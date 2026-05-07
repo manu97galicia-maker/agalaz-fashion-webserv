@@ -11,7 +11,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Pet Clothing Try-On — See Outfits On Your Dog & Cat | Agalaz',
+  title: 'Virtual Pet Clothing Try-On — Outfits On Your Pet',
   description:
     'Try sweaters, costumes, and outfits on your real dog or cat with AI before buying. Halloween, holidays, daily wear — see it on YOUR pet in 30 seconds. Free, no app.',
   keywords: [

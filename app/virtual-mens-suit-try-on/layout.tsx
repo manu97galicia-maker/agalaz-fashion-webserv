@@ -11,7 +11,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Men\'s Suit Try-On — See Any Suit On You with AI | Agalaz',
+  title: 'Virtual Suit Try-On — Any Suit On You with AI',
   description:
     'Try any suit, tuxedo, or blazer on your real body before fittings. SuitSupply, Tom Ford, Indochino, vintage — see it on you in 30 seconds. Free, no app.',
   keywords: [

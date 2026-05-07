@@ -14,27 +14,27 @@ interface MetaEntry {
 export const ROOT_PAGE_META: Record<RootPage, Record<RootLang, MetaEntry>> = {
   home: {
     en: {
-      title: 'Try On Any Clothing Before Buying — Free AI Virtual Try-On',
+      title: 'AI Virtual Try-On — Try Clothing Before You Buy',
       description: 'Upload your photo and see any clothing on your real body with AI. Reduce returns 80%. 2 free renders, no credit card — try free now.',
     },
     es: {
-      title: 'Pruébate Cualquier Prenda Antes de Comprar — Probador Virtual con IA Gratis',
+      title: 'Probador Virtual con IA — Pruébate Ropa Online',
       description: 'Sube tu foto y mira cualquier prenda en tu cuerpo real con IA. Reduce devoluciones un 80%. 2 renders gratis, sin tarjeta — prueba gratis ahora.',
     },
     fr: {
-      title: "Essayez n'importe quel vêtement avant d'acheter — Essayage virtuel IA gratuit",
+      title: "Essayage Virtuel IA — Essayez Avant d'Acheter",
       description: "Téléchargez votre photo et voyez n'importe quel vêtement sur votre corps réel avec l'IA. Réduisez les retours de 80%. 2 essais gratuits, sans carte.",
     },
     pt: {
-      title: 'Experimenta qualquer roupa antes de comprar — Provador Virtual IA Grátis',
+      title: 'Provador Virtual IA — Experimenta Antes de Comprar',
       description: 'Carrega a tua foto e vê qualquer roupa no teu corpo real com IA. Reduz devoluções 80%. 2 testes grátis, sem cartão — experimenta já.',
     },
     de: {
-      title: 'Probiere jede Kleidung vor dem Kauf — Kostenlose KI-Anprobe',
+      title: 'Virtuelle KI-Anprobe — Vor dem Kauf anprobieren',
       description: 'Lade dein Foto hoch und sieh jede Kleidung an deinem echten Körper mit KI. 80% weniger Rücksendungen. 2 kostenlose Renderings, keine Kreditkarte.',
     },
     it: {
-      title: "Prova qualsiasi capo prima di comprare — Prova virtuale IA gratuita",
+      title: 'Prova Virtuale IA — Provala Prima di Comprare',
       description: "Carica la tua foto e vedi qualsiasi capo sul tuo corpo reale con IA. Riduci i resi del 80%. 2 prove gratis, senza carta — provalo subito.",
     },
   },

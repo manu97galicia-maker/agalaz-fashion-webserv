@@ -11,7 +11,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Costume Try-On — See Halloween & Cosplay On You | Agalaz',
+  title: 'Virtual Costume Try-On — Halloween & Cosplay AI',
   description:
     'Try Halloween costumes, cosplay, kids outfits, carnival looks and party themes on your real body with AI before buying. See it on YOU in 30 seconds. Free, no app.',
   keywords: [

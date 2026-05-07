@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
 export const metadata: Metadata = {
-  title: 'Realistische Virtuelle Bademoden-Anprobe | Bikinis am Echten Körper',
+  title: 'Bikini-Anprobe — Bademoden am Echten Körper KI',
   description: 'Die erste KI-Bademoden-Anprobe für echte Körper. Lade dein Foto hoch und probiere Bikinis sofort. Reduziere Retouren mit Agalaz AI.',
   alternates: {
     canonical: nativeLandingUrl('realistic-swimwear-try-on', 'de'),

@@ -11,7 +11,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Glasses Try-On — See Any Frames On Your Face | Agalaz',
+  title: 'Virtual Glasses Try-On — Any Frames On Your Face',
   description:
     'Try any glasses on your real face with AI before buying. Ray-Ban, Persol, Warby Parker, optician frames — see them on you in 30 seconds. Free, no app.',
   keywords: [

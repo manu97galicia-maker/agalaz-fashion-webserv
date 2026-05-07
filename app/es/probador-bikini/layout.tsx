@@ -6,7 +6,7 @@ const pageUrl = nativeLandingUrl('realistic-swimwear-try-on', 'es');
 const enUrl = nativeLandingUrl('realistic-swimwear-try-on', 'en');
 
 export const metadata: Metadata = {
-  title: 'Probador Virtual de Bañadores Realista — IA Gratis | Agalaz',
+  title: 'Probador Virtual de Bañadores — IA Gratis',
   description: 'Pruébate cualquier bañador en tu foto con IA. Realista, instantáneo y privado. Decide la talla y el corte antes de comprar.',
   alternates: {
     canonical: nativeLandingUrl('realistic-swimwear-try-on', 'es'),

@@ -29,7 +29,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Nail Try-On — See Any Manicure on Your Hand with AI | Agalaz',
+  title: 'Virtual Nail Try-On — Manicures on Your Hand with AI',
   description:
     'Try any nail design on your real hand before booking. Almond, coffin, chrome, French, glitter, gel — see it on you in 30 seconds. Free, private, no app.',
   keywords: [

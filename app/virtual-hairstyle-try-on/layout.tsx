@@ -12,7 +12,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Hairstyle Try-On — See Cuts & Colour Before The Salon | Agalaz',
+  title: 'Virtual Hairstyle Try-On — Cuts & Colour Before Salon',
   description:
     'Try haircuts, colour, balayage, braids, and dye on your real face with AI before the salon appointment. See platinum, copper, pixie or bob on YOU in 30 seconds. Free.',
   keywords: [

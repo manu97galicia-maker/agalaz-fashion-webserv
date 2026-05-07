@@ -10,7 +10,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Hanbok Try-On — See Korean Hanbok On Your Face | Agalaz',
+  title: 'Virtual Hanbok Try-On — Korean Hanbok on Your Face',
   description:
     'Try traditional, modern, wedding and kids hanbok on your real face with AI before booking a Bukchon rental or buying. Jeogori, chima, hwarot — see colour and silhouette on YOU in 30 seconds. Free.',
   keywords: [

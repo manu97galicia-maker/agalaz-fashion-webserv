@@ -12,7 +12,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Try Bikini AI Outfit Changer — Free Virtual Swimwear Try-On',
+  title: 'Bikini AI Try-On — Free Virtual Swimwear Try-On',
   description:
     'Free bikini AI outfit changer — virtual swimwear try-on for real bodies. Upload your photo and try on any bikini in seconds. 2 free renders, no signup. See free version limitations and upgrade options inside.',
   keywords: [
