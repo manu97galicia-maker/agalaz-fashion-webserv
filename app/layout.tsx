@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { headers } from 'next/headers';
 import { Inter, Playfair_Display } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -176,9 +177,17 @@ const jsonLd = {
   ],
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Locale-aware <html lang="..."> per request — driven by the x-url-locale
+  // header injected by middleware.ts based on the URL prefix
+  // (/es/* → es, /ar/* → ar, etc.). Fixes the Ahrefs "Hreflang & HTML lang
+  // mismatch" issue across the 105 localized routes. Note: reading headers()
+  // opts the layout into dynamic rendering — Vercel edge cache + SSR caching
+  // mitigate the TTFB cost.
+  const h = await headers();
+  const lang = h.get('x-url-locale') || 'en';
   return (
-    <html lang="en" translate="no" className="notranslate">
+    <html lang={lang} translate="no" className="notranslate">
       <head>
         <meta name="google" content="notranslate" />
         <link rel="preconnect" href="https://vpfawwcoqyglclpckrrl.supabase.co" />

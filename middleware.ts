@@ -68,7 +68,19 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  const response = NextResponse.next();
+  // Detect URL-prefix locale so the root layout can render the correct
+  // <html lang="..."> attribute. Reads the first path segment and matches
+  // against our supported locales; falls back to 'en' for everything else.
+  // Forwarded as a request header so server components / layouts can read it
+  // via `headers().get('x-url-locale')`.
+  const URL_LOCALES = new Set(['es', 'fr', 'pt', 'de', 'it', 'ar', 'hi', 'ko', 'ja', 'zh']);
+  const firstSegment = pathname.split('/')[1] || '';
+  const urlLocale = URL_LOCALES.has(firstSegment) ? firstSegment : 'en';
+
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-url-locale', urlLocale);
+
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
   response.cookies.set('agalaz-lang-routed', '1', {
     path: '/',
     maxAge: 365 * 24 * 60 * 60,
