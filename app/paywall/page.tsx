@@ -81,14 +81,12 @@ export default function PaywallPage() {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Promo code countdown — sessionStorage-backed so reloading mid-timer
-  // continues from where it was instead of restarting (avoids the obvious
-  // "fake urgency" feel of always-fresh 2:08 on every refresh).
+  // Promo code countdown — restarts on every paywall mount so the urgency
+  // banner is always visible and ticking when a user opens the page. (We
+  // tried sessionStorage-persisted timers, but expired sessions hid the
+  // banner from returning visitors which kills conversion.)
   useEffect(() => {
-    const KEY = 'agalaz_paywall_promo_started';
-    const stored = sessionStorage.getItem(KEY);
-    const startedAt = stored ? parseInt(stored, 10) : Date.now();
-    if (!stored) sessionStorage.setItem(KEY, String(startedAt));
+    const startedAt = Date.now();
     const tick = () => {
       const elapsed = Math.floor((Date.now() - startedAt) / 1000);
       setSecondsLeft(Math.max(0, COUNTDOWN_SECONDS - elapsed));
@@ -226,7 +224,7 @@ export default function PaywallPage() {
             (allow_promotion_codes is enabled server-side). After expiry the
             banner disappears so the urgency cue stays honest. */}
         {promoActive && (
-          <div className="mb-6 rounded-2xl bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border-2 border-amber-300 p-4 md:p-5 shadow-md animate-fade-in">
+          <div className="mb-6 rounded-2xl bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border-2 border-amber-400 p-4 md:p-5 shadow-lg animate-fade-in">
             <div className="flex items-start gap-3">
               <div className="shrink-0 w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center">
                 <Clock size={18} className="text-white" />
@@ -234,7 +232,7 @@ export default function PaywallPage() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2 flex-wrap">
                   <p className="text-[11px] font-black uppercase tracking-wider text-amber-700">
-                    {en ? '15% off Style Pro · expires in' : '15% off Style Pro · caduca en'}
+                    {en ? '15% OFF · expires in' : '15% OFF · caduca en'}
                   </p>
                   <span className="font-mono font-black text-base md:text-lg text-amber-900 tabular-nums">
                     {timerStr}
@@ -251,11 +249,12 @@ export default function PaywallPage() {
                     {codeCopied ? (en ? 'Copied!' : '¡Copiado!') : (en ? 'Tap to copy' : 'Pulsa para copiar')}
                   </span>
                 </button>
-                <p className="mt-2 text-[10px] text-slate-500 leading-snug">
-                  {en
-                    ? 'Paste the code at checkout to apply 15% off Style Pro.'
-                    : 'Pega el código en el checkout para aplicar el 15% en Style Pro.'}
-                </p>
+                <div className="mt-2 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-indigo-600 text-white">
+                  <Sparkles size={10} />
+                  <span className="text-[10px] font-black uppercase tracking-wider">
+                    {en ? 'Only valid for Style Pro' : 'Solo válido para Style Pro'}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
