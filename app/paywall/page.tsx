@@ -3,18 +3,28 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { X, Check, Shield, Sparkles, ArrowRight } from 'lucide-react';
+import { X, Check, Shield, Sparkles, ArrowRight, Clock } from 'lucide-react';
 import { createBrowserClient } from '@supabase/ssr';
 import { signInWithGoogle, signInWithOtp } from '@/services/authService';
 import { useLang } from '@/components/LanguageProvider';
 
-type Plan = 'test' | 'popular';
+type Plan = 'trial' | 'test' | 'popular';
+
+// 15%-off promo code displayed in the paywall countdown banner. Update this
+// constant if the Stripe promotion code is renamed in the dashboard. Users
+// paste it at Stripe checkout (allow_promotion_codes: true is set server-side).
+const STYLE_PRO_PROMO_CODE = 'AGALAZ15';
+// Countdown duration: 2 minutes 8 seconds, per request. Resets per session
+// (sessionStorage) — first paywall view starts the timer; on reload the
+// timer continues from where it was. After expiration the banner fades and
+// the code is no longer prominent (still works at Stripe if not consumed).
+const COUNTDOWN_SECONDS = 2 * 60 + 8;
 
 export default function PaywallPage() {
   const router = useRouter();
   const { t, lang } = useLang();
   const en = lang === 'en';
-  const [selected, setSelected] = useState<Plan>('test');
+  const [selected, setSelected] = useState<Plan>('popular');
   const [loading, setLoading] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
@@ -23,6 +33,8 @@ export default function PaywallPage() {
   const [otpEmail, setOtpEmail] = useState('');
   const [otpSent, setOtpSent] = useState(false);
   const [fromCategory, setFromCategory] = useState<string | null>(null);
+  const [secondsLeft, setSecondsLeft] = useState<number>(COUNTDOWN_SECONDS);
+  const [codeCopied, setCodeCopied] = useState(false);
 
   async function handleLoginOtp() {
     if (!otpEmail || !otpEmail.includes('@')) return;
@@ -66,25 +78,62 @@ export default function PaywallPage() {
     return () => subscription.unsubscribe();
   }, []);
 
+  // Promo code countdown — sessionStorage-backed so reloading mid-timer
+  // continues from where it was instead of restarting (avoids the obvious
+  // "fake urgency" feel of always-fresh 2:08 on every refresh).
+  useEffect(() => {
+    const KEY = 'agalaz_paywall_promo_started';
+    const stored = sessionStorage.getItem(KEY);
+    const startedAt = stored ? parseInt(stored, 10) : Date.now();
+    if (!stored) sessionStorage.setItem(KEY, String(startedAt));
+    const tick = () => {
+      const elapsed = Math.floor((Date.now() - startedAt) / 1000);
+      setSecondsLeft(Math.max(0, COUNTDOWN_SECONDS - elapsed));
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const promoActive = secondsLeft > 0;
+  const mins = Math.floor(secondsLeft / 60);
+  const secs = secondsLeft % 60;
+  const timerStr = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+  const handleCopyCode = async () => {
+    try {
+      await navigator.clipboard.writeText(STYLE_PRO_PROMO_CODE);
+      setCodeCopied(true);
+      setTimeout(() => setCodeCopied(false), 1800);
+    } catch {}
+  };
+
   const features = en
     ? ['Credits never expire', 'Clothing, glasses, jewelry, tattoos & more', 'AI chat to adjust size, color, fit', 'Download & share your renders', 'Buy again anytime — no subscription']
     : ['Créditos sin caducidad', 'Ropa, gafas, joyería, tatuajes y más', 'Chat IA para ajustar talla, color, ajuste', 'Descarga y comparte tus renders', 'Vuelve a comprar cuando quieras — sin suscripción'];
 
   const plans = {
+    trial: {
+      price: '1,49',
+      currency: '$',
+      label: en ? 'Trial' : 'Prueba',
+      renders: en ? '1 render' : '1 render',
+      sub: en ? 'One render to start' : 'Un render para empezar',
+    },
     test: {
       price: '4,99',
       currency: '$',
       label: en ? 'Starter' : 'Starter',
-      renders: en ? '10 renders' : '10 renders',
-      sub: en ? '$0.50 per render' : '$0,50 por render',
+      renders: en ? '5 renders' : '5 renders',
+      sub: en ? '$1.00 per render' : '$1,00 por render',
     },
     popular: {
       price: '9,99',
       currency: '$',
       label: en ? 'Style Pro' : 'Style Pro',
-      renders: en ? '25 renders' : '25 renders',
-      sub: en ? '$0.40 per render' : '$0,40 por render',
-      savings: en ? 'SAVE 20%' : 'AHORRA 20%',
+      renders: en ? '10 renders' : '10 renders',
+      sub: en ? '$1.00 per render · 15% off with code' : '$1,00 por render · 15% off con código',
+      savings: en ? 'BEST VALUE' : 'MEJOR PRECIO',
     },
   };
 
@@ -169,26 +218,101 @@ export default function PaywallPage() {
           ))}
         </div>
 
-        {/* Plan selector — Test featured (low-friction entry) */}
+        {/* Limited-time promo banner — visible while countdown > 0. The code is
+            displayed prominently and copyable; users paste at Stripe checkout
+            (allow_promotion_codes is enabled server-side). After expiry the
+            banner disappears so the urgency cue stays honest. */}
+        {promoActive && (
+          <div className="mb-6 rounded-2xl bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border-2 border-amber-300 p-4 md:p-5 shadow-md animate-fade-in">
+            <div className="flex items-start gap-3">
+              <div className="shrink-0 w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center">
+                <Clock size={18} className="text-white" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <p className="text-[11px] font-black uppercase tracking-wider text-amber-700">
+                    {en ? '15% off Style Pro · expires in' : '15% off Style Pro · caduca en'}
+                  </p>
+                  <span className="font-mono font-black text-base md:text-lg text-amber-900 tabular-nums">
+                    {timerStr}
+                  </span>
+                </div>
+                <button
+                  onClick={handleCopyCode}
+                  className="mt-2 w-full flex items-center justify-between gap-2 rounded-lg bg-white border-2 border-dashed border-amber-400 px-3 py-2 hover:bg-amber-50 transition-colors active:scale-[0.99]"
+                >
+                  <span className="font-mono font-black text-base md:text-lg text-slate-900 tracking-wider">
+                    {STYLE_PRO_PROMO_CODE}
+                  </span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700">
+                    {codeCopied ? (en ? 'Copied!' : '¡Copiado!') : (en ? 'Tap to copy' : 'Pulsa para copiar')}
+                  </span>
+                </button>
+                <p className="mt-2 text-[10px] text-slate-500 leading-snug">
+                  {en
+                    ? 'Paste the code at checkout to apply 15% off Style Pro.'
+                    : 'Pega el código en el checkout para aplicar el 15% en Style Pro.'}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Plan selector — Trial · Starter · Style Pro (featured) */}
         <div className="space-y-3 mb-8">
-          {/* Test (featured) */}
+          {/* Trial — entry tier */}
           <button
-            onClick={() => { setSelected('test'); (window as any).datafast?.('plan_select', { plan: 'test' }); }}
-            className={`relative w-full p-5 rounded-xl flex items-center justify-between transition-all ${
-              selected === 'test'
-                ? 'bg-slate-900 text-white shadow-lg ring-2 ring-indigo-400'
-                : 'bg-gradient-to-br from-indigo-50 to-white border-2 border-indigo-400 hover:border-indigo-500 shadow-md'
+            onClick={() => { setSelected('trial'); (window as any).datafast?.('plan_select', { plan: 'trial' }); }}
+            className={`w-full p-4 md:p-5 rounded-xl flex items-center justify-between transition-all ${
+              selected === 'trial'
+                ? 'bg-slate-900 text-white shadow-lg'
+                : 'bg-slate-50 border-2 border-slate-200 hover:border-slate-300'
             }`}
           >
-            <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-indigo-600 text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow">
-              {en ? 'Most Popular' : 'Más Popular'}
+            <div className="flex items-center gap-3">
+              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                selected === 'trial' ? 'border-indigo-400 bg-indigo-500' : 'border-slate-300'
+              }`}>
+                {selected === 'trial' && <div className="w-2 h-2 bg-white rounded-full" />}
+              </div>
+              <div className="text-left">
+                <span className={`font-black text-[15px] ${selected === 'trial' ? 'text-white' : 'text-slate-900'}`}>
+                  {plans.trial.label}
+                </span>
+                <br />
+                <span className={`text-[11px] font-bold ${selected === 'trial' ? 'text-white/60' : 'text-slate-500'}`}>
+                  {plans.trial.renders}
+                </span>
+                <span className={`text-[10px] block mt-0.5 ${selected === 'trial' ? 'text-white/40' : 'text-slate-400'}`}>
+                  {plans.trial.sub}
+                </span>
+              </div>
             </div>
+            <div className="text-right">
+              <span className={`font-black text-xl ${selected === 'trial' ? 'text-white' : 'text-slate-900'}`}>
+                {plans.trial.currency}{plans.trial.price}
+              </span>
+              <span className={`block text-[10px] font-bold ${selected === 'trial' ? 'text-white/40' : 'text-slate-400'}`}>
+                {en ? 'one-time' : 'pago único'}
+              </span>
+            </div>
+          </button>
+
+          {/* Starter — mid tier with +1 FREE */}
+          <button
+            onClick={() => { setSelected('test'); (window as any).datafast?.('plan_select', { plan: 'test' }); }}
+            className={`relative w-full p-4 md:p-5 rounded-xl flex items-center justify-between transition-all ${
+              selected === 'test'
+                ? 'bg-slate-900 text-white shadow-lg'
+                : 'bg-slate-50 border-2 border-slate-200 hover:border-slate-300'
+            }`}
+          >
             <div className="absolute -top-2 -right-2 px-2.5 py-1 bg-emerald-500 text-white text-[10px] font-black uppercase tracking-wider rounded-full shadow-md rotate-3">
               {en ? '🎁 +1 FREE' : '🎁 +1 GRATIS'}
             </div>
             <div className="flex items-center gap-3">
               <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                selected === 'test' ? 'border-indigo-400 bg-indigo-500' : 'border-indigo-400'
+                selected === 'test' ? 'border-indigo-400 bg-indigo-500' : 'border-slate-300'
               }`}>
                 {selected === 'test' && <div className="w-2 h-2 bg-white rounded-full" />}
               </div>
@@ -197,7 +321,7 @@ export default function PaywallPage() {
                   {plans.test.label}
                 </span>
                 <br />
-                <span className={`text-[11px] font-bold ${selected === 'test' ? 'text-white/60' : 'text-indigo-600'}`}>
+                <span className={`text-[11px] font-bold ${selected === 'test' ? 'text-white/60' : 'text-slate-500'}`}>
                   {plans.test.renders}
                 </span>
                 <span className={`text-[10px] block mt-0.5 ${selected === 'test' ? 'text-white/40' : 'text-slate-400'}`}>
@@ -215,18 +339,24 @@ export default function PaywallPage() {
             </div>
           </button>
 
-          {/* Popular (secondary — better per-render value) */}
+          {/* Style Pro — featured, +2 FREE, 15% promo eligible */}
           <button
             onClick={() => { setSelected('popular'); (window as any).datafast?.('plan_select', { plan: 'popular' }); }}
-            className={`w-full p-5 rounded-xl flex items-center justify-between transition-all ${
+            className={`relative w-full p-4 md:p-5 rounded-xl flex items-center justify-between transition-all ${
               selected === 'popular'
-                ? 'bg-slate-900 text-white shadow-lg'
-                : 'bg-slate-50 border-2 border-slate-200 hover:border-slate-300'
+                ? 'bg-slate-900 text-white shadow-lg ring-2 ring-indigo-400'
+                : 'bg-gradient-to-br from-indigo-50 to-white border-2 border-indigo-400 hover:border-indigo-500 shadow-md'
             }`}
           >
+            <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-indigo-600 text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow">
+              {plans.popular.savings}
+            </div>
+            <div className="absolute -top-2 -right-2 px-2.5 py-1 bg-emerald-500 text-white text-[10px] font-black uppercase tracking-wider rounded-full shadow-md rotate-3">
+              {en ? '🎁 +2 FREE' : '🎁 +2 GRATIS'}
+            </div>
             <div className="flex items-center gap-3">
               <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                selected === 'popular' ? 'border-indigo-400 bg-indigo-500' : 'border-slate-300'
+                selected === 'popular' ? 'border-indigo-400 bg-indigo-500' : 'border-indigo-400'
               }`}>
                 {selected === 'popular' && <div className="w-2 h-2 bg-white rounded-full" />}
               </div>
@@ -235,11 +365,11 @@ export default function PaywallPage() {
                   {plans.popular.label}
                 </span>
                 <br />
-                <span className={`text-[11px] font-bold ${selected === 'popular' ? 'text-white/50' : 'text-slate-500'}`}>
-                  {plans.popular.renders} &middot; {plans.popular.sub}
+                <span className={`text-[11px] font-bold ${selected === 'popular' ? 'text-white/60' : 'text-indigo-600'}`}>
+                  {plans.popular.renders}
                 </span>
-                <span className={`ml-1.5 inline-block px-1.5 py-0.5 rounded text-[9px] font-black uppercase tracking-wider ${selected === 'popular' ? 'bg-emerald-400/20 text-emerald-300' : 'bg-emerald-100 text-emerald-700'}`}>
-                  {plans.popular.savings}
+                <span className={`text-[10px] block mt-0.5 ${selected === 'popular' ? 'text-white/40' : 'text-slate-400'}`}>
+                  {plans.popular.sub}
                 </span>
               </div>
             </div>

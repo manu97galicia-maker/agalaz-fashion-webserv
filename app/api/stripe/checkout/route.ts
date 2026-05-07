@@ -8,19 +8,22 @@ function getStripe() {
   return new Stripe(key);
 }
 
-// B2C credit-pack plans. Both are one-time payments; credits accumulate in render_counts.
-// - test:    $4.99 for 10 renders ($0.50/render)
-// - popular: $9.99 for 25 renders ($0.40/render, 20% cheaper per render — featured)
+// B2C credit-pack plans. All are one-time payments; credits accumulate in render_counts.
+// - trial:   $1.49 for 1 render — low-friction first purchase
+// - test:    $4.99 for 5 + 1 free = 6 renders (Starter)
+// - popular: $9.99 for 10 + 2 free = 12 renders (Style Pro) — featured, 15% promo eligible
 // Legacy keys (weekly/yearly/credits20) kept so existing subscribers and old checkout links
-// keep working; new funnel uses test/popular exclusively.
+// keep working; new funnel uses trial/test/popular.
 const PACK_CREDITS: Record<string, number> = {
-  test: 10,
-  popular: 25,
+  trial: 1,
+  test: 6,
+  popular: 12,
   credits20: 20,  // legacy, still usable via ?plan=credits20
 };
 
 function getPrices(): Record<string, string> {
   return {
+    trial: (process.env.STRIPE_PRICE_TRIAL || 'price_1TUQs7DaiRATnL32vWpZzYec').trim(),
     test: (process.env.STRIPE_PRICE_TEST || 'price_1TTRImDaiRATnL32k5Yem5ne').trim(),
     popular: (process.env.STRIPE_PRICE_POPULAR || 'price_1TTRJlDaiRATnL32JkuGb1CB').trim(),
     weekly: (process.env.STRIPE_PRICE_WEEKLY || '').trim(),
