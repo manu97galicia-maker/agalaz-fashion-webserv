@@ -51,6 +51,8 @@ export const metadata: Metadata = {
     url: 'https://agalaz.com/virtual-wedding-dress-try-on',
     siteName: 'Agalaz',
     type: 'website',
+    images: [{ url: '/og/virtual-wedding-dress-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+  
   },
   twitter: {
     card: 'summary_large_image',

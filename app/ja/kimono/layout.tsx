@@ -13,7 +13,7 @@ const notoJp = Noto_Sans_JP({
 export const metadata: Metadata = {
   title: 'バーチャル着物試着 | アガラズ',
   description:
-    '振袖、浴衣、留袖、訪問着、羽織、袴をAIで自分の本当の顔に試着。京都のレンタル予約や購入の前に、絹と帯のバランスを30秒で確認。成人式、七五三、花見、結婚式に。無料、アプリ不要。',
+    '振袖、浴衣、留袖、訪問着、羽織、袴、紋付などの和装を AI で自分の本当の顔に試着。京都のレンタル予約や呉服店での購入の前に、絹の質感、帯のバランス、色合わせを 30 秒で確認。成人式、七五三、卒業式、花見、結婚式、お宮参りに最適。無料、アプリ不要、登録不要、スマホでもパソコンでもブラウザだけで使えます。',
   keywords: [
     'バーチャル 着物 試着',
     '着物 試着 オンライン',
@@ -36,7 +36,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'ja_JP',
     alternateLocale: 'en_US',
-  },
+    images: [{ url: '/og/virtual-kimono-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    },
   twitter: {
     card: 'summary_large_image',
     title: 'バーチャル着物試着',

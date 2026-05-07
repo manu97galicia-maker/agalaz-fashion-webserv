@@ -35,7 +35,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     alternateLocale: 'hi',
-  },
+    images: [{ url: '/og/virtual-saree-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    },
   twitter: {
     card: 'summary_large_image',
     title: 'Virtual Saree & Indian-Wear Try-On',

@@ -23,7 +23,8 @@ export const metadata: Metadata = {
     url: pageUrl,
     siteName: 'Agalaz Fashion',
     locale: 'it_IT',
-  },
+    images: [{ url: '/og/virtual-baby-clothing-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    },
   twitter: {
     card: 'summary_large_image',
     title: data.meta.title,

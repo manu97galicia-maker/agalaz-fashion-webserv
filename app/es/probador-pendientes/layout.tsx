@@ -19,7 +19,8 @@ export const metadata: Metadata = {
     url: pageUrl,
     siteName: 'Agalaz Fashion',
     locale: 'es_ES',
-  },
+    images: [{ url: '/og/virtual-earring-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) { return children; }

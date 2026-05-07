@@ -32,6 +32,8 @@ export const metadata: Metadata = {
     url: 'https://agalaz.com/virtual-glasses-try-on',
     siteName: 'Agalaz',
     type: 'website',
+    images: [{ url: '/og/virtual-glasses-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+  
   },
   twitter: { card: 'summary_large_image', title: 'Virtual Glasses Try-On — See Any Frames On You', description: 'Upload a photo, drop any frames, render in 30 seconds.' },
   alternates: {

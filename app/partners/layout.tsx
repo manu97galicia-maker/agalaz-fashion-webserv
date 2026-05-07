@@ -32,7 +32,8 @@ export const metadata: Metadata = {
     siteName: 'Agalaz Fashion',
     locale: 'en_US',
     alternateLocale: 'es_ES',
-  },
+    images: [{ url: '/og/default.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    },
   twitter: {
     card: 'summary_large_image',
     title: 'Agalaz Partners — AI Try-On Widget for Ecommerce',

@@ -34,7 +34,8 @@ export const metadata: Metadata = {
     url: 'https://agalaz.com/virtual-baby-clothing-try-on',
     siteName: 'Agalaz',
     type: 'website',
-  },
+    images: [{ url: '/og/virtual-baby-clothing-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    },
   twitter: { card: 'summary_large_image', title: 'Virtual Baby Clothing Try-On', description: 'Upload a baby photo, drop any outfit, render in 30 seconds.' },
   alternates: {
     canonical: nativeLandingUrl('virtual-baby-clothing-try-on', 'en'),

@@ -79,12 +79,14 @@ export const metadata: Metadata = {
     url: BASE_URL,
     locale: 'en_US',
     alternateLocale: 'es_ES',
+    images: [{ url: '/og/default.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Agalaz — AI Virtual Try-On',
     description: 'See how any clothing looks on your real body before buying. Try free.',
     creator: '@agalaz',
+    images: ['/og/default.png'],
   },
   robots: {
     index: true,

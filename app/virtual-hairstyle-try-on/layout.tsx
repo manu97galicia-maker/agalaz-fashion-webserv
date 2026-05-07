@@ -35,7 +35,8 @@ export const metadata: Metadata = {
     url: 'https://agalaz.com/virtual-hairstyle-try-on',
     siteName: 'Agalaz',
     type: 'website',
-  },
+    images: [{ url: '/og/virtual-hairstyle-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    },
   twitter: { card: 'summary_large_image', title: 'Virtual Hairstyle Try-On', description: 'See haircuts, colour, balayage, braids on YOUR face in 30 seconds.' },
   alternates: {
     canonical: nativeLandingUrl('virtual-hairstyle-try-on', 'en'),

@@ -31,7 +31,8 @@ export const metadata: Metadata = {
     url: PAGE_URL,
     siteName: 'Agalaz Fashion',
     locale: 'en_US',
-  },
+    images: [{ url: '/og/default.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    },
   twitter: {
     card: 'summary_large_image',
     title: 'Shopify Virtual Try-On App — AI Fitting Room',

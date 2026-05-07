@@ -7,5 +7,14 @@ export const metadata: Metadata = {
     canonical: nativeLandingUrl('virtual-tattoo-simulator', 'it'),
     languages: landingHreflangAlternates('virtual-tattoo-simulator'),
   },
+  openGraph: {
+    title: 'Simulatore di Tatuaggi Virtuale Gratis | Prova Tatuaggi con l\'IA',
+    description: 'Prova tatuaggi sulla tua foto con il nostro simulatore IA gratuito. Posizionamento realistico su braccia, gambe o petto. Per tatuatori e studi.',
+    type: 'website',
+    url: nativeLandingUrl('virtual-tattoo-simulator', 'it'),
+    siteName: 'Agalaz Fashion',
+    locale: 'it_IT',
+    images: [{ url: '/og/virtual-tattoo-simulator.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+  },
 };
 export default function L({ children }: { children: React.ReactNode }) { return children; }

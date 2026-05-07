@@ -7,7 +7,8 @@ export const metadata: Metadata = {
     title: 'Agalaz Blog — Shop Smarter, Return Less',
     description: 'Expert fashion guides and AI shopping tips. Learn how to buy clothes online that actually fit your body.',
     type: 'website',
-  },
+    images: [{ url: '/og/default.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    },
   alternates: {
     canonical: 'https://agalaz.com/blog',
   },

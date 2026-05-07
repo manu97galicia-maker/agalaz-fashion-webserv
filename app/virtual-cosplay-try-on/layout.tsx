@@ -35,7 +35,8 @@ export const metadata: Metadata = {
     url: 'https://agalaz.com/virtual-cosplay-try-on',
     siteName: 'Agalaz',
     type: 'website',
-  },
+    images: [{ url: '/og/virtual-cosplay-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    },
   twitter: { card: 'summary_large_image', title: 'Virtual Cosplay Try-On', description: 'Anime, games, Marvel, OCs — see any cosplay on YOUR body in 30 seconds.' },
   alternates: {
     canonical: nativeLandingUrl('virtual-cosplay-try-on', 'en'),
