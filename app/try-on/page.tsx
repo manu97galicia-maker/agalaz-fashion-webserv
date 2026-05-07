@@ -23,6 +23,7 @@ import { onAuthStateChange, signInWithGoogle, signInWithOtp, type AppUser } from
 import { Role, type ChatMessage } from '@/types';
 import { useLang, pickLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
+import { nativeLandingPath, type LandingLang } from '@/lib/i18n/landingSlugs';
 
 export default function TryOnPage() {
   const router = useRouter();
@@ -826,6 +827,65 @@ export default function TryOnPage() {
           </div>
         )}
       </div>
+
+      {/* SEO footer — gives Ahrefs-visible outgoing links from /try-on (and its
+          5 localized re-exports) so the route stops being flagged as "page
+          with no outgoing links". Locale-aware native-slug URLs via
+          nativeLandingPath. */}
+      <footer className="border-t border-slate-100 bg-slate-50/50 mt-auto">
+        <div className="max-w-5xl mx-auto px-5 py-10 text-sm text-slate-600">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div>
+              <h3 className="font-bold text-slate-900 mb-3 text-xs uppercase tracking-wider">
+                {pickLang(lang, 'Try-on', 'Probador', 'Essayage', 'Provador', 'Anprobe', 'Camerino')}
+              </h3>
+              <ul className="space-y-2">
+                <li><Link href={nativeLandingPath('virtual-wedding-dress-try-on', lang as LandingLang)} className="hover:text-slate-900 transition-colors">{pickLang(lang, 'Wedding dresses', 'Vestidos de novia', 'Robes de mariée', 'Vestidos de noiva', 'Brautkleider', 'Abiti da sposa')}</Link></li>
+                <li><Link href={nativeLandingPath('realistic-swimwear-try-on', lang as LandingLang)} className="hover:text-slate-900 transition-colors">{pickLang(lang, 'Bikinis', 'Bikinis', 'Bikinis', 'Biquínis', 'Bikinis', 'Bikini')}</Link></li>
+                <li><Link href={nativeLandingPath('virtual-jewelry-try-on', lang as LandingLang)} className="hover:text-slate-900 transition-colors">{pickLang(lang, 'Jewelry', 'Joyas', 'Bijoux', 'Joias', 'Schmuck', 'Gioielli')}</Link></li>
+                <li><Link href={nativeLandingPath('virtual-glasses-try-on', lang as LandingLang)} className="hover:text-slate-900 transition-colors">{pickLang(lang, 'Glasses', 'Gafas', 'Lunettes', 'Óculos', 'Brillen', 'Occhiali')}</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold text-slate-900 mb-3 text-xs uppercase tracking-wider">
+                {pickLang(lang, 'Beauty', 'Belleza', 'Beauté', 'Beleza', 'Beauty', 'Beauty')}
+              </h3>
+              <ul className="space-y-2">
+                <li><Link href={nativeLandingPath('virtual-tattoo-simulator', lang as LandingLang)} className="hover:text-slate-900 transition-colors">{pickLang(lang, 'Tattoo simulator', 'Simulador de tatuajes', 'Simulateur tatouage', 'Simulador de tatuagem', 'Tattoo-Simulator', 'Simulatore tatuaggi')}</Link></li>
+                <li><Link href={nativeLandingPath('virtual-nail-try-on', lang as LandingLang)} className="hover:text-slate-900 transition-colors">{pickLang(lang, 'Nails', 'Uñas', 'Vernis ongles', 'Unhas', 'Nägel', 'Unghie')}</Link></li>
+                <li><Link href={nativeLandingPath('virtual-hairstyle-try-on', lang as LandingLang)} className="hover:text-slate-900 transition-colors">{pickLang(lang, 'Hairstyles', 'Peinados', 'Coiffures', 'Penteados', 'Frisuren', 'Acconciature')}</Link></li>
+                <li><Link href={nativeLandingPath('virtual-earring-try-on', lang as LandingLang)} className="hover:text-slate-900 transition-colors">{pickLang(lang, 'Earrings', 'Pendientes', 'Boucles d\'oreilles', 'Brincos', 'Ohrringe', 'Orecchini')}</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold text-slate-900 mb-3 text-xs uppercase tracking-wider">
+                {pickLang(lang, 'Categories', 'Categorías', 'Catégories', 'Categorias', 'Kategorien', 'Categorie')}
+              </h3>
+              <ul className="space-y-2">
+                <li><Link href={nativeLandingPath('virtual-mens-suit-try-on', lang as LandingLang)} className="hover:text-slate-900 transition-colors">{pickLang(lang, 'Men\'s suits', 'Trajes hombre', 'Costumes homme', 'Fatos masculinos', 'Herrenanzüge', 'Abiti uomo')}</Link></li>
+                <li><Link href={nativeLandingPath('virtual-baby-clothing-try-on', lang as LandingLang)} className="hover:text-slate-900 transition-colors">{pickLang(lang, 'Baby clothing', 'Ropa de bebé', 'Vêtements bébé', 'Roupa de bebê', 'Babykleidung', 'Vestiti neonato')}</Link></li>
+                <li><Link href={nativeLandingPath('virtual-pet-clothing-try-on', lang as LandingLang)} className="hover:text-slate-900 transition-colors">{pickLang(lang, 'Pet clothing', 'Ropa de mascotas', 'Vêtements animaux', 'Roupa de animal', 'Haustierkleidung', 'Vestiti animali')}</Link></li>
+                <li><Link href={nativeLandingPath('virtual-costume-try-on', lang as LandingLang)} className="hover:text-slate-900 transition-colors">{pickLang(lang, 'Costumes', 'Disfraces', 'Déguisements', 'Fatos de carnaval', 'Kostüme', 'Costumi')}</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold text-slate-900 mb-3 text-xs uppercase tracking-wider">
+                {pickLang(lang, 'Company', 'Empresa', 'Entreprise', 'Empresa', 'Unternehmen', 'Azienda')}
+              </h3>
+              <ul className="space-y-2">
+                <li><Link href={lang === 'en' ? '/' : `/${lang}`} className="hover:text-slate-900 transition-colors">{pickLang(lang, 'Home', 'Inicio', 'Accueil', 'Início', 'Startseite', 'Home')}</Link></li>
+                <li><Link href="/blog" className="hover:text-slate-900 transition-colors">Blog</Link></li>
+                <li><Link href="/partners" className="hover:text-slate-900 transition-colors">{pickLang(lang, 'Partners', 'Partners', 'Partenaires', 'Parceiros', 'Partner', 'Partner')}</Link></li>
+                <li><Link href="/privacy" className="hover:text-slate-900 transition-colors">{pickLang(lang, 'Privacy', 'Privacidad', 'Confidentialité', 'Privacidade', 'Datenschutz', 'Privacy')}</Link></li>
+                <li><Link href="/terms" className="hover:text-slate-900 transition-colors">{pickLang(lang, 'Terms', 'Términos', 'Conditions', 'Termos', 'AGB', 'Termini')}</Link></li>
+              </ul>
+            </div>
+          </div>
+          <p className="mt-8 pt-6 border-t border-slate-200 text-xs text-slate-500">
+            © {new Date().getFullYear()} Agalaz Fashion · infoagalaz@gmail.com
+          </p>
+        </div>
+      </footer>
 
       {/* Credit Shop Modal */}
       {showCreditShop && (
