@@ -26,6 +26,7 @@ import {
 import { useLang, pickLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { ChatBot } from '@/components/ChatBot';
+import { track } from '@/lib/analytics';
 
 const STEP_ICONS = [Camera, Layers, Shirt];
 const FEATURE_ICONS = [ShieldCheck, Target, Zap];
@@ -205,7 +206,7 @@ export default function HomePage() {
   const [heroWordIdx, setHeroWordIdx] = useState(0);
 
   useEffect(() => {
-    (window as any).datafast?.('landing_view');
+    track('landing_view');
   }, []);
 
   useEffect(() => {

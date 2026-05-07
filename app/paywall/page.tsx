@@ -7,6 +7,7 @@ import { X, Check, Shield, Sparkles, ArrowRight, Clock } from 'lucide-react';
 import { createBrowserClient } from '@supabase/ssr';
 import { signInWithGoogle, signInWithOtp } from '@/services/authService';
 import { useLang } from '@/components/LanguageProvider';
+import { track } from '@/lib/analytics';
 
 type Plan = 'trial' | 'test' | 'popular';
 
@@ -42,7 +43,7 @@ export default function PaywallPage() {
   async function handleLoginOtp() {
     if (!otpEmail || !otpEmail.includes('@')) return;
     try {
-      (window as any).datafast?.('signup_click', { provider: 'email', source: 'paywall' });
+      track('signup_click', { provider: 'email', source: 'paywall' });
       await signInWithOtp(otpEmail, '/paywall');
       setOtpSent(true);
     } catch {}
@@ -73,7 +74,7 @@ export default function PaywallPage() {
       }
       setAuthChecked(true);
     });
-    (window as any).datafast?.('paywall_view');
+    track('paywall_view');
     // Read category from landing page redirect
     const params = new URLSearchParams(window.location.search);
     const from = params.get('from');
@@ -87,6 +88,7 @@ export default function PaywallPage() {
   // banner from returning visitors which kills conversion.)
   useEffect(() => {
     const startedAt = Date.now();
+    track('promo_code_view', { code: STYLE_PRO_PROMO_CODE });
     const tick = () => {
       const elapsed = Math.floor((Date.now() - startedAt) / 1000);
       setSecondsLeft(Math.max(0, COUNTDOWN_SECONDS - elapsed));
@@ -104,6 +106,7 @@ export default function PaywallPage() {
   const handleCopyCode = async () => {
     try {
       await navigator.clipboard.writeText(STYLE_PRO_PROMO_CODE);
+      track('promo_code_copy', { code: STYLE_PRO_PROMO_CODE });
       setCodeCopied(true);
       setTimeout(() => setCodeCopied(false), 1800);
     } catch {}
@@ -145,7 +148,7 @@ export default function PaywallPage() {
       return;
     }
     setLoading(true);
-    (window as any).datafast?.('initiate_checkout', { plan: selected });
+    track('initiate_checkout', { plan: selected });
     try {
       const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
@@ -264,7 +267,7 @@ export default function PaywallPage() {
         <div className="space-y-3 mb-8">
           {/* Trial — entry tier */}
           <button
-            onClick={() => { setSelected('trial'); (window as any).datafast?.('plan_select', { plan: 'trial' }); }}
+            onClick={() => { setSelected('trial'); track('plan_select', { plan: 'trial' }); }}
             className={`w-full p-4 md:p-5 rounded-xl flex items-center justify-between transition-all ${
               selected === 'trial'
                 ? 'bg-slate-900 text-white shadow-lg'
@@ -302,7 +305,7 @@ export default function PaywallPage() {
 
           {/* Starter — mid tier with +1 FREE */}
           <button
-            onClick={() => { setSelected('test'); (window as any).datafast?.('plan_select', { plan: 'test' }); }}
+            onClick={() => { setSelected('test'); track('plan_select', { plan: 'test' }); }}
             className={`relative w-full p-4 md:p-5 rounded-xl flex items-center justify-between transition-all ${
               selected === 'test'
                 ? 'bg-slate-900 text-white shadow-lg'
@@ -345,7 +348,7 @@ export default function PaywallPage() {
               ring + larger shadow + subtle scale even when NOT selected, so
               the user's eye is pulled here from the default Trial selection. */}
           <button
-            onClick={() => { setSelected('popular'); (window as any).datafast?.('plan_select', { plan: 'popular' }); }}
+            onClick={() => { setSelected('popular'); track('plan_select', { plan: 'popular' }); }}
             className={`relative w-full p-4 md:p-5 rounded-xl flex items-center justify-between transition-all ${
               selected === 'popular'
                 ? 'bg-slate-900 text-white shadow-xl ring-2 ring-indigo-400 scale-[1.02]'
@@ -438,7 +441,7 @@ export default function PaywallPage() {
             <button
               onClick={async () => {
                 try {
-                  (window as any).datafast?.('signup_click', { provider: 'google', source: 'paywall' });
+                  track('signup_click', { provider: 'google', source: 'paywall' });
                   await signInWithGoogle('/paywall');
                 } catch {}
               }}

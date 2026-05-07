@@ -24,6 +24,7 @@ import { Role, type ChatMessage } from '@/types';
 import { useLang, pickLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { nativeLandingPath, type LandingLang } from '@/lib/i18n/landingSlugs';
+import { track } from '@/lib/analytics';
 
 export default function TryOnPage() {
   const router = useRouter();
@@ -50,7 +51,7 @@ export default function TryOnPage() {
   async function handleLoginOtp() {
     if (!otpEmail || !otpEmail.includes('@')) return;
     try {
-      (window as any).datafast?.('signup_click', { provider: 'email', source: 'try-on' });
+      track('signup_click', { provider: 'email', source: 'try-on' });
       await signInWithOtp(otpEmail, '/try-on');
       setOtpSent(true);
     } catch {}
@@ -91,24 +92,24 @@ export default function TryOnPage() {
   }, [router]);
 
   useEffect(() => {
-    (window as any).datafast?.('tryon_view');
+    track('tryon_view');
   }, []);
 
   useEffect(() => {
     if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('subscribed') === 'true') {
       fetch('/api/subscription').then(r => r.json()).then(status => {
         if (status.plan === 'yearly' && status.creditsRemaining <= 2) {
-          (window as any).datafast?.('trial_start', { plan: 'yearly' });
+          track('trial_start', { plan: 'yearly' });
         } else {
-          (window as any).datafast?.('subscription_success', { plan: status.plan || 'weekly' });
+          track('subscription_success', { plan: status.plan || 'weekly' });
         }
       }).catch(() => {
-        (window as any).datafast?.('subscription_success');
+        track('subscription_success');
       });
     }
     // Credit pack purchase redirect
     if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('credits_purchased')) {
-      (window as any).datafast?.('credits_purchased', { amount: 20 });
+      track('credits_purchased', { amount: 20 });
     }
     // Pre-select category from URL param (e.g. from landing pages)
     if (typeof window !== 'undefined') {
@@ -125,11 +126,11 @@ export default function TryOnPage() {
 
   const trackAndSetUser = (img: string | null) => {
     setUserImage(img);
-    if (img) (window as any).datafast?.('photo_upload', { type: 'user' });
+    if (img) track('photo_upload', { type: 'user' });
   };
   const trackAndSetClothing = (img: string | null) => {
     setClothingImage(img);
-    if (img) (window as any).datafast?.('photo_upload', { type: 'clothing' });
+    if (img) track('photo_upload', { type: 'clothing' });
   };
 
   const resetApp = () => {
@@ -166,7 +167,7 @@ export default function TryOnPage() {
     setError(null);
     setMessages([]);
 
-    (window as any).datafast?.('render_start', { has_clothing: clothingImage ? 'yes' : 'no' });
+    track('render_start', { has_clothing: clothingImage ? 'yes' : 'no' });
 
     let retries = 0;
     const maxRetries = 2;
@@ -193,7 +194,7 @@ export default function TryOnPage() {
           }]);
           setRenderCount((prev) => prev + 1);
           saveToGallery(data.image);
-          (window as any).datafast?.('render_complete', { render_number: String(renderCount + 1) });
+          track('render_complete', { render_number: String(renderCount + 1) });
           break;
         } else if (retries < maxRetries) {
           retries++;
@@ -368,7 +369,7 @@ export default function TryOnPage() {
         const blob = await fetch(imageUrl).then(r => r.blob());
         const file = new File([blob], 'agalaz-tryon.png', { type: 'image/png' });
         await navigator.share({ files: [file], title: 'Agalaz Fashion' });
-        (window as any).datafast?.('result_share');
+        track('result_share');
       } catch {}
     }
   };
@@ -378,7 +379,7 @@ export default function TryOnPage() {
     a.href = imageUrl;
     a.download = 'agalaz-tryon.png';
     a.click();
-    (window as any).datafast?.('result_download');
+    track('result_download');
   };
 
   const isLoading = isAnalyzing || isGeneratingImage;
@@ -933,7 +934,7 @@ export default function TryOnPage() {
                   key={tier.plan}
                   onClick={async () => {
                     if (!user) { setShowLogin(true); return; }
-                    (window as any).datafast?.('credits_pack_purchase', { plan: tier.plan, credits: tier.credits });
+                    track('credits_pack_purchase', { plan: tier.plan, credits: tier.credits });
                     try {
                       const { createBrowserClient } = await import('@supabase/ssr');
                       const sb = createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL || '', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '');
@@ -1001,7 +1002,7 @@ export default function TryOnPage() {
             </div>
             <button
               onClick={async () => {
-                try { (window as any).datafast?.('signup_click', { provider: 'google' }); await signInWithGoogle(); } catch {}
+                try { track('signup_click', { provider: 'google' }); await signInWithGoogle(); } catch {}
               }}
               className="w-full py-4 bg-slate-900 text-white rounded-lg flex items-center justify-center gap-3 hover:bg-indigo-600 transition-colors font-black uppercase tracking-[0.15em] text-xs"
             >

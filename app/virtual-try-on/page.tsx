@@ -6,13 +6,14 @@ import { Sparkles, ArrowRight, ShieldCheck, Zap, Camera, Shirt, Layers, Target, 
 import { useLang, pickLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
+import { track } from '@/lib/analytics';
 
 export default function VirtualTryOnPage() {
   const { lang } = useLang();
   const en = lang === 'en';
 
   useEffect(() => {
-    (window as any).datafast?.('virtual_tryon_seo_view');
+    track('virtual_tryon_seo_view');
   }, []);
 
   return (

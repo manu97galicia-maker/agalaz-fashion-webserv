@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { useLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
+import { track } from '@/lib/analytics';
 
 interface QuestionOption {
   id: string;
@@ -190,14 +191,14 @@ export default function OnboardingPage() {
       setTimeout(() => {
         setStep(s => s + 1);
         setIsAnimating(false);
-        (window as any).datafast?.('onboarding_step', { step: String(step + 2) });
+        track('onboarding_step', { step: String(step + 2) });
       }, 250);
     } else {
       setTimeout(() => {
         setStep(totalSteps - 1);
         setShowSummary(true);
         setIsAnimating(false);
-        (window as any).datafast?.('onboarding_complete');
+        track('onboarding_complete');
       }, 250);
     }
   };
