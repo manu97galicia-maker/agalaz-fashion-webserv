@@ -24,7 +24,10 @@ export default function PaywallPage() {
   const router = useRouter();
   const { t, lang } = useLang();
   const en = lang === 'en';
-  const [selected, setSelected] = useState<Plan>('popular');
+  // Default to Trial (cheapest anchor) — Style Pro stays visually featured
+  // via gradient + ring + badges, so the user's eye drifts to it and the
+  // "upgrade" feels like a smart decision rather than a default.
+  const [selected, setSelected] = useState<Plan>('trial');
   const [loading, setLoading] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
@@ -339,13 +342,15 @@ export default function PaywallPage() {
             </div>
           </button>
 
-          {/* Style Pro — featured, +2 FREE, 15% promo eligible */}
+          {/* Style Pro — featured, +2 FREE, 15% promo eligible. Permanent
+              ring + larger shadow + subtle scale even when NOT selected, so
+              the user's eye is pulled here from the default Trial selection. */}
           <button
             onClick={() => { setSelected('popular'); (window as any).datafast?.('plan_select', { plan: 'popular' }); }}
             className={`relative w-full p-4 md:p-5 rounded-xl flex items-center justify-between transition-all ${
               selected === 'popular'
-                ? 'bg-slate-900 text-white shadow-lg ring-2 ring-indigo-400'
-                : 'bg-gradient-to-br from-indigo-50 to-white border-2 border-indigo-400 hover:border-indigo-500 shadow-md'
+                ? 'bg-slate-900 text-white shadow-xl ring-2 ring-indigo-400 scale-[1.02]'
+                : 'bg-gradient-to-br from-indigo-50 to-white border-2 border-indigo-500 hover:border-indigo-600 shadow-xl ring-1 ring-indigo-200 hover:scale-[1.02]'
             }`}
           >
             <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-indigo-600 text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow">
