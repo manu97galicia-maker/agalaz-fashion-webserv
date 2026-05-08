@@ -216,6 +216,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <script
           dangerouslySetInnerHTML={{ __html: `(function(w,d,t,u,o){w[u]=w[u]||[],o.ts=(new Date).getTime();var n=d.createElement(t);n.src="https://bat.bing.net/bat.js?ti="+o.ti+("uetq"!=u?"&q="+u:""),n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&"loaded"!==s&&"complete"!==s||(o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad"),n.onload=n.onreadystatechange=null)};var i=d.getElementsByTagName(t)[0];i.parentNode.insertBefore(n,i)})(window,document,"script","uetq",{ti:"187240634",enableAutoSpaTracking:true});` }}
         />
+        {/* Microsoft Clarity — session recordings + heatmaps. Free, no event
+            cap. Useful for watching what real users do on the paywall and the
+            try-on app, beyond the aggregate-only view in Vercel Analytics. */}
+        <script
+          dangerouslySetInnerHTML={{ __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "smg5s7n7st");` }}
+        />
       </head>
       <body className={`${inter.variable} ${playfair.variable} bg-white text-slate-900 antialiased overscroll-none`}>
         <LanguageProvider>
