@@ -139,6 +139,10 @@ export default function TattooSimulator({ lang }: Props) {
         body: JSON.stringify({ userImage: userBase64, clothingImage: tattooBase64, category: 'tattoo' }),
       });
 
+      if (res.status === 402) {
+        window.location.href = '/paywall?from=tattoo';
+        return;
+      }
       const data = await res.json();
       if (!res.ok) {
         setError(data.error || t.generate);

@@ -113,6 +113,7 @@ export default function EarringTryOn({ lang }: Props) {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userImage: userBase64, clothingImage: earBase64, category: 'jewelry' }),
       });
+      if (res.status === 402) { window.location.href = '/paywall?from=earring'; return; }
       const data = await res.json();
       if (!res.ok) { setError(data.error || t.generate); setIsLoading(false); return; }
       if (data.image) { const wm = await applyWatermark(data.image); setResultImage(wm); }

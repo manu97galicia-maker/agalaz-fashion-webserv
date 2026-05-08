@@ -260,6 +260,12 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
         setIsLoading(false);
         return;
       }
+      // Device has already redeemed its free demo render. Push to paywall
+      // instead of letting them click again — every Gemini call costs us.
+      if (res.status === 402) {
+        window.location.href = `/paywall?from=demo&category=${encodeURIComponent(category || '')}`;
+        return;
+      }
       const data = await res.json();
       if (data.image) {
         const watermarked = await applyWatermark(data.image);
