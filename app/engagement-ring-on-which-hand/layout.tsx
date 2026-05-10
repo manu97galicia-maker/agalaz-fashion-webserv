@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { FAQ_DATA } from '@/components/landing/EngagementRingHand';
+import { ENGAGEMENT_RING_FAQ as FAQ_DATA } from '@/data/engagementRingHand';
 
 const url = 'https://agalaz.com/engagement-ring-on-which-hand';
 

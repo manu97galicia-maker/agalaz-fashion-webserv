@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { FAQ_DATA } from '@/components/landing/LookFestaJunina';
+import { FESTA_JUNINA_FAQ as FAQ_DATA } from '@/data/festaJunina';
 
 const url = 'https://agalaz.com/pt/look-festa-junina';
 
