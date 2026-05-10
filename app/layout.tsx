@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     template: '%s | Agalaz Fashion',
   },
   description:
-    'Upload your photo and see any clothing on your real body with AI. Reduce returns 80%. 2 free renders, no credit card — try free now.',
+    'Upload your photo and see any clothing on your real body with AI. Reduce returns 80%. 1 free HD render every day — sign in to try.',
   keywords: [
     'virtual try-on',
     'AI fashion',
@@ -155,24 +155,24 @@ const jsonLd = {
       offers: [
         {
           '@type': 'Offer',
-          name: 'Free trial',
+          name: 'Free daily render',
           price: '0',
           priceCurrency: 'USD',
-          description: '2 free renders to try, no card required',
+          description: '1 free HD render every day — sign in with Google or email, no card required',
         },
         {
           '@type': 'Offer',
           name: 'Starter pack',
           price: '4.99',
           priceCurrency: 'USD',
-          description: 'Starter pack — 10 renders ($0.50 per render). One-time payment.',
+          description: 'Starter pack — 8 HD renders ($0.62 per render). One-time payment.',
         },
         {
           '@type': 'Offer',
-          name: 'Style Pro pack',
+          name: 'Pro pack',
           price: '9.99',
           priceCurrency: 'USD',
-          description: 'Style Pro pack — 25 renders ($0.40 per render, save 20%). One-time payment.',
+          description: 'Pro pack — 15 + 5 free = 20 HD renders ($0.50 per render, AGALAZ15 = 15% off). One-time payment.',
         },
       ],
     },

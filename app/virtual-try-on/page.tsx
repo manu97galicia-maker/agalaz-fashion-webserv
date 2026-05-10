@@ -305,7 +305,7 @@ export default function VirtualTryOnPage() {
             {pickLang<{ q: string; a: string }[]>(
               lang,
               [
-                { q: 'Is virtual try on free?', a: 'Yes! Agalaz gives you 2 free virtual try-on renders, no card required. After that, one-time credit packs: Starter $4.99 (10 renders) or Style Pro $9.99 (25 renders, 20% cheaper per render).' },
+                { q: 'Is virtual try on free?', a: 'Yes! Agalaz gives you 1 free HD render every day (sign-in required). After that, one-time credit packs: Starter $4.99 (8 HD renders) or Pro $9.99 (15 + 5 free = 20 HD renders). Use code AGALAZ15 for 15% off Pro.' },
                 { q: 'How accurate is AI virtual try on?', a: 'Agalaz preserves your real body proportions, skin tone, and facial features with photorealistic quality. The AI only changes the specific garment you want to try, keeping everything else pixel-perfect.' },
                 { q: 'Can I virtual try on any clothing?', a: 'Yes — shirts, jackets, tops, hoodies, blazers, and more. Upload a photo of any upper-body garment and see how it looks on you.' },
                 { q: 'Do I need to download an app for virtual try on?', a: 'No. Agalaz works entirely in your browser on any device — phone, tablet, or desktop. No downloads needed.' },
@@ -314,7 +314,7 @@ export default function VirtualTryOnPage() {
                 { q: 'What makes Agalaz different from other virtual try on tools?', a: 'Agalaz uses a proprietary Precision Component Engine that preserves your pants, shoes, background, and body exactly — only changing the garment you select. Most tools alter your entire appearance.' },
               ],
               [
-                { q: 'Es gratis el probador virtual?', a: 'Si! Agalaz te da 2 renders de probador virtual gratis, sin tarjeta. Despues, packs one-time: Starter $4,99 (10 renders) o Style Pro $9,99 (25 renders, 20% mas barato por render).' },
+                { q: 'Es gratis el probador virtual?', a: 'Si! Agalaz te da 1 render HD gratis cada dia (login requerido). Despues, packs one-time: Starter $4,99 (8 renders HD) o Pro $9,99 (15 + 5 gratis = 20 renders HD). Codigo AGALAZ15 = 15% OFF en Pro.' },
                 { q: 'Que tan preciso es el probador virtual con IA?', a: 'Agalaz preserva tus proporciones corporales reales, tono de piel y rasgos faciales con calidad fotorrealista. La IA solo cambia la prenda especifica que quieres probar.' },
                 { q: 'Puedo probar virtualmente cualquier ropa?', a: 'Si — camisas, chaquetas, tops, sudaderas, blazers y mas. Sube una foto de cualquier prenda superior y mira como te queda.' },
                 { q: 'Necesito descargar una app para el probador virtual?', a: 'No. Agalaz funciona completamente en tu navegador en cualquier dispositivo — telefono, tablet o computadora. Sin descargas.' },
@@ -323,7 +323,7 @@ export default function VirtualTryOnPage() {
                 { q: 'Que hace a Agalaz diferente de otros probadores virtuales?', a: 'Agalaz usa un Motor de Precision propietario que preserva tus pantalones, zapatos, fondo y cuerpo exactamente — solo cambiando la prenda que seleccionas.' },
               ],
               [
-                { q: 'L’essayage virtuel est-il gratuit ?', a: 'Oui ! Agalaz vous offre 2 rendus d’essayage virtuel gratuits, sans carte. Ensuite, packs en paiement unique : Starter 4,99 $ (10 rendus) ou Style Pro 9,99 $ (25 rendus, 20 % moins cher par rendu).' },
+                { q: 'L’essayage virtuel est-il gratuit ?', a: 'Oui ! Agalaz vous offre 1 rendu HD gratuit par jour (connexion requise). Ensuite, packs en paiement unique : Starter 4,99 $ (8 rendus HD) ou Pro 9,99 $ (15 + 5 gratuits = 20 rendus HD). Code AGALAZ15 = 15 % de remise sur Pro.' },
                 { q: 'Quelle est la precision de l’essayage virtuel par IA ?', a: 'Agalaz preserve vos proportions corporelles reelles, votre teint et vos traits du visage avec une qualite photorealiste. L’IA ne change que le vetement specifique que vous voulez essayer, en gardant tout le reste au pixel pres.' },
                 { q: 'Puis-je essayer virtuellement n’importe quel vetement ?', a: 'Oui — chemises, vestes, hauts, sweats a capuche, blazers et plus encore. Telechargez la photo de n’importe quel vetement haut et voyez comment il vous va.' },
                 { q: 'Dois-je telecharger une application pour l’essayage virtuel ?', a: 'Non. Agalaz fonctionne entierement dans votre navigateur sur tout appareil — telephone, tablette ou ordinateur. Aucun telechargement necessaire.' },
@@ -332,7 +332,7 @@ export default function VirtualTryOnPage() {
                 { q: 'Qu’est-ce qui differencie Agalaz des autres outils d’essayage virtuel ?', a: 'Agalaz utilise un Precision Component Engine proprietaire qui preserve exactement votre pantalon, vos chaussures, l’arriere-plan et votre corps — en ne changeant que le vetement que vous selectionnez. La plupart des outils modifient toute votre apparence.' },
               ],
               [
-                { q: 'O provador virtual e gratuito?', a: 'Sim! A Agalaz oferece-lhe 2 renderizacoes gratuitas no provador virtual, sem cartao. Depois, packs de pagamento unico: Starter 4,99 $ (10 renders) ou Style Pro 9,99 $ (25 renders, 20% mais barato por render).' },
+                { q: 'O provador virtual e gratuito?', a: 'Sim! A Agalaz oferece-lhe 1 render HD gratis por dia (login necessario). Depois, packs de pagamento unico: Starter 4,99 $ (8 renders HD) ou Pro 9,99 $ (15 + 5 gratis = 20 renders HD). Codigo AGALAZ15 = 15% off em Pro.' },
                 { q: 'Quao preciso e o provador virtual com IA?', a: 'A Agalaz preserva as suas proporcoes corporais reais, o tom de pele e os tracos faciais com qualidade fotorrealista. A IA altera apenas a peca especifica que pretende experimentar, mantendo tudo o resto perfeito ao pixel.' },
                 { q: 'Posso experimentar virtualmente qualquer peca?', a: 'Sim — camisas, casacos, tops, hoodies, blazers e muito mais. Carregue uma foto de qualquer peca superior e veja como lhe fica.' },
                 { q: 'Preciso de descarregar uma app para o provador virtual?', a: 'Nao. A Agalaz funciona inteiramente no seu navegador em qualquer dispositivo — telemovel, tablet ou computador. Sem downloads necessarios.' },
@@ -341,7 +341,7 @@ export default function VirtualTryOnPage() {
                 { q: 'O que distingue a Agalaz de outras ferramentas de provador virtual?', a: 'A Agalaz usa um Precision Component Engine proprietario que preserva exatamente as suas calcas, sapatos, fundo e corpo — alterando apenas a peca que selecionar. A maioria das ferramentas altera toda a sua aparencia.' },
               ],
               [
-                { q: 'Ist die virtuelle Anprobe kostenlos?', a: 'Ja! Agalaz schenkt Ihnen 2 kostenlose Renderings der virtuellen Anprobe, ohne Karte. Danach Einmalzahlungs-Packs: Starter 4,99 $ (10 Renderings) oder Style Pro 9,99 $ (25 Renderings, 20% gunstiger pro Rendering).' },
+                { q: 'Ist die virtuelle Anprobe kostenlos?', a: 'Ja! Agalaz schenkt Ihnen taglich 1 kostenloses HD-Rendering (Anmeldung erforderlich). Danach Einmalzahlungs-Packs: Starter 4,99 $ (8 HD-Renderings) oder Pro 9,99 $ (15 + 5 gratis = 20 HD-Renderings). Code AGALAZ15 = 15% Rabatt auf Pro.' },
                 { q: 'Wie genau ist die KI-gestutzte virtuelle Anprobe?', a: 'Agalaz erhalt Ihre echten Korperproportionen, Ihren Hautton und Ihre Gesichtszuge in fotorealistischer Qualitat. Die KI andert nur das jeweilige Kleidungsstuck, das Sie anprobieren mochten, und halt alles andere pixelgenau.' },
                 { q: 'Kann ich jede Kleidung virtuell anprobieren?', a: 'Ja — Hemden, Jacken, Oberteile, Hoodies, Blazer und mehr. Laden Sie das Foto eines beliebigen Oberkorper-Kleidungsstucks hoch und sehen Sie, wie es an Ihnen aussieht.' },
                 { q: 'Muss ich eine App fur die virtuelle Anprobe herunterladen?', a: 'Nein. Agalaz lauft vollstandig in Ihrem Browser auf jedem Gerat — Handy, Tablet oder Desktop. Keine Downloads erforderlich.' },
@@ -350,7 +350,7 @@ export default function VirtualTryOnPage() {
                 { q: 'Was unterscheidet Agalaz von anderen Tools fur virtuelle Anprobe?', a: 'Agalaz verwendet eine proprietare Precision Component Engine, die Ihre Hose, Schuhe, den Hintergrund und Ihren Korper exakt erhalt — und nur das Kleidungsstuck andert, das Sie auswahlen. Die meisten Tools verandern Ihr gesamtes Erscheinungsbild.' },
               ],
               [
-                { q: 'Il camerino virtuale e gratuito?', a: 'Si! Agalaz vi offre 2 rendering gratuiti del camerino virtuale, senza carta. Dopodiche, pack a pagamento unico: Starter 4,99 $ (10 rendering) o Style Pro 9,99 $ (25 rendering, 20% piu economico per rendering).' },
+                { q: 'Il camerino virtuale e gratuito?', a: 'Si! Agalaz vi offre 1 rendering HD gratuito al giorno (accesso richiesto). Dopodiche, pack a pagamento unico: Starter 4,99 $ (8 rendering HD) o Pro 9,99 $ (15 + 5 gratis = 20 rendering HD). Codice AGALAZ15 = 15% di sconto su Pro.' },
                 { q: 'Quanto e accurato il camerino virtuale con AI?', a: 'Agalaz preserva le vostre proporzioni corporee reali, il tono della pelle e i tratti del viso con qualita fotorealistica. L’AI modifica solo il capo specifico che volete provare, mantenendo tutto il resto perfetto al pixel.' },
                 { q: 'Posso provare virtualmente qualsiasi capo?', a: 'Si — camicie, giacche, top, felpe, blazer e altro ancora. Caricate la foto di qualsiasi capo per la parte superiore e guardate come vi sta.' },
                 { q: 'Devo scaricare un’app per il camerino virtuale?', a: 'No. Agalaz funziona interamente nel vostro browser su qualsiasi dispositivo — telefono, tablet o desktop. Nessun download necessario.' },
@@ -469,7 +469,7 @@ export default function VirtualTryOnPage() {
             '@context': 'https://schema.org',
             '@type': 'FAQPage',
             mainEntity: [
-              { '@type': 'Question', name: 'Is virtual try on free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes! Agalaz gives you 2 free virtual try-on renders, no card required. After that, one-time credit packs: Starter $4.99 (10 renders) or Style Pro $9.99 (25 renders, 20% cheaper per render).' } },
+              { '@type': 'Question', name: 'Is virtual try on free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes! Agalaz gives you 1 free HD render every day (sign-in required). After that, one-time credit packs: Starter $4.99 (8 HD renders) or Pro $9.99 (15 + 5 free = 20 HD renders). Use code AGALAZ15 for 15% off Pro.' } },
               { '@type': 'Question', name: 'How accurate is AI virtual try on?', acceptedAnswer: { '@type': 'Answer', text: 'Agalaz preserves your real body proportions, skin tone, and facial features with photorealistic quality.' } },
               { '@type': 'Question', name: 'Can I virtual try on any clothing?', acceptedAnswer: { '@type': 'Answer', text: 'Yes — shirts, jackets, tops, hoodies, blazers, and more. Upload a photo of any upper-body garment and see how it looks on you.' } },
               { '@type': 'Question', name: 'Do I need to download an app?', acceptedAnswer: { '@type': 'Answer', text: 'No. Agalaz works entirely in your browser on any device — phone, tablet, or desktop.' } },

@@ -24,15 +24,15 @@ function getBotReply(userMsg: string, lang: string): string {
   // Pricing / plans
   if (/precio|plan|cost|cuánto|cuanto|pricing|suscri|subscri|pagar|pay|pack|comprar|buy/.test(msg)) {
     return es
-      ? '💰 Dos packs de pago único:\n\n• **Starter $4,99** — 10 renders ($0,50 por render)\n• **Style Pro $9,99** — 25 renders ($0,40 por render, AHORRA 20%)\n\nSin suscripción, sin renovación automática. Comprar Ahora en /try-on.'
-      : '💰 Two one-time packs:\n\n• **Starter $4.99** — 10 renders ($0.50 per render)\n• **Style Pro $9.99** — 25 renders ($0.40 per render, SAVE 20%)\n\nNo subscription, no auto-renewal. Buy Now at /try-on.';
+      ? '💰 Plan gratuito + 2 packs de pago único:\n\n• **Gratis** — 1 render HD al día, login requerido\n• **Starter $4,99** — 8 renders HD ($0,62 por render)\n• **Pro $9,99** — 15 + 5 gratis = 20 renders HD ($0,50 por render)\n\nUsa el código AGALAZ15 en Pro para 15% OFF. Sin suscripción. Comprar Ahora en /try-on.'
+      : '💰 Free tier + 2 one-time packs:\n\n• **Free** — 1 HD render per day, sign-in required\n• **Starter $4.99** — 8 HD renders ($0.62 per render)\n• **Pro $9.99** — 15 + 5 free = 20 HD renders ($0.50 per render)\n\nUse code AGALAZ15 on Pro for 15% OFF. No subscription. Buy Now at /try-on.';
   }
 
   // Free trial
   if (/gratis|free|trial|prueba/.test(msg)) {
     return es
-      ? '🎁 Tienes 2 renders 100% gratis sin tarjeta — pruébalo en /try-on. Si te gusta, el pack Starter es $4,99 (10 renders) o Style Pro $9,99 por 25 renders (AHORRA 20%). Pago único, sin suscripción. Comprar Ahora en /try-on.'
-      : '🎁 You get 2 renders 100% free, no card needed — try it at /try-on. If you like it, the Starter pack is $4.99 (10 renders) or Style Pro $9.99 for 25 renders (SAVE 20%). One-time payment, no subscription. Buy Now at /try-on.';
+      ? '🎁 Tienes 1 render HD gratis cada día (login requerido) — pruébalo en /try-on. Si te gusta, el pack Starter es $4,99 (8 renders HD) o Pro $9,99 por 20 renders HD (15 + 5 gratis). Pago único, sin suscripción. Código AGALAZ15 = 15% OFF en Pro.'
+      : '🎁 You get 1 free HD render every day (sign-in required) — try it at /try-on. If you like it, the Starter pack is $4.99 (8 HD renders) or Pro $9.99 for 20 HD renders (15 + 5 free). One-time payment, no subscription. Code AGALAZ15 = 15% OFF on Pro.';
   }
 
   // Partners / ecommerce

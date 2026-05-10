@@ -1,12 +1,35 @@
 @import "tailwindcss";
 
-/* Typography */
+/* Typography
+   Inter at default weight (400) is too thin against white on most macOS
+   Safari devices — body copy reads as washed-out gray. The fixes below
+   are tiny but cumulative: stronger body color, tighter letter-spacing
+   and Inter's "cv02/cv11" stylistic alternates for crisper a/g/l/I. */
 body {
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  color: #1e293b; /* slate-800 — strong default contrast against white */
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
+  letter-spacing: -0.005em;
 }
 
 .font-serif {
   font-family: var(--font-playfair), Georgia, 'Times New Roman', serif;
+  letter-spacing: -0.01em;
+}
+
+/* `font-light` (Inter weight 300) is hard to read on light backgrounds
+   for body copy. Bump to 400 site-wide — components that rely on the
+   thin look (large hero numerals, big serif headings) explicitly use
+   font-serif or font-black so they're untouched. */
+.font-light {
+  font-weight: 400;
+}
+
+/* Paragraphs and small captions benefit from slightly looser leading
+   and modern text-wrap to avoid orphans / ragged lines. */
+p {
+  text-wrap: pretty;
+  line-height: 1.55;
 }
 
 @theme {
