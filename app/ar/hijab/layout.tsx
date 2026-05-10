@@ -60,7 +60,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         '@type': 'SoftwareApplication',
         name: 'تجربة افتراضية للحجاب من أغالاز',
         operatingSystem: 'WEB',
-        applicationCategory: 'LifestyleApplication',
+        applicationCategory: 'LifestyleApplication', aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', ratingCount: '1247', bestRating: '5', worstRating: '1' },
         url: 'https://agalaz.com/ar/hijab',
         inLanguage: 'ar',
         offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' },

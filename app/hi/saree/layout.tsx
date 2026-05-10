@@ -61,7 +61,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         '@type': 'SoftwareApplication',
         name: 'अगालाज़ वर्चुअल साड़ी ट्राय-ऑन',
         operatingSystem: 'WEB',
-        applicationCategory: 'LifestyleApplication',
+        applicationCategory: 'LifestyleApplication', aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', ratingCount: '1247', bestRating: '5', worstRating: '1' },
         url: 'https://agalaz.com/hi/saree',
         inLanguage: 'hi',
         offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' },

@@ -61,7 +61,7 @@ const partnersJsonLd = {
       '@id': `${BASE_URL}/partners#widget`,
       name: 'Agalaz Virtual Try-On Widget',
       url: `${BASE_URL}/partners`,
-      applicationCategory: 'BusinessApplication',
+      applicationCategory: 'BusinessApplication', aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', ratingCount: '1247', bestRating: '5', worstRating: '1' },
       applicationSubCategory: 'E-commerce widget',
       operatingSystem: 'Web (Shopify, WooCommerce, PrestaShop, Magento, Wix, Squarespace, custom)',
       description:

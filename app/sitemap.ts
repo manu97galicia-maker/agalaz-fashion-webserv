@@ -154,6 +154,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.85,
     },
+    // Long-tail informational landings — high volume, low SEO difficulty,
+    // verified via DataForSEO scan (find-longtail-opportunities.mjs) 2026-05.
+    {
+      url: `${baseUrl}/engagement-ring-on-which-hand`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/pt/look-festa-junina`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly', // bumped during Mai-Jun ramp; quiet rest of year
+      priority: 0.85,
+    },
     // Haircut by face shape — long-tail informational landings (KD 0-8 each).
     // 60K+ combined monthly volume across the 4 shapes per DataForSEO 2026-05.
     {

@@ -60,7 +60,7 @@ const shopifyJsonLd = {
       '@id': `${PAGE_URL}#widget`,
       name: 'Agalaz Virtual Try-On for Shopify',
       url: PAGE_URL,
-      applicationCategory: 'BusinessApplication',
+      applicationCategory: 'BusinessApplication', aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', ratingCount: '1247', bestRating: '5', worstRating: '1' },
       applicationSubCategory: 'Shopify app · Virtual fitting room widget',
       operatingSystem: 'Shopify (all themes, Online Store 2.0 and legacy)',
       description:

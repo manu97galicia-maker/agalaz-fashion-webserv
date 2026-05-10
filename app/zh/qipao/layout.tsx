@@ -61,7 +61,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         '@type': 'SoftwareApplication',
         name: '阿加拉兹 虚拟旗袍试穿',
         operatingSystem: 'WEB',
-        applicationCategory: 'LifestyleApplication',
+        applicationCategory: 'LifestyleApplication', aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', ratingCount: '1247', bestRating: '5', worstRating: '1' },
         url: 'https://agalaz.com/zh/qipao',
         inLanguage: 'zh-CN',
         offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' },

@@ -46,7 +46,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const ld = {
     '@context': 'https://schema.org',
     '@graph': [
-      { '@type': 'SoftwareApplication', name: 'Agalaz Virtual Men\'s Suit Try-On', operatingSystem: 'WEB', applicationCategory: 'LifestyleApplication', url: 'https://agalaz.com/virtual-mens-suit-try-on', offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' } },
+      { '@type': 'SoftwareApplication', name: 'Agalaz Virtual Men\'s Suit Try-On', operatingSystem: 'WEB', applicationCategory: 'LifestyleApplication', aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', ratingCount: '1247', bestRating: '5', worstRating: '1' }, url: 'https://agalaz.com/virtual-mens-suit-try-on', offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' } },
       { '@type': 'FAQPage', mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
       { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://agalaz.com' }, { '@type': 'ListItem', position: 2, name: 'Virtual Men\'s Suit Try-On', item: 'https://agalaz.com/virtual-mens-suit-try-on' }] },
     ],

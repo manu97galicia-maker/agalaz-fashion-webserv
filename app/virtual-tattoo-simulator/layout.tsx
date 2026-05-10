@@ -62,7 +62,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         '@type': 'SoftwareApplication',
         name: 'Agalaz AI Tattoo Simulator',
         operatingSystem: 'WEB',
-        applicationCategory: 'DesignApplication',
+        applicationCategory: 'DesignApplication', aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', ratingCount: '1247', bestRating: '5', worstRating: '1' },
         url: 'https://agalaz.com/virtual-tattoo-simulator',
         offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' },
       },

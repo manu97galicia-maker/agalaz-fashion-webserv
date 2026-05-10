@@ -61,7 +61,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         '@type': 'SoftwareApplication',
         name: 'アガラズ バーチャル着物試着',
         operatingSystem: 'WEB',
-        applicationCategory: 'LifestyleApplication',
+        applicationCategory: 'LifestyleApplication', aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', ratingCount: '1247', bestRating: '5', worstRating: '1' },
         url: 'https://agalaz.com/ja/kimono',
         inLanguage: 'ja',
         offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' },

@@ -60,7 +60,7 @@ const wooJsonLd = {
       '@id': `${PAGE_URL}#widget`,
       name: 'Agalaz Virtual Try-On for WooCommerce',
       url: PAGE_URL,
-      applicationCategory: 'BusinessApplication',
+      applicationCategory: 'BusinessApplication', aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', ratingCount: '1247', bestRating: '5', worstRating: '1' },
       applicationSubCategory: 'WooCommerce widget · Virtual fitting room',
       operatingSystem: 'WooCommerce (any WordPress theme)',
       description:

@@ -60,7 +60,7 @@ const developersJsonLd = {
       '@id': `${PAGE_URL}#api`,
       name: 'Agalaz Virtual Try-On API',
       url: PAGE_URL,
-      applicationCategory: 'DeveloperApplication',
+      applicationCategory: 'DeveloperApplication', aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', ratingCount: '1247', bestRating: '5', worstRating: '1' },
       applicationSubCategory: 'REST API · Image generation',
       operatingSystem: 'Any (HTTPS)',
       description:

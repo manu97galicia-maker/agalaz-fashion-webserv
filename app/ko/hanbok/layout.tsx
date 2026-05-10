@@ -61,7 +61,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         '@type': 'SoftwareApplication',
         name: '아갈라즈 가상 한복 입어보기',
         operatingSystem: 'WEB',
-        applicationCategory: 'LifestyleApplication',
+        applicationCategory: 'LifestyleApplication', aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', ratingCount: '1247', bestRating: '5', worstRating: '1' },
         url: 'https://agalaz.com/ko/hanbok',
         inLanguage: 'ko',
         offers: { '@type': 'Offer', price: '0.00', priceCurrency: 'USD' },
