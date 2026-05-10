@@ -204,6 +204,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly', // June-Aug peak
       priority: 0.85,
     },
+    {
+      url: `${baseUrl}/wedding-guest-outfit`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9, // largest single cluster (~2M/mo, KD 0)
+    },
+    {
+      url: `${baseUrl}/es/vestido-invitada-boda`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9, // 825K/mo cluster, KD 0
+    },
+    {
+      url: `${baseUrl}/natural-makeup-look`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
     // Haircut by face shape — long-tail informational landings (KD 0-8 each).
     // 60K+ combined monthly volume across the 4 shapes per DataForSEO 2026-05.
     {

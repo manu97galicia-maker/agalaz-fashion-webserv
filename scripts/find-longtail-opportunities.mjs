@@ -42,47 +42,51 @@ const auth = 'Basic ' + Buffer.from(`${LOGIN}:${PASSWORD}`).toString('base64');
 // to our existing landings — the API expands them into long-tail variants.
 // The location_code controls which country's search volume we read.
 const SEEDS = [
-  // ── New broader seeds, round 2 (2026-05-10) ──────────────────────────────
-  // Footwear
-  { seed: 'shoes online', lang: 'en', location: 2840 },
-  { seed: 'sneakers online', lang: 'en', location: 2840 },
-  { seed: 'heels online', lang: 'en', location: 2840 },
+  // ── Round 3 (2026-05-10): KD <= 15 ultra-low-competition seeds ───────────
+  // Occasion outfits — high search, low competition because not commercial
+  { seed: 'date night outfit', lang: 'en', location: 2840 },
+  { seed: 'first date outfit', lang: 'en', location: 2840 },
+  { seed: 'job interview outfit', lang: 'en', location: 2840 },
+  { seed: 'graduation outfit', lang: 'en', location: 2840 },
+  { seed: 'birthday outfit', lang: 'en', location: 2840 },
+  { seed: 'concert outfit', lang: 'en', location: 2840 },
+  { seed: 'club outfit', lang: 'en', location: 2840 },
+  { seed: 'wedding guest outfit', lang: 'en', location: 2840 },
 
-  // Beauty / face
-  { seed: 'lipstick try on', lang: 'en', location: 2840 },
-  { seed: 'makeup try on', lang: 'en', location: 2840 },
-  { seed: 'hair color try on', lang: 'en', location: 2840 },
+  // Color + dress combos (specific intent, lower comp)
+  { seed: 'red dress outfit', lang: 'en', location: 2840 },
+  { seed: 'white dress outfit', lang: 'en', location: 2840 },
+  { seed: 'black dress outfit', lang: 'en', location: 2840 },
+  { seed: 'green dress outfit', lang: 'en', location: 2840 },
 
-  // Body / size
-  { seed: 'plus size dress', lang: 'en', location: 2840 },
-  { seed: 'maternity dress', lang: 'en', location: 2840 },
+  // Beauty long-tail
+  { seed: 'eye makeup', lang: 'en', location: 2840 },
+  { seed: 'wedding makeup', lang: 'en', location: 2840 },
+  { seed: 'natural makeup', lang: 'en', location: 2840 },
+  { seed: 'smokey eye', lang: 'en', location: 2840 },
 
-  // Cultural events
-  { seed: 'quinceanera dress', lang: 'en', location: 2840 },
-  { seed: 'bridesmaid dress', lang: 'en', location: 2840 },
-  { seed: 'halloween costume', lang: 'en', location: 2840 },
+  // Religious / modest fashion (high volume, almost no competition)
+  { seed: 'modest dress', lang: 'en', location: 2840 },
+  { seed: 'abaya', lang: 'en', location: 2840 },
+  { seed: 'salwar kameez', lang: 'en', location: 2840 },
+  { seed: 'kurti design', lang: 'en', location: 2840 },
 
-  // German Oktoberfest with broader seeds
-  { seed: 'dirndl', lang: 'de', location: 2276 },
-  { seed: 'oktoberfest outfit', lang: 'de', location: 2276 },
-  { seed: 'tracht', lang: 'de', location: 2276 },
+  // Plus size specifics
+  { seed: 'plus size wedding dress', lang: 'en', location: 2840 },
 
-  // Japanese yukata with native seeds
-  { seed: '浴衣', lang: 'ja', location: 2392 },
-  { seed: '振袖', lang: 'ja', location: 2392 },
+  // Spanish wedding-guest cluster (187 hits in round 2)
+  { seed: 'vestido invitada boda', lang: 'es', location: 2724 },
+  { seed: 'vestido coctel', lang: 'es', location: 2724 },
 
-  // Korean K-pop / hanbok variations
-  { seed: '한복', lang: 'ko', location: 2410 },
-  { seed: '드레스', lang: 'ko', location: 2410 },
+  // French wedding guest (119 hits in round 2)
+  { seed: 'robe invité mariage', lang: 'fr', location: 2250 },
 
-  // Spanish events
-  { seed: 'vestido quinceañera', lang: 'es', location: 2724 },
-  { seed: 'traje de comunion', lang: 'es', location: 2724 },
-  { seed: 'vestido boda invitada', lang: 'es', location: 2724 },
+  // Italian
+  { seed: 'vestito invitata matrimonio', lang: 'it', location: 2380 },
 
-  // French events
-  { seed: 'tenue mariage femme', lang: 'fr', location: 2250 },
-  { seed: 'tenue communion', lang: 'fr', location: 2250 },
+  // Portuguese-Brazilian
+  { seed: 'vestido madrinha', lang: 'pt', location: 2076 },
+  { seed: 'vestido convidada casamento', lang: 'pt', location: 2076 },
 ];
 
 async function fetchSuggestions({ seed, lang, location }) {
@@ -97,9 +101,9 @@ async function fetchSuggestions({ seed, lang, location }) {
       //   keyword_info.search_volume        — Google Ads avg monthly searches
       //   keyword_properties.keyword_difficulty  — SEO difficulty 0-100, lower = easier
       filters: [
-        ['keyword_info.search_volume', '>=', 200],
+        ['keyword_info.search_volume', '>=', 500],
         'and',
-        ['keyword_properties.keyword_difficulty', '<=', 35],
+        ['keyword_properties.keyword_difficulty', '<=', 15],
       ],
       order_by: ['keyword_info.search_volume,desc'],
     },
