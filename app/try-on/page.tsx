@@ -60,33 +60,58 @@ export default function TryOnPage() {
   const [creditQty, setCreditQty] = useState(1);
   const chatFileRef = useRef<HTMLInputElement>(null);
 
-  // Gate: check auth → check subscription → allow or redirect
+  // True while we're waiting for the Stripe webhook to credit the user after
+  // a successful payment. The Stripe success_url redirects in ~100ms but the
+  // webhook can take 1-5s to land — we poll /api/subscription instead of
+  // bouncing the user to /paywall mid-flight.
+  const [activatingPayment, setActivatingPayment] = useState(false);
+
+  // Gate: check auth → check subscription → allow or redirect.
+  // Special case: if URL says ?credits_purchased=… or ?subscribed=true, poll
+  // /api/subscription up to 20s waiting for the webhook before falling back.
   useEffect(() => {
+    const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
+    const justPaid = params.get('credits_purchased') !== null || params.get('subscribed') === 'true';
+
     const { data: { subscription } } = onAuthStateChange(async (authUser) => {
-      if (authUser) {
-        setUser(authUser);
+      if (!authUser) { setShowLogin(true); return; }
+      setUser(authUser);
+
+      async function fetchStatus(): Promise<{ creditsRemaining: number; isPro: boolean } | null> {
         try {
-          const res = await fetch('/api/subscription');
-          if (res.ok) {
-            const status = await res.json();
-            // Only redirect to paywall if NOT pro AND no credits
-            // Pro users with 0 credits will get lazy-reset by the API
-            if (status.creditsRemaining <= 0 && !status.isPro) {
-              router.push('/paywall');
-              return;
-            }
-          } else {
-            router.push('/paywall');
+          const res = await fetch('/api/subscription', { cache: 'no-store' });
+          if (!res.ok) return null;
+          return await res.json();
+        } catch { return null; }
+      }
+
+      const initial = await fetchStatus();
+      const allowed = (s: { creditsRemaining: number; isPro: boolean } | null) =>
+        !!s && (s.creditsRemaining > 0 || s.isPro);
+
+      if (allowed(initial)) {
+        setGateReady(true);
+        return;
+      }
+
+      if (justPaid) {
+        // Webhook race: poll for up to 20 s before giving up.
+        setActivatingPayment(true);
+        const deadline = Date.now() + 20_000;
+        while (Date.now() < deadline) {
+          await new Promise((r) => setTimeout(r, 1_500));
+          const s = await fetchStatus();
+          if (allowed(s)) {
+            setActivatingPayment(false);
+            setGateReady(true);
             return;
           }
-        } catch {
-          router.push('/paywall');
-          return;
         }
-        setGateReady(true);
-      } else {
-        setShowLogin(true);
+        setActivatingPayment(false);
+        // Fall through — webhook never landed, show paywall as last resort.
       }
+
+      router.push('/paywall');
     });
     return () => subscription.unsubscribe();
   }, [router]);
@@ -96,7 +121,10 @@ export default function TryOnPage() {
   }, []);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('subscribed') === 'true') {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get('subscribed') === 'true') {
       fetch('/api/subscription').then(r => r.json()).then(status => {
         if (status.plan === 'yearly' && status.creditsRemaining <= 2) {
           track('trial_start', { plan: 'yearly' });
@@ -107,14 +135,22 @@ export default function TryOnPage() {
         track('subscription_success');
       });
     }
-    // Credit pack purchase redirect
-    if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('credits_purchased')) {
-      track('credits_purchased', { amount: 20 });
+    // Credit pack purchase redirect — read the actual amount from the URL so
+    // the analytics event reflects what they bought (was hardcoded to 20).
+    const creditsBought = params.get('credits_purchased');
+    if (creditsBought) {
+      track('credits_purchased', { amount: parseInt(creditsBought, 10) || 0 });
     }
-    // Pre-select category from URL param (e.g. from landing pages)
-    if (typeof window !== 'undefined') {
-      const cat = new URLSearchParams(window.location.search).get('category');
-      if (cat) setTryOnCategory(cat);
+    // Pre-select category from URL param (e.g. from landing pages).
+    const cat = params.get('category');
+    if (cat) setTryOnCategory(cat);
+
+    // Clean payment params from the URL so a manual refresh doesn't re-fire
+    // analytics events or re-enter the activating-payment polling state.
+    if (params.has('credits_purchased') || params.has('subscribed') || params.has('category')) {
+      const url = new URL(window.location.href);
+      ['credits_purchased', 'subscribed', 'category'].forEach((k) => url.searchParams.delete(k));
+      window.history.replaceState({}, '', url.toString());
     }
   }, []);
 
@@ -387,8 +423,41 @@ export default function TryOnPage() {
 
   if (!gateReady && !showLogin) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <Loader2 size={32} className="text-indigo-600 animate-spin" />
+      <div className="min-h-screen bg-white flex items-center justify-center px-6">
+        {activatingPayment ? (
+          <div className="text-center max-w-sm animate-fade-in">
+            <div className="w-14 h-14 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-5">
+              <Sparkles size={22} className="text-emerald-600 animate-pulse" />
+            </div>
+            <h2 className="font-serif text-xl md:text-2xl font-black text-slate-900 tracking-tight mb-2">
+              {pickLang(
+                lang,
+                'Activating your renders…',
+                'Activando tus renders…',
+                'Activation de vos rendus…',
+                'A ativar os teus renders…',
+                'Aktiviere deine Renders…',
+                'Attivazione dei tuoi render…',
+              )}
+            </h2>
+            <p className="text-slate-500 text-sm font-light leading-relaxed">
+              {pickLang(
+                lang,
+                'Payment confirmed. Adding credits to your account — this takes a few seconds.',
+                'Pago confirmado. Añadiendo créditos a tu cuenta — tarda unos segundos.',
+                'Paiement confirmé. Ajout des crédits à votre compte — quelques secondes.',
+                'Pagamento confirmado. A adicionar créditos à conta — uns segundos.',
+                'Zahlung bestätigt. Credits werden gutgeschrieben — ein paar Sekunden.',
+                'Pagamento confermato. Aggiunta crediti al tuo account — pochi secondi.',
+              )}
+            </p>
+            <div className="mt-6 flex justify-center">
+              <Loader2 size={20} className="text-indigo-600 animate-spin" />
+            </div>
+          </div>
+        ) : (
+          <Loader2 size={32} className="text-indigo-600 animate-spin" />
+        )}
       </div>
     );
   }
