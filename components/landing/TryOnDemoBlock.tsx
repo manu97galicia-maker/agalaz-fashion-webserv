@@ -344,7 +344,11 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
   // Auth state — required to call /api/demo. We listen so the modal closes
   // automatically when the user completes login from another tab/window.
   const [userId, setUserId] = useState<string | null>(null);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
   const [authChecked, setAuthChecked] = useState(false);
+  // True while a Stripe checkout redirect is in flight. We disable the cards
+  // so a frantic double-click doesn't fire two checkout sessions.
+  const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
   const [showLogin, setShowLogin] = useState(false);
   const [otpEmail, setOtpEmail] = useState('');
   const [otpSent, setOtpSent] = useState(false);
@@ -369,10 +373,12 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
     );
     supabase.auth.getUser().then(({ data: { user } }) => {
       setUserId(user?.id ?? null);
+      setUserEmail(user?.email ?? null);
       setAuthChecked(true);
     });
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
       setUserId(session?.user?.id ?? null);
+      setUserEmail(session?.user?.email ?? null);
       setAuthChecked(true);
       if (session?.user) {
         setShowLogin(false);
@@ -693,6 +699,102 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
     track('result_download', { source: 'demo', category });
   }
 
+  // Inline paywall — fires the same Stripe checkout the dedicated /paywall
+  // page uses. After the visitor sees their first HD render we surface the
+  // 3 packs in-place so they can buy without leaving the landing.
+  async function handleCheckout(plan: 'trial' | 'test' | 'popular') {
+    if (!userId || !userEmail) {
+      setShowLogin(true);
+      return;
+    }
+    if (checkoutLoading) return;
+    setCheckoutLoading(plan);
+    track('initiate_checkout', { plan, source: 'demo_inline', category });
+    try {
+      const res = await fetch('/api/stripe/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          plan,
+          email: userEmail,
+          userId,
+          fromCategory: category,
+        }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setError(data.error || t.errorGeneric);
+        setCheckoutLoading(null);
+      }
+    } catch {
+      setError(t.errorGeneric);
+      setCheckoutLoading(null);
+    }
+  }
+
+  // Plan card data — same packs and prices as /paywall, with a short
+  // localized blurb. Style Pro flagged as "best value" to anchor the eye.
+  const PLANS: Record<DemoLang, Array<{
+    plan: 'trial' | 'test' | 'popular';
+    label: string;
+    price: string;
+    renders: string;
+    perRender: string;
+    badge?: string;
+    featured?: boolean;
+  }>> = {
+    en: [
+      { plan: 'trial', label: 'Trial', price: '$1.49', renders: '1 render', perRender: 'one render to start' },
+      { plan: 'test', label: 'Starter', price: '$4.99', renders: '5 + 1 free', perRender: '$0.83 per render', badge: '🎁 +1 FREE' },
+      { plan: 'popular', label: 'Style Pro', price: '$9.99', renders: '10 + 2 free', perRender: '$0.83 per render', badge: '🎁 +2 FREE', featured: true },
+    ],
+    es: [
+      { plan: 'trial', label: 'Prueba', price: '$1,49', renders: '1 render', perRender: 'un render para empezar' },
+      { plan: 'test', label: 'Starter', price: '$4,99', renders: '5 + 1 gratis', perRender: '$0,83 por render', badge: '🎁 +1 GRATIS' },
+      { plan: 'popular', label: 'Style Pro', price: '$9,99', renders: '10 + 2 gratis', perRender: '$0,83 por render', badge: '🎁 +2 GRATIS', featured: true },
+    ],
+    fr: [
+      { plan: 'trial', label: 'Essai', price: '1,49 $', renders: '1 rendu', perRender: 'un rendu pour démarrer' },
+      { plan: 'test', label: 'Starter', price: '4,99 $', renders: '5 + 1 gratuit', perRender: '0,83 $ par rendu', badge: '🎁 +1 GRATUIT' },
+      { plan: 'popular', label: 'Style Pro', price: '9,99 $', renders: '10 + 2 gratuits', perRender: '0,83 $ par rendu', badge: '🎁 +2 GRATUITS', featured: true },
+    ],
+    pt: [
+      { plan: 'trial', label: 'Teste', price: '$1,49', renders: '1 render', perRender: 'um render para começar' },
+      { plan: 'test', label: 'Starter', price: '$4,99', renders: '5 + 1 grátis', perRender: '$0,83 por render', badge: '🎁 +1 GRÁTIS' },
+      { plan: 'popular', label: 'Style Pro', price: '$9,99', renders: '10 + 2 grátis', perRender: '$0,83 por render', badge: '🎁 +2 GRÁTIS', featured: true },
+    ],
+    de: [
+      { plan: 'trial', label: 'Test', price: '1,49 $', renders: '1 Render', perRender: 'ein Render zum Start' },
+      { plan: 'test', label: 'Starter', price: '4,99 $', renders: '5 + 1 gratis', perRender: '0,83 $ pro Render', badge: '🎁 +1 GRATIS' },
+      { plan: 'popular', label: 'Style Pro', price: '9,99 $', renders: '10 + 2 gratis', perRender: '0,83 $ pro Render', badge: '🎁 +2 GRATIS', featured: true },
+    ],
+    it: [
+      { plan: 'trial', label: 'Prova', price: '1,49 $', renders: '1 render', perRender: 'un render per iniziare' },
+      { plan: 'test', label: 'Starter', price: '4,99 $', renders: '5 + 1 gratis', perRender: '0,83 $ per render', badge: '🎁 +1 GRATIS' },
+      { plan: 'popular', label: 'Style Pro', price: '9,99 $', renders: '10 + 2 gratis', perRender: '0,83 $ per render', badge: '🎁 +2 GRATIS', featured: true },
+    ],
+  };
+
+  const plansHeading: Record<DemoLang, string> = {
+    en: 'Get more HD renders',
+    es: 'Más renders HD',
+    fr: 'Plus de rendus HD',
+    pt: 'Mais renders HD',
+    de: 'Mehr HD-Renders',
+    it: 'Più render HD',
+  };
+
+  const plansSubheading: Record<DemoLang, string> = {
+    en: 'One-time payment · credits never expire · use code AGALAZ15 on Style Pro for 15% off',
+    es: 'Pago único · créditos sin caducidad · código AGALAZ15 en Style Pro para 15% off',
+    fr: 'Paiement unique · crédits sans expiration · code AGALAZ15 sur Style Pro pour 15%',
+    pt: 'Pagamento único · créditos sem expiração · código AGALAZ15 no Style Pro com 15% off',
+    de: 'Einmalzahlung · Credits ohne Ablauf · Code AGALAZ15 auf Style Pro für 15% Rabatt',
+    it: 'Pagamento singolo · crediti senza scadenza · codice AGALAZ15 su Style Pro per 15% off',
+  };
+
   return (
     <section id="try-it" className="bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 border-y border-slate-100 scroll-mt-20">
       <div className="max-w-5xl mx-auto px-6 py-16 md:py-24">
@@ -743,36 +845,90 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
         )}
 
         {resultImage && (
-          <div className="max-w-md mx-auto">
-            <div className="text-center mb-4">
-              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t.result}</span>
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto items-start">
+            {/* Result image — left column on desktop, top on mobile */}
+            <div>
+              <div className="text-center lg:text-left mb-4">
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t.result}</span>
+              </div>
+              <div className="rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 shadow-sm">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={resultImage} alt={t.result} className="w-full h-auto" />
+              </div>
+              <div className="mt-4 flex flex-col items-center lg:items-start gap-2">
+                <button
+                  onClick={downloadResult}
+                  className="w-full max-w-sm inline-flex items-center justify-center gap-3 px-8 py-3.5 bg-slate-900 text-white text-xs font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition-colors rounded-lg"
+                >
+                  <Download size={14} />
+                  {t.download}
+                </button>
+                <button
+                  onClick={reset}
+                  className="text-xs text-slate-400 font-light hover:text-slate-600 transition-colors"
+                >
+                  {t.tryAnother}
+                </button>
+              </div>
             </div>
-            <div className="rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 shadow-sm">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={resultImage} alt={t.result} className="w-full h-auto" />
-            </div>
-            <div className="mt-6 flex flex-col items-center gap-3">
-              <button
-                onClick={downloadResult}
-                className="w-full max-w-sm inline-flex items-center justify-center gap-3 px-8 py-4 bg-slate-900 text-white text-xs font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition-colors"
-              >
-                <Download size={14} />
-                {t.download}
-              </button>
-              <Link
-                href="/paywall"
-                className="w-full max-w-sm inline-flex items-center justify-center gap-3 px-8 py-4 bg-indigo-600 text-white text-xs font-black uppercase tracking-[0.2em] hover:bg-indigo-700 transition-colors"
-              >
-                <Sparkles size={14} />
-                {t.buyMore}
-                <ArrowRight size={14} />
-              </Link>
-              <button
-                onClick={reset}
-                className="text-xs text-slate-400 font-light hover:text-slate-600 transition-colors"
-              >
-                {t.tryAnother}
-              </button>
+
+            {/* Inline paywall — right column on desktop, below on mobile.
+                Trial + Starter + Style Pro cards mirror /paywall exactly. */}
+            <div>
+              <div className="mb-5">
+                <h3 className="font-serif text-xl md:text-2xl font-black text-slate-900 tracking-tight">
+                  {plansHeading[lang]}
+                </h3>
+                <p className="text-[11px] text-slate-500 font-light mt-1.5 leading-snug">
+                  {plansSubheading[lang]}
+                </p>
+              </div>
+              <div className="space-y-3">
+                {PLANS[lang].map((p) => (
+                  <button
+                    key={p.plan}
+                    onClick={() => handleCheckout(p.plan)}
+                    disabled={checkoutLoading !== null}
+                    className={`relative w-full p-4 rounded-xl flex items-center justify-between transition-all text-left disabled:opacity-50 disabled:cursor-wait ${
+                      p.featured
+                        ? 'bg-gradient-to-br from-indigo-50 to-white border-2 border-indigo-500 shadow-xl ring-1 ring-indigo-200 hover:scale-[1.02]'
+                        : 'bg-slate-50 border-2 border-slate-200 hover:border-slate-300'
+                    }`}
+                  >
+                    {p.featured && (
+                      <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-indigo-600 text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow">
+                        {lang === 'es' ? 'Mejor precio' : lang === 'fr' ? 'Meilleur prix' : lang === 'pt' ? 'Melhor preço' : lang === 'de' ? 'Bester Preis' : lang === 'it' ? 'Miglior prezzo' : 'Best value'}
+                      </div>
+                    )}
+                    {p.badge && (
+                      <div className="absolute -top-2 -right-2 px-2 py-0.5 bg-emerald-500 text-white text-[10px] font-black uppercase tracking-wider rounded-full shadow-md rotate-3">
+                        {p.badge}
+                      </div>
+                    )}
+                    <div>
+                      <span className="font-black text-[14px] text-slate-900">{p.label}</span>
+                      <br />
+                      <span className="text-[11px] font-bold text-slate-500">{p.renders}</span>
+                      <span className="text-[10px] block mt-0.5 text-slate-400">{p.perRender}</span>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <span className="font-black text-lg text-slate-900">{p.price}</span>
+                      {checkoutLoading === p.plan ? (
+                        <span className="block text-[10px] font-bold text-indigo-600 mt-0.5">
+                          <Loader2 size={10} className="inline animate-spin" />
+                        </span>
+                      ) : (
+                        <span className="block text-[10px] font-bold text-slate-400">
+                          {lang === 'es' ? 'pago único' : lang === 'fr' ? 'paiement unique' : lang === 'pt' ? 'pagamento único' : lang === 'de' ? 'Einmalzahlung' : lang === 'it' ? 'pagamento singolo' : 'one-time'}
+                        </span>
+                      )}
+                    </div>
+                  </button>
+                ))}
+              </div>
+              <p className="text-[10px] text-slate-400 mt-4 text-center font-light">
+                {lang === 'es' ? 'Pago seguro vía Stripe · Apple Pay · Google Pay' : lang === 'fr' ? 'Paiement sécurisé via Stripe · Apple Pay · Google Pay' : lang === 'pt' ? 'Pagamento seguro via Stripe · Apple Pay · Google Pay' : lang === 'de' ? 'Sichere Zahlung via Stripe · Apple Pay · Google Pay' : lang === 'it' ? 'Pagamento sicuro via Stripe · Apple Pay · Google Pay' : 'Secure payment via Stripe · Apple Pay · Google Pay'}
+              </p>
             </div>
           </div>
         )}
