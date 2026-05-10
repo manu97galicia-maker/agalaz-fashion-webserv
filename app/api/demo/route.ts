@@ -37,53 +37,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // ── Cloudflare Turnstile bot verification ─────────────────────────────────
-    // The frontend renders the widget invisibly (managed mode) and posts the
-    // token alongside the image payload. We re-verify server-side per CF docs.
-    // If TURNSTILE_SECRET_KEY is unset (e.g. local dev) we skip verification so
-    // development stays unblocked — production should always have it set.
-    //
-    // Logs are intentionally noisy here because the most common failure mode
-    // is a "silent" 403 caused by NEXT_PUBLIC_TURNSTILE_SITE_KEY missing from
-    // the build (Next.js inlines NEXT_PUBLIC_* at build time). Without these
-    // logs the failure looks like a successful API call from the dashboard.
-    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY?.trim();
-    if (turnstileSecret) {
-      let bodyJson: any = {};
-      try { bodyJson = await request.clone().json(); } catch {}
-      const token = bodyJson?.turnstileToken;
-      if (!token) {
-        console.warn(
-          '[demo] Turnstile token MISSING from request body — frontend likely lacks NEXT_PUBLIC_TURNSTILE_SITE_KEY in build',
-          { user: user.id, hasUserImage: !!bodyJson?.userImage },
-        );
-        return NextResponse.json(
-          { error: 'CAPTCHA_REQUIRED', message: 'Please complete the verification.' },
-          { status: 403 },
-        );
-      }
-      const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
-      const verifyParams = new URLSearchParams();
-      verifyParams.append('secret', turnstileSecret);
-      verifyParams.append('response', token);
-      if (ip) verifyParams.append('remoteip', ip);
-      const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: verifyParams,
-      });
-      const verifyJson = await verifyRes.json();
-      if (!verifyJson.success) {
-        console.warn(
-          '[demo] Turnstile siteverify rejected token — check that Site Key + Secret Key are from the same Cloudflare site and the hostname is allow-listed',
-          { user: user.id, errorCodes: verifyJson['error-codes'] },
-        );
-        return NextResponse.json(
-          { error: 'CAPTCHA_FAILED', message: 'Verification failed. Refresh and try again.' },
-          { status: 403 },
-        );
-      }
-    }
+    // Captcha disabled for now — login (Google or OTP) + 1 render/day per
+    // user_id already gives us an account-level limit. Keeping the bot wall
+    // loose until we see real abuse in logs; can re-introduce Turnstile by
+    // restoring the verification block from git history.
 
     const admin = createAdminClient();
     const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD UTC

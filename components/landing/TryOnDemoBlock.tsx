@@ -278,8 +278,6 @@ const LABELS: Record<DemoLang, {
   },
 };
 
-const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '';
-
 // localStorage key used to survive the auth redirect (Google or OTP magic
 // link). Saved BEFORE the user clicks Continue/Send and restored on mount
 // once the auth listener confirms a session — at which point the queued
@@ -359,12 +357,6 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
   // authenticated. After login completes we kick it off automatically so the
   // user doesn't have to click Generate twice.
   const [pendingGenerate, setPendingGenerate] = useState(false);
-
-  // Cloudflare Turnstile token. Refreshed after each generate so a token can
-  // only be redeemed once (matches CF's recommended flow).
-  const turnstileRef = useRef<HTMLDivElement>(null);
-  const turnstileWidgetIdRef = useRef<string | null>(null);
-  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   useEffect(() => {
     const supabase = createBrowserClient(
@@ -473,52 +465,6 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
     }
   }
 
-  // Load Turnstile script once, then render the widget invisibly.
-  useEffect(() => {
-    if (!TURNSTILE_SITE_KEY) return;
-    const w = window as any;
-    function renderWidget() {
-      if (!w.turnstile || !turnstileRef.current || turnstileWidgetIdRef.current) return;
-      turnstileWidgetIdRef.current = w.turnstile.render(turnstileRef.current, {
-        sitekey: TURNSTILE_SITE_KEY,
-        size: 'invisible',
-        callback: (token: string) => setTurnstileToken(token),
-        'error-callback': () => setTurnstileToken(null),
-        'expired-callback': () => setTurnstileToken(null),
-      });
-    }
-    if (w.turnstile) {
-      renderWidget();
-    } else if (!document.querySelector('script[data-agalaz-turnstile]')) {
-      const s = document.createElement('script');
-      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-      s.async = true;
-      s.defer = true;
-      s.setAttribute('data-agalaz-turnstile', '1');
-      s.onload = () => renderWidget();
-      document.head.appendChild(s);
-    } else {
-      // Script tag was added by another instance of the component; poll briefly.
-      const id = setInterval(() => {
-        if ((window as any).turnstile) {
-          clearInterval(id);
-          renderWidget();
-        }
-      }, 100);
-      return () => clearInterval(id);
-    }
-  }, []);
-
-  // After a successful generate, reset the token so the next attempt requires
-  // a fresh challenge (CF tokens are single-use anyway).
-  function refreshTurnstile() {
-    const w = window as any;
-    if (w.turnstile && turnstileWidgetIdRef.current) {
-      try { w.turnstile.reset(turnstileWidgetIdRef.current); } catch {}
-    }
-    setTurnstileToken(null);
-  }
-
   function handleFile(setter: (v: string | null) => void) {
     return (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
@@ -563,7 +509,6 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
           userImage: userBase64,
           clothingImage: productBase64,
           category,
-          turnstileToken,
         }),
       });
       if (res.status === 401) {
@@ -575,12 +520,6 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
       if (res.status === 402) {
         // Daily free already used and no paid credits left.
         window.location.href = `/paywall?from=demo&category=${encodeURIComponent(category || '')}`;
-        return;
-      }
-      if (res.status === 403) {
-        setError(t.errorCaptcha);
-        refreshTurnstile();
-        setIsLoading(false);
         return;
       }
       if (res.status === 429) {
@@ -598,7 +537,6 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
     } catch {
       setError(t.errorGeneric);
     }
-    refreshTurnstile();
     setIsLoading(false);
   }
 
@@ -933,8 +871,6 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
           </div>
         )}
 
-        {/* Cloudflare Turnstile mounting point — invisible widget, no UI */}
-        <div ref={turnstileRef} className="hidden" />
       </div>
 
       {/* Login modal — only shown if user clicks Generate without auth */}
