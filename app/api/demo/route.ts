@@ -1,74 +1,129 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
+import { createAdminClient } from '@/lib/supabaseAdmin';
 import { generateTryOnImage } from '@/services/geminiService';
 
 export const maxDuration = 60;
 
-// Demo endpoint — no auth required, generates image for landing page previews.
+// Landing-page demo render endpoint.
 //
-// Cost-control strategy:
-//   1. Hard cap of ONE successful generation per device (cookie-based).
-//      A returning device with the cookie set gets 402 with `error: 'DEMO_USED'`
-//      and is pushed to /paywall. Each Gemini call costs real money so we want
-//      every visitor's free render to be their first AND only.
-//   2. 30s per-IP rate limit on top, to slow burst-clicks within a single
-//      session before the cookie persists.
+// Auth + cost model (changed 2026-05-10):
+//   - Login required (Google or OTP). 401 sends the client to a login modal.
+//   - Each authenticated user gets exactly ONE free render per calendar day.
+//     Non-cumulative — unused freebies don't roll over to tomorrow.
+//   - If today's freebie is spent, fall back to render_counts.credits_remaining
+//     (the paid pool topped up by Stripe purchases). When that is also 0,
+//     return 402 → client redirects to /paywall.
 //
-// Bypassing the cookie (incognito / clearing cookies) gives the user another
-// free render — accepted as the cost of not running a hard IP store. If abuse
-// shows up in logs we can move the used-flag to Vercel KV.
-
-const ipLastRequest = new Map<string, number>();
-const RATE_LIMIT_MS = 30_000; // 1 request per 30 seconds per IP
-
-const DEMO_USED_COOKIE = 'agalaz_demo_used';
-const DEMO_USED_MAX_AGE = 30 * 24 * 60 * 60; // 30 days
+// We removed the cookie-based 1-render anonymous demo: every Gemini call now
+// runs against an authenticated user, which makes abuse cheap to track in
+// render_counts and gives us a real signup signal for every demo run.
 
 export async function POST(request: NextRequest) {
   try {
-    // Hard cap: device has already redeemed its free demo render.
-    if (request.cookies.get(DEMO_USED_COOKIE)?.value === '1') {
+    const cookieStore = await cookies();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      { cookies: { getAll: () => cookieStore.getAll() } },
+    );
+
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json(
+        { error: 'NOT_AUTHENTICATED', message: 'Sign in to generate your free render.' },
+        { status: 401 },
+      );
+    }
+
+    // ── Cloudflare Turnstile bot verification ─────────────────────────────────
+    // The frontend renders the widget invisibly (managed mode) and posts the
+    // token alongside the image payload. We re-verify server-side per CF docs.
+    // If TURNSTILE_SECRET_KEY is unset (e.g. local dev) we skip verification so
+    // development stays unblocked — production should always have it set.
+    const turnstileSecret = process.env.TURNSTILE_SECRET_KEY?.trim();
+    if (turnstileSecret) {
+      let bodyJson: any = {};
+      try { bodyJson = await request.clone().json(); } catch {}
+      const token = bodyJson?.turnstileToken;
+      if (!token) {
+        return NextResponse.json(
+          { error: 'CAPTCHA_REQUIRED', message: 'Please complete the verification.' },
+          { status: 403 },
+        );
+      }
+      const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
+      const verifyParams = new URLSearchParams();
+      verifyParams.append('secret', turnstileSecret);
+      verifyParams.append('response', token);
+      if (ip) verifyParams.append('remoteip', ip);
+      const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: verifyParams,
+      });
+      const verifyJson = await verifyRes.json();
+      if (!verifyJson.success) {
+        console.warn('Turnstile failed', verifyJson['error-codes']);
+        return NextResponse.json(
+          { error: 'CAPTCHA_FAILED', message: 'Verification failed. Refresh and try again.' },
+          { status: 403 },
+        );
+      }
+    }
+
+    const admin = createAdminClient();
+    const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD UTC
+
+    // Read or lazily create the user's render_counts row.
+    let { data: rc } = await admin
+      .from('render_counts')
+      .select('credits_remaining, total_renders, last_free_render_date')
+      .eq('user_id', user.id)
+      .single();
+
+    if (!rc) {
+      await admin
+        .from('render_counts')
+        .upsert(
+          {
+            user_id: user.id,
+            credits_remaining: 0,
+            total_renders: 0,
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: 'user_id' },
+        );
+      rc = { credits_remaining: 0, total_renders: 0, last_free_render_date: null };
+    }
+
+    const lastFree = rc.last_free_render_date ? String(rc.last_free_render_date).slice(0, 10) : null;
+    const hasDailyFree = lastFree !== today;
+    const hasPaidCredit = (rc.credits_remaining ?? 0) > 0;
+
+    if (!hasDailyFree && !hasPaidCredit) {
       return NextResponse.json(
         {
-          error: 'DEMO_USED',
-          message: 'You\'ve used your free demo render. Sign up to keep generating.',
+          error: 'NO_CREDITS',
+          message: 'You\'ve already used today\'s free render. Buy a pack for unlimited HD renders.',
           redirect: '/paywall',
         },
         { status: 402 },
       );
     }
 
-    // Basic IP rate limiting
-    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
-    const now = Date.now();
-    const last = ipLastRequest.get(ip) || 0;
-    if (now - last < RATE_LIMIT_MS) {
-      return NextResponse.json(
-        { error: 'Please wait before trying again.' },
-        { status: 429 }
-      );
-    }
-    ipLastRequest.set(ip, now);
-
-    // Clean old entries periodically
-    if (ipLastRequest.size > 10000) {
-      const cutoff = now - RATE_LIMIT_MS * 2;
-      for (const [k, v] of ipLastRequest) {
-        if (v < cutoff) ipLastRequest.delete(k);
-      }
-    }
-
+    // Validate input.
     const body = await request.json();
     const { userImage, clothingImage, category } = body;
-
     if (!userImage) {
       return NextResponse.json({ error: 'Photo required.' }, { status: 400 });
     }
-
-    // Validate size
     if (userImage.length > 10 * 1024 * 1024) {
       return NextResponse.json({ error: 'Image too large (max 10 MB).' }, { status: 400 });
     }
 
+    // Generate.
     const { image } = await generateTryOnImage(
       userImage,
       clothingImage || undefined,
@@ -80,25 +135,38 @@ export async function POST(request: NextRequest) {
       category || 'tattoo',
     );
 
-    if (image) {
-      // Mark this device as having used its one free render. httpOnly so the
-      // browser can't accidentally drop it via JS; sameSite=lax so the cookie
-      // is sent on the next demo POST from this domain.
-      const response = NextResponse.json({ image });
-      response.cookies.set(DEMO_USED_COOKIE, '1', {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'lax',
-        maxAge: DEMO_USED_MAX_AGE,
-        path: '/',
-      });
-      return response;
+    if (!image) {
+      return NextResponse.json(
+        { error: 'Generation failed. Try a different photo.' },
+        { status: 500 },
+      );
     }
 
-    return NextResponse.json(
-      { error: 'Generation failed. Try a different photo.' },
-      { status: 500 }
-    );
+    // Charge: prefer the daily freebie before touching paid credits.
+    if (hasDailyFree) {
+      await admin
+        .from('render_counts')
+        .update({
+          last_free_render_date: today,
+          total_renders: (rc.total_renders ?? 0) + 1,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('user_id', user.id);
+    } else {
+      await admin
+        .from('render_counts')
+        .update({
+          credits_remaining: (rc.credits_remaining ?? 0) - 1,
+          total_renders: (rc.total_renders ?? 0) + 1,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('user_id', user.id);
+    }
+
+    return NextResponse.json({
+      image,
+      source: hasDailyFree ? 'daily_free' : 'paid',
+    });
   } catch (error: any) {
     console.error('Demo generate error:', error);
     return NextResponse.json({ error: 'Something went wrong.' }, { status: 500 });

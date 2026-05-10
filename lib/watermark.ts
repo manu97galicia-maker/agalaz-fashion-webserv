@@ -1,9 +1,12 @@
 /**
- * Watermark for unauthenticated demo renders.
- * Tuned so the render quality is clearly visible (visitor thinks "wow") but
- * the watermark is unmistakable — they want to pay to remove it. Reducing
- * any of these values further risks making the demo look like the paid
- * product, which kills conversion.
+ * Viral attribution mark for demo renders.
+ *
+ * Strategic shift from earlier "anti-piracy" heavy watermark to a small,
+ * shareable brand pill in the bottom-right corner. The render itself is shown
+ * pristine — when users screenshot/share to friends, the mark advertises
+ * Agalaz instead of screaming "demo limitation". Conversion comes from the
+ * unlock CTAs surrounding the image (sign in / share to remove), not from
+ * disfiguring the render.
  */
 export function applyWatermark(imageDataUrl: string): Promise<string> {
   return new Promise((resolve) => {
@@ -15,62 +18,69 @@ export function applyWatermark(imageDataUrl: string): Promise<string> {
       const ctx = canvas.getContext('2d')!;
       ctx.drawImage(img, 0, 0);
 
-      // Light dim — enough to signal "preview" without obscuring detail.
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.14)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      const minDim = Math.min(canvas.width, canvas.height);
+      const fontSize = Math.max(minDim * 0.026, 13);
+      const sparkSize = fontSize * 0.95;
+      const innerPaddingX = fontSize * 0.85;
+      const innerPaddingY = fontSize * 0.55;
+      const margin = minDim * 0.028;
 
-      // Diagonal AGALAZ DEMO grid — sparser + lower opacity than before so the
-      // render shines through but the brand mark stays anti-screenshottable.
+      ctx.font = `600 ${fontSize}px -apple-system, "Inter", "Helvetica Neue", sans-serif`;
+      const text = 'Made with Agalaz AI';
+      const textWidth = ctx.measureText(text).width;
+
+      // Pill geometry: spark + gap + text
+      const sparkGap = fontSize * 0.45;
+      const contentWidth = sparkSize + sparkGap + textWidth;
+      const pillW = contentWidth + innerPaddingX * 2;
+      const pillH = fontSize + innerPaddingY * 2;
+      const pillX = canvas.width - pillW - margin;
+      const pillY = canvas.height - pillH - margin;
+      const radius = pillH / 2;
+
+      // Rounded pill background — frosted dark, soft shadow underneath.
       ctx.save();
-      ctx.translate(canvas.width / 2, canvas.height / 2);
-      ctx.rotate(-Math.PI / 4);
-      ctx.font = `900 ${Math.max(canvas.width, canvas.height) * 0.06}px -apple-system, sans-serif`;
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.32)';
-      ctx.textAlign = 'center';
-      const text = 'AGALAZ · DEMO';
-      const spacing = Math.max(canvas.width, canvas.height) * 0.2;
-      for (let y = -canvas.height; y < canvas.height * 2; y += spacing) {
-        for (let x = -canvas.width; x < canvas.width * 2; x += spacing) {
-          ctx.fillText(text, x - canvas.width / 2, y - canvas.height / 2);
-        }
-      }
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.25)';
+      ctx.shadowBlur = fontSize * 0.6;
+      ctx.shadowOffsetY = fontSize * 0.12;
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.55)';
+      ctx.beginPath();
+      ctx.moveTo(pillX + radius, pillY);
+      ctx.arcTo(pillX + pillW, pillY, pillX + pillW, pillY + pillH, radius);
+      ctx.arcTo(pillX + pillW, pillY + pillH, pillX, pillY + pillH, radius);
+      ctx.arcTo(pillX, pillY + pillH, pillX, pillY, radius);
+      ctx.arcTo(pillX, pillY, pillX + pillW, pillY, radius);
+      ctx.closePath();
+      ctx.fill();
       ctx.restore();
 
-      // Smaller centre lock badge — present but stops dominating the face/body.
-      const cx = canvas.width / 2;
-      const cy = canvas.height / 2;
-      const r = Math.min(canvas.width, canvas.height) * 0.12;
+      // Subtle inner stroke for crispness against busy backgrounds.
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
+      ctx.lineWidth = Math.max(1, fontSize * 0.06);
       ctx.beginPath();
-      ctx.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-      ctx.fill();
-      ctx.font = `bold ${r * 0.85}px -apple-system, sans-serif`;
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.92)';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('🔒', cx, cy - r * 0.18);
-      ctx.font = `900 ${r * 0.32}px -apple-system, sans-serif`;
-      ctx.fillStyle = 'rgba(255, 255, 255, 1)';
-      ctx.fillText('AGALAZ', cx, cy + r * 0.42);
-      ctx.font = `${r * 0.2}px -apple-system, sans-serif`;
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
-      ctx.fillText('agalaz.com', cx, cy + r * 0.7);
+      ctx.moveTo(pillX + radius, pillY);
+      ctx.arcTo(pillX + pillW, pillY, pillX + pillW, pillY + pillH, radius);
+      ctx.arcTo(pillX + pillW, pillY + pillH, pillX, pillY + pillH, radius);
+      ctx.arcTo(pillX, pillY + pillH, pillX, pillY, radius);
+      ctx.arcTo(pillX, pillY, pillX + pillW, pillY, radius);
+      ctx.closePath();
+      ctx.stroke();
 
-      // Slimmer bottom-bar CTA — still tells the user how to remove the mark.
-      const barHeight = Math.max(canvas.height * 0.055, 44);
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
-      ctx.fillRect(0, canvas.height - barHeight, canvas.width, barHeight);
-      ctx.font = `900 ${barHeight * 0.42}px -apple-system, sans-serif`;
-      ctx.fillStyle = 'rgba(255, 255, 255, 1)';
-      ctx.textAlign = 'center';
+      // Sparkle glyph (✦) — gives the pill a "premium AI" vibe.
+      const contentX = pillX + innerPaddingX;
+      const centreY = pillY + pillH / 2;
+      ctx.font = `700 ${sparkSize}px -apple-system, "Inter", sans-serif`;
+      ctx.fillStyle = 'rgba(167, 139, 250, 0.95)';
+      ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
-      ctx.fillText(
-        'PRUEBA · COMPRA PARA QUITAR LA MARCA · agalaz.com',
-        canvas.width / 2,
-        canvas.height - barHeight / 2,
-      );
+      ctx.fillText('✦', contentX, centreY);
 
-      resolve(canvas.toDataURL('image/jpeg', 0.85));
+      // Brand mark — semi-bold white, tight tracking.
+      ctx.font = `600 ${fontSize}px -apple-system, "Inter", "Helvetica Neue", sans-serif`;
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
+      ctx.fillText(text, contentX + sparkSize + sparkGap, centreY);
+
+      resolve(canvas.toDataURL('image/jpeg', 0.92));
     };
     img.src = imageDataUrl;
   });

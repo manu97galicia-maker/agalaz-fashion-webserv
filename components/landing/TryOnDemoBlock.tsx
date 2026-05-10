@@ -1,9 +1,11 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Upload, Sparkles, Loader2, X, ArrowRight } from 'lucide-react';
-import { applyWatermark } from '@/lib/watermark';
+import { Upload, Sparkles, Loader2, X, ArrowRight, Download } from 'lucide-react';
+import { createBrowserClient } from '@supabase/ssr';
+import { signInWithGoogle, signInWithOtp } from '@/services/authService';
+import { track } from '@/lib/analytics';
 
 export type DemoLang = 'en' | 'es' | 'fr' | 'pt' | 'de' | 'it';
 export type DemoCategory =
@@ -38,123 +40,196 @@ const LABELS: Record<DemoLang, {
   generate: string;
   generating: string;
   result: string;
-  removeWatermark: string;
+  download: string;
+  buyMore: string;
   tryAnother: string;
   errorGeneric: string;
   errorRate: string;
   errorMissing: string;
+  errorCaptcha: string;
   uploadCta: string;
-  buyNow: string;
+  // Login modal
+  signInTitle: string;
+  signInSubtitle: string;
+  signInGoogle: string;
+  signInOr: string;
+  signInEmailPlaceholder: string;
+  signInEmailSend: string;
+  signInEmailSent: string;
+  signInEmailSentHint: string;
+  signInCancel: string;
 }> = {
   en: {
     sectionTitle: 'Try it free now',
-    sectionSubtitle: 'Upload your photo + the product you want to try. First render is free, watermarked. Buy a pack to remove the watermark.',
+    sectionSubtitle: 'Sign in and get one free HD render every day. Upload your photo + the product you want to try.',
     yourPhoto: 'Your photo',
     yourPhotoHint: 'A clear photo of you, well-lit',
     productPhoto: 'Product',
     productPhotoHint: 'Photo or screenshot of the item',
-    generate: 'Generate',
+    generate: 'Generate HD',
     generating: 'Generating…',
     result: 'Your result',
-    removeWatermark: 'Remove watermark — Buy Now',
+    download: 'Download HD',
+    buyMore: 'Get more renders',
     tryAnother: 'Try another',
     errorGeneric: 'Generation failed. Try a different photo.',
     errorRate: 'Please wait a moment and try again.',
     errorMissing: 'Upload both photos first.',
+    errorCaptcha: 'Verification failed. Please refresh and try again.',
     uploadCta: 'Click to upload',
-    buyNow: 'Buy Now',
+    signInTitle: 'Sign in for your free HD render',
+    signInSubtitle: 'One free HD render every day. No card, no spam.',
+    signInGoogle: 'Continue with Google',
+    signInOr: 'or',
+    signInEmailPlaceholder: 'your@email.com',
+    signInEmailSend: 'Send link',
+    signInEmailSent: 'Check your inbox',
+    signInEmailSentHint: 'We sent you a magic link. Click it to sign in.',
+    signInCancel: 'Cancel',
   },
   es: {
     sectionTitle: 'Pruébalo gratis ahora',
-    sectionSubtitle: 'Sube tu foto + el producto que quieres probar. El primer render es gratis, con marca de agua. Compra un pack para quitarla.',
+    sectionSubtitle: 'Inicia sesión y consigue un render HD gratis cada día. Sube tu foto + el producto que quieres probar.',
     yourPhoto: 'Tu foto',
     yourPhotoHint: 'Una foto clara tuya, bien iluminada',
     productPhoto: 'Producto',
     productPhotoHint: 'Foto o captura del artículo',
-    generate: 'Generar',
+    generate: 'Generar HD',
     generating: 'Generando…',
     result: 'Tu resultado',
-    removeWatermark: 'Quitar marca de agua — Comprar Ahora',
+    download: 'Descargar HD',
+    buyMore: 'Más renders',
     tryAnother: 'Probar otro',
     errorGeneric: 'Falló la generación. Prueba con otra foto.',
     errorRate: 'Espera un momento e inténtalo de nuevo.',
     errorMissing: 'Sube primero las dos fotos.',
+    errorCaptcha: 'Fallo de verificación. Recarga e inténtalo de nuevo.',
     uploadCta: 'Pulsa para subir',
-    buyNow: 'Comprar Ahora',
+    signInTitle: 'Inicia sesión para tu render HD gratis',
+    signInSubtitle: 'Un render HD gratis cada día. Sin tarjeta, sin spam.',
+    signInGoogle: 'Continuar con Google',
+    signInOr: 'o',
+    signInEmailPlaceholder: 'tu@email.com',
+    signInEmailSend: 'Enviar enlace',
+    signInEmailSent: 'Revisa tu correo',
+    signInEmailSentHint: 'Te enviamos un enlace mágico. Haz clic para entrar.',
+    signInCancel: 'Cancelar',
   },
   fr: {
-    sectionTitle: "Essayez gratuitement maintenant",
-    sectionSubtitle: "Téléchargez votre photo + le produit. Le premier rendu est gratuit, avec filigrane. Achetez un pack pour le retirer.",
+    sectionTitle: 'Essayez gratuitement maintenant',
+    sectionSubtitle: 'Connectez-vous et obtenez un rendu HD gratuit chaque jour. Téléchargez votre photo + le produit.',
     yourPhoto: 'Votre photo',
     yourPhotoHint: 'Une photo claire, bien éclairée',
     productPhoto: 'Produit',
     productPhotoHint: "Photo ou capture de l'article",
-    generate: 'Générer',
+    generate: 'Générer HD',
     generating: 'Génération…',
     result: 'Votre résultat',
-    removeWatermark: 'Retirer le filigrane — Acheter',
+    download: 'Télécharger HD',
+    buyMore: 'Plus de rendus',
     tryAnother: 'Essayer un autre',
     errorGeneric: 'Échec de la génération. Essayez une autre photo.',
     errorRate: 'Patientez un instant puis réessayez.',
     errorMissing: "Téléchargez d'abord les deux photos.",
+    errorCaptcha: 'Vérification échouée. Rafraîchissez et réessayez.',
     uploadCta: 'Cliquez pour téléverser',
-    buyNow: 'Acheter',
+    signInTitle: 'Connectez-vous pour votre rendu HD gratuit',
+    signInSubtitle: 'Un rendu HD gratuit chaque jour. Sans carte, sans spam.',
+    signInGoogle: 'Continuer avec Google',
+    signInOr: 'ou',
+    signInEmailPlaceholder: 'votre@email.com',
+    signInEmailSend: 'Envoyer le lien',
+    signInEmailSent: 'Vérifiez votre boîte',
+    signInEmailSentHint: 'Nous avons envoyé un lien magique. Cliquez pour vous connecter.',
+    signInCancel: 'Annuler',
   },
   pt: {
     sectionTitle: 'Experimente grátis agora',
-    sectionSubtitle: 'Carregue a sua foto + o produto. O primeiro resultado é grátis, com marca de água. Compre um pack para a remover.',
-    yourPhoto: 'A sua foto',
+    sectionSubtitle: 'Inicia sessão e obtém um render HD grátis todos os dias. Carrega a tua foto + o produto.',
+    yourPhoto: 'A tua foto',
     yourPhotoHint: 'Uma foto clara, bem iluminada',
     productPhoto: 'Produto',
     productPhotoHint: 'Foto ou captura do artigo',
-    generate: 'Gerar',
+    generate: 'Gerar HD',
     generating: 'A gerar…',
-    result: 'O seu resultado',
-    removeWatermark: 'Remover marca de água — Comprar',
+    result: 'O teu resultado',
+    download: 'Descarregar HD',
+    buyMore: 'Mais renders',
     tryAnother: 'Tentar outro',
-    errorGeneric: 'Falha na geração. Tente outra foto.',
-    errorRate: 'Aguarde um momento e tente novamente.',
-    errorMissing: 'Carregue primeiro as duas fotos.',
-    uploadCta: 'Clique para carregar',
-    buyNow: 'Comprar',
+    errorGeneric: 'Falha na geração. Tenta outra foto.',
+    errorRate: 'Aguarda um momento e tenta novamente.',
+    errorMissing: 'Carrega primeiro as duas fotos.',
+    errorCaptcha: 'Verificação falhou. Recarrega e tenta novamente.',
+    uploadCta: 'Clica para carregar',
+    signInTitle: 'Inicia sessão para o teu render HD grátis',
+    signInSubtitle: 'Um render HD grátis todos os dias. Sem cartão, sem spam.',
+    signInGoogle: 'Continuar com Google',
+    signInOr: 'ou',
+    signInEmailPlaceholder: 'o-teu@email.com',
+    signInEmailSend: 'Enviar link',
+    signInEmailSent: 'Verifica a tua caixa',
+    signInEmailSentHint: 'Enviámos um link mágico. Clica para entrar.',
+    signInCancel: 'Cancelar',
   },
   de: {
     sectionTitle: 'Jetzt kostenlos ausprobieren',
-    sectionSubtitle: 'Foto + Produkt hochladen. Das erste Ergebnis ist kostenlos mit Wasserzeichen. Pack kaufen, um das Wasserzeichen zu entfernen.',
-    yourPhoto: 'Ihr Foto',
+    sectionSubtitle: 'Melde dich an und hol dir jeden Tag einen kostenlosen HD-Render. Lade dein Foto + Produkt hoch.',
+    yourPhoto: 'Dein Foto',
     yourPhotoHint: 'Ein klares, gut beleuchtetes Foto',
     productPhoto: 'Produkt',
     productPhotoHint: 'Foto oder Screenshot des Artikels',
-    generate: 'Generieren',
+    generate: 'HD generieren',
     generating: 'Wird generiert…',
-    result: 'Ihr Ergebnis',
-    removeWatermark: 'Wasserzeichen entfernen — Kaufen',
+    result: 'Dein Ergebnis',
+    download: 'HD herunterladen',
+    buyMore: 'Mehr Renders',
     tryAnother: 'Anderes versuchen',
     errorGeneric: 'Generierung fehlgeschlagen. Anderes Foto versuchen.',
     errorRate: 'Bitte einen Moment warten und erneut versuchen.',
     errorMissing: 'Zuerst beide Fotos hochladen.',
+    errorCaptcha: 'Verifizierung fehlgeschlagen. Seite neu laden und erneut versuchen.',
     uploadCta: 'Zum Hochladen klicken',
-    buyNow: 'Jetzt kaufen',
+    signInTitle: 'Anmelden für deinen kostenlosen HD-Render',
+    signInSubtitle: 'Ein kostenloser HD-Render jeden Tag. Keine Karte, kein Spam.',
+    signInGoogle: 'Mit Google fortfahren',
+    signInOr: 'oder',
+    signInEmailPlaceholder: 'deine@email.com',
+    signInEmailSend: 'Link senden',
+    signInEmailSent: 'Posteingang prüfen',
+    signInEmailSentHint: 'Wir haben dir einen Magic Link geschickt. Klicke ihn an.',
+    signInCancel: 'Abbrechen',
   },
   it: {
     sectionTitle: 'Provalo gratis ora',
-    sectionSubtitle: "Carica la tua foto + il prodotto. Il primo risultato è gratis con filigrana. Acquista un pack per rimuoverla.",
+    sectionSubtitle: 'Accedi e ottieni un render HD gratuito ogni giorno. Carica la tua foto + il prodotto.',
     yourPhoto: 'La tua foto',
     yourPhotoHint: 'Una foto chiara, ben illuminata',
     productPhoto: 'Prodotto',
     productPhotoHint: "Foto o screenshot dell'articolo",
-    generate: 'Genera',
+    generate: 'Genera HD',
     generating: 'Generando…',
     result: 'Il tuo risultato',
-    removeWatermark: 'Rimuovi filigrana — Compra',
+    download: 'Scarica HD',
+    buyMore: 'Più render',
     tryAnother: 'Prova un altro',
     errorGeneric: 'Generazione fallita. Prova un altra foto.',
     errorRate: 'Attendi un momento e riprova.',
     errorMissing: 'Carica prima entrambe le foto.',
+    errorCaptcha: 'Verifica fallita. Ricarica e riprova.',
     uploadCta: 'Clicca per caricare',
-    buyNow: 'Compra ora',
+    signInTitle: 'Accedi per il tuo render HD gratuito',
+    signInSubtitle: 'Un render HD gratuito ogni giorno. Senza carta, senza spam.',
+    signInGoogle: 'Continua con Google',
+    signInOr: 'o',
+    signInEmailPlaceholder: 'tua@email.com',
+    signInEmailSend: 'Invia link',
+    signInEmailSent: 'Controlla la tua casella',
+    signInEmailSentHint: 'Ti abbiamo inviato un link magico. Cliccalo per accedere.',
+    signInCancel: 'Annulla',
   },
 };
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '';
 
 function ImageDropzone({
   label,
@@ -210,6 +285,91 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Auth state — required to call /api/demo. We listen so the modal closes
+  // automatically when the user completes login from another tab/window.
+  const [userId, setUserId] = useState<string | null>(null);
+  const [authChecked, setAuthChecked] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [otpEmail, setOtpEmail] = useState('');
+  const [otpSent, setOtpSent] = useState(false);
+  // Pending generation — set when the user clicks Generate before being
+  // authenticated. After login completes we kick it off automatically so the
+  // user doesn't have to click Generate twice.
+  const [pendingGenerate, setPendingGenerate] = useState(false);
+
+  // Cloudflare Turnstile token. Refreshed after each generate so a token can
+  // only be redeemed once (matches CF's recommended flow).
+  const turnstileRef = useRef<HTMLDivElement>(null);
+  const turnstileWidgetIdRef = useRef<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const supabase = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
+    );
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUserId(user?.id ?? null);
+      setAuthChecked(true);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      setUserId(session?.user?.id ?? null);
+      setAuthChecked(true);
+      if (session?.user) {
+        setShowLogin(false);
+        setOtpSent(false);
+        setOtpEmail('');
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  // Load Turnstile script once, then render the widget invisibly.
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY) return;
+    const w = window as any;
+    function renderWidget() {
+      if (!w.turnstile || !turnstileRef.current || turnstileWidgetIdRef.current) return;
+      turnstileWidgetIdRef.current = w.turnstile.render(turnstileRef.current, {
+        sitekey: TURNSTILE_SITE_KEY,
+        size: 'invisible',
+        callback: (token: string) => setTurnstileToken(token),
+        'error-callback': () => setTurnstileToken(null),
+        'expired-callback': () => setTurnstileToken(null),
+      });
+    }
+    if (w.turnstile) {
+      renderWidget();
+    } else if (!document.querySelector('script[data-agalaz-turnstile]')) {
+      const s = document.createElement('script');
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+      s.async = true;
+      s.defer = true;
+      s.setAttribute('data-agalaz-turnstile', '1');
+      s.onload = () => renderWidget();
+      document.head.appendChild(s);
+    } else {
+      // Script tag was added by another instance of the component; poll briefly.
+      const id = setInterval(() => {
+        if ((window as any).turnstile) {
+          clearInterval(id);
+          renderWidget();
+        }
+      }, 100);
+      return () => clearInterval(id);
+    }
+  }, []);
+
+  // After a successful generate, reset the token so the next attempt requires
+  // a fresh challenge (CF tokens are single-use anyway).
+  function refreshTurnstile() {
+    const w = window as any;
+    if (w.turnstile && turnstileWidgetIdRef.current) {
+      try { w.turnstile.reset(turnstileWidgetIdRef.current); } catch {}
+    }
+    setTurnstileToken(null);
+  }
+
   function handleFile(setter: (v: string | null) => void) {
     return (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
@@ -239,49 +399,117 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
     };
   }
 
-  async function handleGenerate() {
-    if (!userImage || !productImage) {
-      setError(t.errorMissing);
-      return;
-    }
+  async function runGenerate() {
     setIsLoading(true);
     setError(null);
     setResultImage(null);
     try {
-      const userBase64 = userImage.includes(',') ? userImage.split(',')[1] : userImage;
-      const productBase64 = productImage.includes(',') ? productImage.split(',')[1] : productImage;
+      const userBase64 = userImage!.includes(',') ? userImage!.split(',')[1] : userImage!;
+      const productBase64 = productImage!.includes(',') ? productImage!.split(',')[1] : productImage!;
+      track('render_start', { source: 'demo', category });
       const res = await fetch('/api/demo', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userImage: userBase64, clothingImage: productBase64, category }),
+        body: JSON.stringify({
+          userImage: userBase64,
+          clothingImage: productBase64,
+          category,
+          turnstileToken,
+        }),
       });
+      if (res.status === 401) {
+        // Edge case: cookie expired between mount and click. Re-prompt login.
+        setShowLogin(true);
+        setIsLoading(false);
+        return;
+      }
+      if (res.status === 402) {
+        // Daily free already used and no paid credits left.
+        window.location.href = `/paywall?from=demo&category=${encodeURIComponent(category || '')}`;
+        return;
+      }
+      if (res.status === 403) {
+        setError(t.errorCaptcha);
+        refreshTurnstile();
+        setIsLoading(false);
+        return;
+      }
       if (res.status === 429) {
         setError(t.errorRate);
         setIsLoading(false);
         return;
       }
-      // Device has already redeemed its free demo render. Push to paywall
-      // instead of letting them click again — every Gemini call costs us.
-      if (res.status === 402) {
-        window.location.href = `/paywall?from=demo&category=${encodeURIComponent(category || '')}`;
-        return;
-      }
       const data = await res.json();
       if (data.image) {
-        const watermarked = await applyWatermark(data.image);
-        setResultImage(watermarked);
+        setResultImage(data.image);
+        track('render_complete', { source: 'demo', category, pool: data.source || 'unknown' });
       } else {
         setError(data.error || t.errorGeneric);
       }
     } catch {
       setError(t.errorGeneric);
     }
+    refreshTurnstile();
     setIsLoading(false);
+  }
+
+  async function handleGenerate() {
+    if (!userImage || !productImage) {
+      setError(t.errorMissing);
+      return;
+    }
+    if (!authChecked) return;
+    if (!userId) {
+      // Login first; runGenerate will fire automatically once auth state changes.
+      setPendingGenerate(true);
+      setShowLogin(true);
+      track('signup_click', { provider: 'modal_open', source: 'demo', category });
+      return;
+    }
+    runGenerate();
+  }
+
+  // Auto-fire the queued generation as soon as login completes.
+  useEffect(() => {
+    if (userId && pendingGenerate && userImage && productImage) {
+      setPendingGenerate(false);
+      runGenerate();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId, pendingGenerate]);
+
+  async function handleLoginGoogle() {
+    try {
+      track('signup_click', { provider: 'google', source: 'demo' });
+      // After OAuth roundtrip the user lands back on this page; the auth
+      // listener will close the modal and the queued generate fires.
+      await signInWithGoogle(typeof window !== 'undefined' ? window.location.pathname : '/');
+    } catch {}
+  }
+
+  async function handleLoginOtp() {
+    if (!otpEmail || !otpEmail.includes('@')) return;
+    try {
+      track('signup_click', { provider: 'email', source: 'demo' });
+      await signInWithOtp(otpEmail, typeof window !== 'undefined' ? window.location.pathname : '/');
+      setOtpSent(true);
+    } catch {}
   }
 
   function reset() {
     setResultImage(null);
     setError(null);
+  }
+
+  function downloadResult() {
+    if (!resultImage) return;
+    const a = document.createElement('a');
+    a.href = resultImage;
+    a.download = `agalaz-${category}-${Date.now()}.jpg`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    track('result_download', { source: 'demo', category });
   }
 
   return (
@@ -343,12 +571,19 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
               <img src={resultImage} alt={t.result} className="w-full h-auto" />
             </div>
             <div className="mt-6 flex flex-col items-center gap-3">
+              <button
+                onClick={downloadResult}
+                className="w-full max-w-sm inline-flex items-center justify-center gap-3 px-8 py-4 bg-slate-900 text-white text-xs font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition-colors"
+              >
+                <Download size={14} />
+                {t.download}
+              </button>
               <Link
-                href="/try-on?plan=test"
+                href="/paywall"
                 className="w-full max-w-sm inline-flex items-center justify-center gap-3 px-8 py-4 bg-indigo-600 text-white text-xs font-black uppercase tracking-[0.2em] hover:bg-indigo-700 transition-colors"
               >
                 <Sparkles size={14} />
-                {t.removeWatermark}
+                {t.buyMore}
                 <ArrowRight size={14} />
               </Link>
               <button
@@ -360,7 +595,82 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
             </div>
           </div>
         )}
+
+        {/* Cloudflare Turnstile mounting point — invisible widget, no UI */}
+        <div ref={turnstileRef} className="hidden" />
       </div>
+
+      {/* Login modal — only shown if user clicks Generate without auth */}
+      {showLogin && (
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center animate-fade-in p-4"
+          onClick={() => { setShowLogin(false); setPendingGenerate(false); }}
+        >
+          <div
+            className="bg-white p-5 md:p-8 rounded-2xl max-w-sm w-full text-center space-y-5 md:space-y-6 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="w-14 h-14 bg-slate-900 flex items-center justify-center mx-auto rounded-xl">
+              <span className="text-white font-serif font-black text-2xl italic">A</span>
+            </div>
+            <div>
+              <h3 className="font-serif text-xl md:text-2xl font-black text-slate-900 tracking-tight">
+                {t.signInTitle}
+              </h3>
+              <p className="text-slate-400 text-sm mt-2 font-light">{t.signInSubtitle}</p>
+            </div>
+            <button
+              onClick={handleLoginGoogle}
+              className="w-full py-4 bg-slate-900 text-white flex items-center justify-center gap-3 hover:bg-indigo-600 transition-colors font-black uppercase tracking-[0.15em] text-xs rounded-lg"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+              </svg>
+              {t.signInGoogle}
+            </button>
+
+            <div className="flex items-center gap-3">
+              <div className="flex-1 h-px bg-slate-200" />
+              <span className="text-[10px] font-bold text-slate-400 uppercase">{t.signInOr}</span>
+              <div className="flex-1 h-px bg-slate-200" />
+            </div>
+
+            {otpSent ? (
+              <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+                <p className="text-sm font-bold text-emerald-600">{t.signInEmailSent}</p>
+                <p className="text-xs text-slate-500 mt-1">{t.signInEmailSentHint}</p>
+              </div>
+            ) : (
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  value={otpEmail}
+                  onChange={(e) => setOtpEmail(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === 'Enter') handleLoginOtp(); }}
+                  placeholder={t.signInEmailPlaceholder}
+                  className="flex-1 px-3 py-3 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-indigo-500"
+                />
+                <button
+                  onClick={handleLoginOtp}
+                  className="px-4 py-3 bg-indigo-600 text-white text-sm font-bold rounded-xl hover:bg-indigo-500 transition-colors shrink-0"
+                >
+                  {t.signInEmailSend}
+                </button>
+              </div>
+            )}
+
+            <button
+              onClick={() => { setShowLogin(false); setPendingGenerate(false); setOtpSent(false); setOtpEmail(''); }}
+              className="text-slate-300 text-xs font-bold hover:text-slate-500 transition-colors"
+            >
+              {t.signInCancel}
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
