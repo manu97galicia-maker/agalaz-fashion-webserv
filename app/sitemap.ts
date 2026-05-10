@@ -186,6 +186,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.85,
     },
+    {
+      url: `${baseUrl}/bridesmaid-dress-try-on`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/halloween-couples-costumes`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly', // Sept-Oct peak; recurring annually
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/ja/yukata`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly', // June-Aug peak
+      priority: 0.85,
+    },
     // Haircut by face shape — long-tail informational landings (KD 0-8 each).
     // 60K+ combined monthly volume across the 4 shapes per DataForSEO 2026-05.
     {

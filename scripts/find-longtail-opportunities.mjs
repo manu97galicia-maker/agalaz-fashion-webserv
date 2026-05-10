@@ -42,44 +42,47 @@ const auth = 'Basic ' + Buffer.from(`${LOGIN}:${PASSWORD}`).toString('base64');
 // to our existing landings — the API expands them into long-tail variants.
 // The location_code controls which country's search volume we read.
 const SEEDS = [
-  // EN / USA — biggest market, most opportunities
-  { seed: 'virtual try on', lang: 'en', location: 2840 },
-  { seed: 'try on clothes online', lang: 'en', location: 2840 },
-  { seed: 'ai outfit', lang: 'en', location: 2840 },
-  { seed: 'virtual makeup try on', lang: 'en', location: 2840 },
-  { seed: 'sneaker try on', lang: 'en', location: 2840 },
-  { seed: 'beard simulator', lang: 'en', location: 2840 },
-  { seed: 'prom dress try on', lang: 'en', location: 2840 },
-  { seed: 'plus size try on', lang: 'en', location: 2840 },
-  { seed: 'engagement ring on hand', lang: 'en', location: 2840 },
-  { seed: 'haircut for face shape', lang: 'en', location: 2840 },
+  // ── New broader seeds, round 2 (2026-05-10) ──────────────────────────────
+  // Footwear
+  { seed: 'shoes online', lang: 'en', location: 2840 },
+  { seed: 'sneakers online', lang: 'en', location: 2840 },
+  { seed: 'heels online', lang: 'en', location: 2840 },
 
-  // ES / Spain
-  { seed: 'probador virtual', lang: 'es', location: 2724 },
-  { seed: 'probar ropa online', lang: 'es', location: 2724 },
-  { seed: 'simulador peinados', lang: 'es', location: 2724 },
-  { seed: 'traje primera comunion', lang: 'es', location: 2724 },
+  // Beauty / face
+  { seed: 'lipstick try on', lang: 'en', location: 2840 },
+  { seed: 'makeup try on', lang: 'en', location: 2840 },
+  { seed: 'hair color try on', lang: 'en', location: 2840 },
 
-  // FR / France
-  { seed: 'essayage virtuel', lang: 'fr', location: 2250 },
-  { seed: 'tenue bapteme', lang: 'fr', location: 2250 },
+  // Body / size
+  { seed: 'plus size dress', lang: 'en', location: 2840 },
+  { seed: 'maternity dress', lang: 'en', location: 2840 },
 
-  // DE / Germany — Tracht is the big seasonal opportunity
-  { seed: 'dirndl anprobieren', lang: 'de', location: 2276 },
-  { seed: 'lederhosen kaufen', lang: 'de', location: 2276 },
-  { seed: 'virtuelle anprobe', lang: 'de', location: 2276 },
+  // Cultural events
+  { seed: 'quinceanera dress', lang: 'en', location: 2840 },
+  { seed: 'bridesmaid dress', lang: 'en', location: 2840 },
+  { seed: 'halloween costume', lang: 'en', location: 2840 },
 
-  // IT / Italy
-  { seed: 'prova abito virtuale', lang: 'it', location: 2380 },
-  { seed: 'vestito comunione', lang: 'it', location: 2380 },
+  // German Oktoberfest with broader seeds
+  { seed: 'dirndl', lang: 'de', location: 2276 },
+  { seed: 'oktoberfest outfit', lang: 'de', location: 2276 },
+  { seed: 'tracht', lang: 'de', location: 2276 },
 
-  // PT / Brazil (population vs Portugal — Brazil is bigger market)
-  { seed: 'provador virtual', lang: 'pt', location: 2076 },
-  { seed: 'festa junina look', lang: 'pt', location: 2076 },
+  // Japanese yukata with native seeds
+  { seed: '浴衣', lang: 'ja', location: 2392 },
+  { seed: '振袖', lang: 'ja', location: 2392 },
 
-  // High-volume non-Roman-script targets
-  { seed: 'lehenga online', lang: 'hi', location: 2356 }, // India
-  { seed: '韓服 試着', lang: 'ja', location: 2392 }, // Japan
+  // Korean K-pop / hanbok variations
+  { seed: '한복', lang: 'ko', location: 2410 },
+  { seed: '드레스', lang: 'ko', location: 2410 },
+
+  // Spanish events
+  { seed: 'vestido quinceañera', lang: 'es', location: 2724 },
+  { seed: 'traje de comunion', lang: 'es', location: 2724 },
+  { seed: 'vestido boda invitada', lang: 'es', location: 2724 },
+
+  // French events
+  { seed: 'tenue mariage femme', lang: 'fr', location: 2250 },
+  { seed: 'tenue communion', lang: 'fr', location: 2250 },
 ];
 
 async function fetchSuggestions({ seed, lang, location }) {
