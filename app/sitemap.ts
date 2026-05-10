@@ -168,6 +168,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly', // bumped during Mai-Jun ramp; quiet rest of year
       priority: 0.85,
     },
+    {
+      url: `${baseUrl}/fr/tenue-bapteme`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/it/vestito-comunione`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly', // peak Mar-Jun for first-communion season
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/hi/lehenga`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
     // Haircut by face shape — long-tail informational landings (KD 0-8 each).
     // 60K+ combined monthly volume across the 4 shapes per DataForSEO 2026-05.
     {

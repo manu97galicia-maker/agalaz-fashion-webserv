@@ -303,14 +303,13 @@ function ImageDropzone({
   const ref = useRef<HTMLInputElement>(null);
   return (
     <div>
-      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">{label}</p>
       {src ? (
-        <div className="relative aspect-square rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
+        <div className="relative aspect-square rounded-2xl overflow-hidden bg-slate-100 ring-1 ring-slate-200">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={src} alt={label} className="w-full h-full object-cover" />
           <button
             onClick={onClear}
-            className="absolute top-2 right-2 w-7 h-7 rounded-full bg-slate-900/80 text-white flex items-center justify-center hover:bg-slate-900 transition-colors"
+            className="absolute top-2 right-2 w-8 h-8 rounded-full bg-slate-900/80 text-white flex items-center justify-center hover:bg-slate-900 transition-colors"
             aria-label="Clear"
           >
             <X size={14} />
@@ -319,11 +318,13 @@ function ImageDropzone({
       ) : (
         <button
           onClick={() => ref.current?.click()}
-          className="w-full aspect-square rounded-xl border-2 border-dashed border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/30 transition-colors flex flex-col items-center justify-center gap-2 text-slate-400"
+          className="group w-full aspect-square rounded-2xl border-2 border-dashed border-indigo-300 bg-gradient-to-br from-indigo-50/40 to-white hover:border-indigo-500 hover:from-indigo-100 hover:to-indigo-50 hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-all flex flex-col items-center justify-center gap-3 text-slate-500"
         >
-          <Upload size={24} />
-          <span className="text-xs font-bold uppercase tracking-widest">{uploadCta}</span>
-          <span className="text-[10px] font-light px-3 text-center">{hint}</span>
+          <div className="w-14 h-14 rounded-full bg-white shadow-md group-hover:bg-indigo-600 group-hover:text-white flex items-center justify-center text-indigo-500 transition-all">
+            <Upload size={26} />
+          </div>
+          <span className="text-sm font-black uppercase tracking-widest text-slate-700">{uploadCta}</span>
+          <span className="text-[11px] font-medium px-4 text-center text-slate-500 leading-snug">{hint}</span>
         </button>
       )}
       <input ref={ref} type="file" accept="image/*" onChange={onChange} className="hidden" />
@@ -783,21 +784,42 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
   };
 
   return (
-    <section id="try-it" className="bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 border-y border-slate-100 scroll-mt-20">
-      <div className="max-w-5xl mx-auto px-6 py-16 md:py-24">
+    <section
+      id="try-it"
+      className="relative bg-gradient-to-br from-indigo-50 via-white to-pink-50/40 border-y-2 border-indigo-100 scroll-mt-20 overflow-hidden"
+    >
+      {/* Decorative gradient orbs to make the demo zone unmistakable */}
+      <div className="absolute -top-24 -left-24 w-72 h-72 bg-indigo-200/40 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-pink-200/40 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="relative max-w-5xl mx-auto px-6 py-14 md:py-20">
         <div className="text-center mb-10">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-50 text-indigo-700 text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-6">
-            <Sparkles size={12} />
+          <span className="inline-flex items-center gap-2 px-5 py-2 bg-slate-900 text-white text-[11px] font-black uppercase tracking-[0.25em] rounded-full mb-5 shadow-lg shadow-slate-900/20">
+            <Sparkles size={14} className="text-indigo-300" />
             {t.sectionTitle}
           </span>
-          <p className="text-slate-500 text-sm md:text-base font-light max-w-xl mx-auto leading-relaxed">
+          <h2 className="font-serif text-3xl md:text-5xl font-black text-slate-900 tracking-tight mb-4 leading-[1.05]">
+            Try it on <span className="italic text-indigo-600">your photo</span>
+          </h2>
+          <p className="text-slate-700 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
             {t.sectionSubtitle}
           </p>
         </div>
 
         {!resultImage && (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+            {/* Step indicators above the dropzones */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto mb-3">
+              <div className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-black">1</div>
+                <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{t.yourPhoto}</span>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-full bg-pink-500 text-white flex items-center justify-center text-xs font-black">2</div>
+                <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{productLabel || t.productPhoto}</span>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto p-1.5 bg-white rounded-3xl shadow-2xl shadow-indigo-200/50 ring-1 ring-indigo-100">
               <ImageDropzone
                 label={t.yourPhoto}
                 hint={t.yourPhotoHint}
@@ -839,11 +861,15 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
                 <button
                   onClick={handleGenerate}
                   disabled={isLoading || !userImage || !productImage}
-                  className="inline-flex items-center gap-3 px-10 py-4 bg-slate-900 text-white text-xs font-black uppercase tracking-[0.2em] hover:bg-indigo-600 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed transition-colors"
+                  className={`inline-flex items-center gap-3 px-12 py-5 text-sm md:text-base font-black uppercase tracking-[0.2em] rounded-full transition-all ${
+                    userImage && productImage
+                      ? 'bg-gradient-to-r from-indigo-600 to-pink-500 text-white shadow-2xl shadow-indigo-300/50 hover:scale-[1.03] active:scale-[0.99] animate-pulse-soft'
+                      : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                  }`}
                 >
-                  <Sparkles size={14} />
+                  <Sparkles size={18} />
                   {t.generate}
-                  <ArrowRight size={14} />
+                  <ArrowRight size={16} />
                 </button>
               )}
               {error && <p className="text-xs text-rose-600 font-light">{error}</p>}
