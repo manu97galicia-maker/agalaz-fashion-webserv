@@ -67,12 +67,12 @@ export default function GlassesTryOn() {
             Eyewear AI
           </span>
           <h1 className="font-serif text-3xl sm:text-4xl md:text-7xl text-slate-900 tracking-tight leading-[0.95] mb-6">
-            Virtual Glasses
+            Virtual Eyeglass
             <br />
             <span className="italic text-slate-400">Try-On.</span>
           </h1>
-          <p className="text-slate-500 text-base md:text-lg font-light max-w-2xl mx-auto leading-relaxed mb-10">
-            See exactly how any frames look on <strong className="text-slate-900 font-semibold">your real face</strong> — before paying $300 for the wrong shape. Upload a photo, drop in any glasses, render in 30 seconds.
+          <p className="text-slate-700 text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-10">
+            See exactly how any eyeglasses, eyewear or spectacles look on <strong className="text-slate-900 font-semibold">your real face</strong> — before paying $300 for the wrong frames. Upload a photo, drop in any glasses, render in 30 seconds.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link

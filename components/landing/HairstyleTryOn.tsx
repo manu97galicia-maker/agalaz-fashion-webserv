@@ -174,6 +174,38 @@ export default function HairstyleTryOn() {
         </div>
       </section>
 
+      {/* Face-shape sub-guides — boost the new long-tail landings' authority
+          by linking to them from the hairstyle hub. */}
+      <section className="max-w-5xl mx-auto px-6 md:px-12 py-12 border-t border-slate-100">
+        <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-5 text-center">
+          Find the right cut for your face shape
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[
+            { shape: 'round', slug: 'haircut-for-round-face', label: 'Round face' },
+            { shape: 'oval', slug: 'haircut-for-oval-face', label: 'Oval face' },
+            { shape: 'diamond', slug: 'haircut-for-diamond-face', label: 'Diamond face' },
+            { shape: 'square', slug: 'haircut-for-square-face', label: 'Square face' },
+          ].map((f) => (
+            <Link
+              key={f.shape}
+              href={`/${f.slug}`}
+              className="block p-4 rounded-xl border border-slate-200 hover:border-pink-300 hover:shadow-md transition-all"
+            >
+              <div className="text-[10px] font-black uppercase tracking-widest text-pink-600">
+                {f.label}
+              </div>
+              <div className="font-serif text-base font-black text-slate-900 mt-1">
+                Best haircuts
+              </div>
+              <div className="text-xs text-slate-500 mt-1.5 flex items-center gap-1">
+                See cuts <ArrowRight size={10} />
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* Topical link block — links to all other product try-on landings */}
       <InternalLandingLinks currentSlug="virtual-hairstyle-try-on" lang="en" />
 

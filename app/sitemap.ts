@@ -154,6 +154,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.85,
     },
+    // Haircut by face shape — long-tail informational landings (KD 0-8 each).
+    // 60K+ combined monthly volume across the 4 shapes per DataForSEO 2026-05.
+    {
+      url: `${baseUrl}/haircut-for-round-face`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/haircut-for-oval-face`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/haircut-for-diamond-face`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/haircut-for-square-face`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
     {
       url: `${baseUrl}/privacy`,
       lastModified: new Date(),
