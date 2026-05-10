@@ -639,8 +639,8 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
 
   // Inline paywall — fires the same Stripe checkout the dedicated /paywall
   // page uses. After the visitor sees their first HD render we surface the
-  // 3 packs in-place so they can buy without leaving the landing.
-  async function handleCheckout(plan: 'trial' | 'test' | 'popular') {
+  // 2 packs in-place so they can buy without leaving the landing.
+  async function handleCheckout(plan: 'test' | 'popular') {
     if (!userId || !userEmail) {
       setShowLogin(true);
       return;
@@ -672,46 +672,42 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
     }
   }
 
-  // Plan card data — same packs and prices as /paywall, with a short
-  // localized blurb. Style Pro flagged as "best value" to anchor the eye.
+  // Plan card data — same 2 packs as /paywall (Trial dropped: paying for
+  // a single render is friction; daily 1 free HD render handles the entry
+  // point). Pro flagged as featured (Best Value) to anchor the eye.
   const PLANS: Record<DemoLang, Array<{
-    plan: 'trial' | 'test' | 'popular';
+    plan: 'test' | 'popular';
     label: string;
     price: string;
     renders: string;
     perRender: string;
     badge?: string;
+    pillBadge?: string;
     featured?: boolean;
   }>> = {
     en: [
-      { plan: 'trial', label: 'Trial', price: '$1.49', renders: '1 render', perRender: 'one render to start' },
-      { plan: 'test', label: 'Starter', price: '$4.99', renders: '5 + 1 free', perRender: '$0.83 per render', badge: '🎁 +1 FREE' },
-      { plan: 'popular', label: 'Style Pro', price: '$9.99', renders: '10 + 2 free', perRender: '$0.83 per render', badge: '🎁 +2 FREE', featured: true },
+      { plan: 'test', label: 'Starter', price: '$4.99', renders: '8 HD renders', perRender: '$0.62 per render', pillBadge: 'MOST POPULAR' },
+      { plan: 'popular', label: 'Pro', price: '$9.99', renders: '15 + 5 free = 20 HD', perRender: '$0.50 per render', badge: '🎁 +5 FREE', pillBadge: 'BEST VALUE', featured: true },
     ],
     es: [
-      { plan: 'trial', label: 'Prueba', price: '$1,49', renders: '1 render', perRender: 'un render para empezar' },
-      { plan: 'test', label: 'Starter', price: '$4,99', renders: '5 + 1 gratis', perRender: '$0,83 por render', badge: '🎁 +1 GRATIS' },
-      { plan: 'popular', label: 'Style Pro', price: '$9,99', renders: '10 + 2 gratis', perRender: '$0,83 por render', badge: '🎁 +2 GRATIS', featured: true },
+      { plan: 'test', label: 'Starter', price: '$4,99', renders: '8 renders HD', perRender: '$0,62 por render', pillBadge: 'MÁS POPULAR' },
+      { plan: 'popular', label: 'Pro', price: '$9,99', renders: '15 + 5 gratis = 20 HD', perRender: '$0,50 por render', badge: '🎁 +5 GRATIS', pillBadge: 'MEJOR VALOR', featured: true },
     ],
     fr: [
-      { plan: 'trial', label: 'Essai', price: '1,49 $', renders: '1 rendu', perRender: 'un rendu pour démarrer' },
-      { plan: 'test', label: 'Starter', price: '4,99 $', renders: '5 + 1 gratuit', perRender: '0,83 $ par rendu', badge: '🎁 +1 GRATUIT' },
-      { plan: 'popular', label: 'Style Pro', price: '9,99 $', renders: '10 + 2 gratuits', perRender: '0,83 $ par rendu', badge: '🎁 +2 GRATUITS', featured: true },
+      { plan: 'test', label: 'Starter', price: '4,99 $', renders: '8 rendus HD', perRender: '0,62 $ par rendu', pillBadge: 'PLUS POPULAIRE' },
+      { plan: 'popular', label: 'Pro', price: '9,99 $', renders: '15 + 5 gratuits = 20 HD', perRender: '0,50 $ par rendu', badge: '🎁 +5 GRATUITS', pillBadge: 'MEILLEUR PRIX', featured: true },
     ],
     pt: [
-      { plan: 'trial', label: 'Teste', price: '$1,49', renders: '1 render', perRender: 'um render para começar' },
-      { plan: 'test', label: 'Starter', price: '$4,99', renders: '5 + 1 grátis', perRender: '$0,83 por render', badge: '🎁 +1 GRÁTIS' },
-      { plan: 'popular', label: 'Style Pro', price: '$9,99', renders: '10 + 2 grátis', perRender: '$0,83 por render', badge: '🎁 +2 GRÁTIS', featured: true },
+      { plan: 'test', label: 'Starter', price: '$4,99', renders: '8 renders HD', perRender: '$0,62 por render', pillBadge: 'MAIS POPULAR' },
+      { plan: 'popular', label: 'Pro', price: '$9,99', renders: '15 + 5 grátis = 20 HD', perRender: '$0,50 por render', badge: '🎁 +5 GRÁTIS', pillBadge: 'MELHOR VALOR', featured: true },
     ],
     de: [
-      { plan: 'trial', label: 'Test', price: '1,49 $', renders: '1 Render', perRender: 'ein Render zum Start' },
-      { plan: 'test', label: 'Starter', price: '4,99 $', renders: '5 + 1 gratis', perRender: '0,83 $ pro Render', badge: '🎁 +1 GRATIS' },
-      { plan: 'popular', label: 'Style Pro', price: '9,99 $', renders: '10 + 2 gratis', perRender: '0,83 $ pro Render', badge: '🎁 +2 GRATIS', featured: true },
+      { plan: 'test', label: 'Starter', price: '4,99 $', renders: '8 HD-Renders', perRender: '0,62 $ pro Render', pillBadge: 'AM BELIEBTESTEN' },
+      { plan: 'popular', label: 'Pro', price: '9,99 $', renders: '15 + 5 gratis = 20 HD', perRender: '0,50 $ pro Render', badge: '🎁 +5 GRATIS', pillBadge: 'BESTER WERT', featured: true },
     ],
     it: [
-      { plan: 'trial', label: 'Prova', price: '1,49 $', renders: '1 render', perRender: 'un render per iniziare' },
-      { plan: 'test', label: 'Starter', price: '4,99 $', renders: '5 + 1 gratis', perRender: '0,83 $ per render', badge: '🎁 +1 GRATIS' },
-      { plan: 'popular', label: 'Style Pro', price: '9,99 $', renders: '10 + 2 gratis', perRender: '0,83 $ per render', badge: '🎁 +2 GRATIS', featured: true },
+      { plan: 'test', label: 'Starter', price: '4,99 $', renders: '8 render HD', perRender: '0,62 $ per render', pillBadge: 'PIÙ POPOLARE' },
+      { plan: 'popular', label: 'Pro', price: '9,99 $', renders: '15 + 5 gratis = 20 HD', perRender: '0,50 $ per render', badge: '🎁 +5 GRATIS', pillBadge: 'MIGLIOR PREZZO', featured: true },
     ],
   };
 
@@ -833,9 +829,11 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
                         : 'bg-slate-50 border-2 border-slate-200 hover:border-slate-300'
                     }`}
                   >
-                    {p.featured && (
-                      <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-indigo-600 text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow">
-                        {lang === 'es' ? 'Mejor precio' : lang === 'fr' ? 'Meilleur prix' : lang === 'pt' ? 'Melhor preço' : lang === 'de' ? 'Bester Preis' : lang === 'it' ? 'Miglior prezzo' : 'Best value'}
+                    {p.pillBadge && (
+                      <div className={`absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow ${
+                        p.featured ? 'bg-indigo-600' : 'bg-slate-900'
+                      }`}>
+                        {p.pillBadge}
                       </div>
                     )}
                     {p.badge && (

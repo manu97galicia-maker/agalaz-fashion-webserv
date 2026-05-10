@@ -9,7 +9,7 @@ import { signInWithGoogle, signInWithOtp } from '@/services/authService';
 import { useLang } from '@/components/LanguageProvider';
 import { track } from '@/lib/analytics';
 
-type Plan = 'trial' | 'test' | 'popular';
+type Plan = 'test' | 'popular';
 
 // 15%-off promo code displayed in the paywall countdown banner. Update this
 // constant if the Stripe promotion code is renamed in the dashboard. Users
@@ -25,10 +25,10 @@ export default function PaywallPage() {
   const router = useRouter();
   const { t, lang } = useLang();
   const en = lang === 'en';
-  // Default to Trial (cheapest anchor) — Style Pro stays visually featured
-  // via gradient + ring + badges, so the user's eye drifts to it and the
-  // "upgrade" feels like a smart decision rather than a default.
-  const [selected, setSelected] = useState<Plan>('trial');
+  // Default to Starter — the on-ramp for new buyers. Pro stays visually
+  // featured via gradient + ring + +5 FREE badge so the eye drifts there
+  // and "upgrade" feels like a smart decision rather than a default.
+  const [selected, setSelected] = useState<Plan>('test');
   const [loading, setLoading] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
@@ -117,27 +117,22 @@ export default function PaywallPage() {
     : ['Créditos sin caducidad', 'Ropa, gafas, joyería, tatuajes y más', 'Chat IA para ajustar talla, color, ajuste', 'Descarga y comparte tus renders', 'Vuelve a comprar cuando quieras — sin suscripción'];
 
   const plans = {
-    trial: {
-      price: '1,49',
-      currency: '$',
-      label: en ? 'Trial' : 'Prueba',
-      renders: en ? '1 render' : '1 render',
-      sub: en ? 'One render to start' : 'Un render para empezar',
-    },
     test: {
       price: '4,99',
       currency: '$',
-      label: en ? 'Starter' : 'Starter',
-      renders: en ? '5 renders' : '5 renders',
-      sub: en ? '$1.00 per render' : '$1,00 por render',
+      label: 'Starter',
+      renders: en ? '8 HD renders' : '8 renders HD',
+      sub: en ? '$0.62 per render' : '$0,62 por render',
+      badge: en ? 'MOST POPULAR' : 'MÁS POPULAR',
     },
     popular: {
       price: '9,99',
       currency: '$',
-      label: en ? 'Style Pro' : 'Style Pro',
-      renders: en ? '10 renders' : '10 renders',
-      sub: en ? '$1.00 per render · 15% off with code' : '$1,00 por render · 15% off con código',
-      savings: en ? 'BEST VALUE' : 'MEJOR PRECIO',
+      label: 'Pro',
+      renders: en ? '15 + 5 free = 20 HD' : '15 + 5 gratis = 20 HD',
+      sub: en ? '$0.50 per render · 15% off with AGALAZ15' : '$0,50 por render · 15% off con AGALAZ15',
+      badge: en ? '🎁 +5 FREE' : '🎁 +5 GRATIS',
+      pillBadge: en ? 'BEST VALUE' : 'MEJOR VALOR',
     },
   };
 
@@ -263,57 +258,19 @@ export default function PaywallPage() {
           </div>
         )}
 
-        {/* Plan selector — Trial · Starter · Style Pro (featured) */}
+        {/* Plan selector — Starter (Most Popular) · Pro (Best Value, featured) */}
         <div className="space-y-3 mb-8">
-          {/* Trial — entry tier */}
-          <button
-            onClick={() => { setSelected('trial'); track('plan_select', { plan: 'trial' }); }}
-            className={`w-full p-4 md:p-5 rounded-xl flex items-center justify-between transition-all ${
-              selected === 'trial'
-                ? 'bg-slate-900 text-white shadow-lg'
-                : 'bg-slate-50 border-2 border-slate-200 hover:border-slate-300'
-            }`}
-          >
-            <div className="flex items-center gap-3">
-              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                selected === 'trial' ? 'border-indigo-400 bg-indigo-500' : 'border-slate-300'
-              }`}>
-                {selected === 'trial' && <div className="w-2 h-2 bg-white rounded-full" />}
-              </div>
-              <div className="text-left">
-                <span className={`font-black text-[15px] ${selected === 'trial' ? 'text-white' : 'text-slate-900'}`}>
-                  {plans.trial.label}
-                </span>
-                <br />
-                <span className={`text-[11px] font-bold ${selected === 'trial' ? 'text-white/60' : 'text-slate-500'}`}>
-                  {plans.trial.renders}
-                </span>
-                <span className={`text-[10px] block mt-0.5 ${selected === 'trial' ? 'text-white/40' : 'text-slate-400'}`}>
-                  {plans.trial.sub}
-                </span>
-              </div>
-            </div>
-            <div className="text-right">
-              <span className={`font-black text-xl ${selected === 'trial' ? 'text-white' : 'text-slate-900'}`}>
-                {plans.trial.currency}{plans.trial.price}
-              </span>
-              <span className={`block text-[10px] font-bold ${selected === 'trial' ? 'text-white/40' : 'text-slate-400'}`}>
-                {en ? 'one-time' : 'pago único'}
-              </span>
-            </div>
-          </button>
-
-          {/* Starter — mid tier with +1 FREE */}
+          {/* Starter — Most Popular tier, the natural on-ramp */}
           <button
             onClick={() => { setSelected('test'); track('plan_select', { plan: 'test' }); }}
             className={`relative w-full p-4 md:p-5 rounded-xl flex items-center justify-between transition-all ${
               selected === 'test'
-                ? 'bg-slate-900 text-white shadow-lg'
+                ? 'bg-slate-900 text-white shadow-lg ring-2 ring-indigo-400'
                 : 'bg-slate-50 border-2 border-slate-200 hover:border-slate-300'
             }`}
           >
-            <div className="absolute -top-2 -right-2 px-2.5 py-1 bg-emerald-500 text-white text-[10px] font-black uppercase tracking-wider rounded-full shadow-md rotate-3">
-              {en ? '🎁 +1 FREE' : '🎁 +1 GRATIS'}
+            <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-slate-900 text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow">
+              {plans.test.badge}
             </div>
             <div className="flex items-center gap-3">
               <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
@@ -344,9 +301,8 @@ export default function PaywallPage() {
             </div>
           </button>
 
-          {/* Style Pro — featured, +2 FREE, 15% promo eligible. Permanent
-              ring + larger shadow + subtle scale even when NOT selected, so
-              the user's eye is pulled here from the default Trial selection. */}
+          {/* Pro — Best Value, +5 FREE, 15% promo eligible. Permanent ring +
+              shadow + scale even when NOT selected so the eye drifts here. */}
           <button
             onClick={() => { setSelected('popular'); track('plan_select', { plan: 'popular' }); }}
             className={`relative w-full p-4 md:p-5 rounded-xl flex items-center justify-between transition-all ${
@@ -356,10 +312,10 @@ export default function PaywallPage() {
             }`}
           >
             <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-indigo-600 text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow">
-              {plans.popular.savings}
+              {plans.popular.pillBadge}
             </div>
             <div className="absolute -top-2 -right-2 px-2.5 py-1 bg-emerald-500 text-white text-[10px] font-black uppercase tracking-wider rounded-full shadow-md rotate-3">
-              {en ? '🎁 +2 FREE' : '🎁 +2 GRATIS'}
+              {plans.popular.badge}
             </div>
             <div className="flex items-center gap-3">
               <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
