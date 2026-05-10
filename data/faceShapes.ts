@@ -98,7 +98,7 @@ export const FACE_SHAPES: Record<FaceShape, FaceShapeContent> = {
       { q: 'What hairstyles should round faces avoid?', a: 'Blunt chin-length bobs, full straight fringes, super-thick one-length cuts without layers, and any style with extreme volume at the sides. All of these emphasize width over length.' },
       { q: 'Can I see these cuts on my own face before the salon?', a: 'Yes — that is exactly what Agalaz does. Upload your photo, drop in any reference cut, and see it on your real face in 30 seconds. Free first render, no app needed.' },
     ],
-    ogImage: '/og/virtual-hairstyle-try-on.png',
+    ogImage: '/og/haircut-round-face.png',
   },
   oval: {
     shape: 'oval',
@@ -154,7 +154,7 @@ export const FACE_SHAPES: Record<FaceShape, FaceShapeContent> = {
       { q: 'What is the difference between oval and oblong face shapes?', a: 'Oblong is essentially a longer oval — same balanced proportions but the length-to-width ratio is greater than 1.5. Oblong faces should avoid styles that add height on top (which exaggerates the length) and benefit from chin-length cuts.' },
       { q: 'Can I see these cuts on my own face?', a: 'Yes — Agalaz lets you upload your photo and try any haircut style on your real face in 30 seconds. Free first render.' },
     ],
-    ogImage: '/og/virtual-hairstyle-try-on.png',
+    ogImage: '/og/haircut-oval-face.png',
   },
   diamond: {
     shape: 'diamond',
@@ -208,7 +208,7 @@ export const FACE_SHAPES: Record<FaceShape, FaceShapeContent> = {
       { q: 'What length of hair flatters diamond faces?', a: 'Chin-length to collarbone-length tends to work best because it pads the narrow jawline. Long hair also works if you have layers near the jaw to soften the chin point.' },
       { q: 'Can I see these cuts on my own face before the salon?', a: 'Yes — Agalaz lets you upload your photo and try any haircut on your real face in 30 seconds. Free first render, see exactly how a chin-length bob or side-swept fringe softens your cheekbones before booking.' },
     ],
-    ogImage: '/og/virtual-hairstyle-try-on.png',
+    ogImage: '/og/haircut-diamond-face.png',
   },
   square: {
     shape: 'square',
@@ -263,7 +263,7 @@ export const FACE_SHAPES: Record<FaceShape, FaceShapeContent> = {
       { q: 'What about square faces for men?', a: 'Square jaws are highly desirable in men. Soft texture on top (textured crop, French crop, side-parted medium length) plus tapered sides works. Avoid extreme high-and-tight cuts that maximize the angular look unless that is exactly what you want.' },
       { q: 'Can I see these cuts on my own face?', a: 'Yes — Agalaz lets you upload your photo and try any haircut on your real face in 30 seconds. Free first render, see exactly how layers or a shag soften your jaw before booking.' },
     ],
-    ogImage: '/og/virtual-hairstyle-try-on.png',
+    ogImage: '/og/haircut-square-face.png',
   },
 };
 

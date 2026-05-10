@@ -198,77 +198,77 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'weekly',
       priority: 0.95, // top of long-tail tier (2.1M/mo cluster, KD 0)
-      images: [`${baseUrl}/og/virtual-wedding-dress-try-on.png`],
+      images: [`${baseUrl}/og/wedding-guest-outfit.png`],
     },
     {
       url: `${baseUrl}/es/vestido-invitada-boda`,
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'weekly',
       priority: 0.95, // 825K/mo cluster, KD 0
-      images: [`${baseUrl}/og/virtual-wedding-dress-try-on.png`],
+      images: [`${baseUrl}/og/vestido-invitada-boda.png`],
     },
     {
       url: `${baseUrl}/bridesmaid-dress-try-on`,
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'monthly',
       priority: 0.9, // 201K/mo, KD 9
-      images: [`${baseUrl}/og/virtual-wedding-dress-try-on.png`],
+      images: [`${baseUrl}/og/bridesmaid-dress.png`],
     },
     {
       url: `${baseUrl}/halloween-couples-costumes`,
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'weekly', // Sept-Oct peak
       priority: 0.9, // 1M+/mo cluster, KD 2-3
-      images: [`${baseUrl}/og/virtual-costume-try-on.png`],
+      images: [`${baseUrl}/og/halloween-couples.png`],
     },
     {
       url: `${baseUrl}/ja/yukata`,
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'weekly', // June-Aug peak
       priority: 0.9, // 201K/mo, KD 9
-      images: [`${baseUrl}/og/virtual-kimono-try-on.png`],
+      images: [`${baseUrl}/og/yukata.png`],
     },
     {
       url: `${baseUrl}/natural-makeup-look`,
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'monthly',
       priority: 0.85, // ~600K/mo cluster, KD 1-2
-      images: [`${baseUrl}/og/virtual-hairstyle-try-on.png`],
+      images: [`${baseUrl}/og/natural-makeup.png`],
     },
     {
       url: `${baseUrl}/engagement-ring-on-which-hand`,
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'monthly',
       priority: 0.85,
-      images: [`${baseUrl}/og/virtual-jewelry-try-on.png`],
+      images: [`${baseUrl}/og/engagement-ring-hand.png`],
     },
     {
       url: `${baseUrl}/pt/look-festa-junina`,
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'weekly', // Mai-Jun peak
       priority: 0.85,
-      images: [`${baseUrl}/og/realistic-swimwear-try-on.png`],
+      images: [`${baseUrl}/og/look-festa-junina.png`],
     },
     {
       url: `${baseUrl}/fr/tenue-bapteme`,
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'monthly',
       priority: 0.85,
-      images: [`${baseUrl}/og/virtual-wedding-dress-try-on.png`],
+      images: [`${baseUrl}/og/tenue-bapteme.png`],
     },
     {
       url: `${baseUrl}/it/vestito-comunione`,
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'weekly', // Mar-Jun peak
       priority: 0.85,
-      images: [`${baseUrl}/og/virtual-wedding-dress-try-on.png`],
+      images: [`${baseUrl}/og/vestito-comunione.png`],
     },
     {
       url: `${baseUrl}/hi/lehenga`,
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'monthly',
       priority: 0.85,
-      images: [`${baseUrl}/og/virtual-saree-try-on.png`],
+      images: [`${baseUrl}/og/lehenga-online.png`],
     },
     // Haircut by face shape — long-tail informational (KD 0-8 each)
     {
@@ -276,28 +276,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'monthly',
       priority: 0.85,
-      images: [`${baseUrl}/og/virtual-hairstyle-try-on.png`],
+      images: [`${baseUrl}/og/haircut-round-face.png`],
     },
     {
       url: `${baseUrl}/haircut-for-oval-face`,
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'monthly',
       priority: 0.85,
-      images: [`${baseUrl}/og/virtual-hairstyle-try-on.png`],
+      images: [`${baseUrl}/og/haircut-oval-face.png`],
     },
     {
       url: `${baseUrl}/haircut-for-diamond-face`,
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'monthly',
       priority: 0.85,
-      images: [`${baseUrl}/og/virtual-hairstyle-try-on.png`],
+      images: [`${baseUrl}/og/haircut-diamond-face.png`],
     },
     {
       url: `${baseUrl}/haircut-for-square-face`,
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'monthly',
       priority: 0.85,
-      images: [`${baseUrl}/og/virtual-hairstyle-try-on.png`],
+      images: [`${baseUrl}/og/haircut-square-face.png`],
     },
     {
       url: `${baseUrl}/privacy`,
