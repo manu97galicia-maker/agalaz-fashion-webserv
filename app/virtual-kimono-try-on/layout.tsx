@@ -10,7 +10,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Kimono Try-On — See Kimono, Yukata & Haori On Your Face | Agalaz',
+  title: 'Virtual Kimono Try-On — Kimono & Yukata on Your Face',
   description:
     'Try kimono, yukata, haori, hakama and furisode on your real face with AI before booking a Kyoto rental or buying. See silk, obi and sleeves on YOU in 30 seconds. Free, no app.',
   keywords: [

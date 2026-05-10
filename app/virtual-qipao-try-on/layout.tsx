@@ -10,7 +10,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Qipao Try-On — See Cheongsam, Hanfu & Tang Suit On Your Face | Agalaz',
+  title: 'Virtual Qipao Try-On — Cheongsam & Hanfu on Your Face',
   description:
     'Try qipao, cheongsam, hanfu, tang suit and changshan on your real face with AI before stitching or buying. See mandarin collar, pankou and silk on YOU in 30 seconds. Free, no app.',
   keywords: [

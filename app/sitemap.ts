@@ -2,9 +2,37 @@ import type { MetadataRoute } from 'next';
 import { articles } from './blog/articles';
 import { CANONICAL_LANDING_SLUGS, nativeLandingUrl, type LandingLang } from '@/lib/i18n/landingSlugs';
 
+/**
+ * Sitemap with PER-SECTION static lastModified dates instead of `new Date()`
+ * everywhere. Google penalizes sitemaps where every URL claims it was just
+ * updated — the signal becomes meaningless. We bump dates manually when the
+ * actual content of that section changes (paywall update, new schema, copy
+ * refresh).
+ *
+ * Image entries are attached to product landings + Asian + long-tail
+ * landings so they appear in Google Image search and AI overviews —
+ * `/og/{slug}.png` is the already-generated 1200×630 triptych.
+ */
+
+const LAST_MOD = {
+  // Bump when /paywall, root layout JSON-LD, or hero copy ships a change
+  home: '2026-05-10',
+  // Product try-on landings (the 13 canonical EN + 5 localized variants each)
+  productLandings: '2026-05-10',
+  // Asian native landings (ar/hijab, hi/saree, ko/hanbok, ja/kimono, zh/qipao)
+  asianLandings: '2026-05-10',
+  // B2B / dev pages
+  b2b: '2026-05-08',
+  // Long-tail informational landings shipped 2026-05-10
+  longtail: '2026-05-10',
+  // Legal pages (privacy/terms) rarely change
+  legal: '2026-04-01',
+} as const;
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://agalaz.com';
 
+  // Blog articles — each carries its own date for honest signal.
   const blogEntries: MetadataRoute.Sitemap = articles.map((article) => ({
     url: `${baseUrl}/blog/${article.slug}`,
     lastModified: new Date(article.date),
@@ -13,250 +41,273 @@ export default function sitemap(): MetadataRoute.Sitemap {
     images: [`${baseUrl}/blog/${article.slug}/opengraph-image`],
   }));
 
-  // Localized variants of the 7 main pages (home, try-on, virtual-try-on, partners, shopify, woocommerce, developers) in es/fr/pt/de/it
+  // Localized variants of the 7 main pages (home, try-on, virtual-try-on,
+  // partners, shopify, woocommerce, developers) in es/fr/pt/de/it.
   const mainLocalized: MetadataRoute.Sitemap = (['es', 'fr', 'pt', 'de', 'it'] as const).flatMap((lang) =>
     ['', '/try-on', '/virtual-try-on', '/partners', '/shopify', '/woocommerce', '/developers'].map((p) => ({
       url: `${baseUrl}/${lang}${p}`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.home),
       changeFrequency: 'weekly' as const,
-      priority: p === '' ? 0.95 : 0.85,
+      priority: p === '' ? 0.9 : 0.8,
     })),
   );
 
   // Product try-on landings — EN canonical + 5 native-language variants per slug.
-  // URLs come from `nativeLandingUrl` so that localized URLs use native slugs
-  // (e.g. /es/probador-bikini, NOT /es/realistic-swimwear-try-on).
+  // Image attached so they appear in Google Image search.
   const ALL_LANGS: LandingLang[] = ['en', 'es', 'fr', 'pt', 'de', 'it'];
   const productLandings: MetadataRoute.Sitemap = CANONICAL_LANDING_SLUGS.flatMap((slug) =>
     ALL_LANGS.map((lang) => ({
       url: nativeLandingUrl(slug, lang),
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.productLandings),
       changeFrequency: 'weekly' as const,
       priority: lang === 'en' ? 0.9 : 0.85,
+      images: [`${baseUrl}/og/${slug}.png`],
     })),
   );
 
   return [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.home),
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
       url: `${baseUrl}/try-on`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.home),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/virtual-try-on`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.home),
       changeFrequency: 'weekly',
       priority: 0.9,
+      images: [`${baseUrl}/og/default.png`],
     },
     ...mainLocalized,
     {
       url: `${baseUrl}/blog`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.home),
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
       url: `${baseUrl}/partners`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.b2b),
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: `${baseUrl}/shopify`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.b2b),
       changeFrequency: 'monthly',
       priority: 0.85,
+      images: [`${baseUrl}/og/default.png`],
     },
     {
       url: `${baseUrl}/woocommerce`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.b2b),
       changeFrequency: 'monthly',
       priority: 0.85,
+      images: [`${baseUrl}/og/default.png`],
     },
     {
       url: `${baseUrl}/developers`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.b2b),
       changeFrequency: 'monthly',
       priority: 0.85,
     },
     ...blogEntries,
-    // 10 product try-on landings × 6 languages — URLs come from the central slug
-    // map so localized URLs use native-language slugs (e.g. /es/probador-bikini).
     ...productLandings,
-    // Standalone veils & hijab landings — EN + AR only, kept outside the slug map
-    // since they target only those two languages (no ES/FR/PT/DE/IT variant exists).
+    // Asian-traditional-wear standalone landings — EN + native pair.
     {
       url: `${baseUrl}/virtual-veil-try-on`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.asianLandings),
       changeFrequency: 'weekly',
       priority: 0.85,
+      images: [`${baseUrl}/og/virtual-veil-try-on.png`],
     },
     {
       url: `${baseUrl}/ar/hijab`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.asianLandings),
       changeFrequency: 'weekly',
       priority: 0.85,
+      images: [`${baseUrl}/og/virtual-veil-try-on.png`],
     },
-    // Standalone Asian-traditional-wear landings — each is an EN + native pair
-    // outside the 6-language slug map.
     {
       url: `${baseUrl}/virtual-saree-try-on`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.asianLandings),
       changeFrequency: 'weekly',
       priority: 0.85,
+      images: [`${baseUrl}/og/virtual-saree-try-on.png`],
     },
     {
       url: `${baseUrl}/hi/saree`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.asianLandings),
       changeFrequency: 'weekly',
       priority: 0.85,
+      images: [`${baseUrl}/og/virtual-saree-try-on.png`],
     },
     {
       url: `${baseUrl}/virtual-hanbok-try-on`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.asianLandings),
       changeFrequency: 'weekly',
       priority: 0.85,
+      images: [`${baseUrl}/og/virtual-hanbok-try-on.png`],
     },
     {
       url: `${baseUrl}/ko/hanbok`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.asianLandings),
       changeFrequency: 'weekly',
       priority: 0.85,
+      images: [`${baseUrl}/og/virtual-hanbok-try-on.png`],
     },
     {
       url: `${baseUrl}/virtual-kimono-try-on`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.asianLandings),
       changeFrequency: 'weekly',
       priority: 0.85,
+      images: [`${baseUrl}/og/virtual-kimono-try-on.png`],
     },
     {
       url: `${baseUrl}/ja/kimono`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.asianLandings),
       changeFrequency: 'weekly',
       priority: 0.85,
+      images: [`${baseUrl}/og/virtual-kimono-try-on.png`],
     },
     {
       url: `${baseUrl}/virtual-qipao-try-on`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.asianLandings),
       changeFrequency: 'weekly',
       priority: 0.85,
+      images: [`${baseUrl}/og/virtual-qipao-try-on.png`],
     },
     {
       url: `${baseUrl}/zh/qipao`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.asianLandings),
       changeFrequency: 'weekly',
       priority: 0.85,
+      images: [`${baseUrl}/og/virtual-qipao-try-on.png`],
     },
     // Long-tail informational landings — high volume, low SEO difficulty,
-    // verified via DataForSEO scan (find-longtail-opportunities.mjs) 2026-05.
-    {
-      url: `${baseUrl}/engagement-ring-on-which-hand`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/pt/look-festa-junina`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly', // bumped during Mai-Jun ramp; quiet rest of year
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/fr/tenue-bapteme`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/it/vestito-comunione`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly', // peak Mar-Jun for first-communion season
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/hi/lehenga`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/bridesmaid-dress-try-on`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/halloween-couples-costumes`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly', // Sept-Oct peak; recurring annually
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/ja/yukata`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly', // June-Aug peak
-      priority: 0.85,
-    },
+    // verified via DataForSEO scan. Priority 0.9-0.95 for the mega-clusters.
     {
       url: `${baseUrl}/wedding-guest-outfit`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'weekly',
-      priority: 0.9, // largest single cluster (~2M/mo, KD 0)
+      priority: 0.95, // top of long-tail tier (2.1M/mo cluster, KD 0)
+      images: [`${baseUrl}/og/virtual-wedding-dress-try-on.png`],
     },
     {
       url: `${baseUrl}/es/vestido-invitada-boda`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'weekly',
-      priority: 0.9, // 825K/mo cluster, KD 0
+      priority: 0.95, // 825K/mo cluster, KD 0
+      images: [`${baseUrl}/og/virtual-wedding-dress-try-on.png`],
+    },
+    {
+      url: `${baseUrl}/bridesmaid-dress-try-on`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'monthly',
+      priority: 0.9, // 201K/mo, KD 9
+      images: [`${baseUrl}/og/virtual-wedding-dress-try-on.png`],
+    },
+    {
+      url: `${baseUrl}/halloween-couples-costumes`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly', // Sept-Oct peak
+      priority: 0.9, // 1M+/mo cluster, KD 2-3
+      images: [`${baseUrl}/og/virtual-costume-try-on.png`],
+    },
+    {
+      url: `${baseUrl}/ja/yukata`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly', // June-Aug peak
+      priority: 0.9, // 201K/mo, KD 9
+      images: [`${baseUrl}/og/virtual-kimono-try-on.png`],
     },
     {
       url: `${baseUrl}/natural-makeup-look`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'monthly',
+      priority: 0.85, // ~600K/mo cluster, KD 1-2
+      images: [`${baseUrl}/og/virtual-hairstyle-try-on.png`],
+    },
+    {
+      url: `${baseUrl}/engagement-ring-on-which-hand`,
+      lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'monthly',
       priority: 0.85,
+      images: [`${baseUrl}/og/virtual-jewelry-try-on.png`],
     },
-    // Haircut by face shape — long-tail informational landings (KD 0-8 each).
-    // 60K+ combined monthly volume across the 4 shapes per DataForSEO 2026-05.
+    {
+      url: `${baseUrl}/pt/look-festa-junina`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly', // Mai-Jun peak
+      priority: 0.85,
+      images: [`${baseUrl}/og/realistic-swimwear-try-on.png`],
+    },
+    {
+      url: `${baseUrl}/fr/tenue-bapteme`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+      images: [`${baseUrl}/og/virtual-wedding-dress-try-on.png`],
+    },
+    {
+      url: `${baseUrl}/it/vestito-comunione`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly', // Mar-Jun peak
+      priority: 0.85,
+      images: [`${baseUrl}/og/virtual-wedding-dress-try-on.png`],
+    },
+    {
+      url: `${baseUrl}/hi/lehenga`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+      images: [`${baseUrl}/og/virtual-saree-try-on.png`],
+    },
+    // Haircut by face shape — long-tail informational (KD 0-8 each)
     {
       url: `${baseUrl}/haircut-for-round-face`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'monthly',
       priority: 0.85,
+      images: [`${baseUrl}/og/virtual-hairstyle-try-on.png`],
     },
     {
       url: `${baseUrl}/haircut-for-oval-face`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'monthly',
       priority: 0.85,
+      images: [`${baseUrl}/og/virtual-hairstyle-try-on.png`],
     },
     {
       url: `${baseUrl}/haircut-for-diamond-face`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'monthly',
       priority: 0.85,
+      images: [`${baseUrl}/og/virtual-hairstyle-try-on.png`],
     },
     {
       url: `${baseUrl}/haircut-for-square-face`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'monthly',
       priority: 0.85,
+      images: [`${baseUrl}/og/virtual-hairstyle-try-on.png`],
     },
     {
       url: `${baseUrl}/privacy`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.legal),
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
       url: `${baseUrl}/terms`,
-      lastModified: new Date(),
+      lastModified: new Date(LAST_MOD.legal),
       changeFrequency: 'yearly',
       priority: 0.3,
     },

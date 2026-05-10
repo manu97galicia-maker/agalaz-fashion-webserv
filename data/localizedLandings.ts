@@ -1203,7 +1203,7 @@ const mensSuit: Record<Lang, LocalizedPageData> = {
 const petClothing: Record<Lang, LocalizedPageData> = {
   es: {
     meta: {
-      title: 'Probador Virtual de Ropa para Mascotas — IA Gratis | Agalaz',
+      title: 'Probador Virtual de Ropa de Mascotas — IA Gratis',
       description: 'Pruébale cualquier ropa, abrigo o disfraz a tu perro o gato con IA. Encuentra la talla correcta antes de comprar.',
       keywords: ['probador virtual ropa perro', 'abrigo perro ia', 'ropa gato virtual', 'disfraz mascota online', 'probador perro'],
     },
@@ -1335,7 +1335,7 @@ const petClothing: Record<Lang, LocalizedPageData> = {
   },
   de: {
     meta: {
-      title: 'Virtuelle Haustier-Kleidungs-Anprobe — KI Kostenlos | Agalaz',
+      title: 'Virtuelle Haustierkleidungs-Anprobe — KI Kostenlos',
       description: 'Probieren Sie jede Kleidung, jeden Mantel oder jedes Kostüm an Ihrem Hund oder Ihrer Katze mit KI an. Finden Sie die richtige Größe vor dem Kauf.',
       keywords: ['virtuelle hundekleidung anprobe', 'hundemantel ki', 'katzenkleidung virtuell', 'tierkostüm online', 'haustier anprobe'],
     },
@@ -1745,7 +1745,7 @@ const costume: Record<Lang, LocalizedPageData> = {
   },
   pt: {
     meta: {
-      title: 'Provador Virtual de Fatos de Carnaval e Halloween — IA | Agalaz',
+      title: 'Provador Virtual de Fatos Carnaval & Halloween IA',
       description: 'Experimente fatos de Carnaval, Halloween, cosplay ou festas temáticas com IA. Bruxa, vampiro, fato de Carnaval ou disfarce de criança — veja em SI antes de comprar.',
       keywords: ['provador virtual fatos carnaval', 'fato halloween virtual', 'cosplay provador online', 'fato carnaval ia', 'disfarce criança virtual', 'experimentar fato halloween', 'fato casal simulador', 'fato festa temática', 'provador disfarces ia', 'fato carnaval brasil'],
     },
@@ -1789,7 +1789,7 @@ const costume: Record<Lang, LocalizedPageData> = {
   },
   de: {
     meta: {
-      title: 'Virtuelle Kostüm-Anprobe — Halloween, Karneval, Cosplay | Agalaz',
+      title: 'Virtuelle Kostüm-Anprobe — Halloween & Karneval KI',
       description: 'Probieren Sie Halloween-, Karnevals-, Cosplay- und Faschings-Kostüme mit KI an. Hexe, Vampir, Kinderkostüm — sehen Sie es an SICH vor dem Kauf.',
       keywords: ['virtuelle kostüm anprobe', 'halloween kostüm virtuell', 'karneval kostüm ki', 'fasching kostüm anprobieren', 'cosplay anprobe online', 'kinderkostüm virtuell', 'paarkostüm simulator', 'mottoparty kostüm', 'kostüm anprobieren ki', 'gruppenkostüm vorschau'],
     },
@@ -1833,7 +1833,7 @@ const costume: Record<Lang, LocalizedPageData> = {
   },
   it: {
     meta: {
-      title: 'Prova Virtuale Costumi — Carnevale, Halloween, Cosplay | Agalaz',
+      title: 'Prova Virtuale Costumi — Carnevale & Halloween IA',
       description: 'Prova costumi di Carnevale di Venezia, Halloween, cosplay o feste a tema con IA. Strega, vampira, costume bambino — vedi su di TE prima di comprare.',
       keywords: ['prova virtuale costumi', 'costume halloween virtuale', 'costume carnevale ia', 'cosplay prova online', 'costume bambino virtuale', 'provare costume halloween', 'costume coppia simulatore', 'costume festa a tema', 'costume venezia virtuale', 'simulatore costumi ia'],
     },
@@ -2111,7 +2111,7 @@ const hairstyle: Record<Lang, LocalizedPageData> = {
 const cosplay: Record<Lang, LocalizedPageData> = {
   es: {
     meta: {
-      title: 'Probador Virtual de Cosplay — IA Anime y Videojuegos | Agalaz',
+      title: 'Probador Virtual de Cosplay — Anime y Videojuegos IA',
       description: 'Pruébate cosplay de anime, videojuegos, Marvel u OC con IA antes de gastarte 200 € en peluca y armadura. Salón del Manga, Japan Weekend — entra al Photocall con el look correcto.',
       keywords: ['probador virtual cosplay', 'cosplay anime ia', 'simulador cosplay online', 'probarse cosplay genshin', 'cosplay demon slayer probador', 'cosplay videojuegos virtual', 'salón del manga cosplay', 'japan weekend cosplay', 'cosplay peluca probador', 'crossplay simulador'],
     },
@@ -2155,7 +2155,7 @@ const cosplay: Record<Lang, LocalizedPageData> = {
   },
   fr: {
     meta: {
-      title: 'Essayage Virtuel Cosplay — IA Anime et Jeux Vidéo | Agalaz',
+      title: 'Essayage Virtuel Cosplay — Anime et Jeux Vidéo IA',
       description: 'Essayez vos cosplays anime, jeu vidéo, Marvel ou OC avec l\'IA avant de claquer 200 € en perruque et armure. Japan Expo, Comic Con Paris — montez au photocall avec le bon look.',
       keywords: ['essayage virtuel cosplay', 'cosplay anime IA', 'simulateur cosplay en ligne', 'essayer cosplay genshin', 'cosplay demon slayer essai', 'cosplay jeu vidéo virtuel', 'japan expo cosplay', 'comic con paris cosplay', 'cosplay perruque essayage', 'crossplay simulateur'],
     },
@@ -2199,7 +2199,7 @@ const cosplay: Record<Lang, LocalizedPageData> = {
   },
   pt: {
     meta: {
-      title: 'Provador Virtual de Cosplay — IA Anime e Videojogos | Agalaz',
+      title: 'Provador Virtual de Cosplay — Anime & Videojogos IA',
       description: 'Experimente cosplays de anime, jogos, Marvel ou OC com IA antes de gastar 200 € em peruca e armadura. Comic Con Portugal, CCXP Brasil — entre no photocall com o look certo.',
       keywords: ['provador virtual cosplay', 'cosplay anime IA', 'simulador cosplay online', 'experimentar cosplay genshin', 'cosplay demon slayer provador', 'cosplay videojogos virtual', 'comic con portugal cosplay', 'ccxp brasil cosplay', 'cosplay peruca provador', 'crossplay simulador'],
     },
@@ -2243,7 +2243,7 @@ const cosplay: Record<Lang, LocalizedPageData> = {
   },
   de: {
     meta: {
-      title: 'Virtuelle Cosplay-Anprobe — KI für Anime und Games | Agalaz',
+      title: 'Virtuelle Cosplay-Anprobe — Anime und Games KI',
       description: 'Probieren Sie Anime-, Game-, Marvel- oder OC-Cosplay mit KI an, bevor Sie 200 € für Perücke und Rüstung ausgeben. Gamescom Köln, Comic Con Stuttgart — zur Photocall mit dem richtigen Look.',
       keywords: ['virtuelle cosplay anprobe', 'cosplay anime ki', 'cosplay simulator online', 'cosplay genshin anprobieren', 'cosplay demon slayer anprobe', 'cosplay videospiel virtuell', 'gamescom cosplay', 'comic con stuttgart cosplay', 'cosplay perücke anprobieren', 'crossplay simulator'],
     },

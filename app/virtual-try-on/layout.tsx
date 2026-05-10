@@ -4,7 +4,7 @@ const BASE_URL = 'https://agalaz.com';
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'AI Photo Editor to Change Clothes — Virtual Try On Free Online',
+    absolute: 'AI Photo Editor to Change Clothes — Free Virtual Try On',
   },
   description:
     'Free AI photo editor that changes clothes online. Virtual try-on: upload your photo, pick any garment, and see it on your real body in seconds. No app, no signup. Best free AI clothes changer 2026.',
