@@ -1,8 +1,23 @@
 import type { Metadata } from 'next';
 import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
 export const metadata: Metadata = {
-  title: 'Bikini-Anprobe — Bademoden am Echten Körper KI',
-  description: 'Die erste KI-Bademoden-Anprobe für echte Körper. Lade dein Foto hoch und probiere Bikinis sofort. Reduziere Retouren mit Agalaz AI.',
+  title: 'Bikini Damen — Virtuelle Anprobe Calzedonia, Lascana KI',
+  description: 'Bikini Damen, Calzedonia, Lascana, micro bikini — virtuell mit KI anprobieren. Bademoden auf deinem echten Körper sehen vor dem Kauf. Kostenlos.',
+  keywords: [
+    'bikini',
+    'bikini damen',
+    'calzedonia bikini',
+    'lascana bikini',
+    'micro bikini',
+    'teenager bikini',
+    'badeanzug damen',
+    'bademode damen',
+    'bikini set damen',
+    'bikini virtuell anprobieren',
+    'bademoden anprobe',
+    'badeanzug ki',
+    'virtuelle bikini anprobe',
+  ],
   alternates: {
     canonical: nativeLandingUrl('realistic-swimwear-try-on', 'de'),
     languages: landingHreflangAlternates('realistic-swimwear-try-on'),

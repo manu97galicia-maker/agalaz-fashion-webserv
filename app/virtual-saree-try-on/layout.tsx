@@ -10,22 +10,28 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Saree Try-On — Indian Wear on Your Face',
+  title: 'Saree Try-On — Indian Wedding Saree, Sari Online | AI',
   description:
-    'Try sarees, lehengas, sherwanis, salwar-kameez and kurtas on your real face with AI before buying or stitching. Banarasi, Kanjivaram, Sabyasachi-style — see weave, zari and drape on YOU in 30 seconds. Free.',
+    'Try any saree, sari, lehenga or sherwani on your real face with AI. Indian wedding saree, bridal lehenga, Banarasi, Kanjivaram, Sabyasachi — see it on YOU in 30 sec.',
   keywords: [
+    'saree',
+    'sari',
+    'saree for women',
+    'indian saree wedding',
+    'wedding saree indian',
+    'bridal saree indian',
+    'indian wedding saree',
+    'saree online',
+    'saree blouse',
+    'wedding saree from india',
+    'indian bride saree',
     'virtual saree try on',
     'saree try on online',
-    'lehenga try on',
-    'virtual sherwani try on',
-    'salwar kameez try on',
-    'kurta try on',
     'banarasi try on',
     'kanjivaram try on',
-    'bridal lehenga visualizer',
-    'see saree on my face',
-    'indian wear try on ai',
     'sabyasachi try on',
+    'bridal lehenga visualizer',
+    'salwar kameez try on',
   ],
   openGraph: {
     title: 'Virtual Saree Try-On — See Indian Wear On Your Face',

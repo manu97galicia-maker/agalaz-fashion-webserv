@@ -10,22 +10,28 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Hanbok Try-On — Korean Hanbok on Your Face',
+  title: 'Hanbok Try-On — Korean Hanbok, Hanbok Dress | AI',
   description:
-    'Try traditional, modern, wedding and kids hanbok on your real face with AI before booking a Bukchon rental or buying. Jeogori, chima, hwarot — see colour and silhouette on YOU in 30 seconds. Free.',
+    'Try any hanbok on your real face with AI. Korean hanbok, traditional Korean dress, hanbok rental — see jeogori, chima, hwarot on YOU before booking a Bukchon rental.',
   keywords: [
+    'hanbok',
+    'korean hanbok',
+    'hanbok dress',
+    'hanbok clothes',
+    'hanbok clothing',
+    'hanbok attire',
+    'traditional korean clothing hanbok',
+    'hanbok traditional korean dress',
+    'hanbok rental',
+    'hanbok in korean',
     'virtual hanbok try on',
     'hanbok try on online',
-    'korean hanbok visualizer',
     'wedding hanbok try on',
     'modern hanbok try on',
-    'hanbok rental visualizer',
     'jeogori chima try on',
-    'see hanbok on my face',
     'chuseok hanbok ai',
     'seollal hanbok try on',
     'dol hanbok try on',
-    'leesle danha hanbok try on',
   ],
   openGraph: {
     title: 'Virtual Hanbok Try-On — See Korean Hanbok On Your Face',

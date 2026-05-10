@@ -10,22 +10,27 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Qipao Try-On — Cheongsam & Hanfu on Your Face',
+  title: 'Qipao Try-On — Cheongsam, Hanfu Dress Online | AI',
   description:
-    'Try qipao, cheongsam, hanfu, tang suit and changshan on your real face with AI before stitching or buying. See mandarin collar, pankou and silk on YOU in 30 seconds. Free, no app.',
+    'Try any qipao, cheongsam, hanfu or tang suit on your real face with AI. Cheongsam dress, qipao dress — see mandarin collar and silk on YOU in 30 seconds.',
   keywords: [
+    'qipao',
+    'cheongsam',
+    'qipao cheongsam',
+    'cheongsam qipao',
+    'qipao dress',
+    'qipao dresses',
+    'cheongsam dress',
+    'qipao cheongsam dress',
+    'hanfu',
+    'tang suit',
     'virtual qipao try on',
     'cheongsam try on online',
     'hanfu try on',
-    'tang suit try on',
-    'changshan try on',
-    'qipao visualizer',
     'bridal qipao try on',
     'qun gua try on',
     'xiu he fu try on',
     'lunar new year qipao',
-    'see qipao on my face',
-    'shanghai tang ne-tiger try on',
   ],
   openGraph: {
     title: 'Virtual Qipao Try-On — See Cheongsam & Hanfu On Your Face',

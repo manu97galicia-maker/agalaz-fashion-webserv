@@ -10,21 +10,24 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Veil & Hijab Try-On — Modest Fashion AI',
+  title: 'Wedding Veil & Hijab Try-On — Cathedral Veil, Bridal Veil AI',
   description:
-    'Try hijabs, abayas, niqabs, burkas, and modest dresses on your real face with AI before buying. From any brand — see colour, drape, coverage on YOU in 30 seconds. Free, no app.',
+    'Try any wedding veil, cathedral veil, hijab or abaya on your real face with AI. Bridal veil, mantilla, blusher, modest fashion — see drape on YOU in 30 sec. Free.',
   keywords: [
+    'wedding veil',
+    'bridal veil',
+    'cathedral veil wedding',
+    'cathedral veil',
+    'wedding bridal veil',
+    'wedding bride veil',
+    'mantilla veil',
+    'blusher veil',
+    'wedding veil styles',
+    'virtual veil try on',
     'virtual hijab try on',
     'hijab try on online',
     'abaya try on',
-    'virtual modest fashion try on',
-    'burka virtual try on',
-    'niqab try on',
-    'hijab simulator',
-    'try on abaya online',
     'modest fashion try on',
-    'see hijab on my face',
-    'virtual modest dressing room',
     'hijab visualizer ai',
   ],
   openGraph: {

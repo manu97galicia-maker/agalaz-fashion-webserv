@@ -11,19 +11,26 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Suit Try-On — Any Suit On You with AI',
+  title: 'Mens Suit Try-On — Tailored Suit, Wedding & Prom AI',
   description:
-    'Try any suit, tuxedo, or blazer on your real body before fittings. SuitSupply, Tom Ford, Indochino, vintage — see it on you in 30 seconds. Free, no app.',
+    'Try any mens suit, tuxedo, tailored suit or blazer on your real body with AI. Wedding suit, prom tuxedo, SuitSupply, Indochino — see it before buying. Free.',
   keywords: [
+    'mens suit',
+    'mens tailored suit',
+    'mens suit tailor',
+    'tailor mens suit',
+    'suit for mens',
+    'suit for mens near me',
+    'black mens suit shoes',
+    'mens suit shoes',
+    'mens suit colors',
+    'wedding suit men',
+    'prom tuxedo',
     'virtual mens suit try on',
     'try on suit online',
     'virtual tuxedo try on',
     'ai suit fitting',
-    'see suit on me',
     'virtual blazer try on',
-    'online suit simulator',
-    'wedding suit try on',
-    'prom tuxedo try on',
     'mens formal wear simulator',
   ],
   openGraph: {

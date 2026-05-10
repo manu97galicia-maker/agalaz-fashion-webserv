@@ -11,21 +11,24 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Baby Clothing Try-On — Outfits On Your Baby',
+  title: 'Baby Christening & Outfit Try-On — Baby Boy/Girl AI',
   description:
-    'Try onesies, dresses, christening gowns, and costumes on your real baby with AI before buying. From newborn to toddler — see it on YOUR baby in 30 seconds. Free, no app.',
+    'Baby boy christening outfit, baby Christmas outfit, baby Valentine\'s outfit on your real baby with AI. Onesies, dresses, costumes — see it before buying. Free.',
   keywords: [
+    'baby boy christening outfit',
+    'baby christening outfit',
+    'baby christmas outfit',
+    'baby valentines outfit',
+    'baby valentine outfit',
+    'baby photoshoot outfit',
+    'newborn photo outfit',
+    'baby halloween costume',
     'virtual baby clothing try on',
     'ai baby outfit try on',
     'see outfit on my baby',
-    'baby costume simulator',
-    'baby onesie try on',
-    'newborn clothes try on online',
     'christening gown preview',
-    'try clothes on my baby ai',
     'baby apparel virtual try on',
     'newborn outfit simulator',
-    'baby halloween costume preview',
     'toddler clothes virtual fit',
   ],
   openGraph: {

@@ -1,8 +1,23 @@
 import type { Metadata } from 'next';
 import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
 export const metadata: Metadata = {
-  title: 'Prova Virtuale Bikini — Costumi sul Corpo Reale',
-  description: 'Il primo provatore virtuale IA di costumi per corpi reali. Carica la tua foto e prova bikini istantaneamente. Riduci i resi con Agalaz AI.',
+  title: 'Costume da Bagno Donna — Prova Virtuale Bikini IA',
+  description: 'Costume da bagno donna, bikini, costume intero — prova virtuale IA. Vedi il costume sul tuo corpo reale prima di comprare. Gratis, istantaneo.',
+  keywords: [
+    'costume da bagno',
+    'costume da bagno donna',
+    'costume da bagno da donna',
+    'costume da bagno per donna',
+    'costume intero donna',
+    'costume da bagno intero donna',
+    'bikini donna',
+    'costume mare donna',
+    'costume da bagno uomo',
+    'prova virtuale bikini',
+    'prova costume da bagno',
+    'simulatore bikini',
+    'costume da bagno virtuale',
+  ],
   alternates: {
     canonical: nativeLandingUrl('realistic-swimwear-try-on', 'it'),
     languages: landingHreflangAlternates('realistic-swimwear-try-on'),

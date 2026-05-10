@@ -10,22 +10,28 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Kimono Try-On — Kimono & Yukata on Your Face',
+  title: 'Kimono Try-On — Japanese Kimono, Yukata, Furisode | AI',
   description:
-    'Try kimono, yukata, haori, hakama and furisode on your real face with AI before booking a Kyoto rental or buying. See silk, obi and sleeves on YOU in 30 seconds. Free, no app.',
+    'Try any kimono, yukata, furisode, haori or hakama on your real face with AI. Japanese kimono clothes, silk kimono — see it on YOU before booking a Kyoto rental.',
   keywords: [
+    'kimono',
+    'japanese kimono',
+    'japanese kimono clothes',
+    'silk kimono',
+    'kimono dress',
+    'kimono in japanese',
+    'kimono of japan',
+    'kimono from japan',
+    'traditional kimono',
+    'wedding kimono',
     'virtual kimono try on',
-    'kimono try on online',
     'yukata try on',
     'furisode try on',
+    'kyoto kimono rental virtual',
+    'shichi-go-san kimono try on',
+    'wedding shiromuku try on',
     'haori try on',
     'hakama try on',
-    'kimono visualizer',
-    'shichi-go-san kimono try on',
-    'seijin shiki furisode',
-    'kyoto kimono rental virtual',
-    'see kimono on my face',
-    'wedding shiromuku try on',
   ],
   openGraph: {
     title: 'Virtual Kimono Try-On — See Kimono & Yukata On Your Face',

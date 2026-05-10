@@ -12,22 +12,27 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Cosplay Try-On — Anime & Game Cosplay AI',
+  title: 'Cosplay Try-On — Cosplay Costume, Anime AI',
   description:
-    'Try anime, game, Marvel, Star Wars and original-character cosplays on your real body with AI before spending $200 on a wig. Comic-Con, MCM, Japan Expo, Lucca Comics ready in 30 seconds. Free, no app.',
+    'Cosplay costume try-on with AI. Anime, Genshin, Demon Slayer, Marvel, Star Wars, original characters — see the cosplay on YOU in 30 seconds. Free, no app.',
   keywords: [
+    'cosplay',
+    'cosplay costume',
+    'cosplay costumes',
+    'costume play cosplay',
+    'cosplay costume play',
+    'costume and cosplay',
+    'cosplay meaning',
+    'cosplay for women',
+    'anime cosplay',
     'virtual cosplay try on',
     'ai cosplay try on',
     'see cosplay on me',
-    'anime cosplay simulator',
     'genshin cosplay try on',
     'demon slayer cosplay preview',
-    'cosplay wig try on online',
-    'try cosplay on my photo ai',
     'comic con cosplay preview',
+    'cosplay wig try on online',
     'crossplay generator ai',
-    'cosplay armour preview',
-    'try cosplay before buying',
   ],
   openGraph: {
     title: 'Virtual Cosplay Try-On — Anime, Games, Marvel, Original Characters',
