@@ -57,6 +57,13 @@ const LABELS: Record<DemoLang, {
   signInEmailSend: string;
   signInEmailSent: string;
   signInEmailSentHint: string;
+  signInSenderHint: string;
+  signInCodeLabel: string;
+  signInCodePlaceholder: string;
+  signInCodeVerify: string;
+  signInCodeVerifying: string;
+  signInCodeError: string;
+  signInChangeEmail: string;
   signInCancel: string;
 }> = {
   en: {
@@ -82,9 +89,16 @@ const LABELS: Record<DemoLang, {
     signInGoogle: 'Continue with Google',
     signInOr: 'or',
     signInEmailPlaceholder: 'your@email.com',
-    signInEmailSend: 'Send link',
+    signInEmailSend: 'Send code',
     signInEmailSent: 'Check your inbox',
-    signInEmailSentHint: 'We sent you a magic link. Click it to sign in.',
+    signInEmailSentHint: 'We sent you a 6-digit code. You can also click the magic link in the email.',
+    signInSenderHint: "If you don't see it, check spam — sender may show \"noreply@mail.app.supabase.io\".",
+    signInCodeLabel: 'Enter the 6-digit code',
+    signInCodePlaceholder: '123456',
+    signInCodeVerify: 'Verify',
+    signInCodeVerifying: 'Verifying…',
+    signInCodeError: 'Invalid or expired code. Try again or request a new one.',
+    signInChangeEmail: 'Use a different email',
     signInCancel: 'Cancel',
   },
   es: {
@@ -110,9 +124,16 @@ const LABELS: Record<DemoLang, {
     signInGoogle: 'Continuar con Google',
     signInOr: 'o',
     signInEmailPlaceholder: 'tu@email.com',
-    signInEmailSend: 'Enviar enlace',
+    signInEmailSend: 'Enviar código',
     signInEmailSent: 'Revisa tu correo',
-    signInEmailSentHint: 'Te enviamos un enlace mágico. Haz clic para entrar.',
+    signInEmailSentHint: 'Te enviamos un código de 6 dígitos. También puedes pulsar el enlace mágico del correo.',
+    signInSenderHint: 'Si no lo ves, mira spam — el remitente puede mostrarse como "noreply@mail.app.supabase.io".',
+    signInCodeLabel: 'Pon el código de 6 dígitos',
+    signInCodePlaceholder: '123456',
+    signInCodeVerify: 'Verificar',
+    signInCodeVerifying: 'Verificando…',
+    signInCodeError: 'Código inválido o caducado. Prueba otra vez o pide uno nuevo.',
+    signInChangeEmail: 'Usar otro email',
     signInCancel: 'Cancelar',
   },
   fr: {
@@ -138,9 +159,16 @@ const LABELS: Record<DemoLang, {
     signInGoogle: 'Continuer avec Google',
     signInOr: 'ou',
     signInEmailPlaceholder: 'votre@email.com',
-    signInEmailSend: 'Envoyer le lien',
+    signInEmailSend: 'Envoyer le code',
     signInEmailSent: 'Vérifiez votre boîte',
-    signInEmailSentHint: 'Nous avons envoyé un lien magique. Cliquez pour vous connecter.',
+    signInEmailSentHint: 'Nous avons envoyé un code à 6 chiffres. Vous pouvez aussi cliquer le lien magique.',
+    signInSenderHint: 'Si vous ne voyez rien, vérifiez les spams — l\'expéditeur peut être "noreply@mail.app.supabase.io".',
+    signInCodeLabel: 'Entrez le code à 6 chiffres',
+    signInCodePlaceholder: '123456',
+    signInCodeVerify: 'Vérifier',
+    signInCodeVerifying: 'Vérification…',
+    signInCodeError: 'Code invalide ou expiré. Réessayez ou demandez-en un nouveau.',
+    signInChangeEmail: 'Changer d\'email',
     signInCancel: 'Annuler',
   },
   pt: {
@@ -166,9 +194,16 @@ const LABELS: Record<DemoLang, {
     signInGoogle: 'Continuar com Google',
     signInOr: 'ou',
     signInEmailPlaceholder: 'o-teu@email.com',
-    signInEmailSend: 'Enviar link',
+    signInEmailSend: 'Enviar código',
     signInEmailSent: 'Verifica a tua caixa',
-    signInEmailSentHint: 'Enviámos um link mágico. Clica para entrar.',
+    signInEmailSentHint: 'Enviámos um código de 6 dígitos. Também podes clicar no link mágico do email.',
+    signInSenderHint: 'Se não vires, verifica spam — o remetente pode aparecer como "noreply@mail.app.supabase.io".',
+    signInCodeLabel: 'Insere o código de 6 dígitos',
+    signInCodePlaceholder: '123456',
+    signInCodeVerify: 'Verificar',
+    signInCodeVerifying: 'A verificar…',
+    signInCodeError: 'Código inválido ou expirado. Tenta de novo ou pede um novo.',
+    signInChangeEmail: 'Usar outro email',
     signInCancel: 'Cancelar',
   },
   de: {
@@ -194,9 +229,16 @@ const LABELS: Record<DemoLang, {
     signInGoogle: 'Mit Google fortfahren',
     signInOr: 'oder',
     signInEmailPlaceholder: 'deine@email.com',
-    signInEmailSend: 'Link senden',
+    signInEmailSend: 'Code senden',
     signInEmailSent: 'Posteingang prüfen',
-    signInEmailSentHint: 'Wir haben dir einen Magic Link geschickt. Klicke ihn an.',
+    signInEmailSentHint: 'Wir haben dir einen 6-stelligen Code geschickt. Du kannst auch den Magic Link klicken.',
+    signInSenderHint: 'Falls du nichts siehst, prüfe Spam — Absender kann "noreply@mail.app.supabase.io" sein.',
+    signInCodeLabel: 'Gib den 6-stelligen Code ein',
+    signInCodePlaceholder: '123456',
+    signInCodeVerify: 'Verifizieren',
+    signInCodeVerifying: 'Wird verifiziert…',
+    signInCodeError: 'Ungültiger oder abgelaufener Code. Erneut versuchen oder neuen anfordern.',
+    signInChangeEmail: 'Andere E-Mail verwenden',
     signInCancel: 'Abbrechen',
   },
   it: {
@@ -222,9 +264,16 @@ const LABELS: Record<DemoLang, {
     signInGoogle: 'Continua con Google',
     signInOr: 'o',
     signInEmailPlaceholder: 'tua@email.com',
-    signInEmailSend: 'Invia link',
+    signInEmailSend: 'Invia codice',
     signInEmailSent: 'Controlla la tua casella',
-    signInEmailSentHint: 'Ti abbiamo inviato un link magico. Cliccalo per accedere.',
+    signInEmailSentHint: 'Ti abbiamo inviato un codice di 6 cifre. Puoi anche cliccare il link magico nell\'email.',
+    signInSenderHint: 'Se non lo vedi, controlla spam — il mittente può essere "noreply@mail.app.supabase.io".',
+    signInCodeLabel: 'Inserisci il codice di 6 cifre',
+    signInCodePlaceholder: '123456',
+    signInCodeVerify: 'Verifica',
+    signInCodeVerifying: 'Verifica…',
+    signInCodeError: 'Codice non valido o scaduto. Riprova o richiedine uno nuovo.',
+    signInChangeEmail: 'Usa un\'altra email',
     signInCancel: 'Annulla',
   },
 };
@@ -299,6 +348,9 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
   const [showLogin, setShowLogin] = useState(false);
   const [otpEmail, setOtpEmail] = useState('');
   const [otpSent, setOtpSent] = useState(false);
+  const [otpCode, setOtpCode] = useState('');
+  const [otpVerifying, setOtpVerifying] = useState(false);
+  const [otpError, setOtpError] = useState<string | null>(null);
   // Pending generation — set when the user clicks Generate before being
   // authenticated. After login completes we kick it off automatically so the
   // user doesn't have to click Generate twice.
@@ -582,12 +634,47 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
 
   async function handleLoginOtp() {
     if (!otpEmail || !otpEmail.includes('@')) return;
+    setOtpError(null);
     try {
       track('signup_click', { provider: 'email', source: 'demo' });
       savePendingForAuth();
       await signInWithOtp(otpEmail, typeof window !== 'undefined' ? window.location.pathname : '/');
       setOtpSent(true);
     } catch {}
+  }
+
+  // Verify the 6-digit OTP code the user typed manually. This is the
+  // resilient path — magic-link clicks get burned by email-client preview
+  // scanners (Outlook Safe Links, etc.) but the human-typed code never is.
+  async function handleVerifyOtp() {
+    const code = otpCode.replace(/\D/g, '').slice(0, 6);
+    if (code.length !== 6 || !otpEmail) {
+      setOtpError(t.signInCodeError);
+      return;
+    }
+    setOtpVerifying(true);
+    setOtpError(null);
+    try {
+      const supabase = createBrowserClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
+      );
+      const { error } = await supabase.auth.verifyOtp({
+        email: otpEmail,
+        token: code,
+        type: 'email',
+      });
+      if (error) {
+        setOtpError(t.signInCodeError);
+        setOtpVerifying(false);
+        return;
+      }
+      // Session set — auth listener will close the modal and run the queued
+      // generate via the same path as the OAuth/magic-link flows.
+    } catch {
+      setOtpError(t.signInCodeError);
+    }
+    setOtpVerifying(false);
   }
 
   function reset() {
@@ -733,26 +820,65 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
             </div>
 
             {otpSent ? (
-              <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
-                <p className="text-sm font-bold text-emerald-600">{t.signInEmailSent}</p>
-                <p className="text-xs text-slate-500 mt-1">{t.signInEmailSentHint}</p>
+              <div className="space-y-3 text-left">
+                <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl">
+                  <p className="text-sm font-bold text-emerald-700">{t.signInEmailSent}</p>
+                  <p className="text-xs text-slate-500 mt-1">{t.signInEmailSentHint}</p>
+                  <p className="text-[10px] text-slate-400 mt-1.5 leading-snug">{t.signInSenderHint}</p>
+                </div>
+                <label className="block">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+                    {t.signInCodeLabel}
+                  </span>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    autoComplete="one-time-code"
+                    pattern="[0-9]{6}"
+                    maxLength={6}
+                    value={otpCode}
+                    onChange={(e) => { setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6)); setOtpError(null); }}
+                    onKeyDown={(e) => { if (e.key === 'Enter') handleVerifyOtp(); }}
+                    placeholder={t.signInCodePlaceholder}
+                    className="mt-1.5 w-full px-3 py-3 bg-white border border-slate-200 rounded-xl text-base font-mono tracking-[0.4em] text-center text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-indigo-500"
+                  />
+                </label>
+                {otpError && (
+                  <p className="text-xs text-rose-600 font-light">{otpError}</p>
+                )}
+                <button
+                  onClick={handleVerifyOtp}
+                  disabled={otpVerifying || otpCode.length !== 6}
+                  className="w-full px-4 py-3 bg-indigo-600 text-white text-sm font-bold rounded-xl hover:bg-indigo-500 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed transition-colors"
+                >
+                  {otpVerifying ? t.signInCodeVerifying : t.signInCodeVerify}
+                </button>
+                <button
+                  onClick={() => { setOtpSent(false); setOtpCode(''); setOtpError(null); }}
+                  className="w-full text-xs font-bold text-slate-400 hover:text-slate-600 transition-colors"
+                >
+                  {t.signInChangeEmail}
+                </button>
               </div>
             ) : (
-              <div className="flex gap-2">
-                <input
-                  type="email"
-                  value={otpEmail}
-                  onChange={(e) => setOtpEmail(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === 'Enter') handleLoginOtp(); }}
-                  placeholder={t.signInEmailPlaceholder}
-                  className="flex-1 px-3 py-3 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-indigo-500"
-                />
-                <button
-                  onClick={handleLoginOtp}
-                  className="px-4 py-3 bg-indigo-600 text-white text-sm font-bold rounded-xl hover:bg-indigo-500 transition-colors shrink-0"
-                >
-                  {t.signInEmailSend}
-                </button>
+              <div className="space-y-2 text-left">
+                <div className="flex gap-2">
+                  <input
+                    type="email"
+                    value={otpEmail}
+                    onChange={(e) => setOtpEmail(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === 'Enter') handleLoginOtp(); }}
+                    placeholder={t.signInEmailPlaceholder}
+                    className="flex-1 px-3 py-3 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-indigo-500"
+                  />
+                  <button
+                    onClick={handleLoginOtp}
+                    className="px-4 py-3 bg-indigo-600 text-white text-sm font-bold rounded-xl hover:bg-indigo-500 transition-colors shrink-0"
+                  >
+                    {t.signInEmailSend}
+                  </button>
+                </div>
+                <p className="text-[10px] text-slate-400 leading-snug px-1">{t.signInSenderHint}</p>
               </div>
             )}
 
