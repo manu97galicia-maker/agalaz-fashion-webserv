@@ -231,6 +231,13 @@ const LABELS: Record<DemoLang, {
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '';
 
+// localStorage key used to survive the auth redirect (Google or OTP magic
+// link). Saved BEFORE the user clicks Continue/Send and restored on mount
+// once the auth listener confirms a session — at which point the queued
+// generation fires automatically.
+const PENDING_DEMO_KEY = 'agalaz_demo_pending';
+const PENDING_TTL_MS = 30 * 60 * 1000; // 30 minutes
+
 function ImageDropzone({
   label,
   hint,
@@ -323,6 +330,90 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
     });
     return () => subscription.unsubscribe();
   }, []);
+
+  // Detect OTP errors arriving via the magic-link redirect (most common:
+  // `error_code=otp_expired`, also `access_denied`). Some email clients
+  // pre-scan links and consume them, so the user lands here with the link
+  // already invalid. We surface a friendly message and reopen the modal so
+  // they can request a fresh link without losing their photos.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const errorCode = params.get('error_code');
+    const errorParam = params.get('error');
+    if (!errorCode && !errorParam) return;
+    const isOtpExpired = errorCode === 'otp_expired' || errorParam === 'access_denied';
+    if (isOtpExpired) {
+      setError(
+        lang === 'es'
+          ? 'El enlace de email caducó (suele pasar si tu cliente de correo lo previsualiza). Pide uno nuevo o usa Google.'
+          : lang === 'fr'
+          ? "Le lien email a expiré (souvent quand le client mail le pré-scanne). Demandez-en un nouveau ou utilisez Google."
+          : lang === 'pt'
+          ? 'O link do email caducou (acontece se o teu cliente de email o pré-visualiza). Pede um novo ou usa Google.'
+          : lang === 'de'
+          ? 'Der E-Mail-Link ist abgelaufen (passiert oft, wenn der Mail-Client ihn vorab scannt). Fordere einen neuen an oder nutze Google.'
+          : lang === 'it'
+          ? "Il link email è scaduto (capita se il client email lo pre-scansiona). Richiedine uno nuovo o usa Google."
+          : 'Your email link expired (this happens when your email client pre-scans the link). Request a new one or use Google.',
+      );
+      setShowLogin(true);
+    }
+    // Clean error params from the URL so a refresh doesn't re-trigger.
+    const url = new URL(window.location.href);
+    url.search = '';
+    url.hash = '';
+    window.history.replaceState({}, '', url.toString());
+  }, [lang]);
+
+  // Restore pending generation from localStorage after auth completes.
+  // Saved by `savePendingForAuth` right before signInWith{Google,Otp}.
+  // We only restore when (a) the user is authenticated, (b) the saved entry
+  // is fresh (<30 min), and (c) the user is back on the same landing route.
+  useEffect(() => {
+    if (!authChecked || !userId) return;
+    if (typeof window === 'undefined') return;
+    let raw: string | null = null;
+    try { raw = localStorage.getItem(PENDING_DEMO_KEY); } catch {}
+    if (!raw) return;
+    try {
+      const data = JSON.parse(raw);
+      const fresh = Date.now() - (data.savedAt || 0) < PENDING_TTL_MS;
+      const samePath = data.landingPath === window.location.pathname;
+      if (!fresh || !samePath) {
+        localStorage.removeItem(PENDING_DEMO_KEY);
+        return;
+      }
+      if (data.userImage) setUserImage(data.userImage);
+      if (data.productImage) setProductImage(data.productImage);
+      setPendingGenerate(true);
+      localStorage.removeItem(PENDING_DEMO_KEY);
+    } catch {
+      try { localStorage.removeItem(PENDING_DEMO_KEY); } catch {}
+    }
+  }, [authChecked, userId]);
+
+  // Snapshot the current photos to localStorage so they survive the auth
+  // redirect (which reloads the page and wipes component state).
+  function savePendingForAuth() {
+    if (typeof window === 'undefined') return;
+    if (!userImage || !productImage) return;
+    try {
+      localStorage.setItem(
+        PENDING_DEMO_KEY,
+        JSON.stringify({
+          userImage,
+          productImage,
+          category,
+          landingPath: window.location.pathname,
+          savedAt: Date.now(),
+        }),
+      );
+    } catch {
+      // localStorage quota exceeded (large images) — skip silently. The user
+      // will need to re-upload after auth, but the login itself still works.
+    }
+  }
 
   // Load Turnstile script once, then render the widget invisibly.
   useEffect(() => {
@@ -481,8 +572,10 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
   async function handleLoginGoogle() {
     try {
       track('signup_click', { provider: 'google', source: 'demo' });
+      savePendingForAuth();
       // After OAuth roundtrip the user lands back on this page; the auth
-      // listener will close the modal and the queued generate fires.
+      // listener restores photos from localStorage and the queued generate
+      // fires automatically.
       await signInWithGoogle(typeof window !== 'undefined' ? window.location.pathname : '/');
     } catch {}
   }
@@ -491,6 +584,7 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
     if (!otpEmail || !otpEmail.includes('@')) return;
     try {
       track('signup_click', { provider: 'email', source: 'demo' });
+      savePendingForAuth();
       await signInWithOtp(otpEmail, typeof window !== 'undefined' ? window.location.pathname : '/');
       setOtpSent(true);
     } catch {}
