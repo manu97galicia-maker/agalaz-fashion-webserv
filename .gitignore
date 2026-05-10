@@ -26,3 +26,6 @@ Descargas/
 .vercel
 gen-lang-client-*.json
 *.service-account.json
+
+# Local script output (keyword analyses, etc.)
+tmp/
