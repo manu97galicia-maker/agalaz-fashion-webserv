@@ -522,9 +522,9 @@ const nail: Record<Lang, LocalizedPageData> = {
 const glasses: Record<Lang, LocalizedPageData> = {
   es: {
     meta: {
-      title: 'Probador Virtual de Gafas — Try-On IA Gratis | Agalaz',
-      description: 'Pruébate cualquier gafa en tu cara con IA. De sol, graduadas, de diseñador. Encuentra la montura perfecta antes de comprar.',
-      keywords: ['probador virtual gafas', 'probarse gafas online', 'gafas virtuales ia', 'simulador gafas', 'try on gafas sol'],
+      title: 'Probador Virtual de Gafas / Lentes — Try-On IA Gratis',
+      description: 'Pruébate gafas (lentes en LATAM) en tu cara con IA. De sol, graduadas, de diseñador. Encuentra la montura perfecta antes de comprar.',
+      keywords: ['probador virtual gafas', 'probarse gafas online', 'gafas virtuales ia', 'simulador gafas', 'try on gafas sol', 'lentes virtuales', 'lentes online', 'gafas virtuales', 'lentes virtuales ia', 'probador virtual lentes', 'lentes de sol virtual', 'lentes graduados probador', 'simulador lentes online', 'anteojos virtuales', 'lentes vs gafas'],
     },
     jsonLdName: 'Probador Virtual de Gafas',
     breadcrumbName: 'Probador Gafas',
@@ -532,13 +532,13 @@ const glasses: Record<Lang, LocalizedPageData> = {
       badge: 'Para elegir bien tus gafas',
       h1Top: 'Pruébate las gafas',
       h1Highlight: 'antes de pedirlas.',
-      subtitle: 'Sube tu foto, elige cualquier montura — de sol, graduadas, de diseñador — y mira exactamente cómo te quedan en la cara.',
+      subtitle: 'Sube tu foto, elige cualquier montura — gafas o lentes (México, Colombia, Chile, Argentina), de sol, graduadas, de diseñador — y mira exactamente cómo te quedan en la cara.',
       ctaPrimary: 'Probar ahora',
       ctaSecondary: SECONDARY_CTA.es,
       freeNote: FREE_NOTE.es,
       whyTitle: '¿Por qué probarlas virtualmente?',
       why1Title: 'Evita devoluciones',
-      why1Desc: 'Comprar gafas online sin probarlas genera un 40% de devoluciones. El probador virtual elimina la duda.',
+      why1Desc: 'Comprar gafas o lentes online sin probarlas genera un 40% de devoluciones. El probador virtual elimina la duda.',
       why2Title: 'Compara 20 modelos en 10 min',
       why2Desc: 'Ray-Ban, Tom Ford, marca indie — compara en tu cara real, lado a lado.',
       why3Title: 'Encuentra la forma ideal',
@@ -612,7 +612,7 @@ const glasses: Record<Lang, LocalizedPageData> = {
     meta: {
       title: 'Provador Virtual de Óculos — Try-On IA Grátis | Agalaz',
       description: 'Experimente quaisquer óculos no seu rosto com IA. Sol, graduados, designer. Encontre a armação perfeita antes de comprar.',
-      keywords: ['provador virtual óculos', 'experimentar óculos online', 'óculos virtuais IA', 'simulador óculos', 'try on óculos sol'],
+      keywords: ['provador virtual óculos', 'experimentar óculos online', 'óculos virtuais IA', 'simulador óculos', 'try on óculos sol', 'óculos virtuais', 'óculos virtuais brasil', 'óculos de sol virtuais', 'experimentar óculos virtual', 'óculos virtuais ia online', 'provador óculos brasil'],
     },
     jsonLdName: 'Provador Virtual de Óculos',
     breadcrumbName: 'Provador Óculos',
@@ -751,7 +751,7 @@ const jewelry: Record<Lang, LocalizedPageData> = {
     meta: {
       title: 'Probador Virtual de Joyas — Try-On IA Gratis | Agalaz',
       description: 'Pruébate collares, anillos, pulseras y relojes en tu foto con IA. Mira la joya antes de comprarla — brillo, tamaño, armonía.',
-      keywords: ['probador virtual joyas', 'probarse collar online', 'anillo virtual ia', 'simulador joyas', 'try on joyas'],
+      keywords: ['probador virtual joyas', 'probarse collar online', 'anillo virtual ia', 'simulador joyas', 'try on joyas', 'probador virtual joyería', 'collar virtual ia', 'anillos online virtual', 'pulsera probador online', 'simulador joyería', 'joyería online prueba'],
     },
     jsonLdName: 'Probador Virtual de Joyas',
     breadcrumbName: 'Probador Joyas',
@@ -1745,9 +1745,9 @@ const costume: Record<Lang, LocalizedPageData> = {
   },
   pt: {
     meta: {
-      title: 'Provador Virtual de Fatos Carnaval & Halloween IA',
-      description: 'Experimente fatos de Carnaval, Halloween, cosplay ou festas temáticas com IA. Bruxa, vampiro, fato de Carnaval ou disfarce de criança — veja em SI antes de comprar.',
-      keywords: ['provador virtual fatos carnaval', 'fato halloween virtual', 'cosplay provador online', 'fato carnaval ia', 'disfarce criança virtual', 'experimentar fato halloween', 'fato casal simulador', 'fato festa temática', 'provador disfarces ia', 'fato carnaval brasil'],
+      title: 'Provador Virtual de Fatos & Fantasias — Carnaval e Halloween IA',
+      description: 'Experimente fatos (fantasias no Brasil) de Carnaval, Halloween, cosplay ou festas temáticas com IA. Bruxa, vampiro, fantasia de Carnaval ou disfarce de criança — veja em SI antes de comprar.',
+      keywords: ['provador virtual fatos carnaval', 'fato halloween virtual', 'cosplay provador online', 'fato carnaval ia', 'disfarce criança virtual', 'experimentar fato halloween', 'fato casal simulador', 'fato festa temática', 'provador disfarces ia', 'fato carnaval brasil', 'fantasia halloween', 'fantasia carnaval', 'fantasia halloween ia', 'fantasia carnaval virtual', 'experimentar fantasia online', 'provador virtual fantasia', 'fantasia cosplay simulador', 'fantasia halloween brasil', 'fantasia carnaval brasil', 'fantasia ia online'],
     },
     jsonLdName: 'Provador Virtual de Fatos de Carnaval e Halloween',
     breadcrumbName: 'Provador Fatos Carnaval',
@@ -1755,7 +1755,7 @@ const costume: Record<Lang, LocalizedPageData> = {
       badge: 'Carnaval, Halloween e cosplay',
       h1Top: 'Experimente o fato',
       h1Highlight: 'antes de comprar.',
-      subtitle: 'Carregue a sua foto, escolha o fato — bruxa, vampiro, fato de Carnaval, cosplay anime, disfarce de criança — e veja como fica no seu corpo real. A IA respeita a sua cara e silhueta para acertar no look antes do Carnaval ou do Halloween.',
+      subtitle: 'Carregue a sua foto, escolha o fato (ou fantasia, no Brasil) — bruxa, vampiro, fantasia de Carnaval, cosplay anime, disfarce de criança — e veja como fica no seu corpo real. A IA respeita a sua cara e silhueta para acertar no look antes do Carnaval ou do Halloween.',
       ctaPrimary: 'Experimentar agora',
       ctaSecondary: SECONDARY_CTA.pt,
       freeNote: FREE_NOTE.pt,
@@ -1776,6 +1776,7 @@ const costume: Record<Lang, LocalizedPageData> = {
       faqTitle: 'Perguntas frequentes',
       faqs: [
         { q: 'Serve para Carnaval, Halloween E cosplay?', a: 'Sim. Halloween (bruxa, vampiro, zombie), Carnaval (português, Madeira, Brasil, Veneza), cosplay (anime, videojogos, Marvel), festas temáticas (anos 80, Gatsby, white party) e fatos de casal ou grupo. Qualquer fato serve.' },
+        { q: 'Funciona com "fantasia" no Brasil?', a: 'Sim. No Brasil chama-se fantasia (Halloween, Carnaval, cosplay anime, fantasia de criança); em Portugal chama-se fato. A ferramenta é a mesma — carregue a fantasia (ou fato) que quer experimentar e veja-a no seu corpo em ~30 segundos. Fantasia de Halloween, fantasia de Carnaval brasileiro, fantasia de cosplay: tudo funciona.' },
         { q: 'Funciona para crianças E adultos?', a: 'Sim. Desde disfarces de criança (abóbora, dinossauro, princesa, super-herói) até fatos de adulto. A IA adapta o fato ao corpo real da foto — não põe traje de adulto numa criança de 5 anos.' },
         { q: 'A IA preserva a minha cara?', a: 'Sim. A sua cara, penteado, tom de pele e expressão mantêm-se exatamente. A IA só muda o fato — o resto continua a ser você, sem retoques. Útil para ver se um disfarce favorece mesmo o seu rosto.' },
         { q: 'Quanto custa?', a: '1 render HD grátis por dia (login necessário). Depois: pack Starter 4,99 $ (8 renders HD, 0,62 $ cada) ou Pro 9,99 $ (15 + 5 grátis = 20 renders HD, 0,50 $ por render). Código AGALAZ15 = 15% off em Pro. Pagamento único.' },
@@ -2199,9 +2200,9 @@ const cosplay: Record<Lang, LocalizedPageData> = {
   },
   pt: {
     meta: {
-      title: 'Provador Virtual de Cosplay — Anime & Videojogos IA',
-      description: 'Experimente cosplays de anime, jogos, Marvel ou OC com IA antes de gastar 200 € em peruca e armadura. Comic Con Portugal, CCXP Brasil — entre no photocall com o look certo.',
-      keywords: ['provador virtual cosplay', 'cosplay anime IA', 'simulador cosplay online', 'experimentar cosplay genshin', 'cosplay demon slayer provador', 'cosplay videojogos virtual', 'comic con portugal cosplay', 'ccxp brasil cosplay', 'cosplay peruca provador', 'crossplay simulador'],
+      title: 'Provador de Cosplay & Fantasia Anime — Videojogos IA',
+      description: 'Experimente cosplays / fantasias de anime, jogos, Marvel ou OC com IA antes de gastar 200 € em peruca e armadura. Comic Con Portugal, CCXP Brasil — entre no photocall com o look certo.',
+      keywords: ['provador virtual cosplay', 'cosplay anime IA', 'simulador cosplay online', 'experimentar cosplay genshin', 'cosplay demon slayer provador', 'cosplay videojogos virtual', 'comic con portugal cosplay', 'ccxp brasil cosplay', 'cosplay peruca provador', 'crossplay simulador', 'fantasia cosplay', 'fantasia cosplay anime', 'fantasia cosplay simulador', 'cosplay brasil online', 'fantasia anime online'],
     },
     jsonLdName: 'Provador Virtual de Cosplay',
     breadcrumbName: 'Provador Cosplay',
@@ -2209,7 +2210,7 @@ const cosplay: Record<Lang, LocalizedPageData> = {
       badge: 'Anime, jogos e conventions',
       h1Top: 'Experimente o cosplay',
       h1Highlight: 'antes da peruca de 200 €.',
-      subtitle: 'Carregue a sua foto, largue a referência do personagem — Tanjiro, Raiden Shogun, Geralt, Cloud, Spider-Verse, o seu OC — e veja como fica com peruca, armadura e props no seu corpo real. A IA respeita a sua cara para acertar no look antes da Comic Con Portugal ou da CCXP no Brasil.',
+      subtitle: 'Carregue a sua foto, largue a referência do personagem — Tanjiro, Raiden Shogun, Geralt, Cloud, Spider-Verse, o seu OC — e veja como fica o cosplay (fantasia, no Brasil) com peruca, armadura e props no seu corpo real. A IA respeita a sua cara para acertar no look antes da Comic Con Portugal ou da CCXP no Brasil.',
       ctaPrimary: 'Experimentar agora',
       ctaSecondary: SECONDARY_CTA.pt,
       freeNote: FREE_NOTE.pt,

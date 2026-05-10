@@ -7,7 +7,24 @@ const enUrl = nativeLandingUrl('virtual-earring-try-on', 'en');
 
 export const metadata: Metadata = {
   title: 'Probador Virtual de Pendientes — IA Gratis',
-  description: 'Pruébate cualquier par de pendientes en tu foto con IA. Encuentra el modelo perfecto antes de comprar.',
+  description: 'Pruébate pendientes, aretes o aros con IA. Mira los modelos en tu cara antes de comprar — argollas, broqueles, candongas, ear cuffs.',
+  keywords: [
+    'probador virtual pendientes',
+    'pendientes virtuales ia',
+    'probarse pendientes online',
+    'simulador pendientes',
+    'aretes virtuales',
+    'aretes online',
+    'aretes mexicanos',
+    'probador virtual aretes',
+    'aros virtuales',
+    'aros online',
+    'argollas virtuales',
+    'broqueles virtuales',
+    'candongas online',
+    'ear cuffs probador',
+    'pendientes vs aretes',
+  ],
   alternates: {
     canonical: nativeLandingUrl('virtual-earring-try-on', 'es'),
     languages: landingHreflangAlternates('virtual-earring-try-on'),
