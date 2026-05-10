@@ -339,6 +339,51 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Faux progress shown the moment the user clicks Generate. The real Gemini
+  // call is gated behind login, so to keep the page feeling alive while the
+  // login modal is up we ease 0→90% over ~45 s and only jump to 100% once
+  // the real /api/demo response lands. No Gemini cost is incurred for users
+  // who abandon login — only the visual gives the impression of progress.
+  const [progress, setProgress] = useState(0);
+  const progressTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  function startFakeProgress() {
+    if (progressTimerRef.current) return; // already running
+    setProgress(1);
+    const startedAt = Date.now();
+    const FAKE_MS = 45_000; // 45 s to creep to 90%
+    progressTimerRef.current = setInterval(() => {
+      const elapsed = Date.now() - startedAt;
+      if (elapsed >= FAKE_MS) {
+        setProgress(90);
+        return;
+      }
+      const ratio = elapsed / FAKE_MS;
+      const eased = 1 - Math.pow(1 - ratio, 2.2); // ease-out, fast start
+      setProgress(Math.max(1, Math.min(90, Math.floor(eased * 90))));
+    }, 200);
+  }
+
+  function stopFakeProgress() {
+    if (progressTimerRef.current) {
+      clearInterval(progressTimerRef.current);
+      progressTimerRef.current = null;
+    }
+  }
+
+  function completeProgress() {
+    stopFakeProgress();
+    setProgress(100);
+    setTimeout(() => setProgress(0), 1200); // brief 100% flash before unmount
+  }
+
+  function resetProgress() {
+    stopFakeProgress();
+    setProgress(0);
+  }
+
+  useEffect(() => () => stopFakeProgress(), []); // cleanup on unmount
+
   // Auth state — required to call /api/demo. We listen so the modal closes
   // automatically when the user completes login from another tab/window.
   const [userId, setUserId] = useState<string | null>(null);
@@ -518,24 +563,30 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
         return;
       }
       if (res.status === 402) {
-        // Daily free already used and no paid credits left.
+        // Daily free already used and no paid credits left. Reset the bar
+        // before redirecting so a back-button visitor doesn't see 90%.
+        resetProgress();
         window.location.href = `/paywall?from=demo&category=${encodeURIComponent(category || '')}`;
         return;
       }
       if (res.status === 429) {
         setError(t.errorRate);
+        resetProgress();
         setIsLoading(false);
         return;
       }
       const data = await res.json();
       if (data.image) {
         setResultImage(data.image);
+        completeProgress();
         track('render_complete', { source: 'demo', category, pool: data.source || 'unknown' });
       } else {
         setError(data.error || t.errorGeneric);
+        resetProgress();
       }
     } catch {
       setError(t.errorGeneric);
+      resetProgress();
     }
     setIsLoading(false);
   }
@@ -546,8 +597,10 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
       return;
     }
     if (!authChecked) return;
+    // Always start the visual right away — keeps the page alive while the
+    // user is in the login modal. Real API call is still gated behind auth.
+    startFakeProgress();
     if (!userId) {
-      // Login first; runGenerate will fire automatically once auth state changes.
       setPendingGenerate(true);
       setShowLogin(true);
       track('signup_click', { provider: 'modal_open', source: 'demo', category });
@@ -764,15 +817,35 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
             </div>
 
             <div className="mt-8 flex flex-col items-center gap-3">
-              <button
-                onClick={handleGenerate}
-                disabled={isLoading || !userImage || !productImage}
-                className="inline-flex items-center gap-3 px-10 py-4 bg-slate-900 text-white text-xs font-black uppercase tracking-[0.2em] hover:bg-indigo-600 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed transition-colors"
-              >
-                {isLoading ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
-                {isLoading ? t.generating : t.generate}
-                {!isLoading && <ArrowRight size={14} />}
-              </button>
+              {progress > 0 ? (
+                <div className="w-full max-w-md">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[11px] font-black text-slate-700 uppercase tracking-widest flex items-center gap-2">
+                      <Loader2 size={12} className="animate-spin text-indigo-600" />
+                      {t.generating}
+                    </span>
+                    <span className="text-[11px] font-black text-slate-900 tabular-nums">
+                      {progress}%
+                    </span>
+                  </div>
+                  <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-indigo-500 to-indigo-600 transition-all duration-300 ease-out rounded-full"
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <button
+                  onClick={handleGenerate}
+                  disabled={isLoading || !userImage || !productImage}
+                  className="inline-flex items-center gap-3 px-10 py-4 bg-slate-900 text-white text-xs font-black uppercase tracking-[0.2em] hover:bg-indigo-600 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed transition-colors"
+                >
+                  <Sparkles size={14} />
+                  {t.generate}
+                  <ArrowRight size={14} />
+                </button>
+              )}
               {error && <p className="text-xs text-rose-600 font-light">{error}</p>}
             </div>
           </>
@@ -875,7 +948,7 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
       {showLogin && (
         <div
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center animate-fade-in p-4"
-          onClick={() => { setShowLogin(false); setPendingGenerate(false); }}
+          onClick={() => { setShowLogin(false); setPendingGenerate(false); resetProgress(); }}
         >
           <div
             className="bg-white p-5 md:p-8 rounded-2xl max-w-sm w-full text-center space-y-5 md:space-y-6 shadow-2xl"
@@ -973,7 +1046,7 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
             )}
 
             <button
-              onClick={() => { setShowLogin(false); setPendingGenerate(false); setOtpSent(false); setOtpEmail(''); }}
+              onClick={() => { setShowLogin(false); setPendingGenerate(false); setOtpSent(false); setOtpEmail(''); resetProgress(); }}
               className="text-slate-300 text-xs font-bold hover:text-slate-500 transition-colors"
             >
               {t.signInCancel}
