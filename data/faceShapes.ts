@@ -107,9 +107,9 @@ export const FACE_SHAPES: Record<FaceShape, FaceShapeContent> = {
     h1: { primary: 'Best Haircuts for', italic: 'Oval Faces.' },
     hero:
       'The oval face is the universally most flattering shape — almost any cut works. The question is which cut fits YOUR vibe. Try lobs, blunt bangs, sleek long layers and bold pixies on your real photo in 30 seconds.',
-    metaTitle: 'Best Haircut for Oval Face Shape — AI Try-On 2026',
+    metaTitle: 'Best Haircut Styles & Ideas for Oval Face — AI Try-On 2026',
     metaDescription:
-      'Best haircuts for an oval face shape. Try blunt bobs, long layers, curtain bangs and pixies on YOUR real face with AI. Free virtual try-on, no signup, 30 seconds.',
+      'Best haircut styles and ideas for an oval face shape — women & men. Try blunt bobs, long layers, curtain bangs and pixies on YOUR real face with AI. Free, 30 seconds.',
     keywords: [
       'haircut for oval face',
       'haircut for oval face shape',
@@ -217,9 +217,9 @@ export const FACE_SHAPES: Record<FaceShape, FaceShapeContent> = {
     h1: { primary: 'Best Haircuts for', italic: 'Square Faces.' },
     hero:
       'Square face shapes have a strong jawline that needs softening. Try long layers, side-parted lobs and textured shags on YOUR real photo with AI — see which cut balances your jaw before the salon chair.',
-    metaTitle: 'Best Haircut for Square Face Shape — AI Try-On 2026',
+    metaTitle: 'Best Haircut Styles for Square Face — Women & Men AI Try-On 2026',
     metaDescription:
-      'Best haircuts for a square face shape. Long layers, side-parted lobs and textured shags soften a strong jaw — try them on YOUR face with AI. Free, 30 seconds.',
+      'Best haircut styles for a square face shape — women & men. Long layers, side-parted lobs and textured shags soften a strong jaw. Try them on YOUR face with AI. Free, 30 seconds.',
     keywords: [
       'haircut for square face',
       'haircut for square face shape',

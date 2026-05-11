@@ -4,9 +4,9 @@ import { VESTIDO_INVITADA_FAQ as FAQ_DATA } from '@/data/vestidoInvitadaBoda';
 const url = 'https://agalaz.com/es/vestido-invitada-boda';
 
 export const metadata: Metadata = {
-  title: 'Vestido Invitada Boda 2026 — 8 Ideas + Probador IA',
+  title: 'Vestido Invitada Boda Verano 2026 — Zara, Mango + Probador IA',
   description:
-    'Vestido para invitada de boda: 8 ideas para primavera, verano, otoño, invierno, etiqueta, playa. Pruébalos en tu foto con IA. Gratis, primer render sin tarjeta.',
+    'Vestido para invitada de boda de verano, primavera, otoño e invierno — incluye picks de Zara y Mango. Pruébalos en tu foto con IA. Gratis, primer render sin tarjeta.',
   keywords: [
     // Primary cluster from DataForSEO scan: 5 variants ALL at 165,000/mo, KD 0
     'vestido boda invitada',
@@ -33,8 +33,8 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: url },
   openGraph: {
-    title: 'Vestido Invitada Boda 2026 — Probador Virtual con IA',
-    description: '8 ideas de vestido para invitada de boda + probador virtual. Pruébalos en tu foto antes de comprar. Gratis, 30 seg.',
+    title: 'Vestido Invitada Boda Verano 2026 — Zara, Mango + Probador IA',
+    description: 'Vestido invitada boda verano, primavera, otoño — Zara, Mango + probador virtual. Pruébatelo antes de comprar. Gratis, 30 seg.',
     type: 'article',
     url,
     siteName: 'Agalaz Fashion',
@@ -43,8 +43,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Vestido Invitada Boda 2026 — Probador IA',
-    description: '8 ideas + probador virtual. Pruébatelo antes de comprar. Gratis.',
+    title: 'Vestido Invitada Boda Verano — Zara, Mango + Probador IA',
+    description: 'Verano, primavera, Zara, Mango + probador virtual. Gratis.',
     images: ['/og/vestido-invitada-boda.png'],
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
@@ -57,8 +57,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     '@graph': [
       {
         '@type': 'Article',
-        headline: 'Vestido Invitada Boda 2026 — 8 Ideas + Probador IA',
-        description: 'Guía completa de vestidos para invitada de boda con 8 ideas por temporada y código de vestimenta + probador virtual IA.',
+        headline: 'Vestido Invitada Boda Verano 2026 — Zara, Mango + Probador IA',
+        description: 'Guía de vestidos para invitada de boda — verano, primavera, otoño, invierno — con picks de Zara y Mango + probador virtual IA.',
         url,
         datePublished: '2026-05-10',
         dateModified: '2026-05-10',

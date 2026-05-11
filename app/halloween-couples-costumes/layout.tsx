@@ -4,9 +4,9 @@ import { HALLOWEEN_COUPLES_FAQ as FAQ_DATA } from '@/data/halloweenCouples';
 const url = 'https://agalaz.com/halloween-couples-costumes';
 
 export const metadata: Metadata = {
-  title: 'Couples Halloween Costumes 2026 — 8 Ideas + AI Try-On',
+  title: 'Couples Halloween Costumes 2026 — Funny, Easy, Scary Ideas + AI',
   description:
-    'Couples halloween costumes 2026: Barbie & Ken, Wednesday & Gomez, Mario & Peach, Bonnie & Clyde, Grease. Try them on you and your partner with AI. Free.',
+    'Couples halloween costumes 2026: funny, easy, scary and last-minute ideas — Barbie & Ken, Wednesday, Mario & Peach, Bonnie & Clyde. Try them on you and your partner with AI. Free.',
   keywords: [
     // Primary cluster from DataForSEO scan (110K/mo each, KD 2)
     'couples halloween costume',
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: url },
   openGraph: {
-    title: 'Couples Halloween Costumes 2026 — Try Before You Buy',
-    description: '8 couples halloween costume ideas + AI virtual try-on. See it on YOU and your partner before paying. Free, 30 sec.',
+    title: 'Couples Halloween Costumes 2026 — Funny, Easy, Scary Ideas',
+    description: 'Funny, easy, scary couples halloween costume ideas + AI virtual try-on. See it on YOU and your partner before paying. Free, 30 sec.',
     type: 'article',
     url,
     siteName: 'Agalaz Fashion',
@@ -59,8 +59,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     '@graph': [
       {
         '@type': 'Article',
-        headline: 'Couples Halloween Costumes 2026 — 8 Ideas + AI Try-On',
-        description: '8 couples halloween costume ideas with AI virtual try-on for both partners.',
+        headline: 'Couples Halloween Costumes 2026 — Funny, Easy, Scary Ideas + AI',
+        description: 'Funny, easy, scary and last-minute couples halloween costume ideas with AI virtual try-on for both partners.',
         url,
         datePublished: '2026-05-10',
         dateModified: '2026-05-10',

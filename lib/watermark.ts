@@ -26,7 +26,7 @@ export function applyWatermark(imageDataUrl: string): Promise<string> {
       const margin = minDim * 0.028;
 
       ctx.font = `600 ${fontSize}px -apple-system, "Inter", "Helvetica Neue", sans-serif`;
-      const text = 'Made with Agalaz AI';
+      const text = 'Powered by agalaz.com';
       const textWidth = ctx.measureText(text).width;
 
       // Pill geometry: spark + gap + text

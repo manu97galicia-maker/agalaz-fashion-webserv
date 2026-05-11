@@ -304,8 +304,8 @@ const weddingDress: Record<Lang, LocalizedPageData> = {
   },
   it: {
     meta: {
-      title: 'Abito da Sposa — Prova Virtuale IA Gratis | Agalaz',
-      description: 'Prova qualsiasi abito da sposa con IA. Abito sposa semplice, principessa, sirena, mamma della sposa — vedilo addosso a TE prima di comprare.',
+      title: 'Abito da Sposa Semplice — Prova Virtuale IA Gratis | Agalaz',
+      description: 'Abito da sposa semplice, principessa, sirena o mamma della sposa — provalo con IA prima di comprare. Vedilo addosso a TE in 30 secondi. Gratis.',
       keywords: [
         'abito da sposa',
         'abito sposa',
@@ -773,8 +773,8 @@ const glasses: Record<Lang, LocalizedPageData> = {
   },
   it: {
     meta: {
-      title: 'Prova Virtuale Occhiali — Try-On IA Gratuito | Agalaz',
-      description: 'Prova qualsiasi occhiale sul tuo viso con IA. Sole, graduati, designer. Trova la montatura perfetta prima di comprare.',
+      title: 'Occhiali Online Prova — Try-On Virtuale IA Gratuito | Agalaz',
+      description: 'Occhiali online prova virtuale — sole, graduati, designer. Provali sul tuo viso con IA. Trova la montatura perfetta prima di comprare. Gratis.',
       keywords: ['prova virtuale occhiali', 'provare occhiali online', 'occhiali virtuali ia', 'simulatore occhiali', 'try on occhiali sole'],
     },
     jsonLdName: 'Prova Virtuale Occhiali',
@@ -1500,8 +1500,8 @@ const petClothing: Record<Lang, LocalizedPageData> = {
   },
   it: {
     meta: {
-      title: 'Prova Virtuale Vestiti Animali — IA Gratuita | Agalaz',
-      description: 'Prova qualsiasi vestito, cappotto o costume sul tuo cane o gatto con IA. Trova la taglia giusta prima di comprare.',
+      title: 'Vestiti per Cani Online — Prova Virtuale IA Gratuita | Agalaz',
+      description: 'Vestiti per cani e gatti online — prova qualsiasi cappotto, vestito o costume sul tuo animale con IA. Trova la taglia giusta prima di comprare. Gratis.',
       keywords: ['prova virtuale vestiti cane', 'cappotto cane ia', 'vestito gatto virtuale', 'costume animale online', 'prova cane'],
     },
     jsonLdName: 'Prova Virtuale Vestiti per Animali',
@@ -1838,8 +1838,8 @@ const costume: Record<Lang, LocalizedPageData> = {
   },
   fr: {
     meta: {
-      title: 'Déguisement Halloween — Essayage Virtuel IA Gratuit',
-      description: 'Déguisement Halloween femme, homme, enfant, couple ou Carnaval de Nice avec l\'IA. Sorcière, vampire — voyez-le sur VOUS avant d\'acheter. Gratuit en 30 sec.',
+      title: 'Déguisement Adulte Halloween — Essayage Virtuel IA Gratuit',
+      description: 'Déguisement adulte Halloween, Carnaval — femme, homme, enfant, couple. Sorcière, vampire, super-héros avec l\'IA. Voyez-le sur VOUS avant d\'acheter. Gratuit en 30 sec.',
       keywords: [
         'déguisement halloween',
         'déguisement pour halloween',
@@ -2082,8 +2082,8 @@ const hairstyle: Record<Lang, LocalizedPageData> = {
   },
   fr: {
     meta: {
-      title: 'Essayage Virtuel de Coiffures — IA Gratuite | Agalaz',
-      description: 'Essayez coupes, couleur, balayage ou coloration avec l\'IA avant le salon. Voyez platine, cuivré, carré ou pixie sur VOTRE visage en 30 secondes.',
+      title: 'Simulateur Coiffure en Ligne Gratuit Sans Téléchargement — IA | Agalaz',
+      description: 'Simulateur de coiffure en ligne gratuit, sans téléchargement. Essayez coupes, couleur, balayage ou coloration avec l\'IA. Platine, cuivré, carré ou pixie sur VOTRE visage en 30 sec.',
       keywords: ['essayage virtuel coiffures', 'simulateur coupe cheveux IA', 'couleur cheveux essayage en ligne', 'balayage virtuel', 'coloration avant salon', 'pixie cut simulateur', 'tester coiffure en ligne', 'changer couleur cheveux IA', 'simulateur tresses', 'coiffure mariage simulateur'],
     },
     jsonLdName: 'Essayage Virtuel de Coiffures',

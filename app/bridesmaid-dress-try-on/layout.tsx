@@ -4,9 +4,9 @@ import { BRIDESMAID_FAQ as FAQ_DATA } from '@/data/bridesmaidDress';
 const url = 'https://agalaz.com/bridesmaid-dress-try-on';
 
 export const metadata: Metadata = {
-  title: 'Bridesmaid Dress Try-On — See It On You with AI 2026',
+  title: 'Cheap Bridesmaid Dress Try-On 2026 — Sage Green, Black + Azazie AI',
   description:
-    'Bridesmaid dress AI try-on: see Birdy Grey, Azazie, BHLDN dresses on YOUR body in 30 seconds. 7 styles for every wedding. Free first render, no signup.',
+    'Cheap bridesmaid dress AI try-on: see sage green, black, and Azazie / Birdy Grey / BHLDN styles on YOUR body in 30 seconds. Affordable picks for every wedding. Free first render.',
   keywords: [
     // Primary cluster from DataForSEO scan (201K/mo, KD 4-9)
     'bridesmaid dress',
@@ -33,8 +33,8 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: url },
   openGraph: {
-    title: 'Bridesmaid Dress AI Try-On — See It On Your Body',
-    description: '7 bridesmaid dress styles + AI try-on. Birdy Grey, Azazie, BHLDN — see it on YOU before paying. Free, 30 sec.',
+    title: 'Cheap Bridesmaid Dress AI Try-On — Sage Green, Black, Azazie',
+    description: 'Cheap bridesmaid dress AI try-on. Sage green, black, Azazie / Birdy Grey / BHLDN — see it on YOU before paying. Free, 30 sec.',
     type: 'article',
     url,
     siteName: 'Agalaz Fashion',
@@ -43,8 +43,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Bridesmaid Dress AI Try-On',
-    description: 'See any bridesmaid dress on YOUR body in 30 seconds. Free.',
+    title: 'Cheap Bridesmaid Dress AI Try-On — Sage Green, Black, Azazie',
+    description: 'Cheap bridesmaid dresses on YOUR body in 30 sec. Sage, black, Azazie. Free.',
     images: ['/og/bridesmaid-dress.png'],
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
@@ -57,8 +57,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     '@graph': [
       {
         '@type': 'Article',
-        headline: 'Bridesmaid Dress Try-On — See It On You with AI',
-        description: '7 bridesmaid dress styles for every wedding type with AI virtual try-on.',
+        headline: 'Cheap Bridesmaid Dress Try-On — Sage Green, Black + Azazie AI',
+        description: 'Cheap bridesmaid dresses including sage green, black, and Azazie / Birdy Grey / BHLDN styles with AI virtual try-on.',
         url,
         datePublished: '2026-05-10',
         dateModified: '2026-05-10',
