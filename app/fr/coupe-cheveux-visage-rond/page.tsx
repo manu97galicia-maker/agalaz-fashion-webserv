@@ -1,0 +1,6 @@
+import LongtailLandingTemplate from '@/components/landing/LongtailLandingTemplate';
+import { coupeCheveuxVisageRond } from '@/data/longtailLandings2026';
+
+export default function Page() {
+  return <LongtailLandingTemplate content={coupeCheveuxVisageRond} />;
+}

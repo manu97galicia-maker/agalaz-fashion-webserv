@@ -270,6 +270,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
       images: [`${baseUrl}/og/lehenga-online.png`],
     },
+    // Round-3 ultra-easy long-tail landings (2026-05-11) — verified soft SERPs
+    {
+      url: `${baseUrl}/fr/coupe-cheveux-visage-rond`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'monthly',
+      priority: 0.85, // ~7.9K/mo FR cluster, KD 0
+      images: [`${baseUrl}/og/haircut-round-face.png`],
+    },
+    {
+      url: `${baseUrl}/pt/corte-cabelo-rosto-redondo`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'monthly',
+      priority: 0.85, // ~3.6K/mo PT-BR cluster, KD 0
+      images: [`${baseUrl}/og/haircut-round-face.png`],
+    },
+    {
+      url: `${baseUrl}/pt/unhas-curtas-ideias`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'monthly',
+      priority: 0.85, // ~2.2K/mo PT-BR cluster, KD 0, Pinterest SERP
+      images: [`${baseUrl}/og/virtual-nail-try-on.png`],
+    },
+    {
+      url: `${baseUrl}/it/unghie-corte-semplici`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'monthly',
+      priority: 0.85, // ~3.6K/mo IT cluster, KD 0
+      images: [`${baseUrl}/og/virtual-nail-try-on.png`],
+    },
+    {
+      url: `${baseUrl}/it/taglio-capelli-viso-tondo`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'monthly',
+      priority: 0.85, // ~1.4K/mo IT cluster, KD 0
+      images: [`${baseUrl}/og/haircut-round-face.png`],
+    },
     // Haircut by face shape — long-tail informational (KD 0-8 each)
     {
       url: `${baseUrl}/haircut-for-round-face`,
