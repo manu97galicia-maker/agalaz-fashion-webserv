@@ -115,32 +115,61 @@ export async function generateTryOnImage(
     if (modificationPrompt && lastRenderedImage && !isIterativeWithNewGarment) {
       promptText = `Modify the previous render (IMG ${hasGarment ? '3' : '2'}): "${modificationPrompt}". Keep the same person, change ONLY what was requested. Output one photorealistic image.`;
     } else if (hasGarment) {
-      promptText = `VIRTUAL TRY-ON ENGINE. IMG1=person photo. IMG2=product to apply.${sizeNote}${categoryHint}
-
-TASK: Generate ONE photorealistic image of the person from IMG1 wearing/using the product from IMG2.
-
-IDENTITY PRESERVATION (critical):
+      // Identity preservation depends on the category. For HAIRSTYLE and
+      // COSPLAY we explicitly ALLOW hair changes (otherwise the rule
+      // would block the whole point of the try-on). For PET-CLOTHING we
+      // treat IMG1 as an animal, not a human.
+      const identityRule = category === 'hairstyle'
+        ? `IDENTITY PRESERVATION (critical):
+- Face, skin tone, body shape, pose, expression = IDENTICAL to IMG1
+- Background, lighting, camera angle = IDENTICAL to IMG1
+- Hair IS what we are replacing — change cut/color/style as IMG2 shows`
+        : category === 'cosplay'
+          ? `IDENTITY PRESERVATION (critical):
+- Face shape, skin tone, eye color, expression = IDENTICAL to IMG1
+- Body shape and pose = IDENTICAL to IMG1
+- Background, lighting, camera angle = IDENTICAL to IMG1
+- Hair, makeup, outfit, props, armour CHANGE to match the cosplay in IMG2 — wigs included`
+          : category === 'pet-clothing'
+            ? `IDENTITY PRESERVATION (critical):
+- IMG1 is an ANIMAL (dog, cat, or other pet). Preserve the animal's species, breed, fur color, fur pattern, body shape, pose, eye color, expression = IDENTICAL to IMG1
+- Background, lighting, camera angle = IDENTICAL to IMG1
+- Only modify the body area where the garment/accessory belongs`
+            : `IDENTITY PRESERVATION (critical):
 - Face, skin tone, hair, body shape, pose = IDENTICAL to IMG1
 - Background, lighting, camera angle = IDENTICAL to IMG1
-- Only modify the specific body area where the product belongs
+- Only modify the specific body area where the product belongs`;
+
+      promptText = `VIRTUAL TRY-ON ENGINE. IMG1=${category === 'pet-clothing' ? 'pet photo' : 'person photo'}. IMG2=product to apply.${sizeNote}${categoryHint}
+
+TASK: Generate ONE photorealistic image of the ${category === 'pet-clothing' ? 'pet' : 'person'} from IMG1 wearing/using the product from IMG2.
+
+${identityRule}
 
 PRODUCT DETECTION & APPLICATION${category && category !== 'auto' ? ` (user confirmed: ${category.toUpperCase()})` : '' } — detect what IMG2 shows and apply accordingly. CHECK THIS ORDER FIRST and pick the most-specific match:
+- HAIRSTYLE / HAIR COLOR / HAIRCUT / WIG (the reference shows a hair look — short bob, pixie, curtain bangs, balayage, platinum, copper, braids, ponytail, etc.) → REPLACE the person's existing hair with the hairstyle shown in IMG2. Match cut length, layering, parting, colour and texture. Adjust hairline natural to the new style. Keep face, skin, expression unchanged. Background unchanged.
+- COSPLAY / FULL CHARACTER LOOK (anime, video-game, comic or original character reference showing wig + outfit + props + makeup as a unit) → REPLACE hair (full wig), outfit, accessories, props, armour, makeup to match the cosplay in IMG2. Preserve only face shape, eye colour, skin tone, body proportions and pose. Render glowing eyes, demon horns, intricate embroidery, weapons or armour exactly as referenced. This is full-body transformation, NOT a thin-shirt swap.
+- COSTUME / HALLOWEEN / CARNIVAL (witch, vampire, Catrina, Wednesday Addams, Barbie, Joker, pirate, scary clown, etc.) → REPLACE outfit head-to-toe with the costume in IMG2, including makeup/face-paint if shown (Catrina skull, vampire fangs, Wednesday pallor, clown white-face). Hair may need to change if the reference shows distinct hair (Wednesday braids, witch hair). Preserve face shape, skin tone, body, pose. Background unchanged.
+- PET CLOTHING (dog coat, cat sweater, harness, bow-tie, hat, costume for animal) → apply the garment/accessory to the animal in IMG1 respecting fur, body shape, leg position. The animal stays the same breed/species. Apply size proportionally to body.
+- BABY CLOTHING (onesie, romper, baby dress, bib, baby costume) → apply to the baby/toddler in IMG1, soft draping appropriate to baby body proportions, no tight fits.
 - SUIT / 2-PIECE MATCHING SET (formal suit jacket + matching trousers, blazer + matching pants, tracksuit set, co-ord set, twin-set, two-piece outfit where the same fabric/color is visible on both top and bottom of a model) → replace BOTH upper and lower clothing with the full set. Do NOT keep the user's existing pants or shorts. The matching fabric on the model is the strongest signal — if you see a jacket and pants of the same color/fabric on the same person in IMG2, treat it as a SUIT and replace head-to-toe (minus shoes).
-- FULL BODY single garment (dress, jumpsuit, romper, overalls) → replace both top and bottom clothing
+- FULL BODY single garment (dress, jumpsuit, romper, overalls, wedding gown, bridesmaid dress) → replace both top and bottom clothing
 - TOPS (shirt, t-shirt, blouse, sweater, hoodie, polo, isolated piece, no matching pants visible) → replace upper body clothing only, keep pants/skirt/jacket if visible
 - BOTTOMS (pants, jeans, trousers, skirt, shorts, leggings) → replace lower body clothing only, keep top unchanged
 - OUTERWEAR (standalone jacket, coat, cardigan, vest with NO matching pants visible in IMG2) → layer OVER existing top, do not remove the shirt underneath
+- SWIMWEAR (bikini, swimsuit, one-piece, trunks) → replace beach/pool clothing on torso/hips, expose appropriate skin areas
 - GLASSES (sunglasses, prescription frames, goggles, reading glasses) → place on face bridge naturally, adjust to face width, add realistic reflections/shadows
 - JEWELRY:
   • Necklace/pendant/choker → drape around neck naturally, show chain following collarbone
   • Earrings → attach to earlobes, match ear position and angle
   • Bracelet/bangle/watch → place on wrist with correct perspective
   • Ring → place on finger naturally, size the ring band to match finger width proportionally (analyze knuckle width from IMG1). If user specified a ring size, adjust band diameter accordingly: US5=15.7mm, US6=16.5mm, US7=17.3mm, US8=18.1mm, US9=19mm, US10=19.8mm
-- HEADWEAR (hat, cap, beanie, headband, turban, crown) → place on head, adjust hair visibility naturally
+- HEADWEAR (hat, cap, beanie, headband, turban, crown, veil, tiara, hijab) → place on head, adjust hair visibility naturally
 - SHOES (sneakers, heels, boots, sandals, loafers, flats) → replace footwear, match ground plane and shadows
 - BAGS (handbag, backpack, clutch, tote, crossbody) → add as held/worn accessory with natural arm position
 - TATTOO (any body art design) → apply to visible skin as if permanently inked, follow skin contours and muscle definition
-- NAIL ART (manicure, nail polish, nail design) → apply to fingernails with correct perspective, show on all visible fingers
+- NAIL ART (manicure, nail polish, nail design, chrome, glazed, french tip) → apply to fingernails with correct perspective, show on all visible fingers
+- ETHNIC / TRADITIONAL WEAR (saree, lehenga, hanbok, kimono, qipao, abaya, sherwani, dashiki) → drape according to the garment's tradition. Sarees wrap shoulder + waist with pallu. Lehengas are skirt + choli + dupatta. Kimonos wrap front-to-back with obi. Qipaos hug the body with a high mandarin collar.
 
 QUALITY RULES:
 1. Result must look like a real photograph — proper shadows, wrinkles, fabric texture, light interaction
@@ -182,8 +211,8 @@ You MUST output exactly one photorealistic image.`;
         const currentParts = attempt === 1 ? parts : [
           ...parts.slice(0, -1),
           { text: hasGarment
-            ? `Virtual try-on: detect what the product in IMG2 is (clothing, glasses, jewelry, ring, hat, shoes, bag, tattoo, or nails) and apply it to the person in IMG1. For rings, size the band proportionally to the finger width. Keep the person identical — same face, body, pose, background. Photorealistic result. You MUST generate an image.`
-            : `Enhance this photo. Keep person identical. You MUST generate an image.`
+            ? `Virtual try-on: IMG2 is a ${category === 'hairstyle' ? 'hairstyle/haircut/hair colour' : category === 'cosplay' ? 'cosplay (wig + outfit + props)' : category === 'pet-clothing' ? 'pet garment (apply to the animal in IMG1)' : category === 'costume' ? 'costume (outfit + makeup if shown)' : 'product (clothing, glasses, jewelry, ring, hat, shoes, bag, tattoo, nails)'}. Apply it to IMG1. ${category === 'hairstyle' ? 'Replace hair with the style from IMG2. Keep face, skin, body unchanged.' : category === 'cosplay' ? 'Replace hair (wig), outfit, props with the cosplay from IMG2. Preserve face shape, eye colour, skin tone.' : category === 'pet-clothing' ? 'Apply garment to the animal. Keep breed, fur, pose unchanged.' : 'Keep face, body, pose, background identical.'} For rings, size the band proportionally to finger width. Photorealistic result. You MUST generate an image.`
+            : `Enhance this photo. Keep ${category === 'pet-clothing' ? 'pet' : 'person'} identical. You MUST generate an image.`
           },
         ];
 
