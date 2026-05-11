@@ -55,8 +55,9 @@ export default function PetClothingTryOn() {
       {/* Triptych transformation — visible right after the nav so the visual hook lands above the fold. */}
       <TriptychDemo slug="virtual-pet-clothing-try-on" labels={TRIPTYCH_LABELS.en} />
 
-      {/* Contextual B2B partner CTA — converts shop-owner traffic immediately after the visual demo. */}
-      <PartnerCtaBlock category="virtual-pet-clothing-try-on" lang="en" />
+      {/* Interactive try-on demo with watermarked free render */}
+      <TryOnDemoBlock category="pet-clothing" lang="en" productLabel="Pet outfit" />
+
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">
         <div className="text-center">
@@ -78,8 +79,6 @@ export default function PetClothingTryOn() {
           <div className="flex items-center gap-2"><Clock size={14} /><span className="text-xs font-bold">30-second render</span></div>
         </div>
       </section>
-      {/* Interactive try-on demo with watermarked free render */}
-      <TryOnDemoBlock category="pet-clothing" lang="en" productLabel="Pet outfit" />
 
 
       <section className="bg-slate-50 py-20">
@@ -191,6 +190,9 @@ export default function PetClothingTryOn() {
       </footer>
 
       {/* B2B partners upsell */}
+
+      {/* Contextual B2B partner CTA — converts shop-owner traffic immediately after the visual demo. */}
+      <PartnerCtaBlock category="virtual-pet-clothing-try-on" lang="en" />
       <PartnersUpsellBlock lang="en" />
     </main>
   );

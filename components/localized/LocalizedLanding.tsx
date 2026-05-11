@@ -92,9 +92,9 @@ export default function LocalizedLanding({ c, enHref, slug, lang }: Props) {
           "what does this product do?" in 1 second, right after the brand bar. */}
       <TriptychDemo slug={slug} labels={TRIPTYCH_LABELS[lang]} />
 
-      {/* Contextual B2B upsell — convert shop-owner traffic immediately after
-          the visual demo, before the marketing hero. */}
-      <PartnerCtaBlock category={slug as CanonicalLandingSlug} lang={lang} />
+      {/* Interactive try-on with watermarked free render */}
+      <TryOnDemoBlock category={SLUG_TO_CATEGORY[slug] || 'clothing'} lang={lang} />
+
 
       {/* Hero */}
       <section className="relative overflow-hidden">
@@ -131,8 +131,6 @@ export default function LocalizedLanding({ c, enHref, slug, lang }: Props) {
         </div>
       </section>
 
-      {/* Interactive try-on with watermarked free render */}
-      <TryOnDemoBlock category={SLUG_TO_CATEGORY[slug] || 'clothing'} lang={lang} />
 
       {/* Why */}
       <section className="max-w-5xl mx-auto px-6 py-20 md:py-28">
@@ -203,6 +201,10 @@ export default function LocalizedLanding({ c, enHref, slug, lang }: Props) {
       </section>
 
       {/* B2B partners upsell */}
+
+      {/* Contextual B2B upsell — convert shop-owner traffic immediately after
+          the visual demo, before the marketing hero. */}
+      <PartnerCtaBlock category={slug as CanonicalLandingSlug} lang={lang} />
       <PartnersUpsellBlock lang={lang} />
 
       {/* Final CTA */}

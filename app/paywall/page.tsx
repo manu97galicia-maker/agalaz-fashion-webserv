@@ -11,14 +11,18 @@ import { track } from '@/lib/analytics';
 
 type Plan = 'test' | 'popular';
 
-// 15%-off promo code displayed in the paywall countdown banner. Update this
-// constant if the Stripe promotion code is renamed in the dashboard. Users
-// paste it at Stripe checkout (allow_promotion_codes: true is set server-side).
+// Promo codes displayed in the paywall countdown banners. Users paste at
+// Stripe checkout (allow_promotion_codes: true is set server-side).
+//   AGALAZ15 — 15% off Style Pro (popular plan)
+//   HELLO    — 10% off Starter (test plan), one-time
+// If you rename either coupon in Stripe, update these constants AND the
+// promo_code IDs in dashboard (promo_1TVwZcDa1RAThL32 etc.).
 const STYLE_PRO_PROMO_CODE = 'AGALAZ15';
-// Countdown duration: 2 minutes 8 seconds, per request. Resets per session
-// (sessionStorage) — first paywall view starts the timer; on reload the
-// timer continues from where it was. After expiration the banner fades and
-// the code is no longer prominent (still works at Stripe if not consumed).
+const STARTER_PROMO_CODE = 'HELLO';
+// Countdown duration: 2 minutes 8 seconds. Resets per paywall mount so the
+// urgency banner is always ticking when a user opens the page. (Tried session-
+// storage persistence but expired sessions hid the banner from returning
+// visitors which kills conversion.)
 const COUNTDOWN_SECONDS = 2 * 60 + 8;
 
 export default function PaywallPage() {
@@ -39,6 +43,7 @@ export default function PaywallPage() {
   const [fromCategory, setFromCategory] = useState<string | null>(null);
   const [secondsLeft, setSecondsLeft] = useState<number>(COUNTDOWN_SECONDS);
   const [codeCopied, setCodeCopied] = useState(false);
+  const [helloCopied, setHelloCopied] = useState(false);
 
   async function handleLoginOtp() {
     if (!otpEmail || !otpEmail.includes('@')) return;
@@ -109,6 +114,15 @@ export default function PaywallPage() {
       track('promo_code_copy', { code: STYLE_PRO_PROMO_CODE });
       setCodeCopied(true);
       setTimeout(() => setCodeCopied(false), 1800);
+    } catch {}
+  };
+
+  const handleCopyHello = async () => {
+    try {
+      await navigator.clipboard.writeText(STARTER_PROMO_CODE);
+      track('promo_code_copy', { code: STARTER_PROMO_CODE });
+      setHelloCopied(true);
+      setTimeout(() => setHelloCopied(false), 1800);
     } catch {}
   };
 
@@ -251,6 +265,46 @@ export default function PaywallPage() {
                   <Sparkles size={10} />
                   <span className="text-[10px] font-black uppercase tracking-wider">
                     {en ? 'Only valid for Style Pro' : 'Solo válido para Style Pro'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* HELLO promo banner — 10% off Starter. Same visual format as the
+            AGALAZ15 banner above so users instantly read it as "another
+            urgent code". Tied visually to the Starter card directly below. */}
+        {promoActive && (
+          <div className="mb-3 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 border-2 border-emerald-400 p-4 md:p-5 shadow-lg animate-fade-in">
+            <div className="flex items-start gap-3">
+              <div className="shrink-0 w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center">
+                <Clock size={18} className="text-white" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <p className="text-[11px] font-black uppercase tracking-wider text-emerald-700">
+                    {en ? '10% OFF · expires in' : '10% OFF · caduca en'}
+                  </p>
+                  <span className="font-mono font-black text-base md:text-lg text-emerald-900 tabular-nums">
+                    {timerStr}
+                  </span>
+                </div>
+                <button
+                  onClick={handleCopyHello}
+                  className="mt-2 w-full flex items-center justify-between gap-2 rounded-lg bg-white border-2 border-dashed border-emerald-400 px-3 py-2 hover:bg-emerald-50 transition-colors active:scale-[0.99]"
+                >
+                  <span className="font-mono font-black text-base md:text-lg text-slate-900 tracking-wider">
+                    {STARTER_PROMO_CODE}
+                  </span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700">
+                    {helloCopied ? (en ? 'Copied!' : '¡Copiado!') : (en ? 'Tap to copy' : 'Pulsa para copiar')}
+                  </span>
+                </button>
+                <div className="mt-2 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-slate-900 text-white">
+                  <Sparkles size={10} />
+                  <span className="text-[10px] font-black uppercase tracking-wider">
+                    {en ? 'Only valid for Starter' : 'Solo válido para Starter'}
                   </span>
                 </div>
               </div>

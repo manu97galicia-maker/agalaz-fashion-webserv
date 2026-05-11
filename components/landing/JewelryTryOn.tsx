@@ -51,8 +51,9 @@ export default function JewelryTryOn() {
       {/* Triptych transformation — visible right after the nav so the visual hook lands above the fold. */}
       <TriptychDemo slug="virtual-jewelry-try-on" labels={TRIPTYCH_LABELS.en} />
 
-      {/* Contextual B2B partner CTA — converts shop-owner traffic immediately after the visual demo. */}
-      <PartnerCtaBlock category="virtual-jewelry-try-on" lang="en" />
+      {/* Interactive try-on demo with watermarked free render */}
+      <TryOnDemoBlock category="jewelry" lang="en" productLabel="Jewelry" />
+
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">
         <div className="text-center">
@@ -74,8 +75,6 @@ export default function JewelryTryOn() {
           <div className="flex items-center gap-2"><Clock size={14} /><span className="text-xs font-bold">30-second render</span></div>
         </div>
       </section>
-      {/* Interactive try-on demo with watermarked free render */}
-      <TryOnDemoBlock category="jewelry" lang="en" productLabel="Jewelry" />
 
 
       <section className="bg-slate-50 py-20">
@@ -192,6 +191,9 @@ export default function JewelryTryOn() {
       </footer>
 
       {/* B2B partners upsell */}
+
+      {/* Contextual B2B partner CTA — converts shop-owner traffic immediately after the visual demo. */}
+      <PartnerCtaBlock category="virtual-jewelry-try-on" lang="en" />
       <PartnersUpsellBlock lang="en" />
     </main>
   );

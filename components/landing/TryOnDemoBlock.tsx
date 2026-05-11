@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Upload, Sparkles, Loader2, X, ArrowRight, Download } from 'lucide-react';
+import { Upload, Sparkles, Loader2, X, ArrowRight, Download, Clock } from 'lucide-react';
 import { createBrowserClient } from '@supabase/ssr';
 import { signInWithGoogle, signInWithOtp } from '@/services/authService';
 import { track } from '@/lib/analytics';
@@ -285,6 +285,12 @@ const LABELS: Record<DemoLang, {
 const PENDING_DEMO_KEY = 'agalaz_demo_pending';
 const PENDING_TTL_MS = 30 * 60 * 1000; // 30 minutes
 
+// Promo codes shown in the post-render inline paywall. Same codes as /paywall.
+// Users paste these at Stripe checkout (allow_promotion_codes: true).
+const STARTER_PROMO_CODE = 'HELLO';      // 10% off Starter
+const PRO_PROMO_CODE = 'AGALAZ15';       // 15% off Style Pro
+const PROMO_COUNTDOWN_SECONDS = 2 * 60 + 8;
+
 function ImageDropzone({
   label,
   hint,
@@ -385,6 +391,37 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
 
   useEffect(() => () => stopFakeProgress(), []); // cleanup on unmount
 
+  // Promo countdown — starts when a result appears, restarts on each new
+  // result so the urgency banner stays fresh. After expiration the banner
+  // fades but codes still work at Stripe checkout.
+  useEffect(() => {
+    if (!resultImage) return;
+    const startedAt = Date.now();
+    setPromoSecondsLeft(PROMO_COUNTDOWN_SECONDS);
+    const id = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - startedAt) / 1000);
+      setPromoSecondsLeft(Math.max(0, PROMO_COUNTDOWN_SECONDS - elapsed));
+    }, 1000);
+    return () => clearInterval(id);
+  }, [resultImage]);
+
+  async function copyStarterCode() {
+    try {
+      await navigator.clipboard.writeText(STARTER_PROMO_CODE);
+      track('promo_code_copy', { code: STARTER_PROMO_CODE, source: 'demo_inline' });
+      setStarterCopied(true);
+      setTimeout(() => setStarterCopied(false), 1800);
+    } catch {}
+  }
+  async function copyProCode() {
+    try {
+      await navigator.clipboard.writeText(PRO_PROMO_CODE);
+      track('promo_code_copy', { code: PRO_PROMO_CODE, source: 'demo_inline' });
+      setProCopied(true);
+      setTimeout(() => setProCopied(false), 1800);
+    } catch {}
+  }
+
   // Auth state — required to call /api/demo. We listen so the modal closes
   // automatically when the user completes login from another tab/window.
   const [userId, setUserId] = useState<string | null>(null);
@@ -393,6 +430,12 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
   // True while a Stripe checkout redirect is in flight. We disable the cards
   // so a frantic double-click doesn't fire two checkout sessions.
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
+  // Countdown for the post-render promo banner (HELLO + AGALAZ15). Starts
+  // when the result first renders; resets each time the user clicks "try
+  // another" so urgency stays fresh.
+  const [promoSecondsLeft, setPromoSecondsLeft] = useState<number>(PROMO_COUNTDOWN_SECONDS);
+  const [starterCopied, setStarterCopied] = useState(false);
+  const [proCopied, setProCopied] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [otpEmail, setOtpEmail] = useState('');
   const [otpSent, setOtpSent] = useState(false);
@@ -916,6 +959,55 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
                   {plansSubheading[lang]}
                 </p>
               </div>
+
+              {/* Dual promo banner — both codes with one shared countdown.
+                  Same visual language as /paywall but compact so it fits in
+                  the right column. After expiration we still keep the codes
+                  visible (Stripe still accepts them), just without urgency. */}
+              {promoSecondsLeft > 0 && (
+                <div className="mb-4 space-y-2">
+                  <div className="flex items-center justify-between gap-2 px-2">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-500 inline-flex items-center gap-1">
+                      <Clock size={11} className="text-amber-600" />
+                      {lang === 'es' ? 'Códigos caducan en' : lang === 'fr' ? 'Codes expirent dans' : lang === 'pt' ? 'Códigos expiram em' : lang === 'de' ? 'Codes laufen ab in' : lang === 'it' ? 'Codici scadono in' : 'Codes expire in'}
+                    </span>
+                    <span className="font-mono font-black text-sm text-amber-700 tabular-nums">
+                      {Math.floor(promoSecondsLeft / 60)}:{(promoSecondsLeft % 60).toString().padStart(2, '0')}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      onClick={copyStarterCode}
+                      className="rounded-lg bg-gradient-to-br from-emerald-50 to-teal-50 border-2 border-dashed border-emerald-400 p-2 text-left hover:bg-emerald-100 transition-colors active:scale-[0.99]"
+                    >
+                      <div className="text-[9px] font-black uppercase tracking-wider text-emerald-700">
+                        10% off · Starter
+                      </div>
+                      <div className="font-mono font-black text-sm text-slate-900 tracking-wider mt-0.5">
+                        {STARTER_PROMO_CODE}
+                      </div>
+                      <div className="text-[9px] font-bold text-emerald-700/80 mt-0.5">
+                        {starterCopied ? (lang === 'es' ? '¡Copiado!' : lang === 'fr' ? 'Copié!' : lang === 'pt' ? 'Copiado!' : lang === 'de' ? 'Kopiert!' : lang === 'it' ? 'Copiato!' : 'Copied!') : (lang === 'es' ? 'Pulsa para copiar' : lang === 'fr' ? 'Cliquer pour copier' : lang === 'pt' ? 'Toque para copiar' : lang === 'de' ? 'Zum Kopieren' : lang === 'it' ? 'Clicca per copiare' : 'Tap to copy')}
+                      </div>
+                    </button>
+                    <button
+                      onClick={copyProCode}
+                      className="rounded-lg bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-dashed border-amber-400 p-2 text-left hover:bg-amber-100 transition-colors active:scale-[0.99]"
+                    >
+                      <div className="text-[9px] font-black uppercase tracking-wider text-amber-700">
+                        15% off · Style Pro
+                      </div>
+                      <div className="font-mono font-black text-sm text-slate-900 tracking-wider mt-0.5">
+                        {PRO_PROMO_CODE}
+                      </div>
+                      <div className="text-[9px] font-bold text-amber-700/80 mt-0.5">
+                        {proCopied ? (lang === 'es' ? '¡Copiado!' : lang === 'fr' ? 'Copié!' : lang === 'pt' ? 'Copiado!' : lang === 'de' ? 'Kopiert!' : lang === 'it' ? 'Copiato!' : 'Copied!') : (lang === 'es' ? 'Pulsa para copiar' : lang === 'fr' ? 'Cliquer pour copier' : lang === 'pt' ? 'Toque para copiar' : lang === 'de' ? 'Zum Kopieren' : lang === 'it' ? 'Clicca per copiare' : 'Tap to copy')}
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              )}
+
               <div className="space-y-3">
                 {PLANS[lang].map((p) => (
                   <button

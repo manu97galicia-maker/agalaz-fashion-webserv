@@ -59,8 +59,9 @@ export default function WeddingDressTryOn() {
       {/* Triptych transformation — visible right after the nav so the visual hook lands above the fold. */}
       <TriptychDemo slug="virtual-wedding-dress-try-on" labels={TRIPTYCH_LABELS.en} />
 
-      {/* Contextual B2B partner CTA — converts shop-owner traffic immediately after the visual demo. */}
-      <PartnerCtaBlock category="virtual-wedding-dress-try-on" lang="en" />
+      {/* Interactive try-on demo with watermarked free render */}
+      <TryOnDemoBlock category="clothing" lang="en" productLabel="Wedding dress" />
+
 
       {/* Hero */}
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">
@@ -105,8 +106,6 @@ export default function WeddingDressTryOn() {
           </div>
         </div>
       </section>
-      {/* Interactive try-on demo with watermarked free render */}
-      <TryOnDemoBlock category="clothing" lang="en" productLabel="Wedding dress" />
 
 
       {/* Why brides use it */}
@@ -256,6 +255,9 @@ export default function WeddingDressTryOn() {
       </footer>
     
       {/* B2B partners upsell */}
+
+      {/* Contextual B2B partner CTA — converts shop-owner traffic immediately after the visual demo. */}
+      <PartnerCtaBlock category="virtual-wedding-dress-try-on" lang="en" />
       <PartnersUpsellBlock lang="en" />
     </main>
   );
