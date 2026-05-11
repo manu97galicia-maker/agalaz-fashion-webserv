@@ -306,6 +306,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85, // ~1.4K/mo IT cluster, KD 0
       images: [`${baseUrl}/og/haircut-round-face.png`],
     },
+    // Round-4 disfraces/cosplay ES landings (2026-05-11) — SERP-verified
+    {
+      url: `${baseUrl}/es/disfraz-de-halloween`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly', // Sep-Nov peak
+      priority: 0.95, // ~165K/mo MX head term, soft SERP
+      images: [`${baseUrl}/og/halloween-couples.png`],
+    },
+    {
+      url: `${baseUrl}/es/cosplay`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly',
+      priority: 0.9, // ~55K/mo combined ES+MX head term
+      images: [`${baseUrl}/og/virtual-cosplay-try-on.png`],
+    },
+    {
+      url: `${baseUrl}/es/disfraz-halloween-pareja`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly',
+      priority: 0.9, // ~27K/mo couples cluster
+      images: [`${baseUrl}/og/halloween-couples.png`],
+    },
+    {
+      url: `${baseUrl}/es/disfraces-caseros`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'monthly',
+      priority: 0.85, // 4K/mo, KD 0, Pinterest SERP
+      images: [`${baseUrl}/og/halloween-couples.png`],
+    },
+    {
+      url: `${baseUrl}/es/disfraz-carnaval`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly', // Feb peak
+      priority: 0.85, // 8.1K/mo ES + 27K cluster
+      images: [`${baseUrl}/og/halloween-couples.png`],
+    },
     // Haircut by face shape — long-tail informational (KD 0-8 each)
     {
       url: `${baseUrl}/haircut-for-round-face`,
