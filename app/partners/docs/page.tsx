@@ -40,10 +40,11 @@ export default function PartnersDocsPage() {
       divCode: `<div id="agalaz-tryon"
   data-garment="{{ product.featured_image | img_url: 'large' }}"
   data-product-id="{{ product.id }}"
+  data-variant-id="{{ product.selected_or_first_available_variant.id }}"
   data-product-type="{{ product.type }}"
   data-customer-id="{% if customer %}{{ customer.id }}{% endif %}"
   data-login-url="/account/login"></div>`,
-      note: 'data-customer-id is REQUIRED — only logged-in customers can try on (3 free try-ons/day per customer, resets daily). When the customer is logged out, Liquid renders an empty value and the widget shows a "sign in to try on" prompt. data-product-id + data-product-type unlock AI-ranked cross-sell.',
+      note: 'data-customer-id is REQUIRED — only logged-in customers can try on (3 free try-ons/day per customer, resets daily). data-variant-id powers the "Add to cart" button (Shopify Ajax /cart/add.js). data-product-id + data-product-type unlock AI-ranked cross-sell.',
     },
     'WooCommerce': {
       step1: `1. Go to Appearance → Theme File Editor

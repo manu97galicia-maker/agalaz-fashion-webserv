@@ -150,7 +150,7 @@
     }
   }
 
-  function openModal(garmentUrl, productId, productType, customerId) {
+  function openModal(garmentUrl, productId, productType, customerId, variantId) {
     if (document.getElementById(MODAL_ID)) return;
 
     var params = 'key=' + encodeURIComponent(apiKey) + '&lang=' + lang;
@@ -158,6 +158,7 @@
     if (productId) params += '&productId=' + encodeURIComponent(productId);
     if (productType) params += '&type=' + encodeURIComponent(productType);
     if (customerId) params += '&customerId=' + encodeURIComponent(customerId);
+    if (variantId) params += '&variantId=' + encodeURIComponent(variantId);
 
     var overlay = document.createElement('div');
     overlay.id = MODAL_ID;
@@ -189,9 +190,69 @@
     if (e.key === 'Escape') closeModal();
   }
 
+  /**
+   * Try to add a variant to the storefront cart. Detection in order:
+   *  1. Shopify Ajax API (POST /cart/add.js) — works on any Shopify storefront
+   *  2. WooCommerce add-to-cart query (?add-to-cart=ID) — fallback redirect
+   *  3. Open product page in new tab (last-resort)
+   * Replies to iframe with agalaz:cart_result so embed UI can show success.
+   */
+  function addToCart(payload) {
+    var variantId = payload.variantId || payload.productId;
+    var productUrl = payload.productUrl || '';
+    var quantity = payload.quantity || 1;
+
+    function reply(ok, reason) {
+      var iframe = document.querySelector('#' + MODAL_ID + ' iframe');
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({ type: 'agalaz:cart_result', ok: !!ok, reason: reason || '' }, '*');
+      }
+    }
+
+    if (!variantId) { reply(false, 'no variant id'); return; }
+
+    // Strategy 1 — Shopify Ajax cart (no auth needed for storefront cart endpoint)
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ id: variantId, quantity: quantity }),
+    }).then(function (r) {
+      if (r.ok) {
+        reply(true, 'shopify');
+        // Optional: bump cart count UI on the host page
+        document.dispatchEvent(new CustomEvent('agalaz:cart_added', { detail: { variantId: variantId } }));
+        return;
+      }
+      tryWooFallback();
+    }).catch(function () {
+      tryWooFallback();
+    });
+
+    function tryWooFallback() {
+      // WooCommerce: add-to-cart query string. Cleanest is to navigate.
+      // We just open the product page with the param so Woo handles the rest.
+      if (productUrl && productUrl.indexOf('http') === 0) {
+        var sep = productUrl.indexOf('?') >= 0 ? '&' : '?';
+        var url = productUrl + sep + 'add-to-cart=' + encodeURIComponent(payload.productId || variantId);
+        window.open(url, '_blank', 'noopener');
+        reply(true, 'woocommerce');
+        return;
+      }
+      // Last resort: just open the product page so user can add manually
+      if (productUrl) {
+        window.open(productUrl, '_blank', 'noopener');
+        reply(true, 'fallback_open');
+      } else {
+        reply(false, 'no cart endpoint');
+      }
+    }
+  }
+
   window.addEventListener('message', function (e) {
     if (!e.data || !e.data.type) return;
     if (e.data.type === 'agalaz:close') closeModal();
+    if (e.data.type === 'agalaz:add_to_cart') addToCart(e.data);
   });
 
   function init() {
@@ -238,8 +299,10 @@
         var productType = container.getAttribute('data-product-type')
           || container.getAttribute('data-product-category')
           || '';
+        // Variant ID is what stores actually need to add to cart (Shopify especially)
+        var variantId = container.getAttribute('data-variant-id') || '';
 
-        openModal(garmentUrl, productId, productType, customerId);
+        openModal(garmentUrl, productId, productType, customerId, variantId);
       });
 
       container.appendChild(btn);

@@ -5,8 +5,10 @@ import { verifyTurnstileToken } from '@/lib/turnstile';
 import {
   checkCustomerDailyCap,
   commitCustomerRender,
+  hashCustomerId,
   DAILY_CAP_PER_CUSTOMER,
 } from '@/lib/customerLimits';
+import { createAdminClient } from '@/lib/supabaseAdmin';
 
 export const maxDuration = 120;
 
@@ -263,6 +265,21 @@ export async function POST(request: NextRequest) {
     if (image) {
       await deductPartnerCredit(partner.id, partner.credits_remaining, partner.total_renders);
       await commitCustomerRender(partner.id, customerId);
+      // Log render event for analytics (non-blocking — failures swallowed)
+      try {
+        const admin = createAdminClient();
+        const productId = typeof body.productId === 'string' || typeof body.productId === 'number'
+          ? String(body.productId).substring(0, 80) : null;
+        const variantId = typeof body.variantId === 'string' || typeof body.variantId === 'number'
+          ? String(body.variantId).substring(0, 80) : null;
+        await admin.from('tryon_events').insert({
+          partner_id: partner.id,
+          customer_hash: hashCustomerId(partner.id, customerId),
+          event_type: 'render',
+          product_id: productId,
+          variant_id: variantId,
+        });
+      } catch {}
       return NextResponse.json(
         {
           success: true,
