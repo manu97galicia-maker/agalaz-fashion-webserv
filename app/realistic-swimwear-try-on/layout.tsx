@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
 import ImageSchemaScript from '@/components/ImageSchemaScript';
+import HowToSchemaScript from '@/components/HowToSchemaScript';
 
 const FAQ = [
   { q: 'Try bikini AI outfit changer — what are the free version limitations?', a: 'The free version of Agalaz lets you generate 2 bikini try-ons per browser session — no signup, no credit card, no app to install. Renders include a small AGALAZ DEMO watermark on the output image. There is no time limit, no expiry, and no obligation to upgrade. If you want unlimited renders, watermark-free downloads and chat-based re-styling (different colour, more coverage, different cut) you can upgrade for $9.99/month and cancel anytime.' },
@@ -87,6 +88,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <ImageSchemaScript slug="realistic-swimwear-try-on" lang="en" pageUrl="https://agalaz.com/realistic-swimwear-try-on" />
+      <HowToSchemaScript slug="realistic-swimwear-try-on" lang="en" pageUrl="https://agalaz.com/realistic-swimwear-try-on" />
       {children}
     </>
   );

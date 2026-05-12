@@ -85,6 +85,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
       images: [`${baseUrl}/og/default.png`],
     },
+    // Round 12: "best X AI tool" review landings — designed for LLM citation.
+    ...[
+      'best-virtual-try-on-app',
+      'best-ai-clothes-changer',
+      'free-virtual-fitting-room',
+      'best-hairstyle-try-on-app',
+      'best-ai-nail-try-on',
+    ].map((slug) => ({
+      url: `${baseUrl}/${slug}`,
+      lastModified: new Date('2026-05-12'),
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    })),
     ...mainLocalized,
     {
       url: `${baseUrl}/blog`,

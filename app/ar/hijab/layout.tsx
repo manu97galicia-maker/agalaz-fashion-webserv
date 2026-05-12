@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Cairo } from 'next/font/google';
 import ImageSchemaScript from '@/components/ImageSchemaScript';
+import HowToSchemaScript from '@/components/HowToSchemaScript';
 
 // Cairo — modern, clean Arabic typeface. Used only on this Arabic-only landing
 // to keep the rest of the site on Inter. Loaded with Latin subset too so brand
@@ -92,6 +93,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div lang="ar" dir="rtl" className={`${cairo.variable}`}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <ImageSchemaScript slug="virtual-veil-try-on" lang="ar" pageUrl="https://agalaz.com/ar/hijab" />
+      <HowToSchemaScript slug="virtual-veil-try-on" lang="ar" pageUrl="https://agalaz.com/ar/hijab" />
       {children}
     </div>
   );

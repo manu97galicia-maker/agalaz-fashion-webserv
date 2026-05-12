@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
 import ImageSchemaScript from '@/components/ImageSchemaScript';
+import HowToSchemaScript from '@/components/HowToSchemaScript';
 
 const FAQ = [
   { q: 'How does the virtual earring try-on work?', a: 'Upload a selfie that shows your ears clearly and a photo of the earrings or piercing. The AI maps the jewellery onto your real ears in 30 seconds — preserving your skin tone, ear shape, hair, and lighting — so you see exactly how the piece looks before buying or booking the piercing appointment.' },
@@ -77,6 +78,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <ImageSchemaScript slug="virtual-earring-try-on" lang="en" pageUrl="https://agalaz.com/virtual-earring-try-on" />
+      <HowToSchemaScript slug="virtual-earring-try-on" lang="en" pageUrl="https://agalaz.com/virtual-earring-try-on" />
       {children}
     </>
   );

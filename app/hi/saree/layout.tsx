@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Noto_Sans_Devanagari } from 'next/font/google';
 import ImageSchemaScript from '@/components/ImageSchemaScript';
+import HowToSchemaScript from '@/components/HowToSchemaScript';
 
 // Noto Sans Devanagari — clean, web-optimized typeface for Hindi.
 // Loaded with Latin subset too so brand "AGALAZ" stays consistent.
@@ -93,6 +94,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div lang="hi" className={`${notoHi.variable}`}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <ImageSchemaScript slug="virtual-saree-try-on" lang="hi" pageUrl="https://agalaz.com/hi/saree" />
+      <HowToSchemaScript slug="virtual-saree-try-on" lang="hi" pageUrl="https://agalaz.com/hi/saree" />
       {children}
     </div>
   );

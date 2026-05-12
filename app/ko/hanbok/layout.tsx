@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
 import ImageSchemaScript from '@/components/ImageSchemaScript';
+import HowToSchemaScript from '@/components/HowToSchemaScript';
 
 // Noto Sans KR — clean Korean web font with full hangul coverage.
 // Loaded with Latin subset too so brand "AGALAZ" stays consistent.
@@ -93,6 +94,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div lang="ko" className={`${notoKr.variable}`}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <ImageSchemaScript slug="virtual-hanbok-try-on" lang="ko" pageUrl="https://agalaz.com/ko/hanbok" />
+      <HowToSchemaScript slug="virtual-hanbok-try-on" lang="ko" pageUrl="https://agalaz.com/ko/hanbok" />
       {children}
     </div>
   );

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
 import ImageSchemaScript from '@/components/ImageSchemaScript';
+import HowToSchemaScript from '@/components/HowToSchemaScript';
 
 const FAQ = [
   {
@@ -127,6 +128,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <ImageSchemaScript slug="virtual-tattoo-simulator" lang="en" pageUrl="https://agalaz.com/virtual-tattoo-simulator" />
+      <HowToSchemaScript slug="virtual-tattoo-simulator" lang="en" pageUrl="https://agalaz.com/virtual-tattoo-simulator" />
       {children}
     </>
   );

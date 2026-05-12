@@ -7,6 +7,7 @@ import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
 import PartnerCtaBlock from '@/components/landing/PartnerCtaBlock';
 import type { CanonicalLandingSlug } from '@/lib/i18n/landingSlugs';
 import { getTriptychImageObjects, type TriptychLang } from '@/lib/imageSeo';
+import { buildHowToSchema } from '@/lib/howToSchema';
 
 type Lang = 'es' | 'fr' | 'pt' | 'de' | 'it';
 
@@ -274,6 +275,9 @@ export function buildLocalizedJsonLd(opts: {
   const imageObjects = opts.triptychSlug && opts.triptychLang
     ? getTriptychImageObjects(opts.triptychSlug, opts.triptychLang, opts.pageUrl, opts.baseUrl)
     : [];
+  const howTo = opts.triptychSlug && opts.triptychLang
+    ? buildHowToSchema({ slug: opts.triptychSlug, lang: opts.triptychLang, pageUrl: opts.pageUrl, baseUrl: opts.baseUrl })
+    : null;
   const heroImageUrl = imageObjects[2]
     ? (imageObjects[2] as { url: string }).url
     : undefined;
@@ -323,6 +327,7 @@ export function buildLocalizedJsonLd(opts: {
         ],
       },
       ...imageObjects,
+      ...(howTo ? [howTo] : []),
     ],
   };
 }

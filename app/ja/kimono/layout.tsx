@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Noto_Sans_JP } from 'next/font/google';
 import ImageSchemaScript from '@/components/ImageSchemaScript';
+import HowToSchemaScript from '@/components/HowToSchemaScript';
 
 // Noto Sans JP — clean Japanese web font with full kanji + kana coverage.
 // Loaded with Latin subset too so brand "AGALAZ" stays consistent.
@@ -93,6 +94,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div lang="ja" className={`${notoJp.variable}`}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <ImageSchemaScript slug="virtual-kimono-try-on" lang="ja" pageUrl="https://agalaz.com/ja/kimono" />
+      <HowToSchemaScript slug="virtual-kimono-try-on" lang="ja" pageUrl="https://agalaz.com/ja/kimono" />
       {children}
     </div>
   );

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
 import ImageSchemaScript from '@/components/ImageSchemaScript';
+import HowToSchemaScript from '@/components/HowToSchemaScript';
 
 const FAQ = [
   { q: 'How does the virtual jewelry try-on work?', a: 'Upload a photo (face for necklaces/earrings, hand for rings, wrist for bracelets) and a photo of the piece. The AI maps it onto you in 30 seconds, preserving skin tone and lighting.' },
@@ -57,5 +58,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     ],
   };
   return (<><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
-      <ImageSchemaScript slug="virtual-jewelry-try-on" lang="en" pageUrl="https://agalaz.com/virtual-jewelry-try-on" />{children}</>);
+      <ImageSchemaScript slug="virtual-jewelry-try-on" lang="en" pageUrl="https://agalaz.com/virtual-jewelry-try-on" />
+      <HowToSchemaScript slug="virtual-jewelry-try-on" lang="en" pageUrl="https://agalaz.com/virtual-jewelry-try-on" />{children}</>);
 }

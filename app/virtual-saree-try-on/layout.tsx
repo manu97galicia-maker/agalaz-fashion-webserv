@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import ImageSchemaScript from '@/components/ImageSchemaScript';
+import HowToSchemaScript from '@/components/HowToSchemaScript';
 
 const FAQ = [
   { q: 'How does the virtual saree and Indian-wear try-on work?', a: 'Upload a clear photo of yourself and a photo of the saree, kurta, sherwani, lehenga, salwar-kameez or dhoti. The AI maps the weave, zari and drape onto your real face in 30 seconds, preserving features, complexion and lighting.' },
@@ -69,5 +70,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     ],
   };
   return (<><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
-      <ImageSchemaScript slug="virtual-saree-try-on" lang="en" pageUrl="https://agalaz.com/virtual-saree-try-on" />{children}</>);
+      <ImageSchemaScript slug="virtual-saree-try-on" lang="en" pageUrl="https://agalaz.com/virtual-saree-try-on" />
+      <HowToSchemaScript slug="virtual-saree-try-on" lang="en" pageUrl="https://agalaz.com/virtual-saree-try-on" />{children}</>);
 }
