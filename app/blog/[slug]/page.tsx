@@ -124,36 +124,12 @@ function pickRelated(article: Article, all: Article[], n = 3): Article[] {
     .map((x) => x.a);
 }
 
-// --- FAQ extraction from question-style H2/H3 ---
-const QUESTION_STARTERS = /^(how|why|what|when|where|which|who|can|do|does|is|are|should|will|would)\b/i;
-
-function extractFaq(content: string): { question: string; answer: string }[] {
-  const blocks = content.split('\n\n');
-  const faqs: { question: string; answer: string }[] = [];
-  for (let i = 0; i < blocks.length; i++) {
-    const b = blocks[i].trim();
-    const m = b.match(/^##+ +(.+)$/);
-    if (!m) continue;
-    const heading = m[1].replace(/^\d+\.\s*/, '').trim();
-    const isQuestion = QUESTION_STARTERS.test(heading) || heading.endsWith('?');
-    if (!isQuestion) continue;
-    // collect first non-heading paragraph as answer
-    let answer = '';
-    for (let j = i + 1; j < blocks.length && j < i + 4; j++) {
-      const next = blocks[j].trim();
-      if (!next || next.startsWith('#') || next.startsWith('---')) continue;
-      answer = next.replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1').replace(/\[(.+?)\]\(.+?\)/g, '$1');
-      break;
-    }
-    if (!answer) continue;
-    faqs.push({
-      question: heading.endsWith('?') ? heading : `${heading}?`,
-      answer: answer.length > 320 ? answer.slice(0, 317).trim() + '...' : answer,
-    });
-    if (faqs.length >= 6) break;
-  }
-  return faqs;
-}
+// FAQPage auto-extraction was removed 2026-05-12: Google Search Console
+// flagged blog posts for "FAQPage duplicado" because Next.js's RSC payload
+// re-serialises the JSON-LD inside `__next_f.push(...)` chunks, and Google's
+// validator double-counts. Articles still get BlogPosting + Breadcrumb
+// schema. Hand-curated FAQs remain on landing pages where the structure is
+// proper Question/Answer pairs (not auto-extracted from H2 patterns).
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -203,23 +179,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     ],
   };
 
-  const faqs = extractFaq(ldContent);
-  const faqLd =
-    faqs.length >= 2
-      ? {
-          '@type': 'FAQPage',
-          mainEntity: faqs.map((f) => ({
-            '@type': 'Question',
-            name: f.question,
-            acceptedAnswer: { '@type': 'Answer', text: f.answer },
-          })),
-        }
-      : null;
-
-  // Single @graph block — fewer <script> tags, valid Schema.org grouping.
+  // Single @graph — BlogPosting + Breadcrumb only. FAQPage intentionally
+  // omitted (see comment near the removed extractFaq function).
   const ld = {
     '@context': 'https://schema.org',
-    '@graph': faqLd ? [articleLd, breadcrumbLd, faqLd] : [articleLd, breadcrumbLd],
+    '@graph': [articleLd, breadcrumbLd],
   };
 
   return (
