@@ -370,9 +370,9 @@ const weddingDress: Record<Lang, LocalizedPageData> = {
 const nail: Record<Lang, LocalizedPageData> = {
   es: {
     meta: {
-      title: 'Probador Virtual de Uñas — Manicura IA Gratis | Agalaz',
-      description: 'Pruébate cualquier diseño de uñas en tu mano con IA. Gratis, instantáneo. Mira el resultado antes de la cita en el salón.',
-      keywords: ['probador virtual uñas', 'manicura virtual', 'simulador uñas ia', 'probarse esmalte online', 'nail art virtual'],
+      title: 'Probador de Uñas IA: Diseños de Gel, Francesa, Verano 2026 (Gratis)',
+      description: 'Probador de uñas IA gratis: diseños de gel, francesitas, glazed donut, milky white, coquette, uñas verano 2026. Pruébalos en tu mano real en 30 segundos antes del salón.',
+      keywords: ['probador uñas', 'probador unas', 'probador virtual uñas', 'simulador uñas', 'manicura virtual', 'diseños de uñas probador', 'uñas francesas probador', 'uñas de gel probador', 'simulador uñas ia', 'probarse esmalte online', 'nail art virtual', 'uñas verano probador'],
     },
     jsonLdName: 'Probador Virtual de Uñas',
     breadcrumbName: 'Probador Uñas',

@@ -379,6 +379,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95, // chrome nails cluster: 13 query variants in GSC impressions
       images: [`${baseUrl}/og/virtual-nail-try-on.png`],
     },
+    // Round-7 ES nail mega-clusters (2026-05-12) — DataForSEO verified
+    {
+      url: `${baseUrl}/es/unas-francesas-disenos`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly',
+      priority: 0.95, // 323K/mo cluster, KD 0-8
+      images: [`${baseUrl}/og/virtual-nail-try-on.png`],
+    },
+    {
+      url: `${baseUrl}/es/unas-verano-2026`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly', // seasonal mayo-agosto peak
+      priority: 0.95, // 120K/mo cluster, KD 0
+      images: [`${baseUrl}/og/virtual-nail-try-on.png`],
+    },
+    {
+      url: `${baseUrl}/es/unas-de-gel-disenos`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly',
+      priority: 0.95, // 200K/mo cluster, KD 0
+      images: [`${baseUrl}/og/virtual-nail-try-on.png`],
+    },
+    {
+      url: `${baseUrl}/es/disenos-de-unas`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly',
+      priority: 0.9, // 80K/mo cluster, KD 0
+      images: [`${baseUrl}/og/virtual-nail-try-on.png`],
+    },
     // Haircut by face shape — long-tail informational (KD 0-8 each)
     {
       url: `${baseUrl}/haircut-for-round-face`,
