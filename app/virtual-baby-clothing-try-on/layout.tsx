@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
+import ImageSchemaScript from '@/components/ImageSchemaScript';
 
 const FAQ = [
   { q: 'How does the virtual baby clothing try-on work?', a: 'Upload a clear photo of your baby and a photo of the outfit. The AI maps the garment onto your real baby in 30 seconds, preserving face, skin tone, body shape, and proportions.' },
@@ -55,5 +56,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://agalaz.com' }, { '@type': 'ListItem', position: 2, name: 'Virtual Baby Clothing Try-On', item: 'https://agalaz.com/virtual-baby-clothing-try-on' }] },
     ],
   };
-  return (<><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />{children}</>);
+  return (<><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <ImageSchemaScript slug="virtual-baby-clothing-try-on" lang="en" pageUrl="https://agalaz.com/virtual-baby-clothing-try-on" />{children}</>);
 }

@@ -39,6 +39,8 @@ const jsonLd = buildLocalizedJsonLd({
   faqs: data.content.faqs,
   baseUrl,
   breadcrumbName: data.breadcrumbName,
+  triptychSlug: 'virtual-baby-clothing-try-on',
+  triptychLang: 'fr',
 });
 
 export default function Layout({ children }: { children: React.ReactNode }) {

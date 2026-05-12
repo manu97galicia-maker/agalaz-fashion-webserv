@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { getTriptychAlts, getTriptychSrc, type TriptychLang } from '@/lib/imageSeo';
 
 export interface TriptychLabels {
   title: string;
@@ -12,6 +13,13 @@ interface Props {
   /** Slug of the landing (matches the filename in /public/images/landings/{slug}-{before,item,after}.png) */
   slug: string;
   labels: TriptychLabels;
+  /**
+   * Language of the page. Used to look up keyword-rich, SEO-optimized alt
+   * text from `lib/imageSeo.ts`. Defaults to English. The visible badge on
+   * each panel still uses the short `labels.{before,item,after}` strings so
+   * the UI stays tight.
+   */
+  lang?: TriptychLang;
 }
 
 /**
@@ -19,12 +27,13 @@ interface Props {
  * the AI-generated "after". Reuses the per-landing triptych panels generated
  * by scripts/generate-landing-images.mjs.
  */
-export default function TriptychDemo({ slug, labels }: Props) {
-  const base = `/images/landings/${slug}`;
+export default function TriptychDemo({ slug, labels, lang = 'en' }: Props) {
+  const alts = getTriptychAlts(slug, lang);
+  const src = getTriptychSrc(slug, lang);
   const panels = [
-    { src: `${base}-before.png`, label: labels.before, num: 1 },
-    { src: `${base}-item.png`, label: labels.item, num: 2 },
-    { src: `${base}-after.png`, label: labels.after, num: 3 },
+    { src: src.before, badge: labels.before, alt: alts.before, num: 1 },
+    { src: src.item, badge: labels.item, alt: alts.item, num: 2 },
+    { src: src.after, badge: labels.after, alt: alts.after, num: 3 },
   ];
 
   return (
@@ -44,16 +53,18 @@ export default function TriptychDemo({ slug, labels }: Props) {
               <div className="relative aspect-square overflow-hidden rounded-2xl bg-white border border-slate-200 shadow-sm">
                 <Image
                   src={p.src}
-                  alt={`${p.num}. ${p.label}`}
+                  alt={p.alt}
+                  title={p.alt}
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover"
                   priority={p.num === 1}
                 />
                 <div className="absolute top-3 left-3 bg-white/95 backdrop-blur px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-slate-700 shadow-sm">
-                  {p.num}. {p.label}
+                  {p.num}. {p.badge}
                 </div>
               </div>
+              <figcaption className="sr-only">{p.alt}</figcaption>
             </figure>
           ))}
         </div>

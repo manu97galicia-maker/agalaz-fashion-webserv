@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
+import ImageSchemaScript from '@/components/ImageSchemaScript';
 
 const FAQ = [
   { q: 'How does the virtual hairstyle try-on work?', a: 'Upload a clear front-on photo of your face and a photo of the hairstyle you want. The AI swaps your hair for the new cut and colour in 30 seconds, preserving your face shape, skin tone, and features.' },
@@ -53,5 +54,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://agalaz.com' }, { '@type': 'ListItem', position: 2, name: 'Virtual Hairstyle Try-On', item: 'https://agalaz.com/virtual-hairstyle-try-on' }] },
     ],
   };
-  return (<><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />{children}</>);
+  return (<><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <ImageSchemaScript slug="virtual-hairstyle-try-on" lang="en" pageUrl="https://agalaz.com/virtual-hairstyle-try-on" />{children}</>);
 }

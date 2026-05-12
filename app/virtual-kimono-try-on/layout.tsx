@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import ImageSchemaScript from '@/components/ImageSchemaScript';
 
 const FAQ = [
   { q: 'How does the virtual kimono and yukata try-on work?', a: 'Upload a clear photo of yourself and a photo of the kimono, yukata, haori, hakama or furisode. The AI dresses you in 30 seconds — including obi tie, eri collar layering and sleeve length — preserving your face and lighting.' },
@@ -67,5 +68,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://agalaz.com' }, { '@type': 'ListItem', position: 2, name: 'Virtual Kimono Try-On', item: 'https://agalaz.com/virtual-kimono-try-on' }] },
     ],
   };
-  return (<><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />{children}</>);
+  return (<><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <ImageSchemaScript slug="virtual-kimono-try-on" lang="en" pageUrl="https://agalaz.com/virtual-kimono-try-on" />{children}</>);
 }

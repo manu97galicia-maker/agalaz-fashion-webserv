@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Noto_Sans_SC } from 'next/font/google';
+import ImageSchemaScript from '@/components/ImageSchemaScript';
 
 // Noto Sans SC — clean Simplified Chinese web font with full glyph coverage.
 // Loaded with Latin subset too so brand "AGALAZ" stays consistent.
@@ -91,6 +92,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div lang="zh" className={`${notoSc.variable}`}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <ImageSchemaScript slug="virtual-qipao-try-on" lang="zh" pageUrl="https://agalaz.com/zh/qipao" />
       {children}
     </div>
   );

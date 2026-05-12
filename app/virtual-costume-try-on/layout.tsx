@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
+import ImageSchemaScript from '@/components/ImageSchemaScript';
 
 const FAQ = [
   { q: 'How does the virtual costume try-on work?', a: 'Upload a clear photo of yourself or your kid and a photo of the costume. The AI maps the costume onto your real body in 30 seconds, preserving face, hair, skin tone, and proportions.' },
@@ -52,5 +53,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://agalaz.com' }, { '@type': 'ListItem', position: 2, name: 'Virtual Costume Try-On', item: 'https://agalaz.com/virtual-costume-try-on' }] },
     ],
   };
-  return (<><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />{children}</>);
+  return (<><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <ImageSchemaScript slug="virtual-costume-try-on" lang="en" pageUrl="https://agalaz.com/virtual-costume-try-on" />{children}</>);
 }

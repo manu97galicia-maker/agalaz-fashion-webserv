@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
+import ImageSchemaScript from '@/components/ImageSchemaScript';
 
 const FAQ = [
   {
@@ -99,6 +100,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <ImageSchemaScript slug="virtual-nail-try-on" lang="en" pageUrl="https://agalaz.com/virtual-nail-try-on" />
       {children}
     </>
   );

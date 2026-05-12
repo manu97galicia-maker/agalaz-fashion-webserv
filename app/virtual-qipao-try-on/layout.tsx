@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import ImageSchemaScript from '@/components/ImageSchemaScript';
 
 const FAQ = [
   { q: 'How does the virtual qipao and hanfu try-on work?', a: 'Upload a clear photo of yourself and a photo of the qipao, cheongsam, hanfu, tang suit or changshan. The AI dresses you in 30 seconds — mandarin collar, pankou knots, slit, embroidery — preserving your real face and lighting.' },
@@ -66,5 +67,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://agalaz.com' }, { '@type': 'ListItem', position: 2, name: 'Virtual Qipao Try-On', item: 'https://agalaz.com/virtual-qipao-try-on' }] },
     ],
   };
-  return (<><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />{children}</>);
+  return (<><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <ImageSchemaScript slug="virtual-qipao-try-on" lang="en" pageUrl="https://agalaz.com/virtual-qipao-try-on" />{children}</>);
 }

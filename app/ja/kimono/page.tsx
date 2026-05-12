@@ -59,7 +59,7 @@ export default function Page() {
         </div>
       </nav>
 
-      <TriptychDemo slug="virtual-kimono-try-on" labels={TRIPTYCH_LABELS_JA} />
+      <TriptychDemo slug="virtual-kimono-try-on" labels={TRIPTYCH_LABELS_JA} lang="ja" />
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">
         <div className="text-center">

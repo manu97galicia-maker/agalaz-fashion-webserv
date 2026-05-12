@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
+import ImageSchemaScript from '@/components/ImageSchemaScript';
 
 const FAQ = [
   { q: 'How does the virtual men\'s suit try-on work?', a: 'Upload a full-body photo and a photo of any suit, tuxedo, or blazer. The AI maps the garment onto your real body in 30 seconds, preserving your face, skin tone, and proportions.' },
@@ -58,5 +59,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://agalaz.com' }, { '@type': 'ListItem', position: 2, name: 'Virtual Men\'s Suit Try-On', item: 'https://agalaz.com/virtual-mens-suit-try-on' }] },
     ],
   };
-  return (<><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />{children}</>);
+  return (<><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <ImageSchemaScript slug="virtual-mens-suit-try-on" lang="en" pageUrl="https://agalaz.com/virtual-mens-suit-try-on" />{children}</>);
 }

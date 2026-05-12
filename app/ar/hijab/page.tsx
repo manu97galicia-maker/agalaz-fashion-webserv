@@ -61,7 +61,7 @@ export default function Page() {
       </nav>
 
       {/* Triptych transformation — the visual hook right after the brand bar. */}
-      <TriptychDemo slug="virtual-veil-try-on" labels={TRIPTYCH_LABELS_AR} />
+      <TriptychDemo slug="virtual-veil-try-on" labels={TRIPTYCH_LABELS_AR} lang="ar" />
 
       {/* Hero */}
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">

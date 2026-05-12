@@ -40,6 +40,8 @@ const jsonLd = buildLocalizedJsonLd({
   faqs: data.content.faqs,
   baseUrl,
   breadcrumbName: data.breadcrumbName,
+  triptychSlug: 'virtual-nail-try-on',
+  triptychLang: 'pt',
 });
 
 export default function Layout({ children }: { children: React.ReactNode }) {

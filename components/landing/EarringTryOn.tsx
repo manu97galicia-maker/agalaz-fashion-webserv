@@ -149,7 +149,7 @@ export default function EarringTryOn({ lang }: Props) {
       </nav>
 
       {/* Triptych transformation — visible right after the nav so the visual hook lands above the fold. */}
-      <TriptychDemo slug="virtual-earring-try-on" labels={TRIPTYCH_LABELS[lang]} />
+      <TriptychDemo slug="virtual-earring-try-on" labels={TRIPTYCH_LABELS[lang]} lang={lang} />
 
       {/* Contextual B2B partner CTA — converts shop-owner traffic immediately after the visual demo. */}
       <PartnerCtaBlock category="virtual-earring-try-on" lang={lang} />

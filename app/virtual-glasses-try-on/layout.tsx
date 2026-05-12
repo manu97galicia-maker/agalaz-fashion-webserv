@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingSlugs';
+import ImageSchemaScript from '@/components/ImageSchemaScript';
 
 const FAQ = [
   { q: 'How does the virtual eyeglasses try-on work?', a: 'Upload a front-facing photo and a photo of the frames or eyewear. The AI maps the eyeglasses onto your face in 30 seconds, preserving your face shape, skin tone, hair, and lighting.' },
@@ -73,5 +74,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: 'https://agalaz.com' }, { '@type': 'ListItem', position: 2, name: 'Virtual Glasses Try-On', item: 'https://agalaz.com/virtual-glasses-try-on' }] },
     ],
   };
-  return (<><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />{children}</>);
+  return (<><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <ImageSchemaScript slug="virtual-glasses-try-on" lang="en" pageUrl="https://agalaz.com/virtual-glasses-try-on" />{children}</>);
 }

@@ -6,6 +6,7 @@ import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
 import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
 import PartnerCtaBlock from '@/components/landing/PartnerCtaBlock';
 import type { CanonicalLandingSlug } from '@/lib/i18n/landingSlugs';
+import { getTriptychImageObjects, type TriptychLang } from '@/lib/imageSeo';
 
 type Lang = 'es' | 'fr' | 'pt' | 'de' | 'it';
 
@@ -90,7 +91,7 @@ export default function LocalizedLanding({ c, enHref, slug, lang }: Props) {
 
       {/* Triptych transformation — the before/item/after image set explains
           "what does this product do?" in 1 second, right after the brand bar. */}
-      <TriptychDemo slug={slug} labels={TRIPTYCH_LABELS[lang]} />
+      <TriptychDemo slug={slug} labels={TRIPTYCH_LABELS[lang]} lang={lang} />
 
       {/* Interactive try-on with watermarked free render */}
       <TryOnDemoBlock category={SLUG_TO_CATEGORY[slug] || 'clothing'} lang={lang} />
@@ -264,8 +265,18 @@ export function buildLocalizedJsonLd(opts: {
   /** ISO date, e.g. '2026-05-12'. Defaults to a stable old date so it doesn't
    *  look like every page was just refreshed (which Google penalises). */
   datePublished?: string;
+  /** Canonical slug + lang used to emit ImageObject entries for the triptych.
+   *  When omitted, the image schema is skipped (e.g. on non-triptych pages). */
+  triptychSlug?: string;
+  triptychLang?: TriptychLang;
 }) {
   const datePublished = opts.datePublished ?? '2026-05-10';
+  const imageObjects = opts.triptychSlug && opts.triptychLang
+    ? getTriptychImageObjects(opts.triptychSlug, opts.triptychLang, opts.pageUrl, opts.baseUrl)
+    : [];
+  const heroImageUrl = imageObjects[2]
+    ? (imageObjects[2] as { url: string }).url
+    : undefined;
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -276,6 +287,7 @@ export function buildLocalizedJsonLd(opts: {
         url: opts.pageUrl,
         datePublished,
         dateModified: datePublished,
+        ...(heroImageUrl ? { image: heroImageUrl } : {}),
         author: { '@type': 'Organization', name: 'Agalaz Fashion', url: opts.baseUrl },
         publisher: {
           '@type': 'Organization',
@@ -292,6 +304,7 @@ export function buildLocalizedJsonLd(opts: {
         applicationCategory: 'LifestyleApplication',
         operatingSystem: 'Web',
         description: opts.description,
+        ...(heroImageUrl ? { image: heroImageUrl } : {}),
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       },
       {
@@ -309,6 +322,7 @@ export function buildLocalizedJsonLd(opts: {
           { '@type': 'ListItem', position: 2, name: opts.breadcrumbName, item: opts.pageUrl },
         ],
       },
+      ...imageObjects,
     ],
   };
 }
