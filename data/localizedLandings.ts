@@ -502,9 +502,9 @@ const nail: Record<Lang, LocalizedPageData> = {
   },
   de: {
     meta: {
-      title: 'Virtuelle Nagel-Anprobe — Maniküre KI Kostenlos | Agalaz',
-      description: 'Probieren Sie jedes Nageldesign mit KI auf Ihrer Hand an. Kostenlos, sofort. Sehen Sie das Ergebnis vor dem Termin im Nagelstudio.',
-      keywords: ['virtuelle nagel anprobe', 'virtuelle maniküre', 'nagel simulator ki', 'nagellack online testen', 'nail art virtuell'],
+      title: 'Nageldesign 2026: Ideen & Vorlagen mit KI-Probe Kostenlos | Agalaz',
+      description: 'Nageldesign 2026: Ideen, Vorlagen, French, Glazed Donut, Milky White, Coquette. Mit KI auf Ihrer Hand testen — kostenlos vor dem Nagelstudio. 30 Sek.',
+      keywords: ['nageldesign', 'nageldesign ideen', 'ideen für nageldesign', 'nageldesign 2026', 'nageldesign vorlagen', 'virtuelle nagel anprobe', 'nagel simulator', 'nagellack online testen', 'nail art', 'maniküre design'],
     },
     jsonLdName: 'Virtuelle Nagel-Anprobe',
     breadcrumbName: 'Nagel-Anprobe',
@@ -546,9 +546,9 @@ const nail: Record<Lang, LocalizedPageData> = {
   },
   it: {
     meta: {
-      title: 'Prova Virtuale Unghie — Manicure IA Gratuita | Agalaz',
-      description: 'Prova qualsiasi design unghie sulla tua mano con IA. Gratis, istantaneo. Vedi il risultato prima dell\'appuntamento dalla onicotecnica.',
-      keywords: ['prova virtuale unghie', 'manicure virtuale', 'simulatore unghie ia', 'provare smalto online', 'nail art virtuale'],
+      title: 'Unghie Decorate 2026: Bianco Latte, Francese, Coquette con Prova IA Gratis | Agalaz',
+      description: 'Unghie decorate 2026: bianco latte, francese, glazed donut, coquette, semplici ma belle. Prova qualsiasi design sulla tua mano con IA gratis prima dell\'onicotecnica.',
+      keywords: ['unghie decorate', 'unghie decorate semplici', 'unghie bianco latte decorate', 'unghie semplici', 'unghie 2026', 'prova virtuale unghie', 'manicure virtuale', 'simulatore unghie ia', 'provare smalto online', 'nail art virtuale'],
     },
     jsonLdName: 'Prova Virtuale Unghie',
     breadcrumbName: 'Prova Unghie',
@@ -824,9 +824,9 @@ const glasses: Record<Lang, LocalizedPageData> = {
 const jewelry: Record<Lang, LocalizedPageData> = {
   es: {
     meta: {
-      title: 'Probador Virtual de Joyas — Try-On IA Gratis | Agalaz',
-      description: 'Pruébate collares, anillos, pulseras y relojes en tu foto con IA. Mira la joya antes de comprarla — brillo, tamaño, armonía.',
-      keywords: ['probador virtual joyas', 'probarse collar online', 'anillo virtual ia', 'simulador joyas', 'try on joyas', 'probador virtual joyería', 'collar virtual ia', 'anillos online virtual', 'pulsera probador online', 'simulador joyería', 'joyería online prueba'],
+      title: 'Joyas Mujer: Collares, Anillos, Pulseras con Probador IA Gratis | Agalaz',
+      description: 'Joyas mujer: collares, anillos, pulseras y relojes. Pruébatelos en tu foto con IA antes de comprar. Brillo, tamaño, armonía con tu piel — ve cómo te queda en 30 sec.',
+      keywords: ['joyas mujer', 'joyas online', 'collares mujer', 'anillos mujer', 'pulseras mujer', 'joyería mujer', 'probador virtual joyas', 'probarse collar online', 'anillo virtual ia', 'simulador joyas', 'try on joyas', 'joyería online prueba'],
     },
     jsonLdName: 'Probador Virtual de Joyas',
     breadcrumbName: 'Probador Joyas',
@@ -912,7 +912,7 @@ const jewelry: Record<Lang, LocalizedPageData> = {
   },
   pt: {
     meta: {
-      title: 'Provador Virtual de Joias — Try-On IA Grátis | Agalaz',
+      title: 'Joias Femininas: Colares, Anéis, Pulseiras com Provador IA Grátis | Agalaz',
       description: 'Experimente colares, anéis, pulseiras e relógios na sua foto com IA. Veja a joia antes de comprar — brilho, tamanho, harmonia com a roupa.',
       keywords: ['provador virtual joias', 'experimentar colar online', 'anel virtual ia', 'simulador joias', 'try on joias'],
     },
@@ -1000,7 +1000,7 @@ const jewelry: Record<Lang, LocalizedPageData> = {
   },
   it: {
     meta: {
-      title: 'Prova Virtuale Gioielli — Try-On IA Gratuito | Agalaz',
+      title: 'Gioielli Donna: Collane, Anelli, Bracciali con Prova IA Gratis | Agalaz',
       description: 'Prova collane, anelli, bracciali e orologi sulla tua foto con IA. Vedi il gioiello prima di comprare — brillantezza, taglia, armonia.',
       keywords: ['prova virtuale gioielli', 'provare collana online', 'anello virtuale ia', 'simulatore gioielli', 'try on gioielli'],
     },
@@ -1229,7 +1229,7 @@ const mensSuit: Record<Lang, LocalizedPageData> = {
   },
   de: {
     meta: {
-      title: 'Virtuelle Anzug-Anprobe Herren — KI Kostenlos | Agalaz',
+      title: 'Herrenanzug 2026: Hochzeit, Business, Grüner Anzug — KI-Anprobe Kostenlos | Agalaz',
       description: 'Probieren Sie jeden Anzug auf Ihrem Foto mit KI an. Smoking, 2- oder 3-teilig, Blazer. Finden Sie den perfekten Schnitt vor der Bestellung.',
       keywords: ['virtuelle anzug anprobe herren', 'herrenanzug ki', 'anzug online anprobieren', 'smoking simulator', 'hochzeitsanzug virtuell'],
     },
@@ -1456,7 +1456,7 @@ const petClothing: Record<Lang, LocalizedPageData> = {
   },
   de: {
     meta: {
-      title: 'Virtuelle Haustierkleidungs-Anprobe — KI Kostenlos',
+      title: 'Hundebekleidung: Mäntel, Pullover, Kostüme — Virtuelle KI-Anprobe Kostenlos',
       description: 'Probieren Sie jede Kleidung, jeden Mantel oder jedes Kostüm an Ihrem Hund oder Ihrer Katze mit KI an. Finden Sie die richtige Größe vor dem Kauf.',
       keywords: ['virtuelle hundekleidung anprobe', 'hundemantel ki', 'katzenkleidung virtuell', 'tierkostüm online', 'haustier anprobe'],
     },
@@ -2038,7 +2038,7 @@ const costume: Record<Lang, LocalizedPageData> = {
 const hairstyle: Record<Lang, LocalizedPageData> = {
   es: {
     meta: {
-      title: 'Probador Virtual de Peinados — IA Gratis | Agalaz',
+      title: 'Peinados Mujer 2026: Pelo Corto, Largo, Mediano con Probador IA | Agalaz',
       description: 'Pruébate cortes, color, mechas balayage o tinte con IA antes de la peluquería. Mira platino, cobre, pixie o bob en TU cara en 30 segundos.',
       keywords: ['probador virtual peinados', 'simulador corte de pelo ia', 'probador color de pelo online', 'mechas balayage virtual', 'tinte virtual antes peluquería', 'pixie corte simulador', 'probarse peinado online', 'cambiar color pelo ia', 'probador trenzas online', 'probador peinado boda'],
     },

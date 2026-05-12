@@ -408,6 +408,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9, // 80K/mo cluster, KD 0
       images: [`${baseUrl}/og/virtual-nail-try-on.png`],
     },
+    // Round-8 ghost-keyword recoveries (2026-05-12) — 4 highest-vol clusters
+    {
+      url: `${baseUrl}/pt/unhas-decoradas`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly',
+      priority: 0.98, // 368K/mo PT-BR, KD 0
+      images: [`${baseUrl}/og/virtual-nail-try-on.png`],
+    },
+    {
+      url: `${baseUrl}/pt/corte-de-cabelo-feminino`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly',
+      priority: 0.98, // 246K/mo PT-BR, KD 0
+      images: [`${baseUrl}/og/haircut-round-face.png`],
+    },
+    {
+      url: `${baseUrl}/pt/vestido-de-noiva`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly',
+      priority: 0.98, // 165K/mo PT-BR, KD 5
+      images: [`${baseUrl}/og/virtual-wedding-dress-try-on.png`],
+    },
+    {
+      url: `${baseUrl}/fr/robe-de-mariee`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly',
+      priority: 0.98, // 110K/mo FR, KD 0
+      images: [`${baseUrl}/og/virtual-wedding-dress-try-on.png`],
+    },
     // Haircut by face shape — long-tail informational (KD 0-8 each)
     {
       url: `${baseUrl}/haircut-for-round-face`,
