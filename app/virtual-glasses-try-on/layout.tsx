@@ -4,6 +4,10 @@ import { landingHreflangAlternates, nativeLandingUrl } from '@/lib/i18n/landingS
 const FAQ = [
   { q: 'How does the virtual eyeglasses try-on work?', a: 'Upload a front-facing photo and a photo of the frames or eyewear. The AI maps the eyeglasses onto your face in 30 seconds, preserving your face shape, skin tone, hair, and lighting.' },
   { q: 'Can I try eyeglass frames from any optician or brand?', a: 'Yes. Ray-Ban, Persol, Tom Ford, Warby Parker, GENTLE MONSTER, indie, vintage spectacles, your local optician — any photo of eyewear or eyeglass frames works.' },
+  {
+    q: 'Best glasses to hide eye bags and dark circles — does the AI help me find them?',
+    a: "Yes. Frames that hide eye bags and dark circles share specific design features: thicker bottom rim (draws the eye downward to the rim instead of the under-eye area), tinted lenses (reduces visibility of the shadow), darker frame colors (tortoise, black, dark havana — create contrast that makes circles less noticeable), and slightly oversized lens area (more 'face real estate' covered). Upload your photo and try on heavy-bottom-rimmed acetate frames, larger aviators, or tinted oversized sunglasses. Our chat can suggest specific styles based on your under-eye shadow intensity and face shape — ask 'best glasses to hide my dark circles' after the first render.",
+  },
   { q: 'Will it tell me which eyeglass frames suit my face shape?', a: 'Yes. Ask the AI chat after the first render, or read our face-shape guides for diamond, oval, round, and square faces — we suggest frames per face shape.' },
   { q: 'Can I try sunglasses and prescription eyeglasses?', a: 'Yes. Tinted sunglasses, clear glasses, blue-light, prescription eyeglasses, reading spectacles, sport eyewear — same flow, same accuracy.' },
   { q: 'Is the virtual eyewear try-on accurate?', a: 'The AI preserves the bridge fit, lens size relative to your face, and frame thickness. Pupillary distance limitations apply — for prescription orders always confirm PD with your optician.' },
@@ -12,7 +16,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Eyeglass Try-On — Eyewear on Your Face | Agalaz',
+  title: 'Eyeglasses Virtual Try-On — Glasses, Sunglasses, Frames for Eye Bags & Dark Circles',
   description:
     'Virtual eyeglass try-on with AI. Upload your photo, drop any eyewear or spectacles — see Ray-Ban, Persol, Warby Parker, optician frames on your face in 30 seconds. Free.',
   keywords: [

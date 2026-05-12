@@ -364,6 +364,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85, // ~12K/mo FR cluster, KD 0
       images: [`${baseUrl}/og/haircut-round-face.png`],
     },
+    // Round-6 landings driven by Google Search Console impression data (2026-05-12)
+    {
+      url: `${baseUrl}/how-to-style-oversized-clothes`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly',
+      priority: 0.9, // 36 imp/mo already from Google with no dedicated page
+      images: [`${baseUrl}/og/default.png`],
+    },
+    {
+      url: `${baseUrl}/chrome-nails-2026`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly',
+      priority: 0.95, // chrome nails cluster: 13 query variants in GSC impressions
+      images: [`${baseUrl}/og/virtual-nail-try-on.png`],
+    },
     // Haircut by face shape — long-tail informational (KD 0-8 each)
     {
       url: `${baseUrl}/haircut-for-round-face`,

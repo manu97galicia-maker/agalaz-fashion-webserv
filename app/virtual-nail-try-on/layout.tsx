@@ -29,9 +29,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Nail Try-On — Manicures on Your Hand with AI',
+  title: 'Virtual Nail Try-On — Pastel Chrome 2026, Almond, Glazed Donut, Coquette (Free AI)',
   description:
-    'Try any nail design on your real hand before booking. Almond, coffin, chrome, French, glitter, gel — see it on you in 30 seconds. Free, private, no app.',
+    'Free virtual nail try-on AI: pastel chrome 2026, glazed donut, milky white, almond, coffin, French, coquette pink bow. See any design on your real hand in 30 seconds before the salon.',
   keywords: [
     'virtual nail try on',
     'ai nail simulator',
