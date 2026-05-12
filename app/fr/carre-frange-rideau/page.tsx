@@ -1,0 +1,6 @@
+import LongtailLandingTemplate from '@/components/landing/LongtailLandingTemplate';
+import { carreFrangeRideau } from '@/data/longtailLandingsRound5';
+
+export default function Page() {
+  return <LongtailLandingTemplate content={carreFrangeRideau} />;
+}

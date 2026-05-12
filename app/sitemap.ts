@@ -342,6 +342,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85, // 8.1K/mo ES + 27K cluster
       images: [`${baseUrl}/og/halloween-couples.png`],
     },
+    // Round-5 ultra-soft top-5 mega-clusters (2026-05-12) — SERP-verified
+    {
+      url: `${baseUrl}/curtain-bangs-haircut`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly',
+      priority: 0.95, // ~30K/mo cluster, KD 0-3, Pinterest+Reddit SERP
+      images: [`${baseUrl}/og/haircut-round-face.png`],
+    },
+    {
+      url: `${baseUrl}/wolf-cut-hairstyles`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly',
+      priority: 0.95, // ~38K/mo cluster, KD 0-4, Pinterest+YouTube SERP
+      images: [`${baseUrl}/og/haircut-round-face.png`],
+    },
+    {
+      url: `${baseUrl}/fr/carre-frange-rideau`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'monthly',
+      priority: 0.85, // ~12K/mo FR cluster, KD 0
+      images: [`${baseUrl}/og/haircut-round-face.png`],
+    },
     // Haircut by face shape — long-tail informational (KD 0-8 each)
     {
       url: `${baseUrl}/haircut-for-round-face`,
