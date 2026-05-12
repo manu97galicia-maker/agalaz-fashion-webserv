@@ -12,9 +12,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Swimsuit & Bikini Try-On — One-Piece, Bathing Suit AI',
-  description:
-    'Try any swimsuit, bathing suit or bikini on your real body with AI. One-piece, two-piece, women\'s swimwear — see fit before buying. 2 free renders, no signup.',
+    title: 'Womens Swimsuit 2026: Bikinis, One-Piece, Tankini — Free AI Try-On',
+    description:
+      "Womens swimsuit 2026: bikinis, one-piece, tankini, high-waisted, two-piece, plus size. Try any swimsuit on your real body with AI in 30 seconds before buying. 2 free renders.",
   keywords: [
     'swimsuit',
     'swimsuits',

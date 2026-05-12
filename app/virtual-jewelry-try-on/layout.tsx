@@ -11,20 +11,24 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Jewelry Try-On — Necklaces & Rings AI',
+  title: 'Jewelry for Women: Necklaces, Rings, Bracelets — Free AI Try-On',
   description:
-    'Try any jewellery on your real body before buying. Engagement rings, necklaces, earrings, bracelets — see them on you in 30 seconds. Free, no app.',
+    'Jewelry for women: necklaces, engagement rings, earrings, bracelets, gold, silver, pearl. Try any piece on your body with free AI before buying. 30 sec, no app.',
   keywords: [
+    'jewelry for women',
+    'jewelry women',
+    'necklaces for women',
+    'rings for women',
+    'engagement rings',
+    'gold jewelry women',
+    'silver jewelry women',
+    'pearl jewelry',
+    'fine jewelry',
     'virtual jewelry try on',
     'try on necklace online',
     'virtual ring try on',
     'engagement ring try on online',
-    'virtual bracelet try on',
     'ai jewelry try on',
-    'see jewelry on me',
-    'virtual fine jewelry',
-    'diamond ring simulator',
-    'necklace length simulator',
   ],
   openGraph: {
     title: 'Virtual Jewelry Try-On — See Any Piece On You',

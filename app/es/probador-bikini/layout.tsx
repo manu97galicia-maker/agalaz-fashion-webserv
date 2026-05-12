@@ -6,7 +6,7 @@ const pageUrl = nativeLandingUrl('realistic-swimwear-try-on', 'es');
 const enUrl = nativeLandingUrl('realistic-swimwear-try-on', 'en');
 
 export const metadata: Metadata = {
-  title: 'Bikini Mujer — Probador Virtual Bañadores y Trajes Baño IA',
+  title: 'Bañador Mujer 2026: Bikini, Tankini, Decathlon, Shein — Probador IA Gratis',
   description: 'Bikini mujer, bañador, traje de baño Decathlon, Shein, Corte Inglés. Pruébatelo con IA en tu cuerpo antes de comprar. Bikini deportivo, tanga, malla.',
   keywords: [
     'bikini mujer',

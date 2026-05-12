@@ -29,9 +29,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Wedding Dress Try-On — Any Gown with AI',
+  title: 'Wedding Dresses 2026: Mermaid, Princess, Boho, Lace — Free AI Try-On',
   description:
-    'Try wedding dresses on your real body with AI before any boutique appointment. Upload a photo, drop in any gown (Pronovias, Vera Wang, Pinterest), see it on you in 30 seconds. Free.',
+    'Wedding dresses 2026: mermaid, princess, boho, lace, ball gown, A-line, sheath. Try any gown on your real body with AI before the boutique appointment. Free, 30 sec.',
   keywords: [
     'virtual wedding dress try on',
     'try on wedding dress online',

@@ -11,9 +11,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Baby Christening & Outfit Try-On — Baby Boy/Girl AI',
+  title: 'Baby Clothes 2026: Newborn, Outfits, Christening, Onesies — Free AI Try-On',
   description:
-    'Baby boy christening outfit, baby Christmas outfit, baby Valentine\'s outfit on your real baby with AI. Onesies, dresses, costumes — see it before buying. Free.',
+    "Baby clothes 2026: newborn outfits, onesies, christening outfit baby boy/girl, baby Christmas outfit. Try any baby clothes on your real baby with AI in 30 sec. Free.",
   keywords: [
     'baby boy christening outfit',
     'baby christening outfit',

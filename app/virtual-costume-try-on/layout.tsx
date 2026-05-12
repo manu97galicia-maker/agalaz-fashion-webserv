@@ -11,9 +11,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Costume Try-On — Halloween & Cosplay AI',
+  title: 'Halloween Costumes 2026: Women, Men, Couples, Kids — Free AI Try-On',
   description:
-    'Try Halloween costumes, cosplay, kids outfits, carnival looks and party themes on your real body with AI before buying. See it on YOU in 30 seconds. Free, no app.',
+    'Halloween costumes 2026: women, men, couples, kids, scary, funny, sexy, group costumes. Try any costume on your body with AI in 30 seconds before buying. Free.',
   keywords: [
     'virtual costume try on',
     'ai halloween costume try on',

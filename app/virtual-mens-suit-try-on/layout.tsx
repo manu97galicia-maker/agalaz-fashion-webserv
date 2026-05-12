@@ -11,9 +11,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Mens Suit Try-On — Tailored Suit, Wedding & Prom AI',
+  title: "Men's Suit 2026: Wedding, Prom, Business, Slim Fit — Free AI Try-On",
   description:
-    'Try any mens suit, tuxedo, tailored suit or blazer on your real body with AI. Wedding suit, prom tuxedo, SuitSupply, Indochino — see it before buying. Free.',
+    "Men's suit 2026: wedding suits, prom tuxedos, business suits, slim fit, navy, gray, black. Try any suit on your real body with AI in 30 seconds before buying. Free.",
   keywords: [
     'mens suit',
     'mens tailored suit',

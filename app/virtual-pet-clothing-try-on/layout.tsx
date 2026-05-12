@@ -11,24 +11,28 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Pet Clothing Try-On — Outfits On Your Pet',
+  title: 'Dog Halloween Costume, Harness & Sweater — Free AI Try-On on Your Pet',
   description:
-    'Try sweaters, costumes, and outfits on your real dog or cat with AI before buying. Halloween, holidays, daily wear — see it on YOUR pet in 30 seconds. Free, no app.',
+    'Try dog halloween costumes, harnesses, sweaters, and outfits on your real dog or cat with AI. See it on YOUR pet in 30 seconds before buying. Free, no app.',
   keywords: [
+    'dog halloween costume',
+    'dog harness',
+    'dog sweater',
+    'dog clothes',
+    'dog costume',
+    'pet costume',
+    'pet outfit',
+    'cat clothes',
+    'cat sweater',
     'virtual pet clothing try on',
     'ai dog clothing try on',
     'see outfit on my dog',
     'pet costume simulator',
     'dog sweater try on',
-    'cat clothes try on online',
-    'halloween pet costume preview',
-    'try clothes on my dog ai',
-    'pet apparel virtual try on',
-    'dog outfit simulator',
   ],
   openGraph: {
-    title: 'Virtual Pet Clothing Try-On — See Outfits On Your Pet',
-    description: 'Upload a pet photo, drop in any outfit, see it on YOUR dog or cat in 30 seconds. Free.',
+    title: 'Dog Halloween Costume, Harness & Sweater AI Try-On',
+    description: 'Try dog halloween costumes, harnesses, sweaters on YOUR dog or cat in 30 seconds. Free AI.',
     url: 'https://agalaz.com/virtual-pet-clothing-try-on',
     siteName: 'Agalaz',
     type: 'website',

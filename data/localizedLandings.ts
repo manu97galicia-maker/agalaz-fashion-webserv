@@ -68,8 +68,8 @@ const SECONDARY_CTA = {
 const weddingDress: Record<Lang, LocalizedPageData> = {
   es: {
     meta: {
-      title: 'Vestido de Novia — Probador Virtual IA Gratis | Agalaz',
-      description: 'Pruébate cualquier vestido de novia con IA. Vestidos sencillos, baratos, princesa, sirena, boho — míralo en tu cuerpo antes de comprar.',
+      title: 'Vestido de Novia 2026: Civil, Sirena, Princesa, Boho — Probador IA Gratis',
+      description: 'Vestido de novia 2026: civil, sirena, princesa, boho, sencillo, escote V, espalda abierta. Pruébate cualquier vestido con IA antes del showroom. Gratis.',
       keywords: [
         'vestido de novia',
         'vestidos de novia',
@@ -414,7 +414,7 @@ const nail: Record<Lang, LocalizedPageData> = {
   },
   fr: {
     meta: {
-      title: 'Essayage Virtuel d\'Ongles — Manucure IA Gratuite | Agalaz',
+      title: "Vernis à Ongles 2026: Nail Art, French, Couleurs — Essayage IA Gratuit | Agalaz",
       description: 'Essayez n\'importe quel design d\'ongles sur votre main avec l\'IA. Gratuit, instantané. Voyez le résultat avant le rendez-vous chez la prothésiste.',
       keywords: ['essayage virtuel ongles', 'manucure virtuelle', 'simulateur ongles IA', 'essayer vernis en ligne', 'nail art virtuel'],
     },
@@ -597,7 +597,7 @@ const nail: Record<Lang, LocalizedPageData> = {
 const glasses: Record<Lang, LocalizedPageData> = {
   es: {
     meta: {
-      title: 'Probador Virtual de Gafas / Lentes — Try-On IA Gratis',
+      title: 'Gafas de Sol y Graduadas 2026 Mujer/Hombre — Probador IA Gratis | Agalaz',
       description: 'Pruébate gafas (lentes en LATAM) en tu cara con IA. De sol, graduadas, de diseñador. Encuentra la montura perfecta antes de comprar.',
       keywords: ['probador virtual gafas', 'probarse gafas online', 'gafas virtuales ia', 'simulador gafas', 'try on gafas sol', 'lentes virtuales', 'lentes online', 'gafas virtuales', 'lentes virtuales ia', 'probador virtual lentes', 'lentes de sol virtual', 'lentes graduados probador', 'simulador lentes online', 'anteojos virtuales', 'lentes vs gafas'],
     },
@@ -641,7 +641,7 @@ const glasses: Record<Lang, LocalizedPageData> = {
   },
   fr: {
     meta: {
-      title: 'Essayage Virtuel de Lunettes — Try-On IA Gratuit | Agalaz',
+      title: 'Lunettes de Soleil & Vue 2026 Femme/Homme — Essayage IA Gratuit | Agalaz',
       description: 'Essayez n\'importe quelles lunettes sur votre visage avec l\'IA. Solaires, vue, designer. Trouvez la monture parfaite avant d\'acheter.',
       keywords: ['essayage virtuel lunettes', 'essayer lunettes en ligne', 'lunettes virtuelles IA', 'simulateur lunettes', 'try on lunettes solaires'],
     },
@@ -685,7 +685,7 @@ const glasses: Record<Lang, LocalizedPageData> = {
   },
   pt: {
     meta: {
-      title: 'Provador Virtual de Óculos — Try-On IA Grátis | Agalaz',
+      title: 'Óculos Feminino 2026: De Sol, De Grau, Armações — Provador IA Grátis | Agalaz',
       description: 'Experimente quaisquer óculos no seu rosto com IA. Sol, graduados, designer. Encontre a armação perfeita antes de comprar.',
       keywords: ['provador virtual óculos', 'experimentar óculos online', 'óculos virtuais IA', 'simulador óculos', 'try on óculos sol', 'óculos virtuais', 'óculos virtuais brasil', 'óculos de sol virtuais', 'experimentar óculos virtual', 'óculos virtuais ia online', 'provador óculos brasil'],
     },
@@ -729,7 +729,7 @@ const glasses: Record<Lang, LocalizedPageData> = {
   },
   de: {
     meta: {
-      title: 'Virtuelle Brillen-Anprobe — Try-On KI Kostenlos | Agalaz',
+      title: 'Brille Online Anprobieren: Sonnenbrille, Brillen Damen/Herren — KI Kostenlos | Agalaz',
       description: 'Probieren Sie jede Brille auf Ihrem Gesicht mit KI an. Sonnenbrillen, Korrekturbrillen, Designer. Finden Sie das perfekte Gestell vor dem Kauf.',
       keywords: ['virtuelle brillen anprobe', 'brille online anprobieren', 'brille ki', 'brillen simulator', 'sonnenbrille try on'],
     },
@@ -868,7 +868,7 @@ const jewelry: Record<Lang, LocalizedPageData> = {
   },
   fr: {
     meta: {
-      title: 'Essayage Virtuel de Bijoux — Try-On IA Gratuit | Agalaz',
+      title: 'Bijoux Fantaisie Femme: Colliers, Bagues, Bracelets — Essayage IA Gratuit | Agalaz',
       description: 'Essayez colliers, bagues, bracelets et montres sur votre photo avec l\'IA. Voyez le bijou avant d\'acheter — éclat, taille, harmonie avec votre tenue.',
       keywords: ['essayage virtuel bijoux', 'essayer collier en ligne', 'bague virtuelle IA', 'simulateur bijoux', 'try on bijoux'],
     },
@@ -956,7 +956,7 @@ const jewelry: Record<Lang, LocalizedPageData> = {
   },
   de: {
     meta: {
-      title: 'Virtuelle Schmuck-Anprobe — Try-On KI Kostenlos | Agalaz',
+      title: 'Schmuck Damen 2026: Silber, Gold, Halsketten, Ringe — KI-Anprobe Kostenlos | Agalaz',
       description: 'Probieren Sie Halsketten, Ringe, Armbänder und Uhren mit KI auf Ihrem Foto an. Sehen Sie den Schmuck vor dem Kauf — Glanz, Größe, Harmonie.',
       keywords: ['virtuelle schmuck anprobe', 'kette online anprobieren', 'ring virtuell ki', 'schmuck simulator', 'try on schmuck'],
     },
@@ -1051,8 +1051,8 @@ const jewelry: Record<Lang, LocalizedPageData> = {
 const mensSuit: Record<Lang, LocalizedPageData> = {
   es: {
     meta: {
-      title: 'Traje de Hombre — Probador Virtual IA Gratis | Agalaz',
-      description: 'Traje hombre Zara, Mango, traje boda, esmoquin o blazer con IA. Pruébate el corte exacto en tu cuerpo antes de comprar.',
+      title: 'Traje Hombre 2026: Boda, Zara, Esmoquin, Slim — Probador IA Gratis | Agalaz',
+      description: 'Traje hombre 2026: boda, Zara, Mango, esmoquin, slim fit, gris, azul marino, negro. Pruébatelo en tu cuerpo con IA antes de comprar. Gratis 30 sec.',
       keywords: [
         'traje hombre',
         'traje de hombre',
@@ -1110,7 +1110,7 @@ const mensSuit: Record<Lang, LocalizedPageData> = {
   },
   fr: {
     meta: {
-      title: 'Essayage Virtuel Costume Homme — IA Gratuite | Agalaz',
+      title: 'Costume Homme 2026: Mariage, Marié, Bleu, Slim — Essayage IA Gratuit | Agalaz',
       description: 'Essayez n\'importe quel costume sur votre photo avec l\'IA. Smoking, costume 2 ou 3 pièces, blazer. Trouvez la coupe parfaite avant de commander.',
       keywords: [
         'costume homme',
@@ -1169,8 +1169,8 @@ const mensSuit: Record<Lang, LocalizedPageData> = {
   },
   pt: {
     meta: {
-      title: 'Provador Virtual Fato Homem — IA Grátis | Agalaz',
-      description: 'Experimente qualquer fato na sua foto com IA. Smoking, fato 2 ou 3 peças, blazer. Encontre o corte perfeito antes de encomendar.',
+      title: 'Terno Masculino 2026: Preto, Slim, Casamento — Provador IA Grátis | Agalaz',
+      description: 'Terno masculino 2026: preto, slim, casamento, padrinho, formatura. Prova qualquer terno no teu corpo com IA antes de comprar. Grátis em 30 segundos.',
       keywords: [
         'terno masculino',
         'terno preto masculino',
@@ -1368,7 +1368,7 @@ const petClothing: Record<Lang, LocalizedPageData> = {
   },
   fr: {
     meta: {
-      title: 'Essayage Virtuel Vêtements Animaux — IA Gratuite | Agalaz',
+      title: 'Vêtements pour Chien: Manteau, Pull, Déguisement — Essayage IA Gratuit | Agalaz',
       description: 'Essayez n\'importe quel vêtement, manteau ou costume sur votre chien ou chat avec l\'IA. Trouvez la bonne taille avant d\'acheter.',
       keywords: ['essayage virtuel vêtements chien', 'manteau chien IA', 'vêtement chat virtuel', 'costume animal en ligne', 'essayage chien'],
     },
@@ -1412,7 +1412,7 @@ const petClothing: Record<Lang, LocalizedPageData> = {
   },
   pt: {
     meta: {
-      title: 'Provador Virtual Roupa Animais — IA Grátis | Agalaz',
+      title: 'Roupa para Cachorro: Casaco, Suéter, Fantasia — Provador IA Grátis | Agalaz',
       description: 'Experimente qualquer roupa, casaco ou fato no seu cão ou gato com IA. Encontre o tamanho certo antes de comprar.',
       keywords: ['provador virtual roupa cão', 'casaco cão ia', 'roupa gato virtual', 'fato animal online', 'provador cão'],
     },
@@ -1551,7 +1551,7 @@ const petClothing: Record<Lang, LocalizedPageData> = {
 const babyClothing: Record<Lang, LocalizedPageData> = {
   es: {
     meta: {
-      title: 'Probador Virtual de Ropa de Bebé — IA Gratis | Agalaz',
+      title: 'Ropa Bebé 2026: Body, Pelele, Bautizo, Niño/Niña — Probador IA Gratis | Agalaz',
       description: 'Pruébale a tu bebé bodies, vestidos, faldones de bautizo o disfraces con IA. Acierta con la talla y el look antes de comprar.',
       keywords: ['probador virtual ropa bebé', 'ropa bebé ia', 'faldón bautizo virtual', 'disfraz bebé halloween', 'vestido bebé online', 'body bebé probador', 'ropa recién nacido ia', 'probarse ropa bebé', 'tallas ropa bebé'],
     },
@@ -1639,7 +1639,7 @@ const babyClothing: Record<Lang, LocalizedPageData> = {
   },
   pt: {
     meta: {
-      title: 'Provador Virtual de Roupa de Bebé — IA Grátis | Agalaz',
+      title: 'Roupa de Bebê 2026: Body, Macacão, Batizado, Menino/Menina — Provador IA Grátis',
       description: 'Experimente bodies, vestidos, fatos de batizado ou disfarces no seu bebé com IA. Acerte no tamanho e no look antes de comprar.',
       keywords: ['provador virtual roupa bebé', 'roupa bebé ia', 'fato batizado virtual', 'disfarce bebé halloween', 'body bebé online', 'roupa recém-nascido', 'tamanho roupa bebé', 'experimentar roupa bebé', 'vestido bebé virtual'],
     },
@@ -1683,7 +1683,7 @@ const babyClothing: Record<Lang, LocalizedPageData> = {
   },
   de: {
     meta: {
-      title: 'Virtuelle Babykleidung-Anprobe — KI Kostenlos | Agalaz',
+      title: 'Babykleidung 2026: Strampler, Taufkleid, Junge/Mädchen — KI-Anprobe Kostenlos',
       description: 'Probieren Sie Strampler, Kleider, Taufkleider oder Kostüme an Ihrem Baby mit KI an. Finden Sie die richtige Größe und das richtige Outfit vor dem Kauf.',
       keywords: ['virtuelle babykleidung anprobe', 'babykleidung ki', 'taufkleid virtuell', 'baby halloween kostüm', 'strampler online', 'neugeborenen kleidung', 'babygröße finden', 'baby outfit anprobieren', 'taufoutfit virtuell'],
     },
@@ -1727,7 +1727,7 @@ const babyClothing: Record<Lang, LocalizedPageData> = {
   },
   it: {
     meta: {
-      title: 'Prova Virtuale Vestiti Bebè — IA Gratuita | Agalaz',
+      title: 'Vestiti Neonato 2026: Body, Tutina, Battesimo, Bimbo/Bimba — Prova IA Gratis',
       description: 'Prova body, vestiti, abiti da battesimo o costumi sul tuo bebè con IA. Trova la taglia giusta e il look perfetto prima di comprare.',
       keywords: ['prova virtuale vestiti bebè', 'vestiti bebè ia', 'abito battesimo virtuale', 'costume bebè halloween', 'body neonato online', 'taglia vestiti bebè', 'provare vestiti neonato', 'abbigliamento bebè ia', 'outfit bebè virtuale'],
     },
@@ -1898,7 +1898,7 @@ const costume: Record<Lang, LocalizedPageData> = {
   },
   pt: {
     meta: {
-      title: 'Provador Virtual de Fatos & Fantasias — Carnaval e Halloween IA',
+      title: 'Fantasia Carnaval 2026: Pareja, Halloween, Infantil — Provador IA Grátis | Agalaz',
       description: 'Experimente fatos (fantasias no Brasil) de Carnaval, Halloween, cosplay ou festas temáticas com IA. Bruxa, vampiro, fantasia de Carnaval ou disfarce de criança — veja em SI antes de comprar.',
       keywords: ['provador virtual fatos carnaval', 'fato halloween virtual', 'cosplay provador online', 'fato carnaval ia', 'disfarce criança virtual', 'experimentar fato halloween', 'fato casal simulador', 'fato festa temática', 'provador disfarces ia', 'fato carnaval brasil', 'fantasia halloween', 'fantasia carnaval', 'fantasia halloween ia', 'fantasia carnaval virtual', 'experimentar fantasia online', 'provador virtual fantasia', 'fantasia cosplay simulador', 'fantasia halloween brasil', 'fantasia carnaval brasil', 'fantasia ia online'],
     },
@@ -1943,7 +1943,7 @@ const costume: Record<Lang, LocalizedPageData> = {
   },
   de: {
     meta: {
-      title: 'Virtuelle Kostüm-Anprobe — Halloween & Karneval KI',
+      title: 'Kostüme 2026: Halloween, Karneval, Paar, Kinder — KI-Anprobe Kostenlos | Agalaz',
       description: 'Probieren Sie Halloween-, Karnevals-, Cosplay- und Faschings-Kostüme mit KI an. Hexe, Vampir, Kinderkostüm — sehen Sie es an SICH vor dem Kauf.',
       keywords: ['virtuelle kostüm anprobe', 'halloween kostüm virtuell', 'karneval kostüm ki', 'fasching kostüm anprobieren', 'cosplay anprobe online', 'kinderkostüm virtuell', 'paarkostüm simulator', 'mottoparty kostüm', 'kostüm anprobieren ki', 'gruppenkostüm vorschau'],
     },
@@ -1987,7 +1987,7 @@ const costume: Record<Lang, LocalizedPageData> = {
   },
   it: {
     meta: {
-      title: 'Prova Virtuale Costumi — Carnevale & Halloween IA',
+      title: 'Costumi Carnevale 2026: Halloween, Coppia, Bambini — Prova IA Gratis | Agalaz',
       description: 'Prova costumi di Carnevale di Venezia, Halloween, cosplay o feste a tema con IA. Strega, vampira, costume bambino — vedi su di TE prima di comprare.',
       keywords: ['prova virtuale costumi', 'costume halloween virtuale', 'costume carnevale ia', 'cosplay prova online', 'costume bambino virtuale', 'provare costume halloween', 'costume coppia simulatore', 'costume festa a tema', 'costume venezia virtuale', 'simulatore costumi ia'],
     },
