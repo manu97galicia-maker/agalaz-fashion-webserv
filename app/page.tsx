@@ -1050,6 +1050,61 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Specific guides — internal linking to long-tail / face-shape /
+          seasonal landings so authority flows from the homepage to the
+          URLs Google hasn't indexed yet. Language-aware. */}
+      <section className="border-t border-slate-100 bg-slate-50 py-14 md:py-16">
+        <div className="max-w-6xl mx-auto px-6 md:px-12">
+          <div className="text-center mb-8 md:mb-10">
+            <span className="text-[10px] font-black text-pink-600 uppercase tracking-[0.2em]">
+              {lang === 'es' ? 'Guías destacadas' : 'Featured guides'}
+            </span>
+            <h2 className="font-serif text-2xl md:text-3xl text-slate-900 tracking-tight leading-tight mt-2">
+              {lang === 'es' ? 'Looks específicos para probar' : 'Specific looks to try'}
+            </h2>
+          </div>
+          <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+            {(lang === 'es' ? [
+              { href: '/es/vestido-invitada-boda',    t: 'Vestido invitada boda',  s: 'Verano, Zara, Mango' },
+              { href: '/es/disfraz-de-halloween',     t: 'Disfraz Halloween',      s: 'Catrina, Wednesday, Barbie' },
+              { href: '/es/disfraz-halloween-pareja', t: 'Disfraz pareja',         s: 'Barbie & Ken, Wednesday & Enid' },
+              { href: '/es/disfraz-carnaval',         t: 'Disfraz Carnaval',       s: 'Cádiz, Tenerife' },
+              { href: '/es/disfraces-caseros',        t: 'Disfraces caseros',      s: 'Fáciles, baratos, sin coser' },
+              { href: '/es/cosplay',                  t: 'Cosplay',                s: 'Anime, videojuegos, OC' },
+              { href: '/haircut-for-round-face',      t: 'Corte cara redonda',     s: 'Los mejores cortes' },
+              { href: '/curtain-bangs-haircut',       t: 'Flequillo cortina',      s: 'Pruébatelo en tu cara' },
+              { href: '/wolf-cut-hairstyles',         t: 'Wolf cut',               s: 'Long, short, asian' },
+              { href: '/haircut-for-oval-face',       t: 'Corte cara ovalada',    s: 'Estilos para cara ovalada' },
+              { href: '/natural-makeup-look',         t: 'Maquillaje natural',     s: 'No-makeup makeup' },
+              { href: '/engagement-ring-on-which-hand', t: 'Anillo compromiso mano', s: 'Qué dedo por cultura' },
+            ] : [
+              { href: '/curtain-bangs-haircut',       t: 'Curtain bangs',          s: 'Try the cut on your face' },
+              { href: '/wolf-cut-hairstyles',         t: 'Wolf cut',               s: 'Long, short, mullet, asian' },
+              { href: '/haircut-for-round-face',     t: 'Round face haircuts',    s: 'Best cuts that flatter' },
+              { href: '/haircut-for-oval-face',      t: 'Oval face haircuts',     s: 'Styles for oval faces' },
+              { href: '/haircut-for-square-face',    t: 'Square face haircuts',   s: 'Soften the jawline' },
+              { href: '/haircut-for-diamond-face',   t: 'Diamond face haircuts',  s: 'Balance the cheekbones' },
+              { href: '/wedding-guest-outfit',       t: 'Wedding guest outfit',   s: 'Spring, summer, fall, winter' },
+              { href: '/bridesmaid-dress-try-on',    t: 'Bridesmaid dresses',     s: 'Cheap, sage green, Azazie' },
+              { href: '/halloween-couples-costumes', t: 'Couples halloween',      s: 'Funny, easy, scary, DIY' },
+              { href: '/natural-makeup-look',        t: 'Natural makeup',         s: 'No-makeup makeup tutorial' },
+              { href: '/engagement-ring-on-which-hand', t: 'Engagement ring hand', s: 'Which finger by culture' },
+              { href: '/ja/yukata',                  t: 'Yukata',                 s: 'Japanese summer kimono' },
+            ]).map((g) => (
+              <li key={g.href}>
+                <Link
+                  href={g.href}
+                  className="group block h-full bg-white border border-slate-200 hover:border-pink-300 hover:shadow-md p-4 rounded-xl transition-all"
+                >
+                  <h3 className="font-serif text-sm md:text-base font-black text-slate-900 tracking-tight leading-tight">{g.t}</h3>
+                  <p className="text-[11px] md:text-xs text-slate-500 font-light mt-1 leading-snug">{g.s}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="border-t border-slate-100 py-10 px-6 md:px-12 max-w-7xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">

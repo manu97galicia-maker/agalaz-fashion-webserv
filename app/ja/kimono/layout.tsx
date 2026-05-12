@@ -58,6 +58,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'Article',
+        headline: 'バーチャル着物試着 — AIで30秒',
+        description: '振袖、浴衣、留袖、訪問着、羽織、袴を AI で自分の本当の顔に試着。成人式、七五三、卒業式、花見、結婚式に最適。',
+        url: 'https://agalaz.com/ja/kimono',
+        datePublished: '2026-05-10',
+        dateModified: '2026-05-12',
+        author: { '@type': 'Organization', name: 'Agalaz Fashion', url: 'https://agalaz.com' },
+        publisher: { '@type': 'Organization', name: 'Agalaz Fashion', logo: { '@type': 'ImageObject', url: 'https://agalaz.com/icon-512.png' } },
+        mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://agalaz.com/ja/kimono' },
+        articleSection: '着物 · 和装',
+        inLanguage: 'ja-JP',
+      },
+      {
         '@type': 'SoftwareApplication',
         name: 'アガラズ バーチャル着物試着',
         operatingSystem: 'WEB',

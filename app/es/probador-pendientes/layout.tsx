@@ -44,4 +44,36 @@ export const metadata: Metadata = {
     },
 };
 
-export default function Layout({ children }: { children: React.ReactNode }) { return children; }
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const ld = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Article',
+        headline: 'Pendientes — Probador Virtual con IA Gratis',
+        description: 'Pruébate pendientes Pandora, Tous, de oro, plata, hombre y mujer en tu foto con IA antes de comprar. Aros, argollas, ear cuffs.',
+        url: pageUrl,
+        datePublished: '2026-05-10',
+        dateModified: '2026-05-12',
+        author: { '@type': 'Organization', name: 'Agalaz Fashion', url: baseUrl },
+        publisher: { '@type': 'Organization', name: 'Agalaz Fashion', logo: { '@type': 'ImageObject', url: `${baseUrl}/icon-512.png` } },
+        mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
+        articleSection: 'Pendientes · Joyería',
+        inLanguage: 'es-ES',
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${baseUrl}/es` },
+          { '@type': 'ListItem', position: 2, name: 'Probador pendientes', item: pageUrl },
+        ],
+      },
+    ],
+  };
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      {children}
+    </>
+  );
+}

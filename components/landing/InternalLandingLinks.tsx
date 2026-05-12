@@ -139,6 +139,86 @@ const SECTION_LABELS: Record<LandingLang, { eyebrow: string; title: string }> = 
 };
 
 /**
+ * Curated featured guides cross-linked from every landing. These are the
+ * long-tail / face-shape / seasonal pages that need authority distribution
+ * from the indexed try-on landings. Picked by SEO priority — high volume +
+ * realistic-to-rank target keywords (curtain bangs, wolf cut, face-shape
+ * haircuts, wedding guest, halloween couples, bridesmaid, makeup).
+ *
+ * Language-aware: we surface the ES disfraces landings to es/, the FR/IT
+ * carrés/tagli landings to their langs, and the universal EN guides for the
+ * rest. The labels match the page's H1 so the anchor text reinforces topical
+ * relevance for Google.
+ */
+const FEATURED_GUIDES: Record<LandingLang, Array<{ href: string; title: string; subtitle: string }>> = {
+  en: [
+    { href: '/curtain-bangs-haircut',         title: 'Curtain bangs',      subtitle: 'Try the cut on your face' },
+    { href: '/wolf-cut-hairstyles',           title: 'Wolf cut',           subtitle: 'Long, short, mullet, asian' },
+    { href: '/haircut-for-round-face',        title: 'Round face haircuts', subtitle: 'Best cuts that flatter' },
+    { href: '/haircut-for-oval-face',         title: 'Oval face haircuts', subtitle: 'Styles for oval faces' },
+    { href: '/haircut-for-square-face',       title: 'Square face haircuts', subtitle: 'Soften the jawline' },
+    { href: '/haircut-for-diamond-face',      title: 'Diamond face haircuts', subtitle: 'Balance the cheekbones' },
+    { href: '/wedding-guest-outfit',          title: 'Wedding guest outfit', subtitle: 'Spring, summer, fall, winter' },
+    { href: '/bridesmaid-dress-try-on',       title: 'Bridesmaid dresses', subtitle: 'Cheap, sage green, Azazie' },
+    { href: '/halloween-couples-costumes',    title: 'Couples halloween costumes', subtitle: 'Funny, easy, scary, DIY' },
+    { href: '/natural-makeup-look',           title: 'Natural makeup look', subtitle: 'No-makeup makeup tutorial' },
+    { href: '/engagement-ring-on-which-hand', title: 'Engagement ring hand', subtitle: 'Which finger by culture' },
+  ],
+  es: [
+    { href: '/es/vestido-invitada-boda',      title: 'Vestido invitada boda', subtitle: 'Verano, Zara, Mango' },
+    { href: '/es/disfraz-de-halloween',       title: 'Disfraz Halloween',   subtitle: 'Catrina, Wednesday, Barbie' },
+    { href: '/es/disfraz-halloween-pareja',   title: 'Disfraz pareja Halloween', subtitle: 'Barbie & Ken, Wednesday & Enid' },
+    { href: '/es/disfraz-carnaval',           title: 'Disfraz Carnaval',    subtitle: 'Cádiz, Tenerife, Las Palmas' },
+    { href: '/es/disfraces-caseros',          title: 'Disfraces caseros',   subtitle: 'Fáciles, baratos, sin coser' },
+    { href: '/es/cosplay',                    title: 'Cosplay',             subtitle: 'Anime, videojuegos, OC' },
+    { href: '/haircut-for-round-face',        title: 'Corte cara redonda',  subtitle: 'Los mejores cortes' },
+    { href: '/curtain-bangs-haircut',         title: 'Flequillo cortina',   subtitle: 'Pruébatelo en tu cara' },
+  ],
+  fr: [
+    { href: '/fr/carre-frange-rideau',        title: 'Carré frange rideau', subtitle: 'Court, long, plongeant' },
+    { href: '/fr/coupe-cheveux-visage-rond',  title: 'Coupe visage rond',   subtitle: 'Avec lunettes, courte, longue' },
+    { href: '/fr/tenue-bapteme',              title: 'Tenue de baptême',    subtitle: 'Femme, homme, enfant' },
+    { href: '/curtain-bangs-haircut',         title: 'Curtain bangs',       subtitle: 'Try the cut on your face' },
+    { href: '/wolf-cut-hairstyles',           title: 'Wolf cut',            subtitle: 'Long, short, asian, mullet' },
+    { href: '/haircut-for-round-face',        title: 'Haircuts round face', subtitle: 'Best cuts that flatter' },
+    { href: '/natural-makeup-look',           title: 'Natural makeup',      subtitle: 'No-makeup makeup look' },
+  ],
+  pt: [
+    { href: '/pt/corte-cabelo-rosto-redondo', title: 'Corte rosto redondo', subtitle: 'Chanel, médio, franja lateral' },
+    { href: '/pt/unhas-curtas-ideias',        title: 'Unhas curtas',        subtitle: 'Decoradas, simples, ideias' },
+    { href: '/pt/look-festa-junina',          title: 'Look festa junina',   subtitle: 'Caipira, moderno, casal' },
+    { href: '/curtain-bangs-haircut',         title: 'Curtain bangs',       subtitle: 'No seu rosto, com IA' },
+    { href: '/wolf-cut-hairstyles',           title: 'Wolf cut',            subtitle: 'Long, short, mullet' },
+    { href: '/haircut-for-round-face',        title: 'Cortes rosto redondo', subtitle: 'Cortes que mais valorizam' },
+  ],
+  de: [
+    { href: '/curtain-bangs-haircut',         title: 'Curtain bangs',       subtitle: 'On your face, in 30 sec' },
+    { href: '/wolf-cut-hairstyles',           title: 'Wolf cut',            subtitle: 'Long, short, mullet, asian' },
+    { href: '/haircut-for-round-face',        title: 'Round face haircuts', subtitle: 'Best cuts that flatter' },
+    { href: '/haircut-for-oval-face',         title: 'Oval face haircuts',  subtitle: 'Styles for oval faces' },
+    { href: '/wedding-guest-outfit',          title: 'Wedding guest outfit', subtitle: 'Spring, summer, fall, winter' },
+    { href: '/natural-makeup-look',           title: 'Natural makeup look', subtitle: 'No-makeup makeup tutorial' },
+  ],
+  it: [
+    { href: '/it/unghie-corte-semplici',      title: 'Unghie corte',        subtitle: 'Semplici ma belle, francese' },
+    { href: '/it/taglio-capelli-viso-tondo',  title: 'Taglio viso tondo',   subtitle: 'Long bob, frangia tendina' },
+    { href: '/it/vestito-comunione',          title: 'Vestito comunione',   subtitle: 'Bambina, bambino, mamma' },
+    { href: '/curtain-bangs-haircut',         title: 'Curtain bangs',       subtitle: 'Provala sul tuo viso' },
+    { href: '/wolf-cut-hairstyles',           title: 'Wolf cut',            subtitle: 'Long, short, asian' },
+    { href: '/haircut-for-round-face',        title: 'Haircuts viso tondo', subtitle: 'Best cuts that flatter' },
+  ],
+};
+
+const FEATURED_HEADINGS: Record<LandingLang, { eyebrow: string; title: string }> = {
+  en: { eyebrow: 'Featured guides',  title: 'Specific looks you can try' },
+  es: { eyebrow: 'Guías destacadas', title: 'Looks específicos para probar' },
+  fr: { eyebrow: 'Guides à la une',  title: 'Looks spécifiques à essayer' },
+  pt: { eyebrow: 'Guias em destaque', title: 'Looks específicos para experimentar' },
+  de: { eyebrow: 'Empfohlene Guides', title: 'Spezifische Looks zum Ausprobieren' },
+  it: { eyebrow: 'Guide in evidenza', title: 'Look specifici da provare' },
+};
+
+/**
  * Cross-links to all OTHER product try-on landings in the same language.
  * Renders 9 cards in a responsive grid with native-language anchor text +
  * native-language URLs (via `nativeLandingPath`). Place this near the bottom
@@ -150,36 +230,70 @@ export default function InternalLandingLinks({ currentSlug, lang }: Props) {
     ? CANONICAL_LANDING_SLUGS.filter((s) => s !== currentSlug)
     : [...CANONICAL_LANDING_SLUGS];
   const headings = SECTION_LABELS[lang];
+  const featured = FEATURED_GUIDES[lang];
+  const featuredHeadings = FEATURED_HEADINGS[lang];
 
   return (
-    <section className="border-t border-slate-100 bg-slate-50 py-16 md:py-20">
-      <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <div className="text-center mb-10 md:mb-14">
-          <span className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.2em]">{headings.eyebrow}</span>
-          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-slate-900 tracking-tight leading-tight mt-2">{headings.title}</h2>
+    <>
+      <section className="border-t border-slate-100 bg-slate-50 py-16 md:py-20">
+        <div className="max-w-6xl mx-auto px-6 md:px-12">
+          <div className="text-center mb-10 md:mb-14">
+            <span className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.2em]">{headings.eyebrow}</span>
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-slate-900 tracking-tight leading-tight mt-2">{headings.title}</h2>
+          </div>
+          <ul className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+            {others.map((slug) => {
+              const card = CARD_LABELS[slug][lang];
+              return (
+                <li key={slug}>
+                  <Link
+                    href={nativeLandingPath(slug, lang)}
+                    className="group block h-full bg-white border border-slate-200 hover:border-indigo-300 hover:shadow-md p-4 md:p-5 rounded-xl transition-all"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="min-w-0">
+                        <h3 className="font-serif text-sm md:text-base font-black text-slate-900 tracking-tight leading-tight">{card.title}</h3>
+                        <p className="text-[11px] md:text-xs text-slate-500 font-light mt-1 leading-snug">{card.subtitle}</p>
+                      </div>
+                      <ArrowRight size={14} className="text-slate-300 group-hover:text-indigo-500 group-hover:translate-x-0.5 transition-all shrink-0 mt-0.5" />
+                    </div>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         </div>
-        <ul className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-          {others.map((slug) => {
-            const card = CARD_LABELS[slug][lang];
-            return (
-              <li key={slug}>
+      </section>
+
+      {/* Featured guides — long-tail + face-shape + seasonal landings that
+          need authority distribution from every indexed try-on landing.
+          Same component, different bucket. */}
+      <section className="border-t border-slate-100 bg-white py-16 md:py-20">
+        <div className="max-w-6xl mx-auto px-6 md:px-12">
+          <div className="text-center mb-10 md:mb-14">
+            <span className="text-[10px] font-black text-pink-600 uppercase tracking-[0.2em]">{featuredHeadings.eyebrow}</span>
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-slate-900 tracking-tight leading-tight mt-2">{featuredHeadings.title}</h2>
+          </div>
+          <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+            {featured.map((g) => (
+              <li key={g.href}>
                 <Link
-                  href={nativeLandingPath(slug, lang)}
-                  className="group block h-full bg-white border border-slate-200 hover:border-indigo-300 hover:shadow-md p-4 md:p-5 rounded-xl transition-all"
+                  href={g.href}
+                  className="group block h-full bg-slate-50 border border-slate-200 hover:border-pink-300 hover:shadow-md p-4 md:p-5 rounded-xl transition-all"
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <h3 className="font-serif text-sm md:text-base font-black text-slate-900 tracking-tight leading-tight">{card.title}</h3>
-                      <p className="text-[11px] md:text-xs text-slate-500 font-light mt-1 leading-snug">{card.subtitle}</p>
+                      <h3 className="font-serif text-sm md:text-base font-black text-slate-900 tracking-tight leading-tight">{g.title}</h3>
+                      <p className="text-[11px] md:text-xs text-slate-500 font-light mt-1 leading-snug">{g.subtitle}</p>
                     </div>
-                    <ArrowRight size={14} className="text-slate-300 group-hover:text-indigo-500 group-hover:translate-x-0.5 transition-all shrink-0 mt-0.5" />
+                    <ArrowRight size={14} className="text-slate-300 group-hover:text-pink-500 group-hover:translate-x-0.5 transition-all shrink-0 mt-0.5" />
                   </div>
                 </Link>
               </li>
-            );
-          })}
-        </ul>
-      </div>
-    </section>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </>
   );
 }

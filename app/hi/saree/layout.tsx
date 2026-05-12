@@ -58,6 +58,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'Article',
+        headline: 'वर्चुअल साड़ी ट्राय-ऑन — AI के साथ 30 सेकंड में',
+        description: 'बनारसी, कांजीवरम, चंदेरी, बांधनी, सिल्क, कॉटन साड़ियों को AI से अपने असली चेहरे पर पहनें। शादी, दुर्गा पूजा, करवा चौथ, दिवाली के लिए।',
+        url: 'https://agalaz.com/hi/saree',
+        datePublished: '2026-05-10',
+        dateModified: '2026-05-12',
+        author: { '@type': 'Organization', name: 'Agalaz Fashion', url: 'https://agalaz.com' },
+        publisher: { '@type': 'Organization', name: 'Agalaz Fashion', logo: { '@type': 'ImageObject', url: 'https://agalaz.com/icon-512.png' } },
+        mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://agalaz.com/hi/saree' },
+        articleSection: 'साड़ी · पारंपरिक',
+        inLanguage: 'hi-IN',
+      },
+      {
         '@type': 'SoftwareApplication',
         name: 'अगालाज़ वर्चुअल साड़ी ट्राय-ऑन',
         operatingSystem: 'WEB',

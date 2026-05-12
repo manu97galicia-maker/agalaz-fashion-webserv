@@ -58,6 +58,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'Article',
+        headline: '가상 한복 입어보기 — AI로 30초 만에',
+        description: '치마저고리, 두루마기, 도포, 당의를 AI로 자신의 실제 얼굴에 입어보세요. 결혼식, 추석, 설날, 돌잔치, 회갑잔치에 어울리는.',
+        url: 'https://agalaz.com/ko/hanbok',
+        datePublished: '2026-05-10',
+        dateModified: '2026-05-12',
+        author: { '@type': 'Organization', name: 'Agalaz Fashion', url: 'https://agalaz.com' },
+        publisher: { '@type': 'Organization', name: 'Agalaz Fashion', logo: { '@type': 'ImageObject', url: 'https://agalaz.com/icon-512.png' } },
+        mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://agalaz.com/ko/hanbok' },
+        articleSection: '한복 · 전통의상',
+        inLanguage: 'ko-KR',
+      },
+      {
         '@type': 'SoftwareApplication',
         name: '아갈라즈 가상 한복 입어보기',
         operatingSystem: 'WEB',

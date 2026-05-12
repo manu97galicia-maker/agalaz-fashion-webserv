@@ -261,10 +261,30 @@ export function buildLocalizedJsonLd(opts: {
   faqs: { q: string; a: string }[];
   baseUrl: string;
   breadcrumbName: string;
+  /** ISO date, e.g. '2026-05-12'. Defaults to a stable old date so it doesn't
+   *  look like every page was just refreshed (which Google penalises). */
+  datePublished?: string;
 }) {
+  const datePublished = opts.datePublished ?? '2026-05-10';
   return {
     '@context': 'https://schema.org',
     '@graph': [
+      {
+        '@type': 'Article',
+        headline: opts.name,
+        description: opts.description,
+        url: opts.pageUrl,
+        datePublished,
+        dateModified: datePublished,
+        author: { '@type': 'Organization', name: 'Agalaz Fashion', url: opts.baseUrl },
+        publisher: {
+          '@type': 'Organization',
+          name: 'Agalaz Fashion',
+          logo: { '@type': 'ImageObject', url: `${opts.baseUrl}/icon-512.png` },
+        },
+        mainEntityOfPage: { '@type': 'WebPage', '@id': opts.pageUrl },
+        articleSection: 'Virtual Try-On · Fashion',
+      },
       {
         '@type': 'SoftwareApplication',
         name: opts.name,

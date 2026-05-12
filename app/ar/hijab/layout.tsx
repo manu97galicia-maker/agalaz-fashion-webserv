@@ -57,6 +57,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'Article',
+        headline: 'تجربة افتراضية للحجاب — بالذكاء الاصطناعي في 30 ثانية',
+        description: 'جربي أنواع الحجاب المختلفة، الخمار، الشيلة، التربون على وجهك الحقيقي بالذكاء الاصطناعي. ألوان وأقمشة متعددة.',
+        url: 'https://agalaz.com/ar/hijab',
+        datePublished: '2026-05-10',
+        dateModified: '2026-05-12',
+        author: { '@type': 'Organization', name: 'Agalaz Fashion', url: 'https://agalaz.com' },
+        publisher: { '@type': 'Organization', name: 'Agalaz Fashion', logo: { '@type': 'ImageObject', url: 'https://agalaz.com/icon-512.png' } },
+        mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://agalaz.com/ar/hijab' },
+        articleSection: 'الحجاب · أزياء محتشمة',
+        inLanguage: 'ar',
+      },
+      {
         '@type': 'SoftwareApplication',
         name: 'تجربة افتراضية للحجاب من أغالاز',
         operatingSystem: 'WEB',

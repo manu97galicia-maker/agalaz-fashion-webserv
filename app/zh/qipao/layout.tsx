@@ -58,6 +58,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'Article',
+        headline: '虚拟旗袍试穿 — 30秒AI体验',
+        description: '丝绸旗袍、改良旗袍、新中式连衣裙、汉服 — AI在30秒内为您试穿在真实脸上。婚礼、春节、元宵节、传统场合首选。',
+        url: 'https://agalaz.com/zh/qipao',
+        datePublished: '2026-05-10',
+        dateModified: '2026-05-12',
+        author: { '@type': 'Organization', name: 'Agalaz Fashion', url: 'https://agalaz.com' },
+        publisher: { '@type': 'Organization', name: 'Agalaz Fashion', logo: { '@type': 'ImageObject', url: 'https://agalaz.com/icon-512.png' } },
+        mainEntityOfPage: { '@type': 'WebPage', '@id': 'https://agalaz.com/zh/qipao' },
+        articleSection: '旗袍 · 传统服饰',
+        inLanguage: 'zh-CN',
+      },
+      {
         '@type': 'SoftwareApplication',
         name: '阿加拉兹 虚拟旗袍试穿',
         operatingSystem: 'WEB',

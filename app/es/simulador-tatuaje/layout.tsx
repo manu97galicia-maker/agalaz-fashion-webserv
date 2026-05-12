@@ -23,4 +23,36 @@ export const metadata: Metadata = {
     },
 };
 
-export default function Layout({ children }: { children: React.ReactNode }) { return children; }
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const ld = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Article',
+        headline: 'Simulador de Tatuajes Gratis — Prueba con IA',
+        description: 'Prueba tatuajes en tu foto con simulador IA gratis. Colocación realista en brazo, piernas, pecho. Para artistas y estudios.',
+        url: pageUrl,
+        datePublished: '2026-05-10',
+        dateModified: '2026-05-12',
+        author: { '@type': 'Organization', name: 'Agalaz Fashion', url: baseUrl },
+        publisher: { '@type': 'Organization', name: 'Agalaz Fashion', logo: { '@type': 'ImageObject', url: `${baseUrl}/icon-512.png` } },
+        mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
+        articleSection: 'Tatuajes · Simulador',
+        inLanguage: 'es-ES',
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${baseUrl}/es` },
+          { '@type': 'ListItem', position: 2, name: 'Simulador tatuajes', item: pageUrl },
+        ],
+      },
+    ],
+  };
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      {children}
+    </>
+  );
+}
