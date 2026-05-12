@@ -1324,9 +1324,9 @@ const mensSuit: Record<Lang, LocalizedPageData> = {
 const petClothing: Record<Lang, LocalizedPageData> = {
   es: {
     meta: {
-      title: 'Probador Virtual de Ropa de Mascotas — IA Gratis',
-      description: 'Pruébale cualquier ropa, abrigo o disfraz a tu perro o gato con IA. Encuentra la talla correcta antes de comprar.',
-      keywords: ['probador virtual ropa perro', 'abrigo perro ia', 'ropa gato virtual', 'disfraz mascota online', 'probador perro'],
+      title: 'Probador Virtual de Ropa y Accesorios para Mascotas — IA Gratis',
+      description: 'Probador virtual de accesorios y ropa para mascotas — collares, arneses, bandanas, abrigos, jerséis, disfraces. Pruébalos en tu perro o gato con IA. Gratis.',
+      keywords: ['probador virtual accesorios mascotas', 'probador virtual ropa perro', 'accesorios perro', 'collar perro ia', 'arnés perro virtual', 'bandana perro', 'abrigo perro ia', 'ropa gato virtual', 'disfraz mascota online', 'probador perro'],
     },
     jsonLdName: 'Probador Virtual de Ropa para Mascotas',
     breadcrumbName: 'Probador Ropa Mascotas',
@@ -1595,8 +1595,8 @@ const babyClothing: Record<Lang, LocalizedPageData> = {
   },
   fr: {
     meta: {
-      title: 'Essayage Virtuel Vêtements Bébé — IA Gratuite | Agalaz',
-      description: 'Essayez bodies, robes, robes de baptême ou costumes sur votre bébé avec l\'IA. Trouvez la bonne taille et le bon look avant d\'acheter.',
+      title: 'Essayer des Habits de Bébé en Ligne — Essayage Virtuel IA Gratuit',
+      description: 'Essayer des habits de bébé avant achat — bodies, robes, ensembles, pyjamas, robe de baptême, costumes. Essayage IA gratuit sur la photo de votre bébé en 30 secondes.',
       keywords: ['essayage virtuel vêtements bébé', 'vêtement bébé IA', 'robe baptême virtuelle', 'costume bébé halloween', 'body bébé en ligne', 'vêtement nouveau-né', 'taille vêtement bébé', 'essayer vêtement bébé', 'tenue bébé virtuelle'],
     },
     jsonLdName: 'Essayage Virtuel Vêtements Bébé',

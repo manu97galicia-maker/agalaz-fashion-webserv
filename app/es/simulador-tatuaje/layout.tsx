@@ -6,8 +6,8 @@ const pageUrl = nativeLandingUrl('virtual-tattoo-simulator', 'es');
 const enUrl = nativeLandingUrl('virtual-tattoo-simulator', 'en');
 
 export const metadata: Metadata = {
-  title: 'Simulador de Tatuajes Gratis — Prueba con IA',
-  description: 'Prueba tatuajes en tu foto con nuestro simulador IA gratis. Colocación realista en brazo, piernas, pecho. Para artistas y estudios.',
+  title: 'Simulador de Tatuajes 3D Realista Gratis — Prueba con IA en tu Cuerpo',
+  description: 'Simulador de tatuajes 3D realista gratis — tu cuerpo se mueve, los tatuajes siguen los contornos en perspectiva real. Brazo, pierna, pecho, espalda, mano. IA + foto tuya.',
   alternates: {
     canonical: nativeLandingUrl('virtual-tattoo-simulator', 'es'),
     languages: landingHreflangAlternates('virtual-tattoo-simulator'),
