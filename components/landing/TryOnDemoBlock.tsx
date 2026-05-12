@@ -6,6 +6,7 @@ import { Upload, Sparkles, Loader2, X, ArrowRight, Download, Clock } from 'lucid
 import { createBrowserClient } from '@supabase/ssr';
 import { signInWithGoogle, signInWithOtp } from '@/services/authService';
 import { track } from '@/lib/analytics';
+import { applyWatermark } from '@/lib/watermark';
 
 export type DemoLang = 'en' | 'es' | 'fr' | 'pt' | 'de' | 'it';
 export type DemoCategory =
@@ -621,7 +622,16 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
       }
       const data = await res.json();
       if (data.image) {
-        setResultImage(data.image);
+        // Apply the agalaz.com brand pill so every shared/screenshotted
+        // result advertises the product. Falls back to the raw render if
+        // the canvas pipeline fails (CORS, very large image, etc.).
+        let finalImage = data.image;
+        try {
+          finalImage = await applyWatermark(data.image);
+        } catch {
+          // swallow — better unbranded than no result at all
+        }
+        setResultImage(finalImage);
         completeProgress();
         track('render_complete', { source: 'demo', category, pool: data.source || 'unknown' });
       } else {
