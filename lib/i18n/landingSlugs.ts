@@ -180,11 +180,42 @@ export function nativeLandingPath(canonical: CanonicalLandingSlug, lang: Landing
 /**
  * Returns all alternate language URLs for the given canonical slug — used in
  * <link rel="alternate" hreflang> chains across both EN and localized layouts.
+ *
+ * Beyond the generic 6-language hreflang entries, we explicitly emit
+ * country-targeted aliases for the markets that drive most of the
+ * traffic per language:
+ *   - pt-BR + pt-PT  (Brazil ~95% of PT volume, Portugal small but distinct)
+ *   - es-ES + es-MX + es-AR + es-CO  (Spain + biggest LATAM Spanish markets)
+ *   - fr-FR + fr-CA + fr-BE          (France + Canada + Belgium)
+ *   - en-US + en-GB                  (USA + UK)
+ *   - de-DE + de-AT + de-CH          (Germany + Austria + Switzerland)
+ *   - it-IT                          (Italy)
+ *
+ * All country aliases point to the SAME localized URL. This signals to
+ * Google "this URL serves users in any of these countries" without
+ * having to duplicate the page.
  */
 export function landingHreflangAlternates(canonical: CanonicalLandingSlug): Record<string, string> {
   const langs: LandingLang[] = ['en', 'es', 'fr', 'pt', 'de', 'it'];
   const alts: Record<string, string> = {};
+  // Base generic-language entries (still required by Google as fallback).
   for (const l of langs) alts[l] = nativeLandingUrl(canonical, l);
+  // Country-targeted aliases. Each points to the same URL as the
+  // generic-language entry — Google uses the country code to refine
+  // which region a result is preferred for.
+  const COUNTRY_ALIASES: Record<LandingLang, string[]> = {
+    en: ['en-US', 'en-GB'],
+    es: ['es-ES', 'es-MX', 'es-AR', 'es-CO'],
+    fr: ['fr-FR', 'fr-CA', 'fr-BE'],
+    pt: ['pt-BR', 'pt-PT'],
+    de: ['de-DE', 'de-AT', 'de-CH'],
+    it: ['it-IT'],
+  };
+  for (const l of langs) {
+    for (const country of COUNTRY_ALIASES[l]) {
+      alts[country] = nativeLandingUrl(canonical, l);
+    }
+  }
   alts['x-default'] = nativeLandingUrl(canonical, 'en');
   return alts;
 }

@@ -143,10 +143,32 @@ export function pagePathFor(page: RootPage, lang: RootLang): string {
   return lang === 'en' ? `${BASE}${slug || '/'}` : `${BASE}/${lang}${slug}`;
 }
 
+/**
+ * Country-targeted hreflang aliases. Each country code points to the same
+ * URL as its base language so Google knows the page serves users in any
+ * of the listed countries. Brazil (pt-BR) is ~95% of PT search volume in
+ * our verticals (uñas, vestido de noiva, etc.), but the generic `pt`
+ * entry alone leaves geo-targeting ambiguous.
+ */
+const COUNTRY_ALIASES: Record<RootLang, string[]> = {
+  en: ['en-US', 'en-GB'],
+  es: ['es-ES', 'es-MX', 'es-AR', 'es-CO'],
+  fr: ['fr-FR', 'fr-CA', 'fr-BE'],
+  pt: ['pt-BR', 'pt-PT'],
+  de: ['de-DE', 'de-AT', 'de-CH'],
+  it: ['it-IT'],
+};
+
 export function localizedAlternates(page: RootPage, currentLang: RootLang) {
   const langs: RootLang[] = ['en', 'es', 'fr', 'pt', 'de', 'it'];
   const languages: Record<string, string> = {};
-  for (const l of langs) languages[l] = pagePathFor(page, l);
+  for (const l of langs) {
+    const url = pagePathFor(page, l);
+    languages[l] = url;
+    for (const country of COUNTRY_ALIASES[l]) {
+      languages[country] = url;
+    }
+  }
   languages['x-default'] = pagePathFor(page, 'en');
   return {
     canonical: pagePathFor(page, currentLang),
