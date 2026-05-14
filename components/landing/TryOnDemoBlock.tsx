@@ -99,10 +99,10 @@ const LABELS: Record<DemoLang, {
     signInEmailPlaceholder: 'your@email.com',
     signInEmailSend: 'Send code',
     signInEmailSent: 'Check your inbox',
-    signInEmailSentHint: 'We sent you a 6-digit code. You can also click the magic link in the email.',
+    signInEmailSentHint: 'We sent you a verification code. You can also click the magic link in the email.',
     signInSenderHint: "If you don't see it, check spam — sender may show \"noreply@mail.app.supabase.io\".",
-    signInCodeLabel: 'Enter the 6-digit code',
-    signInCodePlaceholder: '123456',
+    signInCodeLabel: 'Enter the verification code',
+    signInCodePlaceholder: '12345678',
     signInCodeVerify: 'Verify',
     signInCodeVerifying: 'Verifying…',
     signInCodeError: 'Invalid or expired code. Try again or request a new one.',
@@ -137,10 +137,10 @@ const LABELS: Record<DemoLang, {
     signInEmailPlaceholder: 'tu@email.com',
     signInEmailSend: 'Enviar código',
     signInEmailSent: 'Revisa tu correo',
-    signInEmailSentHint: 'Te enviamos un código de 6 dígitos. También puedes pulsar el enlace mágico del correo.',
+    signInEmailSentHint: 'Te enviamos un código de verificación. También puedes pulsar el enlace mágico del correo.',
     signInSenderHint: 'Si no lo ves, mira spam — el remitente puede mostrarse como "noreply@mail.app.supabase.io".',
-    signInCodeLabel: 'Pon el código de 6 dígitos',
-    signInCodePlaceholder: '123456',
+    signInCodeLabel: 'Pon el código de verificación',
+    signInCodePlaceholder: '12345678',
     signInCodeVerify: 'Verificar',
     signInCodeVerifying: 'Verificando…',
     signInCodeError: 'Código inválido o caducado. Prueba otra vez o pide uno nuevo.',
@@ -175,10 +175,10 @@ const LABELS: Record<DemoLang, {
     signInEmailPlaceholder: 'votre@email.com',
     signInEmailSend: 'Envoyer le code',
     signInEmailSent: 'Vérifiez votre boîte',
-    signInEmailSentHint: 'Nous avons envoyé un code à 6 chiffres. Vous pouvez aussi cliquer le lien magique.',
+    signInEmailSentHint: 'Nous avons envoyé un code de vérification. Vous pouvez aussi cliquer le lien magique.',
     signInSenderHint: 'Si vous ne voyez rien, vérifiez les spams — l\'expéditeur peut être "noreply@mail.app.supabase.io".',
-    signInCodeLabel: 'Entrez le code à 6 chiffres',
-    signInCodePlaceholder: '123456',
+    signInCodeLabel: 'Entrez le code de vérification',
+    signInCodePlaceholder: '12345678',
     signInCodeVerify: 'Vérifier',
     signInCodeVerifying: 'Vérification…',
     signInCodeError: 'Code invalide ou expiré. Réessayez ou demandez-en un nouveau.',
@@ -213,10 +213,10 @@ const LABELS: Record<DemoLang, {
     signInEmailPlaceholder: 'o-teu@email.com',
     signInEmailSend: 'Enviar código',
     signInEmailSent: 'Verifica a tua caixa',
-    signInEmailSentHint: 'Enviámos um código de 6 dígitos. Também podes clicar no link mágico do email.',
+    signInEmailSentHint: 'Enviámos um código de verificação. Também podes clicar no link mágico do email.',
     signInSenderHint: 'Se não vires, verifica spam — o remetente pode aparecer como "noreply@mail.app.supabase.io".',
-    signInCodeLabel: 'Insere o código de 6 dígitos',
-    signInCodePlaceholder: '123456',
+    signInCodeLabel: 'Insere o código de verificação',
+    signInCodePlaceholder: '12345678',
     signInCodeVerify: 'Verificar',
     signInCodeVerifying: 'A verificar…',
     signInCodeError: 'Código inválido ou expirado. Tenta de novo ou pede um novo.',
@@ -251,10 +251,10 @@ const LABELS: Record<DemoLang, {
     signInEmailPlaceholder: 'deine@email.com',
     signInEmailSend: 'Code senden',
     signInEmailSent: 'Posteingang prüfen',
-    signInEmailSentHint: 'Wir haben dir einen 6-stelligen Code geschickt. Du kannst auch den Magic Link klicken.',
+    signInEmailSentHint: 'Wir haben dir einen Bestätigungscode geschickt. Du kannst auch den Magic Link klicken.',
     signInSenderHint: 'Falls du nichts siehst, prüfe Spam — Absender kann "noreply@mail.app.supabase.io" sein.',
-    signInCodeLabel: 'Gib den 6-stelligen Code ein',
-    signInCodePlaceholder: '123456',
+    signInCodeLabel: 'Gib den Bestätigungscode ein',
+    signInCodePlaceholder: '12345678',
     signInCodeVerify: 'Verifizieren',
     signInCodeVerifying: 'Wird verifiziert…',
     signInCodeError: 'Ungültiger oder abgelaufener Code. Erneut versuchen oder neuen anfordern.',
@@ -289,10 +289,10 @@ const LABELS: Record<DemoLang, {
     signInEmailPlaceholder: 'tua@email.com',
     signInEmailSend: 'Invia codice',
     signInEmailSent: 'Controlla la tua casella',
-    signInEmailSentHint: 'Ti abbiamo inviato un codice di 6 cifre. Puoi anche cliccare il link magico nell\'email.',
+    signInEmailSentHint: 'Ti abbiamo inviato un codice di verifica. Puoi anche cliccare il link magico nell\'email.',
     signInSenderHint: 'Se non lo vedi, controlla spam — il mittente può essere "noreply@mail.app.supabase.io".',
-    signInCodeLabel: 'Inserisci il codice di 6 cifre',
-    signInCodePlaceholder: '123456',
+    signInCodeLabel: 'Inserisci il codice di verifica',
+    signInCodePlaceholder: '12345678',
     signInCodeVerify: 'Verifica',
     signInCodeVerifying: 'Verifica…',
     signInCodeError: 'Codice non valido o scaduto. Riprova o richiedine uno nuovo.',
@@ -779,12 +779,15 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
     }
   }
 
-  // Verify the 6-digit OTP code the user typed manually. This is the
-  // resilient path — magic-link clicks get burned by email-client preview
-  // scanners (Outlook Safe Links, etc.) but the human-typed code never is.
+  // Verify the OTP code the user typed manually. This is the resilient
+  // path — magic-link clicks get burned by email-client preview scanners
+  // (Outlook Safe Links, etc.) but the human-typed code never is.
+  // Supabase default OTPs are 6 digits but the dashboard can be configured
+  // to 7 or 8; we accept any length 6-8 so the input stays correct without
+  // a code change if you bump the length in the dashboard.
   async function handleVerifyOtp() {
-    const code = otpCode.replace(/\D/g, '').slice(0, 6);
-    if (code.length !== 6 || !otpEmail) {
+    const code = otpCode.replace(/\D/g, '').slice(0, 8);
+    if (code.length < 6 || !otpEmail) {
       setOtpError(t.signInCodeError);
       return;
     }
@@ -1269,9 +1272,9 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
                     inputMode="numeric"
                     autoComplete="one-time-code"
                     pattern="[0-9]{6}"
-                    maxLength={6}
+                    maxLength={8}
                     value={otpCode}
-                    onChange={(e) => { setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6)); setOtpError(null); }}
+                    onChange={(e) => { setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 8)); setOtpError(null); }}
                     onKeyDown={(e) => { if (e.key === 'Enter') handleVerifyOtp(); }}
                     placeholder={t.signInCodePlaceholder}
                     className="mt-1.5 w-full px-3 py-3 bg-white border border-slate-200 rounded-xl text-base font-mono tracking-[0.4em] text-center text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-indigo-500"
@@ -1282,7 +1285,7 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
                 )}
                 <button
                   onClick={handleVerifyOtp}
-                  disabled={otpVerifying || otpCode.length !== 6}
+                  disabled={otpVerifying || otpCode.length < 6}
                   className="w-full px-4 py-3 bg-indigo-600 text-white text-sm font-bold rounded-xl hover:bg-indigo-500 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed transition-colors"
                 >
                   {otpVerifying ? t.signInCodeVerifying : t.signInCodeVerify}
