@@ -33,7 +33,7 @@ const FAQ = [
 export const metadata: Metadata = {
   title: 'Wedding Dresses 2026: Mermaid, Princess, Boho, Lace — Free AI Try-On',
   description:
-    'Wedding dresses 2026: mermaid, princess, boho, lace, ball gown, A-line, sheath. Try any gown on your real body with AI before the boutique appointment. Free, 30 sec.',
+    'Wedding dresses 2026: mermaid, princess, boho, lace, A-line. Try any gown on your real body with AI before the boutique. Free, 30 sec.',
   keywords: [
     'virtual wedding dress try on',
     'try on wedding dress online',

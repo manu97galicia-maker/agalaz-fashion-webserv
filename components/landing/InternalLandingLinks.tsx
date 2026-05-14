@@ -152,6 +152,13 @@ const SECTION_LABELS: Record<LandingLang, { eyebrow: string; title: string }> = 
  */
 const FEATURED_GUIDES: Record<LandingLang, Array<{ href: string; title: string; subtitle: string }>> = {
   en: [
+    { href: '/best-virtual-try-on-app',       title: 'Best virtual try-on app', subtitle: 'Compared 6 tools in 2026' },
+    { href: '/best-ai-clothes-changer',       title: 'Best AI clothes changer', subtitle: 'Which one keeps your face' },
+    { href: '/best-hairstyle-try-on-app',     title: 'Best hairstyle try-on app', subtitle: 'Cut + color compared' },
+    { href: '/best-ai-nail-try-on',           title: 'Best AI nail try-on',  subtitle: 'Gel, French, designs 2026' },
+    { href: '/free-virtual-fitting-room',     title: 'Free virtual fitting room', subtitle: '5 apps that actually are free' },
+    { href: '/chrome-nails-2026',             title: 'Chrome nails 2026',    subtitle: 'Pastel, mirror, glazed donut' },
+    { href: '/how-to-style-oversized-clothes', title: 'Style oversized clothes', subtitle: 'Without looking sloppy' },
     { href: '/curtain-bangs-haircut',         title: 'Curtain bangs',      subtitle: 'Try the cut on your face' },
     { href: '/wolf-cut-hairstyles',           title: 'Wolf cut',           subtitle: 'Long, short, mullet, asian' },
     { href: '/haircut-for-round-face',        title: 'Round face haircuts', subtitle: 'Best cuts that flatter' },
@@ -166,6 +173,10 @@ const FEATURED_GUIDES: Record<LandingLang, Array<{ href: string; title: string; 
   ],
   es: [
     { href: '/es/vestido-invitada-boda',      title: 'Vestido invitada boda', subtitle: 'Verano, Zara, Mango' },
+    { href: '/es/disenos-de-unas',            title: 'Diseños de uñas',      subtitle: 'Verano 2026, francesa, gel' },
+    { href: '/es/unas-de-gel-disenos',        title: 'Uñas de gel',          subtitle: 'Diseños 2026, manicure' },
+    { href: '/es/unas-francesas-disenos',     title: 'Uñas francesas',       subtitle: 'Clásicas, color, glitter' },
+    { href: '/es/unas-verano-2026',           title: 'Uñas verano 2026',     subtitle: 'Tendencias y tonos' },
     { href: '/es/disfraz-de-halloween',       title: 'Disfraz Halloween',   subtitle: 'Catrina, Wednesday, Barbie' },
     { href: '/es/disfraz-halloween-pareja',   title: 'Disfraz pareja Halloween', subtitle: 'Barbie & Ken, Wednesday & Enid' },
     { href: '/es/disfraz-carnaval',           title: 'Disfraz Carnaval',    subtitle: 'Cádiz, Tenerife, Las Palmas' },
@@ -175,6 +186,7 @@ const FEATURED_GUIDES: Record<LandingLang, Array<{ href: string; title: string; 
     { href: '/curtain-bangs-haircut',         title: 'Flequillo cortina',   subtitle: 'Pruébatelo en tu cara' },
   ],
   fr: [
+    { href: '/fr/robe-de-mariee',             title: 'Robe de mariée',      subtitle: 'Bohème, sirène, princesse' },
     { href: '/fr/carre-frange-rideau',        title: 'Carré frange rideau', subtitle: 'Court, long, plongeant' },
     { href: '/fr/coupe-cheveux-visage-rond',  title: 'Coupe visage rond',   subtitle: 'Avec lunettes, courte, longue' },
     { href: '/fr/tenue-bapteme',              title: 'Tenue de baptême',    subtitle: 'Femme, homme, enfant' },
@@ -184,6 +196,9 @@ const FEATURED_GUIDES: Record<LandingLang, Array<{ href: string; title: string; 
     { href: '/natural-makeup-look',           title: 'Natural makeup',      subtitle: 'No-makeup makeup look' },
   ],
   pt: [
+    { href: '/pt/unhas-decoradas',            title: 'Unhas decoradas',     subtitle: 'Gel, simples, francesinha 2026' },
+    { href: '/pt/vestido-de-noiva',           title: 'Vestido de noiva',    subtitle: 'Sereia, princesa, civil, simples' },
+    { href: '/pt/corte-de-cabelo-feminino',   title: 'Corte cabelo feminino', subtitle: 'Curto, médio, chanel, franja' },
     { href: '/pt/corte-cabelo-rosto-redondo', title: 'Corte rosto redondo', subtitle: 'Chanel, médio, franja lateral' },
     { href: '/pt/unhas-curtas-ideias',        title: 'Unhas curtas',        subtitle: 'Decoradas, simples, ideias' },
     { href: '/pt/look-festa-junina',          title: 'Look festa junina',   subtitle: 'Caipira, moderno, casal' },

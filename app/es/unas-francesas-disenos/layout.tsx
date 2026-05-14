@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   keywords,
   alternates: {
     canonical: url,
-    languages: { 'es': url, 'es-ES': url, 'es-MX': url, 'es-AR': url, 'es-CL': url },
+    languages: { 'es': url, 'es-ES': url, 'es-MX': url, 'es-AR': url, 'es-CL': url, 'x-default': url },
   },
   openGraph: {
     title: metaTitle, description: metaDescription, type: 'article', url,

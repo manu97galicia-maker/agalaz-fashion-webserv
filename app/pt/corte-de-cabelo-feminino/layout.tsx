@@ -22,7 +22,7 @@ const keywords = [
 
 export const metadata: Metadata = {
   title: metaTitle, description: metaDescription, keywords,
-  alternates: { canonical: url, languages: { 'pt': url, 'pt-BR': url, 'pt-PT': url } },
+  alternates: { canonical: url, languages: { 'pt': url, 'pt-BR': url, 'pt-PT': url, 'x-default': url } },
   openGraph: {
     title: metaTitle, description: metaDescription, type: 'article', url,
     siteName: 'Agalaz Fashion', locale: 'pt_BR',

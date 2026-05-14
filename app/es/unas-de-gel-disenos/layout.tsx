@@ -24,7 +24,7 @@ const keywords = [
 
 export const metadata: Metadata = {
   title: metaTitle, description: metaDescription, keywords,
-  alternates: { canonical: url, languages: { 'es': url, 'es-ES': url, 'es-MX': url } },
+  alternates: { canonical: url, languages: { 'es': url, 'es-ES': url, 'es-MX': url, 'x-default': url } },
   openGraph: {
     title: metaTitle, description: metaDescription, type: 'article', url,
     siteName: 'Agalaz Fashion', locale: 'es_ES',

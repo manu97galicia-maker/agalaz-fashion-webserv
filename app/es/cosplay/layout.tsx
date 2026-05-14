@@ -31,7 +31,7 @@ export const metadata: Metadata = {
       'es-MX': url,
       'es-ES': url,
       'es-AR': url,
-      'es-CL': url,
+      'es-CL': url, 'x-default': url
     },
   },
   openGraph: {

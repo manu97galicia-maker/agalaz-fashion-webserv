@@ -4,7 +4,7 @@ import { chromeNails2026 as data } from '@/data/longtailLandingsRound6';
 const url = 'https://agalaz.com/chrome-nails-2026';
 const metaTitle = 'Chrome Nails 2026 — Pastel, French, Mirror, Glazed Donut (Free AI Try-On)';
 const metaDescription =
-  "Chrome nails 2026 trend: pastel chrome, mirror, french chrome, glazed donut, chrome pedicure, holographic. Try every chrome design on YOUR real hands with free AI before the salon.";
+  "Chrome nails 2026: pastel, mirror, french, glazed donut, holographic. Try every chrome design on YOUR real hands with free AI before the salon.";
 const keywords = [
   'chrome nails 2026',
   'chrome nails ideas',

@@ -1204,9 +1204,9 @@ function PartnersContent() {
               <div className="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto">
                 <Sparkles size={32} className="text-indigo-600" />
               </div>
-              <h1 className="font-serif text-3xl font-black text-slate-900">
+              <h2 className="font-serif text-3xl font-black text-slate-900">
                 {pickLang(lang, 'Check your inbox', 'Revisa tu correo', 'Vérifiez votre boîte mail', 'Verifica o teu email', 'Posteingang prüfen', 'Controlla la tua email')}
-              </h1>
+              </h2>
               <p className="text-slate-500 text-sm font-light leading-relaxed">
                 {pickLang(
                   lang,
@@ -1284,7 +1284,7 @@ function PartnersContent() {
               <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto">
                 <Check size={32} className="text-emerald-600" />
               </div>
-              <h1 className="font-serif text-3xl font-black text-slate-900">Your account is ready</h1>
+              <h2 className="font-serif text-3xl font-black text-slate-900">Your account is ready</h2>
               <p className="text-slate-400 text-sm font-light">
                 {partnerProfile?.credits_remaining || 5} free renders available — follow the steps below to go live
               </p>
@@ -1688,7 +1688,7 @@ function PartnersContent() {
               <div className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mx-auto">
                 <Zap size={32} className="text-amber-600" />
               </div>
-              <h1 className="font-serif text-3xl font-black text-slate-900">Trial ended</h1>
+              <h2 className="font-serif text-3xl font-black text-slate-900">Trial ended</h2>
               <p className="text-slate-400 text-sm font-light">
                 Your trial ended. Choose a plan to continue.
               </p>
@@ -1769,7 +1769,7 @@ function PartnersContent() {
               <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto">
                 <Check size={32} className="text-emerald-600" />
               </div>
-              <h1 className="font-serif text-3xl font-black text-slate-900">Plan active</h1>
+              <h2 className="font-serif text-3xl font-black text-slate-900">Plan active</h2>
               <p className="text-slate-400 text-sm font-light">
                 {currentPlan?.name} — {partnerProfile?.credits_remaining} renders available
               </p>
