@@ -49,6 +49,10 @@ const LABELS: Record<DemoLang, {
   errorMissing: string;
   errorCaptcha: string;
   uploadCta: string;
+  // Login gate (replaces dropzones until user is authenticated)
+  loginGateTitle: string;
+  loginGateSubtitle: string;
+  loginGateCta: string;
   // Login modal
   signInTitle: string;
   signInSubtitle: string;
@@ -85,6 +89,9 @@ const LABELS: Record<DemoLang, {
     errorMissing: 'Upload both photos first.',
     errorCaptcha: 'Verification failed. Please refresh and try again.',
     uploadCta: 'Click to upload',
+    loginGateTitle: 'Try it free by signing in',
+    loginGateSubtitle: 'One free HD render every day. No card, no spam. Upload after sign-in.',
+    loginGateCta: 'Sign in free',
     signInTitle: 'Sign in for your free HD render',
     signInSubtitle: 'One free HD render every day. No card, no spam.',
     signInGoogle: 'Continue with Google',
@@ -120,6 +127,9 @@ const LABELS: Record<DemoLang, {
     errorMissing: 'Sube primero las dos fotos.',
     errorCaptcha: 'Fallo de verificación. Recarga e inténtalo de nuevo.',
     uploadCta: 'Pulsa para subir',
+    loginGateTitle: 'Prueba gratis iniciando sesión',
+    loginGateSubtitle: 'Un render HD gratis cada día. Sin tarjeta, sin spam. Sube tus fotos al iniciar sesión.',
+    loginGateCta: 'Iniciar sesión gratis',
     signInTitle: 'Inicia sesión para tu render HD gratis',
     signInSubtitle: 'Un render HD gratis cada día. Sin tarjeta, sin spam.',
     signInGoogle: 'Continuar con Google',
@@ -155,6 +165,9 @@ const LABELS: Record<DemoLang, {
     errorMissing: "Téléchargez d'abord les deux photos.",
     errorCaptcha: 'Vérification échouée. Rafraîchissez et réessayez.',
     uploadCta: 'Cliquez pour téléverser',
+    loginGateTitle: 'Essayez gratuitement en vous connectant',
+    loginGateSubtitle: 'Un rendu HD gratuit chaque jour. Sans carte, sans spam. Téléchargez après la connexion.',
+    loginGateCta: 'Se connecter gratuit',
     signInTitle: 'Connectez-vous pour votre rendu HD gratuit',
     signInSubtitle: 'Un rendu HD gratuit chaque jour. Sans carte, sans spam.',
     signInGoogle: 'Continuer avec Google',
@@ -190,6 +203,9 @@ const LABELS: Record<DemoLang, {
     errorMissing: 'Carrega primeiro as duas fotos.',
     errorCaptcha: 'Verificação falhou. Recarrega e tenta novamente.',
     uploadCta: 'Clica para carregar',
+    loginGateTitle: 'Experimenta grátis iniciando sessão',
+    loginGateSubtitle: 'Um render HD grátis todos os dias. Sem cartão, sem spam. Carrega as fotos após iniciar sessão.',
+    loginGateCta: 'Iniciar sessão grátis',
     signInTitle: 'Inicia sessão para o teu render HD grátis',
     signInSubtitle: 'Um render HD grátis todos os dias. Sem cartão, sem spam.',
     signInGoogle: 'Continuar com Google',
@@ -225,6 +241,9 @@ const LABELS: Record<DemoLang, {
     errorMissing: 'Zuerst beide Fotos hochladen.',
     errorCaptcha: 'Verifizierung fehlgeschlagen. Seite neu laden und erneut versuchen.',
     uploadCta: 'Zum Hochladen klicken',
+    loginGateTitle: 'Probiere kostenlos — melde dich an',
+    loginGateSubtitle: 'Ein kostenloser HD-Render pro Tag. Keine Karte, kein Spam. Foto-Upload nach Anmeldung.',
+    loginGateCta: 'Kostenlos anmelden',
     signInTitle: 'Anmelden für deinen kostenlosen HD-Render',
     signInSubtitle: 'Ein kostenloser HD-Render jeden Tag. Keine Karte, kein Spam.',
     signInGoogle: 'Mit Google fortfahren',
@@ -260,6 +279,9 @@ const LABELS: Record<DemoLang, {
     errorMissing: 'Carica prima entrambe le foto.',
     errorCaptcha: 'Verifica fallita. Ricarica e riprova.',
     uploadCta: 'Clicca per caricare',
+    loginGateTitle: 'Prova gratis accedendo',
+    loginGateSubtitle: 'Un render HD gratuito ogni giorno. Senza carta, senza spam. Carica le foto dopo l\'accesso.',
+    loginGateCta: 'Accedi gratis',
     signInTitle: 'Accedi per il tuo render HD gratuito',
     signInSubtitle: 'Un render HD gratuito ogni giorno. Senza carta, senza spam.',
     signInGoogle: 'Continua con Google',
@@ -859,7 +881,47 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
           </p>
         </div>
 
-        {!resultImage && (
+        {!resultImage && authChecked && !userId && (
+          /* Login gate — replaces the dropzones until the user is
+             authenticated. Forces a sign-in before any photo upload, which
+             commits the user to the funnel before they invest time picking
+             images and prevents anonymous Gemini calls from any source.
+             After login completes (auth state listener), the dropzones below
+             become visible automatically. */
+          <div className="max-w-2xl mx-auto">
+            <div className="relative rounded-3xl bg-white border-2 border-dashed border-indigo-300 p-8 md:p-12 shadow-2xl shadow-indigo-200/50 text-center overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/60 via-white to-pink-50/40 pointer-events-none" />
+              <div className="relative">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-5">
+                  <Sparkles size={12} />
+                  {lang === 'es' ? '1 render gratis' : lang === 'fr' ? '1 rendu gratuit' : lang === 'pt' ? '1 render grátis' : lang === 'de' ? '1 Render gratis' : lang === 'it' ? '1 render gratis' : '1 free render'}
+                </div>
+                <h3 className="font-serif text-2xl md:text-3xl font-black text-slate-900 tracking-tight mb-3 leading-tight">
+                  {t.loginGateTitle}
+                </h3>
+                <p className="text-slate-600 text-sm md:text-base font-light max-w-md mx-auto leading-relaxed mb-7">
+                  {t.loginGateSubtitle}
+                </p>
+                <button
+                  onClick={() => {
+                    track('signup_click', { provider: 'modal_open', source: 'demo_gate', category });
+                    setShowLogin(true);
+                  }}
+                  className="inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-indigo-600 to-pink-500 text-white text-sm md:text-base font-black uppercase tracking-[0.2em] rounded-full shadow-2xl shadow-indigo-300/50 hover:scale-[1.03] active:scale-[0.99] transition-all"
+                >
+                  <Sparkles size={16} />
+                  {t.loginGateCta}
+                  <ArrowRight size={16} />
+                </button>
+                <p className="text-[10px] text-slate-400 font-medium mt-5 uppercase tracking-widest">
+                  {lang === 'es' ? 'Sin tarjeta · Sin spam' : lang === 'fr' ? 'Sans carte · Sans spam' : lang === 'pt' ? 'Sem cartão · Sem spam' : lang === 'de' ? 'Keine Karte · Kein Spam' : lang === 'it' ? 'Senza carta · Senza spam' : 'No card · No spam'}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {!resultImage && authChecked && userId && (
           <>
             {/* Step indicators above the dropzones */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto mb-3">
