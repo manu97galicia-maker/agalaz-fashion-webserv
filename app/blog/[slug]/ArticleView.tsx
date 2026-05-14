@@ -5,6 +5,7 @@ import { Clock, Sparkles, ArrowRight } from 'lucide-react';
 import type { Article } from '../articles';
 import { blogCtaPath } from '@/lib/blogToLanding';
 import { track } from '@/lib/analytics';
+import TryOnDemoBlock, { type DemoCategory } from '@/components/landing/TryOnDemoBlock';
 
 interface Props {
   article: Article;
@@ -12,6 +13,26 @@ interface Props {
   lang: 'en' | 'es';
   heroImage?: string | null;
   heroImageAlt?: string;
+}
+
+/**
+ * Maps a blog article's slug to the closest demo category so the embedded
+ * try-on flow is topically relevant. Mirrors the routing logic in
+ * lib/blogToLanding.ts but returns the DemoCategory enum instead of a URL.
+ * Falls back to 'clothing' for general-style articles.
+ */
+function articleSlugToDemoCategory(slug: string): DemoCategory {
+  if (/\btattoo/i.test(slug)) return 'tattoo';
+  if (/\bnail|\bmanicure/i.test(slug)) return 'nail';
+  if (/\bglasses|\beyewear|\bsunglasses/i.test(slug)) return 'glasses';
+  if (/\bearring/i.test(slug)) return 'jewelry';
+  if (/\bjewel|\bnecklace|\bring\b/i.test(slug)) return 'jewelry';
+  if (/\bhairstyle|\bhaircut|\bbangs|\bbob\b|\bwolf-cut/i.test(slug)) return 'hairstyle';
+  if (/\bcostume|\bcosplay|\bdisfraz|\bhalloween/i.test(slug)) return 'costume';
+  if (/\bpet|\bdog|\bcat\b/i.test(slug)) return 'pet-clothing';
+  if (/\bbaby|\bnewborn|\binfant/i.test(slug)) return 'baby-clothing';
+  if (/\bbag\b|\bhandbag|\bpurse/i.test(slug)) return 'bag';
+  return 'clothing';
 }
 
 // Article body locks to the slug-derived language so SSR matches metadata for
@@ -167,6 +188,17 @@ export default function ArticleView({ article, related, lang, heroImage, heroIma
           })}
         </div>
 
+      </article>
+
+      {/* Inline try-on demo — same flow as every landing: login gate →
+          dropzones → watermarked HD render → paywall with countdown +
+          discount codes. Category derived from the article slug so a
+          "nail" article shows the nail demo, "wedding" shows clothing,
+          etc. Full-width breakout from the narrow article column so the
+          demo can breathe. */}
+      <TryOnDemoBlock category={articleSlugToDemoCategory(article.slug)} lang={lang} />
+
+      <article className="max-w-3xl mx-auto px-6 md:px-12 pb-12 md:pb-20">
         {/* CTA */}
         <div className="mt-16 bg-slate-50 border border-slate-100 p-8 md:p-10 text-center">
           <Sparkles size={28} className="text-indigo-600 mx-auto mb-4" />

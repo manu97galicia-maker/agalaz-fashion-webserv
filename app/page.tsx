@@ -27,6 +27,7 @@ import { useLang, pickLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
 import { ChatBot } from '@/components/ChatBot';
 import { track } from '@/lib/analytics';
+import TryOnDemoBlock, { type DemoLang } from '@/components/landing/TryOnDemoBlock';
 
 const STEP_ICONS = [Camera, Layers, Shirt];
 const FEATURE_ICONS = [ShieldCheck, Target, Zap];
@@ -769,6 +770,12 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Inline try-on demo — captures the visitor right after the colour-
+          explorer hook, before the "what you can try" capabilities grid.
+          Same flow as every product landing: login gate → dropzones →
+          watermarked HD render → paywall with countdown + discount codes. */}
+      <TryOnDemoBlock category="clothing" lang={(lang as DemoLang) || 'en'} />
 
       {/* Capabilities */}
       <section className="py-24 md:py-32 bg-white">
