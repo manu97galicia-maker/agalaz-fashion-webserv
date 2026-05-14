@@ -25,10 +25,120 @@ const STARTER_PROMO_CODE = 'HELLO';
 // visitors which kills conversion.)
 const COUNTDOWN_SECONDS = 2 * 60 + 8;
 
+// Full 6-language localisation for the paywall. AGALAZ15 / HELLO are
+// brand constants and intentionally NEVER translated. Currency is always
+// USD ("$") because Stripe is configured in USD across all locales.
+type PaywallLang = 'en' | 'es' | 'fr' | 'pt' | 'de' | 'it';
+const PAYWALL_COPY: Record<PaywallLang, {
+  heroTitle: string; heroHighlight: string; heroSubtitle: string;
+  features: string[];
+  starterLabel: string; starterRenders: string; starterSub: string; starterBadge: string;
+  proLabel: string; proRenders: string; proSub: string; proBadge: string; proPillBadge: string;
+  oneTime: string;
+  banner15: string; banner10: string; tapCopy: string; copied: string;
+  onlyValidPro: string; onlyValidStarter: string;
+  loading: string; buyNow: string;
+  trustLine: string;
+  signInTitle: string; signInSubtitle: string; signInGoogle: string;
+  or: string; emailPlaceholder: string; sendBtn: string;
+  inboxTitle: string; inboxHint: string; cancel: string;
+}> = {
+  en: {
+    heroTitle: 'Try It', heroHighlight: 'On You.',
+    heroSubtitle: 'Clothing, glasses, jewelry, tattoos — see how anything looks on your real body before you buy. One-time purchase, no subscription.',
+    features: ['Credits never expire', 'Clothing, glasses, jewelry, tattoos & more', 'AI chat to adjust size, color, fit', 'Download & share your renders', 'Buy again anytime — no subscription'],
+    starterLabel: 'Starter', starterRenders: '8 HD renders', starterSub: '$0.62 per render', starterBadge: 'MOST POPULAR',
+    proLabel: 'Pro', proRenders: '15 + 5 free = 20 HD', proSub: `$0.50 per render · 15% off with ${STYLE_PRO_PROMO_CODE}`, proBadge: '🎁 +5 FREE', proPillBadge: 'BEST VALUE',
+    oneTime: 'one-time',
+    banner15: '15% OFF · expires in', banner10: '10% OFF · expires in', tapCopy: 'Tap to copy', copied: 'Copied!',
+    onlyValidPro: 'Only valid for Style Pro', onlyValidStarter: 'Only valid for Starter',
+    loading: 'Loading…', buyNow: 'Buy Now',
+    trustLine: 'One-time payment · Credits never expire · Secure via Stripe',
+    signInTitle: 'Sign in first', signInSubtitle: 'Sign in to start your free trial', signInGoogle: 'Continue with Google',
+    or: 'or', emailPlaceholder: 'your@email.com', sendBtn: 'Send',
+    inboxTitle: 'Check your inbox', inboxHint: 'We sent you a magic link. Click it to sign in.', cancel: 'Cancel',
+  },
+  es: {
+    heroTitle: 'Pruébatelo', heroHighlight: 'Todo.',
+    heroSubtitle: 'Ropa, gafas, joyería, tatuajes — mira cómo te queda cualquier cosa en tu cuerpo real antes de comprar. Pago único, sin suscripción.',
+    features: ['Créditos sin caducidad', 'Ropa, gafas, joyería, tatuajes y más', 'Chat IA para ajustar talla, color, ajuste', 'Descarga y comparte tus renders', 'Vuelve a comprar cuando quieras — sin suscripción'],
+    starterLabel: 'Starter', starterRenders: '8 renders HD', starterSub: '$0,62 por render', starterBadge: 'MÁS POPULAR',
+    proLabel: 'Pro', proRenders: '15 + 5 gratis = 20 HD', proSub: `$0,50 por render · 15% off con ${STYLE_PRO_PROMO_CODE}`, proBadge: '🎁 +5 GRATIS', proPillBadge: 'MEJOR VALOR',
+    oneTime: 'pago único',
+    banner15: '15% OFF · caduca en', banner10: '10% OFF · caduca en', tapCopy: 'Pulsa para copiar', copied: '¡Copiado!',
+    onlyValidPro: 'Solo válido para Style Pro', onlyValidStarter: 'Solo válido para Starter',
+    loading: 'Cargando…', buyNow: 'Comprar Ahora',
+    trustLine: 'Pago único · Créditos sin caducidad · Seguro con Stripe',
+    signInTitle: 'Inicia sesión', signInSubtitle: 'Inicia sesión para empezar tu prueba gratis', signInGoogle: 'Continuar con Google',
+    or: 'o', emailPlaceholder: 'tu@email.com', sendBtn: 'Enviar',
+    inboxTitle: 'Revisa tu correo', inboxHint: 'Te enviamos un enlace mágico. Haz clic para entrar.', cancel: 'Cancelar',
+  },
+  fr: {
+    heroTitle: 'Essayez-le', heroHighlight: 'sur Vous.',
+    heroSubtitle: 'Vêtements, lunettes, bijoux, tatouages — voyez comment tout cela vous va sur votre corps réel avant d\'acheter. Achat unique, sans abonnement.',
+    features: ['Crédits sans expiration', 'Vêtements, lunettes, bijoux, tatouages et plus', 'Chat IA pour ajuster taille, couleur, coupe', 'Téléchargez et partagez vos rendus', 'Achetez à nouveau quand vous voulez — sans abonnement'],
+    starterLabel: 'Starter', starterRenders: '8 rendus HD', starterSub: '0,62 $ par rendu', starterBadge: 'PLUS POPULAIRE',
+    proLabel: 'Pro', proRenders: '15 + 5 gratuits = 20 HD', proSub: `0,50 $ par rendu · 15% off avec ${STYLE_PRO_PROMO_CODE}`, proBadge: '🎁 +5 GRATUITS', proPillBadge: 'MEILLEUR PRIX',
+    oneTime: 'achat unique',
+    banner15: '15% OFF · expire dans', banner10: '10% OFF · expire dans', tapCopy: 'Cliquer pour copier', copied: 'Copié !',
+    onlyValidPro: 'Valable uniquement pour Style Pro', onlyValidStarter: 'Valable uniquement pour Starter',
+    loading: 'Chargement…', buyNow: 'Acheter',
+    trustLine: 'Paiement unique · Crédits sans expiration · Sécurisé via Stripe',
+    signInTitle: 'Connectez-vous', signInSubtitle: 'Connectez-vous pour commencer votre essai gratuit', signInGoogle: 'Continuer avec Google',
+    or: 'ou', emailPlaceholder: 'votre@email.com', sendBtn: 'Envoyer',
+    inboxTitle: 'Vérifiez votre boîte', inboxHint: 'Nous vous avons envoyé un lien magique. Cliquez pour vous connecter.', cancel: 'Annuler',
+  },
+  pt: {
+    heroTitle: 'Experimenta', heroHighlight: 'em Ti.',
+    heroSubtitle: 'Roupa, óculos, joias, tatuagens — vê como te fica qualquer coisa no teu corpo real antes de comprar. Compra única, sem assinatura.',
+    features: ['Créditos sem expiração', 'Roupa, óculos, joias, tatuagens e mais', 'Chat IA para ajustar tamanho, cor, corte', 'Descarrega e partilha os teus renders', 'Compra de novo quando quiseres — sem assinatura'],
+    starterLabel: 'Starter', starterRenders: '8 renders HD', starterSub: '$0,62 por render', starterBadge: 'MAIS POPULAR',
+    proLabel: 'Pro', proRenders: '15 + 5 grátis = 20 HD', proSub: `$0,50 por render · 15% off com ${STYLE_PRO_PROMO_CODE}`, proBadge: '🎁 +5 GRÁTIS', proPillBadge: 'MELHOR VALOR',
+    oneTime: 'compra única',
+    banner15: '15% OFF · expira em', banner10: '10% OFF · expira em', tapCopy: 'Toca para copiar', copied: 'Copiado!',
+    onlyValidPro: 'Válido apenas para Style Pro', onlyValidStarter: 'Válido apenas para Starter',
+    loading: 'A carregar…', buyNow: 'Comprar Agora',
+    trustLine: 'Compra única · Créditos sem expiração · Seguro via Stripe',
+    signInTitle: 'Inicia sessão', signInSubtitle: 'Inicia sessão para começar o teu teste grátis', signInGoogle: 'Continuar com Google',
+    or: 'ou', emailPlaceholder: 'o-teu@email.com', sendBtn: 'Enviar',
+    inboxTitle: 'Verifica o teu email', inboxHint: 'Enviámos-te um link mágico. Clica para entrar.', cancel: 'Cancelar',
+  },
+  de: {
+    heroTitle: 'Probier es', heroHighlight: 'an Dir.',
+    heroSubtitle: 'Kleidung, Brillen, Schmuck, Tattoos — sieh, wie alles an deinem echten Körper aussieht, bevor du kaufst. Einmalkauf, kein Abo.',
+    features: ['Credits ohne Ablauf', 'Kleidung, Brillen, Schmuck, Tattoos und mehr', 'KI-Chat zum Anpassen von Größe, Farbe, Passform', 'Renderings herunterladen und teilen', 'Jederzeit nachkaufen — kein Abo'],
+    starterLabel: 'Starter', starterRenders: '8 HD-Renderings', starterSub: '0,62 $ pro Render', starterBadge: 'AM BELIEBTESTEN',
+    proLabel: 'Pro', proRenders: '15 + 5 gratis = 20 HD', proSub: `0,50 $ pro Render · 15% Rabatt mit ${STYLE_PRO_PROMO_CODE}`, proBadge: '🎁 +5 GRATIS', proPillBadge: 'BESTER WERT',
+    oneTime: 'einmalig',
+    banner15: '15% OFF · läuft ab in', banner10: '10% OFF · läuft ab in', tapCopy: 'Zum Kopieren tippen', copied: 'Kopiert!',
+    onlyValidPro: 'Nur für Style Pro gültig', onlyValidStarter: 'Nur für Starter gültig',
+    loading: 'Lädt…', buyNow: 'Jetzt kaufen',
+    trustLine: 'Einmalzahlung · Credits ohne Ablauf · Sicher über Stripe',
+    signInTitle: 'Zuerst anmelden', signInSubtitle: 'Melde dich an, um die kostenlose Probe zu starten', signInGoogle: 'Mit Google fortfahren',
+    or: 'oder', emailPlaceholder: 'deine@email.com', sendBtn: 'Senden',
+    inboxTitle: 'Posteingang prüfen', inboxHint: 'Wir haben einen Magic Link gesendet. Klicken zum Anmelden.', cancel: 'Abbrechen',
+  },
+  it: {
+    heroTitle: 'Provalo', heroHighlight: 'su di Te.',
+    heroSubtitle: 'Vestiti, occhiali, gioielli, tatuaggi — guarda come ti sta tutto sul corpo reale prima di comprare. Acquisto singolo, senza abbonamento.',
+    features: ['Crediti senza scadenza', 'Vestiti, occhiali, gioielli, tatuaggi e altro', 'Chat IA per regolare taglia, colore, vestibilità', 'Scarica e condividi i tuoi render', 'Riacquista quando vuoi — senza abbonamento'],
+    starterLabel: 'Starter', starterRenders: '8 render HD', starterSub: '0,62 $ per render', starterBadge: 'PIÙ POPOLARE',
+    proLabel: 'Pro', proRenders: '15 + 5 gratis = 20 HD', proSub: `0,50 $ per render · 15% off con ${STYLE_PRO_PROMO_CODE}`, proBadge: '🎁 +5 GRATIS', proPillBadge: 'MIGLIOR PREZZO',
+    oneTime: 'acquisto singolo',
+    banner15: '15% OFF · scade tra', banner10: '10% OFF · scade tra', tapCopy: 'Tocca per copiare', copied: 'Copiato!',
+    onlyValidPro: 'Valido solo per Style Pro', onlyValidStarter: 'Valido solo per Starter',
+    loading: 'Caricamento…', buyNow: 'Acquista Ora',
+    trustLine: 'Pagamento singolo · Crediti senza scadenza · Sicuro tramite Stripe',
+    signInTitle: 'Accedi prima', signInSubtitle: 'Accedi per iniziare la tua prova gratuita', signInGoogle: 'Continua con Google',
+    or: 'o', emailPlaceholder: 'tua@email.com', sendBtn: 'Invia',
+    inboxTitle: 'Controlla la tua casella', inboxHint: 'Ti abbiamo inviato un link magico. Cliccalo per accedere.', cancel: 'Annulla',
+  },
+};
+
 export default function PaywallPage() {
   const router = useRouter();
   const { t, lang } = useLang();
-  const en = lang === 'en';
+  const T = PAYWALL_COPY[(lang as PaywallLang)] || PAYWALL_COPY.en;
   // Default to Starter — the on-ramp for new buyers. Pro stays visually
   // featured via gradient + ring + +5 FREE badge so the eye drifts there
   // and "upgrade" feels like a smart decision rather than a default.
@@ -126,27 +236,16 @@ export default function PaywallPage() {
     } catch {}
   };
 
-  const features = en
-    ? ['Credits never expire', 'Clothing, glasses, jewelry, tattoos & more', 'AI chat to adjust size, color, fit', 'Download & share your renders', 'Buy again anytime — no subscription']
-    : ['Créditos sin caducidad', 'Ropa, gafas, joyería, tatuajes y más', 'Chat IA para ajustar talla, color, ajuste', 'Descarga y comparte tus renders', 'Vuelve a comprar cuando quieras — sin suscripción'];
+  const features = T.features;
 
   const plans = {
     test: {
-      price: '4,99',
-      currency: '$',
-      label: 'Starter',
-      renders: en ? '8 HD renders' : '8 renders HD',
-      sub: en ? '$0.62 per render' : '$0,62 por render',
-      badge: en ? 'MOST POPULAR' : 'MÁS POPULAR',
+      price: '4,99', currency: '$',
+      label: T.starterLabel, renders: T.starterRenders, sub: T.starterSub, badge: T.starterBadge,
     },
     popular: {
-      price: '9,99',
-      currency: '$',
-      label: 'Pro',
-      renders: en ? '15 + 5 free = 20 HD' : '15 + 5 gratis = 20 HD',
-      sub: en ? '$0.50 per render · 15% off with AGALAZ15' : '$0,50 por render · 15% off con AGALAZ15',
-      badge: en ? '🎁 +5 FREE' : '🎁 +5 GRATIS',
-      pillBadge: en ? 'BEST VALUE' : 'MEJOR VALOR',
+      price: '9,99', currency: '$',
+      label: T.proLabel, renders: T.proRenders, sub: T.proSub, badge: T.proBadge, pillBadge: T.proPillBadge,
     },
   };
 
@@ -202,16 +301,12 @@ export default function PaywallPage() {
             Agalaz
           </span>
           <h1 className="font-serif text-3xl sm:text-4xl md:text-7xl text-slate-900 tracking-tight leading-[1.05] md:leading-[0.9]">
-            {en ? 'Try It' : 'Pruébatelo'}
+            {T.heroTitle}
             {' '}
-            <span className="italic text-slate-400">
-              {en ? 'On You.' : 'Todo.'}
-            </span>
+            <span className="italic text-slate-400">{T.heroHighlight}</span>
           </h1>
           <p className="text-slate-500 mt-6 max-w-md mx-auto text-sm font-light leading-relaxed">
-            {en
-              ? 'Clothing, glasses, jewelry, tattoos — see how anything looks on your real body before you buy. One-time purchase, no subscription.'
-              : 'Ropa, gafas, joyería, tatuajes — mira cómo te queda cualquier cosa en tu cuerpo real antes de comprar. Pago único, sin suscripción.'}
+            {T.heroSubtitle}
           </p>
         </div>
 
@@ -244,7 +339,7 @@ export default function PaywallPage() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2 flex-wrap">
                   <p className="text-[11px] font-black uppercase tracking-wider text-amber-700">
-                    {en ? '15% OFF · expires in' : '15% OFF · caduca en'}
+                    {T.banner15}
                   </p>
                   <span className="font-mono font-black text-base md:text-lg text-amber-900 tabular-nums">
                     {timerStr}
@@ -258,13 +353,13 @@ export default function PaywallPage() {
                     {STYLE_PRO_PROMO_CODE}
                   </span>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700">
-                    {codeCopied ? (en ? 'Copied!' : '¡Copiado!') : (en ? 'Tap to copy' : 'Pulsa para copiar')}
+                    {codeCopied ? T.copied : T.tapCopy}
                   </span>
                 </button>
                 <div className="mt-2 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-indigo-600 text-white">
                   <Sparkles size={10} />
                   <span className="text-[10px] font-black uppercase tracking-wider">
-                    {en ? 'Only valid for Style Pro' : 'Solo válido para Style Pro'}
+                    {T.onlyValidPro}
                   </span>
                 </div>
               </div>
@@ -284,7 +379,7 @@ export default function PaywallPage() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2 flex-wrap">
                   <p className="text-[11px] font-black uppercase tracking-wider text-emerald-700">
-                    {en ? '10% OFF · expires in' : '10% OFF · caduca en'}
+                    {T.banner10}
                   </p>
                   <span className="font-mono font-black text-base md:text-lg text-emerald-900 tabular-nums">
                     {timerStr}
@@ -298,13 +393,13 @@ export default function PaywallPage() {
                     {STARTER_PROMO_CODE}
                   </span>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700">
-                    {helloCopied ? (en ? 'Copied!' : '¡Copiado!') : (en ? 'Tap to copy' : 'Pulsa para copiar')}
+                    {helloCopied ? T.copied : T.tapCopy}
                   </span>
                 </button>
                 <div className="mt-2 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-slate-900 text-white">
                   <Sparkles size={10} />
                   <span className="text-[10px] font-black uppercase tracking-wider">
-                    {en ? 'Only valid for Starter' : 'Solo válido para Starter'}
+                    {T.onlyValidStarter}
                   </span>
                 </div>
               </div>
@@ -350,7 +445,7 @@ export default function PaywallPage() {
                 {plans.test.currency}{plans.test.price}
               </span>
               <span className={`block text-[10px] font-bold ${selected === 'test' ? 'text-white/40' : 'text-slate-400'}`}>
-                {en ? 'one-time' : 'pago único'}
+                {T.oneTime}
               </span>
             </div>
           </button>
@@ -395,7 +490,7 @@ export default function PaywallPage() {
                 {plans.popular.currency}{plans.popular.price}
               </span>
               <span className={`block text-[10px] font-bold ${selected === 'popular' ? 'text-white/40' : 'text-slate-400'}`}>
-                {en ? 'one-time' : 'pago único'}
+                {T.oneTime}
               </span>
             </div>
           </button>
@@ -408,11 +503,11 @@ export default function PaywallPage() {
           className="w-full py-4 min-h-[56px] bg-slate-900 text-white flex items-center justify-center gap-3 hover:bg-indigo-600 active:bg-indigo-700 transition-all font-black uppercase tracking-[0.2em] text-xs md:text-sm disabled:opacity-50"
         >
           {loading || !authChecked ? (
-            <span>{en ? 'Loading...' : 'Cargando...'}</span>
+            <span>{T.loading}</span>
           ) : (
             <>
               <Sparkles size={16} />
-              {en ? 'Buy Now' : 'Comprar Ahora'}
+              {T.buyNow}
               <ArrowRight size={14} />
             </>
           )}
@@ -421,7 +516,7 @@ export default function PaywallPage() {
         {/* Trust signals */}
         <div className="mt-4 space-y-2 text-center">
           <p className="text-slate-400 text-[11px] font-bold">
-            {en ? 'One-time payment · Credits never expire · Secure via Stripe' : 'Pago único · Créditos sin caducidad · Seguro con Stripe'}
+            {T.trustLine}
           </p>
           <div className="flex items-center justify-center gap-4 pt-1">
             <button className="flex items-center gap-1.5 py-2">
@@ -442,10 +537,10 @@ export default function PaywallPage() {
             </div>
             <div>
               <h3 className="font-serif text-2xl font-black text-slate-900 tracking-tight">
-                {en ? 'Sign in first' : 'Inicia sesión'}
+                {T.signInTitle}
               </h3>
               <p className="text-slate-400 text-sm mt-2 font-light">
-                {en ? 'Sign in to start your free trial' : 'Inicia sesión para empezar tu prueba gratis'}
+                {T.signInSubtitle}
               </p>
             </div>
             <button
@@ -463,22 +558,22 @@ export default function PaywallPage() {
                 <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
               </svg>
-              {en ? 'Continue with Google' : 'Continuar con Google'}
+              {T.signInGoogle}
             </button>
 
             <div className="flex items-center gap-3">
               <div className="flex-1 h-px bg-slate-200" />
-              <span className="text-[10px] font-bold text-slate-400 uppercase">{en ? 'or' : 'o'}</span>
+              <span className="text-[10px] font-bold text-slate-400 uppercase">{T.or}</span>
               <div className="flex-1 h-px bg-slate-200" />
             </div>
 
             {otpSent ? (
               <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
                 <p className="text-sm font-bold text-emerald-600">
-                  {en ? 'Check your inbox' : 'Revisa tu correo'}
+                  {T.inboxTitle}
                 </p>
                 <p className="text-xs text-slate-500 mt-1">
-                  {en ? 'We sent you a magic link. Click it to sign in.' : 'Te enviamos un enlace mágico. Haz clic para entrar.'}
+                  {T.inboxHint}
                 </p>
               </div>
             ) : (
@@ -488,14 +583,14 @@ export default function PaywallPage() {
                   value={otpEmail}
                   onChange={(e) => setOtpEmail(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter') handleLoginOtp(); }}
-                  placeholder={en ? 'your@email.com' : 'tu@email.com'}
+                  placeholder={T.emailPlaceholder}
                   className="flex-1 px-3 py-3 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-indigo-500"
                 />
                 <button
                   onClick={handleLoginOtp}
                   className="px-4 py-3 bg-indigo-600 text-white text-sm font-bold rounded-xl hover:bg-indigo-500 transition-colors shrink-0"
                 >
-                  {en ? 'Send' : 'Enviar'}
+                  {T.sendBtn}
                 </button>
               </div>
             )}
@@ -504,7 +599,7 @@ export default function PaywallPage() {
               onClick={() => { setShowLogin(false); setOtpSent(false); setOtpEmail(''); }}
               className="text-slate-300 text-xs font-bold hover:text-slate-500 transition-colors"
             >
-              {en ? 'Cancel' : 'Cancelar'}
+              {T.cancel}
             </button>
           </div>
         </div>
