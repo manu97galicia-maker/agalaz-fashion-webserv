@@ -718,14 +718,61 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
   }
 
   async function handleLoginOtp() {
-    if (!otpEmail || !otpEmail.includes('@')) return;
+    // Stricter format check: must have user@domain.tld pattern. Catches the
+    // common "@hotmail" / "@gmail" without TLD typo (the previous
+    // `includes('@')` check let those through and Supabase silently rejected
+    // them, making the button look broken).
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(otpEmail.trim());
+    if (!emailOk) {
+      setOtpError(
+        lang === 'es' ? 'Introduce un email válido (p.ej. tu@gmail.com).' :
+        lang === 'fr' ? 'Entrez une adresse email valide (ex. votre@gmail.com).' :
+        lang === 'pt' ? 'Introduz um email válido (ex. o-teu@gmail.com).' :
+        lang === 'de' ? 'Gib eine gültige E-Mail-Adresse ein (z. B. du@gmail.com).' :
+        lang === 'it' ? "Inserisci un'email valida (es. tua@gmail.com)." :
+        'Enter a valid email address (e.g. you@gmail.com).'
+      );
+      return;
+    }
     setOtpError(null);
     try {
       track('signup_click', { provider: 'email', source: 'demo' });
       savePendingForAuth();
-      await signInWithOtp(otpEmail, typeof window !== 'undefined' ? window.location.pathname : '/');
+      await signInWithOtp(otpEmail.trim(), typeof window !== 'undefined' ? window.location.pathname : '/');
       setOtpSent(true);
-    } catch {}
+    } catch (err) {
+      // Bubble the real Supabase error up so the user can act on it instead
+      // of seeing a button that "does nothing".
+      const msg = err instanceof Error ? err.message : '';
+      const lower = msg.toLowerCase();
+      let friendly: string;
+      if (lower.includes('rate') || lower.includes('too many')) {
+        friendly =
+          lang === 'es' ? 'Demasiados intentos. Espera 60 seg y prueba otra vez.' :
+          lang === 'fr' ? 'Trop de tentatives. Attendez 60 sec et réessayez.' :
+          lang === 'pt' ? 'Demasiadas tentativas. Espera 60 seg e tenta de novo.' :
+          lang === 'de' ? 'Zu viele Versuche. 60 Sek warten und erneut versuchen.' :
+          lang === 'it' ? 'Troppi tentativi. Aspetta 60 sec e riprova.' :
+          'Too many attempts. Wait 60 sec and try again.';
+      } else if (lower.includes('invalid') || lower.includes('email')) {
+        friendly =
+          lang === 'es' ? 'Email rechazado. Prueba con otra dirección.' :
+          lang === 'fr' ? 'Email refusé. Essayez une autre adresse.' :
+          lang === 'pt' ? 'Email recusado. Tenta com outro endereço.' :
+          lang === 'de' ? 'E-Mail abgelehnt. Andere Adresse versuchen.' :
+          lang === 'it' ? "Email rifiutata. Prova un altro indirizzo." :
+          'Email rejected. Try a different address.';
+      } else {
+        friendly =
+          lang === 'es' ? 'No se pudo enviar el código. Inténtalo de nuevo.' :
+          lang === 'fr' ? "Impossible d'envoyer le code. Réessayez." :
+          lang === 'pt' ? 'Não foi possível enviar o código. Tenta de novo.' :
+          lang === 'de' ? 'Code konnte nicht gesendet werden. Erneut versuchen.' :
+          lang === 'it' ? 'Impossibile inviare il codice. Riprova.' :
+          "Couldn't send the code. Try again.";
+      }
+      setOtpError(friendly);
+    }
   }
 
   // Verify the 6-digit OTP code the user typed manually. This is the
@@ -1239,7 +1286,7 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
                   <input
                     type="email"
                     value={otpEmail}
-                    onChange={(e) => setOtpEmail(e.target.value)}
+                    onChange={(e) => { setOtpEmail(e.target.value); if (otpError) setOtpError(null); }}
                     onKeyDown={(e) => { if (e.key === 'Enter') handleLoginOtp(); }}
                     placeholder={t.signInEmailPlaceholder}
                     className="flex-1 px-3 py-3 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-indigo-500"
@@ -1251,6 +1298,9 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
                     {t.signInEmailSend}
                   </button>
                 </div>
+                {otpError && (
+                  <p className="text-xs text-rose-600 font-medium px-1">{otpError}</p>
+                )}
                 <p className="text-[10px] text-slate-400 leading-snug px-1">{t.signInSenderHint}</p>
               </div>
             )}
