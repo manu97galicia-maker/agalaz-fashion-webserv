@@ -321,6 +321,8 @@ function ImageDropzone({
   src,
   onChange,
   onClear,
+  locked,
+  onLockedClick,
 }: {
   label: string;
   hint: string;
@@ -328,6 +330,10 @@ function ImageDropzone({
   src: string | null;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClear: () => void;
+  /** When true, clicking opens the login modal instead of the file picker.
+   *  Lets us keep the visual cue of the upload area while gating the action. */
+  locked?: boolean;
+  onLockedClick?: () => void;
 }) {
   const ref = useRef<HTMLInputElement>(null);
   return (
@@ -346,7 +352,13 @@ function ImageDropzone({
         </div>
       ) : (
         <button
-          onClick={() => ref.current?.click()}
+          onClick={() => {
+            if (locked) {
+              onLockedClick?.();
+              return;
+            }
+            ref.current?.click();
+          }}
           className="group w-full aspect-square rounded-2xl border-2 border-dashed border-indigo-300 bg-gradient-to-br from-indigo-50/40 to-white hover:border-indigo-500 hover:from-indigo-100 hover:to-indigo-50 hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-all flex flex-col items-center justify-center gap-3 text-slate-500"
         >
           <div className="w-14 h-14 rounded-full bg-white shadow-md group-hover:bg-indigo-600 group-hover:text-white flex items-center justify-center text-indigo-500 transition-all">
@@ -893,48 +905,34 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
           </p>
         </div>
 
-        {!resultImage && authChecked && !userId && (
-          /* Login gate — replaces the dropzones until the user is
-             authenticated. Forces a sign-in before any photo upload, which
-             commits the user to the funnel before they invest time picking
-             images and prevents anonymous Gemini calls from any source.
-             After login completes (auth state listener), the dropzones below
-             become visible automatically. */
-          <div className="max-w-2xl mx-auto">
-            <div className="relative rounded-3xl bg-white border-2 border-dashed border-indigo-300 p-8 md:p-12 shadow-2xl shadow-indigo-200/50 text-center overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/60 via-white to-pink-50/40 pointer-events-none" />
-              <div className="relative">
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-5">
-                  <Sparkles size={12} />
-                  {lang === 'es' ? '1 render gratis' : lang === 'fr' ? '1 rendu gratuit' : lang === 'pt' ? '1 render grátis' : lang === 'de' ? '1 Render gratis' : lang === 'it' ? '1 render gratis' : '1 free render'}
-                </div>
-                <h3 className="font-serif text-2xl md:text-3xl font-black text-slate-900 tracking-tight mb-3 leading-tight">
-                  {t.loginGateTitle}
-                </h3>
-                <p className="text-slate-600 text-sm md:text-base font-light max-w-md mx-auto leading-relaxed mb-7">
-                  {t.loginGateSubtitle}
-                </p>
+        {!resultImage && (
+          <>
+            {/* Login banner — visible only when the user is not yet
+                authenticated. Sits ABOVE the dropzones (which stay visible
+                so users see what they'll be uploading) and blocks every
+                dropzone click + Generate click via the `locked` prop. */}
+            {authChecked && !userId && (
+              <div className="max-w-3xl mx-auto mb-4">
                 <button
                   onClick={() => {
-                    track('signup_click', { provider: 'modal_open', source: 'demo_gate', category });
+                    track('signup_click', { provider: 'modal_open', source: 'demo_gate_banner', category });
                     setShowLogin(true);
                   }}
-                  className="inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-indigo-600 to-pink-500 text-white text-sm md:text-base font-black uppercase tracking-[0.2em] rounded-full shadow-2xl shadow-indigo-300/50 hover:scale-[1.03] active:scale-[0.99] transition-all"
+                  className="w-full group inline-flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-indigo-600 to-pink-500 text-white text-sm md:text-base font-black uppercase tracking-[0.18em] rounded-full shadow-2xl shadow-indigo-300/40 hover:scale-[1.01] active:scale-[0.99] transition-all"
                 >
-                  <Sparkles size={16} />
-                  {t.loginGateCta}
-                  <ArrowRight size={16} />
+                  <Sparkles size={16} className="text-amber-200" />
+                  {/* "Sign in to get your free image" — localised per lang */}
+                  {lang === 'es' ? 'Haz log in para obtener tu imagen gratis' :
+                   lang === 'fr' ? 'Connectez-vous pour obtenir votre image gratuite' :
+                   lang === 'pt' ? 'Inicia sessão para obter a tua imagem grátis' :
+                   lang === 'de' ? 'Anmelden, um dein kostenloses Bild zu erhalten' :
+                   lang === 'it' ? 'Accedi per ottenere la tua immagine gratis' :
+                   'Sign in to get your free image'}
+                  <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
                 </button>
-                <p className="text-[10px] text-slate-400 font-medium mt-5 uppercase tracking-widest">
-                  {lang === 'es' ? 'Sin tarjeta · Sin spam' : lang === 'fr' ? 'Sans carte · Sans spam' : lang === 'pt' ? 'Sem cartão · Sem spam' : lang === 'de' ? 'Keine Karte · Kein Spam' : lang === 'it' ? 'Senza carta · Senza spam' : 'No card · No spam'}
-                </p>
               </div>
-            </div>
-          </div>
-        )}
+            )}
 
-        {!resultImage && authChecked && userId && (
-          <>
             {/* Step indicators above the dropzones */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto mb-3">
               <div className="flex items-center gap-2.5">
@@ -954,6 +952,11 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
                 src={userImage}
                 onChange={handleFile(setUserImage)}
                 onClear={() => setUserImage(null)}
+                locked={authChecked && !userId}
+                onLockedClick={() => {
+                  track('signup_click', { provider: 'modal_open', source: 'demo_dropzone_locked', category });
+                  setShowLogin(true);
+                }}
               />
               <ImageDropzone
                 label={productLabel || t.productPhoto}
@@ -962,6 +965,11 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
                 src={productImage}
                 onChange={handleFile(setProductImage)}
                 onClear={() => setProductImage(null)}
+                locked={authChecked && !userId}
+                onLockedClick={() => {
+                  track('signup_click', { provider: 'modal_open', source: 'demo_dropzone_locked', category });
+                  setShowLogin(true);
+                }}
               />
             </div>
 
