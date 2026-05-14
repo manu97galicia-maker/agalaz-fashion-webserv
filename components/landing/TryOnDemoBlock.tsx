@@ -747,13 +747,17 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
       const lower = msg.toLowerCase();
       let friendly: string;
       if (lower.includes('rate') || lower.includes('too many')) {
+        // Supabase's default OTP email rate limit is 4 / hour per address.
+        // After hitting it, the reset window is ~1 hour, NOT 1 minute. Tell
+        // the user clearly and redirect them to Google sign-in (the button
+        // visible above this error message) so they can keep the flow going.
         friendly =
-          lang === 'es' ? 'Demasiados intentos. Espera 60 seg y prueba otra vez.' :
-          lang === 'fr' ? 'Trop de tentatives. Attendez 60 sec et réessayez.' :
-          lang === 'pt' ? 'Demasiadas tentativas. Espera 60 seg e tenta de novo.' :
-          lang === 'de' ? 'Zu viele Versuche. 60 Sek warten und erneut versuchen.' :
-          lang === 'it' ? 'Troppi tentativi. Aspetta 60 sec e riprova.' :
-          'Too many attempts. Wait 60 sec and try again.';
+          lang === 'es' ? 'Límite de emails alcanzado. Usa Google (botón arriba) o espera 1 hora.' :
+          lang === 'fr' ? "Limite d'emails atteinte. Utilisez Google (bouton ci-dessus) ou attendez 1 h." :
+          lang === 'pt' ? 'Limite de emails atingido. Usa o Google (botão acima) ou espera 1 hora.' :
+          lang === 'de' ? 'E-Mail-Limit erreicht. Google nutzen (Button oben) oder 1 Std warten.' :
+          lang === 'it' ? 'Limite email raggiunto. Usa Google (pulsante sopra) o aspetta 1 ora.' :
+          'Email limit reached. Use Google sign-in (button above) or wait 1 hour.';
       } else if (lower.includes('invalid') || lower.includes('email')) {
         friendly =
           lang === 'es' ? 'Email rechazado. Prueba con otra dirección.' :
