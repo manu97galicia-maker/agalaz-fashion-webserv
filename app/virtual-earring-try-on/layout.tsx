@@ -13,9 +13,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Earring Try-On — Studs, Hoops, Nose Rings & Piercings (Free AI)',
+  title: 'Earrings on Your Face: Studs, Hoops, Nose Rings — Free AI Try-On',
   description:
-    'Free virtual earring try-on with AI — studs, hoops, dangles, ear cuffs, cartilage piercings, nose rings. See how they look on your real photo before buying. 30 sec, no signup.',
+    'See studs, hoops, dangles, ear cuffs, nose rings, piercings on YOUR real ears in 30 seconds. Free AI try-on, no signup, no app.',
   keywords: [
     'virtual earring try on',
     'ear piercing simulator',

@@ -14,9 +14,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Virtual Hairstyle Try-On — Cuts & Colour Before Salon',
+  title: 'Hairstyle Simulator: Wolf Cut, Bob, Curtain Bangs, Color — Free AI',
   description:
-    'Try haircuts, colour, balayage, braids, and dye on your real face with AI before the salon appointment. See platinum, copper, pixie or bob on YOU in 30 seconds. Free.',
+    'Try wolf cut, bob, pixie, curtain bangs, balayage, copper, platinum on YOUR real face in 30 sec. Free AI hairstyle simulator before the salon.',
   keywords: [
     'virtual hairstyle try on',
     'ai haircut simulator',

@@ -43,9 +43,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Tattoo Simulator Free Online — Virtual Tattoo on Your Body (3D AI)',
+  title: 'Tattoo Simulator: Sleeve, Small, Color, Tribal — Free AI on Your Body',
   description:
-    'Free online tattoo simulator — try any virtual tattoo on your real body with 3D AI. Realistic placement on arm, leg, ribs, back, hand. Body moves naturally with the design. No signup, no download.',
+    'Try any tattoo design on YOUR real body in 30 seconds. Sleeve, small, color, tribal, placement on arm, ribs, back. Free AI, no signup, no app.',
   keywords: [
     'tattoo simulator',
     'virtual tattoo viewer',

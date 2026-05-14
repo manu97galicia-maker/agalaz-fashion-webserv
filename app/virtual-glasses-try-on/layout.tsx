@@ -18,9 +18,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Eyeglasses Virtual Try-On — Glasses, Sunglasses, Frames for Eye Bags & Dark Circles',
+  title: 'Glasses on Your Face: Hide Dark Circles, Eye Bags — Free AI Try-On',
   description:
-    'Virtual eyeglass try-on with AI. Upload your photo, drop any eyewear or spectacles — see Ray-Ban, Persol, Warby Parker, optician frames on your face in 30 seconds. Free.',
+    'See glasses, sunglasses, frames on YOUR real face in 30 sec. Best frames to hide dark circles + eye bags. Ray-Ban, Persol, Warby Parker. Free AI.',
   keywords: [
     // Primary cluster — virtual eyeglass / eyewear (8.1K/mo each, KD <20)
     'virtual eyeglass try on',

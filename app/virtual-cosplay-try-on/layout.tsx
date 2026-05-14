@@ -14,9 +14,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Cosplay Try-On — Cosplay Costume, Anime AI',
+  title: 'Cosplay Outfits 2026: Anime, Genshin, Marvel — Free AI Try-On',
   description:
-    'Cosplay costume try-on with AI. Anime, Genshin, Demon Slayer, Marvel, Star Wars, original characters — see the cosplay on YOU in 30 seconds. Free, no app.',
+    'See any cosplay on YOUR real body in 30 seconds. Demon Slayer, Genshin, Marvel, Star Wars, original characters. Free AI cosplay simulator, no app.',
   keywords: [
     'cosplay',
     'cosplay costume',
