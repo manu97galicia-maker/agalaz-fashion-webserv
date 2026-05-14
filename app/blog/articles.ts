@@ -6192,4 +6192,656 @@ It does not cite proprietary vendor case studies or claims that cannot be indepe
 
 [Empieza con Agalaz →](/partners).`,
   },
+  {
+    slug: 'appropriate-attire-for-job-interview-2026',
+    title: 'Appropriate Attire for Job Interview 2026 — Industry Cheatsheet',
+    titleEs: 'Atuendo Apropiado para Entrevista de Trabajo 2026 — Por Sector',
+    description: 'Appropriate attire for a job interview in 2026: industry-specific dress codes for tech, finance, creative, healthcare + the 3 universal rules that work everywhere.',
+    descriptionEs: 'Atuendo apropiado para entrevista de trabajo 2026: códigos por sector (tech, finanzas, creativo, sanidad) + 3 reglas universales que funcionan en cualquier industria.',
+    keyword: 'appropriate attire for job interview 2026',
+    readTime: 6,
+    date: '2026-05-14',
+    category: 'Style Guide',
+    categoryEs: 'Guía de Estilo',
+    content: `Walking into a job interview in 2026 dressed as if it were 2014 is the fastest way to look out of touch. Dress codes have softened across every industry — but the rules for what's *appropriate* haven't disappeared, they've just become more contextual.
+
+Here's the honest 2026 cheatsheet by sector, plus the 3 universal rules that work everywhere.
+
+## The 3 Universal Rules (Work in Any Industry)
+
+Before drilling into sectors, get these right:
+
+1. **One notch above the daily dress code.** If the company is jeans-and-tee daily, wear chinos + button-up. If they're business casual daily, wear a blazer. You don't need a suit for a tech startup — but you do need to look intentional.
+2. **Fit beats budget.** A well-fitting $40 shirt beats a poorly-fitting $200 one every single time. Recruiters notice fit before fabric.
+3. **Neutral colors win.** Navy, charcoal, black, white, beige, soft grey. Save personality for the conversation, not the outfit.
+
+## Tech Companies (Startups, FAANG, SaaS)
+
+**The shift:** Tech moved from "anything goes" to "intentional casual" post-pandemic. Pure hoodies are out for interviews; smart-casual is in.
+
+| Role | What works |
+|---|---|
+| **Engineer / IC role** | Dark jeans or chinos · button-up or smart polo · clean sneakers (no obvious logos) |
+| **Manager / Director** | Chinos · button-up + light blazer (optional) · loafers or dress sneakers |
+| **Executive / VP+** | Tailored chinos · blazer · dress shoes or premium sneakers |
+| **Design role** | More personality OK — interesting glasses, statement watch, monochrome outfit |
+
+**Avoid:** branded company t-shirts (from previous jobs), hoodies, sneakers with heavy logos, anything wrinkled.
+
+## Finance, Consulting, Law
+
+**The shift:** Slightly softened from full traditional, but still the most formal sector.
+
+| Role | What works |
+|---|---|
+| **Analyst / Associate** | Two-piece suit (navy or charcoal) · white or light-blue shirt · conservative tie · dark leather shoes |
+| **Manager / VP** | Suit (can be slightly more interesting cut) · pocket square optional · still no patterned shirts |
+| **Senior / Partner** | Traditional formal — bespoke or premium off-rack suits, ties always |
+
+**Women in finance:** tailored blazer + pencil skirt or trousers + closed-toe pumps. Avoid sleeveless tops as interview-day pieces; you can always remove a blazer if asked but not add what you didn't bring.
+
+**Avoid:** trendy fits (cropped trousers, oversized blazers), bright statement colors, casual shoes, anything that screams "look at me" before "I'm competent".
+
+## Creative Industries (Marketing, Advertising, Media, Fashion)
+
+**The shift:** This is the trickiest sector — being underdressed flags low effort; being overdressed flags out-of-touch.
+
+| Role | What works |
+|---|---|
+| **Junior creative** | Smart casual with one signature piece (interesting glasses, watch, shoes) |
+| **Senior creative / Director** | Blazer + tee + nice trousers · or monochromatic look (all-black, all-neutrals) |
+| **Fashion-specific** | The interview IS a portfolio. Studied looks that show you know the brand's aesthetic |
+
+**Universal in creative:** show you have *taste* without showing off. One interesting piece > five mediocre ones.
+
+**Avoid:** trying too hard, vintage/streetwear that you couldn't pull off daily, anything that looks like you raided a costume rack.
+
+## Healthcare, Education, Government
+
+**The shift:** These remain the most traditionally formal because trust + perceived authority matter.
+
+| Role | What works |
+|---|---|
+| **Clinical / patient-facing** | Conservative suit · neutral tie · low-heel closed-toe shoes for women |
+| **Administrative** | Business casual + blazer · trousers · simple jewelry |
+| **Government / public sector** | Full traditional — suit, tie, polished shoes. Match the institutional weight |
+
+**Avoid:** anything that could be read as flashy, casual, or attention-seeking. These sectors reward looking like you'd be a trusted authority figure.
+
+## What's New in 2026 (Across All Sectors)
+
+A few trends that have crystallized this year:
+
+- **Sneakers in interviews are accepted for tech roles only.** Clean leather sneakers (white or black) work in startups and SaaS. Avoid sport sneakers in any setting.
+- **The "smart polo" is the new shirt-and-tie for tech leadership.** Premium knit polos (Lacoste, Theory) read as intentional casual without trying too hard.
+- **Cropped or wide-leg trousers are office-acceptable** if hemmed properly. The "ankle hitting the shoe" rule died.
+- **Statement glasses are interview-acceptable everywhere** — they're read as personality + intent, not flair.
+- **Tonal monochrome outfits beat pattern-mixing.** All-charcoal or all-beige looks more put-together than mixing patterns or competing colors.
+
+## The Test Before You Leave
+
+Before walking out the door, run this 30-second checklist:
+
+1. Is everything **clean**? (Stains kill the moment in HD video calls)
+2. Is everything **wrinkle-free**? (Steamer in the morning if needed)
+3. Do shoes match the formality level of the rest?
+4. Have you **sat down** in the outfit to make sure nothing pulls or rides up?
+5. Have you **seen yourself in full-body** in the outfit? Don't just check the mirror from waist up.
+
+That last one trips up more candidates than you'd guess. A blazer that fits perfectly in front can be 2 sizes too big across the back. A skirt that sits well standing can hike up when you sit.
+
+If you don't have a tailor or trusted second opinion handy, [preview your full outfit on your real body with an AI virtual try-on](/virtual-try-on) before buying or before interview day. Catches the awkward fit issues that the dressing-room mirror misses.
+
+## When in Doubt
+
+If you genuinely can't tell what's appropriate, **dress one level up** from what the company shows on their website careers page. You'll never lose a job for being too well-dressed at an interview. You can lose one for being too casual.
+
+The interviewer is looking for "this person took this seriously". Your outfit answers that question before you open your mouth.
+
+---
+
+Related reading:
+- [12 Job Interview Outfits 2026 — by industry](/blog/what-to-wear-to-a-job-interview-2026)
+- [Should I Wear a Tie to a Job Interview 2026](/blog/should-i-wear-a-tie-to-a-job-interview-2026)
+- [Try your interview outfit on your real body before the day](/virtual-try-on)`,
+    contentEs: `El atuendo apropiado para una entrevista de trabajo en 2026 depende del sector: tech permite smart-casual con sneakers limpias, finanzas y derecho siguen siendo full traje, creativo es el más complejo (ni undressed ni overdressed), sanidad y administración pública mantienen lo tradicional. Las 3 reglas universales: viste un escalón por encima del código diario, el corte gana al presupuesto, los colores neutros siempre funcionan. Tendencias 2026: sneakers solo en tech, polo premium como nueva camisa-corbata para liderazgo tech, monocromático tonal mejor que mezcla de patrones, gafas con personalidad siempre OK. Antes de salir: revisa limpieza, planchado, formalidad de zapatos, prueba sentándote, y mírate de cuerpo entero — no solo cintura para arriba.
+
+Más sobre [outfits específicos por sector](/blog/what-to-wear-to-a-job-interview-2026) o prueba tu look con [IA antes del día](/virtual-try-on).`,
+  },
+  {
+    slug: 'professional-interview-outfit-men-women-2026',
+    title: 'Professional Interview Outfit Men + Women 2026 (10 Looks)',
+    titleEs: 'Outfit Profesional Entrevista Hombre + Mujer 2026 (10 Looks)',
+    description: 'Professional interview outfits 2026 — 10 tested looks for men and women, by formality level. Real combinations with shoes, accessories, and what NOT to wear.',
+    descriptionEs: 'Outfits profesionales para entrevista 2026 — 10 looks probados para hombre y mujer por nivel de formalidad. Combinaciones reales con zapatos, accesorios y qué evitar.',
+    keyword: 'professional interview outfit men women 2026',
+    readTime: 7,
+    date: '2026-05-14',
+    category: 'Style Guide',
+    categoryEs: 'Guía de Estilo',
+    content: `Looking professional in a 2026 interview means signaling competence without looking like you're cosplaying as a 1990s investment banker. The line has shifted — and it's now finer than ever.
+
+Here are 10 tested looks (5 for men, 5 for women), organized by formality level, with exact combinations including shoes and accessories.
+
+## For Men
+
+### Look 1: Tech / Startup Interview (Smart Casual)
+
+- **Trousers:** dark navy or charcoal chinos, slim or tapered fit (not slim-skinny)
+- **Top:** crisp light-blue or white button-up, top button open, sleeves rolled if it's warm
+- **Shoes:** brown leather derbies or premium white leather sneakers
+- **Watch:** simple analog — leather or stainless steel band
+- **Avoid:** branded company tees, hoodies, sneakers with heavy logos
+
+### Look 2: Mid-Level Corporate (Business Casual)
+
+- **Trousers:** wool or wool-blend in mid-grey or navy
+- **Top:** light-blue Oxford shirt + unstructured navy blazer (no tie)
+- **Shoes:** brown or black leather loafers
+- **Belt:** must match shoe color
+- **Avoid:** belt + shoe color mismatch, square-toe shoes
+
+### Look 3: Finance / Consulting (Business Formal)
+
+- **Suit:** charcoal grey or navy two-piece, single-breasted, notch lapel
+- **Shirt:** crisp white spread-collar
+- **Tie:** burgundy, navy, or dark green — solid or subtle micro-pattern
+- **Shoes:** black or dark-brown oxfords (cap-toe or whole-cut)
+- **Avoid:** patterns competing with each other, tie clips above the third button
+
+### Look 4: Creative / Design Role
+
+- **Trousers:** wide-leg wool in beige or stone
+- **Top:** premium fitted tee (heavy cotton, no logo) + structured wool blazer in unconventional color (rust, sage, deep olive)
+- **Shoes:** clean leather chelsea boots
+- **Accent:** statement glasses or one premium accessory (vintage watch, slim chain)
+- **Avoid:** trying to look "creative" via gimmicky pieces
+
+### Look 5: Executive / Senior Role
+
+- **Suit:** premium navy three-piece OR navy two-piece with a pocket square
+- **Shirt:** white French-cuff with quality cufflinks
+- **Tie:** silk, solid burgundy or navy, classic width (8-8.5cm)
+- **Shoes:** polished black oxfords, never loafers at this level
+- **Watch:** mechanical or premium quartz, no smartwatch
+- **Avoid:** anything trendy — this level rewards classic over current
+
+## For Women
+
+### Look 1: Tech / Startup Interview
+
+- **Trousers:** straight-leg cigarette pants in black or navy
+- **Top:** silk-blend blouse in cream, white, or soft pink + structured cardigan or unconstructured blazer
+- **Shoes:** pointed-toe flats or low block-heel ankle boots
+- **Bag:** medium tote in leather (not a backpack, not a clutch)
+- **Avoid:** open-toe shoes, anything sheer, statement makeup
+
+### Look 2: Mid-Level Corporate
+
+- **Trousers or skirt:** tailored wool trousers OR pencil skirt to the knee
+- **Top:** structured silk blouse + fitted blazer (navy, grey, or camel)
+- **Shoes:** classic pointed-toe pumps, mid-heel (5-6 cm)
+- **Jewelry:** small stud earrings + thin necklace or watch — never both statement
+- **Avoid:** chunky jewelry, anything that jingles when you move
+
+### Look 3: Finance / Consulting
+
+- **Suit:** matching suit in dark navy or charcoal — pencil skirt or trousers
+- **Top:** white silk-blend blouse, high-neck or simple crew
+- **Shoes:** closed-toe pumps, medium heel
+- **Bag:** structured leather handbag (not slouchy)
+- **Tights:** sheer nude (if skirt) — non-negotiable in traditional finance
+- **Avoid:** bare legs in formal finance, statement nails (clear/nude only)
+
+### Look 4: Creative / Design Role
+
+- **Outfit:** wide-leg wool trousers + tucked-in fine-gauge knit + tailored coat over shoulders OR monochrome (all-cream or all-black)
+- **Shoes:** square-toe loafers or mid-block heeled boots
+- **Accent:** interesting glasses, sculptural earrings, or one designer piece
+- **Avoid:** going full streetwear, mixing too many trends
+
+### Look 5: Executive / Senior Role
+
+- **Suit:** premium tailored wool suit (Theory, Anine Bing, premium tier)
+- **Top:** silk shell or fitted button-down
+- **Shoes:** classic pumps (Stuart Weitzman / Manolo simple style)
+- **Accessories:** fine watch + small post earrings + minimal necklace
+- **Coat:** wool coat in camel, navy, or black (length to mid-thigh or longer)
+- **Avoid:** anything that distracts from the conversation
+
+## The Pre-Interview Verification
+
+These 10 looks all share three things you should verify before the morning of:
+
+1. **Try them on your real body, not the model on the website.** Sizes lie. A "size M" varies wildly by brand. [Use an AI virtual try-on](/virtual-try-on) if you're buying online without time to ship-and-return.
+2. **Sit down in it for 5 minutes.** Trousers that fit standing can hike up sitting. Blazers that close standing can gape open sitting.
+3. **Take a full-body photo in natural light.** Mirrors lie. Photos don't. You'll see what the interviewer sees.
+
+## The Single Biggest Mistake
+
+The #1 thing that makes professional outfits look wrong: **fit at the shoulders**.
+
+If a blazer or jacket fits wrong at the shoulders, no amount of tailoring fixes it. The shoulder seam should land exactly where your shoulder ends — not droop down your arm, not pinch up.
+
+Spend 80% of your budget on getting the shoulders right. The rest (length, waist, hem) is fixable by any tailor for $20-50. Bad shoulders cost full retail in alterations.
+
+## When You Have 2 Hours and No Interview Outfit
+
+If you've got an interview tomorrow and nothing ready:
+
+- **Men:** charcoal trousers + white Oxford + navy blazer + brown loafers. Works in 80% of sectors.
+- **Women:** black trousers + white silk blouse + black or navy blazer + nude pumps. Same rule.
+
+These two combinations have saved more careers than any "10 must-have pieces" listicle. They're boring on purpose — boring reads as competent.
+
+---
+
+Related reading:
+- [Appropriate Attire for Job Interview 2026 — by sector](/blog/appropriate-attire-for-job-interview-2026)
+- [Should I Wear a Tie to a Job Interview 2026](/blog/should-i-wear-a-tie-to-a-job-interview-2026)
+- [Preview your interview outfit on your real body](/virtual-try-on)`,
+    contentEs: `10 outfits profesionales para entrevista de trabajo 2026, 5 para hombre y 5 para mujer, organizados por nivel de formalidad (tech, mid-corporate, finanzas, creativo, ejecutivo). Para hombre: chinos navy + camisa azul + derbies marrones (tech), traje gris + Oxford blanca + corbata burgundy (finanzas), traje azul tres piezas con pañuelo en el bolsillo (ejecutivo). Para mujer: pantalón cigarrete + blusa seda + flats puntiagudos (tech), traje sastre azul marino + blusa blanca + pumps cerrados (finanzas), traje Theory + shell de seda + abrigo lana camel (ejecutivo). El error #1 que arruina cualquier outfit profesional: corte mal en los hombros (no se arregla con ajustes posteriores). Antes de comprar online: pruébalo en tu cuerpo real con [IA](/virtual-try-on).
+
+Más sobre [códigos por sector](/blog/appropriate-attire-for-job-interview-2026).`,
+  },
+  {
+    slug: 'job-interview-dress-code-trends-2026',
+    title: 'Job Interview Dress Code Trends 2026 — What Actually Changed',
+    titleEs: 'Tendencias Código Vestimenta Entrevista 2026 — Qué Cambió',
+    description: 'Job interview dress code trends 2026: what changed since 2024, what stayed, and the 7 outdated rules recruiters tell us to stop following.',
+    descriptionEs: 'Tendencias en código de vestimenta para entrevista 2026: qué cambió desde 2024, qué se mantuvo y las 7 reglas obsoletas que reclutadores piden dejar de seguir.',
+    keyword: 'current job interview dress code trends 2026',
+    readTime: 6,
+    date: '2026-05-14',
+    category: 'Style Guide',
+    categoryEs: 'Guía de Estilo',
+    content: `Dress codes for interviews have changed more in the last 24 months than in the previous decade. Hybrid work, gender-neutral fashion, and a generational handoff in HR have all reshaped what hiring managers expect to see when you walk into the room (or open the video call).
+
+Here's what's actually shifted in 2026 — and the 7 outdated rules you can stop following.
+
+## What Changed in 2026
+
+### 1. The "always wear a suit" rule is dead
+
+Outside of finance, law, and senior corporate, a full suit can now read as **trying too hard** or **out of touch**. Smart-casual one notch above the daily dress code is the new baseline.
+
+### 2. Sneakers entered the chat (selectively)
+
+In tech, design, and modern creative sectors, **clean white or black leather sneakers** (Common Projects, Veja, premium minimalist) are interview-acceptable when paired with tailored chinos and a blazer. Five years ago this would have read as disrespectful — now it reads as confident and current.
+
+What's still NOT acceptable: sport sneakers, anything with heavy branding, dirty soles.
+
+### 3. The "color is unprofessional" rule softened
+
+A burgundy blazer, deep olive trousers, or rust-colored knit are now welcome in mid-to-senior interviews **when paired with otherwise neutral pieces**. The principle: ONE color statement, never two competing.
+
+### 4. Gender-neutral pieces are normalized
+
+Pinstripe trousers, structured blazers, button-downs — interviewers under 40 increasingly don't read "men's" vs "women's" cuts as anything other than style preferences. Wear what fits and flatters your body, not what's filed in a department.
+
+### 5. Video-interview-specific dressing emerged
+
+For remote interviews, the new rules:
+- **Top-half hyper-formal, bottom-half can be smart-casual** (your interviewer only sees waist up — but stand up at some point and you don't want to be in pajama pants)
+- **Solid colors over patterns** (small camera resolution destroys complex patterns)
+- **Avoid pure white** (blows out exposure under most webcam auto-exposure)
+- **Glasses with anti-glare coating** (reflections from screen distract the interviewer)
+
+### 6. Visible tattoos and piercings are increasingly accepted
+
+In tech, design, hospitality, and creative roles: visible tattoos (forearms, neck small piece) and minimal piercings are non-issues for ~70% of interviewers under 45.
+
+In finance, law, healthcare, and traditional corporate: still cover them if possible. Sleeves work.
+
+### 7. "Power suiting" is back — for women in senior roles
+
+The pendulum swung back. Wide-leg trousers, oversized blazers, structured shoulders — the "Phoebe Philo era" silhouette is now what senior-track women wear when they want to be taken as seriously as men in suits. Anine Bing, Toteme, and Theory dominate this look.
+
+## The 7 Outdated Rules You Can Stop Following
+
+These were universal advice 5-10 years ago. In 2026, recruiters say they're either neutral or actively unhelpful:
+
+| Outdated rule | Why it's obsolete in 2026 |
+|---|---|
+| **"Always wear a suit, regardless of company"** | Reads as out-of-touch in tech/startup contexts |
+| **"Black shoes only — never brown"** | Brown leather with navy or charcoal is now standard |
+| **"No open-toe shoes for women"** | Outside formal finance, well-styled open-toe is fine |
+| **"Cover all tattoos"** | Context-dependent — sleeve tattoos in tech are non-issues |
+| **"Wear pantyhose if you wear a skirt"** | Outside traditional finance, sheer nude tights are optional |
+| **"Iron everything to a crisp"** | Slightly relaxed, "lived-in" fabrics (linen blends, washed wool) now signal premium |
+| **"No statement accessories"** | One signature piece (watch, glasses, earrings) is read as personality, not distraction |
+
+## The Rules That Survived
+
+Some things never change:
+
+- **Fit is everything.** A bad-fitting designer piece looks worse than a perfect-fitting H&M one.
+- **Cleanliness is non-negotiable.** Stains, scuffs, dandruff, missing buttons — instant DQs.
+- **Match the formality of the company you're joining, plus one notch.** This rule from 1995 still works in 2026.
+- **Comfort matters.** If you're tugging at your collar or shifting in too-tight shoes during the interview, your discomfort reads as nervousness.
+
+## What This Means For You
+
+If you're interviewing in 2026, the modern approach is:
+
+1. **Research the company's actual day-to-day dress code first** (LinkedIn employee photos, careers page, Glassdoor reviews)
+2. **Dress one notch above their daily standard** — never two notches
+3. **Keep it simple, well-fitted, and neutral with one accent**
+4. **For video interviews: solid colors, no pure white, anti-glare glasses**
+5. **Verify the full outfit before the day** — including how it looks sitting and on camera
+
+The interviewer's first thought when you walk in should be "this person took this seriously and looks competent". Not "wow look at that statement piece" and not "did they just come from a wedding".
+
+## A Practical Tip for Online Shopping
+
+Half of interview-outfit purchases happen online with no time to return. To avoid the sizing chaos, [preview the outfit on your real body with AI before clicking buy](/virtual-try-on) — same principle as virtual try-on for casual wear, but with higher stakes.
+
+---
+
+Related:
+- [12 Job Interview Outfits 2026 by industry](/blog/what-to-wear-to-a-job-interview-2026)
+- [Should I Wear a Tie to a Job Interview 2026](/blog/should-i-wear-a-tie-to-a-job-interview-2026)
+- [Professional outfit 10 looks for men + women](/blog/professional-interview-outfit-men-women-2026)`,
+    contentEs: `Las tendencias en código de vestimenta para entrevista de trabajo cambiaron más en los últimos 24 meses que en la década anterior. En 2026: el traje completo solo en finanzas/derecho/corporativo senior, las sneakers limpias entran en tech, los colores no-neutros (burgundy, oliva, óxido) son OK con una sola pieza statement, las piezas genderless son normales, las entrevistas vídeo tienen reglas propias (sólidos no patrones, evita blanco puro, gafas anti-reflejo), tatuajes visibles aceptados en tech/diseño/creativo. Las 7 reglas obsoletas que reclutadores piden dejar de seguir: siempre traje (NO), solo zapatos negros (NO), no peep-toe (NO), cubrir tatuajes siempre (NO), medias con falda (NO), planchado militar (NO), prohibido accesorios (NO). Lo que sigue: el corte lo es todo, limpieza no-negociable, un escalón sobre el código diario, comodidad importa. Antes de comprar online: prueba con [IA](/virtual-try-on).
+
+Más sobre [outfits específicos](/blog/what-to-wear-to-a-job-interview-2026).`,
+  },
+  {
+    slug: 'should-i-wear-a-tie-to-a-job-interview-2026',
+    title: 'Should I Wear a Tie to a Job Interview 2026? Industry Guide',
+    titleEs: '¿Llevo Corbata a la Entrevista 2026? Guía por Sector',
+    description: 'Should I wear a tie to a job interview in 2026? The honest answer by industry: when a tie helps, when it hurts, and what to wear instead in tech and creative roles.',
+    descriptionEs: '¿Llevo corbata a la entrevista en 2026? Respuesta honesta por sector: cuándo ayuda, cuándo perjudica y qué llevar en su lugar en roles tech y creativos.',
+    keyword: 'should i wear a tie to a job interview 2026',
+    readTime: 4,
+    date: '2026-05-14',
+    category: 'Style Guide',
+    categoryEs: 'Guía de Estilo',
+    content: `Short answer: **it depends entirely on the industry and the level**. Here's the long answer with the exact decision tree.
+
+## The Quick Decision Tree
+
+| Industry | Wear a tie? |
+|---|---|
+| Finance, Investment Banking, Wealth Management | **Yes — always** |
+| Law (BigLaw, corporate) | **Yes — always** |
+| Insurance, Accounting (Big 4) | **Yes — for analyst+** |
+| Consulting (MBB, Big 4) | **Yes — first interview at minimum** |
+| Healthcare administration | **Yes — patient-facing or board-level** |
+| Government (federal, state) | **Yes — most roles** |
+| Sales (B2B enterprise) | **Yes — first interview** |
+| Real Estate (commercial) | **Yes** |
+| Mid-size corporate (non-finance) | **Maybe — depends on the company** |
+| Education (private school, university admin) | **Maybe — preference, won't hurt** |
+| Tech (startup, FAANG, SaaS) | **No — would actively hurt** |
+| Design / UX / Creative agency | **No** |
+| Marketing / Advertising | **No, unless it's a specific brand piece** |
+| Hospitality / Restaurant | **No — except formal restaurant or hotel mgmt** |
+| Retail | **No** |
+| Healthcare clinical | **No — covered by scrubs/coat** |
+
+## Why Ties Help (When They Help)
+
+In traditional sectors, the tie does three jobs:
+
+1. **Signals authority and seriousness.** Centuries of executive uniform = pattern recognition for "I'm here to do serious work".
+2. **Compensates for youth or inexperience.** A 25-year-old in a tie reads as "competent young person". The same person in a button-up reads as "kid".
+3. **Adds visual interest to an otherwise neutral suit.** A burgundy tie against navy is the easiest "I have taste without trying" signal.
+
+## Why Ties Hurt (When They Hurt)
+
+In tech, design, and modern creative roles, wearing a tie can:
+
+1. **Signal "out of touch"** — like wearing a watch chain on a startup interview.
+2. **Distance you from the team culture.** Interviewers consciously and unconsciously assess "would this person fit in".
+3. **Look like overcompensation** — as if you weren't sure of your competence.
+4. **Trigger the "is this a sales pitch?" pattern** in casual companies.
+
+## The "I Don't Know This Company" Default
+
+If you've researched the company and genuinely can't tell whether a tie is expected:
+
+- **Bring it, don't wear it on arrival.** Wear an open-collar button-up + blazer. Have the tie folded in your jacket pocket or briefcase. If you walk in and everyone's in ties, you can excuse yourself to the restroom and put it on. The reverse is harder.
+
+## What to Wear INSTEAD of a Tie (Tech/Creative)
+
+For roles where a tie hurts, here's what signals competence WITHOUT one:
+
+### Tech / Startup
+- Crisp button-up (light blue or white) + unstructured blazer
+- Top button open, no tie
+- Clean leather sneakers or loafers
+- Watch with a leather or steel band
+
+### Design / Creative
+- Premium fitted tee + structured blazer in unconventional color (rust, sage, charcoal)
+- Statement glasses
+- Chelsea boots or premium loafers
+
+### Marketing / Advertising
+- Smart casual: chinos + button-up + unconstructed blazer
+- Pocket square (yes, without a tie — has become acceptable)
+- Brown leather Derby shoes
+
+## Tie Selection — When You Are Wearing One
+
+If the decision is "yes, tie", make these choices:
+
+| Element | Safe choice |
+|---|---|
+| Color | Burgundy, navy, dark green, or charcoal |
+| Pattern | Solid or subtle micro-pattern (no novelty, no characters, no obvious club ties) |
+| Width | 7.5-8.5cm (classic) — avoid extreme skinny (5cm) or wide (10cm+) |
+| Fabric | Silk or silk-blend knit |
+| Length | Tip should reach the top of the belt buckle. Above is acceptable, below is wrong |
+| Knot | Half-Windsor — proportional, symmetric, works with any collar |
+
+**Avoid:** novelty ties (sport teams, characters, "fun" themes), polyester satin sheen, anything that requires a tie pin to stay in place, club or fraternity ties unless they're directly relevant.
+
+## What If You're Non-Binary or a Woman?
+
+Ties are not gender-locked, but they do trigger gendered reads in traditional industries.
+
+- **In tech/creative:** wear what feels right; nobody cares.
+- **In finance/law:** a woman in a tie reads as a deliberate style statement, not "uniform". If you go this route, commit to it confidently — half-commitment reads as confusion.
+- **Non-binary professionals:** match the formality of the role expected; the tie is one of several ways to signal that formality.
+
+## When in Doubt, Default Move
+
+If you can't decide and time is short:
+
+1. **Bring** a navy or burgundy solid tie
+2. **Wear** a button-up + navy blazer + dark trousers
+3. **Decide** when you arrive — based on what 2-3 employees you can see are wearing
+
+You'll never lose a job for being slightly overdressed. You can lose one for being noticeably under-dressed.
+
+---
+
+Related:
+- [12 Job Interview Outfits 2026 by industry](/blog/what-to-wear-to-a-job-interview-2026)
+- [Appropriate Attire by Sector 2026](/blog/appropriate-attire-for-job-interview-2026)
+- [Try your outfit + tie combo on your real body](/virtual-try-on)`,
+    contentEs: `Respuesta corta: depende totalmente del sector y del nivel. Lleva corbata: finanzas, banca de inversión, derecho, big 4 (analista+), consultoría (primera entrevista mínimo), administración sanitaria (cara al paciente o nivel ejecutivo), gobierno, ventas B2B enterprise, real estate comercial. NO lleves corbata: tech (startup/FAANG/SaaS, daña activamente), diseño/UX, marketing/publicidad (excepto pieza concreta de marca), hospitality (excepto hotelería formal), retail, sanidad clínica. Si dudas, **llévala doblada en el bolsillo del blazer** — si al llegar ves que todos llevan, te la pones; si nadie, te la dejas. Cuando sí toca: color burgundy/navy/verde oscuro, lisa o micro-patrón, 7.5-8.5 cm de ancho, seda, nudo medio-Windsor, punta justo al borde superior de la hebilla. Mujeres/non-binary: en tech/creativo sin problema, en finanzas/derecho lee como declaración deliberada — comprométete o no.
+
+Más sobre [outfits por sector](/blog/appropriate-attire-for-job-interview-2026).`,
+  },
+  {
+    slug: 'job-interview-outfit-by-industry-tech-finance-creative-2026',
+    title: 'Job Interview Outfit by Industry 2026: Tech, Finance, Creative',
+    titleEs: 'Outfit Entrevista Por Sector 2026: Tech, Finanzas, Creativo',
+    description: 'Job interview outfits by industry in 2026 — exact looks for tech (FAANG, startup), finance (banking, consulting), creative (agency, design). With specific brands.',
+    descriptionEs: 'Outfits de entrevista por sector 2026 — looks exactos para tech (FAANG, startup), finanzas (banca, consultoría), creativo (agencia, diseño). Con marcas concretas.',
+    keyword: 'job interview outfit by industry tech finance creative 2026',
+    readTime: 7,
+    date: '2026-05-14',
+    category: 'Style Guide',
+    categoryEs: 'Guía de Estilo',
+    content: `An interview outfit that works at Goldman Sachs would actively hurt you at a startup. One that flies at a creative agency would feel out of place at McKinsey. Industry context is the single biggest variable in 2026.
+
+Here are the exact looks by industry, including brand recommendations at multiple price tiers.
+
+## Tech: FAANG vs Startup (Different Vibes)
+
+### FAANG (Meta, Google, Apple, Amazon, Netflix)
+Smart casual is the floor, but newer FAANG hires (post-2023) trend slightly more formal — perceived professionalism matters at scale.
+
+**Men:**
+- Dark chinos or wool trousers (Banana Republic, Bonobos, Theory)
+- Crisp button-up or premium polo (Uniqlo, Lacoste, Brunello premium)
+- Unstructured blazer (J.Crew Ludlow, Suitsupply, Theory)
+- Clean leather sneakers or loafers (Cole Haan, Common Projects)
+
+**Women:**
+- Tailored trousers or midi skirt (Massimo Dutti, Theory, Vince)
+- Silk-blend blouse + structured cardigan or blazer (Theory, J.Crew, COS)
+- Pointed-toe flats or low block-heel pumps (Sam Edelman, Sezane)
+
+### Startup (Seed to Series C)
+Slightly more casual but never sloppy. The interviewer probably joined when there were 30 people — they're testing culture fit.
+
+**Men:**
+- Premium jeans (dark wash) or chinos
+- Premium fitted tee or henley + open button-up over
+- Optional structured cardigan (no blazer needed)
+- Clean leather sneakers
+
+**Women:**
+- Premium jeans or tailored trousers + premium fitted knit
+- Optional blazer for senior roles
+- Loafers or low heels
+
+**Brand benchmarks:** Madewell, Everlane, Aritzia for casual-premium; Theory and COS for slightly elevated.
+
+## Finance: IB vs Asset Management vs Fintech
+
+### Investment Banking & Corporate Finance
+The most formal. No exceptions to the suit-and-tie rule for entry/mid-level roles.
+
+**Men:**
+- Charcoal or navy two-piece suit (Brooks Brothers, Suitsupply, Hugo Boss)
+- White spread-collar shirt (Charles Tyrwhitt, Brooks Brothers)
+- Conservative tie (burgundy, navy, dark green) — Hermès if budget allows
+- Black or dark brown oxfords (Allen Edmonds, Loake, Cheaney)
+
+**Women:**
+- Matching suit (Theory, Hugo Boss, Reiss) — pencil skirt or trousers
+- White silk blouse (Equipment, Theory)
+- Closed-toe pumps, mid-heel (Stuart Weitzman, M.Gemi)
+- Minimal jewelry — single watch + small earrings
+
+### Asset Management & Wealth Management
+Slightly less formal than IB but still firmly in suit territory.
+
+**Men:**
+- Navy or grey two-piece (suit doesn't need to scream "I'm in finance")
+- Optional knit tie for warmer reception
+- Brown oxfords or loafers
+
+**Women:**
+- Skirt suit or trouser suit
+- Cream or pale-pink blouse
+- Pumps or leather flats
+
+### Fintech (Stripe, Square, Modern fintech)
+Bridges the tech and finance cultures. Closer to tech than to finance.
+
+**Men:**
+- Tailored chinos + button-up + unstructured blazer (no tie)
+- Clean leather sneakers or loafers
+- Looks like FAANG dressed slightly up
+
+**Women:**
+- Trousers + fitted knit or button-down + structured blazer
+- Low-heel pumps or pointed-toe flats
+
+## Creative: Agency vs In-House Design vs Fashion
+
+### Advertising / Marketing Agency
+Personality with substance. The interview is partly a portfolio of taste.
+
+**Men:**
+- Slim wool trousers in unconventional color (rust, sage, deep grey)
+- Premium tee or fitted knit + structured blazer in contrasting tone
+- Statement glasses or one nice accessory
+- Premium loafers or chelsea boots
+
+**Women:**
+- Wide-leg trousers + tucked-in knit + tailored coat over shoulders
+- OR monochrome look (all cream, all black) with one structured piece
+- Pointed-toe loafers or block-heel ankle boots
+
+**Brands:** Aritzia, Toteme (women), Saturdays NYC, Norse Projects (men); Anine Bing for senior creative.
+
+### In-House Design (UX, Product Design)
+Closer to tech-startup but with more design-aware taste signals.
+
+**Men:**
+- Tonal monochrome looks (all charcoal, all navy)
+- Premium fitted tee + structured cardigan or blazer
+- One signature piece (Apple Watch is fine, vintage mechanical is better)
+- Clean leather sneakers (Common Projects era)
+
+**Women:**
+- Tonal looks or one carefully chosen statement piece
+- Sculptural earrings or unique frames
+- Premium loafers
+
+### Fashion (DTC Brand, Luxury Retail, Press)
+The interview IS the portfolio of taste. The bar is highest here.
+
+- Study the brand's recent campaigns
+- Wear pieces that show you understand their aesthetic (not from their store — that's tacky)
+- One designer piece + the rest curated thrift/vintage works at senior level
+- Avoid showing up in head-to-toe head-of-trend pieces — reads as trying
+
+## Senior-Level Across All Industries
+
+At VP+ level, the dress codes converge. You signal authority and aesthetic confidence.
+
+**Men:**
+- Premium two-piece in navy or charcoal (Brunello Cucinelli, Tom Ford, Loro Piana)
+- Custom-fitted shirts
+- Hermès tie or pocket square
+- Premium leather shoes (Edward Green, John Lobb)
+- Quality mechanical watch
+
+**Women:**
+- Tailored suit in premium fabric (The Row, Khaite, Brunello Cucinelli)
+- Silk blouse or fine knit
+- Premium pumps (Manolo simple, Aquazzura classic)
+- Fine jewelry — never costume at this level
+
+## Cross-Industry Mistakes to Avoid
+
+These hurt across every sector:
+
+1. **Visible underwear lines** — black trousers + light underwear is the most common visible error
+2. **Wrinkled shirts/trousers** — steam everything the morning of
+3. **Shoes that don't match formality of the rest** — sneakers with a suit, dress shoes with chinos
+4. **Watch + bracelet + necklace stack** — pick one, two max
+5. **Strong perfume/cologne** — interviewers complain about this more than any other physical issue. Skip it
+6. **Outfits you haven't sat in for 5+ minutes** — fit changes when you sit; verify
+
+## Test Before You Buy
+
+Most interview-outfit shopping happens online with no time to return. For high-stakes purchases, [preview the outfit on your real body with AI](/virtual-try-on) before clicking buy. Especially important for:
+
+- **Suits** — proportions change wildly with body shape
+- **Blazers** — shoulder fit cannot be eyeballed from a model photo
+- **Skirt/trouser combos** — the silhouette only works if the proportions match your body
+
+The 30-day return policy is great until you realize the interview is in 5 days.
+
+---
+
+Related:
+- [12 Job Interview Outfits 2026 main guide](/blog/what-to-wear-to-a-job-interview-2026)
+- [Appropriate Attire 2026 — universal rules](/blog/appropriate-attire-for-job-interview-2026)
+- [Should I Wear a Tie?](/blog/should-i-wear-a-tie-to-a-job-interview-2026)
+- [10 Professional Outfits Men + Women](/blog/professional-interview-outfit-men-women-2026)`,
+    contentEs: `Outfits exactos por sector con marcas concretas. Tech FAANG: chinos oscuros + button-up + blazer unstructured + sneakers limpios (Theory/J.Crew/Common Projects); startup similar pero más casual (Madewell/Everlane). Finanzas IB: traje completo charcoal/navy + Oxford blanca + corbata burgundy + zapatos Allen Edmonds; mujeres traje sastre + blusa seda + pumps Stuart Weitzman. Asset management ligeramente menos formal. Fintech tipo Stripe = tech con un escalón más arriba. Creativo agency: pantalones lana color no-convencional + tee premium + blazer en tono contrastante + gafas statement; in-house design tonal monocromático; moda DTC = el outfit ES tu portfolio de gusto. Senior level: todos los sectores convergen — premium two-piece Brunello/Tom Ford/The Row/Khaite. Errores universales: ropa interior visible, arrugas, zapatos que no matchean, exceso de accesorios, exceso perfume, no probar sentándote. Antes de comprar online: prueba con [IA](/virtual-try-on).
+
+Más sobre [reglas universales](/blog/appropriate-attire-for-job-interview-2026).`,
+  },
 ];
