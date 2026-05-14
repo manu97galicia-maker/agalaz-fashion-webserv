@@ -6844,4 +6844,360 @@ Related:
 
 Más sobre [reglas universales](/blog/appropriate-attire-for-job-interview-2026).`,
   },
+  {
+    slug: 'clean-girl-almond-nails-2026',
+    title: 'Clean Girl Almond Nails 2026: 20 Designs + Color Guide',
+    titleEs: 'Uñas Almendra Clean Girl 2026: 20 Diseños + Guía de Color',
+    description: 'Clean girl almond nails 2026: 20 minimalist designs, the 5 colors that always work, and how to nail the "expensive but effortless" look. Free AI preview.',
+    descriptionEs: 'Uñas almendra estilo clean girl 2026: 20 diseños minimalistas, los 5 colores que siempre funcionan y cómo lograr el look "caro pero sin esfuerzo". Vista previa IA gratis.',
+    keyword: 'clean girl almond nails, almond nails clean girl',
+    readTime: 5,
+    date: '2026-05-14',
+    category: 'Nails & Beauty',
+    categoryEs: 'Uñas y Belleza',
+    content: `The clean girl aesthetic took over Instagram, then TikTok, then real-world nail salons. By 2026 it's not a trend anymore — it's a baseline. And its uncontested signature shape is the **almond nail**.
+
+Here's the complete 2026 guide: the 5 colors that always work, 20 specific designs, and how to know if almond fits your hands.
+
+## What "Clean Girl Almond Nails" Actually Means
+
+It's a three-part recipe:
+
+1. **Almond shape** — tapered sides, oval-soft point. Not stiletto, not coffin. Looks like an actual almond seed if you flip it sideways.
+2. **Neutral, sheer, or soft color** — never neon, never glitter, never holographic. Think pale pink, nude, cream, soft beige, sheer white.
+3. **One subtle detail OR nothing** — single dot, micro French tip, single delicate line. Less is the whole point.
+
+If you're doing all three, you're clean girl. Add gel topcoat and you're done.
+
+## The 5 Colors That Always Work (Universal Colors)
+
+| Color | Brand reference | When to wear |
+|---|---|---|
+| **Lait de coton (milky white)** | OPI "Funny Bunny", Risqué "Cristal" | Year-round signature |
+| **Sheer pink** | Essie "Mademoiselle", OPI "Bubble Bath" | Office, daytime, dates |
+| **Pale beige nude** | Essie "Sand Tropez", Risqué "Cremoso" | Skin-tone match, photo-friendly |
+| **Soft caramel** | OPI "Tiramisu For Two", Granado "Caramelo" | Autumn, neutral wardrobe |
+| **Glazed donut (chrome sheer)** | Essie "Set in Stones" pearl topcoat over nude | Weddings, events, "expensive" |
+
+These five cover 90% of clean-girl-almond use cases. If you're starting from zero, buy these and you'll never be stuck.
+
+## 20 Specific Clean-Girl Almond Designs
+
+The genius of the aesthetic is that it's *almost* one design. The variations are subtle but they matter:
+
+### Pure minimalist
+1. **Plain milky white** — the platonic ideal of the aesthetic
+2. **Sheer ballerina pink** — pinkness barely visible
+3. **Bare buffed natural** — your nail, just polished
+4. **Single coat of nude** — slightly more coverage than sheer
+
+### One-detail elevation
+5. **Single white dot at the base** (smile line direction)
+6. **Single thin gold line at the tip** (1mm of gold)
+7. **One vertical gold line** down the center of one accent nail
+8. **Single pearl at the cuticle** of the ring finger
+9. **Two micro dots** (0.5mm) at the smile line
+10. **Subtle reverse French** (sheer band at the cuticle in white)
+
+### Subtle texture
+11. **Glazed donut chrome** — pearl topcoat over nude base
+12. **Cat-eye soft pink** — barely-there magnetic shimmer
+13. **Velvet matte nude** — matte topcoat over beige
+14. **Soft chrome lavender** — pale lavender + sheer chrome topcoat
+
+### Modern French variants
+15. **Micro French tip (1mm)** — almost invisible until you look
+16. **Soft pink French** (pink instead of white tip)
+17. **Reverse French in cream** (cream at cuticle, nail tip is bare)
+18. **Diagonal French** (tip line at angle, only on accent nail)
+
+### Wedding/event tier
+19. **Pearl placement (single 2mm pearl)** on ring finger
+20. **Subtle gold flake** — one or two micro flakes, randomly placed
+
+## Almond Shape — Does It Fit Your Hands?
+
+Honest assessment: almond suits most hand shapes, but it has a length minimum.
+
+**Works great if you have:**
+- Naturally long-to-medium nail beds
+- Slim fingers (almond elongates them further)
+- Short fingers (the tapered point gives the illusion of length)
+
+**Less ideal if you have:**
+- Very short, very wide nail beds (almond looks stunted at <8mm of free edge)
+- Hands you use intensively for typing/manual work (almond points snap easier than square or oval)
+
+**Compromise: short almond clean girl.** Same aesthetic, shorter free edge (3-5mm). All 20 designs above translate down. The "expensive minimalism" reads identically — it's the SHAPE that signals taste, not the length.
+
+## How to Get the Look (At Home or Salon)
+
+### Salon route (R$ 60-150 / €25-50 / $35-75)
+Show your manicurist a photo of the design from this list. Specify:
+- Shape: almond, **soft point** (not aggressive stiletto-adjacent)
+- Length: medium-short (3-5mm) or medium (5-8mm) — short suits 2026 minimalism better
+- Color: by name from the list above
+- Detail: by photo
+
+### At home (R$ 80-150 in supplies, then per-application)
+You need:
+- Buffer + file + cuticle pusher
+- Base coat (Essie or OPI)
+- Color (pick from the 5 universal)
+- Topcoat (Essie Gel Couture or OPI Gel)
+- Optional: gold detail polish, pearl studs, thin dot tool
+
+The trickiest part is the SHAPE, not the polish. Watch a 5-minute YouTube tutorial on filing almond — practice on one hand first.
+
+## Before You Commit: Preview on YOUR Hands
+
+The biggest mistake: choosing a design from a Pinterest stock photo where the model has very different hands from yours.
+
+[Preview any of these 20 designs on your real hands with AI](/virtual-nail-try-on) before the manicure appointment. Takes 30 seconds. You'll see immediately whether glazed donut works on your skin tone, whether short almond suits your finger length, whether the gold line proportion is right.
+
+R$ 100 saved on a manicure you'd otherwise regret = ~30 minutes of try-on time. Per appointment.
+
+---
+
+Related:
+- [Pastel Chrome Nails 2026 — main nail trend guide](/blog/pastel-chrome-nails-2026-futuristic-spring-trend)
+- [Spring Coquette Nails 2026](/blog/spring-coquette-nails-2026)
+- [Short Almond Nails Clean Girl — Quick Guide](/blog/short-almond-nails-clean-girl-guide)
+- [Try any nail design on your real hands with AI](/virtual-nail-try-on)`,
+    contentEs: `Las uñas almendra estilo clean girl son la base estética de 2026. La receta: forma almendra (puntada suave, no estilete), color neutro/transparente/suave (nunca neón ni glitter), uno o ningún detalle sutil. Los 5 colores universales: blanco lechoso (OPI Funny Bunny / Risqué Cristal), rosa transparente (Essie Mademoiselle), beige nude (Essie Sand Tropez), caramelo suave (OPI Tiramisu), glazed donut (chrome perla sobre nude). 20 diseños específicos por categorías: minimalismo puro, un detalle elevado (punto blanco, línea dorada 1mm, perla en cutícula), textura sutil (chrome, cat-eye, mate, lavanda), francesa moderna (micro 1mm, reverse, diagonal), boda/eventos (perla 2mm + flake oro). La forma almendra favorece a la mayoría pero necesita largo mínimo — si tienes uñas muy cortas/anchas usa "short almond clean girl" (3-5mm). Antes de la cita prueba en tus manos reales con [IA](/virtual-nail-try-on).
+
+Más sobre [chrome 2026](/blog/pastel-chrome-nails-2026-futuristic-spring-trend).`,
+  },
+  {
+    slug: 'spring-coquette-nails-2026',
+    title: 'Spring Coquette Nails 2026: 30 Designs (Bows, Pearls, Pink)',
+    titleEs: 'Uñas Coquette Primavera 2026: 30 Diseños (Lazos, Perlas, Rosa)',
+    description: 'Spring coquette nails 2026: 30 designs with bows, pearls, soft pink — the romantic aesthetic that took over Pinterest. Free AI preview on your hands.',
+    descriptionEs: 'Uñas coquette para primavera 2026: 30 diseños con lazos, perlas, rosa suave — la estética romántica que tomó Pinterest. Prueba IA gratis en tus manos.',
+    keyword: 'spring coquette nails',
+    readTime: 5,
+    date: '2026-05-14',
+    category: 'Nails & Beauty',
+    categoryEs: 'Uñas y Belleza',
+    content: `Coquette took 2024 by storm and refused to go away. Two years later, it's not "trending" anymore — it's an established aesthetic. And it adapted to spring 2026 with softer pinks, more pearl work, and shrunk-down bow placements that read elegant instead of childish.
+
+Here's the complete spring 2026 coquette nails guide: 30 designs organized by execution difficulty, plus the rules that separate "coquette" from "trying too hard".
+
+## What Defines Coquette Nails (2026 Version)
+
+Three rules that consistently appear in the designs trending on Pinterest BR / ES / US right now:
+
+1. **Soft pink dominant.** Ballet pink, milky pink, baby pink, sheer rose. Never hot pink, never bubblegum.
+2. **One feminine motif per nail or as accent.** Bow, pearl, heart, ribbon, lace pattern. ONE — not three on the same nail.
+3. **Polished finish.** Glossy or sheer-chrome. Never matte (matte reads minimalist, not coquette).
+
+If you've got those three, you're coquette. The variations live in the motif placement and color saturation.
+
+## 30 Spring 2026 Coquette Designs (By Difficulty)
+
+### Easy (DIY-friendly)
+
+1. **Solid milky pink** — the foundation
+2. **Sheer ballet pink** — even more delicate
+3. **French tip in pearl white** over pink base
+4. **Single pearl at the cuticle** of the ring finger
+5. **Single small bow** (3D) on accent nail
+6. **Three micro dots** in white, asymmetric placement
+7. **Pink + glitter accent** on ring finger only
+8. **Solid pink with gold micro-stripe** down the center
+9. **Reverse French** in cream over pink
+10. **Pink + clear glaze topcoat** for the "glazed donut" coquette effect
+
+### Medium (salon-friendly, possible at home with practice)
+
+11. **Multiple small pearls** in a vertical line on accent nail
+12. **Bow + pearl combination** on one accent nail
+13. **Sheer pink with white lace pattern** at the cuticle
+14. **Pink ombré** (light at cuticle, deeper pink at tip)
+15. **Heart placement** — single small heart on ring finger
+16. **Mini bow at the smile line** of every nail
+17. **Pink + sheer chrome** layering
+18. **Soft pink + white French tip + single bow** on accent
+19. **Pearl-encrusted cuticle** (3-4 pearls in a curve)
+20. **Pink with white pearl chain** running vertically on one nail
+
+### Advanced (salon-only or very experienced DIY)
+
+21. **3D bow with ribbon trail** — bow at cuticle, ribbon detail running down
+22. **Mixed motif** — bow on one finger, pearls on another, heart on third
+23. **Vintage lace pattern** in white over pink base
+24. **Glazed pink with subtle gold flakes** randomly placed
+25. **Sheer pink with white "stitching" detail** along the smile line
+26. **Pink + chrome French + bow** triple-element coquette
+27. **Cat-eye soft pink with single pearl** at cuticle
+28. **Pink with white floral micro-art** — tiny flowers, not full nail art
+29. **Asymmetric bow placement** (bow at the side, not the center)
+30. **Wedding-tier coquette** — all 5 fingers with subtle different motifs that share the pink + pearl + bow language
+
+## The Coquette Rules That Save You From Looking Childish
+
+This aesthetic has a fine line. These rules keep you in "elegant feminine" instead of "tried to dress up like a doll":
+
+| Do | Don't |
+|---|---|
+| One motif per nail | Three motifs competing on the same nail |
+| Soft pink shades | Hot pink, bubblegum, neon pink |
+| 3-5mm pearls max | Large 7mm+ pearls |
+| Bow proportional to nail width (~50% of width max) | Oversized bow that takes the whole nail |
+| Glossy or chrome finish | Matte (looks more minimalist than coquette) |
+| Accent nails only with the bigger motifs | All 5 fingers with the same heavy 3D detail |
+| Almond, short almond, or soft oval shape | Stiletto (too aggressive for coquette) or square (too sporty) |
+
+## Color Palette for Spring 2026 Specifically
+
+Spring 2026 coquette skews **softer and more sheer** than the 2024 version (which leaned more saturated). Reference colors:
+
+- **Risqué "Diva 235"** — sheer pink with depth
+- **OPI "Bubble Bath"** — the classic soft pink
+- **Essie "Ballet Slippers"** — the foundational coquette pink
+- **OPI "Tickle My France-y"** — slightly warmer pink
+- **Cremosos brasileños** — soft, milky finishes work better than glossy for spring
+
+## At Salon vs At Home
+
+| Element | At home (€) | At salon (€) |
+|---|---|---|
+| Solid color + simple detail (1-10 from list) | €5-15 in supplies | €25-40 |
+| Pearl/bow placement (11-20) | €10-25 + 3D supplies | €40-70 |
+| Multi-element 3D (21-30) | Hard at home | €70-120+ |
+
+Tip for the salon route: bring photos of the EXACT design from this list, not vague "I want coquette". Manicurists interpret "coquette" very differently — explicit reference photos cut the miscommunication.
+
+## Try Before the Salon
+
+The single biggest cost-saver: [preview any of these 30 designs on your real hands with AI](/virtual-nail-try-on) before booking. Especially useful for:
+
+- **Pink shade matching** — sheer pinks look wildly different on different skin tones
+- **Pearl size proportion** — what looks elegant in the Pinterest model's hand may look oversized on your nail bed
+- **Bow size calibration** — same logic, easy to misjudge
+
+30 seconds of preview saves R$ 100 (or €40+) on regretted appointments.
+
+---
+
+Related:
+- [Pastel Chrome Nails 2026 — broader nail trend guide](/blog/pastel-chrome-nails-2026-futuristic-spring-trend)
+- [Clean Girl Almond Nails 2026](/blog/clean-girl-almond-nails-2026)
+- [Short Almond Nails Clean Girl](/blog/short-almond-nails-clean-girl-guide)
+- [Preview any nail design on your real hands](/virtual-nail-try-on)`,
+    contentEs: `30 diseños de uñas coquette para primavera 2026 organizados por dificultad. Reglas que definen el estilo: rosa suave dominante (nunca chicle/neón), un motivo femenino por uña (lazo, perla, corazón), acabado brillante (no mate). 10 fáciles (DIY): rosa lechoso sólido, francesa perla blanca sobre rosa, perla única en cutícula del anular, lazo 3D pequeño accent. 10 medios (salón o DIY avanzado): perlas múltiples verticales, combo lazo+perla, ombré rosa, corazón en anular, encaje blanco sobre rosa. 10 avanzados (solo salón): lazo 3D con estela de cinta, perlas encajonadas en cutícula, mezcla motivos por uña distinta, encaje vintage, glazed con flakes oro, francesa rosa + chrome + lazo, wedding-tier con todas distintas. Reglas anti-childish: un motivo por uña, rosas suaves (no chicle), perlas 3-5mm max, lazo proporcional al ancho de uña, glossy no mate. Paleta primavera 2026: Risqué Diva 235, OPI Bubble Bath, Essie Ballet Slippers. Prueba antes con [IA](/virtual-nail-try-on).
+
+Más sobre [clean girl almond](/blog/clean-girl-almond-nails-2026).`,
+  },
+  {
+    slug: 'short-almond-nails-clean-girl-guide',
+    title: 'Short Almond Nails Clean Girl: Quick Guide (2026)',
+    titleEs: 'Uñas Almendra Cortas Clean Girl: Guía Rápida (2026)',
+    description: 'Short almond clean girl nails: the modern micro-length aesthetic. Same expensive look, less maintenance. Best colors, 10 designs, salon vs DIY.',
+    descriptionEs: 'Uñas almendra cortas estilo clean girl: la estética micro-largo moderna. Mismo look caro, menos mantenimiento. Mejores colores, 10 diseños, salón vs DIY.',
+    keyword: 'short almond nails clean girl',
+    readTime: 4,
+    date: '2026-05-14',
+    category: 'Nails & Beauty',
+    categoryEs: 'Uñas y Belleza',
+    content: `If you love the clean girl almond look but hate maintaining 8mm of nail length, short almond is your aesthetic. Same minimalist elegance, half the upkeep, and arguably more elegant than the long version in 2026.
+
+Here's the focused guide.
+
+## Why Short Almond Won
+
+Three reasons it's overtaken long almond in 2026 search trends:
+
+1. **Practical** — you can actually type, cook, use your phone normally
+2. **Less brittle** — short almonds don't snap the way long almonds do
+3. **Reads as "expensive but practical"** — the modern luxury aesthetic isn't "I have time for impractical nails", it's "I have taste"
+
+The 2024 long-almond era is being replaced by short almond (3-5mm of free edge) as the new clean-girl baseline.
+
+## What Counts as "Short Almond"?
+
+- **Free edge length:** 3-5mm beyond your fingertip (not flush with the finger, not 8mm+)
+- **Shape:** still tapered to a soft point (not square, not oval-blunt)
+- **Proportion rule:** if your nail bed is short, even 2-3mm of almond shape gives the silhouette without the maintenance
+
+The shape signals luxury, not the length. A perfectly filed short almond looks more expensive than an unfiled long natural.
+
+## The 5 Best Colors (Specifically for Short Almond)
+
+| Color | Why it works on short | Brand reference |
+|---|---|---|
+| **Milky white** | Reflects light, makes nails appear longer | OPI Funny Bunny |
+| **Sheer pink** | Disappears into skin tone, elongates visually | Essie Mademoiselle |
+| **Bare buffed natural** | Most "I just have nice hands" energy | (no polish needed) |
+| **Pale beige nude** | Skin-tone match, photo-friendly | Essie Sand Tropez |
+| **Glazed donut chrome** | Pearl topcoat over nude — luxe finish on short canvas | Essie Set in Stones over nude |
+
+Avoid: deep colors (navy, burgundy, black). They emphasize the short length instead of elongating.
+
+## 10 Short Almond Clean Girl Designs
+
+### Pure minimalism
+1. **Plain milky white** — the foundation
+2. **Sheer ballet pink** — barely-there
+3. **Bare buffed natural** — no polish, just shine
+4. **Solid nude beige** — slightly more coverage
+
+### One subtle detail
+5. **Single gold micro-line** at the tip (~0.5mm)
+6. **Single tiny pearl** at the ring finger cuticle
+7. **Micro French tip** (1mm white over sheer pink)
+8. **Glazed donut chrome** — pearl topcoat over nude
+9. **Single white dot** at the smile line center
+10. **Reverse French** — sheer band at cuticle in cream
+
+That's it. The whole catalog. The aesthetic is *intentionally* limited — that's what makes it read as expensive.
+
+## At Home (15 min) vs Salon (30 min)
+
+**At home setup (~€20 first time, then €0/touch-up):**
+- Glass nail file (essential for almond shape)
+- Buffer
+- Base coat (Essie or OPI)
+- Color from the 5 above
+- Topcoat
+- Optional: dotting tool, single gold polish
+
+**Salon route (€20-35 in BR, €15-25 in ES, €25-40 in US):**
+- Show the manicurist a photo from this list
+- Specify "short almond, soft point, 3mm free edge"
+- Specify color by brand name
+- Choose ONE accent if any
+
+Tip: short almond is FORGIVING. If you mess up filing slightly at home, it's much less visible than on long almond.
+
+## Maintenance: The Killer Argument
+
+| Maintenance task | Long almond | Short almond |
+|---|---|---|
+| Time between manicures | 2-3 weeks (regrowth visible) | 3-5 weeks (regrowth less obvious) |
+| Daily upkeep | Cuticle oil, careful filing | Cuticle oil enough |
+| Breakage risk | Medium-high | Low |
+| Adapts to weekend trip without re-application | No | Yes |
+
+The maintenance gap is the real reason short almond wins for 2026's "intentional minimalism" zeitgeist.
+
+## Before You File (or Book)
+
+If you've never had almond and want to see how short almond looks on your specific fingers:
+
+[Preview short almond clean girl on your real hands with AI](/virtual-nail-try-on) — upload a hand photo, the AI applies the shape + color, you decide in 30 seconds if it suits you.
+
+Especially useful for figuring out if your nail bed length supports almond at all, or if you need to start with super-short (2-3mm) and build.
+
+---
+
+Related:
+- [Clean Girl Almond Nails 2026 — full guide (20 designs)](/blog/clean-girl-almond-nails-2026)
+- [Spring Coquette Nails 2026](/blog/spring-coquette-nails-2026)
+- [Pastel Chrome Nails 2026 — main nail trend](/blog/pastel-chrome-nails-2026-futuristic-spring-trend)
+- [Preview any nail design on your real hands](/virtual-nail-try-on)`,
+    contentEs: `Las uñas almendra cortas estilo clean girl son la versión 2026 (más práctica que la versión larga 2024). Mismo look caro, menos mantenimiento. Largo: 3-5mm más allá del dedo (no flush, no 8mm+). Forma: punta suave tapered, no cuadrada, no oval-blunt. La forma señala lujo, no el largo. Los 5 mejores colores específicamente para almendra corta: blanco lechoso (refleja luz, alarga visualmente), rosa transparente (se funde con piel), buffed natural ("solo tengo manos bonitas"), beige nude pálido, glazed donut chrome (perla sobre nude). Evita colores oscuros: enfatizan lo corto. 10 diseños: minimalismo puro (lechoso/rosa/natural/nude), un detalle sutil (línea oro 0.5mm, perla cutícula anular, francesa micro 1mm, glazed donut, punto blanco). Mantenimiento: entre manicuras 3-5 semanas (vs 2-3 long almond), menos rotura, sobrevive viaje sin reaplicar. Antes de archivar: prueba con [IA](/virtual-nail-try-on).
+
+Más sobre [diseños completos](/blog/clean-girl-almond-nails-2026).`,
+  },
 ];

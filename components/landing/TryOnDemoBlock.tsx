@@ -1124,7 +1124,12 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
                       className="rounded-lg bg-gradient-to-br from-emerald-50 to-teal-50 border-2 border-dashed border-emerald-400 p-2 text-left hover:bg-emerald-100 transition-colors active:scale-[0.99]"
                     >
                       <div className="text-[9px] font-black uppercase tracking-wider text-emerald-700">
-                        10% off · Starter
+                        {lang === 'es' ? '10% desc. · Starter' :
+                         lang === 'fr' ? '-10% · Starter' :
+                         lang === 'pt' ? '10% desc. · Starter' :
+                         lang === 'de' ? '10% Rabatt · Starter' :
+                         lang === 'it' ? '-10% · Starter' :
+                         '10% off · Starter'}
                       </div>
                       <div className="font-mono font-black text-sm text-slate-900 tracking-wider mt-0.5">
                         {STARTER_PROMO_CODE}
@@ -1138,7 +1143,12 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
                       className="rounded-lg bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-dashed border-amber-400 p-2 text-left hover:bg-amber-100 transition-colors active:scale-[0.99]"
                     >
                       <div className="text-[9px] font-black uppercase tracking-wider text-amber-700">
-                        15% off · Style Pro
+                        {lang === 'es' ? '15% desc. · Style Pro' :
+                         lang === 'fr' ? '-15% · Style Pro' :
+                         lang === 'pt' ? '15% desc. · Style Pro' :
+                         lang === 'de' ? '15% Rabatt · Style Pro' :
+                         lang === 'it' ? '-15% · Style Pro' :
+                         '15% off · Style Pro'}
                       </div>
                       <div className="font-mono font-black text-sm text-slate-900 tracking-wider mt-0.5">
                         {PRO_PROMO_CODE}
