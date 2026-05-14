@@ -14,10 +14,24 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Hairstyle Simulator: Wolf Cut, Bob, Curtain Bangs, Color — Free AI',
+  title: 'Short Hairstyles for Women & Hairstyles Over 50 — Free AI Try-On',
   description:
-    'Try wolf cut, bob, pixie, curtain bangs, balayage, copper, platinum on YOUR real face in 30 sec. Free AI hairstyle simulator before the salon.',
+    'Short hairstyles for women, medium layered, hairstyles for women over 50, black short cuts, wolf cut, bob, curtain bangs, balayage. Try any cut and color on YOUR real face in 30 sec. Free AI hairstyle simulator.',
   keywords: [
+    'short hairstyles for women',
+    'short cut hairstyles for women',
+    'hairstyles for short women',
+    'short hairstyles haircuts for women',
+    'short hairstyles and cuts for women',
+    'hairstyles for women over 50',
+    'hairstyles for women 50',
+    'over 50 hairstyles for women',
+    'hairstyles for over 50 women',
+    'medium hairstyles for women layered',
+    'medium cut hairstyles for women',
+    'hairstyles for women with medium hair',
+    'short hairstyles for women black hair',
+    'black short hairstyles for women',
     'virtual hairstyle try on',
     'ai haircut simulator',
     'hair colour try on online',

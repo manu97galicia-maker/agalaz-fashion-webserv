@@ -2,18 +2,31 @@ import type { Metadata } from 'next';
 import { vestidoDeNoivaPT as data } from '@/data/longtailLandingsRound8';
 
 const url = 'https://agalaz.com/pt/vestido-de-noiva';
-const metaTitle = 'Vestido de Noiva 2026: Civil, Sereia, Princesa (Provador IA Grátis)';
+const metaTitle = 'Vestido de Noiva 2026: Civil, Princesa, Sereia, Aluguel, Mãe da Noiva (Provador IA)';
 const metaDescription =
-  'Vestido de noiva 2026: civil, sereia, princesa, decote V, costas abertas, simples ou bordado. Provador IA grátis — testa qualquer vestido na tua foto antes do showroom.';
+  'Vestido de noiva 2026: civil, princesa, sereia, simples elegante, minimalista, aluguel, vestido para mãe da noiva. Testa qualquer vestido na tua foto com IA em 30 seg.';
 const keywords = [
   'vestido de noiva',
   'vestido noiva',
   'vestido de noiva civil',
   'vestido de noiva do civil',
   'vestido de noiva de civil',
-  'vestido de noiva sereia',
   'vestido de noiva princesa',
+  'vestido princesa de noiva',
+  'vestido de princesa de noiva',
+  'vestido de noiva sereia',
   'vestido de noiva simples',
+  'vestido simples de noiva',
+  'vestido de noiva simples mas elegante',
+  'vestido de noiva elegante e simples',
+  'vestido de noiva minimalista',
+  'aluguel de vestido de noiva',
+  'aluguel vestido de noiva',
+  'aluguel de um vestido de noiva',
+  'vestido para mãe de noiva',
+  'vestido mãe de noiva',
+  'mãe de noiva vestido',
+  'vestido de mãe da noiva',
   'vestido de noiva longo',
   'vestido de noiva curto',
   'vestido de noiva online',

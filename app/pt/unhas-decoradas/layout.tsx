@@ -2,13 +2,23 @@ import type { Metadata } from 'next';
 import { unhasDecoradasPT as data } from '@/data/longtailLandingsRound8';
 
 const url = 'https://agalaz.com/pt/unhas-decoradas';
-const metaTitle = 'Unhas Decoradas 2026: Em Gel, Simples, Elaboradas (Provador IA Grátis)';
+const metaTitle = 'Unhas Decoradas 2026: Em Gel, Vermelhas, Pretas, Brancas, Simples (Provador IA Grátis)';
 const metaDescription =
-  'Unhas decoradas 2026: em gel, simples, elaboradas, francesinha colorida, glazed donut, baby boomer, flores 3D. Provador IA grátis — testa o design na tua mão real em 30 seg.';
+  'Unhas decoradas 2026: em gel, vermelhas, pretas, brancas, simples, elaboradas, francesinha. Glazed donut, baby boomer. Testa o design na tua mão real com IA em 30 seg.';
 const keywords = [
   'unhas decoradas',
   'unhas decoradas em gel',
+  'unhas em gel decoradas',
+  'ideias de unhas em gel decoradas',
+  'unhas decoradas vermelhas',
+  'unhas vermelhas decoradas',
+  'unhas decoradas pretas',
+  'unhas pretas decoradas',
+  'unhas decoradas brancas',
+  'unhas brancas decoradas',
   'unhas decoradas simples',
+  'unhas simples decoradas',
+  'unhas de gel decoradas',
   'unhas decoradas elaboradas',
   'unhas decoradas 2026',
   'unhas/decoradas',
@@ -16,7 +26,6 @@ const keywords = [
   'francesinha colorida',
   'glazed donut unhas',
   'baby boomer unhas',
-  'unhas pretas decoradas',
   'unhas bicolores',
 ];
 

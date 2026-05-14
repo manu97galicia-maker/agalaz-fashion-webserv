@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import { corteCabeloFemininoPT as data } from '@/data/longtailLandingsRound8';
 
 const url = 'https://agalaz.com/pt/corte-de-cabelo-feminino';
-const metaTitle = 'Corte de Cabelo Feminino 2026: Curto, Médio, Longo (Provador IA Grátis)';
+const metaTitle = 'Corte de Cabelo Feminino 2026: Curto, Cacheado, Liso, Médio (Provador IA Grátis)';
 const metaDescription =
-  'Corte de cabelo feminino 2026: curtíssimo, curto, médio, longo, chanel, long bob, wolf cut, com franja. Testa o corte no teu rosto com IA em 30 seg antes do salão.';
+  'Corte de cabelo feminino 2026: curto, cacheado, liso, médio, longo, chanel, long bob, wolf cut, franja. Cortes para afinar rosto redondo. Testa no teu rosto com IA em 30 seg.';
 const keywords = [
   'corte de cabelo feminino',
   'corte feminino de cabelo',
@@ -12,6 +12,15 @@ const keywords = [
   'corte de cabelo curto feminino',
   'corte de cabelo médio feminino',
   'corte de cabelo longo feminino',
+  'corte de cabelo feminino cacheado',
+  'corte de cabelo cacheado feminino',
+  'corte de cabelo feminino curto cacheado',
+  'corte de cabelo curto cacheado feminino',
+  'corte de cabelo feminino curto liso',
+  'corte de cabelo liso feminino curto',
+  'corte de cabelo feminino 2025',
+  'corte de cabelo feminino 2026',
+  'corte de cabelo para afinar o rosto redondo feminino',
   'corte chanel feminino',
   'long bob',
   'wolf cut feminino',

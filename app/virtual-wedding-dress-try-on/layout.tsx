@@ -31,10 +31,25 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Wedding Dresses 2026: Mermaid, Princess, Boho, Lace — Free AI Try-On',
+  title: 'Wedding Dresses & Wedding Guest Dresses 2026 — Free AI Try-On',
   description:
-    'Wedding dresses 2026: mermaid, princess, boho, lace, A-line. Try any gown on your real body with AI before the boutique. Free, 30 sec.',
+    'Wedding dresses + wedding guest dresses 2026: mermaid, princess, boho, lace, A-line, mother of the bride. Try any gown or guest dress on your real body with AI before the boutique. Free, 30 sec.',
   keywords: [
+    'wedding dress',
+    'wedding gown dress',
+    'wedding dress bride dress',
+    'dress wedding dress',
+    'wedding guest dress',
+    'dress wedding guest',
+    'guest at a wedding dress',
+    'dress for wedding party guest',
+    'dress to wear as a wedding guest',
+    'dress to wear to wedding as guest',
+    'wedding attendee dress',
+    'dress for a wedding as a guest',
+    'dress for guest at wedding',
+    'wedding dress for guests',
+    'guests dress for wedding',
     'virtual wedding dress try on',
     'try on wedding dress online',
     'wedding dress simulator',
