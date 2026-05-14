@@ -79,7 +79,7 @@ const LABELS: Record<DemoLang, {
     productPhoto: 'Product',
     productPhotoHint: 'Photo or screenshot of the item',
     generate: 'Generate HD',
-    generating: 'Generating…',
+    generating: 'Generating… under 1 min',
     result: 'Your result',
     download: 'Download HD',
     buyMore: 'Get more renders',
@@ -117,7 +117,7 @@ const LABELS: Record<DemoLang, {
     productPhoto: 'Producto',
     productPhotoHint: 'Foto o captura del artículo',
     generate: 'Generar HD',
-    generating: 'Generando…',
+    generating: 'Generando… menos de 1 min',
     result: 'Tu resultado',
     download: 'Descargar HD',
     buyMore: 'Más renders',
@@ -155,7 +155,7 @@ const LABELS: Record<DemoLang, {
     productPhoto: 'Produit',
     productPhotoHint: "Photo ou capture de l'article",
     generate: 'Générer HD',
-    generating: 'Génération…',
+    generating: 'Génération… moins d\'1 min',
     result: 'Votre résultat',
     download: 'Télécharger HD',
     buyMore: 'Plus de rendus',
@@ -193,7 +193,7 @@ const LABELS: Record<DemoLang, {
     productPhoto: 'Produto',
     productPhotoHint: 'Foto ou captura do artigo',
     generate: 'Gerar HD',
-    generating: 'A gerar…',
+    generating: 'A gerar… menos de 1 min',
     result: 'O teu resultado',
     download: 'Descarregar HD',
     buyMore: 'Mais renders',
@@ -231,7 +231,7 @@ const LABELS: Record<DemoLang, {
     productPhoto: 'Produkt',
     productPhotoHint: 'Foto oder Screenshot des Artikels',
     generate: 'HD generieren',
-    generating: 'Wird generiert…',
+    generating: 'Wird generiert… unter 1 Min',
     result: 'Dein Ergebnis',
     download: 'HD herunterladen',
     buyMore: 'Mehr Renders',
@@ -269,7 +269,7 @@ const LABELS: Record<DemoLang, {
     productPhoto: 'Prodotto',
     productPhotoHint: "Foto o screenshot dell'articolo",
     generate: 'Genera HD',
-    generating: 'Generando…',
+    generating: 'Generando… meno di 1 min',
     result: 'Il tuo risultato',
     download: 'Scarica HD',
     buyMore: 'Più render',
@@ -858,6 +858,18 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
     it: 'Pagamento singolo · crediti senza scadenza · codice AGALAZ15 su Style Pro per 15% off',
   };
 
+  // Per-language H2 split into prefix + italic-highlighted noun so the
+  // section header reads naturally in each locale (matches the surrounding
+  // PT/ES/FR/etc. subtitle instead of staying in English).
+  const h2: Record<DemoLang, { prefix: string; highlight: string }> = {
+    en: { prefix: 'Try it on',           highlight: 'your photo' },
+    es: { prefix: 'Pruébalo en',         highlight: 'tu foto' },
+    fr: { prefix: 'Essayez-le sur',      highlight: 'votre photo' },
+    pt: { prefix: 'Experimenta em',      highlight: 'a tua foto' },
+    de: { prefix: 'Probier es an',       highlight: 'deinem Foto' },
+    it: { prefix: 'Provalo su',          highlight: 'la tua foto' },
+  };
+
   return (
     <section
       id="try-it"
@@ -874,7 +886,7 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
             {t.sectionTitle}
           </span>
           <h2 className="font-serif text-3xl md:text-5xl font-black text-slate-900 tracking-tight mb-4 leading-[1.05]">
-            Try it on <span className="italic text-indigo-600">your photo</span>
+            {h2[lang].prefix} <span className="italic text-indigo-600">{h2[lang].highlight}</span>
           </h2>
           <p className="text-slate-700 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
             {t.sectionSubtitle}
