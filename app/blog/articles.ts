@@ -1987,7 +1987,7 @@ Each app was tested with the same set of photos and garments for a fair comparis
 ## 1. Agalaz — Best Overall Virtual Try-On (Web App)
 
 **Platform:** Web (works on any Android or iOS browser)
-**Free tier:** 2 free renders, then $4.99/week or $59.99/year
+**Pricing:** 1 free HD render every day · then one-time packs from $4.99 (Starter, 8 HD renders @ $0.62 each) or $9.99 (Pro, 20 HD renders @ $0.50 each with code AGALAZ15 = 15% off). No subscriptions.
 **Website:** [agalaz.com](https://agalaz.com/try-on)
 
 Agalaz is the most complete virtual dressing room we tested in 2026. Unlike most apps that only swap pre-loaded catalog items, **Agalaz lets you upload ANY garment** — from any store, any brand, any photo you find online.
@@ -2158,7 +2158,7 @@ Cada app se probó con el mismo set de fotos y prendas para una comparación jus
 ## 1. Agalaz — Mejor Probador Virtual (Web App)
 
 **Plataforma:** Web (funciona en cualquier navegador Android o iOS)
-**Gratis:** 2 renders gratis, luego $4.99/semana o $59.99/año
+**Precios:** 1 render HD gratis cada día · luego packs únicos desde $4,99 (Starter, 8 renders HD a $0,62 cada uno) o $9,99 (Pro, 20 renders HD a $0,50 cada uno con código AGALAZ15 = 15% off). Sin suscripciones.
 **Web:** [agalaz.com](https://agalaz.com/try-on)
 
 Agalaz es el probador virtual más completo que probamos en 2026. A diferencia de la mayoría de apps que solo intercambian artículos de catálogo, **Agalaz te permite subir CUALQUIER prenda** — de cualquier tienda, marca, o foto que encuentres online.
