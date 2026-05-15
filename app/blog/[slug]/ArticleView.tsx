@@ -35,6 +35,75 @@ function articleSlugToDemoCategory(slug: string): DemoCategory {
   return 'clothing';
 }
 
+/**
+ * Render a single markdown-ish content block (h2/h3/hr/table/paragraph).
+ * Extracted so the lead paragraph and the rest of the article can render
+ * via the same code path while the demo block is injected between them.
+ */
+function renderArticleBlock(block: string, i: number) {
+  if (block.startsWith('### ')) {
+    return (
+      <h3 key={i} className="font-serif text-xl font-bold text-slate-900 tracking-tight mt-8 mb-3">
+        {block.replace('### ', '')}
+      </h3>
+    );
+  }
+  if (block.startsWith('## ')) {
+    return (
+      <h2 key={i} className="font-serif text-2xl font-bold text-slate-900 tracking-tight mt-12 mb-4">
+        {block.replace('## ', '')}
+      </h2>
+    );
+  }
+  if (block.startsWith('---')) {
+    return <hr key={i} className="border-slate-200 my-8" />;
+  }
+  if (block.includes('|') && block.includes('---')) {
+    const rows = block.split('\n').filter(r => r.trim() && !r.includes('---'));
+    const headers = rows[0]?.split('|').map(c => c.trim()).filter(Boolean) || [];
+    const dataRows = rows.slice(1);
+    return (
+      <div key={i} className="overflow-x-auto my-6">
+        <table className="w-full text-sm border border-slate-200">
+          <thead>
+            <tr className="bg-slate-50">
+              {headers.map((h, j) => (
+                <th key={j} className="px-3 py-2 text-left font-bold text-slate-700 border-b border-slate-200">{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {dataRows.map((row, j) => {
+              const cells = row.split('|').map(c => c.trim()).filter(Boolean);
+              return (
+                <tr key={j} className={j % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+                  {cells.map((cell, k) => (
+                    <td key={k} className="px-3 py-2 text-slate-500 font-light border-b border-slate-100"
+                      dangerouslySetInnerHTML={{ __html: cell.replace(/\*\*(.+?)\*\*/g, '<strong class="text-slate-900 font-bold">$1</strong>') }} />
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+  const formatted = block
+    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-slate-900 font-bold">$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="text-indigo-600 font-bold hover:text-indigo-700 underline underline-offset-2 transition-colors">$1</a>')
+    .replace(/^- /gm, '&bull; ')
+    .replace(/^\d+\. /gm, (match) => `<span class="text-indigo-600 font-bold">${match}</span>`);
+  return (
+    <p
+      key={i}
+      className="text-base text-slate-500 font-light leading-relaxed"
+      dangerouslySetInnerHTML={{ __html: formatted }}
+    />
+  );
+}
+
 // Article body locks to the slug-derived language so SSR matches metadata for
 // crawlers; the global LanguageToggle is intentionally hidden on this route.
 export default function ArticleView({ article, related, lang, heroImage, heroImageAlt }: Props) {
@@ -120,85 +189,52 @@ export default function ArticleView({ article, related, lang, heroImage, heroIma
           </figure>
         )}
 
-        {/* Content */}
+        {/* Content — split so the demo can be injected immediately after
+            the lead paragraph instead of at the bottom. The lead is the
+            first non-heading / non-table block; everything before it (and
+            the lead itself) renders inside this article wrapper, then the
+            demo breaks out full-width, and the rest of the content
+            continues in the second wrapper below.
+            Datafast showed users were reading the lead and bouncing
+            before scrolling to the demo — putting the demo right after
+            the lead catches them at peak intent. */}
         <div className="space-y-5">
-          {content.split('\n\n').map((block, i) => {
-            if (block.startsWith('### ')) {
-              return (
-                <h3 key={i} className="font-serif text-xl font-bold text-slate-900 tracking-tight mt-8 mb-3">
-                  {block.replace('### ', '')}
-                </h3>
-              );
-            }
-            if (block.startsWith('## ')) {
-              return (
-                <h2 key={i} className="font-serif text-2xl font-bold text-slate-900 tracking-tight mt-12 mb-4">
-                  {block.replace('## ', '')}
-                </h2>
-              );
-            }
-            if (block.startsWith('---')) {
-              return <hr key={i} className="border-slate-200 my-8" />;
-            }
-            if (block.includes('|') && block.includes('---')) {
-              const rows = block.split('\n').filter(r => r.trim() && !r.includes('---'));
-              const headers = rows[0]?.split('|').map(c => c.trim()).filter(Boolean) || [];
-              const dataRows = rows.slice(1);
-              return (
-                <div key={i} className="overflow-x-auto my-6">
-                  <table className="w-full text-sm border border-slate-200">
-                    <thead>
-                      <tr className="bg-slate-50">
-                        {headers.map((h, j) => (
-                          <th key={j} className="px-3 py-2 text-left font-bold text-slate-700 border-b border-slate-200">{h}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {dataRows.map((row, j) => {
-                        const cells = row.split('|').map(c => c.trim()).filter(Boolean);
-                        return (
-                          <tr key={j} className={j % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
-                            {cells.map((cell, k) => (
-                              <td key={k} className="px-3 py-2 text-slate-500 font-light border-b border-slate-100"
-                                dangerouslySetInnerHTML={{ __html: cell.replace(/\*\*(.+?)\*\*/g, '<strong class="text-slate-900 font-bold">$1</strong>') }} />
-                            ))}
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              );
-            }
-            const formatted = block
-              .replace(/\*\*(.+?)\*\*/g, '<strong class="text-slate-900 font-bold">$1</strong>')
-              .replace(/\*(.+?)\*/g, '<em>$1</em>')
-              .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="text-indigo-600 font-bold hover:text-indigo-700 underline underline-offset-2 transition-colors">$1</a>')
-              .replace(/^- /gm, '&bull; ')
-              .replace(/^\d+\. /gm, (match) => `<span class="text-indigo-600 font-bold">${match}</span>`);
-
-            return (
-              <p
-                key={i}
-                className="text-base text-slate-500 font-light leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: formatted }}
-              />
-            );
-          })}
+          {(() => {
+            const blocks = content.split('\n\n');
+            const isParagraphBlock = (b: string) =>
+              !b.startsWith('### ') &&
+              !b.startsWith('## ') &&
+              !b.startsWith('---') &&
+              !(b.includes('|') && b.includes('---')) &&
+              b.trim().length > 0;
+            let leadIdx = blocks.findIndex(isParagraphBlock);
+            if (leadIdx === -1) leadIdx = blocks.length - 1;
+            return blocks.slice(0, leadIdx + 1).map((block, i) => renderArticleBlock(block, i));
+          })()}
         </div>
-
       </article>
 
-      {/* Inline try-on demo — same flow as every landing: login gate →
-          dropzones → watermarked HD render → paywall with countdown +
-          discount codes. Category derived from the article slug so a
-          "nail" article shows the nail demo, "wedding" shows clothing,
-          etc. Full-width breakout from the narrow article column so the
-          demo can breathe. */}
+      {/* Inline try-on demo, full-width below the lead paragraph. */}
       <TryOnDemoBlock category={articleSlugToDemoCategory(article.slug)} lang={lang} />
 
-      <article className="max-w-3xl mx-auto px-6 md:px-12 pb-12 md:pb-20">
+      <article className="max-w-3xl mx-auto px-6 md:px-12 pt-10 md:pt-14 pb-12 md:pb-20">
+        {/* Rest of the article content — H2 sections, tables, lists,
+            paragraphs after the lead. */}
+        <div className="space-y-5">
+          {(() => {
+            const blocks = content.split('\n\n');
+            const isParagraphBlock = (b: string) =>
+              !b.startsWith('### ') &&
+              !b.startsWith('## ') &&
+              !b.startsWith('---') &&
+              !(b.includes('|') && b.includes('---')) &&
+              b.trim().length > 0;
+            let leadIdx = blocks.findIndex(isParagraphBlock);
+            if (leadIdx === -1) leadIdx = blocks.length - 1;
+            return blocks.slice(leadIdx + 1).map((block, i) => renderArticleBlock(block, i + leadIdx + 1));
+          })()}
+        </div>
+
         {/* CTA */}
         <div className="mt-16 bg-slate-50 border border-slate-100 p-8 md:p-10 text-center">
           <Sparkles size={28} className="text-indigo-600 mx-auto mb-4" />

@@ -102,7 +102,10 @@ export default function LongtailLandingTemplate({ content: c }: Props) {
     <main className="min-h-screen bg-white" lang={c.lang}>
       <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur-sm border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-5 flex items-center justify-between">
-          <Link href="/" className="font-serif text-2xl tracking-[0.15em] text-slate-900 font-black" style={{ fontVariantLigatures: 'none' }}>
+          {/* Logo links to the native-language home so PT/ES/FR/DE/IT users
+              stay in their locale (was always '/', which forced BR users
+              landing from Meta Ads to the English home). */}
+          <Link href={c.lang === 'en' ? '/' : `/${c.lang}`} className="font-serif text-2xl tracking-[0.15em] text-slate-900 font-black" style={{ fontVariantLigatures: 'none' }}>
             Agalaz
           </Link>
           <a href="#try-it" className={`px-5 py-2.5 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full ${accentBtn} transition-colors`}>
@@ -250,7 +253,7 @@ export default function LongtailLandingTemplate({ content: c }: Props) {
 
       <footer className="border-t border-slate-200 py-8 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <Link href="/" className="font-serif text-sm tracking-[0.15em] text-slate-400 font-black">AGALAZ</Link>
+          <Link href={c.lang === 'en' ? '/' : `/${c.lang}`} className="font-serif text-sm tracking-[0.15em] text-slate-400 font-black">AGALAZ</Link>
           <div className="flex items-center gap-6">
             <Link href="/blog" className="text-slate-400 text-xs hover:text-slate-600 transition-colors">{c.blogLabel}</Link>
             <Link href={c.tryOnHref} className="text-slate-400 text-xs hover:text-slate-600 transition-colors">{c.tryOnLabel}</Link>
