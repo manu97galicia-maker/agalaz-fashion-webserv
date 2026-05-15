@@ -15,16 +15,20 @@ import { CANONICAL_LANDING_SLUGS, nativeLandingUrl, type LandingLang } from '@/l
  */
 
 const LAST_MOD = {
-  // Bump when /paywall, root layout JSON-LD, or hero copy ships a change
-  home: '2026-05-10',
+  // Bump when /paywall, root layout JSON-LD, or hero copy ships a change.
+  // 2026-05-15: hero compacted on longtail template, Meta Pixel installed,
+  // PT-BR localization on /pt/unhas-decoradas, anonymous demo flow live.
+  home: '2026-05-15',
   // Product try-on landings (the 13 canonical EN + 5 localized variants each)
-  productLandings: '2026-05-10',
+  productLandings: '2026-05-15',
   // Asian native landings (ar/hijab, hi/saree, ko/hanbok, ja/kimono, zh/qipao)
   asianLandings: '2026-05-10',
   // B2B / dev pages
   b2b: '2026-05-08',
-  // Long-tail informational landings shipped 2026-05-10
-  longtail: '2026-05-10',
+  // Long-tail informational landings — round 13/14/15 metadata + cluster
+  // keywords expanded on 2026-05-15. Bump signals freshness to Google so
+  // "Discovered – currently not indexed" URLs get re-evaluated faster.
+  longtail: '2026-05-15',
   // Legal pages (privacy/terms) rarely change
   legal: '2026-04-01',
 } as const;
