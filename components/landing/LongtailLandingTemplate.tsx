@@ -13,6 +13,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { Sparkles, ArrowRight, Check, X, ChevronDown } from 'lucide-react';
 import TryOnDemoBlock, { type DemoCategory, type DemoLang } from '@/components/landing/TryOnDemoBlock';
+import TriptychDemo, { TRIPTYCH_LABELS } from '@/components/TriptychDemo';
 import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
 
 export interface LongtailItem {
@@ -40,6 +41,9 @@ export interface LongtailContent {
   yourPhotoHint?: string;
   /** Optional override for the right-box hint. */
   productHint?: string;
+  /** Optional triptych slug (e.g. 'virtual-nail-try-on') — when set, renders
+   *  the before/item/after demo between the hero and the dropzones. */
+  triptychSlug?: string;
   /** Vertical bucket used to colour-code the accent — 'hair' = pink, 'nail' = fuchsia. */
   accent: 'hair' | 'nail';
 
@@ -140,6 +144,13 @@ export default function LongtailLandingTemplate({ content: c }: Props) {
           </div>
         </div>
       </section>
+
+      {/* Optional triptych — visual before/item/after teaser right above the
+          dropzones. Lets the user see the result they'll get BEFORE they
+          commit to uploading. Falls back to nothing when not set. */}
+      {c.triptychSlug && (
+        <TriptychDemo slug={c.triptychSlug} labels={TRIPTYCH_LABELS[c.lang]} lang={c.lang} />
+      )}
 
       {/* DEMO immediately after hero — Datafast/Meta funnel showed 93% bounce
           when the demo block sat 2 sections (~1500px) below the fold. Moving

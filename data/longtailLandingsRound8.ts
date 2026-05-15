@@ -22,6 +22,7 @@ export const unhasDecoradasPT: LongtailContent = {
   yourPhotoHint: 'Mão aberta, dedos visíveis, boa luz',
   productHint: 'Referência (Pinterest, Instagram, salão…)',
   accent: 'nail',
+  triptychSlug: 'virtual-nail-try-on',
 
   badge: 'Unhas Decoradas 2026 · IA',
   h1Top: 'Unhas decoradas 2026',
