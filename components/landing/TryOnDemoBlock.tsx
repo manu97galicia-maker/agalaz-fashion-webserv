@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
 import { Upload, Sparkles, Loader2, X, ArrowRight, Download, Clock } from 'lucide-react';
 import { createBrowserClient } from '@supabase/ssr';
 import { signInWithGoogle, signInWithOtp } from '@/services/authService';
@@ -327,8 +326,6 @@ function ImageDropzone({
   src,
   onChange,
   onClear,
-  locked,
-  onLockedClick,
 }: {
   label: string;
   hint: string;
@@ -336,12 +333,7 @@ function ImageDropzone({
   src: string | null;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClear: () => void;
-  /** When true, clicking opens the login modal instead of the file picker.
-   *  Lets us keep the visual cue of the upload area while gating the action. */
-  locked?: boolean;
-  onLockedClick?: () => void;
 }) {
-  const ref = useRef<HTMLInputElement>(null);
   return (
     <div>
       {src ? (
@@ -352,29 +344,37 @@ function ImageDropzone({
             onClick={onClear}
             className="absolute top-2 right-2 w-8 h-8 rounded-full bg-slate-900/80 text-white flex items-center justify-center hover:bg-slate-900 transition-colors"
             aria-label="Clear"
+            type="button"
           >
             <X size={14} />
           </button>
         </div>
       ) : (
-        <button
-          onClick={() => {
-            if (locked) {
-              onLockedClick?.();
-              return;
-            }
-            ref.current?.click();
-          }}
-          className="group w-full aspect-square rounded-2xl border-2 border-dashed border-indigo-300 bg-gradient-to-br from-indigo-50/40 to-white hover:border-indigo-500 hover:from-indigo-100 hover:to-indigo-50 hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-all flex flex-col items-center justify-center gap-3 text-slate-500"
-        >
-          <div className="w-14 h-14 rounded-full bg-white shadow-md group-hover:bg-indigo-600 group-hover:text-white flex items-center justify-center text-indigo-500 transition-all">
-            <Upload size={26} />
+        // <label> + invisible <input> sibling covering the area:
+        //  - Native browser behavior triggers the file picker on tap/click
+        //    anywhere in the box (no JS ref.current?.click() that fails on
+        //    some mobile browsers / iOS Safari restrictions).
+        //  - The input is absolutely positioned over the full surface with
+        //    opacity-0, so the OS click target is the entire dashed area,
+        //    not just the small upload icon — fixes failed clicks reported
+        //    on mobile, tablet and desktop.
+        <label className="group relative block w-full aspect-square rounded-2xl border-2 border-dashed border-indigo-300 bg-gradient-to-br from-indigo-50/40 to-white hover:border-indigo-500 hover:from-indigo-100 hover:to-indigo-50 hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer touch-manipulation">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={onChange}
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            aria-label={`${label}: ${uploadCta}`}
+          />
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-slate-500 pointer-events-none px-4">
+            <div className="w-14 h-14 rounded-full bg-white shadow-md group-hover:bg-indigo-600 group-hover:text-white flex items-center justify-center text-indigo-500 transition-all">
+              <Upload size={26} />
+            </div>
+            <span className="text-sm font-black uppercase tracking-widest text-slate-700 text-center">{uploadCta}</span>
+            <span className="text-[11px] font-medium text-center text-slate-500 leading-snug">{hint}</span>
           </div>
-          <span className="text-sm font-black uppercase tracking-widest text-slate-700">{uploadCta}</span>
-          <span className="text-[11px] font-medium px-4 text-center text-slate-500 leading-snug">{hint}</span>
-        </button>
+        </label>
       )}
-      <input ref={ref} type="file" accept="image/*" onChange={onChange} className="hidden" />
     </div>
   );
 }
@@ -690,16 +690,11 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
       setError(t.errorMissing);
       return;
     }
-    if (!authChecked) return;
-    // Always start the visual right away — keeps the page alive while the
-    // user is in the login modal. Real API call is still gated behind auth.
+    // Anonymous and authenticated users both go to /api/demo directly. The
+    // backend handles the IP+cookie/day anonymous quota and returns 402 to
+    // redirect to /paywall when spent. No login modal at this step — email
+    // is captured at Stripe checkout to keep friction off the first render.
     startFakeProgress();
-    if (!userId) {
-      setPendingGenerate(true);
-      setShowLogin(true);
-      track('signup_click', { provider: 'modal_open', source: 'demo', category });
-      return;
-    }
     runGenerate();
   }
 
@@ -967,32 +962,6 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
 
         {!resultImage && (
           <>
-            {/* Login banner — visible only when the user is not yet
-                authenticated. Sits ABOVE the dropzones (which stay visible
-                so users see what they'll be uploading) and blocks every
-                dropzone click + Generate click via the `locked` prop. */}
-            {authChecked && !userId && (
-              <div className="max-w-3xl mx-auto mb-4">
-                <button
-                  onClick={() => {
-                    track('signup_click', { provider: 'modal_open', source: 'demo_gate_banner', category });
-                    setShowLogin(true);
-                  }}
-                  className="w-full group inline-flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-indigo-600 to-pink-500 text-white text-sm md:text-base font-black uppercase tracking-[0.18em] rounded-full shadow-2xl shadow-indigo-300/40 hover:scale-[1.01] active:scale-[0.99] transition-all"
-                >
-                  <Sparkles size={16} className="text-amber-200" />
-                  {/* "Sign in to get your free image" — localised per lang */}
-                  {lang === 'es' ? 'Haz log in para obtener tu imagen gratis' :
-                   lang === 'fr' ? 'Connectez-vous pour obtenir votre image gratuite' :
-                   lang === 'pt' ? 'Inicia sessão para obter a tua imagem grátis' :
-                   lang === 'de' ? 'Anmelden, um dein kostenloses Bild zu erhalten' :
-                   lang === 'it' ? 'Accedi per ottenere la tua immagine gratis' :
-                   'Sign in to get your free image'}
-                  <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-                </button>
-              </div>
-            )}
-
             {/* Step indicators above the dropzones */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto mb-3">
               <div className="flex items-center gap-2.5">
@@ -1012,11 +981,6 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
                 src={userImage}
                 onChange={handleFile(setUserImage)}
                 onClear={() => setUserImage(null)}
-                locked={!userId}
-                onLockedClick={() => {
-                  track('signup_click', { provider: 'modal_open', source: 'demo_dropzone_locked', category });
-                  setShowLogin(true);
-                }}
               />
               <ImageDropzone
                 label={productLabel || t.productPhoto}
@@ -1025,11 +989,6 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
                 src={productImage}
                 onChange={handleFile(setProductImage)}
                 onClear={() => setProductImage(null)}
-                locked={!userId}
-                onLockedClick={() => {
-                  track('signup_click', { provider: 'modal_open', source: 'demo_dropzone_locked', category });
-                  setShowLogin(true);
-                }}
               />
             </div>
 

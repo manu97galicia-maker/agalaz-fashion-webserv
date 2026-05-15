@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+import { createHash } from 'crypto';
 import { createAdminClient } from '@/lib/supabaseAdmin';
 import { generateTryOnImage } from '@/services/geminiService';
 
@@ -8,17 +9,24 @@ export const maxDuration = 60;
 
 // Landing-page demo render endpoint.
 //
-// Auth + cost model (changed 2026-05-10):
-//   - Login required (Google or OTP). 401 sends the client to a login modal.
-//   - Each authenticated user gets exactly ONE free render per calendar day.
-//     Non-cumulative — unused freebies don't roll over to tomorrow.
-//   - If today's freebie is spent, fall back to render_counts.credits_remaining
-//     (the paid pool topped up by Stripe purchases). When that is also 0,
-//     return 402 → client redirects to /paywall.
+// Auth + cost model (changed 2026-05-15 — frictionless paywall):
+//   - Anonymous users get ONE free render per IP per UTC day. Tracked in
+//     anonymous_demo_log (hashed IP + date) and a same-day cookie. The cookie
+//     catches incognito-window IP reuse; the hashed IP catches cookie-cleared
+//     retries. Together: hard to bypass without a real VPN.
+//   - Authenticated users: ONE free render per calendar day + paid credits.
+//   - When both anonymous and authenticated quotas are spent → 402 paywall.
 //
-// We removed the cookie-based 1-render anonymous demo: every Gemini call now
-// runs against an authenticated user, which makes abuse cheap to track in
-// render_counts and gives us a real signup signal for every demo run.
+// Email is captured at Stripe checkout (allow_promotion_codes), not before
+// the first render — which removes friction from the most expensive step
+// (free → first value).
+
+function hashIp(request: NextRequest): string {
+  const fwd = request.headers.get('x-forwarded-for') ?? '';
+  const ip = fwd.split(',')[0]?.trim() || request.headers.get('x-real-ip') || 'unknown';
+  const salt = process.env.ANON_IP_HASH_SALT || 'agalaz-anon-salt-v1';
+  return createHash('sha256').update(ip + salt).digest('hex').slice(0, 32);
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -30,20 +38,74 @@ export async function POST(request: NextRequest) {
     );
 
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      return NextResponse.json(
-        { error: 'NOT_AUTHENTICATED', message: 'Sign in to generate your free render.' },
-        { status: 401 },
-      );
-    }
-
-    // Captcha disabled for now — login (Google or OTP) + 1 render/day per
-    // user_id already gives us an account-level limit. Keeping the bot wall
-    // loose until we see real abuse in logs; can re-introduce Turnstile by
-    // restoring the verification block from git history.
-
     const admin = createAdminClient();
     const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD UTC
+
+    // ─── ANONYMOUS FLOW ─────────────────────────────────────────────────────
+    if (!user) {
+      const ipHash = hashIp(request);
+      const cookieDate = cookieStore.get('agalaz_anon_demo')?.value;
+
+      // Cookie check first — cheaper than a DB roundtrip.
+      if (cookieDate === today) {
+        return NextResponse.json(
+          { error: 'NO_CREDITS', message: 'Daily free render already used. Continue with a pack.', redirect: '/paywall' },
+          { status: 402 },
+        );
+      }
+
+      // IP check via Supabase — catches cookie-cleared retries.
+      const { data: existingAnon } = await admin
+        .from('anonymous_demo_log')
+        .select('ip_hash')
+        .eq('ip_hash', ipHash)
+        .eq('date', today)
+        .maybeSingle();
+      if (existingAnon) {
+        return NextResponse.json(
+          { error: 'NO_CREDITS', message: 'Daily free render already used. Continue with a pack.', redirect: '/paywall' },
+          { status: 402 },
+        );
+      }
+
+      // Validate input.
+      const body = await request.json();
+      const { userImage, clothingImage, category } = body;
+      if (!userImage) {
+        return NextResponse.json({ error: 'Photo required.' }, { status: 400 });
+      }
+      if (userImage.length > 10 * 1024 * 1024) {
+        return NextResponse.json({ error: 'Image too large (max 10 MB).' }, { status: 400 });
+      }
+
+      // Generate.
+      const { image } = await generateTryOnImage(
+        userImage,
+        clothingImage || undefined,
+        undefined, undefined, undefined, undefined, undefined,
+        category || 'tattoo',
+      );
+
+      if (!image) {
+        return NextResponse.json({ error: 'Generation failed. Try a different photo.' }, { status: 500 });
+      }
+
+      // Log + set cookie BEFORE returning so abuse retries hit the limit.
+      await admin
+        .from('anonymous_demo_log')
+        .insert({ ip_hash: ipHash, date: today, category: category ?? null });
+
+      const res = NextResponse.json({ image, source: 'anonymous_free' });
+      res.cookies.set('agalaz_anon_demo', today, {
+        maxAge: 60 * 60 * 24,
+        path: '/',
+        sameSite: 'lax',
+        httpOnly: false, // readable client-side too, makes the UI gate honest
+      });
+      return res;
+    }
+
+    // ─── AUTHENTICATED FLOW (unchanged) ─────────────────────────────────────
 
     // Read or lazily create the user's render_counts row.
     let { data: rc } = await admin
