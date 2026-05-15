@@ -152,6 +152,8 @@ const SECTION_LABELS: Record<LandingLang, { eyebrow: string; title: string }> = 
  */
 const FEATURED_GUIDES: Record<LandingLang, Array<{ href: string; title: string; subtitle: string }>> = {
   en: [
+    { href: '/virtual-engagement-ring-try-on', title: 'Engagement ring try-on', subtitle: 'See solitaire, halo, pavé on your hand' },
+    { href: '/virtual-wig-try-on',            title: 'Virtual wig try-on',   subtitle: 'Lace-front, curly, color, cosplay' },
     { href: '/best-virtual-try-on-app',       title: 'Best virtual try-on app', subtitle: 'Compared 6 tools in 2026' },
     { href: '/best-ai-clothes-changer',       title: 'Best AI clothes changer', subtitle: 'Which one keeps your face' },
     { href: '/best-hairstyle-try-on-app',     title: 'Best hairstyle try-on app', subtitle: 'Cut + color compared' },
@@ -196,6 +198,7 @@ const FEATURED_GUIDES: Record<LandingLang, Array<{ href: string; title: string; 
     { href: '/natural-makeup-look',           title: 'Natural makeup',      subtitle: 'No-makeup makeup look' },
   ],
   pt: [
+    { href: '/pt/provador-virtual-zara',      title: 'Provador virtual Zara', subtitle: 'Roupa Zara no teu corpo, IA' },
     { href: '/pt/unhas-decoradas',            title: 'Unhas decoradas',     subtitle: 'Gel, simples, francesinha 2026' },
     { href: '/pt/vestido-de-noiva',           title: 'Vestido de noiva',    subtitle: 'Sereia, princesa, civil, simples' },
     { href: '/pt/corte-de-cabelo-feminino',   title: 'Corte cabelo feminino', subtitle: 'Curto, médio, chanel, franja' },

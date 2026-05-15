@@ -450,6 +450,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.98, // 110K/mo FR, KD 0
       images: [`${baseUrl}/og/virtual-wedding-dress-try-on.png`],
     },
+    // Round 14 — KD 0 try-on landings (new EN + PT brand pages)
+    {
+      url: `${baseUrl}/virtual-engagement-ring-try-on`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly',
+      priority: 0.95, // 9.5K/mo EN engagement ring cluster, KD 0
+      images: [`${baseUrl}/og/virtual-jewelry-try-on.png`],
+    },
+    {
+      url: `${baseUrl}/virtual-wig-try-on`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly',
+      priority: 0.95, // 2.9K/mo EN wig cluster, KD 0
+      images: [`${baseUrl}/og/virtual-hairstyle-try-on.png`],
+    },
+    {
+      url: `${baseUrl}/pt/provador-virtual-zara`,
+      lastModified: new Date(LAST_MOD.longtail),
+      changeFrequency: 'weekly',
+      priority: 0.9, // 170/mo BR + 590/mo ES, KD 0-5
+      images: [`${baseUrl}/og/default.png`],
+    },
     // Haircut by face shape — long-tail informational (KD 0-8 each)
     {
       url: `${baseUrl}/haircut-for-round-face`,
