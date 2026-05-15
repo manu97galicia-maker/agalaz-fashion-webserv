@@ -17,30 +17,30 @@ import type { LongtailContent } from '@/components/landing/LongtailLandingTempla
 export const unhasDecoradasPT: LongtailContent = {
   lang: 'pt',
   category: 'nail',
-  productLabel: 'As unhas que queres provar',
-  yourPhotoLabel: 'A foto da tua mão',
+  productLabel: 'As unhas que você quer testar',
+  yourPhotoLabel: 'A foto da sua mão',
   yourPhotoHint: 'Mão aberta, dedos visíveis, boa luz',
-  productHint: 'Referência das unhas (Pinterest, Instagram, salão…)',
+  productHint: 'Referência (Pinterest, Instagram, salão…)',
   accent: 'nail',
 
-  badge: 'Unhas Decoradas · IA',
+  badge: 'Unhas Decoradas 2026 · IA',
   h1Top: 'Unhas decoradas 2026',
-  h1Italic: 'em gel, simples ou elaboradas com provador IA.',
+  h1Italic: 'teste qualquer design na sua mão em 30 seg.',
   hero:
-    'Unhas decoradas em gel, simples ou elaboradas — 50+ designs com provador virtual IA. Carrega a foto da tua mão, escolhe a referência (Pinterest, Instagram, foto do salão) e a IA aplica o design exato em 30 segundos antes da sessão de manicure.',
-  ctaPrimary: 'Provar unhas decoradas',
-  ctaCaption: 'Grátis · Sem download · 30 seg',
+    'Suba a foto da sua mão + a referência do design (Pinterest, Insta, foto do salão) e a IA aplica em 30 segundos. Grátis, sem cadastro, sem download.',
+  ctaPrimary: 'Testar unhas decoradas',
+  ctaCaption: '✓ Grátis · ✓ Sem cadastro · ✓ 30 seg',
 
   whatTitle: 'Por que unhas decoradas dominam o Brasil em 2026',
   whatBody:
-    'O Brasil é o segundo maior mercado mundial de nail art (depois dos EUA). Em 2026 as unhas decoradas em gel são as mais procuradas porque duram 3-4 semanas com decoração intacta, ao contrário do esmalte normal que descasca em 5-7 dias. Os designs mais virais em TikTok BR: francesinha colorida, glazed donut, unhas bicolores, baby boomer (degradê), unhas pretas decoradas, e flores 3D minimalistas.',
-  howKnowTitle: 'Como decidir o design antes da onicotecnica',
+    'O Brasil é o segundo maior mercado mundial de nail art (depois dos EUA). Em 2026 as unhas decoradas em gel são as mais procuradas porque duram 3-4 semanas com a decoração intacta, ao contrário do esmalte normal que descasca em 5-7 dias. Os designs mais virais no TikTok BR: francesinha colorida, glazed donut, unhas bicolores, baby boomer (degradê), unhas pretas decoradas, e flores 3D minimalistas.',
+  howKnowTitle: 'Como decidir o design antes da manicure',
   howKnowBullets: [
-    'Carrega uma foto clara da tua mão (palma ou costas)',
-    'Carrega a referência do design (Pinterest, Instagram, foto do salão)',
+    'Suba uma foto clara da sua mão (palma ou costas)',
+    'Suba a referência do design (Pinterest, Instagram, foto do salão)',
     'A IA aplica o design exato em 30 segundos',
-    'Compara 3-4 alternativas lado a lado',
-    'Chega à onicotecnica com a decisão tomada — sem dúvidas',
+    'Compare 3-4 alternativas lado a lado',
+    'Chegue na manicure com a decisão pronta — sem dúvidas',
   ],
 
   recommendedBadge: 'Designs mais pedidos 2026',
@@ -66,22 +66,22 @@ export const unhasDecoradasPT: LongtailContent = {
 
   midCtaTitle: 'Antes de gastar R$80-150 na sessão',
   midCtaBody:
-    'Ver um design em Pinterest é uma coisa. Ver na TUA mão real (tom de pele, formato de unha, comprimento) é outra. Decide com IA: primeiro render grátis, sem cartão.',
-  midCtaButton: 'Provar unhas decoradas',
+    'Ver um design no Pinterest é uma coisa. Ver na SUA mão real (tom de pele, formato de unha, comprimento) é outra. Decida com a IA: primeiro render grátis, sem cadastro, sem cartão.',
+  midCtaButton: 'Testar unhas decoradas',
 
   faqTitle: 'Perguntas frequentes',
   faq: [
     {
       q: 'Quais são as unhas decoradas mais populares no Brasil em 2026?',
-      a: 'Francesinha colorida, glazed donut nacarado, baby boomer (degradê) e unhas em gel decoradas com detalhes dourados são as 4 mais pedidas em salões BR. Coquette com lacinhos rosa continua forte para público jovem.',
+      a: 'Francesinha colorida, glazed donut nacarado, baby boomer (degradê) e unhas em gel decoradas com detalhes dourados são as 4 mais pedidas nos salões do Brasil. Coquette com lacinhos rosa continua forte no público jovem.',
     },
     {
       q: 'Unhas decoradas em gel duram quanto tempo?',
-      a: '3-4 semanas com a decoração intacta SE selada com top coat de gel. Sem o selo, a decoração descasca em 1 semana. Sempre pede selo de gel sobre nail art.',
+      a: '3-4 semanas com a decoração intacta SE selada com top coat de gel. Sem o selo, a decoração descasca em 1 semana. Sempre peça selo de gel sobre nail art.',
     },
     {
-      q: 'Unhas decoradas semelhantes em unhas curtas?',
-      a: 'Sim — micro-french, glazed donut, milky white, francesinha colorida funcionam perfeitamente em unhas curtas. Apenas evita nail art muito elaborado em unhas <8mm.',
+      q: 'Funciona em unhas curtas?',
+      a: 'Sim — micro-french, glazed donut, milky white, francesinha colorida funcionam perfeitamente em unhas curtas. Só evite nail art muito elaborado em unhas com menos de 8mm.',
     },
     {
       q: 'Quanto custa unhas decoradas no Brasil?',
@@ -89,7 +89,7 @@ export const unhasDecoradasPT: LongtailContent = {
     },
     {
       q: 'A IA respeita o brilho gel ou efeito glazed do design?',
-      a: 'Sim. A IA preserva acabamentos (matte, gel brilhante, cromado, glazed, perlado). Carrega a referência com o acabamento desejado e verás reproduzido.',
+      a: 'Sim. A IA preserva acabamentos (matte, gel brilhante, cromado, glazed, perlado). Suba a referência com o acabamento desejado e você verá reproduzido na sua mão.',
     },
   ],
 

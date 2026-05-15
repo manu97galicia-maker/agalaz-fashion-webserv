@@ -111,27 +111,44 @@ export default function LongtailLandingTemplate({ content: c }: Props) {
         </div>
       </nav>
 
-      <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-12">
+      {/* Hero — compacted on mobile so the demo block below stays close to the
+          fold. Top padding pt-8 on mobile (was pt-12) and the description is
+          clamped via max-w-xl + line-clamp on small screens. */}
+      <section className="max-w-6xl mx-auto px-6 md:px-12 pt-8 md:pt-16 pb-8 md:pb-10">
         <div className="text-center max-w-3xl mx-auto">
-          <span className={`inline-block px-4 py-1.5 ${accentBg} ${accentText} text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-6`}>
+          <span className={`inline-block px-4 py-1.5 ${accentBg} ${accentText} text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-4 md:mb-6`}>
             {c.badge}
           </span>
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl text-slate-900 tracking-tight leading-[0.95] mb-6">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl text-slate-900 tracking-tight leading-[0.95] mb-4 md:mb-6">
             {c.h1Top}
             <br />
             <span className="italic text-slate-400">{c.h1Italic}</span>
           </h1>
-          <p className="text-slate-700 text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-8">{c.hero}</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="#try-it" className={`inline-flex items-center gap-3 px-8 py-4 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs ${accentBtn} transition-colors rounded-full`}>
+          {/* Trimmed lead — line-clamp keeps it to 2 lines on mobile so the
+              demo dropzones below stay within reach without scrolling. */}
+          <p className="text-slate-700 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed mb-5 md:mb-8 line-clamp-3 md:line-clamp-none">{c.hero}</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+            <Link href="#try-it" className={`inline-flex items-center gap-3 px-7 sm:px-8 py-3.5 sm:py-4 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs ${accentBtn} transition-colors rounded-full`}>
               <Sparkles size={16} />
               {c.ctaPrimary}
               <ArrowRight size={14} />
             </Link>
-            <span className="text-slate-500 text-xs font-bold">{c.ctaCaption}</span>
+            <span className="text-slate-500 text-[11px] sm:text-xs font-bold">{c.ctaCaption}</span>
           </div>
         </div>
       </section>
+
+      {/* DEMO immediately after hero — Datafast/Meta funnel showed 93% bounce
+          when the demo block sat 2 sections (~1500px) below the fold. Moving
+          it here pulls the first interaction within 1 scroll on mobile. */}
+      <TryOnDemoBlock
+        category={c.category}
+        lang={c.lang}
+        productLabel={c.productLabel}
+        yourPhotoLabel={c.yourPhotoLabel}
+        yourPhotoHint={c.yourPhotoHint}
+        productHint={c.productHint}
+      />
 
       <section className="max-w-5xl mx-auto px-6 md:px-12 py-12 border-t border-slate-100">
         <div className="grid md:grid-cols-2 gap-12">
@@ -152,15 +169,6 @@ export default function LongtailLandingTemplate({ content: c }: Props) {
           </div>
         </div>
       </section>
-
-      <TryOnDemoBlock
-        category={c.category}
-        lang={c.lang}
-        productLabel={c.productLabel}
-        yourPhotoLabel={c.yourPhotoLabel}
-        yourPhotoHint={c.yourPhotoHint}
-        productHint={c.productHint}
-      />
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 py-16">
         <div className="text-center mb-10">
