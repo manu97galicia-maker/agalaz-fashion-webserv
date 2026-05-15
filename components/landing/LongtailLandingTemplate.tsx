@@ -99,9 +99,9 @@ export default function LongtailLandingTemplate({ content: c }: Props) {
           <Link href="/" className="font-serif text-2xl tracking-[0.15em] text-slate-900 font-black" style={{ fontVariantLigatures: 'none' }}>
             Agalaz
           </Link>
-          <Link href={c.tryOnHref} className={`px-5 py-2.5 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full ${accentBtn} transition-colors`}>
+          <a href="#try-it" className={`px-5 py-2.5 bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full ${accentBtn} transition-colors`}>
             {c.ctaPrimary}
-          </Link>
+          </a>
         </div>
       </nav>
 
@@ -198,11 +198,11 @@ export default function LongtailLandingTemplate({ content: c }: Props) {
       <section className="max-w-3xl mx-auto px-6 md:px-12 py-16 text-center">
         <h2 className="font-serif text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-4">{c.midCtaTitle}</h2>
         <p className="text-slate-700 max-w-xl mx-auto mb-8">{c.midCtaBody}</p>
-        <Link href={c.tryOnHref} className={`inline-flex items-center gap-3 px-8 py-4 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs ${accentBtn} transition-colors rounded-full`}>
+        <a href="#try-it" className={`inline-flex items-center gap-3 px-8 py-4 bg-slate-900 text-white font-black uppercase tracking-[0.2em] text-xs ${accentBtn} transition-colors rounded-full`}>
           <Sparkles size={16} />
           {c.midCtaButton}
           <ArrowRight size={14} />
-        </Link>
+        </a>
       </section>
 
       <section className="max-w-3xl mx-auto px-6 md:px-12 py-16 border-t border-slate-100">
