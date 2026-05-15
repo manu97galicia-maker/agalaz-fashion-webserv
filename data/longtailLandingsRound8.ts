@@ -17,7 +17,10 @@ import type { LongtailContent } from '@/components/landing/LongtailLandingTempla
 export const unhasDecoradasPT: LongtailContent = {
   lang: 'pt',
   category: 'nail',
-  productLabel: 'Referência unha decorada',
+  productLabel: 'As unhas que queres provar',
+  yourPhotoLabel: 'A foto da tua mão',
+  yourPhotoHint: 'Mão aberta, dedos visíveis, boa luz',
+  productHint: 'Referência das unhas (Pinterest, Instagram, salão…)',
   accent: 'nail',
 
   badge: 'Unhas Decoradas · IA',

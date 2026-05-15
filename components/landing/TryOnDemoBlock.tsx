@@ -29,6 +29,12 @@ interface Props {
   lang: DemoLang;
   /** override the default product label, e.g. "Wedding dress" instead of generic "Product" */
   productLabel?: string;
+  /** override the default left-box label, e.g. "A foto da tua mão" for nail landings */
+  yourPhotoLabel?: string;
+  /** override the default left-box hint */
+  yourPhotoHint?: string;
+  /** override the default right-box hint */
+  productHint?: string;
 }
 
 const LABELS: Record<DemoLang, {
@@ -373,7 +379,7 @@ function ImageDropzone({
   );
 }
 
-export default function TryOnDemoBlock({ category, lang, productLabel }: Props) {
+export default function TryOnDemoBlock({ category, lang, productLabel, yourPhotoLabel, yourPhotoHint, productHint }: Props) {
   const t = LABELS[lang];
   const [userImage, setUserImage] = useState<string | null>(null);
   const [productImage, setProductImage] = useState<string | null>(null);
@@ -991,7 +997,7 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto mb-3">
               <div className="flex items-center gap-2.5">
                 <div className="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-black">1</div>
-                <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{t.yourPhoto}</span>
+                <span className="text-[11px] font-black uppercase tracking-widest text-slate-700">{yourPhotoLabel || t.yourPhoto}</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <div className="w-7 h-7 rounded-full bg-pink-500 text-white flex items-center justify-center text-xs font-black">2</div>
@@ -1000,8 +1006,8 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto p-1.5 bg-white rounded-3xl shadow-2xl shadow-indigo-200/50 ring-1 ring-indigo-100">
               <ImageDropzone
-                label={t.yourPhoto}
-                hint={t.yourPhotoHint}
+                label={yourPhotoLabel || t.yourPhoto}
+                hint={yourPhotoHint || t.yourPhotoHint}
                 uploadCta={t.uploadCta}
                 src={userImage}
                 onChange={handleFile(setUserImage)}
@@ -1014,7 +1020,7 @@ export default function TryOnDemoBlock({ category, lang, productLabel }: Props) 
               />
               <ImageDropzone
                 label={productLabel || t.productPhoto}
-                hint={t.productPhotoHint}
+                hint={productHint || t.productPhotoHint}
                 uploadCta={t.uploadCta}
                 src={productImage}
                 onChange={handleFile(setProductImage)}

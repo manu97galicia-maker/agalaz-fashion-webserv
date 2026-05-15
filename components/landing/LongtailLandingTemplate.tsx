@@ -34,6 +34,12 @@ export interface LongtailContent {
   category: DemoCategory;
   /** Demo block label for the product side (e.g. "Référence coupe"). */
   productLabel: string;
+  /** Optional override for the left-box label (e.g. "A foto da tua mão" for nail landings). */
+  yourPhotoLabel?: string;
+  /** Optional override for the left-box hint. */
+  yourPhotoHint?: string;
+  /** Optional override for the right-box hint. */
+  productHint?: string;
   /** Vertical bucket used to colour-code the accent — 'hair' = pink, 'nail' = fuchsia. */
   accent: 'hair' | 'nail';
 
@@ -147,7 +153,14 @@ export default function LongtailLandingTemplate({ content: c }: Props) {
         </div>
       </section>
 
-      <TryOnDemoBlock category={c.category} lang={c.lang} productLabel={c.productLabel} />
+      <TryOnDemoBlock
+        category={c.category}
+        lang={c.lang}
+        productLabel={c.productLabel}
+        yourPhotoLabel={c.yourPhotoLabel}
+        yourPhotoHint={c.yourPhotoHint}
+        productHint={c.productHint}
+      />
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 py-16">
         <div className="text-center mb-10">
