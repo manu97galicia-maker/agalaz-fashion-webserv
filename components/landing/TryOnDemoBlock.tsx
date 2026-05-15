@@ -1012,7 +1012,7 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
                 src={userImage}
                 onChange={handleFile(setUserImage)}
                 onClear={() => setUserImage(null)}
-                locked={authChecked && !userId}
+                locked={!userId}
                 onLockedClick={() => {
                   track('signup_click', { provider: 'modal_open', source: 'demo_dropzone_locked', category });
                   setShowLogin(true);
@@ -1025,7 +1025,7 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
                 src={productImage}
                 onChange={handleFile(setProductImage)}
                 onClear={() => setProductImage(null)}
-                locked={authChecked && !userId}
+                locked={!userId}
                 onLockedClick={() => {
                   track('signup_click', { provider: 'modal_open', source: 'demo_dropzone_locked', category });
                   setShowLogin(true);
