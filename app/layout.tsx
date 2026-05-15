@@ -114,6 +114,12 @@ export const metadata: Metadata = {
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION,
     yandex: 'a048b7a9e969765f',
+    other: {
+      // Meta / Facebook Business Manager domain ownership for "Dopamax" BM.
+      // Required so the agalaz.com domain shows as verified in the Meta
+      // Pixel panel (and unlocks iOS 14.5+ ATT post-event attribution).
+      'facebook-domain-verification': '2sgactxej3jalpz9ynvc48f4novdfi',
+    },
   },
   category: 'fashion',
 };
