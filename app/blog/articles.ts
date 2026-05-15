@@ -2008,30 +2008,7 @@ The results are photorealistic in most cases. The AI preserves your body proport
 
 ---
 
-## 2. Palette Hunt — Best for Color Analysis
-
-**Platform:** Web
-**Free tier:** Free color analysis
-**Website:** [palettehunt.com](https://palettehunt.com)
-
-Palette Hunt isn't a traditional virtual dressing room — it's a **color analysis tool** that tells you which colors and palettes look best on you based on your skin tone, hair, and features.
-
-### What makes it stand out:
-
-- **AI color analysis** — upload your photo and get your personal color palette
-- **Season-based system** — warm, cool, soft, deep — find your exact color season
-- **Clothing color recommendations** — know which shirt colors will look best on you before buying
-- **Pairs perfectly with try-on apps** — use Palette Hunt to find your colors, then use [Agalaz](https://agalaz.com/try-on) to see those colors on your body
-
-### Accuracy: 8/10
-The color analysis is solid and matches professional color analysis results in most cases. It won't show you wearing the garment, but it tells you *which* garments to try.
-
-### Verdict:
-**Use this BEFORE you try on clothes.** Find your perfect colors with Palette Hunt, then test specific garments with a virtual try-on tool like Agalaz. The combo is unbeatable.
-
----
-
-## 3. Google Shopping Virtual Try-On
+## 2. Google Shopping Virtual Try-On
 
 **Platform:** Google Shopping (Android & iOS via browser)
 **Free tier:** Free (limited to partner brands)
@@ -2058,7 +2035,7 @@ Good for browsing, but not a true "see it on me" experience. If you want garment
 
 ---
 
-## 4. Zeekit (by Walmart)
+## 3. Zeekit (by Walmart)
 
 **Platform:** iOS & Android (via Walmart app)
 **Free tier:** Free (Walmart products only)
@@ -2085,7 +2062,7 @@ If you shop at Walmart, it's a nice bonus feature. But it's not a standalone vir
 
 ---
 
-## 5. Vue.ai / Fashn.ai
+## 4. Vue.ai / Fashn.ai
 
 **Platform:** Web (B2B focused)
 **Free tier:** Limited demos available
@@ -2116,7 +2093,6 @@ Here's the reality: **the best virtual try-on tools in 2026 are web apps**, not 
 | App | Android | iOS | Web |
 |-----|---------|-----|-----|
 | **Agalaz** | Via browser | Via browser | agalaz.com |
-| **Palette Hunt** | Via browser | Via browser | palettehunt.com |
 | **Google Shopping** | Via browser | Via browser | shopping.google.com |
 | **Zeekit** | Walmart app | Walmart app | No |
 
@@ -2126,16 +2102,15 @@ The web-first approach means you don't need to download anything, your storage i
 
 Based on our testing, here's the ultimate workflow:
 
-1. **Palette Hunt** → Find your best colors
-2. **[Agalaz](https://agalaz.com/try-on)** → Upload any garment and see it on your real body
-3. **Agalaz Chat** → Refine the look: different size, color, sleeves
-4. **Buy with confidence** → No more returns, no more guessing
+1. **[Agalaz](https://agalaz.com/try-on)** → Upload any garment and see it on your real body
+2. **Agalaz Chat** → Refine the look: different size, color, sleeves
+3. **Buy with confidence** → No more returns, no more guessing
 
-This combination eliminates virtually all online shopping guesswork. You know the color suits you, you know how it looks on your body, and you can adjust the fit before buying.
+This eliminates virtually all online shopping guesswork. You know how the garment actually looks on your body, and you can adjust the fit before buying.
 
 ## Bottom Line
 
-The virtual dressing room market in 2026 is dominated by AI web apps that work on any device. **[Agalaz](https://agalaz.com/try-on) leads the pack** with its ability to try on ANY garment from ANY store — not just pre-loaded catalogs. Combine it with **Palette Hunt** for color analysis, and you have a complete virtual shopping assistant.
+The virtual dressing room market in 2026 is dominated by AI web apps that work on any device. **[Agalaz](https://agalaz.com/try-on) leads the pack** with its ability to try on ANY garment from ANY store — not just pre-loaded catalogs.
 
 The days of blind online shopping are over. For a deeper look at the technology, read our guide on [virtual dressing rooms](/blog/virtual-dressing-room-online-free) or try our [AI clothes changer](/blog/ai-clothes-changer-online-free-trial) to swap any garment on your photo.`,
     contentEs: `La tecnología de probador virtual ha explotado en 2026. Lo que antes eran superposiciones torpes e irrealistas ha evolucionado a **IA fotorrealista que pone prendas reales sobre tu cuerpo real**.
@@ -2179,30 +2154,7 @@ Los resultados son fotorrealistas en la mayoría de casos. La IA preserva tus pr
 
 ---
 
-## 2. Palette Hunt — Mejor para Análisis de Color
-
-**Plataforma:** Web
-**Gratis:** Análisis de color gratuito
-**Web:** [palettehunt.com](https://palettehunt.com)
-
-Palette Hunt no es un probador virtual tradicional — es una **herramienta de análisis de color** que te dice qué colores y paletas te quedan mejor según tu tono de piel, pelo y rasgos.
-
-### Qué lo destaca:
-
-- **Análisis de color con IA** — sube tu foto y obtén tu paleta personal
-- **Sistema por estaciones** — cálido, frío, suave, profundo — encuentra tu estación exacta
-- **Recomendaciones de colores** — sabe qué colores de camiseta te quedarán mejor antes de comprar
-- **Combina perfecto con apps de prueba** — usa Palette Hunt para encontrar tus colores, luego usa [Agalaz](https://agalaz.com/try-on) para verlos en tu cuerpo
-
-### Precisión: 8/10
-El análisis de color es sólido y coincide con análisis profesional en la mayoría de casos.
-
-### Veredicto:
-**Úsalo ANTES de probarte ropa.** Encuentra tus colores perfectos con Palette Hunt, luego prueba prendas específicas con Agalaz. La combinación es imbatible.
-
----
-
-## 3. Google Shopping Virtual Try-On
+## 2. Google Shopping Virtual Try-On
 
 **Plataforma:** Google Shopping (Android e iOS vía navegador)
 **Gratis:** Gratis (limitado a marcas asociadas)
@@ -2229,7 +2181,7 @@ Bueno para explorar, pero no es una experiencia real de "verlo en mí." Si quier
 
 ---
 
-## 4. Zeekit (por Walmart)
+## 3. Zeekit (por Walmart)
 
 **Plataforma:** iOS y Android (vía app de Walmart)
 **Gratis:** Gratis (solo productos Walmart)
@@ -2247,7 +2199,7 @@ Si compras en Walmart, es un bonus. Pero no es una solución de probador virtual
 
 ---
 
-## 5. Vue.ai / Fashn.ai
+## 4. Vue.ai / Fashn.ai
 
 **Plataforma:** Web (enfocado a empresas B2B)
 **Gratis:** Demos limitadas
@@ -2265,7 +2217,6 @@ La realidad: **las mejores herramientas de prueba virtual en 2026 son web apps**
 | App | Android | iOS | Web |
 |-----|---------|-----|-----|
 | **Agalaz** | Vía navegador | Vía navegador | agalaz.com |
-| **Palette Hunt** | Vía navegador | Vía navegador | palettehunt.com |
 | **Google Shopping** | Vía navegador | Vía navegador | shopping.google.com |
 | **Zeekit** | App Walmart | App Walmart | No |
 
@@ -2273,14 +2224,13 @@ La realidad: **las mejores herramientas de prueba virtual en 2026 son web apps**
 
 Basado en nuestras pruebas, el flujo definitivo:
 
-1. **Palette Hunt** → Encuentra tus mejores colores
-2. **[Agalaz](https://agalaz.com/try-on)** → Sube cualquier prenda y vela en tu cuerpo real
-3. **Chat de Agalaz** → Refina el look: diferente talla, color, mangas
-4. **Compra con confianza** → Sin más devoluciones, sin más dudas
+1. **[Agalaz](https://agalaz.com/try-on)** → Sube cualquier prenda y vela en tu cuerpo real
+2. **Chat de Agalaz** → Refina el look: diferente talla, color, mangas
+3. **Compra con confianza** → Sin más devoluciones, sin más dudas
 
 ## Conclusión
 
-El mercado de probadores virtuales en 2026 está dominado por web apps con IA que funcionan en cualquier dispositivo. **[Agalaz](https://agalaz.com/try-on) lidera el grupo** con su capacidad de probar CUALQUIER prenda de CUALQUIER tienda. Combínalo con **Palette Hunt** para análisis de color, y tienes un asistente de compras virtual completo.
+El mercado de probadores virtuales en 2026 está dominado por web apps con IA que funcionan en cualquier dispositivo. **[Agalaz](https://agalaz.com/try-on) lidera el grupo** con su capacidad de probar CUALQUIER prenda de CUALQUIER tienda — no solo catálogos pre-cargados.
 
 Los días de comprar ropa online a ciegas se acabaron. Para una mirada más profunda a la tecnología, lee nuestra guía sobre [probadores virtuales](/blog/virtual-dressing-room-online-free) o prueba nuestro [cambiador de ropa con IA](/blog/ai-clothes-changer-online-free-trial) para intercambiar cualquier prenda en tu foto.`,
   },
