@@ -1,0 +1,158 @@
+{
+  "pt-vestido-de-noiva": [
+    {
+      "slug": "mermaid-lace-ivory",
+      "label": {
+        "pt": "Sereia em renda",
+        "es": "Sirena de encaje",
+        "en": "Mermaid lace",
+        "fr": "Sirène dentelle",
+        "de": "Meerjungfrau Spitze",
+        "it": "Sirena pizzo"
+      },
+      "src": "/images/presets/pt-vestido-de-noiva-mermaid-lace-ivory.png"
+    },
+    {
+      "slug": "princess-tulle-aline",
+      "label": {
+        "pt": "Princesa em tule",
+        "es": "Princesa de tul",
+        "en": "Princess tulle",
+        "fr": "Princesse tulle",
+        "de": "Prinzessin Tüll",
+        "it": "Principessa tulle"
+      },
+      "src": "/images/presets/pt-vestido-de-noiva-princess-tulle-aline.png"
+    }
+  ],
+  "es-vestido-invitada-boda": [
+    {
+      "slug": "satin-emerald-midi",
+      "label": {
+        "es": "Satén esmeralda midi",
+        "en": "Emerald satin midi",
+        "fr": "Satin émeraude midi",
+        "pt": "Cetim esmeralda midi",
+        "de": "Satin smaragd midi",
+        "it": "Raso smeraldo midi"
+      },
+      "src": "/images/presets/es-vestido-invitada-boda-satin-emerald-midi.png"
+    },
+    {
+      "slug": "lilac-tulle-floral-long",
+      "label": {
+        "es": "Lila tul floral",
+        "en": "Lilac tulle floral",
+        "fr": "Lilas tulle floral",
+        "pt": "Lilás tule floral",
+        "de": "Lila Tüll floral",
+        "it": "Lilla tulle floreale"
+      },
+      "src": "/images/presets/es-vestido-invitada-boda-lilac-tulle-floral-long.png"
+    }
+  ],
+  "pt-look-festa-junina": [
+    {
+      "slug": "chita-floral-red-dress",
+      "label": {
+        "pt": "Vestido chita floral",
+        "es": "Vestido chita floral",
+        "en": "Floral chita dress",
+        "fr": "Robe chita floral",
+        "de": "Chita-Blumenkleid",
+        "it": "Vestito chita floreale"
+      },
+      "src": "/images/presets/pt-look-festa-junina-chita-floral-red-dress.png"
+    },
+    {
+      "slug": "xadrez-shirt-jeans-caipira",
+      "label": {
+        "pt": "Xadrez caipira",
+        "es": "Cuadros caipira",
+        "en": "Plaid caipira",
+        "fr": "Carreaux caipira",
+        "de": "Karo Caipira",
+        "it": "Quadri caipira"
+      },
+      "src": "/images/presets/pt-look-festa-junina-xadrez-shirt-jeans-caipira.png"
+    }
+  ],
+  "pt-corte-de-cabelo-feminino": [
+    {
+      "slug": "chanel-bob-brown-bangs",
+      "label": {
+        "pt": "Chanel com franja",
+        "es": "Chanel con flequillo",
+        "en": "Bob with bangs",
+        "fr": "Carré frange",
+        "de": "Bob mit Pony",
+        "it": "Bob con frangia"
+      },
+      "src": "/images/presets/pt-corte-de-cabelo-feminino-chanel-bob-brown-bangs.png"
+    },
+    {
+      "slug": "long-layers-curtain-bangs",
+      "label": {
+        "pt": "Camadas longas franja cortina",
+        "es": "Capas largas flequillo cortina",
+        "en": "Long layers curtain bangs",
+        "fr": "Longues couches frange rideau",
+        "de": "Lange Stufen Vorhang Pony",
+        "it": "Strati lunghi frangia tendina"
+      },
+      "src": "/images/presets/pt-corte-de-cabelo-feminino-long-layers-curtain-bangs.png"
+    }
+  ],
+  "pt-provador-virtual-zara": [
+    {
+      "slug": "oversized-blazer-black-zara",
+      "label": {
+        "pt": "Blazer oversized preto",
+        "es": "Blazer oversized negro",
+        "en": "Oversized black blazer",
+        "fr": "Blazer oversized noir",
+        "de": "Oversized Blazer schwarz",
+        "it": "Blazer oversize nero"
+      },
+      "src": "/images/presets/pt-provador-virtual-zara-oversized-blazer-black-zara.png"
+    },
+    {
+      "slug": "denim-wide-leg-cropped",
+      "label": {
+        "pt": "Jeans wide leg",
+        "es": "Jeans wide leg",
+        "en": "Wide-leg jeans",
+        "fr": "Jean wide leg",
+        "de": "Wide-Leg Jeans",
+        "it": "Jeans wide leg"
+      },
+      "src": "/images/presets/pt-provador-virtual-zara-denim-wide-leg-cropped.png"
+    }
+  ],
+  "es-disenos-de-unas": [
+    {
+      "slug": "gel-french-pearl-accent",
+      "label": {
+        "es": "Francesa gel perla",
+        "en": "Pearl french gel",
+        "fr": "French gel perles",
+        "pt": "Francesa gel pérola",
+        "de": "French Gel Perle",
+        "it": "French gel perla"
+      },
+      "src": "/images/presets/es-disenos-de-unas-gel-french-pearl-accent.png"
+    },
+    {
+      "slug": "chrome-mirror-silver",
+      "label": {
+        "es": "Cromado espejo plata",
+        "en": "Chrome mirror silver",
+        "fr": "Chrome miroir argent",
+        "pt": "Cromado espelho prata",
+        "de": "Chrom Spiegel Silber",
+        "it": "Cromato specchio argento"
+      },
+      "src": "/images/presets/es-disenos-de-unas-chrome-mirror-silver.png"
+    }
+  ]
+}

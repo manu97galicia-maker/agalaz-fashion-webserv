@@ -22,6 +22,11 @@ export const provadorVirtualZaraPT: LongtailContent = {
   yourPhotoHint: 'Corpo inteiro, fundo simples, boa luz',
   productHint: 'Foto da peça Zara (site, app, captura…)',
   accent: 'nail',
+  // 2 peças tipo Zara pré-carregadas (Gemini, 2026-05-16).
+  presets: [
+    { src: '/images/presets/pt-provador-virtual-zara-oversized-blazer-black-zara.png', label: 'Blazer oversized preto', alt: 'Blazer oversized preto estilo Zara — provador virtual Zara Agalaz' },
+    { src: '/images/presets/pt-provador-virtual-zara-denim-wide-leg-cropped.png', label: 'Jeans wide leg', alt: 'Calças jeans wide leg estilo Zara — provador virtual Zara Agalaz' },
+  ],
 
   badge: 'Zara × IA · Provador Virtual',
   h1Top: 'Provador virtual Zara',

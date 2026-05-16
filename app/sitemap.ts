@@ -431,21 +431,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'weekly',
       priority: 0.98, // 368K/mo PT-BR, KD 0
-      images: [`${baseUrl}/og/virtual-nail-try-on.png`],
+      images: [
+        `${baseUrl}/og/virtual-nail-try-on.png`,
+        `${baseUrl}/images/presets/nail-1.png`,         // Rosa floral
+        `${baseUrl}/images/presets/nail-2.png`,         // Francesinha glitter
+      ],
     },
     {
       url: `${baseUrl}/pt/corte-de-cabelo-feminino`,
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'weekly',
       priority: 0.98, // 246K/mo PT-BR, KD 0
-      images: [`${baseUrl}/og/haircut-round-face.png`],
+      images: [
+        `${baseUrl}/og/haircut-round-face.png`,
+        `${baseUrl}/images/presets/pt-corte-de-cabelo-feminino-chanel-bob-brown-bangs.png`,
+        `${baseUrl}/images/presets/pt-corte-de-cabelo-feminino-long-layers-curtain-bangs.png`,
+      ],
     },
     {
       url: `${baseUrl}/pt/vestido-de-noiva`,
       lastModified: new Date(LAST_MOD.longtail),
       changeFrequency: 'weekly',
       priority: 0.98, // 165K/mo PT-BR, KD 5
-      images: [`${baseUrl}/og/virtual-wedding-dress-try-on.png`],
+      images: [
+        `${baseUrl}/og/virtual-wedding-dress-try-on.png`,
+        `${baseUrl}/images/presets/pt-vestido-de-noiva-mermaid-lace-ivory.png`,
+        `${baseUrl}/images/presets/pt-vestido-de-noiva-princess-tulle-aline.png`,
+      ],
     },
     {
       url: `${baseUrl}/fr/robe-de-mariee`,

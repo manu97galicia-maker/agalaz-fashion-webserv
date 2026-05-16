@@ -282,6 +282,11 @@ export const disenosDeUnas: LongtailContent = {
   category: 'nail',
   productLabel: 'Diseño de uñas',
   accent: 'nail',
+  // 2 diseños de uñas pre-cargados (Gemini, 2026-05-16).
+  presets: [
+    { src: '/images/presets/es-disenos-de-unas-gel-french-pearl-accent.png', label: 'Francesa gel perla', alt: 'Diseño de uñas francesa en gel con acento de perla — probador IA Agalaz' },
+    { src: '/images/presets/es-disenos-de-unas-chrome-mirror-silver.png', label: 'Cromado espejo plata', alt: 'Diseño de uñas cromado efecto espejo plata — probador IA Agalaz' },
+  ],
 
   badge: 'Diseños de Uñas · IA Probador',
   h1Top: 'Diseños de uñas',

@@ -66,7 +66,17 @@ export default function VestidoInvitadaBoda() {
         </div>
       </section>
 
-      <TryOnDemoBlock category="clothing" lang="es" productLabel="Vestido de invitada" />
+      {/* Wedding-guest-specific presets so visitors only need to upload
+          their photo (Gemini-generated, 2026-05-16). */}
+      <TryOnDemoBlock
+        category="clothing"
+        lang="es"
+        productLabel="Vestido de invitada"
+        presets={[
+          { src: '/images/presets/es-vestido-invitada-boda-satin-emerald-midi.png', label: 'Satén esmeralda midi', alt: 'Vestido invitada boda satén verde esmeralda midi — probador IA Agalaz' },
+          { src: '/images/presets/es-vestido-invitada-boda-lilac-tulle-floral-long.png', label: 'Lila tul floral', alt: 'Vestido invitada boda largo lila en tul con bordados florales — probador IA Agalaz' },
+        ]}
+      />
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 py-16">
         <div className="text-center mb-10">

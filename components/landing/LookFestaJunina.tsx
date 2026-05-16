@@ -68,8 +68,17 @@ export default function LookFestaJunina() {
         </div>
       </section>
 
-      {/* Live try-on */}
-      <TryOnDemoBlock category="clothing" lang="pt" productLabel="Vestido / camisa xadrez" />
+      {/* Live try-on with festa-junina-specific presets so visitors only
+          need to upload their photo (Gemini-generated, 2026-05-16). */}
+      <TryOnDemoBlock
+        category="clothing"
+        lang="pt"
+        productLabel="Vestido / camisa xadrez"
+        presets={[
+          { src: '/images/presets/pt-look-festa-junina-chita-floral-red-dress.png', label: 'Vestido chita floral', alt: 'Vestido festa junina chita vermelho com flores brancas — provador IA Agalaz' },
+          { src: '/images/presets/pt-look-festa-junina-xadrez-shirt-jeans-caipira.png', label: 'Xadrez caipira', alt: 'Look festa junina caipira camisa xadrez vermelha com shorts jeans — provador IA Agalaz' },
+        ]}
+      />
 
       {/* 7 looks grid */}
       <section className="max-w-6xl mx-auto px-6 md:px-12 py-16">

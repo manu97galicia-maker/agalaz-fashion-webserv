@@ -27,8 +27,8 @@ export const unhasDecoradasPT: LongtailContent = {
   // hand photo instead of also having to source a design image. Generated
   // 2026-05-16 via scripts/generate-preset-images.mjs (Gemini text-to-image).
   presets: [
-    { src: '/images/presets/nail-1.png', label: 'Rosa floral' },
-    { src: '/images/presets/nail-2.png', label: 'Francesinha glitter' },
+    { src: '/images/presets/nail-1.png', label: 'Rosa floral', alt: 'Unhas decoradas rosa floral em gel — provador IA Agalaz' },
+    { src: '/images/presets/nail-2.png', label: 'Francesinha glitter', alt: 'Unhas decoradas francesinha com glitter dourado — provador IA Agalaz' },
   ],
 
   badge: 'Unhas Decoradas 2026 · IA',
@@ -115,6 +115,11 @@ export const corteCabeloFemininoPT: LongtailContent = {
   category: 'hairstyle',
   productLabel: 'Referência de corte',
   accent: 'hair',
+  // 2 cortes femeninos PT-BR populares pre-cargados (Gemini, 2026-05-16).
+  presets: [
+    { src: '/images/presets/pt-corte-de-cabelo-feminino-chanel-bob-brown-bangs.png', label: 'Chanel com franja', alt: 'Corte de cabelo feminino chanel com franja castanho — provador IA Agalaz' },
+    { src: '/images/presets/pt-corte-de-cabelo-feminino-long-layers-curtain-bangs.png', label: 'Camadas longas + franja cortina', alt: 'Corte de cabelo feminino longo em camadas com franja cortina — provador IA Agalaz' },
+  ],
 
   badge: 'Corte de Cabelo Feminino · IA',
   h1Top: 'Corte de cabelo feminino 2026',
@@ -200,6 +205,11 @@ export const vestidoDeNoivaPT: LongtailContent = {
   category: 'clothing',
   productLabel: 'Referência vestido noiva',
   accent: 'hair',
+  // 2 silhuetas de vestido de noiva pré-carregadas (Gemini, 2026-05-16).
+  presets: [
+    { src: '/images/presets/pt-vestido-de-noiva-mermaid-lace-ivory.png', label: 'Sereia em renda', alt: 'Vestido de noiva sereia em renda marfim com mangas longas — provador IA Agalaz' },
+    { src: '/images/presets/pt-vestido-de-noiva-princess-tulle-aline.png', label: 'Princesa em tule', alt: 'Vestido de noiva princesa A-line em tule com decote coração — provador IA Agalaz' },
+  ],
 
   badge: 'Vestido de Noiva · IA',
   h1Top: 'Vestido de noiva 2026',

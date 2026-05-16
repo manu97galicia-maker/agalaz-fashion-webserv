@@ -34,6 +34,10 @@ export interface DemoPreset {
   src: string;
   /** Short label shown under the thumbnail (per-language). */
   label: string;
+  /** Optional SEO-friendly alt text for the image (Google Image search +
+   *  accessibility). When omitted, PresetPicker constructs a default
+   *  combining label + landing context + brand. */
+  alt?: string;
 }
 
 /**
@@ -551,7 +555,16 @@ function PresetPicker({
               }`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={p.src} alt={p.label} className="absolute inset-0 w-full h-full object-cover" />
+              <img
+                src={p.src}
+                alt={p.alt ?? `${p.label} — virtual try-on preset · Agalaz`}
+                title={p.alt ?? p.label}
+                width={300}
+                height={300}
+                loading="eager"
+                decoding="async"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 via-black/30 to-transparent px-2 py-1.5">
                 <span className="text-[10px] md:text-xs font-bold text-white tracking-tight leading-tight line-clamp-2">
                   {p.label}
