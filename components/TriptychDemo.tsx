@@ -38,29 +38,34 @@ export default function TriptychDemo({ slug, labels, lang = 'en' }: Props) {
 
   return (
     <section className="bg-slate-50 border-y border-slate-100">
-      <div className="max-w-6xl mx-auto px-6 py-14 md:py-20">
-        <div className="text-center mb-8 md:mb-12">
-          <h2 className="font-serif text-2xl md:text-4xl font-black text-slate-900 tracking-tight mb-2">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 py-6 md:py-20">
+        <div className="text-center mb-4 md:mb-12">
+          <h2 className="font-serif text-base md:text-4xl font-black text-slate-900 tracking-tight mb-1 md:mb-2">
             {labels.title}
           </h2>
-          <p className="text-slate-500 text-sm md:text-base font-light max-w-xl mx-auto">
+          <p className="text-slate-500 text-[11px] md:text-base font-light max-w-xl mx-auto">
             {labels.subtitle}
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5">
+        {/* 3 columns on every screen (was 1 col on mobile which stacked the
+            panels and pushed the dropzones ~1000px below the fold on phones,
+            killing mobile conversion — 84% of traffic). On phones the
+            triptych is now a compact preview row, with the dropzones still
+            visible within one scroll. */}
+        <div className="grid grid-cols-3 gap-2 md:gap-5">
           {panels.map((p) => (
             <figure key={p.num} className="relative">
-              <div className="relative aspect-square overflow-hidden rounded-2xl bg-white border border-slate-200 shadow-sm">
+              <div className="relative aspect-square overflow-hidden rounded-xl md:rounded-2xl bg-white border border-slate-200 shadow-sm">
                 <Image
                   src={p.src}
                   alt={p.alt}
                   title={p.alt}
                   fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                  sizes="(max-width: 768px) 33vw, 33vw"
                   className="object-cover"
                   priority={p.num === 1}
                 />
-                <div className="absolute top-3 left-3 bg-white/95 backdrop-blur px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-slate-700 shadow-sm">
+                <div className="absolute top-1.5 left-1.5 md:top-3 md:left-3 bg-white/95 backdrop-blur px-1.5 py-0.5 md:px-3 md:py-1.5 rounded-full text-[8px] md:text-[10px] font-black uppercase tracking-widest text-slate-700 shadow-sm">
                   {p.num}. {p.badge}
                 </div>
               </div>
