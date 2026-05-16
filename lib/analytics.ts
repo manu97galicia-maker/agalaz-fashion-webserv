@@ -30,10 +30,6 @@ export type AnalyticsEvent =
   | 'virtual_tryon_seo_view'    // hit /virtual-try-on (SEO landing)
   | 'tryon_view'                // hit the try-on app
 
-  // Onboarding
-  | 'onboarding_step'           // moved to next onboarding step
-  | 'onboarding_complete'       // finished onboarding
-
   // Auth
   | 'signup_click'              // clicked Google / email login
 

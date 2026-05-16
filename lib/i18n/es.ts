@@ -167,28 +167,6 @@ export const es = {
     uploadPhoto: 'Subir Foto',
     uploadGarment: 'Subir Prenda',
   },
-  onboarding: {
-    steps: [
-      {
-        question: 'Quieres ver como te queda la ropa antes de comprarla?',
-        desc: 'Sube cualquier prenda y vela en tu cuerpo real. Sin probadores, sin esperas.',
-        answer: 'Si, quiero verlo!',
-      },
-      {
-        question: 'Te gustaria probar distintos colores?',
-        desc: 'Rojo, azul, negro, verde... prueba la misma prenda en cualquier color.',
-        answer: 'Claro que si!',
-      },
-      {
-        question: 'Y si pudieras ver diferentes tallas?',
-        desc: 'Oversize, slim, regular. Ve como luce cada talla en tu cuerpo real.',
-        answer: 'Me encanta!',
-      },
-    ],
-    letsGo: 'Empecemos!',
-    next: 'Siguiente',
-    start: 'Comenzar',
-  },
   paywall: {
     badge: 'Agalaz Pro',
     titleLine1: 'Desbloquea',

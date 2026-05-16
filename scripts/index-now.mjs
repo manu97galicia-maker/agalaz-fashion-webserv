@@ -14,7 +14,6 @@ const urls = [
   'https://agalaz.com/blog',
   'https://agalaz.com/partners',
   'https://agalaz.com/paywall',
-  'https://agalaz.com/onboarding',
   'https://agalaz.com/privacy',
   'https://agalaz.com/terms',
   'https://agalaz.com/blog/how-to-know-if-clothes-will-fit-without-trying-them-on',

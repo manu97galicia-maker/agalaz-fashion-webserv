@@ -4,7 +4,6 @@ Allow: /
 Disallow: /api/
 Disallow: /profile
 Disallow: /paywall
-Disallow: /onboarding
 Disallow: /try-on?*
 Disallow: /*?credits_purchased=*
 Disallow: /*?subscribed=*

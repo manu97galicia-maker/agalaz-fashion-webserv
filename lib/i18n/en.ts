@@ -167,28 +167,6 @@ export const en = {
     uploadPhoto: 'Upload Photo',
     uploadGarment: 'Upload Garment',
   },
-  onboarding: {
-    steps: [
-      {
-        question: 'Want to see how clothes look before buying?',
-        desc: 'Upload any garment and see it on your real body. No fitting rooms, no waiting.',
-        answer: 'Yes, show me!',
-      },
-      {
-        question: 'Would you like to try different colors?',
-        desc: 'Red, blue, black, green... try the same garment in any color you want.',
-        answer: 'Absolutely!',
-      },
-      {
-        question: 'What about trying different sizes?',
-        desc: 'Oversized, slim, regular. See how each size looks on your real body.',
-        answer: 'I love it!',
-      },
-    ],
-    letsGo: "Let's go!",
-    next: 'Next',
-    start: 'Get Started',
-  },
   paywall: {
     badge: 'Agalaz Pro',
     titleLine1: 'Unlock',
