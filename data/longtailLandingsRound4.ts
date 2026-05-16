@@ -20,6 +20,7 @@ export const disfrazDeHalloween: LongtailContent = {
   category: 'costume',
   productLabel: 'Disfraz de referencia',
   accent: 'nail',
+  theme: 'costume',
 
   badge: 'Disfraz Halloween · IA',
   h1Top: 'Disfraz de Halloween',
@@ -107,6 +108,7 @@ export const cosplayEsLanding: LongtailContent = {
   category: 'cosplay',
   productLabel: 'Referencia cosplay',
   accent: 'nail',
+  theme: 'cosplay',
 
   badge: 'Cosplay · IA',
   h1Top: 'Cosplay',
@@ -193,6 +195,7 @@ export const disfrazHalloweenPareja: LongtailContent = {
   category: 'costume',
   productLabel: 'Disfraz de pareja',
   accent: 'nail',
+  theme: 'halloween-couples',
 
   badge: 'Disfraz pareja Halloween · IA',
   h1Top: 'Disfraz de Halloween',
@@ -278,6 +281,7 @@ export const disfracesCaseros: LongtailContent = {
   category: 'costume',
   productLabel: 'Disfraz casero',
   accent: 'nail',
+  theme: 'costume',
 
   badge: 'Disfraces caseros · IA',
   h1Top: 'Disfraces caseros',
@@ -364,6 +368,7 @@ export const disfrazCarnaval: LongtailContent = {
   category: 'costume',
   productLabel: 'Disfraz de Carnaval',
   accent: 'nail',
+  theme: 'carnival-costume',
 
   badge: 'Carnaval · Disfraz IA',
   h1Top: 'Disfraz de Carnaval',

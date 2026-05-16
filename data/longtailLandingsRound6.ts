@@ -106,6 +106,7 @@ export const chromeNails2026: LongtailContent = {
   category: 'nail',
   productLabel: 'Chrome design reference',
   accent: 'nail',
+  theme: 'chrome-nails',
 
   badge: 'Chrome Nails 2026 · AI Try-On',
   h1Top: 'Chrome Nails',

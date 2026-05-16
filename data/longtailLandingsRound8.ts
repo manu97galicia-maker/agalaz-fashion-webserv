@@ -295,6 +295,7 @@ export const robeDeMarieeFR: LongtailContent = {
   category: 'clothing',
   productLabel: 'Référence robe mariée',
   accent: 'hair',
+  theme: 'wedding-dress',
 
   badge: 'Robe de Mariée · IA',
   h1Top: 'Robe de mariée 2026',

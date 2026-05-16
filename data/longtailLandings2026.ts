@@ -19,6 +19,7 @@ export const coupeCheveuxVisageRond: LongtailContent = {
   category: 'hairstyle',
   productLabel: 'Référence coupe',
   accent: 'hair',
+  theme: 'face-round-haircut',
 
   badge: 'Visage rond · Coiffure IA',
   h1Top: 'Coupe de cheveux pour',
@@ -106,6 +107,7 @@ export const corteCabeloRostoRedondo: LongtailContent = {
   category: 'hairstyle',
   productLabel: 'Referência de corte',
   accent: 'hair',
+  theme: 'face-round-haircut',
 
   badge: 'Rosto redondo · Cabelo IA',
   h1Top: 'Corte de cabelo para',
@@ -193,6 +195,7 @@ export const unhasCurtasIdeias: LongtailContent = {
   category: 'nail',
   productLabel: 'Referência da unha',
   accent: 'nail',
+  theme: 'coquette-nails',
 
   badge: 'Unhas curtas · IA',
   h1Top: 'Ideias de unhas',
@@ -279,6 +282,7 @@ export const unghieCorteSemplici: LongtailContent = {
   category: 'nail',
   productLabel: 'Riferimento unghie',
   accent: 'nail',
+  theme: 'coquette-nails',
 
   badge: 'Unghie corte · IA',
   h1Top: 'Unghie corte',
@@ -365,6 +369,7 @@ export const taglioCapelliVisoTondo: LongtailContent = {
   category: 'hairstyle',
   productLabel: 'Riferimento taglio',
   accent: 'hair',
+  theme: 'face-round-haircut',
 
   badge: 'Viso tondo · Capelli IA',
   h1Top: 'Taglio di capelli per',

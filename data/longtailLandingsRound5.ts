@@ -30,6 +30,7 @@ export const curtainBangsHaircut: LongtailContent = {
   category: 'hairstyle',
   productLabel: 'Reference cut',
   accent: 'hair',
+  theme: 'curtain-bangs',
 
   badge: 'Curtain Bangs · AI Try-On',
   h1Top: 'Curtain Bangs',
@@ -116,6 +117,7 @@ export const wolfCutHairstyles: LongtailContent = {
   category: 'hairstyle',
   productLabel: 'Wolf cut reference',
   accent: 'hair',
+  theme: 'wolf-cut',
 
   badge: 'Wolf Cut · AI Try-On',
   h1Top: 'Wolf Cut Hairstyles',
@@ -204,6 +206,7 @@ export const carreFrangeRideau: LongtailContent = {
   category: 'hairstyle',
   productLabel: 'Référence coupe',
   accent: 'hair',
+  theme: 'curtain-bangs',
 
   badge: 'Carré + Frange Rideau · IA',
   h1Top: 'Carré avec frange',
