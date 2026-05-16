@@ -122,6 +122,12 @@ const LABELS: Record<DemoLang, {
   errorRate: string;
   errorMissing: string;
   errorCaptcha: string;
+  /** Shown when the visitor's daily-free render quota is spent (HTTP 402). */
+  errorQuotaSpent: string;
+  /** Label of the CTA button next to errorQuotaSpent that links to /paywall. */
+  errorQuotaSpentCta: string;
+  /** Shown when there's a network failure (catch block). */
+  errorNetwork: string;
   uploadCta: string;
   // Login gate (replaces dropzones until user is authenticated)
   loginGateTitle: string;
@@ -159,9 +165,12 @@ const LABELS: Record<DemoLang, {
     buyMore: 'Get more renders',
     tryAnother: 'Try another',
     errorGeneric: "We couldn't detect a person in your photo. Upload a selfie of you — waist-up is enough for tops, jackets and blazers. Full body for dresses or pants.",
-    errorRate: 'Please wait a moment and try again.',
+    errorRate: 'Too many requests in a short time. Wait 30 seconds and try again.',
     errorMissing: 'Upload both photos first.',
     errorCaptcha: 'Verification failed. Please refresh and try again.',
+    errorQuotaSpent: "You've already used your free render today. Come back tomorrow for another free one, or grab a pack to keep going right now.",
+    errorQuotaSpentCta: 'Get a pack',
+    errorNetwork: 'Connection issue — check your internet and try again.',
     uploadCta: 'Click to upload',
     loginGateTitle: 'Try it free by signing in',
     loginGateSubtitle: 'One free HD render every day. No card, no spam. Upload after sign-in.',
@@ -197,9 +206,12 @@ const LABELS: Record<DemoLang, {
     buyMore: 'Más renders',
     tryAnother: 'Probar otro',
     errorGeneric: 'No detectamos una persona en tu foto. Sube una selfie tuya — de cintura para arriba basta para tops, chaquetas y blazers. Cuerpo entero para vestidos o pantalones.',
-    errorRate: 'Espera un momento e inténtalo de nuevo.',
+    errorRate: 'Demasiadas peticiones seguidas. Espera 30 segundos y vuelve a intentarlo.',
     errorMissing: 'Sube primero las dos fotos.',
     errorCaptcha: 'Fallo de verificación. Recarga e inténtalo de nuevo.',
+    errorQuotaSpent: 'Ya usaste tu render gratis de hoy. Vuelve mañana para otro gratis, o consigue un pack para seguir ahora mismo.',
+    errorQuotaSpentCta: 'Consigue un pack',
+    errorNetwork: 'Problema de conexión — revisa tu internet y vuelve a intentarlo.',
     uploadCta: 'Pulsa para subir',
     loginGateTitle: 'Prueba gratis iniciando sesión',
     loginGateSubtitle: 'Un render HD gratis cada día. Sin tarjeta, sin spam. Sube tus fotos al iniciar sesión.',
@@ -235,9 +247,12 @@ const LABELS: Record<DemoLang, {
     buyMore: 'Plus de rendus',
     tryAnother: 'Essayer un autre',
     errorGeneric: "Aucune personne détectée dans votre photo. Téléchargez un selfie — le buste suffit pour les tops, vestes et blazers. Corps entier pour les robes ou pantalons.",
-    errorRate: 'Patientez un instant puis réessayez.',
+    errorRate: 'Trop de tentatives en peu de temps. Attendez 30 secondes et réessayez.',
     errorMissing: "Téléchargez d'abord les deux photos.",
     errorCaptcha: 'Vérification échouée. Rafraîchissez et réessayez.',
+    errorQuotaSpent: 'Vous avez déjà utilisé votre rendu gratuit du jour. Revenez demain pour un autre, ou prenez un pack pour continuer maintenant.',
+    errorQuotaSpentCta: 'Obtenir un pack',
+    errorNetwork: 'Problème de connexion — vérifiez votre internet et réessayez.',
     uploadCta: 'Cliquez pour téléverser',
     loginGateTitle: 'Essayez gratuitement en vous connectant',
     loginGateSubtitle: 'Un rendu HD gratuit chaque jour. Sans carte, sans spam. Téléchargez après la connexion.',
@@ -272,10 +287,13 @@ const LABELS: Record<DemoLang, {
     download: 'Descarregar HD',
     buyMore: 'Mais renders',
     tryAnother: 'Tentar outro',
-    errorGeneric: 'Não detetámos uma pessoa na tua foto. Carrega uma selfie tua — da cintura para cima chega para tops, casacos e blazers. Corpo inteiro para vestidos ou calças.',
-    errorRate: 'Aguarda um momento e tenta novamente.',
+    errorGeneric: 'Não detectamos uma pessoa na tua foto. Sube uma selfie — da cintura para cima chega para tops, casacos e blazers. Corpo inteiro para vestidos ou calças.',
+    errorRate: 'Demasiadas tentativas em pouco tempo. Espera 30 segundos e tenta novamente.',
     errorMissing: 'Suba primeiro as duas fotos.',
     errorCaptcha: 'Verificação falhou. Recarregue e tente novamente.',
+    errorQuotaSpent: 'Você já usou seu render grátis de hoje. Volte amanhã para outro grátis, ou pegue um pack para continuar agora.',
+    errorQuotaSpentCta: 'Pegar um pack',
+    errorNetwork: 'Problema de conexão — verifique sua internet e tente novamente.',
     uploadCta: 'Toque para carregar',
     loginGateTitle: 'Experimenta grátis iniciando sessão',
     loginGateSubtitle: 'Um render HD grátis todos os dias. Sem cartão, sem spam. Carrega as fotos após iniciar sessão.',
@@ -311,9 +329,12 @@ const LABELS: Record<DemoLang, {
     buyMore: 'Mehr Renders',
     tryAnother: 'Anderes versuchen',
     errorGeneric: 'Keine Person in deinem Foto erkannt. Lade ein Selfie hoch — der Oberkörper reicht für Tops, Jacken und Blazer. Ganzkörper für Kleider oder Hosen.',
-    errorRate: 'Bitte einen Moment warten und erneut versuchen.',
+    errorRate: 'Zu viele Anfragen in kurzer Zeit. Warte 30 Sekunden und versuche es erneut.',
     errorMissing: 'Zuerst beide Fotos hochladen.',
     errorCaptcha: 'Verifizierung fehlgeschlagen. Seite neu laden und erneut versuchen.',
+    errorQuotaSpent: 'Du hast dein kostenloses Tages-Rendering bereits genutzt. Komm morgen für ein weiteres zurück, oder hol dir ein Paket, um sofort weiterzumachen.',
+    errorQuotaSpentCta: 'Paket holen',
+    errorNetwork: 'Verbindungsproblem — prüfe dein Internet und versuche es erneut.',
     uploadCta: 'Zum Hochladen klicken',
     loginGateTitle: 'Probiere kostenlos — melde dich an',
     loginGateSubtitle: 'Ein kostenloser HD-Render pro Tag. Keine Karte, kein Spam. Foto-Upload nach Anmeldung.',
@@ -349,9 +370,12 @@ const LABELS: Record<DemoLang, {
     buyMore: 'Più render',
     tryAnother: 'Prova un altro',
     errorGeneric: 'Nessuna persona rilevata nella tua foto. Carica un selfie — il mezzo busto basta per top, giacche e blazer. Corpo intero per vestiti o pantaloni.',
-    errorRate: 'Attendi un momento e riprova.',
+    errorRate: 'Troppe richieste in poco tempo. Aspetta 30 secondi e riprova.',
     errorMissing: 'Carica prima entrambe le foto.',
     errorCaptcha: 'Verifica fallita. Ricarica e riprova.',
+    errorQuotaSpent: 'Hai già usato il tuo render gratuito di oggi. Torna domani per un altro gratuito, o prendi un pacchetto per continuare ora.',
+    errorQuotaSpentCta: 'Prendi un pacchetto',
+    errorNetwork: 'Problema di connessione — controlla la tua internet e riprova.',
     uploadCta: 'Clicca per caricare',
     loginGateTitle: 'Prova gratis accedendo',
     loginGateSubtitle: 'Un render HD gratuito ogni giorno. Senza carta, senza spam. Carica le foto dopo l\'accesso.',
@@ -607,6 +631,9 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
   const [resultImage, setResultImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Distinct flag for "free render quota spent" so the UI can render a
+  // dedicated explanation + CTA instead of a generic red error string.
+  const [quotaSpent, setQuotaSpent] = useState(false);
 
   // Faux progress shown the moment the user clicks Generate. The real Gemini
   // call is gated behind login, so to keep the page feeling alive while the
@@ -848,6 +875,7 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
   async function runGenerate() {
     setIsLoading(true);
     setError(null);
+    setQuotaSpent(false);
     setResultImage(null);
     try {
       const userBase64 = userImage!.includes(',') ? userImage!.split(',')[1] : userImage!;
@@ -869,10 +897,16 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
         return;
       }
       if (res.status === 402) {
-        // Daily free already used and no paid credits left. Reset the bar
-        // before redirecting so a back-button visitor doesn't see 90%.
+        // Daily free spent + no paid credits. Surface the explanation
+        // inline (red banner with a "Get a pack" button) instead of
+        // hard-redirecting — that way users actually understand WHY
+        // nothing rendered. Auto-redirect kicks in after 6 s as a safety
+        // net for anyone who doesn't read the message.
         resetProgress();
-        window.location.href = `/paywall?from=demo&category=${encodeURIComponent(category || '')}`;
+        setIsLoading(false);
+        setQuotaSpent(true);
+        const paywallUrl = `/paywall?from=demo&category=${encodeURIComponent(category || '')}`;
+        setTimeout(() => { window.location.href = paywallUrl; }, 6000);
         return;
       }
       if (res.status === 429) {
@@ -904,7 +938,11 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
         resetProgress();
       }
     } catch {
-      setError(guidance?.error || t.errorGeneric);
+      // Distinct message for the catch path — this fires on fetch failure
+      // (offline, DNS, CSP, cancelled), NOT on a Gemini photo-quality issue.
+      // The previous shared errorGeneric mixed both, so users blamed their
+      // photo when in reality their wifi dropped mid-request.
+      setError(t.errorNetwork);
       resetProgress();
     }
     setIsLoading(false);
@@ -1263,7 +1301,28 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
                   <ArrowRight size={16} />
                 </button>
               )}
-              {error && <p className="text-xs text-rose-600 font-light">{error}</p>}
+              {/* Quota-spent banner: explicit explanation + CTA + safety-net
+                  auto-redirect (set in the 402 branch of runGenerate). */}
+              {quotaSpent && (
+                <div className="mt-3 max-w-md w-full bg-rose-50 border-2 border-rose-200 rounded-xl px-4 py-3.5 text-left">
+                  <p className="text-sm font-bold text-rose-700 leading-snug">
+                    {t.errorQuotaSpent}
+                  </p>
+                  <a
+                    href={`/paywall?from=demo&category=${encodeURIComponent(category || '')}`}
+                    className="mt-3 inline-flex items-center gap-2 px-5 py-2.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-black uppercase tracking-[0.15em] rounded-full transition-colors"
+                  >
+                    <Sparkles size={13} />
+                    {t.errorQuotaSpentCta}
+                    <ArrowRight size={12} />
+                  </a>
+                </div>
+              )}
+              {/* Generic error (photo quality, network, rate limit) — only
+                  shown when quotaSpent is false so we never stack 2 banners. */}
+              {error && !quotaSpent && (
+                <p className="mt-3 max-w-md text-xs text-rose-600 font-medium leading-relaxed text-center">{error}</p>
+              )}
             </div>
           </>
         )}
