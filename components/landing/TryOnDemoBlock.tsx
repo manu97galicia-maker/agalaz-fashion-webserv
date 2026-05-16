@@ -36,6 +36,58 @@ export interface DemoPreset {
   label: string;
 }
 
+/**
+ * Category → 2 ready-made presets, with 6-language labels.
+ * Images generated 2026-05-16 via scripts/generate-preset-images.mjs
+ * (gemini-3.1-flash-image-preview text-to-image). Lets every landing using
+ * TryOnDemoBlock pick up presets automatically — no per-page wiring needed
+ * unless a page wants to override via the `presets` prop.
+ */
+type PresetLabels = Record<DemoLang, string>;
+type CategoryPresets = Array<{ src: string; labels: PresetLabels }>;
+
+const CATEGORY_PRESETS: Partial<Record<DemoCategory, CategoryPresets>> = {
+  nail: [
+    { src: '/images/presets/nail-1.png', labels: { en: 'Pink floral', es: 'Floral rosa', fr: 'Floral rose', pt: 'Rosa floral', de: 'Rosa floral', it: 'Floreale rosa' } },
+    { src: '/images/presets/nail-2.png', labels: { en: 'French glitter', es: 'Francesa glitter', fr: 'French paillettes', pt: 'Francesinha glitter', de: 'French Glitter', it: 'French glitter' } },
+  ],
+  clothing: [
+    { src: '/images/presets/clothing-1.png', labels: { en: 'Beige blazer', es: 'Blazer beige', fr: 'Blazer beige', pt: 'Blazer bege', de: 'Beige Blazer', it: 'Blazer beige' } },
+    { src: '/images/presets/clothing-2.png', labels: { en: 'Black midi dress', es: 'Vestido midi negro', fr: 'Robe midi noire', pt: 'Vestido midi preto', de: 'Schwarzes Midikleid', it: 'Abito midi nero' } },
+  ],
+  glasses: [
+    { src: '/images/presets/glasses-1.png', labels: { en: 'Rectangle black', es: 'Rectangulares negras', fr: 'Rectangulaires noires', pt: 'Retangulares pretas', de: 'Eckig schwarz', it: 'Rettangolari nere' } },
+    { src: '/images/presets/glasses-2.png', labels: { en: 'Gold aviator', es: 'Aviador dorado', fr: 'Aviateur doré', pt: 'Aviador dourado', de: 'Pilotenbrille gold', it: 'Aviatore oro' } },
+  ],
+  hairstyle: [
+    { src: '/images/presets/hairstyle-1.png', labels: { en: 'Long bob bangs', es: 'Long bob flequillo', fr: 'Long bob frange', pt: 'Long bob com franja', de: 'Long Bob Pony', it: 'Long bob frangia' } },
+    { src: '/images/presets/hairstyle-2.png', labels: { en: 'Short pixie', es: 'Pixie corto', fr: 'Pixie court', pt: 'Pixie curto', de: 'Pixie kurz', it: 'Pixie corto' } },
+  ],
+  jewelry: [
+    { src: '/images/presets/jewelry-1.png', labels: { en: 'Gold heart chain', es: 'Cadena corazón oro', fr: 'Chaîne cœur or', pt: 'Corrente coração ouro', de: 'Gold Herzkette', it: 'Catenina cuore oro' } },
+    { src: '/images/presets/jewelry-2.png', labels: { en: 'Diamond studs', es: 'Brillantes diamante', fr: 'Clous diamant', pt: 'Brincos diamante', de: 'Diamantstecker', it: 'Punti diamante' } },
+  ],
+  costume: [
+    { src: '/images/presets/costume-1.png', labels: { en: 'Witch classic', es: 'Bruja clásica', fr: 'Sorcière classique', pt: 'Bruxa clássica', de: 'Klassische Hexe', it: 'Strega classica' } },
+    { src: '/images/presets/costume-2.png', labels: { en: 'Vampire cape', es: 'Vampiro con capa', fr: 'Vampire cape', pt: 'Vampiro com capa', de: 'Vampir mit Umhang', it: 'Vampiro con mantello' } },
+  ],
+  cosplay: [
+    { src: '/images/presets/cosplay-1.png', labels: { en: 'Anime school', es: 'Anime escolar', fr: 'Anime école', pt: 'Anime escolar', de: 'Anime Schule', it: 'Anime scuola' } },
+    { src: '/images/presets/cosplay-2.png', labels: { en: 'Fantasy elf', es: 'Elfo fantasía', fr: 'Elfe fantasy', pt: 'Elfo de fantasia', de: 'Fantasy-Elf', it: 'Elfo fantasy' } },
+  ],
+  // mens-suit, pet-clothing, baby-clothing, and wedding-dress (NOT a DemoCategory
+  // — wedding dress uses 'clothing' category) get added here once the matching
+  // PNG files land in public/images/presets/.
+  'pet-clothing': [
+    { src: '/images/presets/pet-clothing-1.png', labels: { en: 'Yellow raincoat', es: 'Capa de lluvia', fr: 'Imperméable jaune', pt: 'Capa de chuva', de: 'Regenmantel', it: 'Impermeabile' } },
+    { src: '/images/presets/pet-clothing-2.png', labels: { en: 'Plaid bandana', es: 'Bandana cuadros', fr: 'Bandana à carreaux', pt: 'Bandana xadrez', de: 'Karo-Bandana', it: 'Bandana scozzese' } },
+  ],
+  'baby-clothing': [
+    { src: '/images/presets/baby-clothing-1.png', labels: { en: 'Star romper', es: 'Pelele estrellas', fr: 'Combinaison étoiles', pt: 'Macacão estrelas', de: 'Sternen-Strampler', it: 'Tutina stelle' } },
+    { src: '/images/presets/baby-clothing-2.png', labels: { en: 'Pink knit set', es: 'Conjunto punto rosa', fr: 'Ensemble tricot rose', pt: 'Conjunto tricô rosa', de: 'Strickset rosa', it: 'Completo maglia rosa' } },
+  ],
+};
+
 interface Props {
   category: DemoCategory;
   lang: DemoLang;
@@ -503,6 +555,15 @@ function PresetPicker({
 
 export default function TryOnDemoBlock({ category, lang, productLabel, yourPhotoLabel, yourPhotoHint, productHint, presets }: Props) {
   const t = LABELS[lang];
+
+  // Resolve presets: explicit prop wins; otherwise auto-pick from the
+  // category map so every landing using TryOnDemoBlock benefits without
+  // having to wire props through 30+ data files. Empty array = no presets,
+  // falls back to the classic single dropzone.
+  const effectivePresets: DemoPreset[] = (presets && presets.length > 0)
+    ? presets
+    : (CATEGORY_PRESETS[category]?.map((p) => ({ src: p.src, label: p.labels[lang] ?? p.labels.en })) ?? []);
+
   const [userImage, setUserImage] = useState<string | null>(null);
   const [productImage, setProductImage] = useState<string | null>(null);
   const [resultImage, setResultImage] = useState<string | null>(null);
@@ -1104,9 +1165,9 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
                 onChange={handleFile(setUserImage)}
                 onClear={() => setUserImage(null)}
               />
-              {presets && presets.length > 0 ? (
+              {effectivePresets.length > 0 ? (
                 <PresetPicker
-                  presets={presets}
+                  presets={effectivePresets}
                   selectedSrc={productImage}
                   onSelect={(src) => setProductImage(src)}
                   onCustomChange={handleFile(setProductImage)}

@@ -1,0 +1,134 @@
+{
+  "nail": [
+    {
+      "id": "pink-floral",
+      "label": "Rosa floral",
+      "src": "/images/presets/nail-1.png"
+    },
+    {
+      "id": "french-glitter",
+      "label": "Francesinha glitter",
+      "src": "/images/presets/nail-2.png"
+    }
+  ],
+  "clothing": [
+    {
+      "id": "beige-blazer",
+      "label": "Blazer bege",
+      "src": "/images/presets/clothing-1.png"
+    },
+    {
+      "id": "black-midi-dress",
+      "label": "Vestido midi preto",
+      "src": "/images/presets/clothing-2.png"
+    }
+  ],
+  "glasses": [
+    {
+      "id": "black-rectangle",
+      "label": "Retangulares pretas",
+      "src": "/images/presets/glasses-1.png"
+    },
+    {
+      "id": "aviator-gold",
+      "label": "Aviador dourado",
+      "src": "/images/presets/glasses-2.png"
+    }
+  ],
+  "hairstyle": [
+    {
+      "id": "long-bob-bangs",
+      "label": "Long bob com franja",
+      "src": "/images/presets/hairstyle-1.png"
+    },
+    {
+      "id": "short-pixie",
+      "label": "Pixie curto",
+      "src": "/images/presets/hairstyle-2.png"
+    }
+  ],
+  "jewelry": [
+    {
+      "id": "gold-chain",
+      "label": "Corrente dourada",
+      "src": "/images/presets/jewelry-1.png"
+    },
+    {
+      "id": "diamond-studs",
+      "label": "Brincos diamante",
+      "src": "/images/presets/jewelry-2.png"
+    }
+  ],
+  "mens-suit": [
+    {
+      "id": "navy-2pc",
+      "label": "Terno azul marinho",
+      "src": "/images/presets/mens-suit-1.png"
+    },
+    {
+      "id": "charcoal-3pc",
+      "label": "Terno cinza 3 peças",
+      "src": "/images/presets/mens-suit-2.png"
+    }
+  ],
+  "costume": [
+    {
+      "id": "witch-classic",
+      "label": "Bruxa clássica",
+      "src": "/images/presets/costume-1.png"
+    },
+    {
+      "id": "vampire-cape",
+      "label": "Vampiro com capa",
+      "src": "/images/presets/costume-2.png"
+    }
+  ],
+  "cosplay": [
+    {
+      "id": "anime-sailor",
+      "label": "Anime escolar",
+      "src": "/images/presets/cosplay-1.png"
+    },
+    {
+      "id": "fantasy-elf",
+      "label": "Elfo de fantasia",
+      "src": "/images/presets/cosplay-2.png"
+    }
+  ],
+  "pet-clothing": [
+    {
+      "id": "dog-raincoat",
+      "label": "Capa de chuva pet",
+      "src": "/images/presets/pet-clothing-1.png"
+    },
+    {
+      "id": "dog-bandana",
+      "label": "Bandana pet",
+      "src": "/images/presets/pet-clothing-2.png"
+    }
+  ],
+  "baby-clothing": [
+    {
+      "id": "baby-romper",
+      "label": "Macacão bebê",
+      "src": "/images/presets/baby-clothing-1.png"
+    },
+    {
+      "id": "baby-knit-set",
+      "label": "Conjunto tricô",
+      "src": "/images/presets/baby-clothing-2.png"
+    }
+  ],
+  "wedding-dress": [
+    {
+      "id": "mermaid-lace",
+      "label": "Sereia em renda",
+      "src": "/images/presets/wedding-dress-1.png"
+    },
+    {
+      "id": "princess-aline",
+      "label": "Princesa A-line",
+      "src": "/images/presets/wedding-dress-2.png"
+    }
+  ]
+}
