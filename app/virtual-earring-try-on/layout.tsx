@@ -13,24 +13,27 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Earrings on Your Face: Studs, Hoops, Nose Rings — Free AI Try-On',
+  title: 'Virtual Earring Try-On — AI Earring Simulator on Your Photo Free',
   description:
-    'See studs, hoops, dangles, ear cuffs, nose rings, piercings on YOUR real ears in 30 seconds. Free AI try-on, no signup, no app.',
+    'Virtual earring try-on with AI: studs, hoops, dangles, ear cuffs, nose rings, piercings on YOUR real ears in 30 sec. Earring simulator, free, no signup, no app.',
   keywords: [
     'virtual earring try on',
+    'earring simulator',
+    'ai earring try on',
     'ear piercing simulator',
     'try earrings on photo',
-    'AI earring visualizer',
+    'ai earring visualizer',
     'virtual piercing placement',
     'earring try on app free',
     'see earrings on my face',
     'ear piercing preview tool',
+    'virtual ear piercing simulator',
     'jewelry try on online',
     'virtual jewelry fitting',
   ],
   openGraph: {
-    title: 'Free Virtual Earring Try-On | Agalaz AI',
-    description: 'See how earrings and piercings look on YOUR ears before buying. Upload a selfie, choose a design, and get a photorealistic AI preview instantly.',
+    title: 'Virtual Earring Try-On + Earring Simulator — Free AI | Agalaz',
+    description: 'Virtual earring try-on + AI earring simulator. See how earrings, hoops, studs, nose rings and piercings look on YOUR real ears. Free, instant, no signup.',
     url: 'https://agalaz.com/virtual-earring-try-on',
     siteName: 'Agalaz',
     type: 'website',
@@ -39,8 +42,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Virtual Earring Try-On — See Piercings on Your Photo with AI',
-    description: 'Upload your photo, pick earrings or piercings, and see a photorealistic preview. Free, instant, private.',
+    title: 'Virtual Earring Try-On + AI Earring Simulator on Your Photo',
+    description: 'Earring simulator with AI: upload your photo, pick studs/hoops/piercings, see a photorealistic preview. Free, instant, private.',
   },
   alternates: {
     canonical: nativeLandingUrl('virtual-earring-try-on', 'en'),

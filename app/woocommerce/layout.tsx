@@ -5,17 +5,22 @@ const PAGE_URL = `${BASE_URL}/woocommerce`;
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'WooCommerce Virtual Try-On Plugin — AI Fitting Room | Agalaz',
+    absolute: 'WooCommerce Virtual Try-On — Reduce Clothing Returns 40% | Agalaz',
   },
   description:
-    'Add AI virtual try-on to your WooCommerce store with no plugin to install — just a snippet. Auto-detects product images, works with every theme. 7-day free trial, 50 renders.',
+    'WooCommerce virtual try-on plugin that reduces clothing returns 40% and lifts conversion 3-7×. Snippet-based install (no plugin), every theme. Free 14-day trial.',
   keywords: [
-    'woocommerce virtual try on',
+    'virtual try on woocommerce',
     'woocommerce try on plugin',
+    'woocommerce virtual try on',
+    'virtual fitting room woocommerce',
+    'fashion plugin woocommerce',
     'woocommerce ai fitting room',
     'wordpress virtual try on',
     'woocommerce clothing try on',
     'woocommerce glasses try on',
+    'reduce clothing returns woocommerce',
+    'reduce apparel returns woocommerce',
     'reduce returns woocommerce',
     'woocommerce conversion plugin',
     'ai woocommerce',
@@ -24,9 +29,9 @@ export const metadata: Metadata = {
     'woocommerce virtual mirror',
   ],
   openGraph: {
-    title: 'WooCommerce Virtual Try-On — No Plugin, Just a Snippet',
+    title: 'WooCommerce Virtual Try-On — Cut Clothing Returns 40%',
     description:
-      'Auto-detect product images on WooCommerce. Customers preview clothing, glasses, jewelry on themselves. Boost conversions, cut returns. 7-day free trial.',
+      'Reduce clothing returns 40% on WooCommerce. AI virtual try-on, no plugin (just a snippet), every theme. Free 14-day trial.',
     type: 'website',
     url: PAGE_URL,
     siteName: 'Agalaz Fashion',
@@ -35,8 +40,8 @@ export const metadata: Metadata = {
     },
   twitter: {
     card: 'summary_large_image',
-    title: 'WooCommerce Virtual Try-On Plugin — AI Fitting Room',
-    description: 'No plugin to install. 2 lines of code. 7-day free trial, 50 renders.',
+    title: 'WooCommerce Virtual Try-On — Reduce Returns 40%',
+    description: 'Cut clothing returns 40%. Snippet (no plugin), every theme. Free 14-day trial.',
   },
   alternates: {
     canonical: PAGE_URL,

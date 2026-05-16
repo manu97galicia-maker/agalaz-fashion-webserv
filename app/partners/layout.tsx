@@ -4,18 +4,24 @@ const BASE_URL = 'https://agalaz.com';
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'Agalaz Partners — Add AI Virtual Try-On to Your Store',
+    absolute: 'Reduce Fashion Returns 40% — AI Virtual Try-On for Stores | Agalaz',
   },
   description:
-    'Add an AI virtual try-on button to your e-commerce store in 2 lines of code. Boost conversions and reduce returns. 7-day free trial, 50 renders included. Works with Shopify, WooCommerce and any platform.',
+    'How to reduce apparel returns in e-commerce: AI virtual try-on cuts fashion returns 30-40% and lifts conversion 3-7×. 2 lines of code. Shopify, WooCommerce, API. 7-day free trial.',
   keywords: [
-    'virtual try-on for shopify',
-    'AI try-on widget',
-    'ecommerce virtual try-on',
+    'reduce apparel returns',
+    'how to reduce returns in e commerce fashion',
+    'reduce ecommerce returns',
     'reduce online returns',
+    'reduce fashion returns',
+    'reduce clothing returns',
+    'how can i reduce clothing returns when shopping online',
+    'virtual try-on for shopify',
+    'ai try-on widget',
+    'ecommerce virtual try-on',
     'shopify try on app',
     'woocommerce try on',
-    'AI fitting room widget',
+    'ai fitting room widget',
     'product try on plugin',
     'increase ecommerce conversion',
     'virtual try-on partner',
@@ -24,9 +30,9 @@ export const metadata: Metadata = {
     'reducir devoluciones ecommerce',
   ],
   openGraph: {
-    title: 'Agalaz Partners — AI Virtual Try-On for Your Store',
+    title: 'Reduce Fashion Returns 40% — AI Virtual Try-On Partner Widget',
     description:
-      '2 lines of code. Your customers preview clothing, glasses and jewelry on themselves. Boost conversions, cut returns. 7-day free trial.',
+      'Cut e-commerce fashion returns 30-40% and lift conversion 3-7× with AI virtual try-on. Shopify, WooCommerce, custom API. 7-day free trial, 50 renders.',
     type: 'website',
     url: `${BASE_URL}/partners`,
     siteName: 'Agalaz Fashion',
@@ -36,8 +42,8 @@ export const metadata: Metadata = {
     },
   twitter: {
     card: 'summary_large_image',
-    title: 'Agalaz Partners — AI Try-On Widget for Ecommerce',
-    description: 'Add virtual try-on to your store in 2 lines of code. 7-day free trial.',
+    title: 'Reduce Fashion Returns 40% — AI Virtual Try-On Partner',
+    description: 'Cut fashion returns 40% with AI virtual try-on. Shopify + WooCommerce + API. 7-day free trial.',
   },
   alternates: {
     canonical: `${BASE_URL}/partners`,

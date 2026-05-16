@@ -5,18 +5,24 @@ const PAGE_URL = `${BASE_URL}/shopify`;
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'Shopify Virtual Try-On App — AI Fitting Room Widget | Agalaz',
+    absolute: 'Shopify Virtual Try-On App — Reduce Apparel Returns 40% | Agalaz',
   },
   description:
-    'Add an AI virtual try-on to your Shopify store in 2 lines of code. Auto-detects product images, works with every theme, no plugin to install. 7-day free trial, 50 renders included.',
+    'Shopify virtual try-on app that reduces apparel returns 40% and lifts conversion 3-7×. 2 lines of code, works with every theme, no plugin. Free 14-day trial, 50 renders.',
   keywords: [
+    'shopify try on app',
     'shopify virtual try on app',
+    'virtual try on shopify',
+    'shopify virtual try on',
+    'shopify ar try on',
+    'shopify ar app',
     'shopify try on widget',
     'shopify ai try on',
     'virtual fitting room shopify',
     'shopify clothing try on',
     'shopify glasses try on',
     'shopify jewelry try on',
+    'reduce apparel returns shopify',
     'reduce returns shopify',
     'shopify conversion app',
     'ai shopify app',
@@ -24,9 +30,9 @@ export const metadata: Metadata = {
     'shopify virtual mirror',
   ],
   openGraph: {
-    title: 'Shopify Virtual Try-On — AI Fitting Room in 2 Lines of Code',
+    title: 'Shopify Virtual Try-On App — Cut Returns 40% in 2 Lines of Code',
     description:
-      'Auto-detect product images. Customers preview clothing, glasses, jewelry on themselves. Boost conversions, cut returns. 7-day free trial.',
+      'Reduce apparel returns 40% on Shopify. Customers preview clothing, glasses, jewelry, nails on themselves. 2 lines of code, every theme. Free trial.',
     type: 'website',
     url: PAGE_URL,
     siteName: 'Agalaz Fashion',
@@ -35,8 +41,8 @@ export const metadata: Metadata = {
     },
   twitter: {
     card: 'summary_large_image',
-    title: 'Shopify Virtual Try-On App — AI Fitting Room',
-    description: '2 lines of code, every theme. 7-day free trial, 50 renders.',
+    title: 'Shopify Virtual Try-On — Reduce Returns 40%',
+    description: 'Cut apparel returns 40%. 2 lines of code, every theme. Free 14-day trial.',
   },
   alternates: {
     canonical: PAGE_URL,

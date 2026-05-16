@@ -43,9 +43,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Tattoo Simulator: Sleeve, Small, Color, Tribal — Free AI on Your Body',
+  title: 'Tattoo Simulator & Virtual Tattoo Viewer — Try Designs on Your Body Free',
   description:
-    'Try any tattoo design on YOUR real body in 30 seconds. Sleeve, small, color, tribal, placement on arm, ribs, back. Free AI, no signup, no app.',
+    'Tattoo simulator + virtual tattoo viewer: try any tattoo design (sleeve, small, color, tribal, placement) on YOUR real body with AI in 30 sec. Free, no signup, no app, no email.',
   keywords: [
     'tattoo simulator',
     'virtual tattoo viewer',
@@ -64,9 +64,9 @@ export const metadata: Metadata = {
     'tattoo placement app',
   ],
   openGraph: {
-    title: 'Tattoo Simulator Free Online — 3D Virtual Tattoo on Your Body',
+    title: 'Tattoo Simulator + Virtual Tattoo Viewer Free Online — Agalaz',
     description:
-      'Most realistic free online tattoo simulator with 3D AI. Try virtual tattoos on your real body — arm, leg, ribs, back. Body moves naturally with the design.',
+      'Free online tattoo simulator with AI. Virtual tattoo viewer + placement simulator. Try any design on your real body — arm, leg, ribs, back — in 30 seconds.',
     url: 'https://agalaz.com/virtual-tattoo-simulator',
     siteName: 'Agalaz',
     type: 'website',
@@ -75,9 +75,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free Tattoo Simulator — Virtual Tattoo Viewer on Your Photo',
+    title: 'Tattoo Simulator + Virtual Tattoo Viewer — Free on Your Photo',
     description:
-      'Upload your photo, choose a tattoo design, and see realistic AI placement on your skin. Free tattoo simulator, instant and private.',
+      'Tattoo simulator + viewer + visualizer + placement tool. Upload your photo, see realistic AI placement on your skin. Free, instant, private.',
   },
   alternates: {
     canonical: nativeLandingUrl('virtual-tattoo-simulator', 'en'),
