@@ -464,9 +464,17 @@ export default function TryOnPage() {
 
   return (
     <>
-      <div className="min-h-screen bg-white flex flex-col">
+      <div className="min-h-screen flex flex-col relative bg-gradient-to-b from-white via-indigo-50/25 to-white overflow-hidden">
+        {/* Decorative ambient orbs — pure CSS, no images, no JS. Softens the
+            previously stark white canvas and gives the page depth at no cost. */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute top-32 -left-20 w-72 h-72 rounded-full bg-indigo-300/20 blur-3xl" />
+          <div className="absolute top-96 -right-32 w-[28rem] h-[28rem] rounded-full bg-violet-300/15 blur-3xl" />
+          <div className="absolute top-[55vh] left-1/2 -translate-x-1/2 w-[40rem] h-[24rem] rounded-full bg-fuchsia-200/15 blur-3xl" />
+        </div>
+
         {/* Nav */}
-        <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur-sm border-b border-slate-100">
+        <nav className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-100">
           <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button
@@ -564,17 +572,20 @@ export default function TryOnPage() {
           style={{ paddingBottom: 'max(120px, 18vh)' }}
         >
           {messages.length === 0 ? (
-            <div className="max-w-lg mx-auto space-y-8 animate-fade-in">
-              <div className="text-center space-y-3 px-4 pt-6">
-                <span className="inline-block px-4 py-1.5 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-[0.2em] rounded-full">
+            <div className="max-w-lg mx-auto space-y-8 animate-fade-in relative">
+              <div className="text-center space-y-4 px-4 pt-6">
+                <span className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-gradient-to-r from-indigo-50 to-violet-50 border border-indigo-100 text-indigo-700 text-[10px] font-black uppercase tracking-[0.2em] rounded-full shadow-sm">
+                  <Sparkles size={11} className="text-indigo-500" />
                   {pickLang(lang, 'AI Virtual Try-On', 'Probador Virtual IA', 'Essayage Virtuel AI', 'Provador Virtual AI', 'AI Virtuelle Anprobe', 'Camerino Virtuale AI')}
                 </span>
-                <h1 className="font-serif text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-[0.9]">
+                <h1 className="font-serif text-5xl sm:text-6xl font-black text-slate-900 tracking-tight leading-[0.88]">
                   {t.preserveTitle}
                   <br />
-                  <span className="italic text-slate-400">{t.preserveHighlight}</span>
+                  <span className="italic font-normal bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 bg-clip-text text-transparent">
+                    {t.preserveHighlight}
+                  </span>
                 </h1>
-                <p className="text-slate-500 text-sm font-light max-w-sm mx-auto">
+                <p className="text-slate-500 text-sm font-light max-w-sm mx-auto leading-relaxed">
                   {pickLang(lang,
                     'Upload a photo of yourself and the garment you want to try on',
                     'Sube una foto tuya y la prenda que quieras probarte',
@@ -587,14 +598,14 @@ export default function TryOnPage() {
 
               <div className="space-y-4">
                 {/* Category selector */}
-                <div>
-                  <div className="flex items-center gap-1.5 mb-2">
-                    <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">1</span>
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                <div className="bg-white/70 backdrop-blur border border-slate-200/70 rounded-2xl p-4 shadow-sm">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="w-6 h-6 bg-gradient-to-br from-indigo-600 to-violet-600 text-white rounded-full flex items-center justify-center text-[10px] font-black shadow-sm shadow-indigo-200">1</span>
+                    <span className="text-[10px] font-black text-slate-700 uppercase tracking-widest">
                       {pickLang(lang, 'What to try on', 'Qué quieres probar', 'Que voulez-vous essayer', 'O que quer experimentar', 'Was möchtest du anprobieren', 'Cosa vuoi provare')}
                     </span>
                   </div>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-2">
                     {[
                       { value: 'auto', es: 'Auto-detectar', en: 'Auto-detect', fr: 'Détection auto', pt: 'Detecção automática', de: 'Auto-Erkennung', it: 'Rilevamento automatico', icon: '✨' },
                       { value: 'clothing', es: 'Ropa', en: 'Clothing', fr: 'Vêtements', pt: 'Roupa', de: 'Kleidung', it: 'Abbigliamento', icon: '👕' },
@@ -606,28 +617,31 @@ export default function TryOnPage() {
                       { value: 'tattoo', es: 'Tatuajes', en: 'Tattoos', fr: 'Tatouages', pt: 'Tatuagens', de: 'Tattoos', it: 'Tatuaggi', icon: '🪡' },
                       { value: 'nails', es: 'Uñas / Nail Art', en: 'Nails / Nail Art', fr: 'Ongles / Nail Art', pt: 'Unhas / Nail Art', de: 'Nägel / Nail Art', it: 'Unghie / Nail Art', icon: '💅' },
                       { value: 'ring-sizer', es: 'Talla de anillo', en: 'Ring Sizer', fr: 'Taille de bague', pt: 'Tamanho do anel', de: 'Ringgröße', it: 'Misura anello', icon: '💍' },
-                    ].map((cat) => (
-                      <button
-                        key={cat.value}
-                        onClick={() => setTryOnCategory(cat.value)}
-                        className={`px-3 py-1.5 rounded-lg text-[10px] font-black transition-all flex items-center gap-1.5 ${
-                          tryOnCategory === cat.value
-                            ? 'bg-indigo-600 text-white shadow-sm'
-                            : 'bg-slate-50 border border-slate-200 text-slate-400 hover:border-indigo-300 hover:text-indigo-600'
-                        }`}
-                      >
-                        <span>{cat.icon}</span>
-                        {pickLang(lang, cat.en, cat.es, cat.fr, cat.pt, cat.de, cat.it)}
-                      </button>
-                    ))}
+                    ].map((cat) => {
+                      const active = tryOnCategory === cat.value;
+                      return (
+                        <button
+                          key={cat.value}
+                          onClick={() => setTryOnCategory(cat.value)}
+                          className={`group relative px-3.5 py-2 rounded-full text-[11px] font-black transition-all flex items-center gap-1.5 ${
+                            active
+                              ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-200 scale-[1.02]'
+                              : 'bg-white/80 backdrop-blur border border-slate-200 text-slate-600 hover:border-indigo-300 hover:text-indigo-600 hover:-translate-y-0.5 hover:shadow-sm'
+                          }`}
+                        >
+                          <span className={`text-sm leading-none transition-transform ${active ? 'scale-110' : 'group-hover:scale-110'}`}>{cat.icon}</span>
+                          {pickLang(lang, cat.en, cat.es, cat.fr, cat.pt, cat.de, cat.it)}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
                 {/* Photo upload */}
-                <div>
-                  <div className="flex items-center gap-1.5 mb-2">
-                    <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">2</span>
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                <div className="bg-white/70 backdrop-blur border border-slate-200/70 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="w-6 h-6 bg-gradient-to-br from-indigo-600 to-violet-600 text-white rounded-full flex items-center justify-center text-[10px] font-black shadow-sm shadow-indigo-200">2</span>
+                    <span className="text-[10px] font-black text-slate-700 uppercase tracking-widest">
                       {tryOnCategory === 'ring-sizer'
                         ? pickLang(lang, 'Photo of your hand', 'Foto de tu mano', 'Photo de votre main', 'Foto da sua mão', 'Foto deiner Hand', 'Foto della tua mano')
                         : pickLang(lang, 'Your photo', 'Tu foto', 'Votre photo', 'A sua foto', 'Dein Foto', 'La tua foto')}
@@ -642,7 +656,7 @@ export default function TryOnPage() {
                     onImageSelect={trackAndSetUser}
                     icon={<Camera size={20} className="text-indigo-600" />}
                   />
-                  <p className="text-[9px] font-bold text-slate-300 text-center mt-1.5">
+                  <p className="text-[10px] font-medium text-slate-400 text-center mt-2">
                     {tryOnCategory === 'ring-sizer'
                       ? pickLang(lang, 'Clear photo of your hand with fingers extended', 'Foto clara de tu mano con los dedos extendidos', 'Photo claire de votre main avec les doigts tendus', 'Foto nítida da sua mão com os dedos esticados', 'Klares Foto deiner Hand mit ausgestreckten Fingern', 'Foto chiara della tua mano con le dita distese')
                       : pickLang(lang, 'Selfie, half body, or full body', 'Selfie, medio cuerpo o cuerpo entero', 'Selfie, demi-corps ou corps entier', 'Selfie, meio corpo ou corpo inteiro', 'Selfie, halbkörper oder ganzkörper', 'Selfie, mezzo busto o corpo intero')}
@@ -650,11 +664,14 @@ export default function TryOnPage() {
                 </div>
 
                 {/* Garment upload */}
-                <div>
-                  <div className="flex items-center gap-1.5 mb-2">
-                    <span className="w-5 h-5 bg-indigo-600 text-white rounded-full flex items-center justify-center text-[10px] font-black">3</span>
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                      {pickLang(lang, 'Garment, accessory or tattoo', 'Prenda, accesorio o tatuaje', 'Vêtement, accessoire ou tatouage', 'Peça, acessório ou tatuagem', 'Kleidungsstück, Accessoire oder Tattoo', 'Capo, accessorio o tatuaggio')} ({t.optional})
+                <div className="bg-white/70 backdrop-blur border border-slate-200/70 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="w-6 h-6 bg-gradient-to-br from-violet-600 to-fuchsia-600 text-white rounded-full flex items-center justify-center text-[10px] font-black shadow-sm shadow-violet-200">3</span>
+                    <span className="text-[10px] font-black text-slate-700 uppercase tracking-widest">
+                      {pickLang(lang, 'Garment, accessory or tattoo', 'Prenda, accesorio o tatuaje', 'Vêtement, accessoire ou tatouage', 'Peça, acessório ou tatuagem', 'Kleidungsstück, Accessoire oder Tattoo', 'Capo, accessorio o tatuaggio')}
+                    </span>
+                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest bg-slate-100 px-1.5 py-0.5 rounded">
+                      {t.optional}
                     </span>
                   </div>
                   <ImageUploader
@@ -662,14 +679,16 @@ export default function TryOnPage() {
                     type="clothing"
                     image={clothingImage}
                     onImageSelect={trackAndSetClothing}
-                    icon={<Shirt size={20} className="text-indigo-600" />}
+                    icon={<Shirt size={20} className="text-violet-600" />}
                   />
                 </div>
 
                 {/* Chat tip */}
-                <div className="bg-indigo-50 border border-indigo-100 rounded-xl p-3 flex items-start gap-2.5">
-                  <Send size={14} className="text-indigo-500 shrink-0 mt-0.5" />
-                  <p className="text-[11px] font-bold text-indigo-600/70 leading-relaxed">
+                <div className="bg-gradient-to-br from-indigo-50/80 to-violet-50/80 backdrop-blur border border-indigo-100 rounded-2xl p-4 flex items-start gap-3">
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center shrink-0 shadow-sm shadow-indigo-200">
+                    <Send size={13} className="text-white" />
+                  </div>
+                  <p className="text-[11px] font-semibold text-indigo-700 leading-relaxed">
                     {pickLang(lang,
                       'Use the chat to describe what you want before or after the render: size, color, sleeves, tattoo, nails...',
                       'Usa el chat para describir lo que quieres antes o después del render: talla, color, manga, tatuaje, uñas...',
@@ -711,14 +730,17 @@ export default function TryOnPage() {
                 <button
                   onClick={handleStartAnalysis}
                   disabled={!canRender}
-                  className={`w-full py-4 min-h-[56px] flex items-center justify-center gap-3 transition-all font-black uppercase tracking-[0.2em] text-xs md:text-sm rounded-xl ${
+                  className={`relative w-full py-4 min-h-[56px] flex items-center justify-center gap-3 transition-all font-black uppercase tracking-[0.2em] text-xs md:text-sm rounded-2xl overflow-hidden group ${
                     canRender
-                      ? 'bg-slate-900 text-white hover:bg-indigo-600 active:bg-indigo-700 shadow-lg'
-                      : 'bg-slate-100 text-slate-300 border border-slate-200'
+                      ? 'bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 text-white shadow-lg shadow-indigo-300/50 hover:shadow-xl hover:shadow-indigo-400/50 hover:-translate-y-0.5 active:translate-y-0'
+                      : 'bg-slate-100 text-slate-300 border border-slate-200 cursor-not-allowed'
                   }`}
                 >
-                  <Sparkles size={18} />
-                  {t.renderBtn}
+                  {canRender && (
+                    <span aria-hidden className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                  )}
+                  <Sparkles size={18} className={canRender ? 'animate-pulse' : ''} />
+                  <span className="relative">{t.renderBtn}</span>
                 </button>
               )}
             </div>
