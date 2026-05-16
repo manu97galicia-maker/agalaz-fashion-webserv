@@ -100,3 +100,90 @@ export const provadorVirtualZaraPT: LongtailContent = {
   privacyLabel: 'Privacidade',
   tryOnHref: '/pt/virtual-try-on',
 };
+
+/* ─────────────────── /es/probador-virtual-zara ───────────────────────────
+ * "probador virtual zara" 590/mo ES, KD 5. Brand-specific Spain audience.
+ * Same images as the PT version (clothes look the same in any country).
+ */
+export const probadorVirtualZaraES: LongtailContent = {
+  lang: 'es',
+  category: 'clothing',
+  theme: 'zara-fashion',
+  productLabel: 'Prenda Zara que quieres probar',
+  yourPhotoLabel: 'Tu foto de cuerpo entero',
+  yourPhotoHint: 'Cuerpo entero, fondo limpio, buena luz',
+  productHint: 'Foto de la prenda Zara (web, app, captura…)',
+  accent: 'nail',
+
+  badge: 'Zara × IA · Probador Virtual',
+  h1Top: 'Probador virtual Zara',
+  h1Italic: 'pruébate cualquier prenda antes de pedirla.',
+  hero:
+    'Probador virtual Zara con IA — sube tu foto + la captura de cualquier prenda del sitio Zara (vestidos, pantalones, blazers, abrigos, tops). La IA aplica la prenda exacta en tu cuerpo en 30 segundos. Decide la talla y el caimiento antes de pagar y evita devoluciones.',
+  ctaPrimary: 'Probar prenda Zara',
+  ctaCaption: '✓ Gratis · ✓ Sin registro · ✓ 30 seg',
+
+  whatTitle: 'Por qué el probador virtual para Zara funciona mejor',
+  whatBody:
+    'Zara renueva colección cada 2 semanas y las tallas varían entre TRF, Woman y Basic. Sin prueba, la tasa de devolución online pasa del 30% en vestidos y blazers. Con el probador virtual Agalaz ves la prenda aplicada en tu cuerpo real — caimiento, longitud, escote — antes de añadir al carrito. Reduce devoluciones y la frustración de pedir 3 tallas para elegir.',
+  howKnowTitle: 'Cómo probar prendas Zara virtualmente',
+  howKnowBullets: [
+    'Sube una foto tuya de cuerpo entero (frontal, luz natural)',
+    'Ve a la web Zara y captura la prenda que quieres (cualquier página de producto sirve)',
+    'La IA aplica la prenda en tu cuerpo en 30 segundos',
+    'Compara 3-4 prendas lado a lado para decidir',
+    'Vuelve a Zara y pide solo la prenda que te quedó bien',
+  ],
+
+  recommendedBadge: 'Categorías Zara que mejor funcionan',
+  recommendedTitle: 'Prendas Zara perfectas para probar virtualmente',
+  recommended: [
+    { name: 'Vestidos Zara Woman', why: 'El caimiento de un vestido varía mucho con la altura y silueta. Comprobar virtualmente antes evita el 35-40% de devoluciones típicas.' },
+    { name: 'Blazers y abrigos', why: 'La anchura de hombros y la longitud de manga son el punto crítico. Mira si el blazer queda oversize o fitted antes.' },
+    { name: 'Pantalones TRF (slim, wide leg)', why: 'El wide leg sobra o cae bien según tu altura. Probar virtualmente ahorra retornos.' },
+    { name: 'Vestidos de fiesta Zara', why: 'Longitud exacta, hombros descubiertos, escote — probar antes de la fiesta para asegurar.' },
+    { name: 'Camisas y blusas', why: 'Anchura, longitud y transparencia — tres variables que solo ves en el cuerpo.' },
+    { name: 'Abrigos de invierno', why: 'La longitud (corto, midi, largo) cambia totalmente la silueta. Probar primero.' },
+  ],
+
+  avoidBadge: 'Atención',
+  avoidTitle: 'Lo que el probador virtual no sustituye',
+  avoid: [
+    { name: 'Saber el tejido real al tacto', why: 'La IA muestra el caimiento visual. Tejido, textura, peso real solo los sientes en la prenda física — usa las descripciones Zara para eso.' },
+    { name: 'Tabla de medidas exactas', why: 'El probador muestra cómo queda visualmente. Para la talla cruza con la tabla Zara (altura/pecho/cintura).' },
+  ],
+
+  midCtaTitle: 'Antes de pedir 3 tallas para devolver 2',
+  midCtaBody:
+    'La devolución gratis de Zara es cómoda pero te cuesta tiempo. 1 render virtual en 30s y pides solo la talla correcta.',
+  midCtaButton: 'Probar prenda Zara',
+
+  faqTitle: 'Preguntas frecuentes',
+  faq: [
+    {
+      q: '¿Funciona con cualquier prenda del sitio Zara?',
+      a: 'Sí. Captura la foto principal de cualquier producto Zara (vestidos, abrigos, pantalones, tops, trajes) y la IA aplica en tu cuerpo. Funciona mejor con fotos del modelo Zara de frente sobre fondo neutro.',
+    },
+    {
+      q: '¿La IA respeta el color y estampado exacto de la prenda Zara?',
+      a: 'Sí. Color, estampado, textura visual, transparencias y detalles (botones, cremalleras, cinturones) se preservan.',
+    },
+    {
+      q: '¿Necesito hacer login para el primer render?',
+      a: 'No. El primer render es gratis y anónimo — solo cargas las fotos y haces clic en Generar. El login solo se pide si necesitas más renders.',
+    },
+    {
+      q: '¿Cuánto duran las prendas Zara que ves?',
+      a: 'Zara renueva colección cada 2 semanas. Prendas que ves hoy pueden estar agotadas en 14 días. Razón de más para decidir rápido con el probador.',
+    },
+    {
+      q: '¿Es mejor que el probador de la app Zara?',
+      a: 'La app Zara no tiene probador virtual real. Muestra un modelo Zara fijo. Agalaz muestra la prenda en TU cuerpo real.',
+    },
+  ],
+
+  blogLabel: 'Blog',
+  tryOnLabel: 'Probador virtual',
+  privacyLabel: 'Privacidad',
+  tryOnHref: '/es/virtual-try-on',
+};
