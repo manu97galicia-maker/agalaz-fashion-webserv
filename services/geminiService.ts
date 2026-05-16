@@ -135,7 +135,14 @@ export async function generateTryOnImage(
 - IMG1 is an ANIMAL (dog, cat, or other pet). Preserve the animal's species, breed, fur color, fur pattern, body shape, pose, eye color, expression = IDENTICAL to IMG1
 - Background, lighting, camera angle = IDENTICAL to IMG1
 - Only modify the body area where the garment/accessory belongs`
-            : `IDENTITY PRESERVATION (critical):
+            : category === 'nail'
+              ? `IDENTITY PRESERVATION (critical):
+- IMG1 is a HAND (possibly without a face — DO NOT search for a face; the hand IS the subject).
+- Hand pose, finger positions, knuckles, skin tone, palm vs back-of-hand orientation = IDENTICAL to IMG1
+- Background, lighting, camera angle = IDENTICAL to IMG1
+- Only the FINGERNAIL surfaces change. Everything else — even cuticles, skin around the nail, finger length — stays unchanged.
+- If the hand in IMG1 already has nail polish, OVERRIDE it cleanly with the design from IMG2. Do not blend the two.`
+              : `IDENTITY PRESERVATION (critical):
 - Face, skin tone, hair, body shape, pose = IDENTICAL to IMG1
 - Background, lighting, camera angle = IDENTICAL to IMG1
 - Only modify the specific body area where the product belongs`;
@@ -168,7 +175,7 @@ PRODUCT DETECTION & APPLICATION${category && category !== 'auto' ? ` (user confi
 - SHOES (sneakers, heels, boots, sandals, loafers, flats) → replace footwear, match ground plane and shadows
 - BAGS (handbag, backpack, clutch, tote, crossbody) → add as held/worn accessory with natural arm position
 - TATTOO (any body art design) → apply to visible skin as if permanently inked, follow skin contours and muscle definition
-- NAIL ART (manicure, nail polish, nail design, chrome, glazed, french tip) → apply to fingernails with correct perspective, show on all visible fingers
+- NAIL ART / MANICURE / NAIL DESIGN / NAIL POLISH (the reference shows fingernails painted with a design — solid color, gradient, french tip, chrome, glazed donut, floral, glitter, stickers, jewels, ombré, etc.) → REPLACE the nail polish/decoration on EVERY visible fingernail in IMG1 with the exact design shown in IMG2. Match the color, pattern, finish (matte/glossy/glitter/chrome/glazed) and any decorative elements (flowers, dots, gems) per finger. Render each nail respecting the finger angle and curvature. If IMG1's nails already have nail polish, OVERRIDE it cleanly — do NOT blend the old design with the new one. The hand itself (skin, knuckles, finger shape, pose) stays IDENTICAL. Background unchanged. This works on a hand-only photo with NO face — that is the expected input.
 - ETHNIC / TRADITIONAL WEAR (saree, lehenga, hanbok, kimono, qipao, abaya, sherwani, dashiki) → drape according to the garment's tradition. Sarees wrap shoulder + waist with pallu. Lehengas are skirt + choli + dupatta. Kimonos wrap front-to-back with obi. Qipaos hug the body with a high mandarin collar.
 
 QUALITY RULES:
@@ -211,7 +218,7 @@ You MUST output exactly one photorealistic image.`;
         const currentParts = attempt === 1 ? parts : [
           ...parts.slice(0, -1),
           { text: hasGarment
-            ? `Virtual try-on: IMG2 is a ${category === 'hairstyle' ? 'hairstyle/haircut/hair colour' : category === 'cosplay' ? 'cosplay (wig + outfit + props)' : category === 'pet-clothing' ? 'pet garment (apply to the animal in IMG1)' : category === 'costume' ? 'costume (outfit + makeup if shown)' : 'product (clothing, glasses, jewelry, ring, hat, shoes, bag, tattoo, nails)'}. Apply it to IMG1. ${category === 'hairstyle' ? 'Replace hair with the style from IMG2. Keep face, skin, body unchanged.' : category === 'cosplay' ? 'Replace hair (wig), outfit, props with the cosplay from IMG2. Preserve face shape, eye colour, skin tone.' : category === 'pet-clothing' ? 'Apply garment to the animal. Keep breed, fur, pose unchanged.' : 'Keep face, body, pose, background identical.'} For rings, size the band proportionally to finger width. Photorealistic result. You MUST generate an image.`
+            ? `Virtual try-on: IMG2 is a ${category === 'hairstyle' ? 'hairstyle/haircut/hair colour' : category === 'cosplay' ? 'cosplay (wig + outfit + props)' : category === 'pet-clothing' ? 'pet garment (apply to the animal in IMG1)' : category === 'costume' ? 'costume (outfit + makeup if shown)' : category === 'nail' ? 'nail-art / manicure design (apply to the fingernails in IMG1, which is a HAND photo with NO face — that is correct)' : 'product (clothing, glasses, jewelry, ring, hat, shoes, bag, tattoo, nails)'}. Apply it to IMG1. ${category === 'hairstyle' ? 'Replace hair with the style from IMG2. Keep face, skin, body unchanged.' : category === 'cosplay' ? 'Replace hair (wig), outfit, props with the cosplay from IMG2. Preserve face shape, eye colour, skin tone.' : category === 'pet-clothing' ? 'Apply garment to the animal. Keep breed, fur, pose unchanged.' : category === 'nail' ? 'Replace the polish/decoration on every visible fingernail with the design from IMG2. Override any existing polish cleanly. Hand, fingers, skin, pose, background = IDENTICAL.' : 'Keep face, body, pose, background identical.'} For rings, size the band proportionally to finger width. Photorealistic result. You MUST generate an image.`
             : `Enhance this photo. Keep ${category === 'pet-clothing' ? 'pet' : 'person'} identical. You MUST generate an image.`
           },
         ];
