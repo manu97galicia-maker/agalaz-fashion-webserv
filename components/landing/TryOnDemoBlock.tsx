@@ -23,6 +23,19 @@ export type DemoCategory =
   | 'hairstyle'
   | 'cosplay';
 
+/**
+ * Optional preset product for the right-hand side of the demo. When provided
+ * (typically 2 per landing), the user can pick one with a single tap instead
+ * of having to source their own reference image — collapsing the funnel from
+ * 2 uploads to 1. "+ Custom" always remains as the third option.
+ */
+export interface DemoPreset {
+  /** Public URL of the product image (e.g. '/images/presets/nail-1.png'). */
+  src: string;
+  /** Short label shown under the thumbnail (per-language). */
+  label: string;
+}
+
 interface Props {
   category: DemoCategory;
   lang: DemoLang;
@@ -34,6 +47,10 @@ interface Props {
   yourPhotoHint?: string;
   /** override the default right-box hint */
   productHint?: string;
+  /** Optional ready-made product options. When set, the right-hand box shows
+   *  a grid of [preset thumbs ... + Custom]. When empty, falls back to the
+   *  classic single-dropzone upload flow. */
+  presets?: DemoPreset[];
 }
 
 const LABELS: Record<DemoLang, {
@@ -379,7 +396,112 @@ function ImageDropzone({
   );
 }
 
-export default function TryOnDemoBlock({ category, lang, productLabel, yourPhotoLabel, yourPhotoHint, productHint }: Props) {
+/**
+ * Right-hand picker shown when the landing provides ready-made product
+ * options. Renders a grid of preset thumbnails plus a "+ Custom" tile that
+ * opens the native file picker. Tapping a preset commits its src as the
+ * productImage and visibly highlights it. Cuts the funnel from 2 uploads
+ * down to 1 — the visitor only has to bring their own photo.
+ */
+function PresetPicker({
+  presets,
+  selectedSrc,
+  onSelect,
+  onCustomChange,
+  onClear,
+  uploadCta,
+  customLabel,
+}: {
+  presets: DemoPreset[];
+  selectedSrc: string | null;
+  onSelect: (src: string) => void;
+  onCustomChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClear: () => void;
+  uploadCta: string;
+  customLabel: string;
+}) {
+  // A custom upload is recognized as anything that's not a known preset src
+  // (data URL OR a different /images/presets path). We use this to highlight
+  // the custom tile + show the preview when the user uploaded their own.
+  const customSelected = !!selectedSrc && !presets.some((p) => p.src === selectedSrc);
+  return (
+    <div>
+      <div className="grid grid-cols-3 gap-2 md:gap-3">
+        {presets.map((p) => {
+          const isSelected = selectedSrc === p.src;
+          return (
+            <button
+              type="button"
+              key={p.src}
+              onClick={() => onSelect(p.src)}
+              className={`group relative aspect-square overflow-hidden rounded-xl md:rounded-2xl transition-all focus:outline-none ${
+                isSelected
+                  ? 'ring-4 ring-indigo-500 ring-offset-2 shadow-xl scale-[0.98]'
+                  : 'ring-2 ring-slate-200 hover:ring-indigo-300 hover:shadow-md'
+              }`}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={p.src} alt={p.label} className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 via-black/30 to-transparent px-2 py-1.5">
+                <span className="text-[10px] md:text-xs font-bold text-white tracking-tight leading-tight line-clamp-2">
+                  {p.label}
+                </span>
+              </div>
+              {isSelected && (
+                <div className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow">
+                  <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8.5l3 3 6-7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+              )}
+            </button>
+          );
+        })}
+        {/* + Custom upload tile (same size as preset thumbs) */}
+        <label
+          className={`group relative aspect-square overflow-hidden rounded-xl md:rounded-2xl cursor-pointer transition-all touch-manipulation ${
+            customSelected
+              ? 'ring-4 ring-indigo-500 ring-offset-2 shadow-xl scale-[0.98]'
+              : 'ring-2 ring-dashed ring-indigo-300 hover:ring-indigo-500 hover:shadow-md bg-gradient-to-br from-indigo-50/40 to-white'
+          }`}
+        >
+          <input
+            type="file"
+            accept="image/*"
+            onChange={onCustomChange}
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            aria-label={uploadCta}
+          />
+          {customSelected && selectedSrc ? (
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={selectedSrc} alt={customLabel} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+              <button
+                type="button"
+                onClick={(e) => { e.preventDefault(); onClear(); }}
+                className="absolute top-1.5 right-1.5 w-6 h-6 rounded-full bg-slate-900/85 text-white flex items-center justify-center hover:bg-slate-900 transition-colors"
+                aria-label="Clear"
+              >
+                <X size={11} />
+              </button>
+            </>
+          ) : (
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 text-slate-500 pointer-events-none px-2">
+              <div className="w-9 h-9 rounded-full bg-white shadow-md flex items-center justify-center text-indigo-500">
+                <Upload size={16} />
+              </div>
+              <span className="text-[10px] md:text-xs font-black uppercase tracking-widest text-slate-700 text-center leading-tight">
+                {customLabel}
+              </span>
+            </div>
+          )}
+        </label>
+      </div>
+    </div>
+  );
+}
+
+export default function TryOnDemoBlock({ category, lang, productLabel, yourPhotoLabel, yourPhotoHint, productHint, presets }: Props) {
   const t = LABELS[lang];
   const [userImage, setUserImage] = useState<string | null>(null);
   const [productImage, setProductImage] = useState<string | null>(null);
@@ -982,14 +1104,26 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
                 onChange={handleFile(setUserImage)}
                 onClear={() => setUserImage(null)}
               />
-              <ImageDropzone
-                label={productLabel || t.productPhoto}
-                hint={productHint || t.productPhotoHint}
-                uploadCta={t.uploadCta}
-                src={productImage}
-                onChange={handleFile(setProductImage)}
-                onClear={() => setProductImage(null)}
-              />
+              {presets && presets.length > 0 ? (
+                <PresetPicker
+                  presets={presets}
+                  selectedSrc={productImage}
+                  onSelect={(src) => setProductImage(src)}
+                  onCustomChange={handleFile(setProductImage)}
+                  onClear={() => setProductImage(null)}
+                  uploadCta={t.uploadCta}
+                  customLabel={lang === 'pt' ? 'Sua foto' : lang === 'es' ? 'Tu foto' : lang === 'fr' ? 'Votre photo' : lang === 'de' ? 'Dein Foto' : lang === 'it' ? 'Tua foto' : 'Custom'}
+                />
+              ) : (
+                <ImageDropzone
+                  label={productLabel || t.productPhoto}
+                  hint={productHint || t.productPhotoHint}
+                  uploadCta={t.uploadCta}
+                  src={productImage}
+                  onChange={handleFile(setProductImage)}
+                  onClear={() => setProductImage(null)}
+                />
+              )}
             </div>
 
             <div className="mt-8 flex flex-col items-center gap-3">

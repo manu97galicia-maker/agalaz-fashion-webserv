@@ -23,6 +23,13 @@ export const unhasDecoradasPT: LongtailContent = {
   productHint: 'Referência (Pinterest, Instagram, salão…)',
   accent: 'nail',
   triptychSlug: 'virtual-nail-try-on',
+  // Ready-made nail-art references so visitors only need to upload their own
+  // hand photo instead of also having to source a design image. Generated
+  // 2026-05-16 via scripts/generate-preset-images.mjs (Gemini text-to-image).
+  presets: [
+    { src: '/images/presets/nail-1.png', label: 'Rosa floral' },
+    { src: '/images/presets/nail-2.png', label: 'Francesinha glitter' },
+  ],
 
   badge: 'Unhas Decoradas 2026 · IA',
   h1Top: 'Unhas decoradas 2026',

@@ -12,7 +12,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Sparkles, ArrowRight, Check, X, ChevronDown } from 'lucide-react';
-import TryOnDemoBlock, { type DemoCategory, type DemoLang } from '@/components/landing/TryOnDemoBlock';
+import TryOnDemoBlock, { type DemoCategory, type DemoLang, type DemoPreset } from '@/components/landing/TryOnDemoBlock';
 import TriptychDemo, { TRIPTYCH_LABELS } from '@/components/TriptychDemo';
 import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
 
@@ -44,6 +44,10 @@ export interface LongtailContent {
   /** Optional triptych slug (e.g. 'virtual-nail-try-on') — when set, renders
    *  the before/item/after demo between the hero and the dropzones. */
   triptychSlug?: string;
+  /** Optional ready-made product options. When provided, the demo's right
+   *  side becomes a grid of [preset1] [preset2] [+ Custom] so the visitor
+   *  only needs to upload ONE photo (their own). Cuts the funnel by half. */
+  presets?: DemoPreset[];
   /** Vertical bucket used to colour-code the accent — 'hair' = pink, 'nail' = fuchsia. */
   accent: 'hair' | 'nail';
 
@@ -162,6 +166,7 @@ export default function LongtailLandingTemplate({ content: c }: Props) {
         yourPhotoLabel={c.yourPhotoLabel}
         yourPhotoHint={c.yourPhotoHint}
         productHint={c.productHint}
+        presets={c.presets}
       />
 
       <section className="max-w-5xl mx-auto px-6 md:px-12 py-12 border-t border-slate-100">
