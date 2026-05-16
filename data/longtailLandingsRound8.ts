@@ -19,7 +19,7 @@ export const unhasDecoradasPT: LongtailContent = {
   category: 'nail',
   productLabel: 'As unhas que você quer testar',
   yourPhotoLabel: 'A foto da sua mão',
-  yourPhotoHint: 'Mão aberta, dedos visíveis, boa luz',
+  yourPhotoHint: 'Mão aberta, dedos separados, palma para baixo. Funciona melhor com unhas sem esmalte.',
   productHint: 'Referência (Pinterest, Instagram, salão…)',
   accent: 'nail',
   triptychSlug: 'virtual-nail-try-on',
