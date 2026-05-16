@@ -210,20 +210,41 @@ You MUST output exactly one photorealistic image.`;
 
     parts.push({ text: promptText });
 
-    // Retry with single model
+    // Retry up to 3 times. Categories with higher first-attempt failure rates
+    // (pet-clothing, nail, hairstyle) recover well with a simpler prompt and a
+    // short pause — bumped from 2 to 3 after seeing first-time visitors on
+    // /pet landings give up on the error message instead of pressing GENERATE
+    // again. The 3rd attempt uses an absolute-minimal prompt as last resort.
+    const MAX_ATTEMPTS = 3;
     let lastFailReason = '';
 
-    for (let attempt = 1; attempt <= 2; attempt++) {
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
       try {
-        const currentParts = attempt === 1 ? parts : [
-          ...parts.slice(0, -1),
-          { text: hasGarment
-            ? `Virtual try-on: IMG2 is a ${category === 'hairstyle' ? 'hairstyle/haircut/hair colour' : category === 'cosplay' ? 'cosplay (wig + outfit + props)' : category === 'pet-clothing' ? 'pet garment (apply to the animal in IMG1)' : category === 'costume' ? 'costume (outfit + makeup if shown)' : category === 'nail' ? 'nail-art / manicure design (apply to the fingernails in IMG1, which is a HAND photo with NO face — that is correct)' : 'product (clothing, glasses, jewelry, ring, hat, shoes, bag, tattoo, nails)'}. Apply it to IMG1. ${category === 'hairstyle' ? 'Replace hair with the style from IMG2. Keep face, skin, body unchanged.' : category === 'cosplay' ? 'Replace hair (wig), outfit, props with the cosplay from IMG2. Preserve face shape, eye colour, skin tone.' : category === 'pet-clothing' ? 'Apply garment to the animal. Keep breed, fur, pose unchanged.' : category === 'nail' ? 'Replace the polish/decoration on every visible fingernail with the design from IMG2. Override any existing polish cleanly. Hand, fingers, skin, pose, background = IDENTICAL.' : 'Keep face, body, pose, background identical.'} For rings, size the band proportionally to finger width. Photorealistic result. You MUST generate an image.`
-            : `Enhance this photo. Keep ${category === 'pet-clothing' ? 'pet' : 'person'} identical. You MUST generate an image.`
-          },
-        ];
+        let currentParts;
+        if (attempt === 1) {
+          currentParts = parts;
+        } else if (attempt === 2) {
+          currentParts = [
+            ...parts.slice(0, -1),
+            { text: hasGarment
+              ? `Virtual try-on: IMG2 is a ${category === 'hairstyle' ? 'hairstyle/haircut/hair colour' : category === 'cosplay' ? 'cosplay (wig + outfit + props)' : category === 'pet-clothing' ? 'pet garment (apply to the animal in IMG1)' : category === 'costume' ? 'costume (outfit + makeup if shown)' : category === 'nail' ? 'nail-art / manicure design (apply to the fingernails in IMG1, which is a HAND photo with NO face — that is correct)' : 'product (clothing, glasses, jewelry, ring, hat, shoes, bag, tattoo, nails)'}. Apply it to IMG1. ${category === 'hairstyle' ? 'Replace hair with the style from IMG2. Keep face, skin, body unchanged.' : category === 'cosplay' ? 'Replace hair (wig), outfit, props with the cosplay from IMG2. Preserve face shape, eye colour, skin tone.' : category === 'pet-clothing' ? 'Apply garment to the animal. Keep breed, fur, pose unchanged.' : category === 'nail' ? 'Replace the polish/decoration on every visible fingernail with the design from IMG2. Override any existing polish cleanly. Hand, fingers, skin, pose, background = IDENTICAL.' : 'Keep face, body, pose, background identical.'} For rings, size the band proportionally to finger width. Photorealistic result. You MUST generate an image.`
+              : `Enhance this photo. Keep ${category === 'pet-clothing' ? 'pet' : 'person'} identical. You MUST generate an image.`
+            },
+          ];
+        } else {
+          // Attempt 3 — absolute-minimal prompt. The model occasionally choke s
+          // on long prompts; a 1-sentence prompt with the same images often
+          // succeeds where the detailed one didn't.
+          currentParts = [
+            ...parts.slice(0, -1),
+            { text: hasGarment
+              ? `Generate a photorealistic image of the ${category === 'pet-clothing' ? 'pet/animal' : category === 'nail' ? 'hand' : 'person'} from IMG1 wearing or using the product from IMG2. Same subject, same background, same pose. Output one image.`
+              : `Output a photorealistic version of IMG1. Same subject and background.`
+            },
+          ];
+        }
 
-        console.log(`${MODEL} attempt ${attempt}...`);
+        console.log(`${MODEL} attempt ${attempt}/${MAX_ATTEMPTS}...`);
 
         const response = await ai.models.generateContent({
           model: MODEL,
@@ -253,7 +274,9 @@ You MUST output exactly one photorealistic image.`;
         console.warn(`Attempt ${attempt} error:`, msg);
         lastFailReason = msg;
       }
-      if (attempt < 2) await new Promise(r => setTimeout(r, 200));
+      // Progressive backoff: 400ms, then 800ms. Gives the upstream model time
+      // to recover from transient hiccups (e.g. brief region degradation).
+      if (attempt < MAX_ATTEMPTS) await new Promise(r => setTimeout(r, attempt === 1 ? 400 : 800));
     }
 
     console.error("All attempts failed:", lastFailReason);
