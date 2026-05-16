@@ -149,7 +149,7 @@ const LABELS: Record<DemoLang, {
     sectionTitle: 'Try it free now',
     sectionSubtitle: 'Sign in and get one free HD render every day. Upload your photo + the product you want to try.',
     yourPhoto: 'Your photo',
-    yourPhotoHint: 'A clear photo of you, well-lit',
+    yourPhotoHint: 'Selfie or waist-up — not the product',
     productPhoto: 'Product',
     productPhotoHint: 'Photo or screenshot of the item',
     generate: 'Generate HD',
@@ -158,7 +158,7 @@ const LABELS: Record<DemoLang, {
     download: 'Download HD',
     buyMore: 'Get more renders',
     tryAnother: 'Try another',
-    errorGeneric: 'Generation failed. Try a different photo.',
+    errorGeneric: "We couldn't detect a person in your photo. Upload a selfie of you — waist-up is enough for tops, jackets and blazers. Full body for dresses or pants.",
     errorRate: 'Please wait a moment and try again.',
     errorMissing: 'Upload both photos first.',
     errorCaptcha: 'Verification failed. Please refresh and try again.',
@@ -187,7 +187,7 @@ const LABELS: Record<DemoLang, {
     sectionTitle: 'Pruébalo gratis ahora',
     sectionSubtitle: 'Inicia sesión y consigue un render HD gratis cada día. Sube tu foto + el producto que quieres probar.',
     yourPhoto: 'Tu foto',
-    yourPhotoHint: 'Una foto clara tuya, bien iluminada',
+    yourPhotoHint: 'Selfie o de cintura para arriba — no el producto',
     productPhoto: 'Producto',
     productPhotoHint: 'Foto o captura del artículo',
     generate: 'Generar HD',
@@ -196,7 +196,7 @@ const LABELS: Record<DemoLang, {
     download: 'Descargar HD',
     buyMore: 'Más renders',
     tryAnother: 'Probar otro',
-    errorGeneric: 'Falló la generación. Prueba con otra foto.',
+    errorGeneric: 'No detectamos una persona en tu foto. Sube una selfie tuya — de cintura para arriba basta para tops, chaquetas y blazers. Cuerpo entero para vestidos o pantalones.',
     errorRate: 'Espera un momento e inténtalo de nuevo.',
     errorMissing: 'Sube primero las dos fotos.',
     errorCaptcha: 'Fallo de verificación. Recarga e inténtalo de nuevo.',
@@ -225,7 +225,7 @@ const LABELS: Record<DemoLang, {
     sectionTitle: 'Essayez gratuitement maintenant',
     sectionSubtitle: 'Connectez-vous et obtenez un rendu HD gratuit chaque jour. Téléchargez votre photo + le produit.',
     yourPhoto: 'Votre photo',
-    yourPhotoHint: 'Une photo claire, bien éclairée',
+    yourPhotoHint: 'Selfie ou buste — pas le produit',
     productPhoto: 'Produit',
     productPhotoHint: "Photo ou capture de l'article",
     generate: 'Générer HD',
@@ -234,7 +234,7 @@ const LABELS: Record<DemoLang, {
     download: 'Télécharger HD',
     buyMore: 'Plus de rendus',
     tryAnother: 'Essayer un autre',
-    errorGeneric: 'Échec de la génération. Essayez une autre photo.',
+    errorGeneric: "Aucune personne détectée dans votre photo. Téléchargez un selfie — le buste suffit pour les tops, vestes et blazers. Corps entier pour les robes ou pantalons.",
     errorRate: 'Patientez un instant puis réessayez.',
     errorMissing: "Téléchargez d'abord les deux photos.",
     errorCaptcha: 'Vérification échouée. Rafraîchissez et réessayez.',
@@ -263,7 +263,7 @@ const LABELS: Record<DemoLang, {
     sectionTitle: 'Experimente grátis agora',
     sectionSubtitle: 'Inicia sessão e obtém um render HD grátis todos os dias. Carrega a tua foto + o produto.',
     yourPhoto: 'A tua foto',
-    yourPhotoHint: 'Uma foto clara, bem iluminada',
+    yourPhotoHint: 'Selfie ou da cintura para cima — não o produto',
     productPhoto: 'Produto',
     productPhotoHint: 'Foto ou captura do artigo',
     generate: 'Gerar HD',
@@ -272,7 +272,7 @@ const LABELS: Record<DemoLang, {
     download: 'Descarregar HD',
     buyMore: 'Mais renders',
     tryAnother: 'Tentar outro',
-    errorGeneric: 'Falha na geração. Tenta outra foto.',
+    errorGeneric: 'Não detetámos uma pessoa na tua foto. Carrega uma selfie tua — da cintura para cima chega para tops, casacos e blazers. Corpo inteiro para vestidos ou calças.',
     errorRate: 'Aguarda um momento e tenta novamente.',
     errorMissing: 'Suba primeiro as duas fotos.',
     errorCaptcha: 'Verificação falhou. Recarregue e tente novamente.',
@@ -301,7 +301,7 @@ const LABELS: Record<DemoLang, {
     sectionTitle: 'Jetzt kostenlos ausprobieren',
     sectionSubtitle: 'Melde dich an und hol dir jeden Tag einen kostenlosen HD-Render. Lade dein Foto + Produkt hoch.',
     yourPhoto: 'Dein Foto',
-    yourPhotoHint: 'Ein klares, gut beleuchtetes Foto',
+    yourPhotoHint: 'Selfie oder Oberkörper — nicht das Produkt',
     productPhoto: 'Produkt',
     productPhotoHint: 'Foto oder Screenshot des Artikels',
     generate: 'HD generieren',
@@ -310,7 +310,7 @@ const LABELS: Record<DemoLang, {
     download: 'HD herunterladen',
     buyMore: 'Mehr Renders',
     tryAnother: 'Anderes versuchen',
-    errorGeneric: 'Generierung fehlgeschlagen. Anderes Foto versuchen.',
+    errorGeneric: 'Keine Person in deinem Foto erkannt. Lade ein Selfie hoch — der Oberkörper reicht für Tops, Jacken und Blazer. Ganzkörper für Kleider oder Hosen.',
     errorRate: 'Bitte einen Moment warten und erneut versuchen.',
     errorMissing: 'Zuerst beide Fotos hochladen.',
     errorCaptcha: 'Verifizierung fehlgeschlagen. Seite neu laden und erneut versuchen.',
@@ -339,7 +339,7 @@ const LABELS: Record<DemoLang, {
     sectionTitle: 'Provalo gratis ora',
     sectionSubtitle: 'Accedi e ottieni un render HD gratuito ogni giorno. Carica la tua foto + il prodotto.',
     yourPhoto: 'La tua foto',
-    yourPhotoHint: 'Una foto chiara, ben illuminata',
+    yourPhotoHint: 'Selfie o mezzo busto — non il prodotto',
     productPhoto: 'Prodotto',
     productPhotoHint: "Foto o screenshot dell'articolo",
     generate: 'Genera HD',
@@ -348,7 +348,7 @@ const LABELS: Record<DemoLang, {
     download: 'Scarica HD',
     buyMore: 'Più render',
     tryAnother: 'Prova un altro',
-    errorGeneric: 'Generazione fallita. Prova un altra foto.',
+    errorGeneric: 'Nessuna persona rilevata nella tua foto. Carica un selfie — il mezzo busto basta per top, giacche e blazer. Corpo intero per vestiti o pantaloni.',
     errorRate: 'Attendi un momento e riprova.',
     errorMissing: 'Carica prima entrambe le foto.',
     errorCaptcha: 'Verifica fallita. Ricarica e riprova.',
@@ -372,6 +372,40 @@ const LABELS: Record<DemoLang, {
     signInCodeError: 'Codice non valido o scaduto. Riprova o richiedine uno nuovo.',
     signInChangeEmail: 'Usa un\'altra email',
     signInCancel: 'Annulla',
+  },
+};
+
+// Category-specific overrides for `yourPhotoHint` and `errorGeneric`.
+// LABELS already covers the "person" default (clothing, costume, cosplay,
+// glasses, jewelry, hat, bag, baby-clothing, shoes, tattoo) — a selfie or
+// waist-up shot exposes face, hands, torso so the model has what it needs.
+// Only nail, pet-clothing and hairstyle need a fundamentally different
+// photo, so only those three are overridden here.
+type CategoryGuidance = { hint: string; error: string };
+const CATEGORY_GUIDANCE: Partial<Record<DemoCategory, Record<DemoLang, CategoryGuidance>>> = {
+  nail: {
+    en: { hint: 'Photo of your hand, fingers visible', error: "We couldn't detect a hand in your photo. Upload a clear photo of your hand with fingers spread — that's what we apply the nail design onto." },
+    es: { hint: 'Foto de tu mano, con los dedos visibles', error: 'No detectamos una mano en tu foto. Sube una foto clara de tu mano con los dedos abiertos — es donde aplicamos el diseño de uñas.' },
+    fr: { hint: 'Photo de votre main, doigts visibles', error: "Aucune main détectée dans votre photo. Téléchargez une photo claire de votre main, doigts écartés — c'est là que la déco d'ongles est appliquée." },
+    pt: { hint: 'Foto da tua mão, com os dedos visíveis', error: 'Não detetámos uma mão na tua foto. Carrega uma foto clara da tua mão com os dedos abertos — é onde aplicamos o design de unhas.' },
+    de: { hint: 'Foto deiner Hand mit sichtbaren Fingern', error: 'Keine Hand in deinem Foto erkannt. Lade ein klares Foto deiner Hand mit gespreizten Fingern hoch — darauf wird das Nageldesign angewendet.' },
+    it: { hint: 'Foto della tua mano, dita visibili', error: 'Nessuna mano rilevata nella tua foto. Carica una foto chiara della tua mano con le dita aperte — è dove applichiamo il design unghie.' },
+  },
+  'pet-clothing': {
+    en: { hint: 'Photo of your pet — full body works best', error: "We couldn't detect a pet in your photo. Upload a clear photo of your pet — full body or at least their torso, well-lit." },
+    es: { hint: 'Foto de tu mascota — mejor cuerpo entero', error: 'No detectamos una mascota en tu foto. Sube una foto clara de tu mascota — cuerpo entero o al menos el torso, bien iluminada.' },
+    fr: { hint: 'Photo de votre animal — corps entier idéalement', error: "Aucun animal détecté dans votre photo. Téléchargez une photo claire de votre animal — corps entier ou au moins le torse, bien éclairée." },
+    pt: { hint: 'Foto do teu animal — melhor corpo inteiro', error: 'Não detetámos um animal na tua foto. Carrega uma foto clara do teu animal — corpo inteiro ou pelo menos o tronco, bem iluminada.' },
+    de: { hint: 'Foto deines Haustiers — Ganzkörper ist am besten', error: 'Kein Haustier in deinem Foto erkannt. Lade ein klares Foto deines Haustiers hoch — Ganzkörper oder zumindest Oberkörper, gut beleuchtet.' },
+    it: { hint: 'Foto del tuo animale — meglio corpo intero', error: 'Nessun animale rilevato nella tua foto. Carica una foto chiara del tuo animale — corpo intero o almeno il busto, ben illuminata.' },
+  },
+  hairstyle: {
+    en: { hint: 'Selfie with face and current hair clearly visible', error: "We couldn't detect a face in your photo. Upload a clear selfie where your face and current hair are visible — that's what we restyle." },
+    es: { hint: 'Selfie con la cara y el pelo actual bien visibles', error: 'No detectamos una cara en tu foto. Sube un selfie claro donde se vea bien tu cara y tu pelo actual — es lo que cambiamos de estilo.' },
+    fr: { hint: 'Selfie avec visage et cheveux actuels bien visibles', error: "Aucun visage détecté dans votre photo. Téléchargez un selfie clair où votre visage et vos cheveux actuels sont visibles — c'est ce qu'on restyle." },
+    pt: { hint: 'Selfie com a cara e o cabelo atual bem visíveis', error: 'Não detetámos uma cara na tua foto. Carrega um selfie claro onde se veja bem a tua cara e o teu cabelo atual — é o que mudamos de estilo.' },
+    de: { hint: 'Selfie mit Gesicht und aktuellen Haaren klar sichtbar', error: 'Kein Gesicht in deinem Foto erkannt. Lade ein klares Selfie hoch, auf dem Gesicht und aktuelle Haare sichtbar sind — das stylen wir um.' },
+    it: { hint: 'Selfie con viso e capelli attuali ben visibili', error: 'Nessun viso rilevato nella tua foto. Carica un selfie chiaro dove si vedano bene il viso e i capelli attuali — è quello che restilizziamo.' },
   },
 };
 
@@ -555,6 +589,10 @@ function PresetPicker({
 
 export default function TryOnDemoBlock({ category, lang, productLabel, yourPhotoLabel, yourPhotoHint, productHint, presets }: Props) {
   const t = LABELS[lang];
+  // Category-specific photo guidance — overrides the generic "selfie or
+  // waist-up" hint/error for categories that need a fundamentally different
+  // photo (a hand for nails, a pet for pet-clothing, a clear face for hair).
+  const guidance = CATEGORY_GUIDANCE[category]?.[lang];
 
   // Resolve presets: explicit prop wins; otherwise auto-pick from the
   // category map so every landing using TryOnDemoBlock benefits without
@@ -858,11 +896,15 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
         completeProgress();
         track('render_complete', { source: 'demo', category, pool: data.source || 'unknown' });
       } else {
-        setError(data.error || t.errorGeneric);
+        // When generation fails, prefer the category-aware guidance over the
+        // API's generic English message — that's the moment we tell the user
+        // *what kind of photo* they should have uploaded instead of dropping
+        // them on a dead-end error.
+        setError(guidance?.error || data.error || t.errorGeneric);
         resetProgress();
       }
     } catch {
-      setError(t.errorGeneric);
+      setError(guidance?.error || t.errorGeneric);
       resetProgress();
     }
     setIsLoading(false);
@@ -1159,7 +1201,7 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto p-1.5 bg-white rounded-3xl shadow-2xl shadow-indigo-200/50 ring-1 ring-indigo-100">
               <ImageDropzone
                 label={yourPhotoLabel || t.yourPhoto}
-                hint={yourPhotoHint || t.yourPhotoHint}
+                hint={yourPhotoHint || guidance?.hint || t.yourPhotoHint}
                 uploadCta={t.uploadCta}
                 src={userImage}
                 onChange={handleFile(setUserImage)}
