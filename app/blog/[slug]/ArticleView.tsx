@@ -5,7 +5,7 @@ import { Clock, Sparkles, ArrowRight } from 'lucide-react';
 import type { Article } from '../articles';
 import { blogCtaPath } from '@/lib/blogToLanding';
 import { track } from '@/lib/analytics';
-import TryOnDemoBlock, { type DemoCategory } from '@/components/landing/TryOnDemoBlock';
+import TryOnDemoBlock, { type DemoCategory, type PresetTheme } from '@/components/landing/TryOnDemoBlock';
 
 interface Props {
   article: Article;
@@ -33,6 +33,51 @@ function articleSlugToDemoCategory(slug: string): DemoCategory {
   if (/\bbaby|\bnewborn|\binfant/i.test(slug)) return 'baby-clothing';
   if (/\bbag\b|\bhandbag|\bpurse/i.test(slug)) return 'bag';
   return 'clothing';
+}
+
+/**
+ * Maps a blog article's slug to a specific THEME_PRESETS theme so the
+ * embedded demo shows topically-correct presets instead of the broader
+ * category fallback (e.g. an article about wedding dresses gets the
+ * wedding-dress mermaid/princess pair, not the generic clothing
+ * blazer + midi). Tried in order — first match wins. Returns undefined
+ * if no specific theme matches, in which case TryOnDemoBlock falls back
+ * to its CATEGORY_PRESETS map keyed by the demo category.
+ */
+function articleSlugToDemoTheme(slug: string): PresetTheme | undefined {
+  // Most specific FIRST (longer regexes match before shorter ones).
+  if (/\bwedding-guest|\bguest-attire|\binvitada/i.test(slug)) return 'wedding-guest';
+  if (/\bwedding-dress|\bbridal-dress|\bmermaid-dress|\bvestido-de-noiva|\brobe-de-mariee/i.test(slug)) return 'wedding-dress';
+  if (/\bbridesmaid|\bdama-de-honor/i.test(slug)) return 'bridesmaid';
+  if (/\bveil|\bvelo-novia/i.test(slug)) return 'veil';
+  if (/\bengagement-ring|\b1-?carat|\b2-?carat|\bcarat-size|\bdiamond-carat|\bsolitaire|\bhalo-ring/i.test(slug)) return 'engagement-ring';
+  if (/\bchrome-nails/i.test(slug)) return 'chrome-nails';
+  if (/\bcoquette|\bclean-girl-nails|\balmond-nails|\bshort-almond/i.test(slug)) return 'coquette-nails';
+  if (/\bgel-nails|\bfrench-nails|\bunhas-gel|\bunhas-frances/i.test(slug)) return 'nail-elegant';
+  if (/\bnail|\bmanicure|\bunhas|\buñas|\bunghie/i.test(slug)) return 'nail-decorated';
+  if (/\bround-face|\bvisage-rond|\bviso-tondo|\brosto-redondo/i.test(slug)) return 'face-round-haircut';
+  if (/\bcurtain-bangs|\bfrange-rideau|\bfranja-cortina|\bcarre-frange/i.test(slug)) return 'curtain-bangs';
+  if (/\bwolf-cut/i.test(slug)) return 'wolf-cut';
+  if (/\bwig|\bperruque|\bperuca/i.test(slug)) return 'wig';
+  if (/\bsaree|\bsari/i.test(slug)) return 'saree';
+  if (/\blehenga/i.test(slug)) return 'lehenga';
+  if (/\bhanbok/i.test(slug)) return 'hanbok';
+  if (/\bkimono|\byukata|\bfurisode/i.test(slug)) return 'kimono';
+  if (/\bqipao|\bcheongsam|\bhanfu/i.test(slug)) return 'qipao';
+  if (/\bbikini|\bswimwear|\bswimsuit/i.test(slug)) return 'bikini';
+  if (/\btattoo/i.test(slug)) return 'tattoo';
+  if (/\bmakeup|\bmaquillaje|\bmaquiagem/i.test(slug)) return 'makeup-natural';
+  if (/\bhalloween-couples|\bhalloween-pareja|\bcouples-costume/i.test(slug)) return 'halloween-couples';
+  if (/\bcarnival|\bcarnaval/i.test(slug)) return 'carnival-costume';
+  if (/\bearring|\bpendientes|\bbrincos|\borecchini|\bohrringe/i.test(slug)) return 'earrings';
+  if (/\bglasses|\beyewear|\bsunglasses|\bgafas|\boculos|\bocchiali/i.test(slug)) return 'glasses';
+  if (/\bsuit|\btraje-hombre|\bfato-homem|\bmens-suit/i.test(slug)) return 'mens-suit';
+  if (/\bpet-clothing|\bdog-clothes|\broupa-pet/i.test(slug)) return 'pet-clothing';
+  if (/\bbaby-clothing|\bnewborn|\binfant|\bbaptism|\bbaptem|\bcomunion/i.test(slug)) return 'baby-clothing';
+  if (/\bcosplay/i.test(slug)) return 'cosplay';
+  if (/\bcostume|\bdisfraz|\bfantasia/i.test(slug)) return 'costume';
+  if (/\bhaircut|\bhairstyle|\bbangs|\bbob\b/i.test(slug)) return 'hairstyle-feminine';
+  return undefined;
 }
 
 /**
@@ -215,7 +260,11 @@ export default function ArticleView({ article, related, lang, heroImage, heroIma
       </article>
 
       {/* Inline try-on demo, full-width below the lead paragraph. */}
-      <TryOnDemoBlock category={articleSlugToDemoCategory(article.slug)} lang={lang} />
+      <TryOnDemoBlock
+        category={articleSlugToDemoCategory(article.slug)}
+        theme={articleSlugToDemoTheme(article.slug)}
+        lang={lang}
+      />
 
       <article className="max-w-3xl mx-auto px-6 md:px-12 pt-10 md:pt-14 pb-12 md:pb-20">
         {/* Rest of the article content — H2 sections, tables, lists,
