@@ -86,7 +86,7 @@ export default function HaircutByFaceShape({ shape }: Props) {
       </section>
 
       {/* Live try-on — the actual interactive AI demo. */}
-      <TryOnDemoBlock category="hairstyle" lang="en" productLabel="Reference cut" />
+      <TryOnDemoBlock category="hairstyle" lang="en" productLabel="Reference cut" theme="face-round-haircut" />
 
       {/* Recommended cuts grid */}
       <section className="max-w-6xl mx-auto px-6 md:px-12 py-16">

@@ -70,7 +70,7 @@ export default function EngagementRingHand() {
       </section>
 
       {/* Live ring try-on */}
-      <TryOnDemoBlock category="jewelry" lang="en" productLabel="Engagement ring" />
+      <TryOnDemoBlock category="jewelry" lang="en" productLabel="Engagement ring" theme="engagement-ring" />
 
       {/* By-tradition section */}
       <section className="max-w-5xl mx-auto px-6 md:px-12 py-16">

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Sparkles, Check, ArrowRight, Scissors, Camera, Shield, Clock, Star, ChevronDown, Palette } from 'lucide-react';
-import TryOnDemoBlock from '@/components/landing/TryOnDemoBlock';
+import TryOnDemoBlock, { type PresetTheme } from "@/components/landing/TryOnDemoBlock";
 import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
 import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
 import TriptychDemo, { TRIPTYCH_LABELS } from '@/components/TriptychDemo';
@@ -40,7 +40,7 @@ const FAQ_ITEMS = [
   },
 ];
 
-export default function HairstyleTryOn() {
+export default function HairstyleTryOn({ themeOverride }: { themeOverride?: PresetTheme } = {}) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
@@ -56,7 +56,7 @@ export default function HairstyleTryOn() {
       <TriptychDemo slug="virtual-hairstyle-try-on" labels={TRIPTYCH_LABELS.en} />
 
       {/* Interactive try-on demo with watermarked free render */}
-      <TryOnDemoBlock category="hairstyle" lang="en" productLabel="Hairstyle" />
+      <TryOnDemoBlock category="hairstyle" lang="en" productLabel="Hairstyle" theme={themeOverride ?? "hairstyle-feminine"} />
 
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">

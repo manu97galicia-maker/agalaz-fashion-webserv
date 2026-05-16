@@ -52,7 +52,7 @@ export default function MensSuitTryOn() {
       <TriptychDemo slug="virtual-mens-suit-try-on" labels={TRIPTYCH_LABELS.en} />
 
       {/* Interactive try-on demo with watermarked free render */}
-      <TryOnDemoBlock category="clothing" lang="en" productLabel="Suit" />
+      <TryOnDemoBlock category="clothing" lang="en" productLabel="Suit" theme="mens-suit" />
 
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">

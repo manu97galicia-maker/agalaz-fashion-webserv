@@ -66,7 +66,7 @@ export default function BridesmaidDress() {
         </div>
       </section>
 
-      <TryOnDemoBlock category="clothing" lang="en" productLabel="Bridesmaid dress" />
+      <TryOnDemoBlock category="clothing" lang="en" productLabel="Bridesmaid dress" theme="bridesmaid" />
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 py-16">
         <div className="text-center mb-10">

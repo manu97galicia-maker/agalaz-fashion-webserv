@@ -56,7 +56,7 @@ export default function CosplayTryOn() {
       <TriptychDemo slug="virtual-cosplay-try-on" labels={TRIPTYCH_LABELS.en} />
 
       {/* Interactive try-on demo with watermarked free render */}
-      <TryOnDemoBlock category="cosplay" lang="en" productLabel="Cosplay outfit" />
+      <TryOnDemoBlock category="cosplay" lang="en" productLabel="Cosplay outfit" theme="cosplay" />
 
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">

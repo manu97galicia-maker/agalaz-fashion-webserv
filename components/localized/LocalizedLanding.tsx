@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight, Sparkles, Zap, Shield, Star } from 'lucide-react';
 import TriptychDemo, { TRIPTYCH_LABELS } from '@/components/TriptychDemo';
-import TryOnDemoBlock, { type DemoCategory } from '@/components/landing/TryOnDemoBlock';
+import TryOnDemoBlock, { type DemoCategory, type PresetTheme } from '@/components/landing/TryOnDemoBlock';
 import PartnersUpsellBlock from '@/components/landing/PartnersUpsellBlock';
 import InternalLandingLinks from '@/components/landing/InternalLandingLinks';
 import PartnerCtaBlock from '@/components/landing/PartnerCtaBlock';
@@ -22,6 +22,22 @@ const SLUG_TO_CATEGORY: Record<string, DemoCategory> = {
   'virtual-baby-clothing-try-on': 'baby-clothing',
   'virtual-costume-try-on': 'costume',
   'virtual-hairstyle-try-on': 'hairstyle',
+  'virtual-cosplay-try-on': 'cosplay',
+};
+
+// Map of localized landing slugs → theme for THEME_PRESETS lookup. Themes
+// are more specific than category (e.g. wedding-dress vs generic clothing),
+// so the presets shown match the page topic.
+const SLUG_TO_THEME: Record<string, PresetTheme> = {
+  'virtual-wedding-dress-try-on': 'wedding-dress',
+  'virtual-nail-try-on': 'nail-decorated',
+  'virtual-glasses-try-on': 'glasses',
+  'virtual-jewelry-try-on': 'jewelry',
+  'virtual-mens-suit-try-on': 'mens-suit',
+  'virtual-pet-clothing-try-on': 'pet-clothing',
+  'virtual-baby-clothing-try-on': 'baby-clothing',
+  'virtual-costume-try-on': 'costume',
+  'virtual-hairstyle-try-on': 'hairstyle-feminine',
   'virtual-cosplay-try-on': 'cosplay',
 };
 
@@ -95,7 +111,7 @@ export default function LocalizedLanding({ c, enHref, slug, lang }: Props) {
       <TriptychDemo slug={slug} labels={TRIPTYCH_LABELS[lang]} lang={lang} />
 
       {/* Interactive try-on with watermarked free render */}
-      <TryOnDemoBlock category={SLUG_TO_CATEGORY[slug] || 'clothing'} lang={lang} />
+      <TryOnDemoBlock category={SLUG_TO_CATEGORY[slug] || 'clothing'} lang={lang} theme={SLUG_TO_THEME[slug]} />
 
 
       {/* Hero */}

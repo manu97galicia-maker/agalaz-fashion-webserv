@@ -41,6 +41,24 @@ export interface DemoPreset {
 }
 
 /**
+ * Identifier for the topical theme of a landing — picked over plain category
+ * when we want more specific presets (e.g. wedding-dress instead of generic
+ * clothing). Set on a LongtailContent.theme field or passed as a prop.
+ */
+export type PresetTheme =
+  | 'wedding-dress' | 'wedding-guest' | 'bridesmaid' | 'veil'
+  | 'nail-decorated' | 'nail-elegant' | 'chrome-nails' | 'coquette-nails'
+  | 'glasses'
+  | 'hairstyle-feminine' | 'face-round-haircut' | 'curtain-bangs' | 'wolf-cut' | 'wig'
+  | 'jewelry' | 'engagement-ring' | 'earrings'
+  | 'mens-suit'
+  | 'pet-clothing' | 'baby-clothing'
+  | 'costume' | 'cosplay' | 'carnival-costume' | 'halloween-couples'
+  | 'bikini' | 'tattoo' | 'makeup-natural'
+  | 'saree' | 'lehenga' | 'hanbok' | 'kimono' | 'qipao'
+  | 'festa-junina' | 'zara-fashion';
+
+/**
  * Category → 2 ready-made presets, with 6-language labels.
  * Images generated 2026-05-16 via scripts/generate-preset-images.mjs
  * (gemini-3.1-flash-image-preview text-to-image). Lets every landing using
@@ -92,6 +110,158 @@ const CATEGORY_PRESETS: Partial<Record<DemoCategory, CategoryPresets>> = {
   ],
 };
 
+/**
+ * Theme → 2 thematic presets. Used when a landing wants more specific
+ * imagery than its DemoCategory can express (e.g. "wedding-dress" is a more
+ * focused theme than the broader "clothing" category). Themes reuse Phase 1
+ * per-landing images where possible and supplement with Phase 2 universal
+ * images (theme-*.png) where the topic is shared across languages.
+ *
+ * Resolution order in TryOnDemoBlock:
+ *   1. explicit `presets` prop
+ *   2. `theme` prop / LongtailContent.theme → THEME_PRESETS lookup
+ *   3. `category` prop → CATEGORY_PRESETS fallback
+ *   4. no presets → classic single-dropzone upload
+ */
+const THEME_PRESETS: Record<PresetTheme, CategoryPresets> = {
+  'wedding-dress': [
+    { src: '/images/presets/pt-vestido-de-noiva-mermaid-lace-ivory.png', labels: { en: 'Mermaid lace', es: 'Sirena de encaje', fr: 'Sirène dentelle', pt: 'Sereia em renda', de: 'Meerjungfrau Spitze', it: 'Sirena pizzo' } },
+    { src: '/images/presets/pt-vestido-de-noiva-princess-tulle-aline.png', labels: { en: 'Princess tulle', es: 'Princesa de tul', fr: 'Princesse tulle', pt: 'Princesa em tule', de: 'Prinzessin Tüll', it: 'Principessa tulle' } },
+  ],
+  'wedding-guest': [
+    { src: '/images/presets/es-vestido-invitada-boda-satin-emerald-midi.png', labels: { en: 'Emerald satin midi', es: 'Satén esmeralda midi', fr: 'Satin émeraude midi', pt: 'Cetim esmeralda midi', de: 'Satin smaragd midi', it: 'Raso smeraldo midi' } },
+    { src: '/images/presets/es-vestido-invitada-boda-lilac-tulle-floral-long.png', labels: { en: 'Lilac tulle floral', es: 'Lila tul floral', fr: 'Lilas tulle floral', pt: 'Lilás tule floral', de: 'Lila Tüll floral', it: 'Lilla tulle floreale' } },
+  ],
+  bridesmaid: [
+    { src: '/images/presets/es-vestido-invitada-boda-satin-emerald-midi.png', labels: { en: 'Sage satin', es: 'Salvia satén', fr: 'Sauge satin', pt: 'Sálvia cetim', de: 'Salbei Satin', it: 'Salvia raso' } },
+    { src: '/images/presets/es-vestido-invitada-boda-lilac-tulle-floral-long.png', labels: { en: 'Lilac tulle', es: 'Lila tul', fr: 'Lilas tulle', pt: 'Lilás tule', de: 'Lila Tüll', it: 'Lilla tulle' } },
+  ],
+  veil: [
+    { src: '/images/presets/theme-veil-cathedral-lace-trim.png', labels: { en: 'Cathedral lace', es: 'Catedral con encaje', fr: 'Cathédrale dentelle', pt: 'Catedral com renda', de: 'Kathedrale Spitze', it: 'Cattedrale pizzo' } },
+    { src: '/images/presets/theme-veil-birdcage-vintage.png', labels: { en: 'Birdcage vintage', es: 'Velo birdcage vintage', fr: 'Birdcage vintage', pt: 'Birdcage vintage', de: 'Birdcage Vintage', it: 'Birdcage vintage' } },
+  ],
+  'nail-decorated': [
+    { src: '/images/presets/nail-1.png', labels: { en: 'Pink floral', es: 'Floral rosa', fr: 'Floral rose', pt: 'Rosa floral', de: 'Rosa floral', it: 'Floreale rosa' } },
+    { src: '/images/presets/nail-2.png', labels: { en: 'French glitter', es: 'Francesa glitter', fr: 'French paillettes', pt: 'Francesinha glitter', de: 'French Glitter', it: 'French glitter' } },
+  ],
+  'nail-elegant': [
+    { src: '/images/presets/es-disenos-de-unas-gel-french-pearl-accent.png', labels: { en: 'Pearl french gel', es: 'Francesa gel perla', fr: 'French gel perles', pt: 'Francesa gel pérola', de: 'French Gel Perle', it: 'French gel perla' } },
+    { src: '/images/presets/es-disenos-de-unas-chrome-mirror-silver.png', labels: { en: 'Chrome mirror silver', es: 'Cromado espejo plata', fr: 'Chrome miroir argent', pt: 'Cromado espelho prata', de: 'Chrom Spiegel Silber', it: 'Cromato specchio argento' } },
+  ],
+  'chrome-nails': [
+    { src: '/images/presets/theme-chrome-nails-mirror-silver-chrome.png', labels: { en: 'Mirror silver chrome', es: 'Cromado espejo plata', fr: 'Chrome miroir argent', pt: 'Cromado espelho prata', de: 'Chrom Spiegel Silber', it: 'Specchio cromato argento' } },
+    { src: '/images/presets/theme-chrome-nails-rose-gold-pastel-chrome.png', labels: { en: 'Rose gold chrome', es: 'Cromado oro rosa', fr: 'Chrome or rose', pt: 'Cromado ouro rosa', de: 'Roségold Chrom', it: 'Cromato oro rosa' } },
+  ],
+  'coquette-nails': [
+    { src: '/images/presets/theme-coquette-nails-pink-bows-pearls.png', labels: { en: 'Pink bows + pearls', es: 'Lacitos rosas + perlas', fr: 'Nœuds roses + perles', pt: 'Lacinhos rosa + pérolas', de: 'Rosa Schleifen + Perlen', it: 'Fiocchi rosa + perle' } },
+    { src: '/images/presets/theme-coquette-nails-milky-white-hearts.png', labels: { en: 'Milky white hearts', es: 'Blanco lechoso corazones', fr: 'Blanc laiteux cœurs', pt: 'Branco leitoso corações', de: 'Milchweiß Herzen', it: 'Bianco latte cuori' } },
+  ],
+  glasses: [
+    { src: '/images/presets/glasses-1.png', labels: { en: 'Rectangle black', es: 'Rectangulares negras', fr: 'Rectangulaires noires', pt: 'Retangulares pretas', de: 'Eckig schwarz', it: 'Rettangolari nere' } },
+    { src: '/images/presets/glasses-2.png', labels: { en: 'Gold aviator', es: 'Aviador dorado', fr: 'Aviateur doré', pt: 'Aviador dourado', de: 'Pilotenbrille gold', it: 'Aviatore oro' } },
+  ],
+  'hairstyle-feminine': [
+    { src: '/images/presets/pt-corte-de-cabelo-feminino-chanel-bob-brown-bangs.png', labels: { en: 'Bob with bangs', es: 'Chanel con flequillo', fr: 'Carré frange', pt: 'Chanel com franja', de: 'Bob mit Pony', it: 'Bob con frangia' } },
+    { src: '/images/presets/pt-corte-de-cabelo-feminino-long-layers-curtain-bangs.png', labels: { en: 'Long layers + curtain bangs', es: 'Capas largas + flequillo cortina', fr: 'Longues couches + frange rideau', pt: 'Camadas longas + franja cortina', de: 'Lange Stufen + Vorhang-Pony', it: 'Strati lunghi + frangia tendina' } },
+  ],
+  'face-round-haircut': [
+    { src: '/images/presets/theme-face-round-haircut-long-bob-side-part.png', labels: { en: 'Long bob side part', es: 'Long bob raya lateral', fr: 'Long bob raie côté', pt: 'Long bob risca lateral', de: 'Long Bob Seitenscheitel', it: 'Long bob riga laterale' } },
+    { src: '/images/presets/theme-face-round-haircut-medium-shag-bangs.png', labels: { en: 'Medium shag + bangs', es: 'Shag medio + flequillo', fr: 'Shag mi-long + frange', pt: 'Shag médio + franja', de: 'Shag mittel + Pony', it: 'Shag medio + frangia' } },
+  ],
+  'curtain-bangs': [
+    { src: '/images/presets/theme-curtain-bangs-long-hair-curtain-bangs.png', labels: { en: 'Long + curtain bangs', es: 'Largo + flequillo cortina', fr: 'Longs + frange rideau', pt: 'Longo + franja cortina', de: 'Lang + Vorhang-Pony', it: 'Lunghi + frangia tendina' } },
+    { src: '/images/presets/theme-curtain-bangs-short-bob-curtain-bangs.png', labels: { en: 'Short bob + curtain bangs', es: 'Bob corto + flequillo cortina', fr: 'Carré court + frange rideau', pt: 'Bob curto + franja cortina', de: 'Kurzer Bob + Vorhang-Pony', it: 'Bob corto + frangia tendina' } },
+  ],
+  'wolf-cut': [
+    { src: '/images/presets/theme-wolf-cut-wolf-cut-shaggy-layers.png', labels: { en: 'Shaggy layers wolf', es: 'Wolf cut shag', fr: 'Wolf cut shag', pt: 'Wolf cut em camadas', de: 'Wolf Cut Shaggy', it: 'Wolf cut a strati' } },
+    { src: '/images/presets/theme-wolf-cut-wolf-cut-asian-soft.png', labels: { en: 'Soft asian wolf', es: 'Wolf cut asiático suave', fr: 'Wolf cut asiatique doux', pt: 'Wolf cut asiático suave', de: 'Asian Wolf Cut weich', it: 'Wolf cut asiatico soft' } },
+  ],
+  wig: [
+    { src: '/images/presets/theme-wig-lace-front-long-straight.png', labels: { en: 'Lace-front long straight', es: 'Lace-front largo liso', fr: 'Lace-front long lisse', pt: 'Lace-front longo liso', de: 'Lace-Front lang glatt', it: 'Lace-front lungo liscio' } },
+    { src: '/images/presets/theme-wig-curly-afro-shoulder.png', labels: { en: 'Curly afro shoulder', es: 'Afro rizado hombro', fr: 'Afro bouclé épaules', pt: 'Afro encaracolado ombro', de: 'Lockiges Afro Schulter', it: 'Afro riccio spalla' } },
+  ],
+  jewelry: [
+    { src: '/images/presets/jewelry-1.png', labels: { en: 'Gold heart chain', es: 'Cadena corazón oro', fr: 'Chaîne cœur or', pt: 'Corrente coração ouro', de: 'Gold Herzkette', it: 'Catenina cuore oro' } },
+    { src: '/images/presets/jewelry-2.png', labels: { en: 'Diamond studs', es: 'Brillantes diamante', fr: 'Clous diamant', pt: 'Brincos diamante', de: 'Diamantstecker', it: 'Punti diamante' } },
+  ],
+  'engagement-ring': [
+    { src: '/images/presets/theme-engagement-ring-solitaire-1ct-white-gold.png', labels: { en: 'Solitaire 1ct white gold', es: 'Solitario 1ct oro blanco', fr: 'Solitaire 1ct or blanc', pt: 'Solitário 1ct ouro branco', de: 'Solitär 1ct Weißgold', it: 'Solitario 1ct oro bianco' } },
+    { src: '/images/presets/theme-engagement-ring-halo-pave-rose-gold.png', labels: { en: 'Halo + pavé rose gold', es: 'Halo + pavé oro rosa', fr: 'Halo + pavé or rose', pt: 'Halo + pavê ouro rosa', de: 'Halo + Pavé Roségold', it: 'Halo + pavé oro rosa' } },
+  ],
+  earrings: [
+    { src: '/images/presets/theme-earrings-pearl-drop-studs.png', labels: { en: 'Pearl drop earrings', es: 'Pendientes perla', fr: 'Boucles perles pendantes', pt: 'Brincos pérola pendentes', de: 'Perlentropfen-Ohrringe', it: 'Orecchini perla pendenti' } },
+    { src: '/images/presets/theme-earrings-gold-hoops-medium.png', labels: { en: 'Gold hoops', es: 'Aros oro', fr: 'Créoles or', pt: 'Argolas ouro', de: 'Gold-Creolen', it: 'Cerchi oro' } },
+  ],
+  'mens-suit': [
+    { src: '/images/presets/mens-suit-1.png', labels: { en: 'Navy 2-piece suit', es: 'Traje azul marino 2 piezas', fr: 'Costume bleu marine 2 pièces', pt: 'Fato azul marinho 2 peças', de: 'Marineblau 2-teiliger Anzug', it: 'Abito blu navy 2 pezzi' } },
+    { src: '/images/presets/mens-suit-2.png', labels: { en: 'Charcoal 3-piece', es: 'Gris carbón 3 piezas', fr: 'Anthracite 3 pièces', pt: 'Cinza carvão 3 peças', de: 'Anthrazit 3-teilig', it: 'Antracite 3 pezzi' } },
+  ],
+  'pet-clothing': [
+    { src: '/images/presets/pet-clothing-1.png', labels: { en: 'Yellow raincoat', es: 'Impermeable amarillo', fr: 'Imperméable jaune', pt: 'Capa de chuva amarela', de: 'Gelber Regenmantel', it: 'Impermeabile giallo' } },
+    { src: '/images/presets/pet-clothing-2.png', labels: { en: 'Plaid bandana', es: 'Bandana cuadros', fr: 'Bandana à carreaux', pt: 'Bandana xadrez', de: 'Karo-Bandana', it: 'Bandana a quadri' } },
+  ],
+  'baby-clothing': [
+    { src: '/images/presets/baby-clothing-1.png', labels: { en: 'Star romper', es: 'Pelele estrellas', fr: 'Combinaison étoiles', pt: 'Macacão estrelas', de: 'Sternen-Strampler', it: 'Tutina stelle' } },
+    { src: '/images/presets/baby-clothing-2.png', labels: { en: 'Pink knit set', es: 'Conjunto punto rosa', fr: 'Ensemble tricot rose', pt: 'Conjunto tricô rosa', de: 'Strickset rosa', it: 'Completo maglia rosa' } },
+  ],
+  costume: [
+    { src: '/images/presets/costume-1.png', labels: { en: 'Classic witch', es: 'Bruja clásica', fr: 'Sorcière classique', pt: 'Bruxa clássica', de: 'Klassische Hexe', it: 'Strega classica' } },
+    { src: '/images/presets/costume-2.png', labels: { en: 'Vampire cape', es: 'Vampiro con capa', fr: 'Vampire cape', pt: 'Vampiro com capa', de: 'Vampir mit Umhang', it: 'Vampiro con mantello' } },
+  ],
+  cosplay: [
+    { src: '/images/presets/cosplay-1.png', labels: { en: 'Anime school', es: 'Anime escolar', fr: 'Anime école', pt: 'Anime escolar', de: 'Anime Schule', it: 'Anime scuola' } },
+    { src: '/images/presets/cosplay-2.png', labels: { en: 'Fantasy elf', es: 'Elfo fantasía', fr: 'Elfe fantasy', pt: 'Elfo de fantasia', de: 'Fantasy-Elf', it: 'Elfo fantasy' } },
+  ],
+  'carnival-costume': [
+    { src: '/images/presets/theme-carnival-costume-samba-rio-feathers.png', labels: { en: 'Rio samba feathers', es: 'Samba Río con plumas', fr: 'Samba de Rio à plumes', pt: 'Samba Rio com plumas', de: 'Rio Samba mit Federn', it: 'Samba Rio con piume' } },
+    { src: '/images/presets/theme-carnival-costume-venetian-mask-cloak.png', labels: { en: 'Venetian mask + cloak', es: 'Máscara veneciana + capa', fr: 'Masque vénitien + cape', pt: 'Máscara veneziana + capa', de: 'Venezianische Maske + Umhang', it: 'Maschera veneziana + mantello' } },
+  ],
+  'halloween-couples': [
+    { src: '/images/presets/theme-halloween-couples-barbie-ken-pink.png', labels: { en: 'Barbie + Ken', es: 'Barbie + Ken', fr: 'Barbie + Ken', pt: 'Barbie + Ken', de: 'Barbie + Ken', it: 'Barbie + Ken' } },
+    { src: '/images/presets/theme-halloween-couples-wednesday-enid-school.png', labels: { en: 'Wednesday + Enid', es: 'Wednesday + Enid', fr: 'Wednesday + Enid', pt: 'Wednesday + Enid', de: 'Wednesday + Enid', it: 'Wednesday + Enid' } },
+  ],
+  bikini: [
+    { src: '/images/presets/theme-bikini-triangle-black-classic.png', labels: { en: 'Black triangle', es: 'Triángulo negro', fr: 'Triangle noir', pt: 'Triângulo preto', de: 'Schwarzes Triangel', it: 'Triangolo nero' } },
+    { src: '/images/presets/theme-bikini-tropical-print-balconette.png', labels: { en: 'Tropical balconette', es: 'Balconette tropical', fr: 'Balconnet tropical', pt: 'Balconete tropical', de: 'Tropisches Balconette', it: 'Balconcino tropicale' } },
+  ],
+  tattoo: [
+    { src: '/images/presets/theme-tattoo-floral-blackwork-rose.png', labels: { en: 'Floral roses blackwork', es: 'Rosas florales blackwork', fr: 'Roses florales blackwork', pt: 'Rosas florais blackwork', de: 'Florale Rosen Blackwork', it: 'Rose floreali blackwork' } },
+    { src: '/images/presets/theme-tattoo-minimalist-geometric-moon.png', labels: { en: 'Minimalist moon', es: 'Luna minimalista', fr: 'Lune minimaliste', pt: 'Lua minimalista', de: 'Minimalistischer Mond', it: 'Luna minimalista' } },
+  ],
+  'makeup-natural': [
+    { src: '/images/presets/theme-makeup-natural-no-makeup-glow.png', labels: { en: 'No-makeup glow', es: 'No-makeup glow', fr: 'No-makeup glow', pt: 'No-makeup glow', de: 'No-Makeup Glow', it: 'No-makeup glow' } },
+    { src: '/images/presets/theme-makeup-natural-soft-glam-bronze.png', labels: { en: 'Soft glam bronze', es: 'Soft glam bronce', fr: 'Soft glam bronze', pt: 'Soft glam bronze', de: 'Soft Glam Bronze', it: 'Soft glam bronzo' } },
+  ],
+  saree: [
+    { src: '/images/presets/theme-saree-silk-red-gold-zari.png', labels: { en: 'Red silk gold zari', es: 'Sari rojo seda con zari dorado', fr: 'Soie rouge zari or', pt: 'Sari seda vermelha com zari', de: 'Rote Seide mit Goldzari', it: 'Seta rossa con zari oro' } },
+    { src: '/images/presets/theme-saree-pastel-blue-floral.png', labels: { en: 'Pastel blue floral', es: 'Sari azul pastel floral', fr: 'Bleu pastel floral', pt: 'Sari azul pastel floral', de: 'Pastellblau floral', it: 'Sari azzurro floreale' } },
+  ],
+  lehenga: [
+    { src: '/images/presets/theme-lehenga-royal-blue-gold-bridal.png', labels: { en: 'Royal blue bridal', es: 'Lehenga azul real nupcial', fr: 'Lehenga bleu royal nuptial', pt: 'Lehenga azul real nupcial', de: 'Königsblau Brautlehenga', it: 'Lehenga blu reale sposa' } },
+    { src: '/images/presets/theme-lehenga-pastel-pink-sequin.png', labels: { en: 'Pastel pink sequin', es: 'Lehenga rosa pastel lentejuelas', fr: 'Lehenga rose pastel paillettes', pt: 'Lehenga rosa pastel lantejoulas', de: 'Pastellrosa Pailletten', it: 'Lehenga rosa pastello paillettes' } },
+  ],
+  hanbok: [
+    { src: '/images/presets/theme-hanbok-traditional-pink-jade.png', labels: { en: 'Traditional pink + jade', es: 'Hanbok tradicional rosa + jade', fr: 'Hanbok traditionnel rose + jade', pt: 'Hanbok tradicional rosa + jade', de: 'Traditioneller Hanbok rosa + jade', it: 'Hanbok tradizionale rosa + giada' } },
+    { src: '/images/presets/theme-hanbok-modern-navy-white.png', labels: { en: 'Modern navy + white', es: 'Hanbok moderno marino + blanco', fr: 'Hanbok moderne marine + blanc', pt: 'Hanbok moderno marinho + branco', de: 'Moderner Hanbok marine + weiß', it: 'Hanbok moderno blu + bianco' } },
+  ],
+  kimono: [
+    { src: '/images/presets/theme-kimono-red-cherry-blossom-silk.png', labels: { en: 'Red sakura silk', es: 'Kimono seda roja sakura', fr: 'Soie rouge sakura', pt: 'Kimono seda vermelha sakura', de: 'Rote Sakura-Seide', it: 'Seta rossa sakura' } },
+    { src: '/images/presets/theme-kimono-indigo-crane-yukata.png', labels: { en: 'Indigo crane yukata', es: 'Yukata índigo grullas', fr: 'Yukata indigo grues', pt: 'Yukata índigo garças', de: 'Indigo Kranich Yukata', it: 'Yukata indaco gru' } },
+  ],
+  qipao: [
+    { src: '/images/presets/theme-qipao-red-silk-gold-dragon.png', labels: { en: 'Red silk gold dragon', es: 'Qipao seda roja dragón oro', fr: 'Qipao soie rouge dragon or', pt: 'Qipao seda vermelha dragão ouro', de: 'Rote Seide Golddrache', it: 'Qipao seta rossa drago oro' } },
+    { src: '/images/presets/theme-qipao-navy-floral-modern.png', labels: { en: 'Navy floral modern', es: 'Qipao moderno marino floral', fr: 'Qipao moderne marine floral', pt: 'Qipao moderno marinho floral', de: 'Moderner Qipao marine floral', it: 'Qipao moderno blu floreale' } },
+  ],
+  'festa-junina': [
+    { src: '/images/presets/pt-look-festa-junina-chita-floral-red-dress.png', labels: { en: 'Floral chita dress', es: 'Vestido chita floral', fr: 'Robe chita floral', pt: 'Vestido chita floral', de: 'Chita-Blumenkleid', it: 'Vestito chita floreale' } },
+    { src: '/images/presets/pt-look-festa-junina-xadrez-shirt-jeans-caipira.png', labels: { en: 'Plaid caipira', es: 'Cuadros caipira', fr: 'Carreaux caipira', pt: 'Xadrez caipira', de: 'Karo Caipira', it: 'Quadri caipira' } },
+  ],
+  'zara-fashion': [
+    { src: '/images/presets/pt-provador-virtual-zara-oversized-blazer-black-zara.png', labels: { en: 'Oversized black blazer', es: 'Blazer oversized negro', fr: 'Blazer oversized noir', pt: 'Blazer oversized preto', de: 'Oversized Blazer schwarz', it: 'Blazer oversize nero' } },
+    { src: '/images/presets/pt-provador-virtual-zara-denim-wide-leg-cropped.png', labels: { en: 'Wide-leg jeans', es: 'Jeans wide leg', fr: 'Jean wide leg', pt: 'Jeans wide leg', de: 'Wide-Leg Jeans', it: 'Jeans wide leg' } },
+  ],
+};
+
 interface Props {
   category: DemoCategory;
   lang: DemoLang;
@@ -107,6 +277,10 @@ interface Props {
    *  a grid of [preset thumbs ... + Custom]. When empty, falls back to the
    *  classic single-dropzone upload flow. */
   presets?: DemoPreset[];
+  /** Optional theme key — looked up in THEME_PRESETS for more specific
+   *  imagery than the broad DemoCategory. Resolution order:
+   *  explicit `presets` > `theme` > `category` > none. */
+  theme?: PresetTheme;
 }
 
 const LABELS: Record<DemoLang, {
@@ -624,7 +798,7 @@ function PresetPicker({
   );
 }
 
-export default function TryOnDemoBlock({ category, lang, productLabel, yourPhotoLabel, yourPhotoHint, productHint, presets }: Props) {
+export default function TryOnDemoBlock({ category, lang, productLabel, yourPhotoLabel, yourPhotoHint, productHint, presets, theme }: Props) {
   const t = LABELS[lang];
   // Category-specific photo guidance — overrides the generic "selfie or
   // waist-up" hint/error for categories that need a fundamentally different
@@ -635,9 +809,14 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
   // category map so every landing using TryOnDemoBlock benefits without
   // having to wire props through 30+ data files. Empty array = no presets,
   // falls back to the classic single dropzone.
-  const effectivePresets: DemoPreset[] = (presets && presets.length > 0)
-    ? presets
-    : (CATEGORY_PRESETS[category]?.map((p) => ({ src: p.src, label: p.labels[lang] ?? p.labels.en })) ?? []);
+  // Resolution: explicit `presets` prop > `theme` lookup > `category` fallback.
+  const effectivePresets: DemoPreset[] = (() => {
+    if (presets && presets.length > 0) return presets;
+    if (theme && THEME_PRESETS[theme]) {
+      return THEME_PRESETS[theme].map((p) => ({ src: p.src, label: p.labels[lang] ?? p.labels.en }));
+    }
+    return CATEGORY_PRESETS[category]?.map((p) => ({ src: p.src, label: p.labels[lang] ?? p.labels.en })) ?? [];
+  })();
 
   const [userImage, setUserImage] = useState<string | null>(null);
   const [productImage, setProductImage] = useState<string | null>(null);

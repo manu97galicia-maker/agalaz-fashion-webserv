@@ -66,7 +66,7 @@ export default function HalloweenCouples() {
         </div>
       </section>
 
-      <TryOnDemoBlock category="costume" lang="en" productLabel="Halloween costume" />
+      <TryOnDemoBlock category="costume" lang="en" productLabel="Halloween costume" theme="halloween-couples" />
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 py-16">
         <div className="text-center mb-10">

@@ -60,7 +60,7 @@ export default function WeddingDressTryOn() {
       <TriptychDemo slug="virtual-wedding-dress-try-on" labels={TRIPTYCH_LABELS.en} />
 
       {/* Interactive try-on demo with watermarked free render */}
-      <TryOnDemoBlock category="clothing" lang="en" productLabel="Wedding dress" />
+      <TryOnDemoBlock category="clothing" lang="en" productLabel="Wedding dress" theme="wedding-dress" />
 
 
       {/* Hero */}

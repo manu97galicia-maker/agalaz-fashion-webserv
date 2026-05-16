@@ -67,7 +67,7 @@ export default function TenueBapteme() {
         </div>
       </section>
 
-      <TryOnDemoBlock category="clothing" lang="fr" productLabel="Tenue de baptême" />
+      <TryOnDemoBlock category="clothing" lang="fr" productLabel="Tenue de baptême" theme="baby-clothing" />
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 py-16">
         <div className="text-center mb-10">

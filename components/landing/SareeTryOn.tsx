@@ -54,7 +54,7 @@ export default function SareeTryOn() {
       </nav>
 
       <TriptychDemo slug="virtual-saree-try-on" labels={TRIPTYCH_LABELS.en} />
-      <TryOnDemoBlock category="clothing" lang="en" productLabel="Saree / lehenga / sherwani" />
+      <TryOnDemoBlock category="clothing" lang="en" productLabel="Saree / lehenga / sherwani" theme="saree" />
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">
         <div className="text-center">

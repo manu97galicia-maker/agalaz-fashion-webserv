@@ -60,7 +60,7 @@ export default function NailTryOn() {
       <TriptychDemo slug="virtual-nail-try-on" labels={TRIPTYCH_LABELS.en} />
 
       {/* Interactive try-on demo with watermarked free render */}
-      <TryOnDemoBlock category="nail" lang="en" productLabel="Nail design" />
+      <TryOnDemoBlock category="nail" lang="en" productLabel="Nail design" theme="nail-decorated" />
 
 
       {/* Hero */}

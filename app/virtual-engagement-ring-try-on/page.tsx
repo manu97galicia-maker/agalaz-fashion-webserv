@@ -1,5 +1,5 @@
 import JewelryTryOn from '@/components/landing/JewelryTryOn';
 
 export default function Page() {
-  return <JewelryTryOn />;
+  return <JewelryTryOn themeOverride="engagement-ring" />;
 }

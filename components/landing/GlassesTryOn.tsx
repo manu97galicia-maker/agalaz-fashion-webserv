@@ -59,7 +59,7 @@ export default function GlassesTryOn() {
       <TriptychDemo slug="virtual-glasses-try-on" labels={TRIPTYCH_LABELS.en} />
 
       {/* Interactive try-on demo with watermarked free render */}
-      <TryOnDemoBlock category="glasses" lang="en" productLabel="Glasses" />
+      <TryOnDemoBlock category="glasses" lang="en" productLabel="Glasses" theme="glasses" />
 
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">

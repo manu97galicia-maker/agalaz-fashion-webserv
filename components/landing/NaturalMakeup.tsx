@@ -65,7 +65,7 @@ export default function NaturalMakeup() {
         </div>
       </section>
 
-      <TryOnDemoBlock category="hairstyle" lang="en" productLabel="Makeup look reference" />
+      <TryOnDemoBlock category="hairstyle" lang="en" productLabel="Makeup look reference" theme="makeup-natural" />
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 py-16">
         <div className="text-center mb-10">

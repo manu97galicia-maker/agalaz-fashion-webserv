@@ -65,7 +65,7 @@ export default function VestitoComunione() {
         </div>
       </section>
 
-      <TryOnDemoBlock category="clothing" lang="it" productLabel="Vestito da comunione" />
+      <TryOnDemoBlock category="clothing" lang="it" productLabel="Vestito da comunione" theme="baby-clothing" />
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 py-16">
         <div className="text-center mb-10">

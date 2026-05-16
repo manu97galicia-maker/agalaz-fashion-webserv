@@ -56,7 +56,7 @@ export default function PetClothingTryOn() {
       <TriptychDemo slug="virtual-pet-clothing-try-on" labels={TRIPTYCH_LABELS.en} />
 
       {/* Interactive try-on demo with watermarked free render */}
-      <TryOnDemoBlock category="pet-clothing" lang="en" productLabel="Pet outfit" />
+      <TryOnDemoBlock category="pet-clothing" lang="en" productLabel="Pet outfit" theme="pet-clothing" />
 
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">

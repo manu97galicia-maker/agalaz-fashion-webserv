@@ -55,7 +55,7 @@ export default function VeilTryOn() {
 
       {/* Triptych transformation — visible right after the nav so the visual hook lands above the fold. */}
       <TriptychDemo slug="virtual-veil-try-on" labels={TRIPTYCH_LABELS.en} />
-      <TryOnDemoBlock category="clothing" lang="en" productLabel="Hijab / abaya" />
+      <TryOnDemoBlock category="clothing" lang="en" productLabel="Hijab / abaya" theme="veil" />
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">
         <div className="text-center">

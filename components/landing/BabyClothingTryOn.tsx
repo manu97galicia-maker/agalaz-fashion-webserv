@@ -56,7 +56,7 @@ export default function BabyClothingTryOn() {
       <TriptychDemo slug="virtual-baby-clothing-try-on" labels={TRIPTYCH_LABELS.en} />
 
       {/* Interactive try-on demo with watermarked free render */}
-      <TryOnDemoBlock category="baby-clothing" lang="en" productLabel="Baby outfit" />
+      <TryOnDemoBlock category="baby-clothing" lang="en" productLabel="Baby outfit" theme="baby-clothing" />
 
 
       <section className="max-w-6xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-16">
