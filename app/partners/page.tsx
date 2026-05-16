@@ -701,29 +701,95 @@ function PartnersContent() {
               </div>
             </div>
 
-            {/* ── DEMO VIDEO ── */}
+            {/* ── PRODUCT-PAGE MOCKUP ── replaces the looping demo video that
+                showed an outdated UI + had a Veo watermark. A static mockup
+                renders instantly (good for LCP) and shows merchants exactly
+                what the integration looks like on a product page: the
+                "Try it on with AI" button under the price. */}
             <div className="mb-20">
               <div className="text-center space-y-3 mb-8">
                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600">{pickLang(lang, 'See it in action', 'Míralo en acción', 'Voyez-le en action', 'Veja em ação', 'In Aktion sehen', 'Guardalo in azione')}</span>
                 <h2 className="font-serif text-3xl font-black text-slate-900">{pickLang(lang, 'Virtual Try-On for Your Store', 'Probador Virtual para Tu Tienda', 'Essayage virtuel pour votre boutique', 'Provador Virtual para a Sua Loja', 'Virtuelle Anprobe für Ihren Shop', 'Camerino Virtuale per il Vostro Negozio')}</h2>
               </div>
-              <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden border-2 border-slate-200 shadow-lg">
-                <video
-                  src="/demo-tryon.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full"
-                />
+              <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden border-2 border-slate-200 shadow-lg bg-white">
+                {/* Browser chrome */}
+                <div className="bg-slate-100 border-b border-slate-200 px-4 py-3 flex items-center gap-2">
+                  <div className="flex gap-1.5">
+                    <span className="w-3 h-3 rounded-full bg-rose-400" />
+                    <span className="w-3 h-3 rounded-full bg-amber-400" />
+                    <span className="w-3 h-3 rounded-full bg-emerald-400" />
+                  </div>
+                  <div className="flex-1 mx-4 bg-white border border-slate-200 rounded-md px-3 py-1 text-[11px] text-slate-500 font-mono truncate">
+                    yourstore.com/products/essential-tee
+                  </div>
+                </div>
+                {/* Product page body */}
+                <div className="grid md:grid-cols-2 gap-6 p-6 md:p-10">
+                  <div className="relative aspect-square bg-slate-50 rounded-xl overflow-hidden border border-slate-100">
+                    <Image
+                      src="/images/tee-black-DSNbR7Cv.jpg"
+                      alt={pickLang(lang, 'Essential t-shirt — black', 'Camiseta esencial — negra', 'T-shirt essentiel — noir', 'T-shirt essencial — preta', 'Essential T-Shirt — schwarz', 'T-shirt essential — nera')}
+                      fill
+                      sizes="(max-width: 768px) 90vw, 380px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">
+                      {pickLang(lang, 'YOUR STORE', 'TU TIENDA', 'VOTRE BOUTIQUE', 'A SUA LOJA', 'IHR SHOP', 'IL TUO NEGOZIO')}
+                    </span>
+                    <h3 className="font-serif text-xl md:text-2xl font-black text-slate-900 leading-tight mb-1">
+                      {pickLang(lang, 'Essential T-Shirt', 'Camiseta Esencial', 'T-shirt Essentiel', 'T-shirt Essencial', 'Essential T-Shirt', 'T-shirt Essential')}
+                    </h3>
+                    <p className="text-xs text-slate-500 mb-4">
+                      {pickLang(lang, '100% organic cotton · Unisex', '100% algodón orgánico · Unisex', '100% coton bio · Unisexe', '100% algodão orgânico · Unissexo', '100% Bio-Baumwolle · Unisex', '100% cotone organico · Unisex')}
+                    </p>
+                    <div className="flex items-baseline gap-2 mb-5">
+                      <span className="text-2xl font-black text-slate-900">€29,90</span>
+                      <span className="text-xs text-slate-400 line-through">€39,90</span>
+                    </div>
+                    <div className="flex gap-2 mb-5">
+                      {['S', 'M', 'L', 'XL'].map((s) => (
+                        <span
+                          key={s}
+                          className={
+                            s === 'M'
+                              ? 'w-9 h-9 rounded-md border-2 border-slate-900 text-xs font-bold flex items-center justify-center bg-slate-900 text-white'
+                              : 'w-9 h-9 rounded-md border border-slate-200 text-xs font-bold flex items-center justify-center text-slate-700'
+                          }
+                        >
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                    <button
+                      type="button"
+                      className="w-full py-3 bg-slate-900 text-white text-[11px] font-black uppercase tracking-[0.18em] rounded-md mb-2.5 cursor-default"
+                    >
+                      {pickLang(lang, 'Add to cart', 'Añadir al carrito', 'Ajouter au panier', 'Adicionar ao carrinho', 'In den Warenkorb', 'Aggiungi al carrello')}
+                    </button>
+                    {/* The Agalaz integration — what merchants will see on
+                        every product page once the script tag is installed. */}
+                    <button
+                      type="button"
+                      className="w-full py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-[11px] font-black uppercase tracking-[0.18em] rounded-md flex items-center justify-center gap-2 cursor-default shadow-md shadow-indigo-200"
+                    >
+                      <Sparkles size={14} />
+                      {pickLang(lang, 'Try it on with AI', 'Pruébatela con IA', 'Essayez-le avec IA', 'Experimenta com IA', 'Mit KI anprobieren', 'Provalo con IA')}
+                    </button>
+                    <p className="text-[10px] text-indigo-500 mt-2 font-medium text-center">
+                      {pickLang(lang, 'Powered by Agalaz · 10 s render', 'Con tecnología Agalaz · render en 10 s', 'Propulsé par Agalaz · rendu en 10 s', 'Powered by Agalaz · render em 10 s', 'Powered by Agalaz · 10 s Rendering', 'Powered by Agalaz · render in 10 s')}
+                    </p>
+                  </div>
+                </div>
               </div>
               <p className="text-center text-[10px] text-slate-300 mt-4">
                 {pickLang(
                   lang,
-                  'Real demo — AI virtual try-on running on an ecommerce product page',
-                  'Demo real — probador virtual con IA en una página de producto ecommerce',
-                  'Démo réelle — essayage virtuel AI sur une page produit ecommerce',
-                  'Demo real — provador virtual com AI numa página de produto ecommerce',
+                  'How the widget looks on a product page — script tag + one line of HTML',
+                  'Cómo se ve el widget en una ficha de producto — etiqueta script + una línea de HTML',
+                  'À quoi ressemble le widget sur une fiche produit — balise script + une ligne HTML',
+                  'Como o widget aparece numa ficha de produto — tag script + uma linha de HTML',
                   'Echte Demo — virtuelle AI-Anprobe auf einer E-Commerce-Produktseite',
                   'Demo reale — camerino virtuale AI su una pagina prodotto ecommerce'
                 )}
