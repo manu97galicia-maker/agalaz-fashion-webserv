@@ -73,6 +73,12 @@ const LANDINGS = [
     edit: 'Apply the nail art design from the second image to every visible fingernail in the first image. Match the perspective and curvature of each nail. Keep the hands, skin tone, marble surface and lighting identical. Output one photorealistic image.',
   },
   {
+    slug: 'virtual-tshirt-try-on',
+    before: `Full-body editorial photograph of a young woman from waist up, standing relaxed against a clean studio backdrop, wearing only a plain neutral grey camisole or simple tank top (no graphics, no prints), natural arms-down pose, soft daylight, square 1:1 framing. ${STYLE_BASE}`,
+    item: `A single clean white short-sleeve crewneck t-shirt with no graphics, no print, no logos — displayed flat on a clean off-white background, premium apparel product photography. Square 1:1. ${STYLE_BASE}`,
+    edit: 'Replace the camisole/tank top in the first image with the plain white crewneck t-shirt from the second image. Fit the t-shirt naturally on her torso, short sleeves visible, plain white fabric, no graphics. Keep her face, hair, pose, the studio backdrop and the lighting identical. Output one photorealistic image.',
+  },
+  {
     slug: 'virtual-glasses-try-on',
     before: `Editorial studio portrait of a young person from the shoulders up, looking straight at the camera, no eyewear of any kind, clean cream backdrop, soft daylight, square 1:1 framing. ${STYLE_BASE}`,
     item: `A single pair of designer tortoiseshell-acetate optical eyeglasses with rectangular frames, displayed on a pure white background, premium eyewear product photography. Square 1:1. ${STYLE_BASE}`,

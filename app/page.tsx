@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -858,8 +859,10 @@ export default function HomePage() {
             })}
           </div>
 
-          {/* Demo video */}
-          <div className="mt-16 max-w-3xl mx-auto">
+          {/* Mobile: lightweight demo video. Desktop: 4 before/item/after
+              rows that load instantly via next/image (replaces 1.4MB MP4
+              that was the home's LCP element at 11s+). */}
+          <div className="mt-16 max-w-3xl mx-auto md:hidden">
             <video
               src="/agalaz-tryon-demo.mp4"
               autoPlay
@@ -868,6 +871,49 @@ export default function HomePage() {
               playsInline
               className="w-full rounded-2xl shadow-2xl shadow-slate-200 border border-slate-200"
             />
+          </div>
+
+          <div className="hidden md:block mt-16 max-w-5xl mx-auto space-y-5">
+            {([
+              { slug: 'virtual-tshirt-try-on',     label: pickLang(lang, 'T-shirt',  'Camiseta',    'T-shirt',  'Camiseta',     'T-Shirt',    'T-shirt') },
+              { slug: 'virtual-tattoo-simulator',  label: pickLang(lang, 'Tattoo',   'Tatuaje',     'Tatouage', 'Tatuagem',     'Tattoo',     'Tatuaggio') },
+              { slug: 'virtual-glasses-try-on',    label: pickLang(lang, 'Glasses',  'Gafas',       'Lunettes', 'Óculos',       'Brille',     'Occhiali') },
+              { slug: 'virtual-jewelry-try-on',    label: pickLang(lang, 'Jewelry',  'Joyería',     'Bijoux',   'Joalheria',    'Schmuck',    'Gioielli') },
+            ] as const).map((row, rowIdx) => {
+              const kinds = [
+                { k: 'before', badge: pickLang(lang, 'Your photo', 'Tu foto',     'Votre photo',  'A sua foto',   'Ihr Foto',    'La tua foto') },
+                { k: 'item',   badge: pickLang(lang, 'The item',   'El artículo', "L'article",    'O artigo',     'Das Produkt', "L'articolo") },
+                { k: 'after',  badge: pickLang(lang, 'Result',     'Resultado',   'Résultat',     'Resultado',    'Ergebnis',    'Risultato') },
+              ] as const;
+              return (
+                <div key={row.slug} className="grid grid-cols-3 gap-4 lg:gap-5">
+                  {kinds.map((kind, i) => (
+                    <figure
+                      key={kind.k}
+                      className="relative aspect-square overflow-hidden rounded-xl bg-white border border-slate-200 shadow-sm"
+                    >
+                      <Image
+                        src={`/images/landings/${row.slug}-${kind.k}.png`}
+                        alt={`${row.label} — ${kind.badge}`}
+                        fill
+                        sizes="(max-width: 1024px) 32vw, 320px"
+                        className="object-cover"
+                        priority={rowIdx === 0 && i === 0}
+                        loading={rowIdx === 0 && i === 0 ? undefined : 'lazy'}
+                      />
+                      <div className="absolute top-3 left-3 bg-white/95 backdrop-blur px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-slate-700 shadow-sm">
+                        {i + 1}. {kind.badge}
+                      </div>
+                      {i === 0 && (
+                        <div className="absolute top-3 right-3 bg-slate-900 text-white px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm">
+                          {row.label}
+                        </div>
+                      )}
+                    </figure>
+                  ))}
+                </div>
+              );
+            })}
           </div>
 
           <div className="text-center mt-14">
