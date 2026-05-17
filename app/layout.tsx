@@ -239,16 +239,21 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <script
           dangerouslySetInnerHTML={{ __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "smg5s7n7st");` }}
         />
-        {/* Meta Pixel — Facebook & Instagram Ads tracking. Required for ad
-            optimization, attribution, retargeting and Lookalike Audiences.
-            Pixel ID 957799927034677. PageView fires automatically here; the
-            funnel events (AddToCart, InitiateCheckout, Lead, Purchase) are
-            dispatched from lib/analytics.ts so the same call site feeds Meta,
-            Vercel and Datafast in lockstep. */}
+        {/* Meta Pixel — DUAL setup. Both pixels initialized and tracked
+            from the same fbq queue: any `fbq('track', ...)` call from
+            lib/analytics.ts fires to BOTH pixels in parallel, sharing the
+            same eventID so CAPI dedup works on whichever pixel has its
+            CAPI token configured.
+              957799927034677  →  Dopamax BM (clean, primary)
+              1837536370441426 →  legacy BM (re-activated alongside)
+            PageView fires once per pixel here at boot. The funnel events
+            (AddToCart, InitiateCheckout, Lead, Purchase) are dispatched
+            from lib/analytics.ts so the same call site feeds Meta x2,
+            Vercel Analytics and Datafast in lockstep. */}
         <script
-          dangerouslySetInnerHTML={{ __html: `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','957799927034677');fbq('track','PageView');` }}
+          dangerouslySetInnerHTML={{ __html: `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','957799927034677');fbq('init','1837536370441426');fbq('track','PageView');` }}
         />
-        <noscript dangerouslySetInnerHTML={{ __html: `<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=957799927034677&ev=PageView&noscript=1"/>` }} />
+        <noscript dangerouslySetInnerHTML={{ __html: `<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=957799927034677&ev=PageView&noscript=1"/><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1837536370441426&ev=PageView&noscript=1"/>` }} />
       </head>
       <body className={`${inter.variable} ${playfair.variable} bg-white text-slate-900 antialiased overscroll-none`}>
         <LanguageProvider>
