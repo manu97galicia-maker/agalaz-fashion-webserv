@@ -82,6 +82,23 @@ const META_PIXEL_MAP: Partial<Record<AnalyticsEvent, string>> = {
   paywall_view: 'ViewContent',
 };
 
+function newEventId(): string {
+  // Used to dedupe the browser Pixel hit and the server-side CAPI hit in Meta.
+  // crypto.randomUUID is available in all modern browsers and Node 18+.
+  if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
+    return (crypto as { randomUUID: () => string }).randomUUID();
+  }
+  return Date.now() + '-' + Math.random().toString(36).slice(2);
+}
+
+function readCookie(name: string): string | undefined {
+  if (typeof document === 'undefined') return undefined;
+  return document.cookie
+    .split('; ')
+    .find((c) => c.startsWith(name + '='))
+    ?.split('=')[1];
+}
+
 /**
  * Fire an analytics event to all configured providers.
  * Safe to call from server components — provider calls are guarded so they
@@ -104,19 +121,50 @@ export function track(event: AnalyticsEvent, props?: Props): void {
     }
 
     // Meta Pixel — map to standard events where possible, custom otherwise.
+    // We generate one shared event_id and pass it to BOTH the browser Pixel
+    // and the server-side Conversions API so Meta dedupes the duplicate hit.
+    const standardEvent = META_PIXEL_MAP[event];
+    const metaEventName = standardEvent ?? event;
+    const eventId = newEventId();
+
     try {
       const fbq = (window as any).fbq as ((...args: unknown[]) => void) | undefined;
       if (fbq) {
-        const standardEvent = META_PIXEL_MAP[event];
         if (standardEvent) {
-          fbq('track', standardEvent, props ?? {});
+          fbq('track', standardEvent, props ?? {}, { eventID: eventId });
         } else {
-          // Fallback: dispatch as a custom event so the data still reaches Meta.
-          fbq('trackCustom', event, props ?? {});
+          fbq('trackCustom', event, props ?? {}, { eventID: eventId });
         }
       }
     } catch {
       // Pixel not loaded yet (slow connection / blocked by adblock); ignore.
+    }
+
+    // Meta Conversions API (server-side mirror) — recovers iOS 14.5+ ATT
+    // attribution that the browser Pixel can't track. Same event_id as the
+    // Pixel hit above, so Meta dedupes. Best-effort: never blocks the user
+    // flow if it fails (token missing, adblock, network).
+    try {
+      const payload = {
+        eventName: metaEventName,
+        eventId,
+        eventSourceUrl: window.location.href,
+        fbp: readCookie('_fbp'),
+        fbc: readCookie('_fbc'),
+        customData: (props ?? {}) as Record<string, unknown>,
+      };
+      // keepalive lets the request finish even if the user navigates away
+      // mid-track (common for Purchase events on a Stripe redirect).
+      fetch('/api/meta-capi', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        keepalive: true,
+      }).catch(() => {
+        // Pixel already fired; CAPI is a recovery channel, not the primary.
+      });
+    } catch {
+      // ignore
     }
   }
 }
