@@ -54,7 +54,9 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      // IP check via Supabase — catches cookie-cleared retries.
+      // IP check via Supabase — catches cookie-cleared / incognito retries.
+      // (Incognito clears cookies but the network IP is the same as the
+      // user's normal browser, so the SHA-256 of x-forwarded-for matches.)
       const { data: existingAnon } = await admin
         .from('anonymous_demo_log')
         .select('ip_hash')
@@ -78,6 +80,32 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Image too large (max 10 MB).' }, { status: 400 });
       }
 
+      // ── Atomic lock via INSERT ───────────────────────────────────────────
+      // Insert BEFORE calling Gemini so two concurrent renders from the same
+      // IP can't both slip past the SELECT check. Requires a UNIQUE constraint
+      // on (ip_hash, date) in anonymous_demo_log — without it, the constraint
+      // race is still very unlikely but not impossible. SQL to set up once:
+      //   ALTER TABLE anonymous_demo_log
+      //     ADD CONSTRAINT anonymous_demo_log_ip_date_unique
+      //     UNIQUE (ip_hash, date);
+      // Postgres returns error code 23505 (unique_violation) on conflict.
+      const { error: insertErr } = await admin
+        .from('anonymous_demo_log')
+        .insert({ ip_hash: ipHash, date: today, category: category ?? null });
+      if (insertErr) {
+        if (
+          insertErr.code === '23505' ||
+          (insertErr.message ?? '').toLowerCase().includes('duplicate')
+        ) {
+          return NextResponse.json(
+            { error: 'NO_CREDITS', message: 'Daily free render already used. Continue with a pack.', redirect: '/paywall' },
+            { status: 402 },
+          );
+        }
+        // Other DB errors should not block the user — log and fall through.
+        console.error('anonymous_demo_log insert non-conflict error:', insertErr);
+      }
+
       // Generate.
       const { image } = await generateTryOnImage(
         userImage,
@@ -87,13 +115,16 @@ export async function POST(request: NextRequest) {
       );
 
       if (!image) {
+        // Release the lock so the user can retry today — the generate failed
+        // (Gemini hiccup, safety block, etc.), no rendered image was returned,
+        // and charging the user their one free shot would be wrong.
+        await admin
+          .from('anonymous_demo_log')
+          .delete()
+          .eq('ip_hash', ipHash)
+          .eq('date', today);
         return NextResponse.json({ error: 'Generation failed. Try a different photo.' }, { status: 500 });
       }
-
-      // Log + set cookie BEFORE returning so abuse retries hit the limit.
-      await admin
-        .from('anonymous_demo_log')
-        .insert({ ip_hash: ipHash, date: today, category: category ?? null });
 
       const res = NextResponse.json({ image, source: 'anonymous_free' });
       res.cookies.set('agalaz_anon_demo', today, {

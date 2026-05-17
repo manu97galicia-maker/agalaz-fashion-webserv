@@ -1440,6 +1440,24 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
 
         {!resultImage && (
           <>
+            {/* One-free-render banner — sets explicit expectation that the
+                first render is free and signals scarcity so users don't burn
+                their attempt on a low-quality photo. Shown only before the
+                first render fires; hidden once a result exists. */}
+            <div className="max-w-3xl mx-auto mb-5 flex items-center justify-center">
+              <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-gradient-to-r from-emerald-50 via-white to-emerald-50 border border-emerald-200 rounded-full shadow-sm">
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-500 text-white text-[10px] font-black">1</span>
+                <span className="text-[11px] sm:text-xs font-black uppercase tracking-[0.15em] text-emerald-900">
+                  {lang === 'es' ? '1 render gratis · luego desbloquea más'
+                    : lang === 'fr' ? '1 rendu gratuit · puis débloquez plus'
+                    : lang === 'pt' ? '1 render grátis · depois desbloqueia mais'
+                    : lang === 'de' ? '1 gratis Rendering · dann mehr freischalten'
+                    : lang === 'it' ? '1 render gratis · poi sblocca altri'
+                    : '1 free render · then unlock more'}
+                </span>
+              </div>
+            </div>
+
             {/* Step indicators above the dropzones */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto mb-3">
               <div className="flex items-center gap-2.5">
