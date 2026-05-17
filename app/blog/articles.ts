@@ -1,3 +1,5 @@
+import { articlesRound2 } from './articles-round2';
+
 export interface Article {
   slug: string;
   title: string;
@@ -7150,4 +7152,5 @@ Related:
 
 Más sobre [diseños completos](/blog/clean-girl-almond-nails-2026).`,
   },
+  ...articlesRound2,
 ];
