@@ -782,4 +782,1425 @@ If you've been hard on your nails, the look you want may not work yet. [Preview 
 
 [Previsualiza formas y colores con IA](/virtual-nail-try-on) que se adapten al largo actual de tus uñas — gratis.`,
   },
+
+  // ─────────────────────────────── HAIRSTYLES (10) ───────────────────────
+  {
+    slug: 'how-to-pick-haircut-for-your-face-shape',
+    title: 'How to Pick a Haircut for Your Face Shape (2026 Guide)',
+    titleEs: 'Cómo Elegir un Corte Según Tu Forma de Cara (Guía 2026)',
+    description: 'Pick a haircut for your face shape: round, oval, square, heart, diamond, oblong. The cuts that flatter each shape — and AI preview to test.',
+    descriptionEs: 'Elegir corte según forma de cara: redonda, ovalada, cuadrada, corazón, diamante, alargada. Cortes que favorecen cada forma — con IA.',
+    keyword: 'haircut for face shape',
+    readTime: 4, date: '2026-05-17', category: 'Beauty · Hairstyles', categoryEs: 'Belleza · Cortes',
+    content: `The actual rule: add length where the face needs balancing, never width where there's already width.
+
+## The 6 shapes
+
+**Round** — width ≈ length. Add length: long bob, curtain bangs, long layers. Avoid blunt chin-bobs.
+**Oval** — almost any cut works. Italian bob and butterfly cut especially.
+**Square** — soften with layers and side parts. Avoid blunt chin-length.
+**Heart** — balance the chin with chin-grazing layers or curtain bangs.
+**Diamond** — soften cheeks with side-swept bangs or chin-length cuts.
+**Oblong** — add width with side bangs, blunt cuts, soft waves at jaw.
+
+A bad cut is 4-12 months of growing out. [Test any haircut on your face with AI](/virtual-hairstyle-try-on) in 30 seconds before booking.`,
+    contentEs: `Regla real: añade largo donde la cara necesita equilibrio, nunca ancho donde ya hay ancho.
+
+**Redonda** — long bob, flequillo cortina, capas largas. Evita bobs rectos al mentón.
+**Ovalada** — casi todo funciona.
+**Cuadrada** — suaviza con capas y rayas laterales.
+**Corazón** — capas al mentón o flequillo cortina.
+**Diamante** — flequillo lateral, cortes al mentón.
+**Alargada** — flequillo lateral, cortes rectos.
+
+[Prueba cualquier corte con IA](/virtual-hairstyle-try-on) — 30 seg, gratis.`,
+  },
+  {
+    slug: 'wolf-cut-2026-variations',
+    title: 'Wolf Cut: Variations and Who It Suits in 2026',
+    titleEs: 'Wolf Cut: Variaciones y a Quién Favorece en 2026',
+    description: 'Wolf cut explained: 70s shag meets modern mullet. 2026 variations (classic, butterfly wolf, mini wolf). Who it suits.',
+    descriptionEs: 'Wolf cut explicado: shag 70s + mullet moderno. Variaciones 2026 (clásico, butterfly, mini). A quién favorece.',
+    keyword: 'wolf cut hairstyle',
+    readTime: 3, date: '2026-05-17', category: 'Beauty · Hairstyles', categoryEs: 'Belleza · Cortes',
+    content: `Wolf cut = 70s shag + modern mullet. Short layers on top, long pieces at the back, lots of texture.
+
+## 3 variations
+
+**Classic wolf** — heavy short layers on top, longer back. Edgy, requires styling.
+**Butterfly wolf** — softer, face-framing layers + shoulder-length back. Instagram-friendly version.
+**Mini wolf** — shorter overall, more pixie-leaning.
+
+## Who it suits
+
+Best on: thick or medium hair with natural texture; oval, heart, square faces.
+Skip if: very fine hair (layers exaggerate thinness) or rectangle/long face.
+
+[Test 4 wolf cut variations on your face with AI](/wolf-cut-hairstyles) before the salon.`,
+    contentEs: `Wolf cut = shag 70s + mullet moderno. Capas cortas arriba, largo atrás, mucha textura.
+
+**Clásico** — capas pesadas arriba, largo atrás. Edgy.
+**Butterfly wolf** — más suave, capas que enmarcan + largo al hombro.
+**Mini wolf** — más corto, cerca del pixie.
+
+**Mejor en**: pelo grueso o medio con textura, caras ovaladas/corazón/cuadradas.
+**Evita si**: pelo fino o cara rectangular.
+
+[Prueba 4 variaciones con IA](/wolf-cut-hairstyles).`,
+  },
+  {
+    slug: 'how-to-style-curtain-bangs',
+    title: 'How to Style Curtain Bangs (Daily Routine + Grow-Out Tips)',
+    titleEs: 'Cómo Peinar Flequillo Cortina (Rutina + Cómo Dejarlo Crecer)',
+    description: 'How to style curtain bangs daily, blowdry technique, trim frequency, growing-out phase tips. With AI preview.',
+    descriptionEs: 'Cómo peinar flequillo cortina a diario, técnica de secado, cuándo cortarlo, cómo dejarlo crecer.',
+    keyword: 'how to style curtain bangs',
+    readTime: 3, date: '2026-05-17', category: 'Beauty · Hairstyles', categoryEs: 'Belleza · Cortes',
+    content: `Curtain bangs look effortless but require daily care.
+
+## Daily routine
+
+1. Dampen the bangs (no need to wash all hair).
+2. Blowdry pushing forward then flipping to sides with round brush.
+3. Light texture spray (not hairspray — makes them crunchy).
+4. Style with fingers, not fine comb.
+
+## Trim every 4-6 weeks. Growing out: tuck behind ear; the transition month 2-4 is hardest.
+
+[See curtain bangs on your face with AI](/curtain-bangs-haircut) — 30 seconds.`,
+    contentEs: `El flequillo cortina parece despeinado pero requiere cuidado diario.
+
+1. Moja el flequillo (no hace falta lavar todo).
+2. Seca empujando hacia delante y abriendo a los lados.
+3. Spray de textura ligero (no laca).
+4. Estiliza con dedos.
+
+Corta cada 4-6 semanas. Para dejarlo crecer: detrás de la oreja, el mes 2-4 es el más duro.
+
+[Pruébalo con IA](/curtain-bangs-haircut) — gratis.`,
+  },
+  {
+    slug: 'italian-bob-vs-french-bob',
+    title: 'Italian Bob vs French Bob: What\'s the Difference?',
+    titleEs: 'Bob Italiano vs Bob Francés: Cuál es la Diferencia',
+    description: 'Italian bob vs French bob: length, layers, bangs, attitude. The two viral 2026 bobs explained.',
+    descriptionEs: 'Bob italiano vs bob francés: largo, capas, flequillo, actitud. Los dos bobs virales 2026.',
+    keyword: 'italian bob vs french bob',
+    readTime: 3, date: '2026-05-17', category: 'Beauty · Hairstyles', categoryEs: 'Belleza · Cortes',
+    content: `Both bobs went viral. They're not the same cut.
+
+## Italian bob
+
+- Length: chin to collarbone
+- Layers: blunt, minimal
+- Bangs: optional, side-swept if any
+- Vibe: glossy, confident
+- Best on: oval, heart, square with medium-thick hair
+
+## French bob
+
+- Length: jaw or above
+- Layers: slight, soft
+- Bangs: ALMOST ALWAYS micro-bangs above eyebrow
+- Vibe: undone, cool
+- Best on: oval and heart with fine-medium hair
+
+Want structure and gloss → Italian. Want softness and a fringe → French.
+
+[Preview both with AI](/short-haircuts-women) in 30 seconds.`,
+    contentEs: `No son el mismo corte.
+
+**Bob italiano**: mentón a clavícula, recto sin capas, flequillo lateral opcional, vibe "Sofia Loren". Mejor en ovalado/corazón/cuadrado con pelo medio-grueso.
+
+**Bob francés**: mandíbula o por encima, capas ligeras, casi siempre micro-flequillo encima de la ceja, vibe "cool girl". Mejor en ovalado/corazón con pelo fino-medio.
+
+Estructura y brillo → italiano. Suavidad y flequillo → francés.
+
+[Prueba ambos con IA](/short-haircuts-women) — 30 seg.`,
+  },
+  {
+    slug: 'how-often-to-cut-hair',
+    title: 'How Often Should You Cut Your Hair? Frequency by Type',
+    titleEs: 'Cada Cuánto Cortarse el Pelo: Frecuencia Según Tipo',
+    description: 'How often to cut hair: 6 weeks for short, 8-10 for medium, 12-16 for long. Why "every 8 weeks" is a myth.',
+    descriptionEs: 'Cada cuánto cortarse: 6 semanas para corto, 8-10 para medio, 12-16 para largo.',
+    keyword: 'how often to cut hair',
+    readTime: 3, date: '2026-05-17', category: 'Beauty · Hairstyles', categoryEs: 'Belleza · Cortes',
+    content: `"Every 8 weeks" is salon marketing. The real answer depends on your goal.
+
+## To keep a shape
+
+- Pixie: every 4-6 weeks
+- Bob: every 6-8 weeks
+- Long bob: every 8-10 weeks
+- Long, no shape: every 12-16 weeks
+
+## To grow it out
+
+Trim every 12 weeks just for split ends. Less trimming SLOWS visible growth — split ends travel up.
+
+## With bangs
+
+Every 3-4 weeks.
+
+[Test 3 cut variations with AI](/virtual-hairstyle-try-on) before the chair.`,
+    contentEs: `"Cada 8 semanas" es marketing de salón.
+
+**Mantener forma**: pixie cada 4-6 sem, bob 6-8, long bob 8-10, largo sin forma 12-16.
+**Dejar crecer**: cada 12 semanas solo puntas. Cortar menos frena el crecimiento visible.
+**Con flequillo**: cada 3-4 semanas.
+
+[Prueba 3 variaciones con IA](/virtual-hairstyle-try-on) antes de la silla.`,
+  },
+  {
+    slug: 'how-to-grow-long-hair-faster',
+    title: 'How to Grow Long Hair Faster: 7 Methods That Work',
+    titleEs: 'Cómo Hacer Crecer el Pelo Más Rápido: 7 Métodos',
+    description: 'How to grow long hair faster: scalp massage, biotin, silk pillowcase, less heat. 7 evidence-backed methods.',
+    descriptionEs: 'Cómo hacer crecer el pelo más rápido: masaje craneal, biotina, funda de seda, menos calor.',
+    keyword: 'how to grow long hair faster',
+    readTime: 4, date: '2026-05-17', category: 'Beauty · Hairstyles', categoryEs: 'Belleza · Cortes',
+    content: `Hair grows ~1.25cm/month. You can't change genetics dramatically, but you can stop losing it to breakage.
+
+## 7 methods
+
+1. Scalp massage 4 min daily (Japanese study, 24-week effect)
+2. Biotin 2.5mg + omega-3 daily
+3. Silk or satin pillowcase (less friction)
+4. Cut heat tools to 2x/week max
+5. Trim every 12 weeks (split ends travel up)
+6. Lukewarm wash, finish cold (seals cuticle)
+7. Never sleep with wet hair (peak fragility)
+
+What doesn't work: castor oil daily, full-moon trims, "Curly Girl method" for growth.
+
+[Test long hair on your face with AI](/virtual-hairstyle-try-on) before investing in extensions.`,
+    contentEs: `El pelo crece ~1,25 cm/mes. No cambias la genética pero sí puedes dejar de perder por rotura.
+
+1. Masaje craneal 4 min/día
+2. Biotina 2,5mg + omega-3
+3. Funda de seda
+4. Calor solo 2x/semana
+5. Corta cada 12 semanas
+6. Lava templado, termina en frío
+7. Nunca duermas con pelo mojado
+
+No funciona: ricino diario, "luna llena".
+
+[Pruébate melena larga con IA](/virtual-hairstyle-try-on) antes de extensiones.`,
+  },
+  {
+    slug: 'balayage-vs-highlights',
+    title: 'Balayage vs Highlights: The Real Difference',
+    titleEs: 'Balayage vs Mechas: La Diferencia Real',
+    description: 'Balayage vs highlights: technique, regrowth, maintenance, cost. The two coloring methods compared.',
+    descriptionEs: 'Balayage vs mechas: técnica, regrowth, mantenimiento, precio. Los dos métodos comparados.',
+    keyword: 'balayage vs highlights',
+    readTime: 4, date: '2026-05-17', category: 'Beauty · Hairstyles', categoryEs: 'Belleza · Cortes',
+    content: `Salon menus blur the line. The actual difference:
+
+## Balayage
+
+Hand-painted, free-form, no foils. Soft, undefined. Almost no visible regrowth line. Touch up every 4-6 months. $150-300.
+
+## Highlights
+
+Sectioned, foiled, root-to-tip. Defined, structured. Visible regrowth at 6-8 weeks. Touch up every 6-10 weeks. $120-200 full, $80-140 partial.
+
+## Pick balayage if: low maintenance is priority.
+## Pick highlights if: you want defined contrast or specific framing.
+
+[Test both with AI](/virtual-hairstyle-try-on) — 30 seconds.`,
+    contentEs: `**Balayage** = pintado a mano, libre, sin papel. Suave, regrowth invisible. Retoque cada 4-6 meses. 90-180€.
+
+**Mechas** = secciones con papel, raíz a punta. Definidas. Regrowth visible a 6-8 sem. Retoque cada 6-10 sem. 70-130€ completas, 50-90€ parciales.
+
+Balayage = bajo mantenimiento. Mechas = contraste definido.
+
+[Pruébate con IA](/virtual-hairstyle-try-on) — 30 seg.`,
+  },
+  {
+    slug: 'best-haircuts-for-thin-hair',
+    title: 'Best Haircuts for Thin Hair (Illusion of Volume)',
+    titleEs: 'Mejores Cortes Para Pelo Fino (Ilusión de Volumen)',
+    description: 'Best haircuts for thin hair: blunt bob, layered lob, pixie, soft bangs. Cuts that add the illusion of density.',
+    descriptionEs: 'Mejores cortes para pelo fino: bob recto, lob con capas, pixie, flequillo suave.',
+    keyword: 'best haircuts for thin hair',
+    readTime: 3, date: '2026-05-17', category: 'Beauty · Hairstyles', categoryEs: 'Belleza · Cortes',
+    content: `Thin hair needs structure. These cuts create perceived density.
+
+## 5 best cuts
+
+1. Blunt chin bob — square end + zero layers
+2. Layered long bob with face-frame — length to collarbone, layers only around face
+3. Pixie with texture — short makes thin look thicker
+4. Curtain bangs — add width at front
+5. French bob with micro-fringe — maximum perceived volume
+
+## Avoid
+
+- Long heavy layers (stringy on thin hair)
+- Long blunt past shoulder (lifeless)
+- Heavy mullet/wolf cut (thins the perimeter)
+
+[Test cuts with AI](/short-haircuts-women) before committing.`,
+    contentEs: `El pelo fino necesita estructura.
+
+1. Bob recto al mentón — punta cuadrada, sin capas
+2. Long bob con capas en marco facial
+3. Pixie con textura
+4. Flequillo cortina
+5. Bob francés con micro-flequillo
+
+**Evita**: capas largas pesadas, largo recto pasado el hombro, mullet/wolf pesado.
+
+[Pruébalos con IA](/short-haircuts-women).`,
+  },
+  {
+    slug: 'short-hair-styles-for-wedding',
+    title: 'How to Style Short Hair for a Wedding',
+    titleEs: 'Cómo Peinar Pelo Corto Para una Boda',
+    description: 'How to style short hair for a wedding: textured waves, slick back, half-up, accessories.',
+    descriptionEs: 'Cómo peinar pelo corto para boda: ondas, slick back, semi-recogido, accesorios.',
+    keyword: 'short hair wedding styles',
+    readTime: 3, date: '2026-05-17', category: 'Beauty · Hairstyles', categoryEs: 'Belleza · Cortes',
+    content: `Short hair at a wedding requires intentional styling.
+
+## 5 wedding styles
+
+1. Textured waves — beach waves with salt spray
+2. Slick back — wet-look gel, modern, sharp
+3. Half-up with pearl pins — bridesmaid-coded
+4. Side-parted soft waves — old Hollywood
+5. Hair accessory + natural texture — headband, ribbon, clip
+
+## Skip
+
+- Aggressive curl drops (fall by reception)
+- Too much hairspray (crunchy in photos)
+- A style you haven't practiced
+
+[Test wedding hairstyles with AI](/virtual-hairstyle-try-on).`,
+    contentEs: `El pelo corto en boda requiere peinado intencional.
+
+1. Ondas con textura
+2. Slick back — efecto mojado
+3. Semi-recogido con horquillas de perla
+4. Raya lateral con ondas suaves — old Hollywood
+5. Accesorio + textura natural
+
+**Evita**: rizos muy marcados, mucha laca, peinado sin practicar.
+
+[Prueba peinados de boda con IA](/virtual-hairstyle-try-on).`,
+  },
+  {
+    slug: 'butterfly-haircut-explained',
+    title: 'Butterfly Haircut: What It Is and Who It Suits',
+    titleEs: 'Corte Mariposa: Qué Es y a Quién Favorece',
+    description: 'Butterfly haircut explained: long base with face-framing layers that flick out like wings. 2026 soft-glam answer to the wolf cut.',
+    descriptionEs: 'Corte mariposa explicado: base larga con capas que enmarcan la cara y se abren como alas.',
+    keyword: 'butterfly haircut',
+    readTime: 3, date: '2026-05-17', category: 'Beauty · Hairstyles', categoryEs: 'Belleza · Cortes',
+    content: `Soft, feminine version of the wolf cut. Long base, dramatic face-framing layers.
+
+## Defining features
+
+- Length: shoulder to mid-back
+- Top layers: short, around the chin
+- Bottom: long, uncut
+- Effect: face framed like inside two butterfly wings
+
+## Who it suits
+
+Best on: oval, heart, round faces. Medium-thick hair. People who blowdry regularly.
+Skip if: very fine hair or you don't want daily styling.
+
+Blowdry layers outward with round brush. Trim every 8-10 weeks.
+
+[See it on your face with AI](/virtual-hairstyle-try-on) — 30 seconds.`,
+    contentEs: `Versión suave del wolf cut. Base larga, capas que enmarcan la cara.
+
+- Largo: hombro a mitad de espalda
+- Capas superiores: al mentón
+- Inferior: largo sin cortar
+
+**Mejor en**: ovalada/corazón/redonda. Pelo medio-grueso. Si te secas a diario.
+**Evita si**: pelo muy fino.
+
+Seca capas hacia fuera con cepillo redondo. Corta cada 8-10 semanas.
+
+[Pruébalo con IA](/virtual-hairstyle-try-on).`,
+  },
+
+  // ─────────────────────────────── DRESSES / WEDDING (15) ────────────────
+  {
+    slug: 'wedding-dress-code-decoded',
+    title: 'Wedding Guest Dress Code Decoded: All 7 Codes Explained',
+    titleEs: 'Códigos de Vestimenta de Boda: Los 7 Explicados',
+    description: 'Wedding guest dress code: black-tie, black-tie optional, cocktail, semi-formal, beach, garden, casual. What to wear at each.',
+    descriptionEs: 'Códigos de boda: black-tie, opcional, cóctel, semiformal, playa, jardín, casual.',
+    keyword: 'wedding guest dress code',
+    readTime: 4, date: '2026-05-17', category: 'Style · Wedding', categoryEs: 'Estilo · Boda',
+    content: `Wedding invitations specify a dress code for a reason.
+
+**Black-tie** — Floor-length OR formal cocktail. Men: tuxedo.
+**Black-tie optional** — Same but slightly less formal. Long safer than short.
+**Cocktail / semi-formal** — Knee or midi length, structured fabric. Most common.
+**Beach / destination** — Lightweight midi, soft colors, flat sandals.
+**Garden / daytime** — Floral midi, pastels.
+**Casual** — Sundress or nice slacks. Still no jeans.
+**Festive / themed** — Follow theme, stay on guest-not-bride side.
+
+NEVER: white, cream, ivory, blush, sequin-bridal.
+
+[Test wedding guest dresses with AI](/wedding-guest-dress) — 30 seconds.`,
+    contentEs: `Los códigos existen por una razón.
+
+**Black-tie** — largo o cóctel formal. Esmoquin para hombres.
+**Black-tie opcional** — algo menos formal.
+**Cóctel / semiformal** — rodilla o midi.
+**Playa** — midi ligero, sandalias planas.
+**Jardín / día** — midi floral, pasteles.
+**Casual** — vestido cómodo. Sin vaqueros.
+
+NUNCA: blanco, marfil, crema, blush.
+
+[Pruébate vestidos con IA](/wedding-guest-dress).`,
+  },
+  {
+    slug: 'what-to-wear-as-bridesmaid-2026',
+    title: 'What to Wear as a Bridesmaid 2026: Trends + Etiquette',
+    titleEs: 'Qué Llevar Como Madrina 2026: Tendencias y Etiqueta',
+    description: 'What to wear as a bridesmaid in 2026: mix-and-match, two-piece sets, slip dresses. Etiquette on when to push back politely.',
+    descriptionEs: 'Qué llevar como madrina 2026: mix-and-match, dos piezas, slip. Etiqueta de cuándo no ceder.',
+    keyword: 'bridesmaid dress 2026',
+    readTime: 4, date: '2026-05-17', category: 'Style · Wedding', categoryEs: 'Estilo · Boda',
+    content: `Less uniform than 2018-22. Mix-and-match is dominant.
+
+## 3 dominant trends
+
+1. Mix-and-match same color — all in sage, each picks silhouette
+2. Two-piece sets — crop top + maxi skirt
+3. Slip dresses — 90s satin
+
+## Push back on
+
+- A dress that doesn't flatter you (bring AI preview to the group chat)
+- Heels you can't dance in (flats accepted now)
+- A color that washes you out (request slightly different shade)
+
+## Never push back on
+
+- The color palette (bride's decision)
+- The vibe / formality
+- The order of seating
+
+[Test bridesmaid dresses](/bridesmaid-dress) — 30 seconds, free.`,
+    contentEs: `Menos uniforme que 2018-22.
+
+1. Mix-and-match mismo color — cada una elige silueta
+2. Dos piezas — top + falda maxi
+3. Slip dresses 90s
+
+**Presiona en**: vestido que no te favorece, tacones imposibles, color que te apaga.
+**Nunca presiones**: paleta de la novia, formalidad, orden.
+
+[Pruébate con IA](/bridesmaid-dress).`,
+  },
+  {
+    slug: 'what-not-to-wear-to-wedding',
+    title: 'What NOT to Wear to a Wedding (8 Rules)',
+    titleEs: 'Qué NO Llevar a una Boda (8 Reglas)',
+    description: 'What not to wear to a wedding: white, cream, sequin daytime, denim, anything bridal-coded. 8 absolute rules.',
+    descriptionEs: 'Qué no llevar a una boda: blanco, crema, lentejuelas de día, vaqueros. 8 reglas absolutas.',
+    keyword: 'what not to wear to wedding',
+    readTime: 3, date: '2026-05-17', category: 'Style · Wedding', categoryEs: 'Estilo · Boda',
+    content: `Etiquette has loosened. These 8 are still hard rules.
+
+1. White, ivory, cream, champagne, blush
+2. All-sequin daytime dress
+3. Denim
+4. See-through without slip
+5. Sneakers (unless casual/beach explicit)
+6. Strapless to religious ceremony (have shawl)
+7. Massive hat (blocks guests behind)
+8. The bridesmaid color if you're not one
+
+## Modern OK
+
+- Short at black-tie if structured satin
+- Tailored jumpsuit
+- Brighter colors
+
+[Test outfit with AI](/wedding-guest-dress) before RSVP.`,
+    contentEs: `8 reglas duras:
+
+1. Blanco, marfil, crema, champán, blush
+2. Lentejuelas entero de día
+3. Denim
+4. Transparente sin combinación
+5. Zapatillas
+6. Strapless a ceremonia religiosa
+7. Sombrero gigantesco
+8. Color de las madrinas si no lo eres
+
+OK moderno: corto en black-tie si estructurado, jumpsuit, colores vivos.
+
+[Pruébalo con IA](/wedding-guest-dress).`,
+  },
+  {
+    slug: 'mother-of-bride-vs-groom',
+    title: 'Mother of the Bride vs Mother of the Groom Dress Etiquette',
+    titleEs: 'Madre de la Novia vs Madre del Novio: Etiqueta',
+    description: 'Who picks first, color coordination, length etiquette, what not to do. The complete guide.',
+    descriptionEs: 'Quién elige primero, coordinación de color, etiqueta de largo, qué no hacer.',
+    keyword: 'mother of bride vs mother of groom',
+    readTime: 3, date: '2026-05-17', category: 'Style · Wedding', categoryEs: 'Estilo · Boda',
+    content: `Both mothers coordinate without matching.
+
+**Bride's mother picks first.** Shares color, style, formality with groom's mother — who picks complementary (not matching) for same formality.
+
+## Coordination
+
+- Same color family, NOT same dress
+- Complement bridesmaids without matching
+- NEVER white, ivory, cream, blush, or bridesmaid color
+
+## Length
+
+If bride is floor-length → both mothers tea-length minimum. If cocktail → tea or midi.
+
+## Never do
+
+- Same color as bridesmaids
+- Print that steals attention
+- Black at daytime (cultural — confirm)
+
+[Test dresses with AI](/mother-of-bride-dress) before long ship times.`,
+    contentEs: `Madre de la novia elige primero. Comparte color/estilo/formalidad con la del novio — que elige complementario.
+
+**Coordinación**: misma familia de color, complementa a madrinas, NUNCA blanco/marfil/crema/blush.
+**Largo**: si novia va al suelo, madres mínimo tea-length.
+**Nunca**: mismo color que madrinas, estampado dominante, negro de día (cultural).
+
+[Pruébate con IA](/mother-of-bride-dress).`,
+  },
+  {
+    slug: 'how-to-pick-cocktail-dress',
+    title: 'How to Pick a Cocktail Dress: 4-Step Framework',
+    titleEs: 'Cómo Elegir un Vestido de Cóctel: 4 Pasos',
+    description: 'How to pick a cocktail dress: length (knee-midi), fabric (satin/silk/lace), color (solid > print), neckline.',
+    descriptionEs: 'Cómo elegir cóctel: largo (rodilla-midi), tejido (satén/seda/encaje), color (liso > estampado), escote.',
+    keyword: 'how to pick cocktail dress',
+    readTime: 3, date: '2026-05-17', category: 'Style · Cocktail', categoryEs: 'Estilo · Cóctel',
+    content: `Picking from the dress photo alone fails. Fabric and fit on YOUR body matter more.
+
+## 4 steps
+
+1. **Length**: knee to midi (above-knee = daytime; floor = black-tie)
+2. **Fabric**: satin, silk, structured cotton, lace (skip chiffon)
+3. **Color**: solid > print. Navy, black, emerald, burgundy, champagne
+4. **Neckline**: pick ONE statement — sleeves, neckline OR back
+
+## By body type
+
+- Hourglass → bardot, off-shoulder, slip
+- Pear → wrap-front midi, A-line
+- Apple → empire waist, satin column
+- Athletic → mermaid, body-con
+- Petite → above-knee, vertical lines
+
+[Test with AI](/cocktail-dress) before clicking buy.`,
+    contentEs: `Elegir por foto falla. Tejido y caída en TU cuerpo importan más.
+
+1. **Largo**: rodilla a midi
+2. **Tejido**: satén, seda, encaje
+3. **Color**: liso > estampado
+4. **Escote**: UN elemento estrella
+
+**Reloj de arena** → bardot, slip. **Pera** → wrap midi. **Manzana** → talle imperio. **Atlético** → sirena. **Bajita** → por encima de rodilla.
+
+[Pruébate con IA](/cocktail-dress).`,
+  },
+  {
+    slug: 'black-tie-vs-optional',
+    title: 'Black-Tie vs Black-Tie Optional: What\'s Actually Different',
+    titleEs: 'Black-Tie vs Opcional: Qué Cambia',
+    description: 'Black-tie vs black-tie optional dress codes. What changes for women, what stays the same.',
+    descriptionEs: 'Black-tie vs opcional: qué cambia para mujeres, qué se mantiene.',
+    keyword: 'black tie vs black tie optional',
+    readTime: 3, date: '2026-05-17', category: 'Style · Black-Tie', categoryEs: 'Estilo · Black-Tie',
+    content: `Similar but different unlock.
+
+**Black-tie** — Women: floor-length gown. Tea-length rare. Dressy fabrics only.
+**Black-tie optional** — Women: floor-length OR formal cocktail (knee-midi structured satin).
+
+Knee-length cocktail at black-tie = under-dressed.
+Floor-length at "creative black-tie" = perfect.
+
+## Never wear at either
+
+- White / ivory / cream / blush
+- Daytime florals
+- Sequins competing with bride
+- Denim
+
+[Test floor-length and cocktail with AI](/wedding-guest-dress).`,
+    contentEs: `**Black-tie** — al suelo. Tea-length raro. Solo tejidos formales.
+**Opcional** — al suelo O cóctel formal.
+
+Cóctel a black-tie = informal. Largo a "creative black-tie" = perfecto.
+
+NUNCA: blanco/marfil/crema/blush, florales de día, lentejuelas tipo novia, denim.
+
+[Pruébate con IA](/wedding-guest-dress).`,
+  },
+  {
+    slug: 'plus-size-wedding-guest-outfit',
+    title: 'Plus-Size Wedding Guest Outfit Guide: Brands + Cuts',
+    titleEs: 'Vestido Invitada Tallas Grandes: Marcas y Cortes',
+    description: 'Plus-size wedding guest: best cuts (empire, wrap, A-line), brands (Eloquii, ASOS Curve, Violeta).',
+    descriptionEs: 'Tallas grandes invitada: cortes (imperio, wrap, A-line), marcas (ASOS Curve, Violeta).',
+    keyword: 'plus size wedding guest outfit',
+    readTime: 4, date: '2026-05-17', category: 'Style · Plus Size', categoryEs: 'Estilo · Tallas Grandes',
+    content: `$1B/year market still under-served.
+
+## 4 best cuts
+
+1. **Empire waist** — high cinch under bust, flowing skirt. Universal.
+2. **Wrap-front midi** — adjustable V, hourglass/apple friendly.
+3. **A-line floor-length** — most photogenic.
+4. **Off-shoulder ball gown** — royal-coded.
+
+## Brands that serve plus size
+
+- Eloquii — sizes 14-28
+- ASOS Curve — wide selection
+- Torrid — through 6X
+- Violeta by Mango — EU 12-26
+
+## Avoid
+
+- Cheap satin without lining
+- Stretchy bodycon
+- "Standard" graded-up (don't drape proportionally)
+
+[Try on your body with AI](/wedding-guest-dress).`,
+    contentEs: `Mercado de $1B/año aún mal servido.
+
+**4 cortes**: talle imperio, wrap midi, A-line largo, princesa hombro descubierto.
+**Marcas**: Violeta by Mango (EU 12-26), ASOS Curve, Eloquii, Torrid.
+**Evita**: satén barato sin forro, bodycon fino, vestidos escalados.
+
+[Pruébate con IA](/wedding-guest-dress).`,
+  },
+  {
+    slug: 'white-ivory-cream-wedding',
+    title: 'White vs Ivory vs Cream: Bride-Only vs Guest-Safe Tones',
+    titleEs: 'Blanco vs Marfil vs Crema: Tonos de Novia vs Invitada',
+    description: 'Bride-only vs guest-safe wedding tones. What about champagne, blush, off-white.',
+    descriptionEs: 'Tonos solo para novia vs aceptados. Qué pasa con champán, blush, off-white.',
+    keyword: 'can you wear cream to wedding',
+    readTime: 3, date: '2026-05-17', category: 'Style · Wedding', categoryEs: 'Estilo · Boda',
+    content: `## Bride-only (NEVER wear as guest)
+
+- Pure white, ivory, off-white
+- Champagne, blush
+- Light pink
+
+## Guest-safe
+
+- Beige (warm earth tone)
+- Tan / camel
+- Sage / dusty green
+- Navy / deep colors
+
+## Edge cases
+
+- Floral with white background — OK if print dominates
+- White stripes/patterns — OK if not dominant
+- Silver/metallic — tonally safe but check bridesmaid colors
+
+The B&W test: if it photographs pale enough to register as white in B&W, don't wear it.
+
+[Preview with AI](/wedding-guest-dress).`,
+    contentEs: `**Solo novia**: blanco puro, marfil, off-white, champán, blush, rosa claro.
+**Invitada**: beige, camel, salvia, marino, oscuros.
+**Casos límite**: floral con fondo blanco OK si el estampado domina. Rayas blancas OK si no dominan.
+
+Test B&W: si fotografía pálido lo bastante para parecer blanco en B&W, no lo lleves.
+
+[Pruébalo con IA](/wedding-guest-dress).`,
+  },
+  {
+    slug: 'prom-dress-by-body-type',
+    title: 'How to Pick a Prom Dress for Your Body Type',
+    titleEs: 'Cómo Elegir Vestido de Graduación Según Tu Cuerpo',
+    description: 'Prom dress by body type: hourglass, pear, apple, athletic, petite, tall. Cuts that flatter each.',
+    descriptionEs: 'Vestido de graduación por cuerpo: reloj, pera, manzana, atlético, bajita, alta.',
+    keyword: 'prom dress for body type',
+    readTime: 4, date: '2026-05-17', category: 'Style · Prom', categoryEs: 'Estilo · Graduación',
+    content: `The dress that wins isn't your friend's — it's the one that fits YOUR proportions.
+
+**Hourglass** — mermaid, fit-and-flare, off-shoulder corset
+**Pear** (smaller top, larger hips) — A-line, ball gown, empire (eyes up)
+**Apple** — empire waist, A-line column, structured satin (skip body-con)
+**Athletic** — bodycon, slip dress, two-piece set
+**Petite** (<5'4") — above-knee, short-mini, vertical seams (avoid floor ball gown)
+**Tall** — floor-length elongates. Ball gown, column, mermaid all work
+
+Try 5-10 styles virtually before 3 in-person try-ons.
+
+[AI prom preview](/prom-dress) — 30 seconds, free.`,
+    contentEs: `No es el de tu amiga — es el que encaja en TUS proporciones.
+
+**Reloj** → sirena, hombro descubierto. **Pera** → A-line, imperio. **Manzana** → imperio, columna estructurada. **Atlético** → bodycon, slip. **Bajita** → corto/mini, costuras verticales. **Alta** → largo al suelo, todo funciona.
+
+[Pruébate con IA](/prom-dress).`,
+  },
+  {
+    slug: 'graduation-dress-by-country',
+    title: 'Graduation Dress Code by Country: US, Spain, UK, Brazil',
+    titleEs: 'Vestimenta de Graduación Por País: España, EE.UU., UK, Brasil',
+    description: 'Graduation dress code by country: US (under gown), Spain (formal), UK (smart business), Brazil (festive).',
+    descriptionEs: 'Por país: EE.UU. (bajo toga), España (formal), UK (smart business), Brasil (festivo).',
+    keyword: 'graduation dress code by country',
+    readTime: 3, date: '2026-05-17', category: 'Style · Graduation', categoryEs: 'Estilo · Graduación',
+    content: `Codes vary wildly.
+
+**USA** — Under gown: cocktail (knee-midi), manageable heels.
+**Spain** — Cóctel / fiesta. Mid-length satin/silk, formal.
+**UK** — Smart business for ceremony, cocktail for dinner. Dark colors.
+**Brazil** — "Vestido de formatura" — long, glamorous, often sequined.
+
+Universal: no killer heels for 4h, no white (unless religious), backup layer.
+
+[Test graduation dresses](/es/vestido-graduacion) ES or [/prom-dress](/prom-dress) US.`,
+    contentEs: `Códigos varían.
+
+**EE.UU.** — bajo la toga, cóctel (rodilla-midi).
+**España** — vestido de cóctel/fiesta, midi satén, formal.
+**UK** — smart business ceremonia, cóctel cena. Oscuros.
+**Brasil** — "vestido de formatura" largo, glamoroso, lentejuelas.
+
+Universal: sin tacones imposibles, sin blanco, capa extra.
+
+[Pruébate con IA](/es/vestido-graduacion).`,
+  },
+  {
+    slug: 'wedding-guest-summer-vs-winter',
+    title: 'Wedding Guest Dress: Summer vs Winter Styling',
+    titleEs: 'Vestido Invitada: Verano vs Invierno',
+    description: 'Wedding guest dress summer vs winter: fabric, palette, sleeves, footwear.',
+    descriptionEs: 'Verano vs invierno: tejido, paleta, mangas, zapatos.',
+    keyword: 'wedding guest dress summer vs winter',
+    readTime: 3, date: '2026-05-17', category: 'Style · Wedding', categoryEs: 'Estilo · Boda',
+    content: `One dress won't work for July outdoor and December indoor.
+
+## Summer
+
+- Fabric: chiffon, linen blend, lightweight satin
+- Sleeves: short, cap, sleeveless
+- Color: coral, sage, dusty blue, soft floral
+- Footwear: block heel, wedge
+- Length: midi or short
+
+## Winter
+
+- Fabric: velvet, heavy satin, wool blend, jacquard
+- Sleeves: long, 3/4, off-shoulder + shawl
+- Color: burgundy, navy, emerald, plum
+- Footwear: closed-toe heel, ankle boot
+- Length: floor or midi
+
+## Transitional
+
+Midi with 3/4 sleeves, removable blazer. Sage, dusty pink, burgundy work both.
+
+[Test with AI](/wedding-guest-dress).`,
+    contentEs: `Un solo vestido no funciona para julio al aire libre y diciembre cerrado.
+
+**Verano**: gasa, lino, mangas cortas, coral/salvia/azul polvo, tacón ancho, midi/corto.
+**Invierno**: terciopelo, satén pesado, mangas largas, burdeos/marino/esmeralda, cerrado, suelo/midi.
+**Entretiempo**: midi 3/4, blazer extraíble.
+
+[Pruébate con IA](/wedding-guest-dress).`,
+  },
+  {
+    slug: 'how-to-not-look-bride',
+    title: 'How NOT to Look Like a Bride as a Wedding Guest',
+    titleEs: 'Cómo NO Parecer la Novia Siendo Invitada',
+    description: 'Avoid bridal-coded cuts: A-line floor, strapless ball, heavy lace, train, beading + cathedral neckline.',
+    descriptionEs: 'Evita cortes nupciales: A-line al suelo, strapless princesa, encaje pesado, cola, pedrería + escote catedral.',
+    keyword: 'how to not look like bride wedding guest',
+    readTime: 3, date: '2026-05-17', category: 'Style · Wedding', categoryEs: 'Estilo · Boda',
+    content: `Not just color — certain cuts read "bridal" regardless.
+
+## 5 cuts that read bridal
+
+1. Full A-line floor gown
+2. Strapless ball gown
+3. Heavy lace overlay floor-length
+4. Train (even small)
+5. Heavy beading + cathedral neckline
+
+## Works instead
+
+- Solid color, structured cocktail or midi
+- Soft drape over structured
+- Details visible at upper body, not just hem
+
+## B&W test
+
+Look at the dress in black-and-white. If it registers as white in B&W, photographers tag it that way.
+
+[Test with AI and verify](/wedding-guest-dress).`,
+    contentEs: `No es solo color — ciertos cortes se leen como novia.
+
+1. A-line al suelo entero
+2. Strapless princesa
+3. Encaje pesado al suelo
+4. Cola
+5. Pedrería + escote catedral
+
+Funciona: color liso, cóctel estructurado, drapeado suave, detalles arriba.
+
+Test B&W: si parece blanco en B&W, no lo lleves.
+
+[Pruébalo con IA](/wedding-guest-dress).`,
+  },
+  {
+    slug: 'what-is-empire-waist-dress',
+    title: 'What Is an Empire Waist Dress? Who It Suits',
+    titleEs: 'Qué es un Vestido de Talle Imperio',
+    description: 'Empire waist explained: cinch under bust, flowing skirt. Who it suits (apple, pear, petite, pregnant).',
+    descriptionEs: 'Talle imperio explicado: cintura bajo busto, falda fluida. A quién favorece.',
+    keyword: 'what is empire waist dress',
+    readTime: 3, date: '2026-05-17', category: 'Style · Dresses', categoryEs: 'Estilo · Vestidos',
+    content: `Regency-era cut. Waistline sits just below the bust, skirt flows from there.
+
+## Who it suits
+
+- **Apple** — skirt flows away from middle, slims waistline
+- **Pear** — skirt camouflages wider hips
+- **Petite** — high waist elongates legs
+- **Pregnant** — one of the few cuts that accommodates a bump elegantly
+
+## Avoid pairing with
+
+- Low V-neck (top-heavy)
+- Cropped jacket (breaks vertical line)
+- Ankle-strap shoe (breaks leg line)
+
+## Best for
+
+Wedding guest, garden party, bridesmaid.
+
+[Preview empire-waist with AI](/wedding-guest-dress).`,
+    contentEs: `Corte de la Regencia. Cintura justo bajo el busto, falda fluye desde ahí.
+
+**Favorece**: manzana (afina cintura), pera (camufla caderas), bajita (alarga), embarazada.
+**Evita**: escote V bajo, chaqueta corta, zapato con tobillera.
+**Ideal para**: invitada, garden party, madrina.
+
+[Pruébate con IA](/wedding-guest-dress).`,
+  },
+  {
+    slug: 'dress-code-cheat-sheet',
+    title: 'Dress Code Cheat Sheet: Casual to White-Tie',
+    titleEs: 'Hoja de Trucos de Códigos: Casual a White-Tie',
+    description: 'Full dress code ladder: casual, smart casual, business casual, cocktail, semi-formal, formal, black-tie, white-tie.',
+    descriptionEs: 'Escalera completa: casual, smart casual, business casual, cóctel, semiformal, formal, black-tie, white-tie.',
+    keyword: 'dress code cheat sheet',
+    readTime: 4, date: '2026-05-17', category: 'Style · Dress Codes', categoryEs: 'Estilo · Códigos',
+    content: `Single chart for every dress code.
+
+**White-tie** — Floor-length gown, gloves optional. Men: white tie, tails.
+**Black-tie** — Floor-length gown. Men: tuxedo.
+**Black-tie optional** — Floor OR formal cocktail. Tux or dark suit.
+**Formal** — Same as B-T optional, more color welcome.
+**Semi-formal** — Cocktail dress. Men: dark suit.
+**Cocktail** — Knee/midi structured dress. Tie optional.
+**Festive** — Cocktail + thematic flair.
+**Business casual** — Slacks + nice top OR dress + blazer.
+**Smart casual** — Dark jeans OK + structured top.
+**Casual** — Whatever's clean.
+
+When unsure, dress ONE level up.
+
+[Test with AI](/wedding-guest-dress).`,
+    contentEs: `Escalera completa.
+
+**White-tie** — al suelo, guantes opcionales. Chaqué.
+**Black-tie** — al suelo. Esmoquin.
+**Opcional** — al suelo O cóctel formal.
+**Formal** — más color bienvenido.
+**Semiformal** — cóctel. Traje oscuro.
+**Cóctel** — rodilla/midi estructurado.
+**Festivo** — cóctel + tema.
+**Business casual** — pantalón + top elegante.
+**Smart casual** — vaqueros oscuros + top.
+**Casual** — limpio.
+
+Si dudas, sube UN nivel.
+
+[Pruébate con IA](/wedding-guest-dress).`,
+  },
+  {
+    slug: 'how-to-find-dress-size-online',
+    title: 'How to Find Your Dress Size Online (Without a Tape Measure)',
+    titleEs: 'Cómo Saber Tu Talla de Vestido Online (Sin Cinta Métrica)',
+    description: 'Use a known-fitting dress to measure. Plus brand-specific sizing tips (Zara runs small, Pronovias runs different).',
+    descriptionEs: 'Usa un vestido conocido. Tips por marca (Zara talla pequeña, Pronovias diferente).',
+    keyword: 'how to find dress size online',
+    readTime: 3, date: '2026-05-17', category: 'Style · Sizing', categoryEs: 'Estilo · Tallas',
+    content: `Brands vary by 1-2 sizes between each other.
+
+## "Known dress" method
+
+1. Find a perfectly fitting dress in your closet
+2. Lay flat, measure bust, waist, hip, length
+3. Compare to brand's size chart (most publish full measurements)
+
+## Brand sizing tips
+
+- Zara / Mango / European fast fashion — runs SMALL by 1
+- Reformation / Princess Polly — true to label
+- Lulus / Macy's — runs TRUE
+- Pronovias / Adrianna Papell — size UP especially bust
+- ASOS — varies by brand carried
+
+## Final check
+
+[AI virtual try-on](/try-on) — see how the silhouette sits on your body before ordering.`,
+    contentEs: `Marcas varían 1-2 tallas entre sí.
+
+**Método del "vestido conocido"**: coge uno que te quede perfecto, mide busto/cintura/cadera/largo, compara con la guía.
+
+**Por marca**: Zara/Mango/europeas → talla pequeña; Reformation/Lulus → real; Pronovias/Adrianna Papell → talla GRANDE; ASOS → según marca.
+
+[Pruébate virtualmente](/try-on).`,
+  },
+
+  // ─────────────────────────────── GLASSES (5) ───────────────────────────
+  {
+    slug: 'glasses-for-face-shape',
+    title: 'How to Pick Glasses for Your Face Shape',
+    titleEs: 'Cómo Elegir Gafas Según Forma de Cara',
+    description: 'Round face → angular frames, square → round, heart → cat-eye, oval → most work. Complete guide with AI try-on.',
+    descriptionEs: 'Redonda → angulares, cuadrada → redondas, corazón → ojo de gato, ovalada → casi todas.',
+    keyword: 'glasses for face shape',
+    readTime: 4, date: '2026-05-17', category: 'Style · Glasses', categoryEs: 'Estilo · Gafas',
+    content: `Rule: contrast face shape with frame shape.
+
+- **Round** → angular (rectangular, square, geometric cat-eye)
+- **Square** → round, oval, soft-cornered
+- **Heart** → cat-eye, light bottom-rim, aviators
+- **Oval** → almost any shape works
+- **Diamond** → cat-eye, oval, rimless
+- **Oblong** → wide, oversized
+
+## Color
+
+- Warm undertones → tortoise, brown, gold, copper
+- Cool undertones → black, silver, blue, cool grey
+- Universal → matte black, transparent
+
+Glasses are $200-400/pair. [Try with AI](/virtual-glasses-try-on) before paying.`,
+    contentEs: `Regla: contrasta forma de cara con montura.
+
+**Redonda** → angulares. **Cuadrada** → redondas. **Corazón** → ojo de gato. **Ovalada** → casi todas. **Diamante** → ojo de gato, sin montura. **Alargada** → anchas oversized.
+
+**Color**: cálido → carey/oro/cobre; frío → negro/plata/azul; universal → negro mate, transparente.
+
+[Pruébate con IA](/virtual-glasses-try-on).`,
+  },
+  {
+    slug: 'glasses-frame-color-skin-tone',
+    title: 'Best Glasses Frame Color for Your Skin Tone',
+    titleEs: 'Mejor Color de Montura Según Tono de Piel',
+    description: 'Frame color by undertone: warm (tortoise, brown, gold), cool (black, silver, blue), neutral (most work).',
+    descriptionEs: 'Color por subtono: cálido (carey, marrón, oro), frío (negro, plata, azul), neutro (todos).',
+    keyword: 'glasses frame color skin tone',
+    readTime: 3, date: '2026-05-17', category: 'Style · Glasses', categoryEs: 'Estilo · Gafas',
+    content: `Right color = healthier look. Wrong color = washed out.
+
+**Cool undertone**: black, silver, dark gunmetal, dark blue, deep purple, pale pink. Skip warm tortoise, gold, copper.
+
+**Warm undertone**: tortoise, brown, amber, gold, warm beige, copper, olive. Skip stark black, icy silver.
+
+**Neutral**: most colors work — matte black, transparent, soft tortoise.
+
+## Skin depth
+
+- Deep tones → rich tortoise, copper, jewel tones
+- Pale skin → avoid stark white frames
+
+[Try every color with AI](/virtual-glasses-try-on).`,
+    contentEs: `**Frío**: negro, plata, gunmetal, azul oscuro, morado. Evita carey cálido, oro.
+**Cálido**: carey, marrón, ámbar, oro, cobre, oliva. Evita negro absoluto, plata gélida.
+**Neutro**: casi todos.
+
+**Pieles oscuras** → carey rico, cobre, joya. **Claras** → evita blanco puro.
+
+[Prueba cada color con IA](/virtual-glasses-try-on).`,
+  },
+  {
+    slug: 'how-to-clean-glasses',
+    title: 'How to Clean Prescription Glasses (Without Scratching)',
+    titleEs: 'Cómo Limpiar Gafas de Vista (Sin Rayarlas)',
+    description: 'Clean glasses with lens cleaner, microfiber only. Avoid paper towels, shirts, ammonia.',
+    descriptionEs: 'Limpia con limpiador de lentes y microfibra. Evita papel, camiseta, amoniaco.',
+    keyword: 'how to clean prescription glasses',
+    readTime: 3, date: '2026-05-17', category: 'Tips · Glasses', categoryEs: 'Consejos · Gafas',
+    content: `Paper towels destroy coatings in weeks.
+
+## Routine
+
+1. Rinse with lukewarm water
+2. 1 drop lens cleaner OR tiny dish soap
+3. Rub gently with fingertips
+4. Rinse again
+5. Dry with clean microfiber — single direction
+
+## Never use
+
+- Paper towels (scratch)
+- Your shirt (skin oils)
+- Glass cleaner with ammonia (eats coatings)
+- Hot water (warps)
+
+## Storage
+
+- Closed case when off
+- Avoid hot car (warps at 60°C+)
+- Don't put on top of head
+
+If scratched beyond repair, [try new frames with AI](/virtual-glasses-try-on).`,
+    contentEs: `El papel destruye los tratamientos en semanas.
+
+1. Enjuaga con templada
+2. Gota de limpiador O jabón lavavajillas
+3. Frota con dedos
+4. Enjuaga
+5. Seca con microfibra en una dirección
+
+**Nunca**: papel, camiseta, amoniaco, agua caliente.
+
+**Almacena**: funda cerrada, no en coche caliente, no en la cabeza.
+
+[Pruébate monturas nuevas con IA](/virtual-glasses-try-on).`,
+  },
+  {
+    slug: 'round-face-glasses-guide',
+    title: 'Round Face Shape: Glasses Guide and Frame Picks',
+    titleEs: 'Cara Redonda: Guía de Gafas',
+    description: 'Round face: rectangular, square, geometric cat-eye. The 4 frame styles that add definition.',
+    descriptionEs: 'Cara redonda: rectangulares, cuadradas, ojo de gato geométrico.',
+    keyword: 'glasses for round face',
+    readTime: 3, date: '2026-05-17', category: 'Style · Glasses', categoryEs: 'Estilo · Gafas',
+    content: `Round face = width ≈ length, soft features. Add angles.
+
+## 4 best frames
+
+1. Rectangular — wider than tall, adds horizontal length
+2. Geometric square — crisp 90° corners
+3. Geometric cat-eye — lifts at outer corners
+4. Browline / clubmaster — bold top edge
+
+## Skip
+
+- Round frames (doubles roundness — unless John Lennon look intentional)
+- Tiny lenses (face looks bigger by contrast)
+- Frameless (no chance to add definition)
+
+## Color
+
+Slightly darker adds contour: tortoise, dark havana, deep blue.
+
+[Try angular frames with AI](/haircut-for-round-face).`,
+    contentEs: `Cara redonda = ancho ≈ largo. Añade ángulos.
+
+1. Rectangular — más ancha que alta
+2. Cuadrada geométrica
+3. Ojo de gato geométrico
+4. Browline / clubmaster
+
+**Evita**: redondas, lentes pequeñas, sin montura.
+**Color**: carey, havana oscuro, azul profundo.
+
+[Pruébate con IA](/haircut-for-round-face).`,
+  },
+  {
+    slug: 'acetate-vs-metal-frames',
+    title: 'Acetate vs Metal Glasses Frames: Which to Pick',
+    titleEs: 'Acetato vs Metal: Cuál Elegir',
+    description: 'Acetate vs metal frames: durability, weight, comfort, price. Complete comparison.',
+    descriptionEs: 'Acetato vs metal: durabilidad, peso, comodidad, precio.',
+    keyword: 'acetate vs metal glasses',
+    readTime: 3, date: '2026-05-17', category: 'Style · Glasses', categoryEs: 'Estilo · Gafas',
+    content: `Both valid. Pick by lifestyle and aesthetic.
+
+## Acetate
+
+Pros: bold colors/patterns (tortoise, gradients), design freedom, hypoallergenic, impact-resistant.
+Cons: slightly heavier, can yellow with extreme sun.
+
+## Metal
+
+Pros: light, sleek silhouette, easier to repair, aviator/clubmaster only come in metal.
+Cons: limited colors, nickel allergy potential, dents easier.
+
+## By use
+
+- Office / professional → either
+- Statement / creative → acetate
+- Lightweight → metal
+- Sturdy daily wear → acetate
+
+Price: comparable ($150-400).
+
+[Test both with AI](/virtual-glasses-try-on).`,
+    contentEs: `Ambos válidos.
+
+**Acetato**: colores audaces, hipoalergénico, resistente a impactos. Algo más pesado.
+**Metal**: ligero, silueta esbelta, fácil de reparar. Limitado en color, puede oxidar, se abolla.
+
+**Por uso**: oficina → ambos; statement → acetato; ligero → metal; uso diario robusto → acetato.
+
+Precio: comparable.
+
+[Pruébate ambos con IA](/virtual-glasses-try-on).`,
+  },
+
+  // ─────────────────────────────── TRY-ON TECH (8) ───────────────────────
+  {
+    slug: 'how-virtual-try-on-works',
+    title: 'How Virtual Try-On AI Actually Works (Pipeline)',
+    titleEs: 'Cómo Funciona la IA de Probador Virtual',
+    description: 'How virtual try-on AI works: body landmarks, garment segmentation, pose-matching, lighting synthesis.',
+    descriptionEs: 'Cómo funciona: puntos corporales, segmentación, ajuste a postura, síntesis de luz.',
+    keyword: 'how virtual try on ai works',
+    readTime: 4, date: '2026-05-17', category: 'Tech · AI', categoryEs: 'Tech · IA',
+    content: `Sequence of image-processing tasks chained together.
+
+1. **Body landmark detection** — 17-33 keypoints (shoulders, elbows, hips) create a "skeleton"
+2. **Garment segmentation** — reference garment isolated from background, silhouette + color + texture identified
+3. **Pose-matching** — garment "warped" to fit YOUR body's pose
+4. **Lighting and shadow synthesis** — garment reflects YOUR photo's light
+5. **Identity preservation** — face, hair, body, background unchanged
+
+## What can go wrong
+
+- Garment partially occluded → AI guesses
+- Extreme poses → harder to fit
+- Very low-res photos → less precise
+
+[Try our virtual try-on free](/try-on) — first render no signup.`,
+    contentEs: `Secuencia de procesamiento de imagen.
+
+1. **Detección de puntos**: 17-33 keypoints crean un "esqueleto"
+2. **Segmentación**: la prenda se aísla del fondo
+3. **Ajuste a postura**: la prenda se deforma a tu postura
+4. **Síntesis de luz**: la prenda refleja TU luz
+5. **Preservación**: cara, pelo, cuerpo, fondo se mantienen
+
+[Pruébalo gratis](/try-on) — sin registro el primero.`,
+  },
+  {
+    slug: 'is-virtual-try-on-accurate',
+    title: 'Is Virtual Try-On Accurate? Honest Limits',
+    titleEs: 'Es Precisa la Prueba Virtual: Límites Honestos',
+    description: 'Virtual try-on: ~95% for color, ~90% for silhouette, ~85% for fit. Limitations: exact tightness, fabric drape.',
+    descriptionEs: 'Prueba virtual: ~95% color, ~90% silueta, ~85% caída. Límites: apretado exacto, caída de tejido fluido.',
+    keyword: 'is virtual try on accurate',
+    readTime: 3, date: '2026-05-17', category: 'Tech · AI', categoryEs: 'Tech · IA',
+    content: `Yes for most decisions, no for some.
+
+## Accurate FOR
+
+- Color match: 95%
+- Silhouette / cut: 90%
+- General length: 85%
+- Pattern placement: 85%
+
+## Less accurate FOR
+
+- Exact tightness — may read looser or tighter
+- Fabric drape (silk, chiffon)
+- Exact size verification — use brand size charts
+
+## Trust for
+
+- "Will this color suit me?" → yes
+- "Will this silhouette flatter?" → yes
+- "Is this my exact size?" → use brand chart
+
+## Maximize accuracy
+
+- Good light, frontal, plain background
+- Reference photo of garment on a model
+- Specify size in chat if known
+
+[Try it](/try-on) — first render free.`,
+    contentEs: `Sí para la mayoría, no para algunas.
+
+**Precisa en**: color 95%, silueta 90%, largo 85%, colocación 85%.
+**Menos precisa en**: apretado exacto, caída de seda/gasa, tallaje exacto (usa guía).
+
+**Confía para**: "¿este color me favorece?", "¿esta silueta?". **No para**: talla exacta.
+
+**Maximiza**: buena luz, frontal, fondo neutro, referencia sobre modelo.
+
+[Pruébalo](/try-on).`,
+  },
+  {
+    slug: 'virtual-try-on-vs-ar',
+    title: 'Virtual Try-On vs Augmented Reality: What\'s the Difference?',
+    titleEs: 'Prueba Virtual vs Realidad Aumentada: Diferencia',
+    description: 'Photo-based AI render vs live camera overlay. Pros, cons, when to use each.',
+    descriptionEs: 'Render IA basado en foto vs superposición en cámara. Pros, contras.',
+    keyword: 'virtual try on vs ar',
+    readTime: 3, date: '2026-05-17', category: 'Tech · AI', categoryEs: 'Tech · IA',
+    content: `Both "try-on" but very different.
+
+## Virtual try-on (photo + AI)
+
+You upload ONE static photo. AI generates new photo of you wearing the garment.
+**Pros**: high photorealism, ANY garment from a photo, shareable result, no hardware.
+**Cons**: static no movement, 10-30s render.
+
+## AR (live camera)
+
+Camera shows you live with digital overlay.
+**Pros**: real-time movement, good for glasses/makeup, no upload.
+**Cons**: lower photorealism, only items the app modeled, not shareable.
+
+## Pick
+
+- Clothing / dresses → virtual try-on wins
+- Glasses / makeup → AR comparable
+- Pinterest dress reference → virtual try-on (AR can't do this)
+
+[Try the photo AI](/try-on).`,
+    contentEs: `Ambas "try-on" pero distintas.
+
+**Prueba virtual (foto + IA)**: subes UNA foto, IA genera nueva. Alto fotorealismo, CUALQUIER prenda, compartible.
+**RA (cámara)**: en directo con superposición. Tiempo real, sin foto, solo items modelados.
+
+**Elige**: ropa/vestidos → prueba virtual. Gafas/maquillaje → RA. Vestido de Pinterest → prueba virtual.
+
+[Pruébalo](/try-on).`,
+  },
+  {
+    slug: 'best-fashion-ai-tools-2026',
+    title: 'Best Fashion AI Tools 2026',
+    titleEs: 'Mejores Herramientas de IA de Moda 2026',
+    description: 'Best fashion AI 2026: virtual try-on, color analysis, body type styling, capsule wardrobe, outfit generator, body measurement.',
+    descriptionEs: 'Mejor IA de moda 2026: prueba virtual, análisis de color, estilo, armario cápsula, generador.',
+    keyword: 'best fashion ai tools 2026',
+    readTime: 3, date: '2026-05-17', category: 'Tech · AI', categoryEs: 'Tech · IA',
+    content: `6 categories worth using.
+
+1. **Virtual try-on** — Agalaz leads
+2. **Color analysis** — identify seasonal palette
+3. **Body type styling** — shape + recommended cuts
+4. **Capsule wardrobe planner** — closet + outfit combos
+5. **Outfit generator** — describe occasion, get ideas
+6. **Body measurement** — bust/waist/hip from photo
+
+## Not worth it
+
+- "AI stylist" chatbots reprinting Vogue
+- "AI fashion week predictions" — recycled
+- "AI shopping assistants" — affiliate pushers
+
+Start with virtual try-on. [Try Agalaz](/best-virtual-try-on-app).`,
+    contentEs: `6 categorías que sí valen.
+
+1. **Prueba virtual** — Agalaz lidera
+2. **Análisis de color** — paleta estacional
+3. **Estilo por cuerpo**
+4. **Armario cápsula**
+5. **Generador de outfits**
+6. **Medidas corporales**
+
+**No valen**: chatbots estilistas, predicciones fashion week, asistentes de afiliación.
+
+[Pruébalo](/best-virtual-try-on-app).`,
+  },
+  {
+    slug: 'how-to-take-photo-for-try-on',
+    title: 'How to Take the Perfect Photo for Virtual Try-On',
+    titleEs: 'Cómo Tomar la Foto Perfecta Para Prueba Virtual',
+    description: 'Full body, frontal, neutral background, good light, arms slightly away. The 5 rules for perfect try-on photos.',
+    descriptionEs: 'Cuerpo entero, frontal, fondo neutro, buena luz, brazos separados.',
+    keyword: 'how to take photo virtual try on',
+    readTime: 3, date: '2026-05-17', category: 'Tips · Try-On', categoryEs: 'Consejos · Try-On',
+    content: `Better input = better output.
+
+## 5 rules
+
+1. Full body, head to feet
+2. Frontal, facing camera
+3. Neutral background (white wall, plain hallway)
+4. Good even light (natural daylight near window)
+5. Arms slightly away from body
+
+## What to wear
+
+Snug-fitting solid colors. Leggings + fitted tank ideal.
+
+## Avoid
+
+- Mirror selfies
+- Strong filters
+- Sitting/leaning
+- Multiple people in frame
+
+[Try a render free](/try-on).`,
+    contentEs: `Mejor input = mejor output.
+
+1. Cuerpo entero
+2. Pose frontal
+3. Fondo neutro
+4. Luz uniforme
+5. Brazos separados del cuerpo
+
+**Ropa**: ajustada, colores lisos.
+**Evita**: selfies de espejo, filtros fuertes, sentada, varias personas.
+
+[Pruébalo](/try-on).`,
+  },
+  {
+    slug: 'is-virtual-try-on-safe',
+    title: 'Is It Safe to Upload Your Photo for Virtual Try-On?',
+    titleEs: 'Es Seguro Subir Tu Foto Para Prueba Virtual',
+    description: 'Virtual try-on privacy: zero retention, no model training, no third-party sharing. What to check.',
+    descriptionEs: 'Prueba virtual privacidad: retención cero, sin entrenamiento, sin compartir.',
+    keyword: 'is virtual try on safe',
+    readTime: 4, date: '2026-05-17', category: 'Tips · Try-On', categoryEs: 'Consejos · Try-On',
+    content: `Legitimate concern. 4 checks before uploading anywhere:
+
+1. **Retention policy** — "zero retention" or "real time, discarded"
+2. **Training data clause** — does service use your photos to train? Biggest red flag
+3. **Resale clause** — sale to dataset brokers
+4. **Deletion option** — can you delete account + photos?
+
+## Agalaz specifically
+
+- Zero retention
+- No model training on your photos
+- No third-party sharing
+- No facial recognition DB
+- GDPR-compliant, EU server routing on request
+
+## Red flags elsewhere
+
+- "Improve our service" without opt-out
+- Photos stored by default
+- "Trusted partners" (often data brokers)
+
+[Try Agalaz](/try-on) — first free, no card, no retention.`,
+    contentEs: `Preocupación legítima. 4 comprobaciones:
+
+1. **Retención**: "cero" o "tiempo real, descartada"
+2. **Entrenamiento**: ¿usan tus fotos para entrenar? Mayor red flag
+3. **Reventa**: a brokers
+4. **Borrado**: ¿puedes eliminar?
+
+**Agalaz**: cero retención, sin entrenamiento, sin terceros, sin DB facial, RGPD.
+
+**Red flags**: "mejorar servicio" sin opt-out, fotos en cuenta por defecto, "socios de confianza".
+
+[Pruébalo](/try-on).`,
+  },
+  {
+    slug: 'virtual-try-on-shopify',
+    title: 'Virtual Try-On for Shopify Stores: ROI Breakdown',
+    titleEs: 'Prueba Virtual Para Shopify: Análisis ROI',
+    description: 'Virtual try-on Shopify ROI: conversion +8-15%, returns -20-40%. Implementation in 2 lines of code, no plugin.',
+    descriptionEs: 'ROI prueba virtual Shopify: conversión +8-15%, devoluciones -20-40%. 2 líneas de código.',
+    keyword: 'virtual try on shopify',
+    readTime: 4, date: '2026-05-17', category: 'Business · Shopify', categoryEs: 'Negocio · Shopify',
+    content: `Real ROI for Shopify merchants.
+
+## 3 ROI levers
+
+1. **Conversion lift** — engagement 2-3x longer, add-to-cart +8-15%
+2. **Return reduction** — 20-40% drop in apparel returns
+3. **Upsell on variants** — render one, see others in 30s
+
+## Implementation
+
+Shopify App Store apps: $50-200/month + per-render + 30% transaction.
+Agalaz: 2-line script in theme.liquid + product.liquid. €150/mo for 200 renders. No transaction fees.
+
+## Math example
+
+$50K monthly revenue, 30% returns ($15K/mo):
+- Returns -30% → save $4,500/mo
+- Conversion +10% → +$5,000/mo
+- Net: $9,500/mo vs $150/mo = 63x ROI
+
+[Try Agalaz for Shopify](/shopify) — 7-day free trial, 50 renders.`,
+    contentEs: `ROI real para merchants Shopify.
+
+**3 palancas**: conversión +8-15%, devoluciones -20-40%, upsell en variantes.
+
+**Implementación**: apps Shopify cobran $50-200/mes + fees. Agalaz: 2 líneas, €150/mes plano.
+
+**Ejemplo**: $50K/mes con 30% devoluciones ($15K) → ahorra $4.500 + sube $5.000 = $9.500/mes vs €150 = 63x ROI.
+
+[Pruébalo](/shopify) — 7 días gratis.`,
+  },
+  {
+    slug: 'how-ai-reduces-returns',
+    title: 'How Fashion AI Reduces Returns (Real Numbers 2024-26)',
+    titleEs: 'Cómo la IA de Moda Reduce Devoluciones (Cifras 2024-26)',
+    description: 'Fashion AI return reduction: 20-40% apparel, 40-50% shoes, 50-60% glasses. The data behind the impact.',
+    descriptionEs: 'IA reduce devoluciones: 20-40% ropa, 40-50% zapatos, 50-60% gafas.',
+    keyword: 'how fashion ai reduces returns',
+    readTime: 4, date: '2026-05-17', category: 'Business · AI', categoryEs: 'Negocio · IA',
+    content: `Fashion returns cost industry $890B/year (NRF 2024).
+
+## Base return rates
+
+- Apparel: 30-40%
+- Shoes: 25-35%
+- Glasses: 15-25%
+- Jewelry: 10-15%
+
+## With AI try-on
+
+- Apparel: -20-40%
+- Shoes: -40-50%
+- Glasses: -50-60% (most impact)
+- Jewelry: -20-30%
+
+## Why
+
+Fit anxiety is the #1 reason items return. Try-on removes anxiety BEFORE buy.
+
+## Compounding
+
+Fewer returns = less reverse logistics, less restocking, more buyer confidence.
+
+## Real numbers
+
+$50M apparel brand, 30% returns ($15M back) → 25% reduction = $3.75M annual savings. At $50K/yr subscription = 75x ROI.
+
+[Agalaz for ecommerce](/partners).`,
+    contentEs: `Las devoluciones cuestan $890B/año.
+
+**Tasas base**: ropa 30-40%, zapatos 25-35%, gafas 15-25%, joyería 10-15%.
+
+**Con IA**: ropa -20-40%, zapatos -40-50%, gafas -50-60%, joyería -20-30%.
+
+**Por qué**: la duda de tallaje es la causa #1. La prueba la quita ANTES.
+
+**Ejemplo**: marca de 50M€ con 30% devoluciones (15M€) → reducir 25% = 3,75M€/año ahorrados. 75x ROI.
+
+[Agalaz partners](/partners).`,
+  },
 ];
