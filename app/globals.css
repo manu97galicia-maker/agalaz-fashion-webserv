@@ -71,10 +71,33 @@ body {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   overscroll-behavior: none;
+  /* Only top + bottom safe-area padding on the body. Earlier we also
+     applied left + right env() insets, but on iPhone landscape / iPad
+     those insets are non-zero and pushed the entire layout inward,
+     creating asymmetric "bands" on the sides in Safari. Components that
+     specifically need to clear the notch in landscape (a sticky bar
+     spanning 100vw, etc.) should opt in to `padding-left/right:
+     env(safe-area-inset-*)` themselves rather than have it forced on
+     everything. */
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
+}
+
+/* iOS Safari viewport-height fix.
+   `100vh` on iOS includes the URL bar when collapsed → hero sections
+   using `min-h-screen` JUMP by ~60px when the user scrolls and the
+   URL bar hides. Tailwind's `.min-h-screen` and `.h-screen` are
+   compiled to plain `100vh`. We override them here to use `dvh`
+   (dynamic viewport height) which adjusts smoothly. The `vh` line is
+   the fallback for Safari < 15.4 — those browsers ignore the `dvh`
+   line and keep working. */
+.min-h-screen {
+  min-height: 100vh; /* fallback for Safari < 15.4 */
+  min-height: 100dvh;
+}
+.h-screen {
+  height: 100vh; /* fallback for Safari < 15.4 */
+  height: 100dvh;
 }
 
 /* iOS-style rubber band prevention */
