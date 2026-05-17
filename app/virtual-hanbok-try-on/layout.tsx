@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     alternateLocale: 'ko',
-    images: [{ url: '/og/virtual-hanbok-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/virtual-hanbok-try-on.png', width: 1200, height: 630, alt: 'Virtual Hanbok Try-On — See Korean Hanbok On Your Face' }],
     },
   twitter: {
     card: 'summary_large_image',

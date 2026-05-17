@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     url: pageUrl,
     siteName: 'Agalaz Fashion',
     locale: 'es_ES',
-    images: [{ url: '/og/virtual-tattoo-simulator.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/virtual-tattoo-simulator.png', width: 1200, height: 630, alt: 'Simulador Virtual de Tatuajes Gratis | Prueba Tatuajes en tu Foto con IA' }],
     },
 };
 

@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     url: 'https://agalaz.com/virtual-nail-try-on',
     siteName: 'Agalaz',
     type: 'website',
-    images: [{ url: '/og/virtual-nail-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/virtual-nail-try-on.png', width: 1200, height: 630, alt: 'Virtual Nail Try-On — See Any Manicure On You' }],
   
   },
   twitter: {

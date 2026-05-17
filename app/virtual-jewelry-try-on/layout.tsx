@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     url: 'https://agalaz.com/virtual-jewelry-try-on',
     siteName: 'Agalaz',
     type: 'website',
-    images: [{ url: '/og/virtual-jewelry-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/virtual-jewelry-try-on.png', width: 1200, height: 630, alt: 'Virtual Jewelry Try-On — See Any Piece On You' }],
   
   },
   twitter: { card: 'summary_large_image', title: 'Virtual Jewelry Try-On', description: 'Necklaces, rings, earrings, bracelets — render in 30 seconds.' },

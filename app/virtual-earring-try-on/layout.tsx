@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     url: 'https://agalaz.com/virtual-earring-try-on',
     siteName: 'Agalaz',
     type: 'website',
-    images: [{ url: '/og/virtual-earring-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/virtual-earring-try-on.png', width: 1200, height: 630, alt: 'Virtual Earring Try-On + Earring Simulator — Free AI | Agalaz' }],
   
   },
   twitter: {

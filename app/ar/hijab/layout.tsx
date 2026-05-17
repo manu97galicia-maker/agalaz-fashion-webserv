@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'ar',
     alternateLocale: 'en_US',
-    images: [{ url: '/og/virtual-veil-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/virtual-veil-try-on.png', width: 1200, height: 630, alt: 'تجربة افتراضية للحجاب والعباءة | أغالاز' }],
     },
   twitter: {
     card: 'summary_large_image',

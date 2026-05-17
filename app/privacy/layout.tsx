@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     type: 'website',
     url: 'https://agalaz.com/privacy',
     siteName: 'Agalaz Fashion',
-    images: [{ url: '/og/default.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/default.png', width: 1200, height: 630, alt: 'Privacy Policy | Agalaz Fashion' }],
   },
 };
 

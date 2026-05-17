@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     alternateLocale: 'hi',
-    images: [{ url: '/og/virtual-saree-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/virtual-saree-try-on.png', width: 1200, height: 630, alt: 'Virtual Saree Try-On — See Indian Wear On Your Face' }],
     },
   twitter: {
     card: 'summary_large_image',

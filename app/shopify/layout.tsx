@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     url: PAGE_URL,
     siteName: 'Agalaz Fashion',
     locale: 'en_US',
-    images: [{ url: '/og/default.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/default.png', width: 1200, height: 630, alt: 'Shopify Virtual Try-On App — Cut Returns 40% in 2 Lines of Code' }],
     },
   twitter: {
     card: 'summary_large_image',

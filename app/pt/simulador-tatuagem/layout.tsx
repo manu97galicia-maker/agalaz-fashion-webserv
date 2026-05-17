@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     url: nativeLandingUrl('virtual-tattoo-simulator', 'pt'),
     siteName: 'Agalaz Fashion',
     locale: 'pt_PT',
-    images: [{ url: '/og/virtual-tattoo-simulator.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/virtual-tattoo-simulator.png', width: 1200, height: 630, alt: 'Simulador de Tatuagem Virtual Grátis | Teste Tatuagens com IA' }],
   },
 };
 export default function L({ children }: { children: React.ReactNode }) { return children; }

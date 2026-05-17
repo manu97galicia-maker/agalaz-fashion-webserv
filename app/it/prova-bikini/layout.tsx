@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     url: nativeLandingUrl('realistic-swimwear-try-on', 'it'),
     siteName: 'Agalaz Fashion',
     locale: 'it_IT',
-    images: [{ url: '/og/realistic-swimwear-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/realistic-swimwear-try-on.png', width: 1200, height: 630, alt: 'Prova Costumi Virtuale Realistica | Bikini sul Tuo Corpo Reale' }],
   },
 };
 export default function L({ children }: { children: React.ReactNode }) { return children; }

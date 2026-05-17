@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'zh_CN',
     alternateLocale: 'en_US',
-    images: [{ url: '/og/virtual-qipao-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/virtual-qipao-try-on.png', width: 1200, height: 630, alt: '虚拟旗袍试穿 | 阿加拉兹' }],
     },
   twitter: {
     card: 'summary_large_image',

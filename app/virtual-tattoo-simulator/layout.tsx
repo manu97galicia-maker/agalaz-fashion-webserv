@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     url: 'https://agalaz.com/virtual-tattoo-simulator',
     siteName: 'Agalaz',
     type: 'website',
-    images: [{ url: '/og/virtual-tattoo-simulator.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/virtual-tattoo-simulator.png', width: 1200, height: 630, alt: 'Tattoo Simulator + Virtual Tattoo Viewer Free Online — Agalaz' }],
   
   },
   twitter: {

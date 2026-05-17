@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     url: 'https://agalaz.com/realistic-swimwear-try-on',
     siteName: 'Agalaz',
     type: 'website',
-    images: [{ url: '/og/realistic-swimwear-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/realistic-swimwear-try-on.png', width: 1200, height: 630, alt: 'Realistic Virtual Swimwear Try-On | Agalaz AI' }],
   
   },
   twitter: {

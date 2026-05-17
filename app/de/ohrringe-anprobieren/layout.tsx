@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     url: nativeLandingUrl('virtual-earring-try-on', 'de'),
     siteName: 'Agalaz Fashion',
     locale: 'de_DE',
-    images: [{ url: '/og/virtual-earring-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/virtual-earring-try-on.png', width: 1200, height: 630, alt: 'Virtuelle Ohrring- und Piercing-Anprobe mit KI' }],
   },
 };
 export default function L({ children }: { children: React.ReactNode }) { return children; }

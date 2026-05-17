@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     alternateLocale: 'zh_CN',
-    images: [{ url: '/og/virtual-qipao-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/virtual-qipao-try-on.png', width: 1200, height: 630, alt: 'Virtual Qipao Try-On — See Cheongsam & Hanfu On Your Face' }],
     },
   twitter: {
     card: 'summary_large_image',

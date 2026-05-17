@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     url: 'https://agalaz.com/virtual-mens-suit-try-on',
     siteName: 'Agalaz',
     type: 'website',
-    images: [{ url: '/og/virtual-mens-suit-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/virtual-mens-suit-try-on.png', width: 1200, height: 630, alt: 'Virtual Men\'s Suit Try-On — See Any Suit On You' }],
   
   },
   twitter: { card: 'summary_large_image', title: 'Virtual Men\'s Suit Try-On', description: 'Upload a photo, drop any suit, render in 30 seconds.' },

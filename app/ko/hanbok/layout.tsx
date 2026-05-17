@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'ko_KR',
     alternateLocale: 'en_US',
-    images: [{ url: '/og/virtual-hanbok-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/virtual-hanbok-try-on.png', width: 1200, height: 630, alt: '가상 한복 입어보기 | 아갈라즈' }],
     },
   twitter: {
     card: 'summary_large_image',

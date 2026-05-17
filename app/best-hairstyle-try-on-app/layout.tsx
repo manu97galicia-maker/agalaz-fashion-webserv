@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     url,
     siteName: 'Agalaz Fashion',
     locale: 'en_US',
-    images: [{ url: '/og/virtual-wedding-dress-try-on.png', width: 1200, height: 630, alt: content.heroTitle }],
+    images: [{ url: '/og/virtual-hairstyle-try-on.png', width: 1200, height: 630, alt: content.heroTitle }],
   },
   twitter: { card: 'summary_large_image', title: content.title, description: content.description },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },

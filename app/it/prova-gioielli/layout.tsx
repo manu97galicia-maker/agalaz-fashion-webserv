@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     url: pageUrl,
     siteName: 'Agalaz Fashion',
     locale: 'it_IT',
-    images: [{ url: '/og/virtual-jewelry-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/virtual-jewelry-try-on.png', width: 1200, height: 630, alt: 'it prova gioielli — Agalaz AI Virtual Try-On' }],
   
   },
   twitter: {

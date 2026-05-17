@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     siteName: 'Agalaz Fashion',
     locale: 'en_US',
     alternateLocale: 'es_ES',
-    images: [{ url: '/og/default.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/default.png', width: 1200, height: 630, alt: 'AI Photo Editor to Change Clothes — Free Virtual Try On Online' }],
     },
   twitter: {
     card: 'summary_large_image',

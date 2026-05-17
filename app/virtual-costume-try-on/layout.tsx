@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     url: 'https://agalaz.com/virtual-costume-try-on',
     siteName: 'Agalaz',
     type: 'website',
-    images: [{ url: '/og/virtual-costume-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/virtual-costume-try-on.png', width: 1200, height: 630, alt: 'Virtual Costume Try-On — Halloween, Cosplay, Carnival, Kids' }],
     },
   twitter: { card: 'summary_large_image', title: 'Virtual Costume Try-On', description: 'Halloween, cosplay, carnival, kids — see any costume on YOUR body in 30 seconds.' },
   alternates: {

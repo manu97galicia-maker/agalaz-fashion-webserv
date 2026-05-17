@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'ja_JP',
     alternateLocale: 'en_US',
-    images: [{ url: '/og/virtual-kimono-try-on.png', width: 1200, height: 630, alt: 'Agalaz — AI Virtual Try-On' }],
+    images: [{ url: '/og/virtual-kimono-try-on.png', width: 1200, height: 630, alt: 'バーチャル着物試着 | アガラズ' }],
     },
   twitter: {
     card: 'summary_large_image',
