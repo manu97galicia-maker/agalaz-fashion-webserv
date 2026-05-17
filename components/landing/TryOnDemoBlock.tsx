@@ -1109,14 +1109,29 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
       }
       const data = await res.json();
       if (data.image) {
-        // Apply the agalaz.com brand pill so every shared/screenshotted
-        // result advertises the product. Falls back to the raw render if
-        // the canvas pipeline fails (CORS, very large image, etc.).
+        // Persist the UNWATERMARKED render to localStorage BEFORE applying
+        // the demo watermark. When the user purchases any pack (trial /
+        // starter / pro) Stripe redirects to /try-on?credits_purchased=…
+        // and that page reads this key to surface the clean version, so
+        // they immediately get value for their payment without having to
+        // re-upload and re-render.
+        try {
+          if (typeof window !== 'undefined') {
+            window.localStorage.setItem(
+              'agalaz_demo_unwatermarked',
+              JSON.stringify({ image: data.image, t: Date.now(), category }),
+            );
+          }
+        } catch {
+          // localStorage can be disabled (private mode, quota) — ignore.
+        }
+
+        // Now apply the heavier demo watermark for the displayed copy.
         let finalImage = data.image;
         try {
           finalImage = await applyWatermark(data.image);
         } catch {
-          // swallow — better unbranded than no result at all
+          // swallow — better unwatermarked than no result at all
         }
         setResultImage(finalImage);
         completeProgress();
@@ -1291,7 +1306,7 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
   // Inline paywall — fires the same Stripe checkout the dedicated /paywall
   // page uses. After the visitor sees their first HD render we surface the
   // 2 packs in-place so they can buy without leaving the landing.
-  async function handleCheckout(plan: 'test' | 'popular') {
+  async function handleCheckout(plan: 'trial' | 'test' | 'popular') {
     if (!userId || !userEmail) {
       setShowLogin(true);
       return;
@@ -1323,11 +1338,13 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
     }
   }
 
-  // Plan card data — same 2 packs as /paywall (Trial dropped: paying for
-  // a single render is friction; daily 1 free HD render handles the entry
-  // point). Pro flagged as featured (Best Value) to anchor the eye.
+  // Plan card data — Unlock ($1.49 for this render alone, lowest friction
+  // entry) + Starter + Pro. The Unlock plan reuses the Stripe price
+  // `price_1TUQs7DaiRATnL32vWpZzYec` (PACK_CREDITS.trial = 1 credit) so a
+  // single payment surfaces the unwatermarked render in /try-on AND leaves
+  // the user with 1 paid credit for their next try. Pro stays featured.
   const PLANS: Record<DemoLang, Array<{
-    plan: 'test' | 'popular';
+    plan: 'trial' | 'test' | 'popular';
     label: string;
     price: string;
     renders: string;
@@ -1337,26 +1354,32 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
     featured?: boolean;
   }>> = {
     en: [
+      { plan: 'trial', label: 'Unlock this render', price: '$1.49', renders: '1 clean HD render', perRender: 'No watermark', pillBadge: 'UNLOCK NOW' },
       { plan: 'test', label: 'Starter', price: '$4.99', renders: '8 HD renders', perRender: '$0.62 per render', pillBadge: 'MOST POPULAR' },
       { plan: 'popular', label: 'Pro', price: '$9.99', renders: '15 + 5 free = 20 HD', perRender: '$0.50 per render', badge: '🎁 +5 FREE', pillBadge: 'BEST VALUE', featured: true },
     ],
     es: [
+      { plan: 'trial', label: 'Desbloquear este render', price: '$1,49', renders: '1 render HD sin marca', perRender: 'Sin marca de agua', pillBadge: 'DESBLOQUEAR' },
       { plan: 'test', label: 'Starter', price: '$4,99', renders: '8 renders HD', perRender: '$0,62 por render', pillBadge: 'MÁS POPULAR' },
       { plan: 'popular', label: 'Pro', price: '$9,99', renders: '15 + 5 gratis = 20 HD', perRender: '$0,50 por render', badge: '🎁 +5 GRATIS', pillBadge: 'MEJOR VALOR', featured: true },
     ],
     fr: [
+      { plan: 'trial', label: 'Débloquer ce rendu', price: '1,49 $', renders: '1 rendu HD sans marque', perRender: 'Sans filigrane', pillBadge: 'DÉBLOQUER' },
       { plan: 'test', label: 'Starter', price: '4,99 $', renders: '8 rendus HD', perRender: '0,62 $ par rendu', pillBadge: 'PLUS POPULAIRE' },
       { plan: 'popular', label: 'Pro', price: '9,99 $', renders: '15 + 5 gratuits = 20 HD', perRender: '0,50 $ par rendu', badge: '🎁 +5 GRATUITS', pillBadge: 'MEILLEUR PRIX', featured: true },
     ],
     pt: [
+      { plan: 'trial', label: 'Desbloquear este render', price: '$1,49', renders: '1 render HD sem marca', perRender: 'Sem marca d\'água', pillBadge: 'DESBLOQUEAR' },
       { plan: 'test', label: 'Starter', price: '$4,99', renders: '8 renders HD', perRender: '$0,62 por render', pillBadge: 'MAIS POPULAR' },
       { plan: 'popular', label: 'Pro', price: '$9,99', renders: '15 + 5 grátis = 20 HD', perRender: '$0,50 por render', badge: '🎁 +5 GRÁTIS', pillBadge: 'MELHOR VALOR', featured: true },
     ],
     de: [
+      { plan: 'trial', label: 'Diesen Render freischalten', price: '1,49 $', renders: '1 HD-Render ohne Marke', perRender: 'Ohne Wasserzeichen', pillBadge: 'FREISCHALTEN' },
       { plan: 'test', label: 'Starter', price: '4,99 $', renders: '8 HD-Renders', perRender: '0,62 $ pro Render', pillBadge: 'AM BELIEBTESTEN' },
       { plan: 'popular', label: 'Pro', price: '9,99 $', renders: '15 + 5 gratis = 20 HD', perRender: '0,50 $ pro Render', badge: '🎁 +5 GRATIS', pillBadge: 'BESTER WERT', featured: true },
     ],
     it: [
+      { plan: 'trial', label: 'Sblocca questo render', price: '1,49 $', renders: '1 render HD senza marchio', perRender: 'Senza filigrana', pillBadge: 'SBLOCCA' },
       { plan: 'test', label: 'Starter', price: '4,99 $', renders: '8 render HD', perRender: '0,62 $ per render', pillBadge: 'PIÙ POPOLARE' },
       { plan: 'popular', label: 'Pro', price: '9,99 $', renders: '15 + 5 gratis = 20 HD', perRender: '0,50 $ per render', badge: '🎁 +5 GRATIS', pillBadge: 'MIGLIOR PREZZO', featured: true },
     ],

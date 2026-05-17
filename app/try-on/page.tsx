@@ -138,9 +138,52 @@ export default function TryOnPage() {
     // Credit pack purchase redirect — read the actual amount from the URL so
     // the analytics event reflects what they bought (was hardcoded to 20).
     const creditsBought = params.get('credits_purchased');
+    const justPaidAny = creditsBought !== null || params.get('subscribed') === 'true';
     if (creditsBought) {
       track('credits_purchased', { amount: parseInt(creditsBought, 10) || 0 });
     }
+
+    // If the user just paid (any plan) and we stashed a free-demo render
+    // BEFORE applying the watermark, surface the clean version as the first
+    // message in the chat so they get immediate value for their payment
+    // without having to re-upload + re-render. Single-use: we delete the
+    // localStorage key after reading so a refresh doesn't repeat the load.
+    if (justPaidAny) {
+      try {
+        const raw = window.localStorage.getItem('agalaz_demo_unwatermarked');
+        if (raw) {
+          const stash = JSON.parse(raw) as { image?: string; t?: number; category?: string };
+          // Only honour stashes from the last hour — past that the user
+          // probably moved on; we don't want to inject a stale image.
+          const fresh = stash.t && Date.now() - stash.t < 60 * 60 * 1000;
+          if (fresh && stash.image) {
+            setMessages([
+              {
+                role: Role.MODEL,
+                text: pickLang(
+                  lang,
+                  '🎉 Your demo render, now without watermark — saved to your gallery.',
+                  '🎉 Tu render del demo, ya sin marca de agua — guardado en tu galería.',
+                  '🎉 Votre rendu démo, sans filigrane — sauvegardé dans votre galerie.',
+                  '🎉 O teu render do demo, sem marca d\'água — guardado na tua galeria.',
+                  '🎉 Dein Demo-Render ohne Wasserzeichen — in deiner Galerie gespeichert.',
+                  '🎉 Il tuo render demo senza filigrana — salvato nella tua galleria.',
+                ),
+                image: stash.image,
+              },
+            ]);
+            if (stash.category) setTryOnCategory(stash.category);
+            // Save it to the user's gallery too so they keep the unlocked
+            // version permanently, not just for this session.
+            saveToGallery(stash.image);
+          }
+          window.localStorage.removeItem('agalaz_demo_unwatermarked');
+        }
+      } catch {
+        // localStorage disabled, JSON parse failed, or quota exceeded — ignore.
+      }
+    }
+
     // Pre-select category from URL param (e.g. from landing pages).
     const cat = params.get('category');
     if (cat) setTryOnCategory(cat);
