@@ -82,13 +82,18 @@ export async function POST(request: NextRequest) {
 
       // ── Atomic lock via INSERT ───────────────────────────────────────────
       // Insert BEFORE calling Gemini so two concurrent renders from the same
-      // IP can't both slip past the SELECT check. Requires a UNIQUE constraint
-      // on (ip_hash, date) in anonymous_demo_log — without it, the constraint
-      // race is still very unlikely but not impossible. SQL to set up once:
-      //   ALTER TABLE anonymous_demo_log
-      //     ADD CONSTRAINT anonymous_demo_log_ip_date_unique
-      //     UNIQUE (ip_hash, date);
-      // Postgres returns error code 23505 (unique_violation) on conflict.
+      // IP can't both slip past the SELECT check above. The PRIMARY KEY of
+      // anonymous_demo_log is (ip_hash, date) — that gives us the UNIQUE +
+      // NOT NULL guarantee for free, so a second concurrent insert from the
+      // same IP returns Postgres error 23505 (unique_violation) and we
+      // surface 402 to the client.
+      //
+      // Note: a /sequential/ incognito retry from the same residential IP
+      // gets blocked here (PK is the same). What this DOESN'T close is the
+      // case where the user's network IP rotates between attempts (mobile
+      // 4G/5G, VPN, CGNAT-with-rotation) — those produce a different
+      // ip_hash and are treated as a new visitor. Closing that would need
+      // browser-fingerprinting beyond IP, which we deliberately don't do.
       const { error: insertErr } = await admin
         .from('anonymous_demo_log')
         .insert({ ip_hash: ipHash, date: today, category: category ?? null });
