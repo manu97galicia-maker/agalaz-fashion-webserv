@@ -1307,6 +1307,12 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
   function reset() {
     setResultImage(null);
     setError(null);
+    setRenderFailed(false);
+    // Also clear the photo selections so "try another" feels like a clean
+    // restart (user picks new images instead of re-firing the same combo
+    // that just failed).
+    setUserImage(null);
+    setProductImage(null);
   }
 
   function downloadResult() {
@@ -1455,7 +1461,11 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
           </p>
         </div>
 
-        {!resultImage && (
+        {/* Dropzones + Generate are HIDDEN once a render attempt happens —
+            whether it succeeded (resultImage) OR failed (renderFailed). The
+            failure card + paywall on the right take over as the only next
+            action so the user converts instead of clicking Generate twice. */}
+        {!resultImage && !renderFailed && (
           <>
             {/* One-free-render banner — sets explicit expectation that the
                 first render is free and signals scarcity so users don't burn
