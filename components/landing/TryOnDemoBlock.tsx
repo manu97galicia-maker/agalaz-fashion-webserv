@@ -826,6 +826,11 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
   // Distinct flag for "free render quota spent" so the UI can render a
   // dedicated explanation + CTA instead of a generic red error string.
   const [quotaSpent, setQuotaSpent] = useState(false);
+  // Triggered when the render attempt fails for any non-quota reason
+  // (Gemini hiccup, safety filter, low-res photo, network blip). When set
+  // we still surface the inline paywall on the right so the user can
+  // convert into a paid render attempt instead of bouncing on the error.
+  const [renderFailed, setRenderFailed] = useState(false);
 
   // Faux progress shown the moment the user clicks Generate. The real Gemini
   // call is gated behind login, so to keep the page feeling alive while the
@@ -1069,6 +1074,7 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
     setError(null);
     setQuotaSpent(false);
     setResultImage(null);
+    setRenderFailed(false);
     try {
       const userBase64 = userImage!.includes(',') ? userImage!.split(',')[1] : userImage!;
       const productBase64 = productImage!.includes(',') ? productImage!.split(',')[1] : productImage!;
@@ -1103,6 +1109,9 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
       }
       if (res.status === 429) {
         setError(t.errorRate);
+        // Even a rate-limit failure surfaces the paywall — a paid render
+        // doesn't count against the demo rate limit and may complete now.
+        setRenderFailed(true);
         resetProgress();
         setIsLoading(false);
         return;
@@ -1142,6 +1151,11 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
         // *what kind of photo* they should have uploaded instead of dropping
         // them on a dead-end error.
         setError(guidance?.error || data.error || t.errorGeneric);
+        // Surface the inline paywall on the right column. Paid renders go
+        // through /api/generate (not /api/demo) so they bypass whatever
+        // safety / quota path caused this failure, and the user converts
+        // instead of bouncing on the error.
+        setRenderFailed(true);
         resetProgress();
       }
     } catch {
@@ -1150,6 +1164,9 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
       // The previous shared errorGeneric mixed both, so users blamed their
       // photo when in reality their wifi dropped mid-request.
       setError(t.errorNetwork);
+      // Network failure also surfaces the paywall — at least gives the
+      // user something actionable instead of a dead-end error state.
+      setRenderFailed(true);
       resetProgress();
     }
     setIsLoading(false);
@@ -1560,32 +1577,78 @@ export default function TryOnDemoBlock({ category, lang, productLabel, yourPhoto
           </>
         )}
 
-        {resultImage && (
+        {(resultImage || renderFailed) && (
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto items-start">
-            {/* Result image — left column on desktop, top on mobile */}
+            {/* Left column — render result OR failure card */}
             <div>
-              <div className="text-center lg:text-left mb-4">
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t.result}</span>
-              </div>
-              <div className="rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 shadow-sm">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={resultImage} alt={t.result} className="w-full h-auto" />
-              </div>
-              <div className="mt-4 flex flex-col items-center lg:items-start gap-2">
-                <button
-                  onClick={downloadResult}
-                  className="w-full max-w-sm inline-flex items-center justify-center gap-3 px-8 py-3.5 bg-slate-900 text-white text-xs font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition-colors rounded-lg"
-                >
-                  <Download size={14} />
-                  {t.download}
-                </button>
-                <button
-                  onClick={reset}
-                  className="text-xs text-slate-400 font-light hover:text-slate-600 transition-colors"
-                >
-                  {t.tryAnother}
-                </button>
-              </div>
+              {resultImage ? (
+                <>
+                  <div className="text-center lg:text-left mb-4">
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t.result}</span>
+                  </div>
+                  <div className="rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 shadow-sm">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={resultImage} alt={t.result} className="w-full h-auto" />
+                  </div>
+                  <div className="mt-4 flex flex-col items-center lg:items-start gap-2">
+                    <button
+                      onClick={downloadResult}
+                      className="w-full max-w-sm inline-flex items-center justify-center gap-3 px-8 py-3.5 bg-slate-900 text-white text-xs font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition-colors rounded-lg"
+                    >
+                      <Download size={14} />
+                      {t.download}
+                    </button>
+                    <button
+                      onClick={reset}
+                      className="text-xs text-slate-400 font-light hover:text-slate-600 transition-colors"
+                    >
+                      {t.tryAnother}
+                    </button>
+                  </div>
+                </>
+              ) : (
+                /* Failure card — render didn't produce an image (Gemini blip,
+                   safety filter, network). We still surface the paywall in
+                   the right column so the user can convert into a paid retry
+                   instead of bouncing on a dead-end error. */
+                <div className="rounded-2xl border-2 border-amber-200 bg-amber-50/60 p-6 sm:p-8 text-left">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-100 border border-amber-200 rounded-full mb-4">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-amber-900">
+                      {lang === 'es' ? 'Render no completado'
+                        : lang === 'fr' ? 'Rendu non complété'
+                        : lang === 'pt' ? 'Render não concluído'
+                        : lang === 'de' ? 'Render nicht abgeschlossen'
+                        : lang === 'it' ? 'Render non completato'
+                        : 'Render didn\'t complete'}
+                    </span>
+                  </div>
+                  <h3 className="font-serif text-xl md:text-2xl font-black text-slate-900 tracking-tight mb-3 leading-snug">
+                    {lang === 'es' ? 'No pudimos generar este render.'
+                      : lang === 'fr' ? "Nous n'avons pas pu générer ce rendu."
+                      : lang === 'pt' ? 'Não conseguimos gerar este render.'
+                      : lang === 'de' ? 'Wir konnten dieses Rendering nicht erstellen.'
+                      : lang === 'it' ? 'Non siamo riusciti a generare questo render.'
+                      : 'We couldn\'t generate this render.'}
+                  </h3>
+                  <p className="text-sm text-slate-700 leading-relaxed mb-4">
+                    {error || t.errorGeneric}
+                  </p>
+                  <p className="text-xs text-slate-500 leading-relaxed mb-5">
+                    {lang === 'es' ? 'Los renders pagados usan un canal diferente y suelen completarse cuando el demo falla. O sube otra foto y reintenta gratis.'
+                      : lang === 'fr' ? "Les rendus payants utilisent un canal différent et aboutissent souvent quand la démo échoue. Ou téléchargez une autre photo et réessayez gratuitement."
+                      : lang === 'pt' ? 'Renders pagos usam um canal diferente e costumam funcionar quando o demo falha. Ou carregue outra foto e tente de novo grátis.'
+                      : lang === 'de' ? 'Bezahlte Renderings nutzen einen anderen Kanal und gelingen oft, wenn der Demo fehlschlägt. Oder lade ein anderes Foto hoch und versuche es gratis nochmal.'
+                      : lang === 'it' ? 'I render a pagamento usano un canale diverso e spesso funzionano quando il demo fallisce. Oppure carica un\'altra foto e riprova gratis.'
+                      : 'Paid renders use a different pipeline and often succeed where the free demo failed. Or upload a different photo and retry free.'}
+                  </p>
+                  <button
+                    onClick={reset}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border-2 border-slate-200 hover:border-slate-300 text-slate-700 text-xs font-black uppercase tracking-[0.15em] rounded-lg transition-colors"
+                  >
+                    {t.tryAnother}
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Inline paywall — right column on desktop, below on mobile.

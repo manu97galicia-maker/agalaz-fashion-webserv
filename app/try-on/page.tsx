@@ -19,7 +19,7 @@ import {
   Camera,
 } from 'lucide-react';
 import { ImageUploader } from '@/components/ImageUploader';
-import { onAuthStateChange, signInWithGoogle, signInWithOtp, type AppUser } from '@/services/authService';
+import { onAuthStateChange, signInWithGoogle, signInWithOtp, verifyEmailOtp, type AppUser } from '@/services/authService';
 import { Role, type ChatMessage } from '@/types';
 import { useLang, pickLang } from '@/components/LanguageProvider';
 import { LanguageToggle } from '@/components/LanguageToggle';
@@ -46,6 +46,45 @@ export default function TryOnPage() {
   const [showLogin, setShowLogin] = useState(false);
   const [otpEmail, setOtpEmail] = useState('');
   const [otpSent, setOtpSent] = useState(false);
+  // Manual OTP-code path: Supabase sends both a magic link AND a numeric
+  // token in the same email. Some users get the code more reliably than
+  // the link (mobile email apps stripping links, link landing in a
+  // different browser session, etc.) so we let them paste the code here.
+  const [otpCode, setOtpCode] = useState('');
+  const [otpVerifying, setOtpVerifying] = useState(false);
+  const [otpCodeError, setOtpCodeError] = useState<string | null>(null);
+
+  async function handleVerifyOtpCode() {
+    if (otpCode.trim().length < 6) {
+      setOtpCodeError(
+        lang === 'es' ? 'Introduce el código de 6 dígitos del email.' :
+        lang === 'fr' ? 'Entrez le code à 6 chiffres reçu par email.' :
+        lang === 'pt' ? 'Introduz o código de 6 dígitos do email.' :
+        lang === 'de' ? 'Gib den 6-stelligen Code aus der E-Mail ein.' :
+        lang === 'it' ? "Inserisci il codice a 6 cifre dell'email." :
+        'Enter the 6-digit code from your email.'
+      );
+      return;
+    }
+    setOtpVerifying(true);
+    setOtpCodeError(null);
+    try {
+      await verifyEmailOtp(otpEmail, otpCode);
+      // Auth state listener (onAuthStateChange) takes over from here —
+      // it sets `user`, closes the modal, and resumes any pending action.
+    } catch (e) {
+      setOtpCodeError(
+        lang === 'es' ? 'Código no válido o caducado. Pide uno nuevo.' :
+        lang === 'fr' ? 'Code invalide ou expiré. Demandez un nouveau.' :
+        lang === 'pt' ? 'Código inválido ou expirado. Pede um novo.' :
+        lang === 'de' ? 'Code ungültig oder abgelaufen. Fordere einen neuen an.' :
+        lang === 'it' ? 'Codice non valido o scaduto. Richiedine uno nuovo.' :
+        'Invalid or expired code. Request a new one.'
+      );
+    } finally {
+      setOtpVerifying(false);
+    }
+  }
   const [gateReady, setGateReady] = useState(false);
 
   async function handleLoginOtp() {
@@ -1156,13 +1195,57 @@ export default function TryOnPage() {
             </div>
 
             {otpSent ? (
-              <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
-                <p className="text-sm font-bold text-emerald-600">
-                  {pickLang(lang, 'Check your inbox', 'Revisa tu correo', 'Vérifiez votre boîte de réception', 'Verifique a sua caixa de entrada', 'Prüfe dein Postfach', 'Controlla la tua casella di posta')}
-                </p>
-                <p className="text-xs text-slate-500 mt-1">
-                  {pickLang(lang, 'We sent you a magic link. Click it to sign in.', 'Te enviamos un enlace mágico. Haz clic para entrar.', 'Nous vous avons envoyé un lien magique. Cliquez pour vous connecter.', 'Enviámos-lhe um link mágico. Clique para entrar.', 'Wir haben dir einen Magic Link geschickt. Klicke ihn an, um dich anzumelden.', 'Ti abbiamo inviato un magic link. Cliccalo per accedere.')}
-                </p>
+              <div className="space-y-3">
+                <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+                  <p className="text-sm font-bold text-emerald-700">
+                    {pickLang(lang, 'Check your inbox', 'Revisa tu correo', 'Vérifiez votre boîte de réception', 'Verifique a sua caixa de entrada', 'Prüfe dein Postfach', 'Controlla la tua casella di posta')}
+                  </p>
+                  <p className="text-xs text-slate-600 mt-1 leading-snug">
+                    {pickLang(
+                      lang,
+                      'You\'ll receive an email with a magic link AND a 6-digit code. Either works — click the link or paste the code below.',
+                      'Recibirás un email con un enlace mágico Y un código de 6 dígitos. Funciona cualquiera de los dos — haz clic en el enlace o pega el código debajo.',
+                      'Vous recevrez un email avec un lien magique ET un code à 6 chiffres. L\'un ou l\'autre marche — cliquez le lien ou collez le code ci-dessous.',
+                      'Vai receber um email com um link mágico E um código de 6 dígitos. Funciona qualquer um — clique no link ou cole o código abaixo.',
+                      'Du erhältst eine E-Mail mit einem Magic Link UND einem 6-stelligen Code. Beides funktioniert — klicke den Link oder füge den Code unten ein.',
+                      'Riceverai un\'email con un magic link E un codice di 6 cifre. Funziona uno qualsiasi — clicca il link o incolla il codice qui sotto.',
+                    )}
+                  </p>
+                </div>
+                {/* Manual code-entry path — works if the magic link
+                    opens in a different browser session (common on mobile
+                    Gmail / Outlook). The same Supabase email contains
+                    both a clickable link AND a 6-digit token. */}
+                <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                  <label className="block text-[11px] font-black uppercase tracking-widest text-slate-600 mb-2">
+                    {pickLang(lang, '6-digit code from the email', 'Código de 6 dígitos del email', 'Code à 6 chiffres reçu par email', 'Código de 6 dígitos do email', '6-stelliger Code aus der E-Mail', 'Codice di 6 cifre dall\'email')}
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      autoComplete="one-time-code"
+                      maxLength={8}
+                      value={otpCode}
+                      onChange={(e) => { setOtpCode(e.target.value.replace(/\D/g, '')); setOtpCodeError(null); }}
+                      onKeyDown={(e) => { if (e.key === 'Enter') handleVerifyOtpCode(); }}
+                      placeholder="123456"
+                      className="flex-1 px-3 py-3 bg-white border border-slate-200 rounded-lg text-base font-mono font-bold tracking-widest text-slate-900 placeholder:text-slate-300 focus:outline-none focus:border-indigo-500"
+                    />
+                    <button
+                      onClick={handleVerifyOtpCode}
+                      disabled={otpVerifying || otpCode.trim().length < 6}
+                      className="px-4 py-3 bg-indigo-600 text-white text-sm font-bold rounded-lg hover:bg-indigo-500 transition-colors shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {otpVerifying
+                        ? pickLang(lang, 'Verifying…', 'Verificando…', 'Vérification…', 'A verificar…', 'Prüfen…', 'Verifica…')
+                        : pickLang(lang, 'Sign in', 'Entrar', 'Se connecter', 'Entrar', 'Anmelden', 'Accedi')}
+                    </button>
+                  </div>
+                  {otpCodeError && (
+                    <p className="mt-2 text-xs font-bold text-rose-600">{otpCodeError}</p>
+                  )}
+                </div>
               </div>
             ) : (
               <div className="flex gap-2">

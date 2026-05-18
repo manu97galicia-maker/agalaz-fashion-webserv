@@ -37,6 +37,23 @@ export const signInWithOtp = async (email: string, redirectPath = '/try-on') => 
   if (error) throw error;
 };
 
+/**
+ * Verify a 6-8 digit OTP code that the user typed from their email.
+ * Supabase emails contain BOTH a clickable magic-link AND a numeric token
+ * by default — many users prefer typing the code instead of clicking the
+ * link (especially on mobile, where the link can open in a different
+ * browser session). This handles that flow.
+ */
+export const verifyEmailOtp = async (email: string, token: string) => {
+  const supabase = getSupabase();
+  const { error } = await supabase.auth.verifyOtp({
+    email,
+    token: token.trim(),
+    type: 'email',
+  });
+  if (error) throw error;
+};
+
 export const signOut = async () => {
   const supabase = getSupabase();
   const { error } = await supabase.auth.signOut();
