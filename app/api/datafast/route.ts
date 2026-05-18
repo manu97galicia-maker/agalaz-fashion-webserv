@@ -28,20 +28,26 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, error: 'bad body' }, { status: 400 });
   }
 
-  // Forward the real visitor IP + User-Agent so Datafast geo/device
-  // attribution stays accurate (otherwise everyone would look like they
-  // come from the Vercel edge POP).
+  // Forward the real visitor IP + User-Agent + Origin + Referer so
+  // Datafast geo/device attribution stays accurate AND so the upstream
+  // domain validation accepts the call (it cross-references Origin
+  // against the website-id's registered domain — without it, every
+  // proxied request was getting 403).
   const fwd =
     request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
     request.headers.get('x-real-ip') ||
     '';
   const ua = request.headers.get('user-agent') ?? '';
+  const origin = request.headers.get('origin') ?? 'https://agalaz.com';
+  const referer = request.headers.get('referer') ?? 'https://agalaz.com/';
 
   try {
     const res = await fetch(DATAFAST_UPSTREAM, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Origin: origin,
+        Referer: referer,
         ...(fwd && { 'X-Forwarded-For': fwd }),
         ...(ua && { 'User-Agent': ua }),
       },
