@@ -223,10 +223,17 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           id="datafast-queue"
           dangerouslySetInnerHTML={{ __html: `window.datafast=window.datafast||function(){window.datafast.q=window.datafast.q||[];window.datafast.q.push(arguments)};` }}
         />
+        {/* Datafast — `data-api-url` makes the client POST events to our
+            same-origin /api/datafast proxy instead of datafa.st directly.
+            That's the trick to capture paid-ad traffic from Instagram /
+            Facebook / TikTok in-app WebViews and through adblockers:
+            same-origin requests can't be filtered as third-party analytics
+            because the browser sees them as part of the agalaz.com site. */}
         <script
           defer
           data-website-id="dfid_pvOMR9IXJLNYSqjS8MdsB"
           data-domain="agalaz.com"
+          data-api-url="/api/datafast"
           src="https://datafa.st/js/script.js"
         />
         {/* Bing UET (Microsoft Ads) — pixel ID 187240634
