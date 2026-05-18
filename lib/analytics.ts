@@ -82,6 +82,40 @@ const META_PIXEL_MAP: Partial<Record<AnalyticsEvent, string>> = {
   paywall_view: 'ViewContent',
 };
 
+/**
+ * Map internal funnel events → Bing UET event names. Microsoft Ads uses
+ * different conventions than Meta — `purchase`, `subscribe`, `lead`,
+ * `view_content`, `add_to_cart`. Auto-created goals in the UET dashboard
+ * ("Auto Created Goal – Compra", "Auto Created Goal – Suscribirse") trigger
+ * when the matching event name fires.
+ *
+ * Events not in this table are pushed as the internal name (custom event).
+ */
+const UET_EVENT_MAP: Partial<Record<AnalyticsEvent, string>> = {
+  photo_upload: 'add_to_cart',
+  render_start: 'begin_checkout',
+  render_complete: 'lead',
+  signup_click: 'sign_up',
+  initiate_checkout: 'begin_checkout',
+  subscription_success: 'subscribe',
+  credits_purchased: 'purchase',
+  credits_pack_purchase: 'purchase',
+  paywall_view: 'view_content',
+};
+
+/**
+ * Heuristic dollar-value lookup for UET `purchase` events. We pass the
+ * credit count from /try-on?credits_purchased=N — the value lets Microsoft
+ * Ads optimise for ROAS instead of raw conversion count. Numbers match
+ * the Stripe prices in app/api/stripe/checkout/route.ts.
+ */
+function uetPurchaseValue(creditAmount: number): { revenue_value: number; currency: string } | null {
+  if (creditAmount === 1) return { revenue_value: 1.49, currency: 'USD' };  // trial pack
+  if (creditAmount === 8) return { revenue_value: 4.99, currency: 'USD' };  // test (Starter)
+  if (creditAmount === 20) return { revenue_value: 9.99, currency: 'USD' }; // popular (Pro)
+  return null; // unknown amount → fire event without revenue
+}
+
 function newEventId(): string {
   // Used to dedupe the browser Pixel hit and the server-side CAPI hit in Meta.
   // crypto.randomUUID is available in all modern browsers and Node 18+.
@@ -165,6 +199,31 @@ export function track(event: AnalyticsEvent, props?: Props): void {
       });
     } catch {
       // ignore
+    }
+
+    // Bing UET (Microsoft Ads) — fires the same funnel events under
+    // Microsoft's naming convention. Auto-created goals in the UET
+    // dashboard ("Auto Created Goal – Compra", "Auto Created Goal –
+    // Suscribirse") trigger when the matching event name fires. Consent
+    // is already granted at boot (see app/layout.tsx) so EU/UK traffic
+    // counts. Best-effort: never blocks the user flow on failure.
+    try {
+      const uetq = (window as any).uetq as { push: (...args: unknown[]) => void } | undefined;
+      if (uetq) {
+        const uetEvent = UET_EVENT_MAP[event];
+        const eventName = uetEvent ?? event;
+        const payload: Record<string, unknown> = { ...(props ?? {}) };
+        if (uetEvent === 'purchase' && typeof props?.amount === 'number') {
+          const v = uetPurchaseValue(props.amount);
+          if (v) {
+            payload.revenue_value = v.revenue_value;
+            payload.currency = v.currency;
+          }
+        }
+        uetq.push('event', eventName, payload);
+      }
+    } catch {
+      // UET pixel not loaded (slow connection / blocked by adblock); ignore.
     }
   }
 }
